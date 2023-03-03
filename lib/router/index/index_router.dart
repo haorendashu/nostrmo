@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nostr/nostr.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
+import 'package:nostrmo/client/relay.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/data/relay_status.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/pointycastle.dart';
 
@@ -37,7 +39,11 @@ class _IndexRouter extends State<IndexRouter> {
       floatingActionButton: IconButton(
         icon: Icon(Icons.add),
         onPressed: () async {
-          RouterUtil.router(context, RouterPath.EDITOR);
+          var relayStatus = RelayStatus("wss://relay.damus.io");
+          var relay = Relay(relayStatus);
+          relay.init();
+
+          // RouterUtil.router(context, RouterPath.EDITOR);
 
           // ECPrivateKey ecPrivateKey1 = getPrivateKey(
           //     "3239d943acb5c5a7e0f1695e5897dcaa62d08d7b6c70ae55c9ddc24d03646dca");
