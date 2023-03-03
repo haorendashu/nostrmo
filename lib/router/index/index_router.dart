@@ -1,12 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:nostr/nostr.dart';
-import 'package:nostrmo/client/nip04/nip04.dart';
-import 'package:nostrmo/client/relay.dart';
-import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/data/relay_status.dart';
-import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/pointycastle.dart';
 
 class IndexRouter extends StatefulWidget {
@@ -39,9 +33,9 @@ class _IndexRouter extends State<IndexRouter> {
       floatingActionButton: IconButton(
         icon: Icon(Icons.add),
         onPressed: () async {
-          var relayStatus = RelayStatus("wss://relay.damus.io");
-          var relay = Relay(relayStatus);
-          relay.init();
+          // var relayStatus = RelayStatus("wss://relay.damus.io");
+          // var relay = Relay(relayStatus);
+          // relay.init();
 
           // RouterUtil.router(context, RouterPath.EDITOR);
 
