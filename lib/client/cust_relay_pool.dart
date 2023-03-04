@@ -33,9 +33,11 @@ class CustRelayPool {
       remove(url);
     };
 
-    custRelay.relay.listen(_onEvent);
+    // custRelay.relay.listen(_onEvent);
+    custRelay.listen(_onEvent);
 
     if (await custRelay.relay.connect()) {
+      log("connect complete!");
       _relays[custRelay.relay.url] = custRelay;
       if (autoSubscribe) {
         for (Subscription subscription in _subscriptions.values) {
@@ -56,6 +58,7 @@ class CustRelayPool {
   Future<void> send(List<dynamic> message) async {
     List<Future<void>> futures = [];
 
+    // TODO filter relay by relayStatus
     for (CustRelay custRelay in _relays.values) {
       if (message[0] == "EVENT") {
         if (custRelay.relay.access == WriteAccess.readOnly) {
@@ -97,13 +100,16 @@ class CustRelayPool {
     }
   }
 
-  void _onEvent(List<dynamic> json) {
+  void _onEvent(CustRelay custRelay, List<dynamic> json) {
     final messageType = json[0];
     if (messageType == 'EVENT') {
       try {
         final event = Event.fromJson(json[2]);
         if (event.isValid &&
             (_doSignatureVerification ? event.isSigned : true)) {
+          // add some statistics
+          custRelay.relayStatus.noteReceived++;
+
           event.source = json[3] ?? '';
           final subId = json[1] as String;
           final subscriber = _subscriptions[subId];

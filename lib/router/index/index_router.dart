@@ -1,7 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/cust_nostr.dart';
+import 'package:nostrmo/client/cust_relay.dart';
+import 'package:nostrmo/client/filter.dart';
 import 'package:pointycastle/pointycastle.dart';
+
+import '../../data/relay_status.dart';
 
 class IndexRouter extends StatefulWidget {
   Function reload;
@@ -33,9 +39,21 @@ class _IndexRouter extends State<IndexRouter> {
       floatingActionButton: IconButton(
         icon: Icon(Icons.add),
         onPressed: () async {
-          // var relayStatus = RelayStatus("wss://relay.damus.io");
-          // var relay = Relay(relayStatus);
-          // relay.init();
+          var relayStatus = RelayStatus("wss://nos.lol");
+          var relay = Relay(
+            relayStatus.addr,
+            access: WriteAccess.readWrite,
+          );
+          var custRelay = CustRelay(relay, relayStatus);
+
+          var pk = generatePrivateKey();
+          CustNostr nostr = CustNostr(privateKey: pk);
+          await nostr.pool.add(custRelay);
+
+          var filter = Filter(kinds: [EventKind.metaData], limit: 100);
+          nostr.pool.subscribe([filter.toJson()], (event) {
+            print(event.toJson());
+          });
 
           // RouterUtil.router(context, RouterPath.EDITOR);
 

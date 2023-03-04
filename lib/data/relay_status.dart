@@ -12,4 +12,6 @@ class RelayStatus {
   bool profileAble = true;
 
   bool globalAble = true;
+
+  int noteReceived = 0;
 }
