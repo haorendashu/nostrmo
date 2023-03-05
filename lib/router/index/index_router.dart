@@ -5,9 +5,11 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/cust_nostr.dart';
 import 'package:nostrmo/client/cust_relay.dart';
 import 'package:nostrmo/client/filter.dart';
+import 'package:nostrmo/main.dart';
 import 'package:pointycastle/pointycastle.dart';
 
 import '../../data/relay_status.dart';
+import '../login/login_router.dart';
 
 class IndexRouter extends StatefulWidget {
   Function reload;
@@ -21,20 +23,24 @@ class IndexRouter extends StatefulWidget {
 }
 
 class _IndexRouter extends State<IndexRouter> {
-  ECPrivateKey getPrivateKey(String privateKey) {
-    var d0 = BigInt.parse(privateKey, radix: 16);
-    return ECPrivateKey(d0, secp256k1);
-  }
+  // ECPrivateKey getPrivateKey(String privateKey) {
+  //   var d0 = BigInt.parse(privateKey, radix: 16);
+  //   return ECPrivateKey(d0, secp256k1);
+  // }
 
-  var secp256k1 = ECDomainParameters("secp256k1");
+  // var secp256k1 = ECDomainParameters("secp256k1");
 
-  String keyToString(BigInt d0) {
-    ECPoint P = (secp256k1.G * d0)!;
-    return P.x!.toBigInteger()!.toRadixString(16).padLeft(64, "0");
-  }
+  // String keyToString(BigInt d0) {
+  //   ECPoint P = (secp256k1.G * d0)!;
+  //   return P.x!.toBigInteger()!.toRadixString(16).padLeft(64, "0");
+  // }
 
   @override
   Widget build(BuildContext context) {
+    if (nostr == null) {
+      return LoginRouter();
+    }
+
     return Scaffold(
       floatingActionButton: IconButton(
         icon: Icon(Icons.add),

@@ -13,4 +13,6 @@ class DataUtil {
 
 class DataKey {
   static final String SETTING = "setting";
+
+  static final String RELAYS = "relays";
 }

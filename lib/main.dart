@@ -1,27 +1,43 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:nostrmo/router/edit/editor_router.dart';
+import 'package:nostrmo/data/db.dart';
 import 'package:provider/provider.dart';
 
+import 'client/cust_nostr.dart';
+import 'client/nostr_builder.dart';
 import 'consts/base.dart';
 import 'consts/colors.dart';
 import 'consts/router_path.dart';
 import 'consts/theme_style.dart';
-import 'data/data_util.dart';
-import 'data/setting_provider.dart';
 import 'generated/l10n.dart';
+import 'provider/data_util.dart';
+import 'provider/metadata_provider.dart';
+import 'provider/setting_provider.dart';
+import 'router/edit/editor_router.dart';
 import 'router/index/index_router.dart';
 import 'util/colors_util.dart';
 import 'util/string_util.dart';
 
 late SettingProvider settingProvider;
 
+late MetadataProvider metadataProvider;
+
+CustNostr? nostr;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
+  Future.wait([dbInitTask, dataUtilTask]);
+
   settingProvider = await SettingProvider.getInstance();
+  metadataProvider = MetadataProvider();
+
+  if (StringUtil.isNotBlank(settingProvider.privateKey)) {
+    nostr = genNostr(settingProvider.privateKey!);
+  }
 
   runApp(MyApp());
 }

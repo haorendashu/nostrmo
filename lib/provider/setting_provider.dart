@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/consts/lock_open.dart';
@@ -7,7 +6,6 @@ import 'package:nostrmo/consts/theme_style.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../main.dart';
 import 'data_util.dart';
 
 class SettingProvider extends ChangeNotifier {
@@ -47,90 +45,96 @@ class SettingProvider extends ChangeNotifier {
 
   SettingData get settingData => _settingData!;
 
-  /// 是否开启隐私锁
+  String? get privateKey => _settingData!.privateKey;
+
+  /// open lock
   int get lockOpen => _settingData!.lockOpen;
 
-  /// 国际化
+  /// i18n
   String? get i18n => _settingData!.i18n;
 
-  /// 图片压缩
+  /// image compress
   int get imgCompress => _settingData!.imgCompress;
 
-  /// 主题类型
+  /// theme style
   int get themeStyle => _settingData!.themeStyle;
 
-  /// 主题颜色
+  /// theme color
   int? get themeColor => _settingData!.themeColor;
 
   set settingData(SettingData o) {
     _settingData = o;
-    saveAndNotifyListeners(needUpdateTime: false);
+    saveAndNotifyListeners();
   }
 
-  /// 是否开启隐私锁
+  set privateKey(String? o) {
+    _settingData!.privateKey = o;
+    saveAndNotifyListeners();
+  }
+
+  /// open lock
   set lockOpen(int o) {
     _settingData!.lockOpen = o;
     saveAndNotifyListeners();
   }
 
-  /// 国际化
+  /// i18n
   set i18n(String? o) {
     _settingData!.i18n = o;
     saveAndNotifyListeners();
   }
 
-  /// 图片压缩
+  /// image compress
   set imgCompress(int o) {
     _settingData!.imgCompress = o;
     saveAndNotifyListeners();
   }
 
-  /// 主题类型
+  /// theme style
   set themeStyle(int o) {
     _settingData!.themeStyle = o;
     saveAndNotifyListeners();
   }
 
-  /// 主题颜色
+  /// theme color
   set themeColor(int? o) {
     _settingData!.themeColor = o;
     saveAndNotifyListeners();
   }
 
-  Future<void> saveAndNotifyListeners({bool needUpdateTime = true}) async {
-    if (needUpdateTime) {
-      // 是否需要更新数据，因为从远程更新到本地时不更新数据的话，可以减少同步的次数
-      _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
-    }
+  Future<void> saveAndNotifyListeners() async {
+    _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
     var jsonStr = json.encode(m);
     // print(jsonStr);
     await _sharedPreferences!.setString(DataKey.SETTING, jsonStr);
     notifyListeners();
-    // CloudSyncer.getInstance().syncSetting();
   }
 }
 
 class SettingData {
-  /// 是否开启隐私锁
+  String? privateKey;
+
+  /// open lock
   late int lockOpen;
 
-  /// 国际化
+  /// i18n
   String? i18n;
 
-  /// 图片压缩
+  /// image compress
   late int imgCompress;
 
-  /// 主题类型
+  /// theme style
   late int themeStyle;
 
-  /// 主题颜色
+  /// theme color
   int? themeColor;
 
-  /// 更新时间
+  /// updated time
   late int updatedTime;
 
   SettingData({
+    this.privateKey,
     this.lockOpen = LockOpen.CLOSE,
     this.i18n,
     this.imgCompress = 50,
@@ -140,6 +144,7 @@ class SettingData {
   });
 
   SettingData.fromJson(Map<String, dynamic> json) {
+    privateKey = json['privateKey'];
     if (json['lockOpen'] != null) {
       lockOpen = json['lockOpen'];
     } else {
@@ -166,6 +171,7 @@ class SettingData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['privateKey'] = this.privateKey;
     data['lockOpen'] = this.lockOpen;
     data['i18n'] = this.i18n;
     data['imgCompress'] = this.imgCompress;
