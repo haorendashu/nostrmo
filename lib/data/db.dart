@@ -16,7 +16,8 @@ class DB {
     _database = await openDatabase(path, version: _VERSION,
         onCreate: (Database db, int version) async {
       // init db
-      db.execute("CREATE TABLE...");
+      db.execute(
+          "create table metadata(pub_key      TEXT   not null primary key,banner       TEXT null,website      TEXT null,lud06        TEXT null,nip05        TEXT null,picture      TEXT null,display_name TEXT null,about        TEXT null,name         TEXT null,updated_at   datetime      null);");
     });
   }
 
