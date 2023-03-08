@@ -1,7 +1,6 @@
 class Metadata {
   String? pubKey;
   String? name;
-  String? username;
   String? displayName;
   String? picture;
   String? banner;
@@ -10,23 +9,25 @@ class Metadata {
   String? nip05;
   String? lud16;
   String? lud06;
+  int? updated_at;
 
-  Metadata(
-      {this.pubKey,
-      this.name,
-      this.username,
-      this.displayName,
-      this.picture,
-      this.banner,
-      this.website,
-      this.about,
-      this.nip05,
-      this.lud16,
-      this.lud06});
+  Metadata({
+    this.pubKey,
+    this.name,
+    this.displayName,
+    this.picture,
+    this.banner,
+    this.website,
+    this.about,
+    this.nip05,
+    this.lud16,
+    this.lud06,
+    this.updated_at,
+  });
 
   Metadata.fromJson(Map<String, dynamic> json) {
+    pubKey = json['pub_key'];
     name = json['name'];
-    username = json['username'];
     displayName = json['display_name'];
     picture = json['picture'];
     banner = json['banner'];
@@ -35,12 +36,18 @@ class Metadata {
     nip05 = json['nip05'];
     lud16 = json['lud16'];
     lud06 = json['lud06'];
+    updated_at = json['updated_at'];
+  }
+
+  Map<String, dynamic> toFullJson() {
+    var data = toJson();
+    data['pub_key'] = this.pubKey;
+    return data;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
-    data['username'] = this.username;
     data['display_name'] = this.displayName;
     data['picture'] = this.picture;
     data['banner'] = this.banner;
@@ -49,6 +56,7 @@ class Metadata {
     data['nip05'] = this.nip05;
     data['lud16'] = this.lud16;
     data['lud06'] = this.lud06;
+    data['updated_at'] = this.updated_at;
     return data;
   }
 }

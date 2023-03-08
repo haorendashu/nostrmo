@@ -17,7 +17,7 @@ class DB {
         onCreate: (Database db, int version) async {
       // init db
       db.execute(
-          "create table metadata(pub_key      TEXT   not null primary key,banner       TEXT null,website      TEXT null,lud06        TEXT null,nip05        TEXT null,picture      TEXT null,display_name TEXT null,about        TEXT null,name         TEXT null,updated_at   datetime      null);");
+          "create table metadata(pub_key      TEXT not null primary key,banner       TEXT,website      TEXT,lud16        TEXT,lud06        TEXT,nip05        TEXT,picture      TEXT,display_name TEXT,about        TEXT,name         TEXT,updated_at   datetime);");
     });
   }
 

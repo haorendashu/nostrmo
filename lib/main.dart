@@ -36,8 +36,11 @@ Future<void> main() async {
   var dataUtilTask = DataUtil.getInstance();
   Future.wait([dbInitTask, dataUtilTask]);
 
-  settingProvider = await SettingProvider.getInstance();
-  metadataProvider = MetadataProvider();
+  var settingTask = SettingProvider.getInstance();
+  var metadataTask = MetadataProvider.getInstance();
+  var futureResultList = await Future.wait([settingTask, metadataTask]);
+  settingProvider = futureResultList[0] as SettingProvider;
+  metadataProvider = futureResultList[1] as MetadataProvider;
   indexProvider = IndexProvider();
 
   // if (StringUtil.isNotBlank(settingProvider.privateKey)) {
