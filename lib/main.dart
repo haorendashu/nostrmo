@@ -12,6 +12,7 @@ import 'consts/router_path.dart';
 import 'consts/theme_style.dart';
 import 'generated/l10n.dart';
 import 'provider/data_util.dart';
+import 'provider/index_provider.dart';
 import 'provider/metadata_provider.dart';
 import 'provider/setting_provider.dart';
 import 'router/edit/editor_router.dart';
@@ -22,6 +23,8 @@ import 'util/string_util.dart';
 late SettingProvider settingProvider;
 
 late MetadataProvider metadataProvider;
+
+late IndexProvider indexProvider;
 
 CustNostr? nostr;
 
@@ -34,6 +37,7 @@ Future<void> main() async {
 
   settingProvider = await SettingProvider.getInstance();
   metadataProvider = MetadataProvider();
+  indexProvider = IndexProvider();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = genNostr(settingProvider.privateKey!);
@@ -85,6 +89,12 @@ class _MyApp extends State<MyApp> {
       providers: [
         ListenableProvider<SettingProvider>.value(
           value: settingProvider,
+        ),
+        ListenableProvider<MetadataProvider>.value(
+          value: metadataProvider,
+        ),
+        ListenableProvider<IndexProvider>.value(
+          value: indexProvider,
         ),
       ],
       child: MaterialApp(
