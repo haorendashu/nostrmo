@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/data/db.dart';
 import 'package:provider/provider.dart';
 
@@ -39,9 +40,10 @@ Future<void> main() async {
   metadataProvider = MetadataProvider();
   indexProvider = IndexProvider();
 
-  if (StringUtil.isNotBlank(settingProvider.privateKey)) {
-    nostr = genNostr(settingProvider.privateKey!);
-  }
+  // if (StringUtil.isNotBlank(settingProvider.privateKey)) {
+  //   nostr = genNostr(settingProvider.privateKey!);
+  // }
+  nostr = genNostr(generatePrivateKey());
 
   runApp(MyApp());
 }
@@ -62,11 +64,11 @@ class _MyApp extends State<MyApp> {
   Widget build(BuildContext context) {
     // Locale _locale = Localizations.localeOf(context);
 
-    Locale? _locale;
+    Locale? locale;
     if (StringUtil.isNotBlank(settingProvider.i18n)) {
       for (var item in S.delegate.supportedLocales) {
         if (item.languageCode == settingProvider.i18n) {
-          _locale = Locale(settingProvider.i18n!);
+          locale = Locale(settingProvider.i18n!);
           break;
         }
       }
@@ -101,7 +103,7 @@ class _MyApp extends State<MyApp> {
         builder: BotToastInit(), //1.调用BotToastInit
         navigatorObservers: [BotToastNavigatorObserver()], //2.注册路由观察者
         debugShowCheckedModeBanner: false,
-        locale: _locale,
+        locale: locale,
         title: Base.APP_NAME,
         localizationsDelegates: const [
           S.delegate,
@@ -135,18 +137,8 @@ class _MyApp extends State<MyApp> {
     Color hintColor = Colors.grey;
 
     var textTheme = TextTheme(
-      headline2: TextStyle(
-        color: mainTextColor,
-      ),
-      bodyText1: TextStyle(
-        color: mainTextColor,
-      ),
-      bodyText2: TextStyle(
-        color: mainTextColor,
-      ),
-      subtitle1: TextStyle(
-        color: mainTextColor,
-      ),
+      bodyMedium: TextStyle(fontSize: 12),
+      bodySmall: TextStyle(fontSize: 10),
     );
 
     return ThemeData(
@@ -155,7 +147,7 @@ class _MyApp extends State<MyApp> {
       primarySwatch: themeColor,
       // scaffoldBackgroundColor: Base.SCAFFOLD_BACKGROUND_COLOR,
       // scaffoldBackgroundColor: Colors.grey[100],
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.grey[100],
       primaryColor: themeColor[500],
       appBarTheme: AppBarTheme(
         // color: Base.APPBAR_COLOR,
@@ -163,7 +155,7 @@ class _MyApp extends State<MyApp> {
         // titleTextStyle: titleTextStyle,
       ),
       dividerColor: Colors.grey,
-      cardColor: ColorsUtil.hexToColor("#f8f8f8"),
+      cardColor: Colors.white,
       // dividerColor: Colors.grey[200],
       // indicatorColor: ColorsUtil.hexToColor("#818181"),
       textTheme: textTheme,
@@ -181,18 +173,8 @@ class _MyApp extends State<MyApp> {
     Color hintColor = Colors.grey;
 
     var textTheme = TextTheme(
-      headline2: TextStyle(
-        color: mainTextColor,
-      ),
-      bodyText1: TextStyle(
-        color: mainTextColor,
-      ),
-      bodyText2: TextStyle(
-        color: mainTextColor,
-      ),
-      subtitle1: TextStyle(
-        color: mainTextColor,
-      ),
+      bodyMedium: TextStyle(fontSize: 12),
+      bodySmall: TextStyle(fontSize: 10),
     );
     var titleTextStyle = TextStyle(
       color: topFontColor,

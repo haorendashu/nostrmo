@@ -421,6 +421,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  get_time_ago:
+    dependency: "direct main"
+    description:
+      name: get_time_ago
+      sha256: "5d67efd27d8cf7191d437c20f34f6941e6354bfbf8d54443e09c2dd09c5007d3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
   gettext_parser:
     dependency: transitive
     description:

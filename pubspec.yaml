@@ -48,6 +48,7 @@ dependencies:
   nostr_dart: ^0.6.5
   http: ^0.13.5
   sqflite: ^2.2.5
+  get_time_ago: ^1.2.2
 
 dev_dependencies:
   flutter_test:
