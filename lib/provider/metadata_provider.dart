@@ -1,15 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_dart/nostr_dart.dart';
 
 import '../client/event_kind.dart' as kind;
 import '../client/filter.dart';
 import '../data/metadata.dart';
 import '../data/metadata_db.dart';
 import '../main.dart';
+import '../util/lazy_function.dart';
 import '../util/string_util.dart';
 
-class MetadataProvider extends ChangeNotifier {
+class MetadataProvider extends ChangeNotifier with LazyFunction {
   Map<String, Metadata> _metadataCache = {};
 
   static MetadataProvider? _metadataProvider;
@@ -22,10 +24,14 @@ class MetadataProvider extends ChangeNotifier {
       for (var md in list) {
         _metadataProvider!._metadataCache[md.pubKey!] = md;
       }
+      // lazyTimeMS begin bigger and request less
+      _metadataProvider!.lazyTimeMS = 2000;
     }
 
     return _metadataProvider!;
   }
+
+  List<String> needUpdatePubKeys = [];
 
   Metadata? getMetadata(String pubKey) {
     var metadata = _metadataCache[pubKey];
@@ -33,40 +39,53 @@ class MetadataProvider extends ChangeNotifier {
       return metadata;
     }
 
-    // TODO need to fix [NOTICE, ERROR: too many concurrent REQs]
-
-    // local not exist, begin to search
-    var filter =
-        Filter(kinds: [kind.EventKind.METADATA], authors: [pubKey], limit: 1);
-    var subScriptId = StringUtil.rndNameStr(16);
-    nostr!.pool.subscribe([filter.toJson()], (event) {
-      // unsubscribe
-      nostr!.pool.unsubscribe(subScriptId);
-      // save to local and save to cache
-      var jsonObj = jsonDecode(event.content);
-      var md = Metadata.fromJson(jsonObj);
-      md.pubKey = event.pubKey;
-      md.updated_at = event.createdAt;
-
-      // check cache
-      var oldMetadata = _metadataCache[md.pubKey];
-      if (oldMetadata == null) {
-        // db
-        MetadataDB.insert(md);
-        // cache
-        _metadataCache[md.pubKey!] = md;
-        // refresh
-        notifyListeners();
-      } else if (oldMetadata.updated_at! < md.updated_at!) {
-        // db
-        MetadataDB.update(md);
-        // cache
-        _metadataCache[md.pubKey!] = md;
-        // refresh
-        notifyListeners();
-      }
-    }, subScriptId);
+    // fix [NOTICE, ERROR: too many concurrent REQs]
+    if (!needUpdatePubKeys.contains(pubKey)) {
+      needUpdatePubKeys.add(pubKey);
+    }
+    lazy(_lazySearch, _lazyComplete);
 
     return null;
+  }
+
+  void _onEvent(Event event) {
+    // unsubscribe
+    // nostr!.pool.unsubscribe(subScriptId);
+    // save to local and save to cache
+    var jsonObj = jsonDecode(event.content);
+    var md = Metadata.fromJson(jsonObj);
+    md.pubKey = event.pubKey;
+    md.updated_at = event.createdAt;
+
+    // check cache
+    var oldMetadata = _metadataCache[md.pubKey];
+    if (oldMetadata == null) {
+      // db
+      MetadataDB.insert(md);
+      // cache
+      _metadataCache[md.pubKey!] = md;
+      // refresh
+      notifyListeners();
+    } else if (oldMetadata.updated_at! < md.updated_at!) {
+      // db
+      MetadataDB.update(md);
+      // cache
+      _metadataCache[md.pubKey!] = md;
+      // refresh
+      notifyListeners();
+    }
+  }
+
+  void _lazySearch() {
+    print("_lazySearch");
+    var filter = Filter(
+        kinds: [kind.EventKind.METADATA], authors: needUpdatePubKeys, limit: 1);
+    var subScriptId = StringUtil.rndNameStr(16);
+    nostr!.pool.subscribe([filter.toJson()], _onEvent, subScriptId);
+  }
+
+  void _lazyComplete() {
+    print("_lazyComplete");
+    needUpdatePubKeys = [];
   }
 }

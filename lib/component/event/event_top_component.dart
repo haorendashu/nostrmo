@@ -64,6 +64,7 @@ class _EventTopComponent extends State<EventTopComponent> {
               Container(
                 width: IMAGE_WIDTH,
                 height: IMAGE_WIDTH,
+                clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
                   color: Colors.grey,
