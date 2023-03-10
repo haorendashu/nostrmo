@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/data/db.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,7 @@ Future<void> main() async {
   // }
   nostr = genNostr(generatePrivateKey());
 
+  FlutterNativeSplash.remove();
   runApp(MyApp());
 }
 
