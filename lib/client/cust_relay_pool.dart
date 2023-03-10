@@ -71,7 +71,7 @@ class CustRelayPool {
         }
       }
       try {
-        futures.add(custRelay.relay.send(message));
+        futures.add(custRelay.send(message));
       } catch (err) {
         log(err.toString());
         remove(custRelay.relay.url);
@@ -100,6 +100,32 @@ class CustRelayPool {
     }
   }
 
+  Future<String> query(
+      List<Map<String, dynamic>> filters, Function(Event) onEvent,
+      [String? id]) async {
+    if (filters.isEmpty) {
+      throw ArgumentError("No filters given", "filters");
+    }
+    List<Future<void>> futures = [];
+    Subscription subscription = Subscription(filters, onEvent, id);
+    for (CustRelay custRelay in _relays.values) {
+      if (custRelay.relay.access == WriteAccess.writeOnly) {
+        continue;
+      }
+
+      custRelay.saveRequest(subscription);
+
+      try {
+        futures.add(custRelay.send(subscription.toJson()));
+      } catch (err) {
+        log(err.toString());
+        remove(custRelay.relay.url);
+      }
+    }
+    await Future.wait(futures);
+    return subscription.id;
+  }
+
   void _onEvent(CustRelay custRelay, List<dynamic> json) {
     final messageType = json[0];
     if (messageType == 'EVENT') {
@@ -112,12 +138,26 @@ class CustRelayPool {
 
           event.source = json[3] ?? '';
           final subId = json[1] as String;
-          final subscriber = _subscriptions[subId];
-          subscriber?.onEvent(event);
+          var subscription = _subscriptions[subId];
+
+          if (subscription != null) {
+            subscription.onEvent(event);
+          } else {
+            subscription = custRelay.getRequestSubscription(subId);
+            subscription?.onEvent(event);
+          }
         }
       } catch (err) {
         log(err.toString());
       }
+    } else if (messageType == 'EOSE') {
+      if (json.length < 2) {
+        log("EOSE result not right.");
+        return;
+      }
+
+      final subId = json[1] as String;
+      custRelay.checkAndCompleteRequest(subId);
     }
   }
 }

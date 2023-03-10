@@ -39,7 +39,6 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
       return metadata;
     }
 
-    // fix [NOTICE, ERROR: too many concurrent REQs]
     if (!needUpdatePubKeys.contains(pubKey)) {
       needUpdatePubKeys.add(pubKey);
     }
@@ -49,9 +48,6 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
   }
 
   void _onEvent(Event event) {
-    // unsubscribe
-    // nostr!.pool.unsubscribe(subScriptId);
-    // save to local and save to cache
     var jsonObj = jsonDecode(event.content);
     var md = Metadata.fromJson(jsonObj);
     md.pubKey = event.pubKey;
@@ -77,15 +73,14 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
   }
 
   void _lazySearch() {
-    print("_lazySearch");
     var filter = Filter(
         kinds: [kind.EventKind.METADATA], authors: needUpdatePubKeys, limit: 1);
     var subScriptId = StringUtil.rndNameStr(16);
-    nostr!.pool.subscribe([filter.toJson()], _onEvent, subScriptId);
+    // use query and close after EOSE
+    nostr!.pool.query([filter.toJson()], _onEvent, subScriptId);
   }
 
   void _lazyComplete() {
-    print("_lazyComplete");
     needUpdatePubKeys = [];
   }
 }
