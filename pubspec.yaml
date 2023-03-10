@@ -52,6 +52,7 @@ dependencies:
   cached_network_image: ^3.2.3
   # flutter_launcher_icons: ^0.12.0
   flutter_native_splash: ^2.2.19
+  flutter_animate: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -78,7 +79,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/imgs/
-    - assets/imgs/logo/
+    - assets/imgs/logo/logo512.png
     # - assets/imgs/logo/logo_android.png
   # To add assets to your application, add an assets section, like this:
   # assets:

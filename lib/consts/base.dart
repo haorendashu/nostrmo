@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 class Base {
-  static const APP_NAME = "NostrMo";
+  static const APP_NAME = "Nostrmo";
 
   static String VERSION_NAME = "1.0.0";
 

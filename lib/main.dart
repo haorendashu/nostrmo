@@ -44,10 +44,9 @@ Future<void> main() async {
   metadataProvider = futureResultList[1] as MetadataProvider;
   indexProvider = IndexProvider();
 
-  // if (StringUtil.isNotBlank(settingProvider.privateKey)) {
-  //   nostr = genNostr(settingProvider.privateKey!);
-  // }
-  nostr = genNostr(generatePrivateKey());
+  if (StringUtil.isNotBlank(settingProvider.privateKey)) {
+    nostr = genNostr(settingProvider.privateKey!);
+  }
 
   FlutterNativeSplash.remove();
   runApp(MyApp());

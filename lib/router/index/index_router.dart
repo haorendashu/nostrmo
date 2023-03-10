@@ -6,6 +6,7 @@ import 'package:nostrmo/client/cust_nostr.dart';
 import 'package:nostrmo/client/cust_relay.dart';
 import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/router/dm/dm_router.dart';
 import 'package:nostrmo/router/follow/follow_router.dart';
 import 'package:nostrmo/router/notice/notice_router.dart';
@@ -44,9 +45,11 @@ class _IndexRouter extends State<IndexRouter> {
 
   @override
   Widget build(BuildContext context) {
-    // if (nostr == null) {
-    //   return LoginRouter();
-    // }
+    var _settingProvider = Provider.of<SettingProvider>(context);
+    if (nostr == null) {
+      return LoginRouter();
+    }
+
     var _indexProvider = Provider.of<IndexProvider>(context);
 
     return Scaffold(
