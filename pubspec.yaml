@@ -50,6 +50,7 @@ dependencies:
   sqflite: ^2.2.5
   get_time_ago: ^1.2.2
   cached_network_image: ^3.2.3
+  # flutter_launcher_icons: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/imgs/
+    - assets/imgs/logo/
+    # - assets/imgs/logo/logo_android.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -101,5 +106,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  image_path_ios: 'assets/imgs/logo/logo_ios.jpg'
+  image_path_android: 'assets/imgs/logo/logo_android.png'
+  android: true
+  ios: true
+
 flutter_intl:
   enabled: true
