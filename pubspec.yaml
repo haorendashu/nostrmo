@@ -49,6 +49,7 @@ dependencies:
   http: ^0.13.5
   sqflite: ^2.2.5
   get_time_ago: ^1.2.2
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

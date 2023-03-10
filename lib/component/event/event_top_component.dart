@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostr_dart/nostr_dart.dart';
@@ -45,9 +46,13 @@ class _EventTopComponent extends State<EventTopComponent> {
         Widget? imageWidget;
         if (metadata != null) {
           if (StringUtil.isNotBlank(metadata.picture)) {
-            imageWidget = Image(
-              image: NetworkImage(metadata.picture!),
+            imageWidget = CachedNetworkImage(
+              imageUrl: metadata.picture!,
               width: IMAGE_WIDTH,
+              height: IMAGE_WIDTH,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             );
           }
         }
