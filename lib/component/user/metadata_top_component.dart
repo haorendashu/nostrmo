@@ -1,5 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -26,6 +28,15 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
   static const double IMAGE_WIDTH = 80;
 
   static const double HALF_IMAGE_WIDTH = 40;
+
+  late String nip19PubKey;
+
+  @override
+  void initState() {
+    super.initState();
+
+    nip19PubKey = Nip19.encodePubKey(widget.pubKey);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,11 +145,11 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ),
     ));
     if (widget.metadata != null) {
-      String pubKey = Nip19.encodePubKey(widget.pubKey);
       topList.add(MetadataIconDataComp(
         iconData: Icons.key,
-        text: pubKey,
+        text: nip19PubKey,
         textBG: true,
+        onTap: copyPubKey,
       ));
       if (StringUtil.isNotBlank(widget.metadata!.nip05)) {
         topList.add(MetadataIconDataComp(
@@ -206,6 +217,13 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       margin: EdgeInsets.only(right: 8),
       child: child,
     );
+  }
+
+  copyPubKey() {
+    print("try to copy");
+    Clipboard.setData(ClipboardData(text: nip19PubKey)).then((_) {
+      BotToast.showText(text: "key has been copy!");
+    });
   }
 }
 
@@ -279,11 +297,14 @@ class MetadataIconDataComp extends StatelessWidget {
 
   bool textBG;
 
+  Function? onTap;
+
   MetadataIconDataComp({
     required this.text,
     required this.iconData,
     this.iconColor,
     this.textBG = false,
+    this.onTap,
   });
 
   @override
@@ -294,39 +315,47 @@ class MetadataIconDataComp extends StatelessWidget {
         left: Base.BASE_PADDING,
         right: Base.BASE_PADDING,
       ),
-      child: Row(
-        children: [
-          Container(
-            margin: EdgeInsets.only(
-              right: Base.BASE_PADDING_HALF,
-            ),
-            child: Icon(
-              iconData,
-              color: iconColor,
-              size: 16,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: textBG
-                  ? EdgeInsets.only(
-                      left: Base.BASE_PADDING_HALF,
-                      right: Base.BASE_PADDING_HALF,
-                      top: 4,
-                      bottom: 4,
-                    )
-                  : null,
-              decoration: BoxDecoration(
-                color: textBG ? Colors.grey[300] : null,
-                borderRadius: BorderRadius.circular(10),
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          if (onTap != null) {
+            onTap!();
+          }
+        },
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(
+                right: Base.BASE_PADDING_HALF,
               ),
-              child: Text(
-                text,
-                overflow: TextOverflow.ellipsis,
+              child: Icon(
+                iconData,
+                color: iconColor,
+                size: 16,
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Container(
+                padding: textBG
+                    ? EdgeInsets.only(
+                        left: Base.BASE_PADDING_HALF,
+                        right: Base.BASE_PADDING_HALF,
+                        top: 4,
+                        bottom: 4,
+                      )
+                    : null,
+                decoration: BoxDecoration(
+                  color: textBG ? Colors.grey[300] : null,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  text,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
