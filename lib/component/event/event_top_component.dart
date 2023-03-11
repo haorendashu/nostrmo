@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
@@ -66,7 +68,7 @@ class _EventTopComponent extends State<EventTopComponent> {
           ),
           child: Row(
             children: [
-              Container(
+              jumpWrap(Container(
                 width: IMAGE_WIDTH,
                 height: IMAGE_WIDTH,
                 clipBehavior: Clip.hardEdge,
@@ -75,7 +77,7 @@ class _EventTopComponent extends State<EventTopComponent> {
                   color: Colors.grey,
                 ),
                 child: imageWidget,
-              ),
+              )),
               Expanded(
                 child: Container(
                   padding: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
@@ -84,12 +86,12 @@ class _EventTopComponent extends State<EventTopComponent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        child: Text(
+                        child: jumpWrap(Text(
                           nip19Name,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
+                        )),
                         margin: EdgeInsets.only(bottom: 2),
                       ),
                       Text(
@@ -108,6 +110,15 @@ class _EventTopComponent extends State<EventTopComponent> {
           ),
         );
       },
+    );
+  }
+
+  Widget jumpWrap(Widget c) {
+    return GestureDetector(
+      onTap: () {
+        RouterUtil.router(context, RouterPath.USER, widget.event.pubKey);
+      },
+      child: c,
     );
   }
 }

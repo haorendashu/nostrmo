@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/data/db.dart';
+import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
 
 import 'client/cust_nostr.dart';
@@ -122,6 +123,7 @@ class _MyApp extends State<MyApp> {
         routes: {
           RouterPath.INDEX: (context) => IndexRouter(reload: reload),
           RouterPath.EDITOR: (context) => EditorRouter(),
+          RouterPath.USER: (context) => UserRouter(),
         },
       ),
     );
@@ -141,8 +143,8 @@ class _MyApp extends State<MyApp> {
     Color hintColor = Colors.grey;
 
     var textTheme = TextTheme(
-      bodyMedium: TextStyle(fontSize: 12),
-      bodySmall: TextStyle(fontSize: 10),
+      bodyMedium: TextStyle(fontSize: 14),
+      bodySmall: TextStyle(fontSize: 12),
     );
 
     return ThemeData(
@@ -177,8 +179,8 @@ class _MyApp extends State<MyApp> {
     Color hintColor = Colors.grey;
 
     var textTheme = TextTheme(
-      bodyMedium: TextStyle(fontSize: 12),
-      bodySmall: TextStyle(fontSize: 10),
+      bodyMedium: TextStyle(fontSize: 14),
+      bodySmall: TextStyle(fontSize: 12),
     );
     var titleTextStyle = TextStyle(
       color: topFontColor,

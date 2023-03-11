@@ -13,7 +13,7 @@ CustNostr genNostr(String pk) {
 }
 
 void _loadRelayAndInit(CustNostr _nostr) {
-  List<String> relayAddrs = ["wss://nos.lol"];
+  List<String> relayAddrs = ["wss://nos.lol", "wss://nostr.wine"];
   // TODO load relay addr
 
   for (var relayAddr in relayAddrs) {
