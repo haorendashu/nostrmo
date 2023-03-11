@@ -15,4 +15,8 @@ class Nip19 {
     var length = code.length;
     return code.substring(0, 6) + ":" + code.substring(length - 6);
   }
+
+  static Bech32DecodeResult decode(String code) {
+    return Bech32.decode(code);
+  }
 }
