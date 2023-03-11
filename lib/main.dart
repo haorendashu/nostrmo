@@ -1,13 +1,16 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/data/db.dart';
 import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
 
 import 'client/cust_nostr.dart';
+import 'client/nip19/bech32.dart';
 import 'client/nostr_builder.dart';
 import 'consts/base.dart';
 import 'consts/colors.dart';

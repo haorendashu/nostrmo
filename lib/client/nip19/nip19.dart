@@ -16,7 +16,9 @@ class Nip19 {
     return code.substring(0, 6) + ":" + code.substring(length - 6);
   }
 
-  static Bech32DecodeResult decode(String code) {
-    return Bech32.decode(code);
+  static String decode(String npub) {
+    var res = Bech32.decode(npub);
+    var data = Bech32.convertBits(res.words, 5, 8, false);
+    return hex.encode(data).substring(0, 64);
   }
 }

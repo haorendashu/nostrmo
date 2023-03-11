@@ -54,18 +54,19 @@ class Bech32 {
 
     // Each character corresponds to the byte with value of the index in
     // 'charset'.
-    var decoded = _toBytes(data);
+    var decoded = toBytes(data);
     if (!_verifyChecksum(hrp, decoded)) {
       var moreInfo = '';
       var checksum = bech.substring(bech.length - 6);
-      var expected = _toChars(
-          _createChecksum(hrp, decoded.sublist(0, decoded.length - 6)));
+      var expected =
+          toChars(_createChecksum(hrp, decoded.sublist(0, decoded.length - 6)));
       moreInfo = 'Expected $expected, got $checksum.';
       throw FormatException('checksum failed. $moreInfo');
     }
 
     // We exclude the last 6 bytes, which is the checksum.
-    return Bech32DecodeResult(hrp, decoded.sublist(0, decoded.length - 6));
+    // return Bech32DecodeResult(hrp, decoded.sublist(0, decoded.length - 6));
+    return Bech32DecodeResult(hrp, decoded);
   }
 
   static String encode(String hrp, List<int> data) {
@@ -76,7 +77,7 @@ class Bech32 {
     // The resulting bech32 string is the concatenation of the hrp, the
     // separator 1, data and checksum. Everything after the separator is
     // represented using the specified charset.
-    final chars = _toChars(combined);
+    final chars = toChars(combined);
 
     return '${hrp}1$chars';
   }
@@ -128,7 +129,7 @@ class Bech32 {
     return v;
   }
 
-  static List<int> _toBytes(String chars) {
+  static List<int> toBytes(String chars) {
     var decoded = <int>[];
     for (var i = 0; i < chars.length; i++) {
       var index = _charset.indexOf(chars[i]);
@@ -142,7 +143,7 @@ class Bech32 {
     return decoded;
   }
 
-  static String _toChars(List<int> data) {
+  static String toChars(List<int> data) {
     var result = '';
 
     for (var b in data) {

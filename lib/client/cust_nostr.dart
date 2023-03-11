@@ -32,6 +32,8 @@ class CustNostr {
 
   String get privateKey => _privateKey;
 
+  String get publicKey => _publicKey;
+
   Event sendTextNote(String text, [List<dynamic> tags = const []]) {
     Event event = Event(_publicKey, EventKind.textNote, tags, text);
     return sendEvent(event);

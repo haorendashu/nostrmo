@@ -220,7 +220,6 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
   }
 
   copyPubKey() {
-    print("try to copy");
     Clipboard.setData(ClipboardData(text: nip19PubKey)).then((_) {
       BotToast.showText(text: "key has been copy!");
     });

@@ -10,6 +10,7 @@ import 'package:sqflite/utils/utils.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
+import '../../client/nip19/bech32.dart';
 import '../../main.dart';
 
 class SearchRouter extends StatefulWidget {
@@ -96,13 +97,17 @@ class _SearchRouter extends CustState<SearchRouter> {
     hideKeyBoard();
 
     var value = controller.text;
+    value = value.trim();
     List<String>? authors;
     if (StringUtil.isNotBlank(value) && value.indexOf("npub") == 0) {
       try {
+        // TODO some npub code decode error...
         var result = Nip19.decode(value);
-        authors = [hex(result.words)];
+        authors = [result];
       } catch (e) {
         log(e.toString());
+        // TODO handle error
+        return;
       }
     }
     subscribe(authors);
