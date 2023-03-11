@@ -33,6 +33,7 @@ class _EventTopComponent extends State<EventTopComponent> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
+    var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
     return Selector<MetadataProvider, Metadata?>(
@@ -44,6 +45,8 @@ class _EventTopComponent extends State<EventTopComponent> {
       },
       builder: (context, metadata, child) {
         String nip19Name = Nip19.encodeSimplePubKey(widget.event.pubKey);
+        String displayName = nip19Name;
+        String name = "";
 
         Widget? imageWidget;
         if (metadata != null) {
@@ -56,6 +59,12 @@ class _EventTopComponent extends State<EventTopComponent> {
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error),
             );
+          }
+          if (StringUtil.isNotBlank(metadata.displayName)) {
+            displayName = metadata.displayName!;
+          }
+          if (StringUtil.isNotBlank(metadata.name)) {
+            name = "@" + metadata.name!;
           }
         }
 
@@ -86,12 +95,29 @@ class _EventTopComponent extends State<EventTopComponent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        child: jumpWrap(Text(
-                          nip19Name,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                        child: jumpWrap(
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                displayName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 2),
+                                child: Text(
+                                  name,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: hintColor,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        )),
+                        ),
                         margin: EdgeInsets.only(bottom: 2),
                       ),
                       Text(
