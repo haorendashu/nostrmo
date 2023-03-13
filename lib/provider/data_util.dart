@@ -15,4 +15,6 @@ class DataKey {
   static final String SETTING = "setting";
 
   static final String RELAYS = "relays";
+
+  static final String CONTACT_LIST = "contactList";
 }

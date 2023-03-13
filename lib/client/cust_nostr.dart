@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:nostr_dart/nostr_dart.dart';
 
+import 'cust_contact_list.dart';
 import 'cust_relay_pool.dart';
 
 class CustNostr {
@@ -61,7 +62,7 @@ class CustNostr {
     return sendEvent(event);
   }
 
-  Event sendContactList(ContactList contacts) {
+  Event sendContactList(CustContactList contacts) {
     final tags = contacts.toJson();
     final event = Event(_publicKey, EventKind.contactList, tags, "");
     return sendEvent(event);

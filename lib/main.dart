@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nostrmo/data/db.dart';
+import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'client/cust_nostr.dart';
 import 'client/nostr_builder.dart';
@@ -22,9 +24,13 @@ import 'router/index/index_router.dart';
 import 'util/colors_util.dart';
 import 'util/string_util.dart';
 
+late SharedPreferences sharedPreferences;
+
 late SettingProvider settingProvider;
 
 late MetadataProvider metadataProvider;
+
+late ContactListProvider contactListProvider;
 
 late IndexProvider indexProvider;
 
@@ -35,13 +41,15 @@ Future<void> main() async {
 
   var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
-  Future.wait([dbInitTask, dataUtilTask]);
+  var dataFutureResultList = await Future.wait([dbInitTask, dataUtilTask]);
+  sharedPreferences = dataFutureResultList[1] as SharedPreferences;
 
   var settingTask = SettingProvider.getInstance();
   var metadataTask = MetadataProvider.getInstance();
   var futureResultList = await Future.wait([settingTask, metadataTask]);
   settingProvider = futureResultList[0] as SettingProvider;
   metadataProvider = futureResultList[1] as MetadataProvider;
+  contactListProvider = ContactListProvider.getInstance();
   indexProvider = IndexProvider();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
@@ -101,6 +109,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<IndexProvider>.value(
           value: indexProvider,
+        ),
+        ListenableProvider<ContactListProvider>.value(
+          value: contactListProvider,
         ),
       ],
       child: MaterialApp(

@@ -8,6 +8,7 @@ import 'subscription.dart';
 class CustRelayPool {
   final Map<String, CustRelay> _relays = {};
   final Map<String, Subscription> _subscriptions = {};
+  final Map<String, Subscription> _initQuery = {};
   final bool _doSignatureVerification;
 
   CustRelayPool({bool disableSignatureVerification = false})
