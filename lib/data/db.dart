@@ -18,6 +18,12 @@ class DB {
       // init db
       db.execute(
           "create table metadata(pub_key      TEXT not null primary key,banner       TEXT,website      TEXT,lud16        TEXT,lud06        TEXT,nip05        TEXT,picture      TEXT,display_name TEXT,about        TEXT,name         TEXT,updated_at   datetime);");
+      db.execute(
+          "create table event(id         text constraint event_pk primary key,pubkey     text,created_at integer,kind       integer,tags       text,content    text);");
+      db.execute(
+          "create index event_date_index    on event (kind, created_at);");
+      db.execute(
+          "create index event_pubkey_index    on event (kind, pubkey, created_at);");
     });
   }
 

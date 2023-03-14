@@ -17,9 +17,10 @@ class CustRelay {
   }
 
   bool checkAndCompleteRequest(String id) {
+    // all subscription should be close
+    send(["CLOSE", id]);
     var sub = _queries.remove(id);
     if (sub != null) {
-      send(["CLOSE", id]);
       return true;
     }
     return false;

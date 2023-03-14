@@ -14,14 +14,24 @@ CustNostr genNostr(String pk) {
 
   // add subscript
   contactListProvider.subscribe(targetNostr: _nostr);
+  // TODO query before should change subscript before
+  followEventProvider.subscribeBefore(targetNostr: _nostr);
+  // followEventProvider.subscribe(targetNostr: _nostr);
 
   // load relay addr and init
   _loadRelayAndInit(_nostr);
+
   return _nostr;
 }
 
 Future<void> _loadRelayAndInit(CustNostr _nostr) async {
-  List<String> relayAddrs = ["wss://nos.lol", "wss://nostr.wine"];
+  List<String> relayAddrs = [
+    // "wss://nos.lol",
+    "wss://nostr.wine",
+    "wss://atlas.nostr.land",
+    "wss://relay.orangepill.dev",
+    "wss://relay.damus.io",
+  ];
   // TODO load relay addr
 
   // List<Future> futureList = [];

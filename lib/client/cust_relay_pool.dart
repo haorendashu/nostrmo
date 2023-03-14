@@ -81,6 +81,10 @@ class CustRelayPool {
     await Future.wait(futures);
   }
 
+  /// subscribe shoud be a long time filter search.
+  /// like: subscribe the newest event、notice.
+  /// subscribe info will hold in reply pool and close in reply pool.
+  /// subscribe can be subscribe when new relay put into pool.
   Future<String> subscribe(
       List<Map<String, dynamic>> filters, Function(Event) onEvent,
       [String? id]) async {
@@ -101,6 +105,9 @@ class CustRelayPool {
     }
   }
 
+  /// query should be a one time filter search.
+  /// like: query metadata, query old event.
+  /// query info will hold in relay and close in relay when EOSE message be received.
   Future<String> query(
       List<Map<String, dynamic>> filters, Function(Event) onEvent,
       [String? id]) async {

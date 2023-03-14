@@ -75,9 +75,9 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
   void _lazySearch() {
     var filter = Filter(
         kinds: [kind.EventKind.METADATA], authors: needUpdatePubKeys, limit: 1);
-    var subScriptId = StringUtil.rndNameStr(16);
+    var subscriptId = StringUtil.rndNameStr(16);
     // use query and close after EOSE
-    nostr!.pool.query([filter.toJson()], _onEvent, subScriptId);
+    nostr!.pool.query([filter.toJson()], _onEvent, subscriptId);
   }
 
   void _lazyComplete() {

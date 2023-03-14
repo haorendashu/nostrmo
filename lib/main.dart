@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nostrmo/data/db.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +33,8 @@ late MetadataProvider metadataProvider;
 
 late ContactListProvider contactListProvider;
 
+late FollowEventProvider followEventProvider;
+
 late IndexProvider indexProvider;
 
 CustNostr? nostr;
@@ -50,6 +53,7 @@ Future<void> main() async {
   settingProvider = futureResultList[0] as SettingProvider;
   metadataProvider = futureResultList[1] as MetadataProvider;
   contactListProvider = ContactListProvider.getInstance();
+  followEventProvider = FollowEventProvider();
   indexProvider = IndexProvider();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
@@ -112,6 +116,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<ContactListProvider>.value(
           value: contactListProvider,
+        ),
+        ListenableProvider<FollowEventProvider>.value(
+          value: followEventProvider,
         ),
       ],
       child: MaterialApp(

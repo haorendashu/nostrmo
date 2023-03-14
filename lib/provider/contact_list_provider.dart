@@ -35,38 +35,23 @@ class ContactListProvider extends ChangeNotifier {
     return _contactListProvider!;
   }
 
-  var subScriptId = StringUtil.rndNameStr(16);
+  var subscriptId = StringUtil.rndNameStr(16);
 
-  ///  pull to local where nostr init complete.
-  // void pullToLocal() {
   void subscribe({CustNostr? targetNostr}) {
     targetNostr ??= nostr;
-    subScriptId = StringUtil.rndNameStr(16);
+    subscriptId = StringUtil.rndNameStr(16);
     var filter = Filter(
         kinds: [kind.EventKind.CONTACT_LIST],
         limit: 1,
         authors: [targetNostr!.publicKey]);
-    targetNostr.pool.subscribe([filter.toJson()], _onEvent, subScriptId);
+    targetNostr.pool.subscribe([filter.toJson()], _onEvent, subscriptId);
   }
 
   void _onEvent(Event e) {
     if (e.kind == kind.EventKind.CONTACT_LIST) {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
-
-        // adapt to package nostr_dart
-        var length = e.tags.length;
-        List<dynamic> tags = List.filled(length, null, growable: false);
-        for (var i = 0; i < length; i++) {
-          var tag = e.tags[i];
-          List<String> targetTag = [];
-          for (var tagValue in tag) {
-            targetTag.add(tagValue);
-          }
-          tags[i] = targetTag;
-        }
-        _contactList = CustContactList.fromJson(tags);
-
+        _contactList = CustContactList.fromJson(e.tags);
         _saveAndNotify();
       }
     }
