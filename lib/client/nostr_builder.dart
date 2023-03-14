@@ -14,9 +14,8 @@ CustNostr genNostr(String pk) {
 
   // add subscript
   contactListProvider.subscribe(targetNostr: _nostr);
-  // TODO query before should change subscript before
   followEventProvider.subscribeBefore(targetNostr: _nostr);
-  // followEventProvider.subscribe(targetNostr: _nostr);
+  followEventProvider.subscribe(targetNostr: _nostr);
 
   // load relay addr and init
   _loadRelayAndInit(_nostr);
