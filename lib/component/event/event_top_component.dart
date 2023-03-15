@@ -44,11 +44,14 @@ class _EventTopComponent extends State<EventTopComponent> {
         return _metadataProvider.getMetadata(widget.event.pubKey);
       },
       builder: (context, metadata, child) {
+        var themeData = Theme.of(context);
+        var mainColor = themeData.primaryColor;
         String nip19Name = Nip19.encodeSimplePubKey(widget.event.pubKey);
         String displayName = nip19Name;
         String name = "";
 
         Widget? imageWidget;
+        bool hasNip05 = false;
         if (metadata != null) {
           if (StringUtil.isNotBlank(metadata.picture)) {
             imageWidget = CachedNetworkImage(
@@ -66,6 +69,38 @@ class _EventTopComponent extends State<EventTopComponent> {
           if (StringUtil.isNotBlank(metadata.name)) {
             name = "@" + metadata.name!;
           }
+          if (StringUtil.isNotBlank(metadata.nip05)) {
+            hasNip05 = true;
+          }
+        }
+
+        List<Widget> nameList = [
+          Text(
+            displayName,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 2),
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 12,
+                color: hintColor,
+              ),
+            ),
+          ),
+        ];
+        if (hasNip05) {
+          nameList.add(Container(
+            margin: EdgeInsets.only(left: 3),
+            child: Icon(
+              Icons.check_circle,
+              color: mainColor,
+              size: 12,
+            ),
+          ));
         }
 
         return Container(
@@ -98,24 +133,7 @@ class _EventTopComponent extends State<EventTopComponent> {
                         child: jumpWrap(
                           Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                displayName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 2),
-                                child: Text(
-                                  name,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: hintColor,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            children: nameList,
                           ),
                         ),
                         margin: EdgeInsets.only(bottom: 2),
