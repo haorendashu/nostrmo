@@ -38,15 +38,19 @@ class EventMemBox with LazyFunction {
     return true;
   }
 
-  void addBox(EventMemBox b) {
-    var all = b.all();
-    for (var event in all) {
+  void addList(List<Event> list) {
+    for (var event in list) {
       if (_idMap[event.id] == null) {
         _idMap[event.id] = 1;
         _pendingList.add(event);
       }
     }
     lazy(_handlePendingList, null);
+  }
+
+  void addBox(EventMemBox b) {
+    var all = b.all();
+    addList(all);
   }
 
   int length() {
