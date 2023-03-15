@@ -2,6 +2,10 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/main.dart';
+import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -10,11 +14,11 @@ import '../../util/string_util.dart';
 import 'metadata_component.dart';
 
 class MetadataTopComponent extends StatefulWidget {
-  String pubKey;
+  String pubkey;
 
   Metadata? metadata;
 
-  MetadataTopComponent({required this.pubKey, this.metadata});
+  MetadataTopComponent({required this.pubkey, this.metadata});
 
   @override
   State<StatefulWidget> createState() {
@@ -35,7 +39,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
   void initState() {
     super.initState();
 
-    nip19PubKey = Nip19.encodePubKey(widget.pubKey);
+    nip19PubKey = Nip19.encodePubKey(widget.pubkey);
   }
 
   @override
@@ -47,7 +51,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     var maxWidth = MediaQuery.of(context).size.width;
     var bannerHeight = maxWidth / 3;
 
-    String nip19Name = Nip19.encodeSimplePubKey(widget.pubKey);
+    String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
     String displayName = nip19Name;
     String? name;
     if (widget.metadata != null) {
@@ -82,6 +86,43 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       );
     }
 
+    List<Widget> topBtnList = [
+      Expanded(
+        child: Container(),
+      )
+    ];
+    topBtnList.add(wrapBtn(MetadataIconBtn(
+      iconData: Icons.currency_bitcoin,
+      onTap: () {},
+    )));
+    topBtnList.add(wrapBtn(MetadataIconBtn(
+      iconData: Icons.mail,
+      onTap: () {},
+    )));
+    topBtnList.add(Selector<ContactListProvider, Contact?>(
+      builder: (context, contact, child) {
+        if (contact == null) {
+          return wrapBtn(MetadataTextBtn(
+            text: "Follow",
+            borderColor: mainColor,
+            onTap: () {
+              contactListProvider.addContact(Contact(publicKey: widget.pubkey));
+            },
+          ));
+        } else {
+          return wrapBtn(MetadataTextBtn(
+            text: "Unfollow",
+            onTap: () {
+              contactListProvider.removeContact(widget.pubkey);
+            },
+          ));
+        }
+      },
+      selector: (context, _provider) {
+        return _provider.getContact(widget.pubkey);
+      },
+    ));
+
     List<Widget> topList = [];
     topList.add(Container(
       width: maxWidth,
@@ -93,23 +134,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       height: 50,
       // color: Colors.red,
       child: Row(
-        children: [
-          Expanded(
-            child: Container(),
-          ),
-          wrapBtn(MetadataIconBtn(
-            iconData: Icons.currency_bitcoin,
-            onTap: () {},
-          )),
-          wrapBtn(MetadataIconBtn(
-            iconData: Icons.mail,
-            onTap: () {},
-          )),
-          wrapBtn(MetadataTextBtn(
-            text: "Follow",
-            onTap: () {},
-          )),
-        ],
+        children: topBtnList,
       ),
     ));
     topList.add(Container(
@@ -260,14 +285,22 @@ class MetadataTextBtn extends StatelessWidget {
 
   String text;
 
-  MetadataTextBtn({required this.text, required this.onTap});
+  Color? borderColor;
+
+  MetadataTextBtn({
+    required this.text,
+    required this.onTap,
+    this.borderColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Ink(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(width: 1),
+        border: borderColor != null
+            ? Border.all(width: 1, color: borderColor!)
+            : Border.all(width: 1),
       ),
       child: InkWell(
         onTap: onTap,
@@ -279,6 +312,7 @@ class MetadataTextBtn extends StatelessWidget {
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: borderColor,
             ),
           ),
         ),

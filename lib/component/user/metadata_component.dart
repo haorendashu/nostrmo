@@ -26,7 +26,7 @@ class _MetadataComponent extends State<MetadataComponent> {
     List<Widget> mainList = [];
 
     mainList.add(MetadataTopComponent(
-      pubKey: widget.pubKey,
+      pubkey: widget.pubKey,
       metadata: widget.metadata,
     ));
 
