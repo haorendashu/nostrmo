@@ -35,6 +35,10 @@ class FollowEventProvider extends ChangeNotifier with LazyFunction {
 
   List<Event> get currentEvents => beforeBox.all();
 
+  List<Event> eventsByPubkey(String pubkey) {
+    return beforeBox.listByPubkey(pubkey);
+  }
+
   Event? getBeforeEvent(int index) {
     return beforeBox.get(index);
   }

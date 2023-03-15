@@ -10,9 +10,7 @@ class EventMemBox with LazyFunction {
 
   Map<String, int> _idMap = {};
 
-  EventMemBox() {
-    lazyTimeMS = 800;
-  }
+  EventMemBox() {}
 
   _handlePendingList() {
     print("_handlePendingList");
@@ -31,6 +29,11 @@ class EventMemBox with LazyFunction {
 
     _idMap[event.id] = 1;
     _pendingList.add(event);
+    if (_pendingList.isNotEmpty) {
+      lazyTimeMS = 2000;
+    } else {
+      lazyTimeMS = 200;
+    }
     lazy(_handlePendingList, null);
     return true;
   }
@@ -52,6 +55,16 @@ class EventMemBox with LazyFunction {
 
   List<Event> all() {
     return _eventList;
+  }
+
+  List<Event> listByPubkey(String pubkey) {
+    List<Event> list = [];
+    for (var event in _eventList) {
+      if (event.pubKey == pubkey) {
+        list.add(event);
+      }
+    }
+    return list;
   }
 
   List<Event> suList(int start, int limit) {
