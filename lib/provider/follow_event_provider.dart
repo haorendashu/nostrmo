@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/util/peddingevents_lazy_function.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../client/cust_nostr.dart';
@@ -18,7 +19,6 @@ class FollowEventProvider extends ChangeNotifier with LazyFunction {
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     beforeBox = EventMemBox();
     newBox = EventMemBox();
-    lazyTimeMS = 1000;
   }
 
   bool get eventExist => _eventExist;
@@ -53,35 +53,52 @@ class FollowEventProvider extends ChangeNotifier with LazyFunction {
   }
 
   Future<void> _onEvent(Event event) async {
-    print("newBox receive");
-    await _onEventFunc(event, newBox);
+    penddingEvents.add(event);
+    await _onEventFunc();
   }
 
   void subscribeBefore({CustNostr? targetNostr}) {
     var filter = Filter(
       kinds: [kind.EventKind.TEXT_NOTE],
       until: _initTime,
-      limit: 1000,
+      limit: 100,
     );
     _subscribeBeforeIds = _subscribeFunc(
         targetNostr, _subscribeBeforeIds, filter, _onBeforeEvent);
   }
 
   Future<void> _onBeforeEvent(Event event) async {
-    print("beforeBox receive");
     _eventExist = true;
-    await _onEventFunc(event, beforeBox);
+    penddingBeforeEvents.add(event);
+    await _onEventFunc();
   }
 
-  Future<void> _onEventFunc(Event event, EventMemBox box) async {
-    var addResult = box.add(event);
-    if (addResult) {
-      // add success
-      lazy(() {
-        print("followEvent notifyListeners");
-        notifyListeners();
-      }, null);
+  List<Event> penddingEvents = [];
+  List<Event> penddingBeforeEvents = [];
+
+  Future<void> _onEventFunc() async {
+    if (beforeBox.isEmpty()) {
+      lazyTimeMS = 200;
+    } else {
+      lazyTimeMS = 2000;
     }
+
+    lazy(() {
+      bool addResult = false;
+      bool beforeAddResult = false;
+      if (penddingEvents.isNotEmpty) {
+        addResult = newBox.addList(penddingEvents);
+        penddingEvents.clear();
+      }
+      if (penddingBeforeEvents.isNotEmpty) {
+        beforeAddResult = beforeBox.addList(penddingBeforeEvents);
+        penddingBeforeEvents.clear();
+      }
+
+      if (addResult || beforeAddResult) {
+        notifyListeners();
+      }
+    }, null);
   }
 
   List<String> _subscribeFunc(

@@ -3,7 +3,7 @@ import 'package:nostrmo/util/lazy_function.dart';
 
 /// a memory event box
 /// use to hold event received from relay and offer event List to ui
-class EventMemBox with LazyFunction {
+class EventMemBox {
   List<Event> _pendingList = [];
 
   List<Event> _eventList = [];
@@ -12,11 +12,7 @@ class EventMemBox with LazyFunction {
 
   EventMemBox() {}
 
-  _handlePendingList() {
-    print("_handlePendingList");
-
-    _eventList.addAll(_pendingList);
-    _pendingList.clear();
+  void _sort() {
     _eventList.sort((event1, event2) {
       return event2.createdAt - event1.createdAt;
     });
@@ -28,29 +24,35 @@ class EventMemBox with LazyFunction {
     }
 
     _idMap[event.id] = 1;
-    _pendingList.add(event);
-    if (_pendingList.isNotEmpty) {
-      lazyTimeMS = 2000;
-    } else {
-      lazyTimeMS = 200;
-    }
-    lazy(_handlePendingList, null);
+    _eventList.add(event);
+    _sort();
     return true;
   }
 
-  void addList(List<Event> list) {
+  bool addList(List<Event> list) {
+    bool added = false;
     for (var event in list) {
       if (_idMap[event.id] == null) {
         _idMap[event.id] = 1;
-        _pendingList.add(event);
+        _eventList.add(event);
+        added = true;
       }
     }
-    lazy(_handlePendingList, null);
+
+    if (added) {
+      _sort();
+    }
+
+    return added;
   }
 
   void addBox(EventMemBox b) {
     var all = b.all();
     addList(all);
+  }
+
+  bool isEmpty() {
+    return _eventList.isEmpty;
   }
 
   int length() {

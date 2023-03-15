@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/data/event_mem_box.dart';
+import 'package:nostrmo/util/peddingevents_lazy_function.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event_kind.dart' as kind;
+import '../../client/filter.dart';
 import '../../client/nip19/nip19.dart';
 import '../../component/appbar4stack.dart';
 import '../../component/cust_state.dart';
@@ -20,7 +24,8 @@ class UserRouter extends StatefulWidget {
   }
 }
 
-class _UserRouter extends CustState<UserRouter> {
+class _UserRouter extends CustState<UserRouter>
+    with PenddingEventsLazyFunction {
   late ScrollController _scrollController;
 
   String? pubkey;
@@ -30,6 +35,8 @@ class _UserRouter extends CustState<UserRouter> {
   bool showAppbarBG = false;
 
   List<Event>? events;
+
+  EventMemBox box = EventMemBox();
 
   @override
   void initState() {
@@ -70,6 +77,9 @@ class _UserRouter extends CustState<UserRouter> {
         RouterUtil.back(context);
       }
       events ??= followEventProvider.eventsByPubkey(pubkey!);
+      if (events != null && events!.isNotEmpty) {
+        box.addList(events!);
+      }
     }
 
     var mediaData = MediaQuery.of(context);
@@ -135,10 +145,13 @@ class _UserRouter extends CustState<UserRouter> {
               },
               body: ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  var event = events![index];
+                  var event = box.get(index);
+                  if (event == null) {
+                    return null;
+                  }
                   return EventListComponent(event: event);
                 },
-                itemCount: events!.length,
+                itemCount: box.length(),
               ),
             ),
             Positioned(
@@ -154,8 +167,34 @@ class _UserRouter extends CustState<UserRouter> {
     );
   }
 
+  var subscribeId = StringUtil.rndNameStr(16);
+
   @override
   Future<void> onReady(BuildContext context) async {
-    // TODO load event from relay
+    // load event from relay
+    var filter = Filter(
+      kinds: [kind.EventKind.TEXT_NOTE],
+      until: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      authors: [pubkey!],
+      limit: 100,
+    );
+    subscribeId = StringUtil.rndNameStr(16);
+    nostr!.pool.query([filter.toJson()], onEvent, subscribeId);
+  }
+
+  void onEvent(event) {
+    lazy(event, (list) {
+      box.addList(list);
+      setState(() {});
+    }, null);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    try {
+      nostr!.pool.unsubscribe(subscribeId);
+    } catch (e) {}
   }
 }
