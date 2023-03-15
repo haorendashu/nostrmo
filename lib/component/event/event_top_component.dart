@@ -14,9 +14,11 @@ import '../../provider/metadata_provider.dart';
 
 class EventTopComponent extends StatefulWidget {
   Event event;
+  String? pagePubkey;
 
   EventTopComponent({
     required this.event,
+    this.pagePubkey,
   });
 
   @override
@@ -160,6 +162,11 @@ class _EventTopComponent extends State<EventTopComponent> {
   Widget jumpWrap(Widget c) {
     return GestureDetector(
       onTap: () {
+        // disable jump when in same user page.
+        if (widget.pagePubkey == widget.event.pubKey) {
+          return;
+        }
+
         RouterUtil.router(context, RouterPath.USER, widget.event.pubKey);
       },
       child: c,

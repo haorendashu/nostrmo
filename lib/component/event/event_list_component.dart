@@ -15,7 +15,12 @@ import '../../util/string_util.dart';
 class EventListComponent extends StatefulWidget {
   Event event;
 
-  EventListComponent({required this.event});
+  String? pagePubkey;
+
+  EventListComponent({
+    required this.event,
+    this.pagePubkey,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -86,6 +91,7 @@ class _EventListComponent extends State<EventListComponent> {
         children: [
           EventTopComponent(
             event: widget.event,
+            pagePubkey: widget.pagePubkey,
           ),
           Container(
             width: double.maxFinite,

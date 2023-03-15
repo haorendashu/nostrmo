@@ -152,7 +152,10 @@ class _UserRouter extends CustState<UserRouter>
                     if (event == null) {
                       return null;
                     }
-                    return EventListComponent(event: event);
+                    return EventListComponent(
+                      event: event,
+                      pagePubkey: pubkey,
+                    );
                   },
                   itemCount: box.length(),
                 ),
