@@ -35,6 +35,9 @@ class EventRelation {
         }
       }
     }
+
+    pMap.remove(event.pubKey);
+
     tagPList.addAll(pMap.keys);
   }
 }
