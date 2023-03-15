@@ -143,15 +143,19 @@ class _UserRouter extends CustState<UserRouter>
                   ),
                 ];
               },
-              body: ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  var event = box.get(index);
-                  if (event == null) {
-                    return null;
-                  }
-                  return EventListComponent(event: event);
-                },
-                itemCount: box.length(),
+              body: MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    var event = box.get(index);
+                    if (event == null) {
+                      return null;
+                    }
+                    return EventListComponent(event: event);
+                  },
+                  itemCount: box.length(),
+                ),
               ),
             ),
             Positioned(
