@@ -17,6 +17,7 @@ import 'consts/router_path.dart';
 import 'consts/theme_style.dart';
 import 'generated/l10n.dart';
 import 'provider/data_util.dart';
+import 'provider/dm_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/metadata_provider.dart';
 import 'provider/setting_provider.dart';
@@ -34,6 +35,8 @@ late MetadataProvider metadataProvider;
 late ContactListProvider contactListProvider;
 
 late FollowEventProvider followEventProvider;
+
+late DMProvider dmProvider;
 
 late IndexProvider indexProvider;
 
@@ -54,6 +57,7 @@ Future<void> main() async {
   metadataProvider = futureResultList[1] as MetadataProvider;
   contactListProvider = ContactListProvider.getInstance();
   followEventProvider = FollowEventProvider();
+  dmProvider = DMProvider();
   indexProvider = IndexProvider();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
@@ -119,6 +123,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<FollowEventProvider>.value(
           value: followEventProvider,
+        ),
+        ListenableProvider<DMProvider>.value(
+          value: dmProvider,
         ),
       ],
       child: MaterialApp(

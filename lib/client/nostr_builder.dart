@@ -16,6 +16,9 @@ CustNostr genNostr(String pk) {
   contactListProvider.subscribe(targetNostr: _nostr);
   followEventProvider.subscribeBefore(targetNostr: _nostr);
   followEventProvider.subscribe(targetNostr: _nostr);
+  dmProvider.initDMSessions(_nostr.publicKey).then((_) {
+    dmProvider.subscribe(targetNostr: _nostr);
+  });
 
   // load relay addr and init
   _loadRelayAndInit(_nostr);
