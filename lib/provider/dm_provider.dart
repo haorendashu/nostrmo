@@ -61,13 +61,19 @@ class DMProvider extends ChangeNotifier {
         return tag[1] as String;
       }
     }
+
+    return null;
   }
 
-  bool _addEvent(Event event) {
-    var pubkey = event.pubKey;
+  bool _addEvent(String localPubkey, Event event) {
+    var pubkey = _getPubkey(localPubkey, event);
+    if (StringUtil.isBlank(pubkey)) {
+      return false;
+    }
+
     var session = _sessions[pubkey];
     if (session == null) {
-      session = DMSession(pubkey: pubkey);
+      session = DMSession(pubkey: pubkey!);
       _sessions[pubkey] = session;
     }
     var addResult = session.addEvent(event);
@@ -88,9 +94,7 @@ class DMProvider extends ChangeNotifier {
     );
 
     targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], (event) {
-      print("dmEvent:");
-      print(event);
-      var addResult = _addEvent(event);
+      var addResult = _addEvent(targetNostr!.publicKey, event);
       // save to local
       if (addResult) {
         EventDB.insert(event);

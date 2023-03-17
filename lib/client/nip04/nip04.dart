@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:pointycastle/export.dart';
 
 class NIP04 {
@@ -57,13 +59,18 @@ class NIP04 {
 
     var pubKey = getPubKey(pk);
     var agreementD0 = agreement.calculateAgreement(pubKey);
-    var enctyptKey = agreementD0.toRadixString(16).padLeft(64, "0");
+    var encryptKey = agreementD0.toRadixString(16).padLeft(64, "0");
+
+    // var encrypter = Encrypter(AES(
+    //     Key(Uint8List.fromList(hex.decode(encryptKey))),
+    //     mode: AESMode.cbc));
+    // return encrypter.decrypt(Encrypted.from64(message), iv: IV.fromBase64(iv));
 
     final cipherCbc =
         PaddedBlockCipherImpl(PKCS7Padding(), CBCBlockCipher(AESEngine()));
     final paramsCbc = PaddedBlockCipherParameters(
         ParametersWithIV(
-            KeyParameter(Uint8List.fromList(hex.decode(enctyptKey))), ivData),
+            KeyParameter(Uint8List.fromList(hex.decode(encryptKey))), ivData),
         null);
     cipherCbc.init(false, paramsCbc);
 

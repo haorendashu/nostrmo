@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:sqflite/sqflite.dart';
@@ -22,12 +24,17 @@ class EventDB {
     args.add(limit);
 
     List<Map<String, dynamic>> list = await db.rawQuery(sql, args);
+    for (var listObj in list) {
+      l.add(loadFromJson(listObj));
+    }
     return l;
   }
 
   static Future<int> insert(Event o, {DatabaseExecutor? db}) async {
     db = await DB.getDB(db);
     var jsonObj = o.toJson();
+    var tags = jsonEncode(o.tags);
+    jsonObj["tags"] = tags;
     jsonObj.remove("sig");
     return await db.insert("event", jsonObj);
   }
@@ -38,5 +45,16 @@ class EventDB {
     if (list.isNotEmpty) {
       return Event.fromJson(list[0]);
     }
+  }
+
+  static Event loadFromJson(Map<String, dynamic> data) {
+    Map<String, dynamic> m = {};
+    m.addAll(data);
+
+    var tagsStr = data["tags"];
+    var tagsObj = jsonDecode(tagsStr);
+    m["tags"] = tagsObj;
+    m["sig"] = "";
+    return Event.fromJson(m);
   }
 }

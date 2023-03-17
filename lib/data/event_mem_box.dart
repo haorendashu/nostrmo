@@ -13,7 +13,7 @@ class EventMemBox {
   EventMemBox() {}
 
   Event? get newestEvent {
-    if (_eventList.isNotEmpty) {
+    if (_eventList.isEmpty) {
       return null;
     }
     return _eventList.first;

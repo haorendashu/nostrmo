@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -35,7 +36,6 @@ class _EventTopComponent extends State<EventTopComponent> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-    var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
     return Selector<MetadataProvider, Metadata?>(
@@ -47,13 +47,8 @@ class _EventTopComponent extends State<EventTopComponent> {
       },
       builder: (context, metadata, child) {
         var themeData = Theme.of(context);
-        var mainColor = themeData.primaryColor;
-        String nip19Name = Nip19.encodeSimplePubKey(widget.event.pubKey);
-        String displayName = nip19Name;
-        String name = "";
 
         Widget? imageWidget;
-        bool hasNip05 = false;
         if (metadata != null) {
           if (StringUtil.isNotBlank(metadata.picture)) {
             imageWidget = CachedNetworkImage(
@@ -65,48 +60,10 @@ class _EventTopComponent extends State<EventTopComponent> {
               errorWidget: (context, url, error) => Icon(Icons.error),
             );
           }
-          if (StringUtil.isNotBlank(metadata.displayName)) {
-            displayName = metadata.displayName!;
-          }
-          if (StringUtil.isNotBlank(metadata.name)) {
-            name = "@" + metadata.name!;
-          }
-          if (StringUtil.isNotBlank(metadata.nip05)) {
-            hasNip05 = true;
-          }
-        }
-
-        List<Widget> nameList = [
-          Text(
-            displayName,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 2),
-            child: Text(
-              name,
-              style: TextStyle(
-                fontSize: 12,
-                color: hintColor,
-              ),
-            ),
-          ),
-        ];
-        if (hasNip05) {
-          nameList.add(Container(
-            margin: EdgeInsets.only(left: 3),
-            child: Icon(
-              Icons.check_circle,
-              color: mainColor,
-              size: 12,
-            ),
-          ));
         }
 
         return Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: Base.BASE_PADDING,
             left: Base.BASE_PADDING,
             right: Base.BASE_PADDING,
@@ -132,13 +89,13 @@ class _EventTopComponent extends State<EventTopComponent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        margin: const EdgeInsets.only(bottom: 2),
                         child: jumpWrap(
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: nameList,
+                          NameComponnet(
+                            pubkey: widget.event.pubKey,
+                            metadata: metadata,
                           ),
                         ),
-                        margin: EdgeInsets.only(bottom: 2),
                       ),
                       Text(
                         GetTimeAgo.parse(DateTime.fromMillisecondsSinceEpoch(
