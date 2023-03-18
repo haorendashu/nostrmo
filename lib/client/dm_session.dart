@@ -19,4 +19,16 @@ class DMSession {
   Event? get newestEvent {
     return _box.newestEvent;
   }
+
+  int length() {
+    return _box.length();
+  }
+
+  Event? get(int index) {
+    if (_box.length() <= index) {
+      return null;
+    }
+
+    return _box.get(index);
+  }
 }

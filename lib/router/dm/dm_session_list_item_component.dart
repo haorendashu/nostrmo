@@ -5,9 +5,11 @@ import 'package:nostrmo/client/dm_session.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 
@@ -36,7 +38,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<MetadataProvider, Metadata?>(
+    var main = Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
         var themeData = Theme.of(context);
         var hintColor = themeData.hintColor;
@@ -139,6 +141,13 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
       selector: (context, _provider) {
         return _provider.getMetadata(widget.dmSession.pubkey);
       },
+    );
+
+    return GestureDetector(
+      onTap: () {
+        RouterUtil.router(context, RouterPath.DM_DETAIL, widget.dmSession);
+      },
+      child: main,
     );
   }
 }
