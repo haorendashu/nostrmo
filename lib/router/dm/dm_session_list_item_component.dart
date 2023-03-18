@@ -4,6 +4,7 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostrmo/client/dm_session.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
@@ -50,28 +51,12 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
         var content = NIP04.decrypt(
             dmSession.newestEvent!.content, widget.agreement, dmSession.pubkey);
 
-        Widget? imageWidget;
-        if (metadata != null && StringUtil.isNotBlank(metadata.picture)) {
-          imageWidget = CachedNetworkImage(
-            imageUrl: metadata.picture!,
-            width: IMAGE_WIDTH,
-            height: IMAGE_WIDTH,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-          );
-        }
-
         var leftWidget = Container(
-          alignment: Alignment.center,
-          height: IMAGE_WIDTH,
-          width: IMAGE_WIDTH,
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-            color: Colors.grey,
+          margin: EdgeInsets.only(top: 4),
+          child: UserPicComponent(
+            pubkey: widget.dmSession.pubkey,
+            width: IMAGE_WIDTH,
           ),
-          child: imageWidget,
         );
 
         var lastEvent = widget.dmSession.newestEvent!;
@@ -85,6 +70,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
             color: hintColor,
           ))),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               leftWidget,
               Expanded(
