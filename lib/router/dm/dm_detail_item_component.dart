@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 
 import '../../component/user_pic_component.dart';
@@ -36,7 +38,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var mainColor = themeData.appBarTheme.backgroundColor;
-    var userHeadWidget = Container(
+    Widget userHeadWidget = Container(
       margin: EdgeInsets.only(top: 2),
       child: UserPicComponent(
         pubkey: widget.event.pubKey,
@@ -85,6 +87,15 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
         ],
       ),
     );
+
+    if (!widget.isLocal) {
+      userHeadWidget = GestureDetector(
+        onTap: () {
+          RouterUtil.router(context, RouterPath.USER, widget.event.pubKey);
+        },
+        child: userHeadWidget,
+      );
+    }
 
     List<Widget> list = [];
     if (widget.isLocal) {
