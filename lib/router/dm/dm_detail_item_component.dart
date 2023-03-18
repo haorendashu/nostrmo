@@ -36,9 +36,12 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var mainColor = themeData.appBarTheme.backgroundColor;
-    var userHeadWidget = UserPicComponent(
-      pubkey: widget.event.pubKey,
-      width: IMAGE_WIDTH,
+    var userHeadWidget = Container(
+      margin: EdgeInsets.only(top: 2),
+      child: UserPicComponent(
+        pubkey: widget.event.pubKey,
+        width: IMAGE_WIDTH,
+      ),
     );
     var maxWidth = MediaQuery.of(context).size.width;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
