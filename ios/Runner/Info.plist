@@ -49,5 +49,12 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<true/>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Photo need to access for upload.</string>
 	</dict>
 </plist>

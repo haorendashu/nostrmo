@@ -56,6 +56,8 @@ dependencies:
   flutter_animate: ^4.1.0
   bech32: ^0.2.2
   hex: ^0.2.0
+  wechat_assets_picker: ^8.4.0
+  dio: ^5.0.3
 
 dev_dependencies:
   flutter_test:
