@@ -6,6 +6,7 @@ import 'package:nostrmo/data/db.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
+import 'package:nostrmo/router/thread/thread_detail_router.dart';
 import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -150,6 +151,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.EDITOR: (context) => EditorRouter(),
           RouterPath.USER: (context) => UserRouter(),
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
+          RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
         },
       ),
     );

@@ -64,7 +64,6 @@ class _EventTopComponent extends State<EventTopComponent> {
 
         return Container(
           padding: const EdgeInsets.only(
-            top: Base.BASE_PADDING,
             left: Base.BASE_PADDING,
             right: Base.BASE_PADDING,
             bottom: Base.BASE_PADDING_HALF,

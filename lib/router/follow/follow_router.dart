@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/event/event_list_component.dart';
@@ -61,7 +63,12 @@ class _FollowRouter extends State<FollowRouter> {
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           var event = events[index];
-          return EventListComponent(event: event);
+          return GestureDetector(
+            onTap: () {
+              RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
+            },
+            child: EventListComponent(event: event),
+          );
         },
         itemCount: events.length,
       ),
