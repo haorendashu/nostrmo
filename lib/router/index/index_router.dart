@@ -68,6 +68,11 @@ class _IndexRouter extends State<IndexRouter> {
           IndexBottomBar(),
         ],
       ),
+      drawer: Drawer(
+        child: Center(
+          child: Text("Drawer"),
+        ),
+      ),
     );
 
     // return Scaffold(
