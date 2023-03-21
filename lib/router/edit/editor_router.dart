@@ -220,7 +220,7 @@ class _EditorRouter extends State<EditorRouter> {
         }
       }
     }
-
+    result = result.trim();
     var event = nostr!.sendTextNote(result);
     RouterUtil.back(context);
   }
