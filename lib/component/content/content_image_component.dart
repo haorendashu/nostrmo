@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../consts/base.dart';
+
 class ContentImageComponent extends StatelessWidget {
   String imageUrl;
 
@@ -10,6 +12,10 @@ class ContentImageComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
+      margin: EdgeInsets.only(
+        top: Base.BASE_PADDING_HALF / 2,
+        bottom: Base.BASE_PADDING_HALF / 2,
+      ),
       child: Center(
         child: CachedNetworkImage(
           imageUrl: imageUrl,
