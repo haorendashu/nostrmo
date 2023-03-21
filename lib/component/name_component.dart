@@ -11,7 +11,14 @@ class NameComponnet extends StatefulWidget {
 
   bool showNip05;
 
-  NameComponnet({required this.pubkey, this.metadata, this.showNip05 = true});
+  double? fontSize;
+
+  NameComponnet({
+    required this.pubkey,
+    this.metadata,
+    this.showNip05 = true,
+    this.fontSize,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -48,6 +55,7 @@ class _NameComponnet extends State<NameComponnet> {
         displayName,
         style: TextStyle(
           fontWeight: FontWeight.bold,
+          fontSize: widget.fontSize,
         ),
       ),
       Container(

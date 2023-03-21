@@ -6,6 +6,7 @@ import 'package:nostrmo/data/db.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
+import 'package:nostrmo/router/tag/tag_detail_router.dart';
 import 'package:nostrmo/router/thread/thread_detail_router.dart';
 import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
@@ -152,6 +153,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.USER: (context) => UserRouter(),
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
           RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
+          RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
         },
       ),
     );
@@ -171,6 +173,7 @@ class _MyApp extends State<MyApp> {
     Color hintColor = Colors.grey;
 
     var textTheme = TextTheme(
+      bodyLarge: TextStyle(fontSize: 16),
       bodyMedium: TextStyle(fontSize: 14),
       bodySmall: TextStyle(fontSize: 12),
     );
@@ -208,6 +211,7 @@ class _MyApp extends State<MyApp> {
     Color hintColor = Colors.grey;
 
     var textTheme = TextTheme(
+      bodyLarge: TextStyle(fontSize: 16),
       bodyMedium: TextStyle(fontSize: 14),
       bodySmall: TextStyle(fontSize: 12),
     );

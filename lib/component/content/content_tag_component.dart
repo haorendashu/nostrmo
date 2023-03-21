@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/util/router_util.dart';
 
 import 'content_str_link_component.dart';
 
@@ -12,7 +14,7 @@ class ContentTagComponent extends StatelessWidget {
     return ContentStrLinkComponent(
       str: tag,
       onTap: () {
-        print("begin to open tag page $tag");
+        RouterUtil.router(context, RouterPath.TAG_DETAIL, tag);
       },
     );
   }

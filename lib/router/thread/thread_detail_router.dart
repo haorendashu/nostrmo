@@ -73,6 +73,8 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         ),
       );
     }
+    var themeData = Theme.of(context);
+    var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
 
     Widget? appBarTitle;
     if (showTitle) {
@@ -83,6 +85,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             pubkey: rootEvent!.pubKey,
             metadata: metadata,
             showNip05: false,
+            fontSize: bodyLargeFontSize,
           );
         },
         selector: (context, _provider) {
@@ -96,6 +99,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         rootEvent!.content,
         style: TextStyle(
           overflow: TextOverflow.ellipsis,
+          fontSize: bodyLargeFontSize,
         ),
       )));
       appBarTitle = Container(
