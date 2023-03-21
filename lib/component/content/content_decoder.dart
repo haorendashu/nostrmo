@@ -52,9 +52,11 @@ class ContentDecoder {
     }
   }
 
-  static List<Widget> decode(Event event) {
-    String content = event.content;
-    content = content.trim();
+  static List<Widget> decode(String? content, Event? event) {
+    if (StringUtil.isBlank(content) && event != null) {
+      content = event.content;
+    }
+    content = content!.trim();
     List<Widget> list = [];
     content = content.replaceAll("\r\n", "\n");
     content = content.replaceAll("\n\n", "\n");
@@ -102,7 +104,9 @@ class ContentDecoder {
           // block
           // TODO need to handle, this is temp handle
           handledStr = _addToHandledStr(handledStr, subStr);
-        } else if (subStr.indexOf("#[") == 0 && subStr.length > 3) {
+        } else if (subStr.indexOf("#[") == 0 &&
+            subStr.length > 3 &&
+            event != null) {
           // mention
           var endIndex = subStr.indexOf("]");
           var indexStr = subStr.substring(2, endIndex);

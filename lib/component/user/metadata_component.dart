@@ -5,6 +5,7 @@ import 'package:nostrmo/util/string_util.dart';
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
+import '../content/content_decoder.dart';
 import 'metadata_top_component.dart';
 
 class MetadataComponent extends StatefulWidget {
@@ -41,7 +42,15 @@ class _MetadataComponent extends State<MetadataComponent> {
             right: Base.BASE_PADDING,
             bottom: Base.BASE_PADDING,
           ),
-          child: Text(widget.metadata!.about!),
+          // child: Text(widget.metadata!.about!),
+          child: Container(
+            width: double.maxFinite,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: ContentDecoder.decode(widget.metadata!.about!, null),
+            ),
+          ),
         ),
       );
     }

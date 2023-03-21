@@ -94,7 +94,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: ContentDecoder.decode(widget.event),
+          children: ContentDecoder.decode(null, widget.event),
         ),
       ),
     );
