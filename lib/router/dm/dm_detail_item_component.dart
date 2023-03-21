@@ -88,14 +88,14 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
       ),
     );
 
-    if (!widget.isLocal) {
-      userHeadWidget = GestureDetector(
-        onTap: () {
-          RouterUtil.router(context, RouterPath.USER, widget.event.pubKey);
-        },
-        child: userHeadWidget,
-      );
-    }
+    // if (!widget.isLocal) {
+    userHeadWidget = GestureDetector(
+      onTap: () {
+        RouterUtil.router(context, RouterPath.USER, widget.event.pubKey);
+      },
+      child: userHeadWidget,
+    );
+    // }
 
     List<Widget> list = [];
     if (widget.isLocal) {
