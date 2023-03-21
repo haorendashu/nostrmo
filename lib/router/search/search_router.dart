@@ -11,7 +11,9 @@ import 'package:sqflite/utils/utils.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../client/nip19/bech32.dart';
+import '../../consts/router_path.dart';
 import '../../main.dart';
+import '../../util/router_util.dart';
 
 class SearchRouter extends StatefulWidget {
   @override
@@ -53,7 +55,13 @@ class _SearchRouter extends CustState<SearchRouter> {
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 var event = events[index];
-                return EventListComponent(event: event);
+                return GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
+                  },
+                  child: EventListComponent(event: event),
+                );
               },
               itemCount: events.length,
             ),

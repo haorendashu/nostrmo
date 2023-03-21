@@ -11,6 +11,7 @@ import '../../component/appbar4stack.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/user/metadata_component.dart';
+import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
@@ -152,9 +153,16 @@ class _UserRouter extends CustState<UserRouter>
                     if (event == null) {
                       return null;
                     }
-                    return EventListComponent(
-                      event: event,
-                      pagePubkey: pubkey,
+                    return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        RouterUtil.router(
+                            context, RouterPath.THREAD_DETAIL, event);
+                      },
+                      child: EventListComponent(
+                        event: event,
+                        pagePubkey: pubkey,
+                      ),
                     );
                   },
                   itemCount: box.length(),
