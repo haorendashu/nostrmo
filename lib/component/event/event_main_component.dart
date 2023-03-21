@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_relation.dart';
@@ -83,10 +84,20 @@ class _EventMainComponent extends State<EventMainComponent> {
         ),
       ));
     }
-    list.add(Container(
-      width: double.maxFinite,
-      child: Text(widget.event.content),
-    ));
+    // list.add(Container(
+    //   width: double.maxFinite,
+    //   child: Text(widget.event.content),
+    // ));
+    list.add(
+      Container(
+        width: double.maxFinite,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: ContentDecoder.decode(widget.event.content),
+        ),
+      ),
+    );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
