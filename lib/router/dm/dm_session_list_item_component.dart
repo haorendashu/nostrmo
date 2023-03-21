@@ -50,6 +50,8 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
 
         var content = NIP04.decrypt(
             dmSession.newestEvent!.content, widget.agreement, dmSession.pubkey);
+        content = content.replaceAll("\r", " ");
+        content = content.replaceAll("\n", " ");
 
         var leftWidget = Container(
           margin: EdgeInsets.only(top: 4),
