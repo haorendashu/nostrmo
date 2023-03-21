@@ -9,7 +9,9 @@ class NameComponnet extends StatefulWidget {
 
   Metadata? metadata;
 
-  NameComponnet({required this.pubkey, this.metadata});
+  bool showNip05;
+
+  NameComponnet({required this.pubkey, this.metadata, this.showNip05 = true});
 
   @override
   State<StatefulWidget> createState() {
@@ -59,7 +61,7 @@ class _NameComponnet extends State<NameComponnet> {
         ),
       ),
     ];
-    if (hasNip05) {
+    if (hasNip05 && widget.showNip05) {
       nameList.add(Container(
         margin: EdgeInsets.only(left: 3),
         child: Icon(

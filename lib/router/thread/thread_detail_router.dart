@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/event/event_list_component.dart';
+import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/router/thread/thread_detail_event.dart';
 import 'package:nostrmo/router/thread/thread_detail_item_component.dart';
+import 'package:provider/provider.dart';
+import 'package:widget_size/widget_size.dart';
 
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
 import '../../data/event_mem_box.dart';
+import '../../data/metadata.dart';
 import '../../main.dart';
+import '../../provider/metadata_provider.dart';
 import '../../util/peddingevents_lazy_function.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
@@ -25,6 +30,28 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   EventMemBox box = EventMemBox();
 
   Event? sourceEvent;
+
+  bool showTitle = false;
+
+  ScrollController _controller = ScrollController();
+
+  double rootEventHeight = 120;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      if (_controller.offset > rootEventHeight * 0.8 && !showTitle) {
+        setState(() {
+          showTitle = true;
+        });
+      } else if (_controller.offset < rootEventHeight * 0.8 && showTitle) {
+        setState(() {
+          showTitle = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget doBuild(BuildContext context) {
@@ -47,6 +74,38 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       );
     }
 
+    Widget? appBarTitle;
+    if (showTitle) {
+      List<Widget> appBarTitleList = [];
+      var nameComponnet = Selector<MetadataProvider, Metadata?>(
+        builder: (context, metadata, child) {
+          return NameComponnet(
+            pubkey: rootEvent!.pubKey,
+            metadata: metadata,
+            showNip05: false,
+          );
+        },
+        selector: (context, _provider) {
+          return _provider.getMetadata(rootEvent!.pubKey);
+        },
+      );
+      appBarTitleList.add(nameComponnet);
+      appBarTitleList.add(Text(" : "));
+      appBarTitleList.add(Expanded(
+          child: Text(
+        rootEvent!.content,
+        style: TextStyle(
+          overflow: TextOverflow.ellipsis,
+        ),
+      )));
+      appBarTitle = Container(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: appBarTitleList,
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -55,12 +114,25 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           },
           child: Icon(Icons.arrow_back_ios),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.more_horiz),
+          ),
+        ],
+        title: appBarTitle,
       ),
       body: NestedScrollView(
+        controller: _controller,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return <Widget>[
             SliverToBoxAdapter(
-              child: EventListComponent(event: rootEvent!),
+              child: WidgetSize(
+                child: EventListComponent(event: rootEvent!),
+                onChange: (size) {
+                  rootEventHeight = size.height;
+                },
+              ),
             ),
           ];
         },
