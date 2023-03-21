@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/content/content_link_component.dart';
+import 'package:nostrmo/component/content/content_mention_user_component.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
@@ -50,7 +52,8 @@ class ContentDecoder {
     }
   }
 
-  static List<Widget> decode(String content) {
+  static List<Widget> decode(Event event) {
+    String content = event.content;
     content = content.trim();
     List<Widget> list = [];
     content = content.replaceAll("\r\n", "\n");
@@ -99,11 +102,31 @@ class ContentDecoder {
           // block
           // TODO need to handle, this is temp handle
           handledStr = _addToHandledStr(handledStr, subStr);
-        } else if (subStr.indexOf("#") == 0 && subStr.indexOf("[") == 1) {
-          // inline
+        } else if (subStr.indexOf("#[") == 0 && subStr.length > 3) {
           // mention
-          // TODO need to handle, this is temp handle
-          handledStr = _addToHandledStr(handledStr, subStr);
+          var endIndex = subStr.indexOf("]");
+          var indexStr = subStr.substring(2, endIndex);
+          var index = int.tryParse(indexStr);
+          if (index != null && event.tags.length > index) {
+            var tag = event.tags[index];
+            if (tag.length > 1) {
+              var tagType = tag[0];
+              if (tagType == "e") {
+                // block
+                // mention event
+                // TODO need to handle, this is temp handle
+                handledStr = _addToHandledStr(handledStr, subStr);
+              } else if (tagType == "p") {
+                // inline
+                // mention user
+                handledStr = _closeHandledStr(handledStr, inlines);
+                inlines.add(ContentMentionUserComponent(pubkey: tag[1]));
+              } else {
+                // TODO need to handle, this is temp handle
+                handledStr = _addToHandledStr(handledStr, subStr);
+              }
+            }
+          }
         } else if (subStr.indexOf("#") == 0 &&
             subStr.indexOf("[") != 1 &&
             subStr.length > 1 &&

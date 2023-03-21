@@ -94,7 +94,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: ContentDecoder.decode(widget.event.content),
+          children: ContentDecoder.decode(widget.event),
         ),
       ),
     );
@@ -147,9 +147,7 @@ class _EventReplyingcomponent extends State<EventReplyingcomponent> {
           var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
           String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
           String displayName = nip19Name;
-          String name = "";
 
-          Widget? imageWidget;
           if (metadata != null) {
             if (StringUtil.isNotBlank(metadata.displayName)) {
               displayName = metadata.displayName!;
