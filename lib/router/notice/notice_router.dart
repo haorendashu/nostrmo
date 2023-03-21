@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/upload/nostr_build_uploader.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+import '../../consts/router_path.dart';
+import '../../util/router_util.dart';
 
 class NoticeRouter extends StatefulWidget {
   @override
@@ -14,7 +15,12 @@ class _NoticeRouter extends State<NoticeRouter> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text("NOTICE"),
+        child: GestureDetector(
+          onTap: () {
+            RouterUtil.router(context, RouterPath.EDITOR);
+          },
+          child: Text("NOTICE"),
+        ),
       ),
     );
   }
