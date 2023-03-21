@@ -14,7 +14,7 @@ class ContentTagComponent extends StatelessWidget {
     return ContentStrLinkComponent(
       str: tag,
       onTap: () {
-        RouterUtil.router(context, RouterPath.TAG_DETAIL, tag);
+        // RouterUtil.router(context, RouterPath.TAG_DETAIL, tag);
       },
     );
   }
