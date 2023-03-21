@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/content/content_str_link_component.dart';
+import 'package:nostrmo/component/webview_router.dart';
 
 class ContentLinkComponent extends StatelessWidget {
   String link;
@@ -11,7 +12,7 @@ class ContentLinkComponent extends StatelessWidget {
     return ContentStrLinkComponent(
       str: link,
       onTap: () {
-        print("begin to open link $link");
+        WebViewRouter.open(context, link);
       },
     );
   }
