@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_relation.dart';
@@ -14,6 +13,7 @@ import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
+import '../content/content_decoder.dart';
 import 'event_top_component.dart';
 
 class EventMainComponent extends StatefulWidget {

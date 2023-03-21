@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/content/content_image_component.dart';
+import 'package:nostrmo/component/content/content_link_component.dart';
+import 'package:nostrmo/component/content/content_tag_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 class ContentDecoder {
@@ -11,11 +13,19 @@ class ContentDecoder {
 
   static const LNBC_NUM_END = "1p";
 
+  static String _addToHandledStr(String handledStr, String subStr) {
+    if (StringUtil.isBlank(handledStr)) {
+      return subStr;
+    } else {
+      return "$handledStr $subStr";
+    }
+  }
+
   static String _closeHandledStr(String handledStr, List<Widget> inlines) {
     if (StringUtil.isNotBlank(handledStr)) {
       inlines.add(Text(handledStr));
     }
-    return handledStr;
+    return "";
   }
 
   static void _closeInlines(List<Widget> inlines, List<Widget> list) {
@@ -23,9 +33,18 @@ class ContentDecoder {
       if (inlines.length == 1) {
         list.add(inlines[0]);
       } else {
-        list.add(Wrap(
-          children: inlines,
-        ));
+        // list.add(Wrap(
+        //   children: inlines,
+        // ));
+        List<InlineSpan> spans = [];
+        for (var inline in inlines) {
+          if (inline is Text) {
+            spans.add(TextSpan(text: inline.data! + " "));
+          } else {
+            spans.add(WidgetSpan(child: inline));
+          }
+        }
+        list.add(Text.rich(TextSpan(children: spans)));
       }
       inlines.clear();
     }
@@ -56,49 +75,45 @@ class ContentDecoder {
           if (pathType == "image") {
             // block
             handledStr = _closeHandledStr(handledStr, inlines);
-            // if (StringUtil.isNotBlank(handledStr)) {
-            //   inlines.add(Text(handledStr));
-            //   handledStr = "";
-            // }
             _closeInlines(inlines, list);
-            // if (inlines.isNotEmpty) {
-            //   if (inlines.length == 1) {
-            //     list.add(inlines[0]);
-            //   } else {
-            //     list.add(Wrap(
-            //       children: inlines,
-            //     ));
-            //   }
-            //   inlines.clear();
-            // }
             var imageWidget = ContentImageComponent(imageUrl: subStr);
             list.add(imageWidget);
           } else if (pathType == "video") {
             // block
+            // TODO need to handle, this is temp handle
+            handledStr = _addToHandledStr(handledStr, subStr);
           } else if (pathType == "link") {
             // inline
+            handledStr = _closeHandledStr(handledStr, inlines);
+            inlines.add(ContentLinkComponent(link: subStr));
           }
         } else if (subStr.indexOf(LNBC) == 0) {
           // block
+          // TODO need to handle, this is temp handle
+          handledStr = _addToHandledStr(handledStr, subStr);
         } else if (subStr.indexOf(LIGHTNING) == 0) {
           // block
+          // TODO need to handle, this is temp handle
+          handledStr = _addToHandledStr(handledStr, subStr);
         } else if (subStr.contains(OTHER_LIGHTNING)) {
           // block
+          // TODO need to handle, this is temp handle
+          handledStr = _addToHandledStr(handledStr, subStr);
         } else if (subStr.indexOf("#") == 0 && subStr.indexOf("[") == 1) {
           // inline
           // mention
+          // TODO need to handle, this is temp handle
+          handledStr = _addToHandledStr(handledStr, subStr);
         } else if (subStr.indexOf("#") == 0 &&
             subStr.indexOf("[") != 1 &&
             subStr.length > 1 &&
             subStr.substring(1) != "#") {
           // inline
           // tag
+          handledStr = _closeHandledStr(handledStr, inlines);
+          inlines.add(ContentTagComponent(tag: subStr));
         } else {
-          if (StringUtil.isBlank(handledStr)) {
-            handledStr = subStr;
-          } else {
-            handledStr = "$handledStr $subStr";
-          }
+          handledStr = _addToHandledStr(handledStr, subStr);
         }
       }
 
