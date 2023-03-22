@@ -75,6 +75,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     }
     var themeData = Theme.of(context);
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
+    var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
 
     Widget? appBarTitle;
     if (showTitle) {
@@ -86,6 +87,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             metadata: metadata,
             showNip05: false,
             fontSize: bodyLargeFontSize,
+            fontColor: titleTextColor,
           );
         },
         selector: (context, _provider) {
@@ -96,7 +98,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       appBarTitleList.add(Text(" : "));
       appBarTitleList.add(Expanded(
           child: Text(
-        rootEvent!.content,
+        rootEvent!.content.replaceAll("\n", " ").replaceAll("\r", " "),
         style: TextStyle(
           overflow: TextOverflow.ellipsis,
           fontSize: bodyLargeFontSize,

@@ -13,11 +13,14 @@ class NameComponnet extends StatefulWidget {
 
   double? fontSize;
 
+  Color? fontColor;
+
   NameComponnet({
     required this.pubkey,
     this.metadata,
     this.showNip05 = true,
     this.fontSize,
+    this.fontColor,
   });
 
   @override
@@ -31,11 +34,14 @@ class _NameComponnet extends State<NameComponnet> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
-    var hintColor = themeData.hintColor;
+    Color hintColor = themeData.hintColor;
     var metadata = widget.metadata;
     String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
     String displayName = nip19Name;
     String name = "";
+    if (widget.fontColor != null) {
+      hintColor = widget.fontColor!;
+    }
 
     bool hasNip05 = false;
     if (metadata != null) {
@@ -56,6 +62,7 @@ class _NameComponnet extends State<NameComponnet> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: widget.fontSize,
+          color: widget.fontColor,
         ),
       ),
       Container(

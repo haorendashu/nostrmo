@@ -184,6 +184,9 @@ class _MyApp extends State<MyApp> {
       bodyMedium: TextStyle(fontSize: 14),
       bodySmall: TextStyle(fontSize: 12),
     );
+    var titleTextStyle = TextStyle(
+      color: Colors.white,
+    );
 
     return ThemeData(
       brightness: Brightness.light,
@@ -196,7 +199,7 @@ class _MyApp extends State<MyApp> {
       appBarTheme: AppBarTheme(
         // color: Base.APPBAR_COLOR,
         backgroundColor: themeColor[500],
-        // titleTextStyle: titleTextStyle,
+        titleTextStyle: titleTextStyle,
         elevation: 0,
       ),
       dividerColor: Colors.grey,
