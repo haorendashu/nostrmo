@@ -4,6 +4,7 @@ import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/content/content_link_component.dart';
 import 'package:nostrmo/component/content/content_mention_user_component.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
+import 'package:nostrmo/component/event/event_quote_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 class ContentDecoder {
@@ -118,8 +119,10 @@ class ContentDecoder {
               if (tagType == "e") {
                 // block
                 // mention event
-                // TODO need to handle, this is temp handle
-                handledStr = _addToHandledStr(handledStr, subStr);
+                handledStr = _closeHandledStr(handledStr, inlines);
+                _closeInlines(inlines, list);
+                var widget = EventQuoteComponent(id: tag[1]);
+                list.add(widget);
               } else if (tagType == "p") {
                 // inline
                 // mention user
