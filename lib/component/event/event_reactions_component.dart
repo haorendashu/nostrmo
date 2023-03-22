@@ -91,7 +91,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         return _provider.get(widget.event.id);
       },
       shouldRebuild: (previous, next) {
-        if (previous != next ||
+        if ((previous == null && next != null) ||
             (previous != null &&
                 next != null &&
                 (previous.replies.length != next.replies.length ||

@@ -78,6 +78,9 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
             if (er == null) {
               er = EventReactions(id);
               _eventReactionsMap[id] = er;
+            } else {
+              er = er.clone();
+              _eventReactionsMap[id] = er;
             }
 
             if (er.onEvent(event)) {

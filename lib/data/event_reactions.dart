@@ -22,6 +22,17 @@ class EventReactions {
 
   DateTime dataTime = DateTime.now();
 
+  EventReactions clone() {
+    return EventReactions(id)
+      ..replies = replies
+      ..repostNum = repostNum
+      ..likeNum = likeNum
+      ..zapNum = zapNum
+      ..eventIdMap = eventIdMap
+      ..accessTime = accessTime
+      ..dataTime = dataTime;
+  }
+
   void access(DateTime t) {
     accessTime = t;
   }
