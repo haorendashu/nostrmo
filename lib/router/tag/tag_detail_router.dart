@@ -127,23 +127,33 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     );
   }
 
+  var subscribeId = StringUtil.rndNameStr(16);
+
   @override
   Future<void> onReady(BuildContext context) async {
     // tag query
     // https://github.com/nostr-protocol/nips/blob/master/12.md
-    // but there arg many relay don't support.
     var filter = Filter(kinds: [kind.EventKind.TEXT_NOTE], limit: 100);
     var queryArg = filter.toJson();
     var plainTag = tag!.replaceFirst("#", "");
-    queryArg["#r"] = [plainTag];
-    nostr!.pool.query([queryArg], onEvent);
+    // this place set #t not #r ???
+    queryArg["#t"] = [plainTag];
+    nostr!.pool.query([queryArg], onEvent, subscribeId);
   }
 
   void onEvent(Event event) {
-    print(event.toJson());
     lazy(event, (list) {
       box.addList(list);
       setState(() {});
     }, null);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    try {
+      nostr!.pool.unsubscribe(subscribeId);
+    } catch (e) {}
   }
 }
