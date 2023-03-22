@@ -2,7 +2,7 @@ class SpiderUtil {
   static String subUntil(String content, String before, String end) {
     var beforeLength = before.length;
     var index = content.indexOf(before);
-    if (index <= 0) {
+    if (index < 0) {
       return "";
     }
 

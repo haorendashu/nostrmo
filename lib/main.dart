@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nostrmo/data/db.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:nostrmo/provider/event_reactions_provider.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
 import 'package:nostrmo/router/tag/tag_detail_router.dart';
@@ -43,6 +44,8 @@ late DMProvider dmProvider;
 
 late IndexProvider indexProvider;
 
+late EventReactionsProvider eventReactionsProvider;
+
 CustNostr? nostr;
 
 Future<void> main() async {
@@ -62,6 +65,7 @@ Future<void> main() async {
   followEventProvider = FollowEventProvider();
   dmProvider = DMProvider();
   indexProvider = IndexProvider();
+  eventReactionsProvider = EventReactionsProvider();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = genNostr(settingProvider.privateKey!);
@@ -129,6 +133,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<DMProvider>.value(
           value: dmProvider,
+        ),
+        ListenableProvider<EventReactionsProvider>.value(
+          value: eventReactionsProvider,
         ),
       ],
       child: MaterialApp(

@@ -10,4 +10,10 @@ class EventKind {
   static const int DIRECT_MESSAGE = 4;
 
   static const int EVENT_DELETION = 5;
+
+  static const int REPOST = 6;
+
+  static const int REACTION = 7;
+
+  static const int ZAP = 9735;
 }

@@ -16,6 +16,18 @@ class FollowRouter extends StatefulWidget {
 }
 
 class _FollowRouter extends State<FollowRouter> {
+  ScrollController _controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // _controller.addListener(() {
+    //   var maxScrollExtent = _controller.position.maxScrollExtent;
+    //   var offset = _controller.offset;
+    //   print("maxScrollExtent $maxScrollExtent offset $offset");
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     // return Selector<FollowEventProvider, bool>(
@@ -61,10 +73,12 @@ class _FollowRouter extends State<FollowRouter> {
     }
     return Container(
       child: ListView.builder(
+        controller: _controller,
         itemBuilder: (BuildContext context, int index) {
           var event = events[index];
           return GestureDetector(
             onTap: () {
+              // print(event.toJson());
               RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
             },
             child: EventListComponent(event: event),

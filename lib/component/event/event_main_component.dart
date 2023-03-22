@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/event/event_reactions_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_relation.dart';
@@ -98,6 +99,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         ),
       ),
     );
+    list.add(EventReactionsComponent(event: widget.event));
 
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -4,8 +4,6 @@ import 'package:nostrmo/util/lazy_function.dart';
 /// a memory event box
 /// use to hold event received from relay and offer event List to ui
 class EventMemBox {
-  List<Event> _pendingList = [];
-
   List<Event> _eventList = [];
 
   Map<String, int> _idMap = {};
