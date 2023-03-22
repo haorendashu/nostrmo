@@ -1,10 +1,7 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/component/event/event_reactions_component.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../client/event_relation.dart';
 import '../../client/nip19/nip19.dart';
@@ -15,9 +12,12 @@ import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
+import 'event_reactions_component.dart';
 import 'event_top_component.dart';
 
 class EventMainComponent extends StatefulWidget {
+  ScreenshotController screenshotController;
+
   Event event;
 
   String? pagePubkey;
@@ -25,6 +25,7 @@ class EventMainComponent extends StatefulWidget {
   bool showReplying;
 
   EventMainComponent({
+    required this.screenshotController,
     required this.event,
     this.pagePubkey,
     this.showReplying = true,
@@ -99,7 +100,10 @@ class _EventMainComponent extends State<EventMainComponent> {
         ),
       ),
     );
-    list.add(EventReactionsComponent(event: widget.event));
+    list.add(EventReactionsComponent(
+      screenshotController: widget.screenshotController,
+      event: widget.event,
+    ));
 
     return Column(
       mainAxisSize: MainAxisSize.min,

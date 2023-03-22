@@ -1,16 +1,26 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../data/metadata.dart';
+import '../../util/store_util.dart';
 
 class EventReactionsComponent extends StatefulWidget {
+  ScreenshotController screenshotController;
+
   Event event;
 
-  EventReactionsComponent({required this.event});
+  EventReactionsComponent({
+    required this.screenshotController,
+    required this.event,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -55,7 +65,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   child: EventReactionNumComponent(
                 num: repostNum,
                 iconData: Icons.repeat,
-                onTap: onCommmentTap,
+                onTap: onRepostTap,
                 color: hintColor,
                 fontSize: fontSize,
               )),
@@ -63,7 +73,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   child: EventReactionNumComponent(
                 num: likeNum,
                 iconData: Icons.favorite,
-                onTap: onCommmentTap,
+                onTap: onLikeTap,
                 color: hintColor,
                 fontSize: fontSize,
               )),
@@ -79,7 +89,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   child: EventReactionNumComponent(
                 num: 0,
                 iconData: Icons.share,
-                onTap: onCommmentTap,
+                onTap: onShareTap,
                 color: hintColor,
                 fontSize: fontSize,
               )),
@@ -114,7 +124,21 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
   void onZapTap() {}
 
-  void onShareTap() {}
+  void onShareTap() {
+    widget.screenshotController.capture().then((Uint8List? imageData) async {
+      if (imageData != null) {
+        if (imageData != null) {
+          var tempFile = await StoreUtil.saveBS2TempFile(
+            "png",
+            imageData,
+          );
+          Share.shareXFiles([XFile(tempFile)]);
+        }
+      }
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
 }
 
 class EventReactionNumComponent extends StatelessWidget {

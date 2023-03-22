@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/router/thread/thread_detail_event.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../consts/base.dart';
 
@@ -17,6 +18,8 @@ class ThreadDetailItemMainComponent extends StatefulWidget {
 
 class _ThreadDetailItemMainComponent
     extends State<ThreadDetailItemMainComponent> {
+  ScreenshotController screenshotController = ScreenshotController();
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
@@ -24,6 +27,7 @@ class _ThreadDetailItemMainComponent
 
     List<Widget> list = [
       EventMainComponent(
+        screenshotController: screenshotController,
         event: widget.item.event,
         showReplying: false,
       )
@@ -59,9 +63,12 @@ class _ThreadDetailItemMainComponent
       ));
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: list,
+    return Screenshot(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: list,
+      ),
+      controller: screenshotController,
     );
   }
 }

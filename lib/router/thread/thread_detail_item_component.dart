@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/router/thread/thread_detail_event.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../consts/base.dart';
 import 'thread_detail_event_main_component.dart';
