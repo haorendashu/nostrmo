@@ -64,9 +64,16 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         RouterUtil.back(context);
         return Container();
       }
+
+      // load sourceEvent replies and avoid blank page
+      var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
+      if (eventReactions != null) {
+        box.addList(eventReactions.replies);
+        listToTree(refresh: false);
+      }
     }
 
-    if (rootEvent == null || rootSubList == null || rootSubList!.isEmpty) {
+    if (rootSubList == null || rootSubList!.isEmpty) {
       return Scaffold(
         body: Center(
           child: Text("Thread Detail"),
@@ -77,13 +84,16 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
 
+    var currentEvent = rootEvent;
+    currentEvent ??= sourceEvent;
+
     Widget? appBarTitle;
     if (showTitle) {
       List<Widget> appBarTitleList = [];
       var nameComponnet = Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
           return NameComponnet(
-            pubkey: rootEvent!.pubKey,
+            pubkey: currentEvent!.pubKey,
             metadata: metadata,
             showNip05: false,
             fontSize: bodyLargeFontSize,
@@ -91,14 +101,14 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           );
         },
         selector: (context, _provider) {
-          return _provider.getMetadata(rootEvent!.pubKey);
+          return _provider.getMetadata(currentEvent!.pubKey);
         },
       );
       appBarTitleList.add(nameComponnet);
       appBarTitleList.add(Text(" : "));
       appBarTitleList.add(Expanded(
           child: Text(
-        rootEvent!.content.replaceAll("\n", " ").replaceAll("\r", " "),
+        currentEvent!.content.replaceAll("\n", " ").replaceAll("\r", " "),
         style: TextStyle(
           overflow: TextOverflow.ellipsis,
           fontSize: bodyLargeFontSize,
@@ -134,7 +144,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           return <Widget>[
             SliverToBoxAdapter(
               child: WidgetSize(
-                child: EventListComponent(event: rootEvent!),
+                child: EventListComponent(event: currentEvent!),
                 onChange: (size) {
                   rootEventHeight = size.height;
                 },
@@ -189,7 +199,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     }, null);
   }
 
-  void listToTree() {
+  void listToTree({bool refresh = true}) {
     // event in box had been sorted. The last one is the oldest.
     var all = box.all();
     var length = all.length;
@@ -220,6 +230,9 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     }
 
     rootSubList = _rootSubList;
-    setState(() {});
+
+    if (refresh) {
+      setState(() {});
+    }
   }
 }
