@@ -8,7 +8,9 @@ class EventMemBox {
 
   Map<String, int> _idMap = {};
 
-  EventMemBox() {}
+  bool sortAfterAdd;
+
+  EventMemBox({this.sortAfterAdd = true}) {}
 
   Event? get newestEvent {
     if (_eventList.isEmpty) {
@@ -17,7 +19,7 @@ class EventMemBox {
     return _eventList.first;
   }
 
-  void _sort() {
+  void sort() {
     _eventList.sort((event1, event2) {
       return event2.createdAt - event1.createdAt;
     });
@@ -30,7 +32,9 @@ class EventMemBox {
 
     _idMap[event.id] = 1;
     _eventList.add(event);
-    _sort();
+    if (sortAfterAdd) {
+      sort();
+    }
     return true;
   }
 
@@ -44,8 +48,8 @@ class EventMemBox {
       }
     }
 
-    if (added) {
-      _sort();
+    if (added && sortAfterAdd) {
+      sort();
     }
 
     return added;

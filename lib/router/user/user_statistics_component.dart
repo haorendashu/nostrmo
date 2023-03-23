@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/consts/base.dart';
-import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
+import 'package:nostrmo/client/zap_num_util.dart';
 
+import '../../client/event_kind.dart' as kind;
 import '../../client/cust_contact_list.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
+import '../../consts/base.dart';
+import '../../consts/router_path.dart';
+import '../../data/event_mem_box.dart';
 import '../../main.dart';
+import '../../util/router_util.dart';
+import '../../util/string_util.dart';
 
 class UserStatisticsComponent extends StatefulWidget {
   String pubkey;
@@ -25,19 +28,23 @@ class UserStatisticsComponent extends StatefulWidget {
 class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   CustContactList? contactList;
 
+  EventMemBox? zapEventBox;
+
+  int length = 0;
+  int? followed;
+  int relaysNum = 0;
+  int? zapNum;
+
   @override
   Widget doBuild(BuildContext context) {
-    int length = 0;
-    int? followed;
-    int relaysNum = 0;
     if (contactList != null) {
       length = contactList!.list().length;
-      List<String> relayList = [];
-      for (var contact in contactList!.list()) {
-        if (StringUtil.isNotBlank(contact.url)) {
-          relayList.add(contact.url);
-        }
-      }
+      // List<String> relayList = [];
+      // for (var contact in contactList!.list()) {
+      //   if (StringUtil.isNotBlank(contact.url)) {
+      //     relayList.add(contact.url);
+      //   }
+      // }
     }
 
     List<Widget> list = [];
@@ -54,6 +61,8 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
               num: followed, name: "Followed", onTap: onFollowedTap),
           UserStatisticsItemComponent(
               num: relaysNum, name: "Relays", onTap: onRelaysTap),
+          UserStatisticsItemComponent(
+              num: zapNum, name: "Zap", onTap: onZapTap),
         ],
       ),
     );
@@ -84,6 +93,40 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   onRelaysTap() {
     print("onRelaysTap");
+  }
+
+  String zapSubscribeId = StringUtil.rndNameStr(10);
+
+  onZapTap() {
+    if (zapEventBox == null) {
+      zapEventBox = EventMemBox(sortAfterAdd: false);
+      // pull zap event
+      var filter = Filter(kinds: [kind.EventKind.ZAP], p: [widget.pubkey]);
+      print(filter);
+      nostr!.pool.query([filter.toJson()], onZapEvent, zapSubscribeId);
+
+      zapNum = 0;
+    } else {
+      // Router to vist list
+    }
+  }
+
+  onZapEvent(Event event) {
+    print(event.toJson());
+    if (event.kind == kind.EventKind.ZAP && zapEventBox!.add(event)) {
+      setState(() {
+        zapNum = zapNum! + ZapNumUtil.getNumFromZapEvent(event);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    try {
+      nostr!.pool.unsubscribe(zapSubscribeId);
+    } catch (e) {}
   }
 }
 
@@ -132,6 +175,7 @@ class UserStatisticsItemComponent extends StatelessWidget {
     ));
 
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: () {
         onTap();
       },
