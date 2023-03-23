@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/util/peddingevents_lazy_function.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
+import 'user_statistics_component.dart';
 
 class UserRouter extends StatefulWidget {
   @override
@@ -90,6 +92,9 @@ class _UserRouter extends CustState<UserRouter>
     showTitleHeight = maxWidth / 3 + 50;
     showAppbarBGHeight = showTitleHeight + 100;
 
+    var themeData = Theme.of(context);
+    var cardColor = themeData.cardColor;
+
     return Selector<MetadataProvider, Metadata?>(
       shouldRebuild: (previous, next) {
         return previous != next;
@@ -140,6 +145,11 @@ class _UserRouter extends CustState<UserRouter>
                     child: MetadataComponent(
                       pubKey: pubkey!,
                       metadata: metadata,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: UserStatisticsComponent(
+                      pubkey: pubkey!,
                     ),
                   ),
                 ];
