@@ -104,7 +104,7 @@ class _IndexDrawerContnetComponnent
         color: hintColor,
       ))),
       alignment: Alignment.centerLeft,
-      child: Text(Base.VERSION_NAME),
+      child: Text("V " + Base.VERSION_NAME),
     ));
 
     return Container(
