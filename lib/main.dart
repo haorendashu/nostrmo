@@ -9,6 +9,7 @@ import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
 import 'package:nostrmo/router/tag/tag_detail_router.dart';
 import 'package:nostrmo/router/thread/thread_detail_router.dart';
+import 'package:nostrmo/router/user/user_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -158,6 +159,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.INDEX: (context) => IndexRouter(reload: reload),
           RouterPath.EDITOR: (context) => EditorRouter(),
           RouterPath.USER: (context) => UserRouter(),
+          RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
           RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
           RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),

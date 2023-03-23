@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../../client/cust_contact_list.dart';
@@ -71,7 +73,9 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   }
 
   onFollowingTap() {
-    print("onFollowingTap");
+    if (contactList != null) {
+      RouterUtil.router(context, RouterPath.USER_CONTACT_LIST, contactList);
+    }
   }
 
   onFollowedTap() {
