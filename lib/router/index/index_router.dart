@@ -18,6 +18,7 @@ import '../../data/relay_status.dart';
 import '../../provider/index_provider.dart';
 import '../login/login_router.dart';
 import 'index_bottom_bar.dart';
+import 'index_drawer_content.dart';
 
 class IndexRouter extends StatefulWidget {
   Function reload;
@@ -49,7 +50,6 @@ class _IndexRouter extends State<IndexRouter> {
     if (nostr == null) {
       return LoginRouter();
     }
-
     var _indexProvider = Provider.of<IndexProvider>(context);
 
     return Scaffold(
@@ -69,9 +69,7 @@ class _IndexRouter extends State<IndexRouter> {
         ],
       ),
       drawer: Drawer(
-        child: Center(
-          child: Text("Drawer"),
-        ),
+        child: IndexDrawerContnetComponnent(),
       ),
     );
 

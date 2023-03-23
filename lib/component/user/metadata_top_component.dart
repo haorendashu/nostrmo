@@ -3,8 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
@@ -18,7 +20,17 @@ class MetadataTopComponent extends StatefulWidget {
 
   Metadata? metadata;
 
-  MetadataTopComponent({required this.pubkey, this.metadata});
+  // is local user
+  bool isLocal;
+
+  bool jumpable;
+
+  MetadataTopComponent({
+    required this.pubkey,
+    this.metadata,
+    this.isLocal = false,
+    this.jumpable = false,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -92,52 +104,45 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       )
     ];
     topBtnList.add(wrapBtn(MetadataIconBtn(
-      iconData: Icons.currency_bitcoin,
+      iconData: Icons.qr_code,
       onTap: () {},
     )));
-    topBtnList.add(wrapBtn(MetadataIconBtn(
-      iconData: Icons.mail,
-      onTap: () {},
-    )));
-    topBtnList.add(Selector<ContactListProvider, Contact?>(
-      builder: (context, contact, child) {
-        if (contact == null) {
-          return wrapBtn(MetadataTextBtn(
-            text: "Follow",
-            borderColor: mainColor,
-            onTap: () {
-              contactListProvider.addContact(Contact(publicKey: widget.pubkey));
-            },
-          ));
-        } else {
-          return wrapBtn(MetadataTextBtn(
-            text: "Unfollow",
-            onTap: () {
-              contactListProvider.removeContact(widget.pubkey);
-            },
-          ));
-        }
-      },
-      selector: (context, _provider) {
-        return _provider.getContact(widget.pubkey);
-      },
-    ));
+    if (!widget.isLocal) {
+      topBtnList.add(wrapBtn(MetadataIconBtn(
+        iconData: Icons.currency_bitcoin,
+        onTap: () {},
+      )));
+      topBtnList.add(wrapBtn(MetadataIconBtn(
+        iconData: Icons.mail,
+        onTap: () {},
+      )));
+      topBtnList.add(Selector<ContactListProvider, Contact?>(
+        builder: (context, contact, child) {
+          if (contact == null) {
+            return wrapBtn(MetadataTextBtn(
+              text: "Follow",
+              borderColor: mainColor,
+              onTap: () {
+                contactListProvider
+                    .addContact(Contact(publicKey: widget.pubkey));
+              },
+            ));
+          } else {
+            return wrapBtn(MetadataTextBtn(
+              text: "Unfollow",
+              onTap: () {
+                contactListProvider.removeContact(widget.pubkey);
+              },
+            ));
+          }
+        },
+        selector: (context, _provider) {
+          return _provider.getContact(widget.pubkey);
+        },
+      ));
+    }
 
-    List<Widget> topList = [];
-    topList.add(Container(
-      width: maxWidth,
-      height: bannerHeight,
-      color: Colors.grey.withOpacity(0.5),
-      child: bannerImage,
-    ));
-    topList.add(Container(
-      height: 50,
-      // color: Colors.red,
-      child: Row(
-        children: topBtnList,
-      ),
-    ));
-    topList.add(Container(
+    Widget userNameComponent = Container(
       // height: 40,
       width: double.maxFinite,
       margin: EdgeInsets.only(
@@ -168,7 +173,29 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
           )
         ],
       ),
+    );
+    if (widget.jumpable) {
+      userNameComponent = GestureDetector(
+        onTap: jumpToUserRouter,
+        child: userNameComponent,
+      );
+    }
+
+    List<Widget> topList = [];
+    topList.add(Container(
+      width: maxWidth,
+      height: bannerHeight,
+      color: Colors.grey.withOpacity(0.5),
+      child: bannerImage,
     ));
+    topList.add(Container(
+      height: 50,
+      // color: Colors.red,
+      child: Row(
+        children: topBtnList,
+      ),
+    ));
+    topList.add(userNameComponent);
     if (widget.metadata != null) {
       topList.add(MetadataIconDataComp(
         iconData: Icons.key,
@@ -200,6 +227,24 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       }
     }
 
+    Widget userImageWidget = Container(
+      alignment: Alignment.center,
+      height: IMAGE_WIDTH,
+      width: IMAGE_WIDTH,
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
+        color: Colors.grey,
+      ),
+      child: imageWidget,
+    );
+    if (widget.jumpable) {
+      userImageWidget = GestureDetector(
+        onTap: jumpToUserRouter,
+        child: userImageWidget,
+      );
+    }
+
     return Stack(
       children: [
         Column(
@@ -220,17 +265,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
                 color: scaffoldBackgroundColor,
               ),
             ),
-            child: Container(
-              alignment: Alignment.center,
-              height: IMAGE_WIDTH,
-              width: IMAGE_WIDTH,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-                color: Colors.grey,
-              ),
-              child: imageWidget,
-            ),
+            child: userImageWidget,
           ),
         )
       ],
@@ -248,6 +283,10 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     Clipboard.setData(ClipboardData(text: nip19PubKey)).then((_) {
       BotToast.showText(text: "key has been copy!");
     });
+  }
+
+  void jumpToUserRouter() {
+    RouterUtil.router(context, RouterPath.USER, widget.pubkey);
   }
 }
 
