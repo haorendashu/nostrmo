@@ -18,7 +18,7 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
     var er = _eventReactionsMap[id];
     if (er == null) {
       // plan to pull
-      _penddingIds.add(id);
+      _penddingIds[id] = 1;
       lazy(lazyFunc, null);
       // set a empty er to avoid pull many times
       er = EventReactions(id);
@@ -28,7 +28,7 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
       // check dataTime if need to update
       if (now.millisecondsSinceEpoch - er.dataTime.millisecondsSinceEpoch >
           update_time) {
-        _penddingIds.add(id);
+        _penddingIds[id] = 1;
         lazy(lazyFunc, null);
       }
       // set the access time, remove cache base on this time.
@@ -46,16 +46,17 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
     }
   }
 
-  List<String> _penddingIds = [];
+  Map<String, int> _penddingIds = {};
 
   void _doPull() {
-    Map<String, int> idMap = {};
-    for (var id in _penddingIds) {
-      idMap[id] = 1;
-    }
-    _penddingIds.clear();
+    // Map<String, int> idMap = {};
+    // for (var id in _penddingIds) {
+    //   idMap[id] = 1;
+    // }
+    // _penddingIds.clear();
 
-    var filter = Filter(e: idMap.keys.toList());
+    var filter = Filter(e: _penddingIds.keys.toList());
+    _penddingIds.clear();
     nostr!.pool.query([filter.toJson()], onEvent);
   }
 
@@ -95,5 +96,9 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
     if (updated) {
       notifyListeners();
     }
+  }
+
+  void removePendding(String id) {
+    _penddingIds.remove(id);
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/event_reactions.dart';
+import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -114,6 +115,13 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         return false;
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    var id = widget.event.id;
+    eventReactionsProvider.removePendding(id);
   }
 
   void onCommmentTap() {}
