@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../client/event_kind.dart' as kind;
 import '../../client/event_relation.dart';
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -12,6 +15,7 @@ import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
+import 'event_quote_component.dart';
 import 'event_reactions_component.dart';
 import 'event_top_component.dart';
 
@@ -52,58 +56,79 @@ class _EventMainComponent extends State<EventMainComponent> {
     var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
-    List<Widget> list = [];
-    if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
-      var textStyle = TextStyle(
-        color: hintColor,
-        fontSize: smallTextSize,
-      );
-      List<Widget> replyingList = [];
-      var length = eventRelation.tagPList.length;
-      replyingList.add(Text(
-        "Replying: ",
-        style: textStyle,
-      ));
-      for (var index = 0; index < length; index++) {
-        var p = eventRelation.tagPList[index];
-        var isLast = index < length - 1 ? false : true;
-        replyingList.add(EventReplyingcomponent(pubkey: p));
-        if (!isLast) {
-          replyingList.add(Text(
-            " & ",
-            style: textStyle,
-          ));
-        }
+    Event? repostEvent;
+    if (widget.event.kind == kind.EventKind.REPOST &&
+        widget.event.content.contains("\"pubkey\"")) {
+      try {
+        var jsonMap = jsonDecode(widget.event.content);
+        repostEvent = Event.fromJson(jsonMap);
+      } catch (e) {
+        print(e);
       }
+    }
+
+    List<Widget> list = [];
+    if (repostEvent != null) {
       list.add(Container(
-        width: double.maxFinite,
-        padding: EdgeInsets.only(
-          bottom: Base.BASE_PADDING_HALF,
+        alignment: Alignment.centerLeft,
+        child: Text("Boost:"),
+      ));
+      list.add(EventQuoteComponent(
+        event: repostEvent,
+      ));
+    } else {
+      if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
+        var textStyle = TextStyle(
+          color: hintColor,
+          fontSize: smallTextSize,
+        );
+        List<Widget> replyingList = [];
+        var length = eventRelation.tagPList.length;
+        replyingList.add(Text(
+          "Replying: ",
+          style: textStyle,
+        ));
+        for (var index = 0; index < length; index++) {
+          var p = eventRelation.tagPList[index];
+          var isLast = index < length - 1 ? false : true;
+          replyingList.add(EventReplyingcomponent(pubkey: p));
+          if (!isLast) {
+            replyingList.add(Text(
+              " & ",
+              style: textStyle,
+            ));
+          }
+        }
+        list.add(Container(
+          width: double.maxFinite,
+          padding: EdgeInsets.only(
+            bottom: Base.BASE_PADDING_HALF,
+          ),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: replyingList,
+          ),
+        ));
+      }
+      // list.add(Container(
+      //   width: double.maxFinite,
+      //   child: Text(widget.event.content),
+      // ));
+      list.add(
+        Container(
+          width: double.maxFinite,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: ContentDecoder.decode(null, widget.event),
+          ),
         ),
-        child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: replyingList,
-        ),
+      );
+      list.add(EventReactionsComponent(
+        screenshotController: widget.screenshotController,
+        event: widget.event,
       ));
     }
-    // list.add(Container(
-    //   width: double.maxFinite,
-    //   child: Text(widget.event.content),
-    // ));
-    list.add(
-      Container(
-        width: double.maxFinite,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: ContentDecoder.decode(null, widget.event),
-        ),
-      ),
-    );
-    list.add(EventReactionsComponent(
-      screenshotController: widget.screenshotController,
-      event: widget.event,
-    ));
 
     return Column(
       mainAxisSize: MainAxisSize.min,
