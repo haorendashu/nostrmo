@@ -85,7 +85,7 @@ class _IndexRouter extends State<IndexRouter>
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Mention me"),
+            child: Text("Mentioned"),
           ),
         ],
         controller: followTabController,
