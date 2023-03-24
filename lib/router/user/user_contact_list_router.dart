@@ -57,6 +57,7 @@ class _UserContactListRouter extends State<UserContactListRouter> {
                 return MetadataComponent(
                   pubKey: contact.publicKey,
                   metadata: metadata,
+                  jumpable: true,
                 );
               },
               selector: (context, _provider) {

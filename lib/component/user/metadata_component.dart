@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
+import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
 import 'metadata_top_component.dart';
 
@@ -13,7 +13,13 @@ class MetadataComponent extends StatefulWidget {
 
   Metadata? metadata;
 
-  MetadataComponent({required this.pubKey, this.metadata});
+  bool jumpable;
+
+  MetadataComponent({
+    required this.pubKey,
+    this.metadata,
+    this.jumpable = false,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -29,6 +35,7 @@ class _MetadataComponent extends State<MetadataComponent> {
     mainList.add(MetadataTopComponent(
       pubkey: widget.pubKey,
       metadata: widget.metadata,
+      jumpable: widget.jumpable,
     ));
 
     if (widget.metadata != null &&
