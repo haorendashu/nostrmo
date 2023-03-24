@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/content/content_link_component.dart';
+import 'package:nostrmo/component/content/content_lnbc_component.dart';
 import 'package:nostrmo/component/content/content_mention_user_component.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
@@ -95,16 +96,22 @@ class ContentDecoder {
           }
         } else if (subStr.indexOf(LNBC) == 0) {
           // block
-          // TODO need to handle, this is temp handle
-          handledStr = _addToHandledStr(handledStr, subStr);
+          handledStr = _closeHandledStr(handledStr, inlines);
+          _closeInlines(inlines, list);
+          var w = ContnetLnbcComponent(lnbc: subStr);
+          list.add(w);
         } else if (subStr.indexOf(LIGHTNING) == 0) {
           // block
-          // TODO need to handle, this is temp handle
-          handledStr = _addToHandledStr(handledStr, subStr);
+          handledStr = _closeHandledStr(handledStr, inlines);
+          _closeInlines(inlines, list);
+          var w = ContnetLnbcComponent(lnbc: subStr);
+          list.add(w);
         } else if (subStr.contains(OTHER_LIGHTNING)) {
           // block
-          // TODO need to handle, this is temp handle
-          handledStr = _addToHandledStr(handledStr, subStr);
+          handledStr = _closeHandledStr(handledStr, inlines);
+          _closeInlines(inlines, list);
+          var w = ContnetLnbcComponent(lnbc: subStr);
+          list.add(w);
         } else if (subStr.indexOf("#[") == 0 &&
             subStr.length > 3 &&
             event != null) {
