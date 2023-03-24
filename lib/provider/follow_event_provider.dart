@@ -28,7 +28,7 @@ class FollowEventProvider extends ChangeNotifier
 
   void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {
     var filter = Filter(
-      kinds: [kind.EventKind.TEXT_NOTE],
+      kinds: [kind.EventKind.TEXT_NOTE, kind.EventKind.REPOST],
       until: until ?? _initTime,
       limit: 50,
     );
