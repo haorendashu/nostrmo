@@ -12,6 +12,7 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
 
   EventReactionsProvider() {
     laterTimeMS = 2000;
+    whenStopMS = 500;
   }
 
   EventReactions? get(String id) {
@@ -19,7 +20,8 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
     if (er == null) {
       // plan to pull
       _penddingIds[id] = 1;
-      later(laterFunc, null);
+      // later(laterFunc, null);
+      whenStop(laterFunc);
       // set a empty er to avoid pull many times
       er = EventReactions(id);
       _eventReactionsMap[id] = er;
@@ -29,7 +31,8 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
       if (now.millisecondsSinceEpoch - er.dataTime.millisecondsSinceEpoch >
           update_time) {
         _penddingIds[id] = 1;
-        later(laterFunc, null);
+        // later(laterFunc, null);
+        whenStop(laterFunc);
       }
       // set the access time, remove cache base on this time.
       er.access(now);
