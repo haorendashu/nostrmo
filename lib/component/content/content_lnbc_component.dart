@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../client/zap_num_util.dart';
 import '../../consts/base.dart';
 
-class ContnetLnbcComponent extends StatelessWidget {
+class ContentLnbcComponent extends StatelessWidget {
   String lnbc;
 
-  ContnetLnbcComponent({required this.lnbc});
+  ContentLnbcComponent({required this.lnbc});
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +98,7 @@ class ContnetLnbcComponent extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 // TODO call to pay
+                print(lnbc);
               },
               child: Container(
                 color: Colors.black,

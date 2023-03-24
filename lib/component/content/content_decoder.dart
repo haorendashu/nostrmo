@@ -98,19 +98,19 @@ class ContentDecoder {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
           _closeInlines(inlines, list);
-          var w = ContnetLnbcComponent(lnbc: subStr);
+          var w = ContentLnbcComponent(lnbc: subStr);
           list.add(w);
         } else if (subStr.indexOf(LIGHTNING) == 0) {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
           _closeInlines(inlines, list);
-          var w = ContnetLnbcComponent(lnbc: subStr);
+          var w = ContentLnbcComponent(lnbc: subStr);
           list.add(w);
         } else if (subStr.contains(OTHER_LIGHTNING)) {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
           _closeInlines(inlines, list);
-          var w = ContnetLnbcComponent(lnbc: subStr);
+          var w = ContentLnbcComponent(lnbc: subStr);
           list.add(w);
         } else if (subStr.indexOf("#[") == 0 &&
             subStr.length > 3 &&

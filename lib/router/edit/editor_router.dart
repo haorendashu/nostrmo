@@ -4,9 +4,15 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:nostrmo/component/editor/cust_embed_types.dart';
+import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
+import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
+import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
 import 'package:nostrmo/component/editor/pic_embed_builder.dart';
+import 'package:nostrmo/component/editor/tag_embed_builder.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
@@ -56,7 +62,11 @@ class _EditorRouter extends State<EditorRouter> {
         focusNode: focusNode,
         readOnly: false,
         embedBuilders: [
+          MentionUserEmbedBuilder(),
+          MentionEventEmbedBuilder(),
           PicEmbedBuilder(),
+          LnbcEmbedBuilder(),
+          TagEmbedBuilder(),
         ],
         scrollable: true,
         autoFocus: false,
@@ -76,6 +86,7 @@ class _EditorRouter extends State<EditorRouter> {
       ),
     );
     list.add(Container(
+      height: IndexAppBar.height,
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
         boxShadow: [
@@ -98,12 +109,24 @@ class _EditorRouter extends State<EditorRouter> {
             icon: Icon(Icons.camera),
           ),
           quill.QuillIconButton(
-            onPressed: () {},
-            icon: Icon(Icons.currency_bitcoin),
+            onPressed: _inputLnbc,
+            icon: Icon(Icons.bolt),
           ),
           quill.QuillIconButton(
             onPressed: emojiBeginToSelect,
             icon: Icon(Icons.tag_faces),
+          ),
+          quill.QuillIconButton(
+            onPressed: _inputMentionUser,
+            icon: Icon(Icons.alternate_email_sharp),
+          ),
+          quill.QuillIconButton(
+            onPressed: _inputMentionEvent,
+            icon: Icon(Icons.format_quote),
+          ),
+          quill.QuillIconButton(
+            onPressed: _inputTag,
+            icon: Icon(Icons.tag),
           ),
           Expanded(child: Container()),
         ],
@@ -201,6 +224,69 @@ class _EditorRouter extends State<EditorRouter> {
 
       _controller.replaceText(
           index, length, quill.BlockEmbed.image(value), null);
+    }
+  }
+
+  void _inputMentionEvent() {
+    // this is a random address copy from search
+    _submitMentionEvent(
+        "ee532be23c8635b77e3e44e0340c5c52812230e4332096aa3c54187d3aea5548");
+  }
+
+  void _submitMentionEvent(String? value) {
+    if (value != null && value.isNotEmpty) {
+      final index = _controller.selection.baseOffset;
+      final length = _controller.selection.extentOffset - index;
+
+      _controller.replaceText(index, length,
+          quill.CustomBlockEmbed(CustEmbedTypes.mention_evevt, value), null);
+    }
+  }
+
+  void _inputMentionUser() {
+    // this is a random address copy from search
+    _submitMentionUser(
+        "deab79dafa1c2be4b4a6d3aca1357b6caa0b744bf46ad529a5ae464288579e68");
+  }
+
+  void _submitMentionUser(String? value) {
+    if (value != null && value.isNotEmpty) {
+      final index = _controller.selection.baseOffset;
+      final length = _controller.selection.extentOffset - index;
+
+      _controller.replaceText(index, length,
+          quill.CustomBlockEmbed(CustEmbedTypes.mention_user, value), null);
+    }
+  }
+
+  void _inputLnbc() {
+    // this is a random address copy from search
+    _lnbcSubmitted(
+        "lnbc5100n1pjp3p8epp5pvs6d62ek5ahkp9uds8hysl0utgy8mudt90fg5yyuqu6erff8gsqdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqyz5vqsp5jadq8t8acpf28wpalpggmgmuz8tzqlpuhjrmxd6k5y4pz8cgx93q9qyyssqa79wuyt4j0x34lln9470qefdkkuqjejcz7nskzls8jlu6qvrhjp4mzq3gchpf6umj6wg02qghguzgfydujqfjhz0kcm72zwdha4f45sqmqn632");
+  }
+
+  void _lnbcSubmitted(String? value) {
+    if (value != null && value.isNotEmpty) {
+      final index = _controller.selection.baseOffset;
+      final length = _controller.selection.extentOffset - index;
+
+      _controller.replaceText(index, length,
+          quill.CustomBlockEmbed(CustEmbedTypes.lnbc, value), null);
+    }
+  }
+
+  void _inputTag() {
+    // this is a random address copy from search
+    _submitTag("Nostr");
+  }
+
+  void _submitTag(String? value) {
+    if (value != null && value.isNotEmpty) {
+      final index = _controller.selection.baseOffset;
+      final length = _controller.selection.extentOffset - index;
+
+      _controller.replaceText(index, length,
+          quill.CustomBlockEmbed(CustEmbedTypes.tag, value), null);
     }
   }
 
