@@ -73,13 +73,13 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       }
     }
 
-    if (rootSubList == null || rootSubList!.isEmpty) {
-      return Scaffold(
-        body: Center(
-          child: Text("Thread Detail"),
-        ),
-      );
-    }
+    // if (rootSubList == null || rootSubList!.isEmpty) {
+    //   return Scaffold(
+    //     body: Center(
+    //       child: Text("Thread Detail"),
+    //     ),
+    //   );
+    // }
     var themeData = Theme.of(context);
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
