@@ -63,9 +63,7 @@ class ContactListProvider extends ChangeNotifier {
     sharedPreferences.setString(DataKey.CONTACT_LIST, jsonStr);
     notifyListeners();
 
-    // refresh follow_event subscribe
-    followEventProvider.subscribe();
-    followEventProvider.subscribeBefore();
+    // TODO refresh follow_event subscribe
   }
 
   void addContact(Contact contact) {
