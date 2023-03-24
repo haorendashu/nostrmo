@@ -32,14 +32,14 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     current++;
 
     list.add(IndexBottomBarButton(
-      iconData: Icons.mail,
+      iconData: Icons.search,
       index: current,
       selected: current == currentTap,
     ));
     current++;
 
     list.add(IndexBottomBarButton(
-      iconData: Icons.search,
+      iconData: Icons.mail,
       index: current,
       selected: current == currentTap,
     ));

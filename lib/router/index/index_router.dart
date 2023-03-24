@@ -93,14 +93,14 @@ class _IndexRouter extends State<IndexRouter>
     } else if (_indexProvider.currentTap == 1) {
       appBarCenter = Center(
         child: Text(
-          "DM",
+          "Search",
           style: titleTextStyle,
         ),
       );
     } else if (_indexProvider.currentTap == 2) {
       appBarCenter = Center(
         child: Text(
-          "Search",
+          "DMs",
           style: titleTextStyle,
         ),
       );
@@ -128,8 +128,8 @@ class _IndexRouter extends State<IndexRouter>
                 FollowIndexRouter(
                   tabController: followTabController,
                 ),
-                DMRouter(),
                 SearchRouter(),
+                DMRouter(),
                 NoticeRouter(),
               ],
               index: _indexProvider.currentTap,
