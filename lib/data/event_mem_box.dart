@@ -19,6 +19,13 @@ class EventMemBox {
     return _eventList.first;
   }
 
+  Event? get oldestEvent {
+    if (_eventList.isEmpty) {
+      return null;
+    }
+    return _eventList.last;
+  }
+
   void sort() {
     _eventList.sort((event1, event2) {
       return event2.createdAt - event1.createdAt;

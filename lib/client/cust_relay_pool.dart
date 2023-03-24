@@ -121,7 +121,7 @@ class CustRelayPool {
         continue;
       }
 
-      custRelay.saveRequest(subscription);
+      custRelay.saveQuery(subscription);
 
       try {
         futures.add(custRelay.send(subscription.toJson()));
@@ -165,7 +165,17 @@ class CustRelayPool {
       }
 
       final subId = json[1] as String;
-      custRelay.checkAndCompleteRequest(subId);
+      custRelay.checkAndCompleteQuery(subId);
     }
+  }
+
+  bool checkQueryStatus(String subId) {
+    for (CustRelay custRelay in _relays.values) {
+      if (custRelay.checkQuery(subId)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

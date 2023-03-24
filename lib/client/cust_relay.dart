@@ -12,11 +12,15 @@ class CustRelay {
 
   CustRelay(this.relay, this.relayStatus);
 
-  void saveRequest(Subscription subscription) {
+  void saveQuery(Subscription subscription) {
     _queries[subscription.id] = subscription;
   }
 
-  bool checkAndCompleteRequest(String id) {
+  bool checkQuery(String id) {
+    return _queries[id] != null;
+  }
+
+  bool checkAndCompleteQuery(String id) {
     // all subscription should be close
     send(["CLOSE", id]);
     var sub = _queries.remove(id);

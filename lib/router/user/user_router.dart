@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
+import 'package:nostrmo/util/load_more_event.dart';
 import 'package:nostrmo/util/peddingevents_lazy_function.dart';
 import 'package:provider/provider.dart';
 
@@ -28,8 +29,10 @@ class UserRouter extends StatefulWidget {
 }
 
 class _UserRouter extends CustState<UserRouter>
-    with PenddingEventsLazyFunction {
-  late ScrollController _scrollController;
+    with PenddingEventsLazyFunction, LoadMoreEvent {
+  final GlobalKey<NestedScrollViewState> globalKey = GlobalKey();
+
+  ScrollController _controller = ScrollController();
 
   String? pubkey;
 
@@ -44,12 +47,11 @@ class _UserRouter extends CustState<UserRouter>
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {
+    _controller.addListener(() {
       var _showTitle = false;
       var _showAppbarBG = false;
 
-      var offset = _scrollController.offset;
+      var offset = _controller.offset;
       if (offset > showTitleHeight) {
         _showTitle = true;
       }
@@ -84,6 +86,7 @@ class _UserRouter extends CustState<UserRouter>
         box.addList(events!);
       }
     }
+    preBuild();
 
     var mediaData = MediaQuery.of(context);
     var paddingTop = mediaData.padding.top;
@@ -137,7 +140,8 @@ class _UserRouter extends CustState<UserRouter>
             body: Stack(
           children: [
             NestedScrollView(
-              controller: _scrollController,
+              key: globalKey,
+              controller: _controller,
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return <Widget>[
@@ -192,19 +196,15 @@ class _UserRouter extends CustState<UserRouter>
     );
   }
 
-  var subscribeId = StringUtil.rndNameStr(16);
+  String? subscribeId;
 
   @override
   Future<void> onReady(BuildContext context) async {
-    // load event from relay
-    var filter = Filter(
-      kinds: [kind.EventKind.TEXT_NOTE],
-      until: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-      authors: [pubkey!],
-      limit: 100,
-    );
-    subscribeId = StringUtil.rndNameStr(16);
-    nostr!.pool.query([filter.toJson()], onEvent, subscribeId);
+    doQuery();
+    var controller = globalKey.currentState!.innerController;
+    controller.addListener(() {
+      loadMoreScrollCallback(controller);
+    });
   }
 
   void onEvent(event) {
@@ -218,8 +218,38 @@ class _UserRouter extends CustState<UserRouter>
   void dispose() {
     super.dispose();
 
-    try {
-      nostr!.pool.unsubscribe(subscribeId);
-    } catch (e) {}
+    if (StringUtil.isNotBlank(subscribeId)) {
+      try {
+        nostr!.pool.unsubscribe(subscribeId!);
+      } catch (e) {}
+    }
+  }
+
+  void unSubscribe() {
+    nostr!.pool.unsubscribe(subscribeId!);
+    subscribeId = null;
+  }
+
+  @override
+  void doQuery() {
+    preQuery();
+    if (StringUtil.isNotBlank(subscribeId)) {
+      unSubscribe();
+    }
+
+    // load event from relay
+    var filter = Filter(
+      kinds: [kind.EventKind.TEXT_NOTE, kind.EventKind.REPOST],
+      until: until,
+      authors: [pubkey!],
+      limit: queryLimit,
+    );
+    subscribeId = StringUtil.rndNameStr(16);
+    nostr!.pool.query([filter.toJson()], onEvent, subscribeId);
+  }
+
+  @override
+  EventMemBox getEventBox() {
+    return box;
   }
 }

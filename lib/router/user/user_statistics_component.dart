@@ -102,7 +102,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       zapEventBox = EventMemBox(sortAfterAdd: false);
       // pull zap event
       var filter = Filter(kinds: [kind.EventKind.ZAP], p: [widget.pubkey]);
-      print(filter);
+      // print(filter);
       nostr!.pool.query([filter.toJson()], onZapEvent, zapSubscribeId);
 
       zapNum = 0;
@@ -112,7 +112,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   }
 
   onZapEvent(Event event) {
-    print(event.toJson());
+    // print(event.toJson());
     if (event.kind == kind.EventKind.ZAP && zapEventBox!.add(event)) {
       setState(() {
         zapNum = zapNum! + ZapNumUtil.getNumFromZapEvent(event);
