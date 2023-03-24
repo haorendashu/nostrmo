@@ -6,6 +6,7 @@ import 'package:nostrmo/data/db.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
+import 'package:nostrmo/provider/mention_me_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
 import 'package:nostrmo/router/tag/tag_detail_router.dart';
 import 'package:nostrmo/router/thread/thread_detail_router.dart';
@@ -41,6 +42,8 @@ late ContactListProvider contactListProvider;
 
 late FollowEventProvider followEventProvider;
 
+late MentionMeProvider mentionMeProvider;
+
 late DMProvider dmProvider;
 
 late IndexProvider indexProvider;
@@ -64,6 +67,7 @@ Future<void> main() async {
   metadataProvider = futureResultList[1] as MetadataProvider;
   contactListProvider = ContactListProvider.getInstance();
   followEventProvider = FollowEventProvider();
+  mentionMeProvider = MentionMeProvider();
   dmProvider = DMProvider();
   indexProvider = IndexProvider();
   eventReactionsProvider = EventReactionsProvider();
@@ -131,6 +135,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<FollowEventProvider>.value(
           value: followEventProvider,
+        ),
+        ListenableProvider<MentionMeProvider>.value(
+          value: mentionMeProvider,
         ),
         ListenableProvider<DMProvider>.value(
           value: dmProvider,

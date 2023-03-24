@@ -15,6 +15,7 @@ CustNostr genNostr(String pk) {
   // add subscript
   contactListProvider.subscribe(targetNostr: _nostr);
   followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
+  mentionMeProvider.doQuery(targetNostr: _nostr, initQuery: true);
   dmProvider.initDMSessions(_nostr.publicKey).then((_) {
     dmProvider.subscribe(targetNostr: _nostr);
   });

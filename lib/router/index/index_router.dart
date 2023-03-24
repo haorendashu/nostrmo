@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/relay_status.dart';
 import '../../provider/index_provider.dart';
+import '../follow/mention_me_router.dart';
 import '../login/login_router.dart';
 import 'index_bottom_bar.dart';
 import 'index_drawer_content.dart';
