@@ -3,15 +3,15 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/lazy_function.dart';
+import 'package:nostrmo/util/later_function.dart';
 
-class EventReactionsProvider extends ChangeNotifier with LazyFunction {
+class EventReactionsProvider extends ChangeNotifier with LaterFunction {
   int update_time = 1000 * 60 * 10;
 
   Map<String, EventReactions> _eventReactionsMap = {};
 
   EventReactionsProvider() {
-    lazyTimeMS = 2000;
+    laterTimeMS = 2000;
   }
 
   EventReactions? get(String id) {
@@ -19,7 +19,7 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
     if (er == null) {
       // plan to pull
       _penddingIds[id] = 1;
-      lazy(lazyFunc, null);
+      later(laterFunc, null);
       // set a empty er to avoid pull many times
       er = EventReactions(id);
       _eventReactionsMap[id] = er;
@@ -29,7 +29,7 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
       if (now.millisecondsSinceEpoch - er.dataTime.millisecondsSinceEpoch >
           update_time) {
         _penddingIds[id] = 1;
-        lazy(lazyFunc, null);
+        later(laterFunc, null);
       }
       // set the access time, remove cache base on this time.
       er.access(now);
@@ -37,7 +37,7 @@ class EventReactionsProvider extends ChangeNotifier with LazyFunction {
     return er;
   }
 
-  void lazyFunc() {
+  void laterFunc() {
     if (_penddingIds.isNotEmpty) {
       _doPull();
     }

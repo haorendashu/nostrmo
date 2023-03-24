@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/util/peddingevents_lazy_function.dart';
+import 'package:nostrmo/util/peddingevents_later_function.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../client/cust_nostr.dart';
@@ -10,7 +10,7 @@ import '../main.dart';
 import '../util/string_util.dart';
 
 class FollowEventProvider extends ChangeNotifier
-    with PenddingEventsLazyFunction {
+    with PenddingEventsLaterFunction {
   late int _initTime;
 
   late EventMemBox eventBox;
@@ -79,7 +79,7 @@ class FollowEventProvider extends ChangeNotifier
   }
 
   void onEvent(Event event) {
-    lazy(event, (list) {
+    later(event, (list) {
       var result = eventBox.addList(list);
       if (result) {
         notifyListeners();

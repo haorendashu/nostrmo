@@ -12,7 +12,7 @@ import '../../consts/router_path.dart';
 import '../../data/event_mem_box.dart';
 import '../../main.dart';
 import '../../util/load_more_event.dart';
-import '../../util/peddingevents_lazy_function.dart';
+import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 
@@ -24,7 +24,7 @@ class SearchRouter extends StatefulWidget {
 }
 
 class _SearchRouter extends CustState<SearchRouter>
-    with PenddingEventsLazyFunction, LoadMoreEvent {
+    with PenddingEventsLaterFunction, LoadMoreEvent {
   TextEditingController controller = TextEditingController();
 
   ScrollController scrollController = ScrollController();
@@ -105,7 +105,7 @@ class _SearchRouter extends CustState<SearchRouter>
 
     filter!.until = until;
     nostr!.pool.query([filter!.toJson()], (event) {
-      lazy(event, (list) {
+      later(event, (list) {
         var addResult = eventMemBox.addList(list);
         if (addResult) {
           setState(() {});

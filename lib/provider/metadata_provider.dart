@@ -8,10 +8,10 @@ import '../client/filter.dart';
 import '../data/metadata.dart';
 import '../data/metadata_db.dart';
 import '../main.dart';
-import '../util/lazy_function.dart';
+import '../util/later_function.dart';
 import '../util/string_util.dart';
 
-class MetadataProvider extends ChangeNotifier with LazyFunction {
+class MetadataProvider extends ChangeNotifier with LaterFunction {
   Map<String, Metadata> _metadataCache = {};
 
   static MetadataProvider? _metadataProvider;
@@ -25,7 +25,7 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
         _metadataProvider!._metadataCache[md.pubKey!] = md;
       }
       // lazyTimeMS begin bigger and request less
-      _metadataProvider!.lazyTimeMS = 2000;
+      _metadataProvider!.laterTimeMS = 2000;
     }
 
     return _metadataProvider!;
@@ -42,7 +42,7 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
     if (!needUpdatePubKeys.contains(pubKey)) {
       needUpdatePubKeys.add(pubKey);
     }
-    lazy(_lazySearch, _lazyComplete);
+    later(_laterSearch, _laterComplete);
 
     return null;
   }
@@ -72,7 +72,7 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
     }
   }
 
-  void _lazySearch() {
+  void _laterSearch() {
     var filter = Filter(
         kinds: [kind.EventKind.METADATA], authors: needUpdatePubKeys, limit: 1);
     var subscriptId = StringUtil.rndNameStr(16);
@@ -80,7 +80,7 @@ class MetadataProvider extends ChangeNotifier with LazyFunction {
     nostr!.pool.query([filter.toJson()], _onEvent, subscriptId);
   }
 
-  void _lazyComplete() {
+  void _laterComplete() {
     needUpdatePubKeys = [];
   }
 }

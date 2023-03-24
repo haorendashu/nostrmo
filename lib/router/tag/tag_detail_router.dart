@@ -7,7 +7,7 @@ import '../../component/event/event_list_component.dart';
 import '../../consts/base.dart';
 import '../../data/event_mem_box.dart';
 import '../../main.dart';
-import '../../util/peddingevents_lazy_function.dart';
+import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../util/string_util.dart';
@@ -20,7 +20,7 @@ class TagDetailRouter extends StatefulWidget {
 }
 
 class _TagDetailRouter extends CustState<TagDetailRouter>
-    with PenddingEventsLazyFunction {
+    with PenddingEventsLaterFunction {
   EventMemBox box = EventMemBox();
 
   ScrollController _controller = ScrollController();
@@ -142,7 +142,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
   }
 
   void onEvent(Event event) {
-    lazy(event, (list) {
+    later(event, (list) {
       box.addList(list);
       setState(() {});
     }, null);

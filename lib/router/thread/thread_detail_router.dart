@@ -14,7 +14,7 @@ import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
-import '../../util/peddingevents_lazy_function.dart';
+import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
 
@@ -26,7 +26,7 @@ class ThreadDetailRouter extends StatefulWidget {
 }
 
 class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
-    with PenddingEventsLazyFunction {
+    with PenddingEventsLaterFunction {
   EventMemBox box = EventMemBox();
 
   Event? sourceEvent;
@@ -193,7 +193,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   }
 
   void onEvent(Event event) {
-    lazy(event, (list) {
+    later(event, (list) {
       box.addList(list);
       listToTree();
     }, null);

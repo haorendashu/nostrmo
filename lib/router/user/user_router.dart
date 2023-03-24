@@ -3,7 +3,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/util/load_more_event.dart';
-import 'package:nostrmo/util/peddingevents_lazy_function.dart';
+import 'package:nostrmo/util/peddingevents_later_function.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -29,7 +29,7 @@ class UserRouter extends StatefulWidget {
 }
 
 class _UserRouter extends CustState<UserRouter>
-    with PenddingEventsLazyFunction, LoadMoreEvent {
+    with PenddingEventsLaterFunction, LoadMoreEvent {
   final GlobalKey<NestedScrollViewState> globalKey = GlobalKey();
 
   ScrollController _controller = ScrollController();
@@ -208,7 +208,7 @@ class _UserRouter extends CustState<UserRouter>
   }
 
   void onEvent(event) {
-    lazy(event, (list) {
+    later(event, (list) {
       box.addList(list);
       setState(() {});
     }, null);

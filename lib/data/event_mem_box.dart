@@ -1,5 +1,5 @@
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/util/lazy_function.dart';
+import 'package:nostrmo/util/later_function.dart';
 
 /// a memory event box
 /// use to hold event received from relay and offer event List to ui
