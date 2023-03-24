@@ -14,10 +14,15 @@ import 'package:nostrmo/router/search/search_router.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/user_pic_component.dart';
+import '../../data/metadata.dart';
 import '../../data/relay_status.dart';
 import '../../provider/index_provider.dart';
+import '../../provider/metadata_provider.dart';
+import '../follow/follow_index_router.dart';
 import '../follow/mention_me_router.dart';
 import '../login/login_router.dart';
+import 'index_app_bar.dart';
 import 'index_bottom_bar.dart';
 import 'index_drawer_content.dart';
 
@@ -32,7 +37,8 @@ class IndexRouter extends StatefulWidget {
   }
 }
 
-class _IndexRouter extends State<IndexRouter> {
+class _IndexRouter extends State<IndexRouter>
+    with SingleTickerProviderStateMixin {
   // ECPrivateKey getPrivateKey(String privateKey) {
   //   var d0 = BigInt.parse(privateKey, radix: 16);
   //   return ECPrivateKey(d0, secp256k1);
@@ -45,6 +51,14 @@ class _IndexRouter extends State<IndexRouter> {
   //   return P.x!.toBigInteger()!.toRadixString(16).padLeft(64, "0");
   // }
 
+  late TabController followTabController;
+
+  @override
+  void initState() {
+    super.initState();
+    followTabController = TabController(length: 2, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
@@ -52,20 +66,75 @@ class _IndexRouter extends State<IndexRouter> {
       return LoginRouter();
     }
     var _indexProvider = Provider.of<IndexProvider>(context);
+    var themeData = Theme.of(context);
+    var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
+    var titleTextStyle = TextStyle(
+      fontWeight: FontWeight.bold,
+      color: titleTextColor,
+    );
+
+    Widget? appBarCenter;
+    if (_indexProvider.currentTap == 0) {
+      appBarCenter = TabBar(
+        tabs: [
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text("Following"),
+          ),
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text("Mention me"),
+          ),
+        ],
+        controller: followTabController,
+      );
+    } else if (_indexProvider.currentTap == 1) {
+      appBarCenter = Center(
+        child: Text(
+          "DM",
+          style: titleTextStyle,
+        ),
+      );
+    } else if (_indexProvider.currentTap == 2) {
+      appBarCenter = Center(
+        child: Text(
+          "Search",
+          style: titleTextStyle,
+        ),
+      );
+    } else if (_indexProvider.currentTap == 3) {
+      appBarCenter = Center(
+        child: Text(
+          "Notice",
+          style: titleTextStyle,
+        ),
+      );
+    }
 
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
-              child: IndexedStack(
-            children: [
-              FollowRouter(),
-              DMRouter(),
-              SearchRouter(),
-              NoticeRouter(),
-            ],
-            index: _indexProvider.currentTap,
-          )),
+          IndexAppBar(
+            center: appBarCenter,
+          ),
+          MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: Expanded(
+                child: IndexedStack(
+              children: [
+                FollowIndexRouter(
+                  tabController: followTabController,
+                ),
+                DMRouter(),
+                SearchRouter(),
+                NoticeRouter(),
+              ],
+              index: _indexProvider.currentTap,
+            )),
+          ),
           IndexBottomBar(),
         ],
       ),
@@ -73,58 +142,5 @@ class _IndexRouter extends State<IndexRouter> {
         child: IndexDrawerContnetComponnent(),
       ),
     );
-
-    // return Scaffold(
-    //   floatingActionButton: IconButton(
-    //     icon: Icon(Icons.add),
-    //     onPressed: () async {
-    //       var relayStatus = RelayStatus("wss://nos.lol");
-    //       var relay = Relay(
-    //         relayStatus.addr,
-    //         access: WriteAccess.readWrite,
-    //       );
-    //       var custRelay = CustRelay(relay, relayStatus);
-
-    //       var pk = generatePrivateKey();
-    //       CustNostr nostr = CustNostr(privateKey: pk);
-    //       await nostr.pool.add(custRelay);
-
-    //       var filter = Filter(kinds: [EventKind.metaData], limit: 100);
-    //       nostr.pool.subscribe([filter.toJson()], (event) {
-    //         print(event.toJson());
-    //       });
-
-    //       // RouterUtil.router(context, RouterPath.EDITOR);
-
-    //       // ECPrivateKey ecPrivateKey1 = getPrivateKey(
-    //       //     "3239d943acb5c5a7e0f1695e5897dcaa62d08d7b6c70ae55c9ddc24d03646dca");
-    //       // var agreement1 = ECDHBasicAgreement();
-    //       // agreement1.init(ecPrivateKey1);
-    //       // ECPublicKey ecPublicKey1 =
-    //       //     ECPublicKey(secp256k1.G * ecPrivateKey1.d, secp256k1);
-
-    //       // ECPrivateKey ecPrivateKey2 = getPrivateKey(
-    //       //     "b5d906cbadc73f5b4ec2eadc80ed5712bf30ac2172e1001ce4bb5d58204fc848");
-    //       // var agreement2 = ECDHBasicAgreement();
-    //       // agreement2.init(ecPrivateKey2);
-    //       // ECPublicKey ecPublicKey2 =
-    //       //     ECPublicKey(secp256k1.G * ecPrivateKey2.d, secp256k1);
-
-    //       // // var result1 = agreement1.calculateAgreement(ecPublicKey2);
-    //       // // print(result1.toRadixString(16).padLeft(64, "0"));
-
-    //       // // var result2 = agreement2.calculateAgreement(ecPublicKey1);
-    //       // // print(result2.toRadixString(16).padLeft(64, "0"));
-
-    //       // var result = NIP04.encrypt("hellp", agreement1,
-    //       //     "b49582509fedf4bf46f02c98f43319e5f89bdbc63ca5464d7032bd833013398e");
-    //       // print(result);
-
-    //       // result = NIP04.decrypt(result, agreement2,
-    //       //     "91c115843814ff5fa37c643097c32a3a39aac797d8b530acce405c3e79f030d2");
-    //       // print(result);
-    //     },
-    //   ),
-    // );
   }
 }

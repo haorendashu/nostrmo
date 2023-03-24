@@ -50,9 +50,6 @@ class _SearchRouter extends CustState<SearchRouter>
     preBuild();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Search"),
-      ),
       body: Container(
         child: Column(children: [
           Container(

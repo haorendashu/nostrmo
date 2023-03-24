@@ -40,22 +40,27 @@ class _FollowRouter extends State<FollowRouter> with LoadMoreEvent {
     }
     preBuild();
 
-    return Container(
-      child: ListView.builder(
-        controller: _controller,
-        itemBuilder: (BuildContext context, int index) {
-          var event = events[index];
-          return GestureDetector(
-            onTap: () {
-              // print(event.toJson());
-              RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
-            },
-            child: EventListComponent(event: event),
-          );
-        },
-        itemCount: events.length,
-      ),
+    var main = ListView.builder(
+      controller: _controller,
+      itemBuilder: (BuildContext context, int index) {
+        var event = events[index];
+        return GestureDetector(
+          onTap: () {
+            // print(event.toJson());
+            RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
+          },
+          child: EventListComponent(event: event),
+        );
+      },
+      itemCount: events.length,
     );
+
+    // return MediaQuery.removePadding(
+    //   context: context,
+    //   removeTop: true,
+    //   child: main,
+    // );
+    return main;
   }
 
   @override
