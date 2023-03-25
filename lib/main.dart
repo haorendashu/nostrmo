@@ -164,7 +164,7 @@ class _MyApp extends State<MyApp> {
         initialRoute: RouterPath.INDEX,
         routes: {
           RouterPath.INDEX: (context) => IndexRouter(reload: reload),
-          RouterPath.EDITOR: (context) => EditorRouter(),
+          // RouterPath.EDITOR: (context) => EditorRouter(),
           RouterPath.USER: (context) => UserRouter(),
           RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),

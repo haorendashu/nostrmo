@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../consts/router_path.dart';
 import '../../util/router_util.dart';
+import '../edit/editor_router.dart';
 
 class NoticeRouter extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _NoticeRouter extends State<NoticeRouter> {
       child: Center(
         child: GestureDetector(
           onTap: () {
-            RouterUtil.router(context, RouterPath.EDITOR);
+            EditorRouter.open(context);
           },
           child: Text("NOTICE"),
         ),

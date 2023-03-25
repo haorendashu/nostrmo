@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/editor/cust_embed_types.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
@@ -17,6 +19,24 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 class EditorRouter extends StatefulWidget {
+  List<dynamic> tags = [];
+
+  List<dynamic> tagsAddedWhenSend = [];
+
+  EditorRouter({required this.tags, required this.tagsAddedWhenSend});
+
+  static void open(BuildContext context,
+      {List<dynamic>? tags, List<dynamic>? tagsAddedWhenSend}) {
+    tags ??= [];
+    tagsAddedWhenSend ??= [];
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return EditorRouter(
+        tags: tags!,
+        tagsAddedWhenSend: tagsAddedWhenSend!,
+      );
+    }));
+  }
+
   @override
   State<StatefulWidget> createState() {
     return _EditorRouter();
@@ -30,17 +50,23 @@ class _EditorRouter extends State<EditorRouter> {
 
   var focusNode = FocusNode();
 
+  late List<dynamic> tags;
+
+  late List<dynamic> tagsAddedWhenSend;
+
   @override
   void initState() {
     super.initState();
     focusNode.addListener(() {
-      print("hasFocus " + focusNode.hasFocus.toString());
       if (focusNode.hasFocus && emojiShow) {
         setState(() {
           emojiShow = false;
         });
       }
     });
+
+    tags = widget.tags;
+    tagsAddedWhenSend = widget.tagsAddedWhenSend;
   }
 
   @override
@@ -212,9 +238,11 @@ class _EditorRouter extends State<EditorRouter> {
     );
   }
 
-  void pickImage() {
-    _imageSubmitted(
-        "https://up.enterdesk.com/edpic/0c/ef/a0/0cefa0f17b83255217eddc20b15395f9.jpg");
+  Future<void> pickImage() async {
+    var filepath = await Uploader.pick(context);
+    _imageSubmitted(filepath);
+    // _imageSubmitted(
+    //     "https://up.enterdesk.com/edpic/0c/ef/a0/0cefa0f17b83255217eddc20b15395f9.jpg");
   }
 
   void _imageSubmitted(String? value) {
@@ -290,16 +318,68 @@ class _EditorRouter extends State<EditorRouter> {
     }
   }
 
-  void documentSave() {
+  Future<void> documentSave() async {
+    var cancelFunc = BotToast.showLoading();
+    try {
+      await _doDocumentSave();
+    } finally {
+      cancelFunc.call();
+    }
+  }
+
+  Future<void> _doDocumentSave() async {
     var delta = _controller.document.toDelta();
     var operations = delta.toList();
     String result = "";
     for (var operation in operations) {
       if (operation.key == "insert") {
         if (operation.data is Map) {
-          var image = (operation.data as Map)["image"];
-          if (StringUtil.isNotBlank(image)) {
-            result += image;
+          var m = operation.data as Map;
+          var value = m["image"];
+          if (StringUtil.isNotBlank(value) && value is String) {
+            if (value.indexOf("http") != 0) {
+              // this is a local image, update it first
+              var imagePath = await Uploader.upload(value);
+              if (StringUtil.isNotBlank(imagePath)) ;
+              value = imagePath;
+            }
+            result = handleBlockValue(result, value);
+            continue;
+          }
+
+          value = m["lnbc"];
+          if (StringUtil.isNotBlank(value)) {
+            result = handleBlockValue(result, value);
+            continue;
+          }
+
+          value = m["tag"];
+          if (StringUtil.isNotBlank(value)) {
+            result = handleInlineValue(result, "#" + value);
+            tags.add(["tag", value]);
+            continue;
+          }
+
+          value = m["mentionUser"];
+          if (StringUtil.isNotBlank(value)) {
+            if (!_lastIsSpace(result) && !_lastIsLineEnd(result)) {
+              result += " ";
+            }
+            tags.add(["p", value, "", "mention"]);
+            var index = tags.length - 1;
+            result += "#[$index] ";
+            continue;
+          }
+
+          value = m["mentionEvent"];
+          if (StringUtil.isNotBlank(value)) {
+            if (!_lastIsLineEnd(result)) {
+              result += " ";
+            }
+            tags.add(["e", value, "", "mention"]);
+            var index = tags.length - 1;
+            result += "#[$index] ";
+            continue;
           }
         } else {
           result += operation.data.toString();
@@ -307,8 +387,47 @@ class _EditorRouter extends State<EditorRouter> {
       }
     }
     result = result.trim();
-    var event = nostr!.sendTextNote(result);
+    // log(result);
+    // print(tags);
+    // print(tagsAddWhenSend);
+
+    List<dynamic> allTags = [];
+    allTags.add(tags);
+    allTags.add(tagsAddedWhenSend);
+    var event = nostr!.sendTextNote(result, allTags);
     RouterUtil.back(context);
+  }
+
+  String handleInlineValue(String result, String value) {
+    if (!_lastIsSpace(result) && !_lastIsLineEnd(result)) {
+      result += " ";
+    }
+    result += value + " ";
+    return result;
+  }
+
+  String handleBlockValue(String result, String value) {
+    if (!_lastIsLineEnd(result)) {
+      result += "\n";
+    }
+    result += value + "\n";
+    return result;
+  }
+
+  bool _lastIsSpace(String str) {
+    var length = str.length;
+    if (str[length - 1] == " ") {
+      return true;
+    }
+    return false;
+  }
+
+  bool _lastIsLineEnd(String str) {
+    var length = str.length;
+    if (str[length - 1] == "\n") {
+      return true;
+    }
+    return false;
   }
 
   void emojiBeginToSelect() {

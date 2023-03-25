@@ -88,9 +88,7 @@ class _DMDetailRouter extends State<DMDetailRouter> {
             dragStartBehavior: DragStartBehavior.down,
           )),
           GestureDetector(
-            onTap: () {
-              RouterUtil.router(context, RouterPath.EDITOR);
-            },
+            onTap: () {},
             child: Container(
               margin: EdgeInsets.only(
                 left: Base.BASE_PADDING,
