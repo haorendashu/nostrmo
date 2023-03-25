@@ -365,7 +365,7 @@ class _EditorRouter extends State<EditorRouter> {
             if (!_lastIsSpace(result) && !_lastIsLineEnd(result)) {
               result += " ";
             }
-            tags.add(["p", value, "", "mention"]);
+            tags.add(["p", value]);
             var index = tags.length - 1;
             result += "#[$index] ";
             continue;
