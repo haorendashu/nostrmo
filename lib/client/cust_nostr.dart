@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:nostr_dart/nostr_dart.dart';
 
+import 'event_kind.dart' as kind;
 import 'cust_contact_list.dart';
 import 'cust_relay_pool.dart';
 
@@ -34,6 +35,17 @@ class CustNostr {
   String get privateKey => _privateKey;
 
   String get publicKey => _publicKey;
+
+  Event sendRepost(String id) {
+    Event event = Event(
+        _publicKey,
+        kind.EventKind.REPOST,
+        [
+          ["e", id]
+        ],
+        "#[0]");
+    return sendEvent(event);
+  }
 
   Event sendTextNote(String text, [List<dynamic> tags = const []]) {
     Event event = Event(_publicKey, EventKind.textNote, tags, text);

@@ -127,6 +127,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       list.add(EventReactionsComponent(
         screenshotController: widget.screenshotController,
         event: widget.event,
+        eventRelation: eventRelation,
       ));
     }
 

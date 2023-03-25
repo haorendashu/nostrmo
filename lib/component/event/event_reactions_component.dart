@@ -6,10 +6,13 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
+import 'package:nostrmo/router/edit/editor_router.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../client/event_relation.dart';
 import '../../data/metadata.dart';
 import '../../util/store_util.dart';
 
@@ -18,9 +21,12 @@ class EventReactionsComponent extends StatefulWidget {
 
   Event event;
 
+  EventRelation eventRelation;
+
   EventReactionsComponent({
     required this.screenshotController,
     required this.event,
+    required this.eventRelation,
   });
 
   @override
@@ -124,9 +130,28 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     eventReactionsProvider.removePendding(id);
   }
 
-  void onCommmentTap() {}
+  void onCommmentTap() {
+    List<dynamic> tags = [];
+    List<dynamic> tagsAddedWhenSend = [];
+    tagsAddedWhenSend.add(["e", widget.event.id, "", "reply"]);
 
-  void onRepostTap() {}
+    var er = widget.eventRelation;
+    tags.add(["p", widget.event.pubKey]);
+    if (er.tagPList.isNotEmpty) {
+      tags.add(er.tagPList);
+    }
+    if (StringUtil.isNotBlank(er.rootId)) {
+      tags.add(["e", er.rootId, "", "root"]);
+    }
+
+    // TODO reply maybe change the placeholder in editor router.
+    EditorRouter.open(context,
+        tags: tags, tagsAddedWhenSend: tagsAddedWhenSend);
+  }
+
+  void onRepostTap() {
+    nostr!.sendRepost(widget.event.id);
+  }
 
   void onLikeTap() {}
 
