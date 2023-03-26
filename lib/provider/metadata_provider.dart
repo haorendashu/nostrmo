@@ -31,56 +31,83 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     return _metadataProvider!;
   }
 
-  List<String> needUpdatePubKeys = [];
+  void _laterCallback() {
+    if (_needUpdatePubKeys.isNotEmpty) {
+      _laterSearch();
+    }
 
-  Metadata? getMetadata(String pubKey) {
-    var metadata = _metadataCache[pubKey];
+    if (_penddingEvents.isNotEmpty) {
+      _handlePenddingEvents();
+    }
+  }
+
+  List<String> _needUpdatePubKeys = [];
+
+  void update(String pubkey) {
+    if (!_needUpdatePubKeys.contains(pubkey)) {
+      _needUpdatePubKeys.add(pubkey);
+    }
+    later(_laterCallback, null);
+  }
+
+  Metadata? getMetadata(String pubkey) {
+    var metadata = _metadataCache[pubkey];
     if (metadata != null) {
       return metadata;
     }
 
-    if (!needUpdatePubKeys.contains(pubKey)) {
-      needUpdatePubKeys.add(pubKey);
+    if (!_needUpdatePubKeys.contains(pubkey)) {
+      _needUpdatePubKeys.add(pubkey);
     }
-    later(_laterSearch, _laterComplete);
+    later(_laterCallback, null);
 
     return null;
   }
 
-  void _onEvent(Event event) {
-    var jsonObj = jsonDecode(event.content);
-    var md = Metadata.fromJson(jsonObj);
-    md.pubKey = event.pubKey;
-    md.updated_at = event.createdAt;
+  List<Event> _penddingEvents = [];
 
-    // check cache
-    var oldMetadata = _metadataCache[md.pubKey];
-    if (oldMetadata == null) {
-      // db
-      MetadataDB.insert(md);
-      // cache
-      _metadataCache[md.pubKey!] = md;
-      // refresh
-      notifyListeners();
-    } else if (oldMetadata.updated_at! < md.updated_at!) {
-      // db
-      MetadataDB.update(md);
-      // cache
-      _metadataCache[md.pubKey!] = md;
-      // refresh
-      notifyListeners();
+  void _handlePenddingEvents() {
+    for (var event in _penddingEvents) {
+      var jsonObj = jsonDecode(event.content);
+      var md = Metadata.fromJson(jsonObj);
+      md.pubKey = event.pubKey;
+      md.updated_at = event.createdAt;
+
+      // check cache
+      var oldMetadata = _metadataCache[md.pubKey];
+      if (oldMetadata == null) {
+        // db
+        MetadataDB.insert(md);
+        // cache
+        _metadataCache[md.pubKey!] = md;
+        // refresh
+      } else if (oldMetadata.updated_at! < md.updated_at!) {
+        // db
+        MetadataDB.update(md);
+        // cache
+        _metadataCache[md.pubKey!] = md;
+        // refresh
+      }
     }
+    _penddingEvents.clear;
+
+    notifyListeners();
+  }
+
+  void _onEvent(Event event) {
+    _penddingEvents.add(event);
+    later(_laterCallback, null);
   }
 
   void _laterSearch() {
     var filter = Filter(
-        kinds: [kind.EventKind.METADATA], authors: needUpdatePubKeys, limit: 1);
+        kinds: [kind.EventKind.METADATA],
+        authors: _needUpdatePubKeys,
+        limit: 1);
     var subscriptId = StringUtil.rndNameStr(16);
     // use query and close after EOSE
     nostr!.pool.query([filter.toJson()], _onEvent, subscriptId);
-  }
 
-  void _laterComplete() {
-    needUpdatePubKeys = [];
+    _needUpdatePubKeys.clear();
   }
 }

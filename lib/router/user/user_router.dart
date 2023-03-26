@@ -136,6 +136,10 @@ class _UserRouter extends CustState<UserRouter>
           title: appbarTitle,
         );
 
+        if (metadata != null) {
+          metadataProvider.update(pubkey!);
+        }
+
         return Scaffold(
             body: Stack(
           children: [

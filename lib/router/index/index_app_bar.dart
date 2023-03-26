@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/diagnostics.dart';
+import 'package:nostrmo/util/router_util.dart';
 
 import '../../component/user_pic_component.dart';
 import '../../consts/base.dart';
@@ -63,9 +64,12 @@ class _IndexAppBar extends State<IndexAppBar> {
             child: center,
           ),
         ),
-        Text(
-          "3/4",
-          style: TextStyle(color: textColor),
+        GestureDetector(
+          onTap: () {},
+          child: Text(
+            "3/4",
+            style: TextStyle(color: textColor),
+          ),
         ),
       ]),
     );
