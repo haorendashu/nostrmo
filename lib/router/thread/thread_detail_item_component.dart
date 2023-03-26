@@ -27,10 +27,6 @@ class _ThreadDetailItemComponent extends State<ThreadDetailItemComponent> {
     return Container(
       color: cardColor,
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-      padding: EdgeInsets.only(
-        top: Base.BASE_PADDING,
-        bottom: Base.BASE_PADDING,
-      ),
       child: ThreadDetailItemMainComponent(item: widget.item),
     );
   }

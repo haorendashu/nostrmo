@@ -24,6 +24,7 @@ class _ThreadDetailItemMainComponent
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
+    var cardColor = themeData.cardColor;
 
     List<Widget> list = [
       EventMainComponent(
@@ -38,10 +39,6 @@ class _ThreadDetailItemMainComponent
       for (var subItem in widget.item.subItems) {
         subWidgets.add(
           Container(
-            margin: EdgeInsets.only(
-              top: Base.BASE_PADDING_HALF,
-              bottom: Base.BASE_PADDING_HALF,
-            ),
             child: ThreadDetailItemMainComponent(
               item: subItem,
             ),
@@ -50,7 +47,8 @@ class _ThreadDetailItemMainComponent
       }
       list.add(Container(
         margin: EdgeInsets.only(
-          top: Base.BASE_PADDING,
+          // top: Base.BASE_PADDING,
+          bottom: Base.BASE_PADDING,
           left: Base.BASE_PADDING,
         ),
         decoration: BoxDecoration(
@@ -64,9 +62,15 @@ class _ThreadDetailItemMainComponent
     }
 
     return Screenshot(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: list,
+      child: Container(
+        padding: EdgeInsets.only(
+          top: Base.BASE_PADDING,
+        ),
+        color: cardColor,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: list,
+        ),
       ),
       controller: screenshotController,
     );
