@@ -392,8 +392,8 @@ class _EditorRouter extends State<EditorRouter> {
     // print(tagsAddWhenSend);
 
     List<dynamic> allTags = [];
-    allTags.add(tags);
-    allTags.add(tagsAddedWhenSend);
+    allTags.addAll(tags);
+    allTags.addAll(tagsAddedWhenSend);
     var event = nostr!.sendTextNote(result, allTags);
     RouterUtil.back(context);
   }
