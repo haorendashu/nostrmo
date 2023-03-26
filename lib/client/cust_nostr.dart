@@ -36,6 +36,28 @@ class CustNostr {
 
   String get publicKey => _publicKey;
 
+  Event sendLike(String id) {
+    Event event = Event(
+        _publicKey,
+        kind.EventKind.REACTION,
+        [
+          ["e", id]
+        ],
+        "+");
+    return sendEvent(event);
+  }
+
+  Event deleteLike(String likeEventId) {
+    Event event = Event(
+        _publicKey,
+        kind.EventKind.EVENT_DELETION,
+        [
+          ["e", likeEventId]
+        ],
+        "delete like");
+    return sendEvent(event);
+  }
+
   Event sendRepost(String id) {
     Event event = Event(
         _publicKey,

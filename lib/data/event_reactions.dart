@@ -1,5 +1,6 @@
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/zap_num_util.dart';
+import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/string_util.dart';
 import '../../client/event_kind.dart' as kind;
 import '../util/spider_util.dart';
@@ -12,6 +13,8 @@ class EventReactions {
   int repostNum = 0;
 
   int likeNum = 0;
+
+  List<Event>? myLikeEvents;
 
   int zapNum = 0;
 
@@ -28,6 +31,7 @@ class EventReactions {
       ..replies = replies
       ..repostNum = repostNum
       ..likeNum = likeNum
+      ..myLikeEvents = myLikeEvents
       ..zapNum = zapNum
       ..eventIdMap = eventIdMap
       ..accessTime = accessTime
@@ -54,6 +58,10 @@ class EventReactions {
           likeNum--;
         } else {
           likeNum++;
+          if (event.pubKey == nostr!.publicKey) {
+            myLikeEvents ??= [];
+            myLikeEvents!.add(event);
+          }
         }
       } else if (event.kind == kind.EventKind.ZAP) {
         zapNum += ZapNumUtil.getNumFromZapEvent(event);

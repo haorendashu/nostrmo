@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
@@ -13,7 +12,6 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../client/event_relation.dart';
-import '../../data/metadata.dart';
 import '../../util/store_util.dart';
 
 class EventReactionsComponent extends StatefulWidget {
@@ -36,6 +34,8 @@ class EventReactionsComponent extends StatefulWidget {
 }
 
 class _EventReactionsComponent extends State<EventReactionsComponent> {
+  List<Event>? myLikeEvents;
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
@@ -48,12 +48,18 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         int repostNum = 0;
         int likeNum = 0;
         int zapNum = 0;
+        Color likeColor = hintColor;
 
         if (eventReactions != null) {
           replyNum = eventReactions.replies.length;
           repostNum = eventReactions.repostNum;
           likeNum = eventReactions.likeNum;
           zapNum = eventReactions.zapNum;
+
+          myLikeEvents = eventReactions.myLikeEvents;
+        }
+        if (myLikeEvents != null && myLikeEvents!.isNotEmpty) {
+          likeColor = Colors.red;
         }
 
         return Container(
@@ -81,7 +87,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 num: likeNum,
                 iconData: Icons.favorite,
                 onTap: onLikeTap,
-                color: hintColor,
+                color: likeColor,
                 fontSize: fontSize,
               )),
               Expanded(
@@ -151,9 +157,22 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
   void onRepostTap() {
     nostr!.sendRepost(widget.event.id);
+    eventReactionsProvider.addRepost(widget.event.id);
   }
 
-  void onLikeTap() {}
+  void onLikeTap() {
+    if (myLikeEvents == null || myLikeEvents!.isEmpty) {
+      // like
+      nostr!.sendLike(widget.event.id);
+      eventReactionsProvider.addLike(widget.event.id);
+    } else {
+      // delete like
+      for (var event in myLikeEvents!) {
+        nostr!.deleteLike(event.id);
+        eventReactionsProvider.deleteLike(widget.event.id);
+      }
+    }
+  }
 
   void onZapTap() {}
 

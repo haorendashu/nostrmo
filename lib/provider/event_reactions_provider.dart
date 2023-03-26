@@ -15,6 +15,42 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
     whenStopMS = 500;
   }
 
+  void addRepost(String id) {
+    var er = _eventReactionsMap[id];
+    if (er != null) {
+      er = er.clone();
+      er.repostNum++;
+      _eventReactionsMap[id] = er;
+      notifyListeners();
+    }
+  }
+
+  void addLike(String id) {
+    var er = _eventReactionsMap[id];
+    if (er != null) {
+      er = er.clone();
+      er.likeNum++;
+      _eventReactionsMap[id] = er;
+      notifyListeners();
+    }
+  }
+
+  void deleteLike(String id) {
+    var er = _eventReactionsMap[id];
+    if (er != null) {
+      er = er.clone();
+      er.myLikeEvents = null;
+      er.likeNum--;
+      _eventReactionsMap[id] = er;
+      notifyListeners();
+    }
+  }
+
+  // void update(String id) {
+  //   _penddingIds[id] = 1;
+  //   whenStop(laterFunc);
+  // }
+
   EventReactions? get(String id) {
     var er = _eventReactionsMap[id];
     if (er == null) {
