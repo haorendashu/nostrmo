@@ -37,8 +37,7 @@ class IndexRouter extends StatefulWidget {
   }
 }
 
-class _IndexRouter extends State<IndexRouter>
-    with SingleTickerProviderStateMixin {
+class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
   // ECPrivateKey getPrivateKey(String privateKey) {
   //   var d0 = BigInt.parse(privateKey, radix: 16);
   //   return ECPrivateKey(d0, secp256k1);
@@ -53,10 +52,13 @@ class _IndexRouter extends State<IndexRouter>
 
   late TabController followTabController;
 
+  late TabController dmTabController;
+
   @override
   void initState() {
     super.initState();
     followTabController = TabController(length: 2, vsync: this);
+    dmTabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -99,11 +101,20 @@ class _IndexRouter extends State<IndexRouter>
         ),
       );
     } else if (_indexProvider.currentTap == 2) {
-      appBarCenter = Center(
-        child: Text(
-          "DMs",
-          style: titleTextStyle,
-        ),
+      appBarCenter = TabBar(
+        tabs: [
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text("DMs"),
+          ),
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text("Request"),
+          ),
+        ],
+        controller: dmTabController,
       );
     } else if (_indexProvider.currentTap == 3) {
       appBarCenter = Center(
@@ -125,15 +136,17 @@ class _IndexRouter extends State<IndexRouter>
             removeTop: true,
             child: Expanded(
                 child: IndexedStack(
+              index: _indexProvider.currentTap,
               children: [
                 FollowIndexRouter(
                   tabController: followTabController,
                 ),
                 SearchRouter(),
-                DMRouter(),
+                DMRouter(
+                  tabController: dmTabController,
+                ),
                 NoticeRouter(),
               ],
-              index: _indexProvider.currentTap,
             )),
           ),
           IndexBottomBar(),

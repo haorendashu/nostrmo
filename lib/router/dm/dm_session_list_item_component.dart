@@ -4,11 +4,13 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostrmo/client/dm_session.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/point_component.dart';
 import 'package:nostrmo/component/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/provider/dm_provider.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
@@ -17,12 +19,12 @@ import 'package:pointycastle/export.dart' as pointycastle;
 import '../../util/string_util.dart';
 
 class DMSessionListItemComponent extends StatefulWidget {
-  DMSession dmSession;
+  DMSessionDetail detail;
 
   pointycastle.ECDHBasicAgreement agreement;
 
   DMSessionListItemComponent({
-    required this.dmSession,
+    required this.detail,
     required this.agreement,
   });
 
@@ -42,11 +44,12 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
     var main = Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
         var themeData = Theme.of(context);
+        var mainColor = themeData.primaryColor;
         var hintColor = themeData.hintColor;
         var maxWidth = MediaQuery.of(context).size.width;
         var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
-        var dmSession = widget.dmSession;
+        var dmSession = widget.detail.dmSession;
 
         var content = NIP04.decrypt(
             dmSession.newestEvent!.content, widget.agreement, dmSession.pubkey);
@@ -56,12 +59,32 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
         var leftWidget = Container(
           margin: EdgeInsets.only(top: 4),
           child: UserPicComponent(
-            pubkey: widget.dmSession.pubkey,
+            pubkey: dmSession.pubkey,
             width: IMAGE_WIDTH,
           ),
         );
 
-        var lastEvent = widget.dmSession.newestEvent!;
+        var lastEvent = dmSession.newestEvent!;
+
+        bool hasNewMessage = widget.detail.hasNewMessage();
+
+        List<Widget> contentList = [
+          Expanded(
+            child: Text(
+              StringUtil.breakWord(content),
+              style: TextStyle(
+                fontSize: smallTextSize,
+                color: themeData.hintColor,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          )
+        ];
+        if (hasNewMessage) {
+          contentList.add(Container(
+            child: PointComponent(color: mainColor),
+          ));
+        }
 
         return Container(
           padding: EdgeInsets.all(Base.BASE_PADDING),
@@ -88,7 +111,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
                       Row(
                         children: [
                           NameComponnet(
-                            pubkey: widget.dmSession.pubkey,
+                            pubkey: dmSession.pubkey,
                             metadata: metadata,
                           ),
                           Expanded(
@@ -109,14 +132,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 2),
-                        child: Text(
-                          StringUtil.breakWord(content),
-                          style: TextStyle(
-                            fontSize: smallTextSize,
-                            color: themeData.hintColor,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
+                        child: Row(children: contentList),
                       ),
                     ],
                   ),
@@ -127,13 +143,13 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
         );
       },
       selector: (context, _provider) {
-        return _provider.getMetadata(widget.dmSession.pubkey);
+        return _provider.getMetadata(widget.detail.dmSession.pubkey);
       },
     );
 
     return GestureDetector(
       onTap: () {
-        RouterUtil.router(context, RouterPath.DM_DETAIL, widget.dmSession);
+        RouterUtil.router(context, RouterPath.DM_DETAIL, widget.detail);
       },
       child: main,
     );

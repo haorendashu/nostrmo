@@ -24,6 +24,8 @@ class DB {
           "create index event_date_index    on event (kind, created_at);");
       db.execute(
           "create index event_pubkey_index    on event (kind, pubkey, created_at);");
+      db.execute(
+          "create table dm_session_info(pubkey      text    not null constraint dm_session_info_pk primary key,readed_time integer not null,value1      text,value2      text,value3      text);");
     });
   }
 

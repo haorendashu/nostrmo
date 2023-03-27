@@ -31,4 +31,8 @@ class DMSession {
 
     return _box.get(index);
   }
+
+  int lastTime() {
+    return _box.newestEvent!.createdAt;
+  }
 }
