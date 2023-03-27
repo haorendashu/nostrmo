@@ -114,7 +114,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       )));
       topBtnList.add(wrapBtn(MetadataIconBtn(
         iconData: Icons.mail,
-        onTap: () {},
+        onTap: openDMSession,
       )));
       topBtnList.add(Selector<ContactListProvider, Contact?>(
         builder: (context, contact, child) {
@@ -287,6 +287,11 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
 
   void jumpToUserRouter() {
     RouterUtil.router(context, RouterPath.USER, widget.pubkey);
+  }
+
+  void openDMSession() {
+    var detail = dmProvider.findOrNewADetail(widget.pubkey);
+    RouterUtil.router(context, RouterPath.DM_DETAIL, detail);
   }
 }
 
