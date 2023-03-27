@@ -28,6 +28,9 @@ class _IndexBottomBar extends State<IndexBottomBar> {
       iconData: Icons.home,
       index: current,
       selected: current == currentTap,
+      onDoubleTap: () {
+        indexProvider.followScrollToTop();
+      },
     ));
     current++;
 
@@ -69,12 +72,14 @@ class IndexBottomBarButton extends StatelessWidget {
   final int index;
   final bool selected;
   final Function(int)? onTap;
+  Function? onDoubleTap;
 
   IndexBottomBarButton({
     required this.iconData,
     required this.index,
     required this.selected,
     this.onTap,
+    this.onDoubleTap,
   });
 
   @override
@@ -93,6 +98,11 @@ class IndexBottomBarButton extends StatelessWidget {
             onTap!(index);
           } else {
             indexProvider.setCurrentTap(index);
+          }
+        },
+        onDoubleTap: () {
+          if (onDoubleTap != null) {
+            onDoubleTap!();
           }
         },
         child: Container(

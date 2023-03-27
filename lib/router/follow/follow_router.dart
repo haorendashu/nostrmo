@@ -38,6 +38,7 @@ class _FollowRouter extends State<FollowRouter> with LoadMoreEvent {
         ),
       );
     }
+    indexProvider.setFollowScrollController(_controller);
     preBuild();
 
     var main = ListView.builder(

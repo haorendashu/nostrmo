@@ -8,16 +8,37 @@ class IndexProvider extends ChangeNotifier {
   int get currentTap => _currentTap;
 
   void setCurrentTap(int v) {
-    // if (v == IndexTaps.FOLLOW) {
-    //   _currentTap = IndexTaps.FOLLOW;
-    // } else if (v == IndexTaps.DM) {
-    //   _currentTap = IndexTaps.DM;
-    // } else if (v == IndexTaps.SEARCH) {
-    //   _currentTap = IndexTaps.SEARCH;
-    // } else if (v == IndexTaps.NOTICE) {
-    //   _currentTap = IndexTaps.NOTICE;
-    // }
     _currentTap = v;
     notifyListeners();
+  }
+
+  TabController? _followTabController;
+
+  void setFollowTabController(TabController? followTabController) {
+    _followTabController = followTabController;
+  }
+
+  ScrollController? _followScrollController;
+
+  void setFollowScrollController(ScrollController? followScrollController) {
+    _followScrollController = followScrollController;
+  }
+
+  ScrollController? _mentionedScrollController;
+
+  void setMentionedScrollController(
+      ScrollController? mentionedScrollController) {
+    _mentionedScrollController = mentionedScrollController;
+  }
+
+  void followScrollToTop() {
+    if (_followTabController != null) {
+      if (_followTabController!.index == 0 && _followScrollController != null) {
+        _followScrollController!.jumpTo(0);
+      } else if (_followTabController!.index == 1 &&
+          _mentionedScrollController != null) {
+        _mentionedScrollController!.jumpTo(0);
+      }
+    }
   }
 }

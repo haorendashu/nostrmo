@@ -40,6 +40,7 @@ class _MentionMeRouter extends State<MentionMeRouter> with LoadMoreEvent {
         ),
       );
     }
+    indexProvider.setMentionedScrollController(_controller);
     preBuild();
 
     return Container(
