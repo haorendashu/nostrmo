@@ -5,6 +5,7 @@ import 'package:nostrmo/component/content/content_link_component.dart';
 import 'package:nostrmo/component/content/content_lnbc_component.dart';
 import 'package:nostrmo/component/content/content_mention_user_component.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
+import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
@@ -87,6 +88,10 @@ class ContentDecoder {
             list.add(imageWidget);
           } else if (pathType == "video") {
             // block
+            // handledStr = _closeHandledStr(handledStr, inlines);
+            // _closeInlines(inlines, list);
+            // var w = ContentVideoComponent(url: subStr);
+            // list.add(w);
             // TODO need to handle, this is temp handle
             handledStr = _addToHandledStr(handledStr, subStr);
           } else if (pathType == "link") {
