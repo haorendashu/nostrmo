@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:image_picker/image_picker.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/editor/cust_embed_types.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
@@ -131,7 +132,7 @@ class _EditorRouter extends State<EditorRouter> {
             icon: Icon(Icons.image),
           ),
           quill.QuillIconButton(
-            onPressed: () {},
+            onPressed: takeAPhoto,
             icon: Icon(Icons.camera),
           ),
           quill.QuillIconButton(
@@ -252,6 +253,14 @@ class _EditorRouter extends State<EditorRouter> {
 
       _controller.replaceText(
           index, length, quill.BlockEmbed.image(value), null);
+    }
+  }
+
+  Future<void> takeAPhoto() async {
+    ImagePicker _picker = ImagePicker();
+    final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+    if (photo != null) {
+      _imageSubmitted(photo.path);
     }
   }
 
@@ -415,6 +424,10 @@ class _EditorRouter extends State<EditorRouter> {
   }
 
   bool _lastIsSpace(String str) {
+    if (StringUtil.isBlank(str)) {
+      return true;
+    }
+
     var length = str.length;
     if (str[length - 1] == " ") {
       return true;
@@ -423,6 +436,10 @@ class _EditorRouter extends State<EditorRouter> {
   }
 
   bool _lastIsLineEnd(String str) {
+    if (StringUtil.isBlank(str)) {
+      return true;
+    }
+
     var length = str.length;
     if (str[length - 1] == "\n") {
       return true;

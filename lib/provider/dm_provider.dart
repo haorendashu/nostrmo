@@ -190,7 +190,6 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
   }
 
   void onEvent(Event event) {
-    print(event.toJson());
     later(event, eventLaterHandle, null);
   }
 

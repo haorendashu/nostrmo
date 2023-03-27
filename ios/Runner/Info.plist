@@ -56,5 +56,7 @@
 		</dict>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>Photo need to access for upload.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Camera need to access for take a photo.</string>
 	</dict>
 </plist>
