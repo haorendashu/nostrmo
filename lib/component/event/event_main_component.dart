@@ -52,6 +52,11 @@ class _EventMainComponent extends State<EventMainComponent> {
 
   @override
   Widget build(BuildContext context) {
+    if (eventRelation.pubkey != widget.event.pubKey) {
+      // change when thead root load lazy
+      eventRelation = EventRelation.fromEvent(widget.event);
+    }
+
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
