@@ -13,6 +13,7 @@ import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
 import 'package:nostrmo/component/editor/pic_embed_builder.dart';
 import 'package:nostrmo/component/editor/tag_embed_builder.dart';
+import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
@@ -296,10 +297,11 @@ class _EditorRouter extends State<EditorRouter> {
     }
   }
 
-  void _inputLnbc() {
-    // this is a random address copy from search
-    _lnbcSubmitted(
-        "lnbc5100n1pjp3p8epp5pvs6d62ek5ahkp9uds8hysl0utgy8mudt90fg5yyuqu6erff8gsqdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqyz5vqsp5jadq8t8acpf28wpalpggmgmuz8tzqlpuhjrmxd6k5y4pz8cgx93q9qyyssqa79wuyt4j0x34lln9470qefdkkuqjejcz7nskzls8jlu6qvrhjp4mzq3gchpf6umj6wg02qghguzgfydujqfjhz0kcm72zwdha4f45sqmqn632");
+  Future<void> _inputLnbc() async {
+    var value = await TextInputDialog.show(context, "Please input lnbc text");
+    if (StringUtil.isNotBlank(value)) {
+      _lnbcSubmitted(value);
+    }
   }
 
   void _lnbcSubmitted(String? value) {
