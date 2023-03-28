@@ -69,12 +69,8 @@ class _SearchRouter extends CustState<SearchRouter>
               itemBuilder: (BuildContext context, int index) {
                 var event = events[index];
 
-                return GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
-                  },
-                  child: EventListComponent(event: event),
+                return EventListComponent(
+                  event: event,
                 );
               },
               itemCount: itemLength,

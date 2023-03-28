@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../consts/base.dart';
@@ -10,9 +12,12 @@ class EventListComponent extends StatefulWidget {
 
   String? pagePubkey;
 
+  bool jumpable;
+
   EventListComponent({
     required this.event,
     this.pagePubkey,
+    this.jumpable = true,
   });
 
   @override
@@ -29,7 +34,7 @@ class _EventListComponent extends State<EventListComponent> {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
 
-    return Screenshot(
+    var main = Screenshot(
       child: Container(
         color: cardColor,
         margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
@@ -41,9 +46,23 @@ class _EventListComponent extends State<EventListComponent> {
           screenshotController: screenshotController,
           event: widget.event,
           pagePubkey: widget.pagePubkey,
+          textOnTap: jumpToThread,
         ),
       ),
       controller: screenshotController,
     );
+
+    if (widget.jumpable) {
+      return GestureDetector(
+        onTap: jumpToThread,
+        child: main,
+      );
+    } else {
+      return main;
+    }
+  }
+
+  void jumpToThread() {
+    RouterUtil.router(context, RouterPath.THREAD_DETAIL, widget.event);
   }
 }

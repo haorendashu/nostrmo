@@ -33,34 +33,46 @@ class ContentDecoder {
     return "";
   }
 
-  static void _closeInlines(List<Widget> inlines, List<Widget> list) {
+  static void _closeInlines(List<Widget> inlines, List<Widget> list,
+      {Function? textOnTap}) {
     if (inlines.isNotEmpty) {
       if (inlines.length == 1) {
         if (inlines[0] is Text) {
-          list.add(SelectableText((inlines[0] as Text).data!));
+          list.add(SelectableText(
+            (inlines[0] as Text).data!,
+            onTap: () {
+              if (textOnTap != null) {
+                textOnTap();
+              }
+            },
+          ));
         } else {
           list.add(inlines[0]);
         }
       } else {
-        // list.add(Wrap(
-        //   children: inlines,
-        // ));
         List<InlineSpan> spans = [];
         for (var inline in inlines) {
           if (inline is Text) {
             spans.add(TextSpan(text: inline.data! + " "));
-            // spans.add(WidgetSpan(child: SelectableText(inline.data! + " ")));
           } else {
             spans.add(WidgetSpan(child: inline));
           }
         }
-        list.add(SelectableText.rich(TextSpan(children: spans)));
+        list.add(SelectableText.rich(
+          TextSpan(children: spans),
+          onTap: () {
+            if (textOnTap != null) {
+              textOnTap();
+            }
+          },
+        ));
       }
       inlines.clear();
     }
   }
 
-  static List<Widget> decode(String? content, Event? event) {
+  static List<Widget> decode(String? content, Event? event,
+      {Function? textOnTap}) {
     if (StringUtil.isBlank(content) && event != null) {
       content = event.content;
     }
@@ -88,7 +100,7 @@ class ContentDecoder {
           if (pathType == "image") {
             // block
             handledStr = _closeHandledStr(handledStr, inlines);
-            _closeInlines(inlines, list);
+            _closeInlines(inlines, list, textOnTap: textOnTap);
             var imageWidget = ContentImageComponent(imageUrl: subStr);
             list.add(imageWidget);
           } else if (pathType == "video") {
@@ -107,19 +119,19 @@ class ContentDecoder {
         } else if (subStr.indexOf(LNBC) == 0) {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
-          _closeInlines(inlines, list);
+          _closeInlines(inlines, list, textOnTap: textOnTap);
           var w = ContentLnbcComponent(lnbc: subStr);
           list.add(w);
         } else if (subStr.indexOf(LIGHTNING) == 0) {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
-          _closeInlines(inlines, list);
+          _closeInlines(inlines, list, textOnTap: textOnTap);
           var w = ContentLnbcComponent(lnbc: subStr);
           list.add(w);
         } else if (subStr.contains(OTHER_LIGHTNING)) {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
-          _closeInlines(inlines, list);
+          _closeInlines(inlines, list, textOnTap: textOnTap);
           var w = ContentLnbcComponent(lnbc: subStr);
           list.add(w);
         } else if (subStr.indexOf("#[") == 0 &&
@@ -137,7 +149,7 @@ class ContentDecoder {
                 // block
                 // mention event
                 handledStr = _closeHandledStr(handledStr, inlines);
-                _closeInlines(inlines, list);
+                _closeInlines(inlines, list, textOnTap: textOnTap);
                 var widget = EventQuoteComponent(id: tag[1]);
                 list.add(widget);
               } else if (tagType == "p") {
@@ -165,7 +177,7 @@ class ContentDecoder {
       }
 
       handledStr = _closeHandledStr(handledStr, inlines);
-      _closeInlines(inlines, list);
+      _closeInlines(inlines, list, textOnTap: textOnTap);
     }
     return list;
   }

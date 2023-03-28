@@ -171,16 +171,8 @@ class _UserRouter extends CustState<UserRouter>
                     if (event == null) {
                       return null;
                     }
-                    return GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        RouterUtil.router(
-                            context, RouterPath.THREAD_DETAIL, event);
-                      },
-                      child: EventListComponent(
-                        event: event,
-                        pagePubkey: pubkey,
-                      ),
+                    return EventListComponent(
+                      event: event,
                     );
                   },
                   itemCount: box.length(),

@@ -144,7 +144,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           return <Widget>[
             SliverToBoxAdapter(
               child: WidgetSize(
-                child: EventListComponent(event: currentEvent!),
+                child: EventListComponent(
+                  event: currentEvent!,
+                  jumpable: false,
+                ),
                 onChange: (size) {
                   rootEventHeight = size.height;
                 },

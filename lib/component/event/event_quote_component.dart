@@ -58,15 +58,23 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
               ),
             ],
           ),
-          child: EventMainComponent(
-            screenshotController: screenshotController,
-            event: event!,
-            showReplying: false,
+          child: GestureDetector(
+            onTap: jumpToThread,
+            child: EventMainComponent(
+              screenshotController: screenshotController,
+              event: event!,
+              showReplying: false,
+              textOnTap: jumpToThread,
+            ),
           ),
         ),
         controller: screenshotController,
       ),
     );
+  }
+
+  void jumpToThread() {
+    RouterUtil.router(context, RouterPath.THREAD_DETAIL, widget.event);
   }
 
   @override

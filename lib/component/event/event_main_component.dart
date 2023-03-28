@@ -28,11 +28,14 @@ class EventMainComponent extends StatefulWidget {
 
   bool showReplying;
 
+  Function? textOnTap;
+
   EventMainComponent({
     required this.screenshotController,
     required this.event,
     this.pagePubkey,
     this.showReplying = true,
+    this.textOnTap,
   });
 
   @override
@@ -125,7 +128,11 @@ class _EventMainComponent extends State<EventMainComponent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: ContentDecoder.decode(null, widget.event),
+            children: ContentDecoder.decode(
+              null,
+              widget.event,
+              textOnTap: widget.textOnTap,
+            ),
           ),
         ),
       );

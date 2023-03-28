@@ -45,12 +45,8 @@ class _FollowRouter extends State<FollowRouter> with LoadMoreEvent {
       controller: _controller,
       itemBuilder: (BuildContext context, int index) {
         var event = events[index];
-        return GestureDetector(
-          onTap: () {
-            // print(event.toJson());
-            RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
-          },
-          child: EventListComponent(event: event),
+        return EventListComponent(
+          event: event,
         );
       },
       itemCount: events.length,
