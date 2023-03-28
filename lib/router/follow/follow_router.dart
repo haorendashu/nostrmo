@@ -61,7 +61,12 @@ class _FollowRouter extends State<FollowRouter> with LoadMoreEvent {
     //   removeTop: true,
     //   child: main,
     // );
-    return main;
+    return RefreshIndicator(
+      onRefresh: () async {
+        followEventProvider.refresh();
+      },
+      child: main,
+    );
   }
 
   @override

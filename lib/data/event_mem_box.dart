@@ -107,4 +107,9 @@ class EventMemBox {
 
     return _eventList[index];
   }
+
+  void clear() {
+    _eventList.clear();
+    _idMap.clear();
+  }
 }
