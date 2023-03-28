@@ -36,7 +36,11 @@ class ContentDecoder {
   static void _closeInlines(List<Widget> inlines, List<Widget> list) {
     if (inlines.isNotEmpty) {
       if (inlines.length == 1) {
-        list.add(inlines[0]);
+        if (inlines[0] is Text) {
+          list.add(SelectableText((inlines[0] as Text).data!));
+        } else {
+          list.add(inlines[0]);
+        }
       } else {
         // list.add(Wrap(
         //   children: inlines,
