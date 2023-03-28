@@ -307,7 +307,8 @@ class _EditorRouter extends State<EditorRouter> {
   }
 
   Future<void> _inputLnbc() async {
-    var value = await TextInputDialog.show(context, "Please input lnbc text");
+    var value = await TextInputDialog.show(context, "Please input lnbc text",
+        hintText: "lnbc...");
     if (StringUtil.isNotBlank(value)) {
       _lnbcSubmitted(value);
     }
@@ -327,7 +328,7 @@ class _EditorRouter extends State<EditorRouter> {
 
   Future<void> _inputTag() async {
     var value = await TextInputDialog.show(context, "Please input Topic text",
-        valueCheck: tagInputCheck);
+        valueCheck: tagInputCheck, hintText: "Topic");
     if (StringUtil.isNotBlank(value)) {
       _submitTag(value);
     }

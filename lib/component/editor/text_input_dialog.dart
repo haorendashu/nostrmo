@@ -8,12 +8,15 @@ import '../../util/router_util.dart';
 class TextInputDialog extends StatefulWidget {
   String title;
 
+  String? hintText;
+
   String? value;
 
   bool Function(BuildContext, String)? valueCheck;
 
   TextInputDialog(
     this.title, {
+    this.hintText,
     this.value,
     this.valueCheck,
   });
@@ -24,12 +27,15 @@ class TextInputDialog extends StatefulWidget {
   }
 
   static Future<String?> show(BuildContext context, String title,
-      {String? value, bool Function(BuildContext, String)? valueCheck}) async {
+      {String? value,
+      String? hintText,
+      bool Function(BuildContext, String)? valueCheck}) async {
     return await showDialog<String>(
         context: context,
         builder: (_context) {
           return TextInputDialog(
             title,
+            hintText: hintText,
             value: value,
             valueCheck: valueCheck,
           );
@@ -73,6 +79,7 @@ class _TextInputDialog extends State<TextInputDialog> {
         maxLines: 10,
         autofocus: true,
         decoration: InputDecoration(
+          hintText: widget.hintText,
           border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
         ),
       ),
