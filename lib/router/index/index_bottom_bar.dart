@@ -48,12 +48,12 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     ));
     current++;
 
-    list.add(IndexBottomBarButton(
-      iconData: Icons.notifications, // notifications_active
-      index: current,
-      selected: current == currentTap,
-    ));
-    current++;
+    // list.add(IndexBottomBarButton(
+    //   iconData: Icons.notifications, // notifications_active
+    //   index: current,
+    //   selected: current == currentTap,
+    // ));
+    // current++;
 
     return Container(
       width: double.infinity,

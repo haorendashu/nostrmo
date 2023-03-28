@@ -116,14 +116,15 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
         ],
         controller: dmTabController,
       );
-    } else if (_indexProvider.currentTap == 3) {
-      appBarCenter = Center(
-        child: Text(
-          "Notice",
-          style: titleTextStyle,
-        ),
-      );
     }
+    // else if (_indexProvider.currentTap == 3) {
+    //   appBarCenter = Center(
+    //     child: Text(
+    //       "Notice",
+    //       style: titleTextStyle,
+    //     ),
+    //   );
+    // }
 
     return Scaffold(
       body: Column(
@@ -145,7 +146,7 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
                 DMRouter(
                   tabController: dmTabController,
                 ),
-                NoticeRouter(),
+                // NoticeRouter(),
               ],
             )),
           ),

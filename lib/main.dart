@@ -8,6 +8,7 @@ import 'package:nostrmo/provider/event_reactions_provider.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
+import 'package:nostrmo/router/notice/notice_router.dart';
 import 'package:nostrmo/router/tag/tag_detail_router.dart';
 import 'package:nostrmo/router/thread/thread_detail_router.dart';
 import 'package:nostrmo/router/user/user_contact_list_router.dart';
@@ -26,6 +27,7 @@ import 'provider/data_util.dart';
 import 'provider/dm_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/metadata_provider.dart';
+import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
 import 'router/edit/editor_router.dart';
 import 'router/index/index_router.dart';
@@ -50,6 +52,8 @@ late IndexProvider indexProvider;
 
 late EventReactionsProvider eventReactionsProvider;
 
+late NoticeProvider noticeProvider;
+
 CustNostr? nostr;
 
 Future<void> main() async {
@@ -71,6 +75,7 @@ Future<void> main() async {
   dmProvider = DMProvider();
   indexProvider = IndexProvider();
   eventReactionsProvider = EventReactionsProvider();
+  noticeProvider = NoticeProvider();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = genNostr(settingProvider.privateKey!);
@@ -145,6 +150,9 @@ class _MyApp extends State<MyApp> {
         ListenableProvider<EventReactionsProvider>.value(
           value: eventReactionsProvider,
         ),
+        ListenableProvider<NoticeProvider>.value(
+          value: noticeProvider,
+        ),
       ],
       child: MaterialApp(
         builder: BotToastInit(), //1.调用BotToastInit
@@ -170,6 +178,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
           RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
           RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
+          RouterPath.NOTICES: (context) => NoticeRouter(),
         },
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/main.dart';
 
 import 'cust_relay.dart';
 import 'subscription.dart';
@@ -166,6 +167,14 @@ class CustRelayPool {
 
       final subId = json[1] as String;
       custRelay.checkAndCompleteQuery(subId);
+    } else if (messageType == "NOTICE") {
+      if (json.length < 2) {
+        log("NOTICE result not right.");
+        return;
+      }
+
+      // notice save, TODO maybe should change code
+      noticeProvider.onNotice(custRelay.relay.url, json[1] as String);
     }
   }
 

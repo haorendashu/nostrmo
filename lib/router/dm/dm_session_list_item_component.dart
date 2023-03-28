@@ -103,6 +103,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
                   padding: EdgeInsets.only(
                     left: Base.BASE_PADDING,
                     right: Base.BASE_PADDING,
+                    top: 4,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
