@@ -45,11 +45,12 @@ class ContentDecoder {
         for (var inline in inlines) {
           if (inline is Text) {
             spans.add(TextSpan(text: inline.data! + " "));
+            // spans.add(WidgetSpan(child: SelectableText(inline.data! + " ")));
           } else {
             spans.add(WidgetSpan(child: inline));
           }
         }
-        list.add(Text.rich(TextSpan(children: spans)));
+        list.add(SelectableText.rich(TextSpan(children: spans)));
       }
       inlines.clear();
     }
