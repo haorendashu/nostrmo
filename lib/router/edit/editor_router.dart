@@ -6,6 +6,8 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
+import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/editor/cust_embed_types.dart';
@@ -20,22 +22,43 @@ import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
+import 'package:pointycastle/ecc/api.dart';
+
+import '../../client/event_kind.dart' as kind;
 
 class EditorRouter extends StatefulWidget {
+  // dm arg
+  ECDHBasicAgreement? agreement;
+
+  // dm arg
+  String? pubkey;
+
   List<dynamic> tags = [];
 
   List<dynamic> tagsAddedWhenSend = [];
 
-  EditorRouter({required this.tags, required this.tagsAddedWhenSend});
+  EditorRouter({
+    required this.tags,
+    required this.tagsAddedWhenSend,
+    this.agreement,
+    this.pubkey,
+  });
 
-  static void open(BuildContext context,
-      {List<dynamic>? tags, List<dynamic>? tagsAddedWhenSend}) {
+  static Future<Event?> open(
+    BuildContext context, {
+    List<dynamic>? tags,
+    List<dynamic>? tagsAddedWhenSend,
+    ECDHBasicAgreement? agreement,
+    String? pubkey,
+  }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
+    return Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EditorRouter(
         tags: tags!,
         tagsAddedWhenSend: tagsAddedWhenSend!,
+        agreement: agreement,
+        pubkey: pubkey,
       );
     }));
   }
@@ -447,8 +470,19 @@ class _EditorRouter extends State<EditorRouter> {
     List<dynamic> allTags = [];
     allTags.addAll(tags);
     allTags.addAll(tagsAddedWhenSend);
-    var event = nostr!.sendTextNote(result, allTags);
-    RouterUtil.back(context);
+    Event? event;
+    if (widget.agreement != null && StringUtil.isNotBlank(widget.pubkey)) {
+      // dm message
+      result = NIP04.encrypt(result, widget.agreement!, widget.pubkey!);
+      event = Event(
+          nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result);
+    } else {
+      // text note
+      event =
+          Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result);
+    }
+    nostr!.sendEvent(event);
+    RouterUtil.back(context, event);
   }
 
   String handleInlineValue(String result, String value) {

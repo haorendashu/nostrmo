@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
+import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
@@ -82,7 +83,12 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
               color: mainColor?.withOpacity(0.3),
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
-            child: SelectableText(content),
+            // child: SelectableText(content),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: ContentDecoder.decode(content, widget.event),
+            ),
           ),
         ],
       ),

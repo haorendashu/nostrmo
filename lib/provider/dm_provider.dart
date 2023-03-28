@@ -189,6 +189,11 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
   }
 
+  void handleEventImmediately(Event event) {
+    penddingEvents.add(event);
+    eventLaterHandle(penddingEvents);
+  }
+
   void onEvent(Event event) {
     later(event, eventLaterHandle, null);
   }

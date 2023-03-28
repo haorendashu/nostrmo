@@ -1,7 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/dm_session_info_db.dart';
+import 'package:nostrmo/router/edit/editor_router.dart';
+import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 
@@ -27,6 +30,8 @@ class DMDetailRouter extends StatefulWidget {
 
 class _DMDetailRouter extends CustState<DMDetailRouter> {
   DMSessionDetail? detail;
+
+  ECDHBasicAgreement? agreement;
 
   @override
   Widget doBuild(BuildContext context) {
@@ -55,7 +60,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
     var hintColor = themeData.hintColor;
 
     var localPubkey = nostr!.publicKey;
-    var agreement = NIP04.getAgreement(nostr!.privateKey);
+    agreement = NIP04.getAgreement(nostr!.privateKey);
 
     var maxWidth = MediaQuery.of(context).size.width;
 
@@ -74,7 +79,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
               sessionPubkey: detail!.dmSession.pubkey,
               event: event,
               isLocal: localPubkey == event.pubKey,
-              agreement: agreement,
+              agreement: agreement!,
             );
           },
           reverse: true,
@@ -82,7 +87,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
           dragStartBehavior: DragStartBehavior.down,
         )),
         GestureDetector(
-          onTap: () {},
+          onTap: jumpToWriteMessage,
           child: Container(
             margin: EdgeInsets.only(
               left: Base.BASE_PADDING,
@@ -163,6 +168,27 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
         detail!.info != null &&
         detail!.dmSession.newestEvent != null) {
       detail!.info!.readedTime = detail!.dmSession.newestEvent!.createdAt;
+      DMSessionInfoDB.update(detail!.info!);
+    }
+  }
+
+  Future<void> jumpToWriteMessage() async {
+    var pubkey = detail!.dmSession.pubkey;
+    List<dynamic> tags = [
+      ["p", pubkey]
+    ];
+    var event = await EditorRouter.open(
+      context,
+      agreement: agreement,
+      pubkey: pubkey,
+      tags: tags,
+      tagsAddedWhenSend: [],
+    );
+    if (event != null) {
+      dmProvider.handleEventImmediately(event);
+      detail!.info!.readedTime = event.createdAt;
+      DMSessionInfoDB.update(detail!.info!);
+      setState(() {});
     }
   }
 }

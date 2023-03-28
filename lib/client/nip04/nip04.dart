@@ -40,7 +40,7 @@ class NIP04 {
         null);
     cipherCbc.init(true, paramsCbc);
 
-    print(cipherCbc.algorithmName);
+    // print(cipherCbc.algorithmName);
 
     var result = cipherCbc.process(Uint8List.fromList(utf8.encode(message)));
 
