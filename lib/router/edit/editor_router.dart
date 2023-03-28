@@ -83,26 +83,29 @@ class _EditorRouter extends State<EditorRouter> {
 
     List<Widget> list = [];
     list.add(Expanded(
-      child: quill.QuillEditor(
-        placeholder: "What's happening?",
-        controller: _controller,
-        scrollController: ScrollController(),
-        focusNode: focusNode,
-        readOnly: false,
-        embedBuilders: [
-          MentionUserEmbedBuilder(),
-          MentionEventEmbedBuilder(),
-          PicEmbedBuilder(),
-          LnbcEmbedBuilder(),
-          TagEmbedBuilder(),
-        ],
-        scrollable: true,
-        autoFocus: false,
-        expands: false,
-        // padding: EdgeInsets.zero,
-        padding: EdgeInsets.only(
-          left: Base.BASE_PADDING,
-          right: Base.BASE_PADDING,
+      child: Container(
+        margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
+        child: quill.QuillEditor(
+          placeholder: "What's happening?",
+          controller: _controller,
+          scrollController: ScrollController(),
+          focusNode: focusNode,
+          readOnly: false,
+          embedBuilders: [
+            MentionUserEmbedBuilder(),
+            MentionEventEmbedBuilder(),
+            PicEmbedBuilder(),
+            LnbcEmbedBuilder(),
+            TagEmbedBuilder(),
+          ],
+          scrollable: true,
+          autoFocus: false,
+          expands: false,
+          // padding: EdgeInsets.zero,
+          padding: EdgeInsets.only(
+            left: Base.BASE_PADDING,
+            right: Base.BASE_PADDING,
+          ),
         ),
       ),
     ));
