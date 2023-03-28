@@ -257,6 +257,8 @@ class _EditorRouter extends State<EditorRouter> {
 
       _controller.replaceText(
           index, length, quill.BlockEmbed.image(value), null);
+
+      _controller.moveCursorToPosition(index + 1);
     }
   }
 
@@ -281,6 +283,8 @@ class _EditorRouter extends State<EditorRouter> {
 
       _controller.replaceText(index, length,
           quill.CustomBlockEmbed(CustEmbedTypes.mention_evevt, value), null);
+
+      _controller.moveCursorToPosition(index + 1);
     }
   }
 
@@ -297,6 +301,8 @@ class _EditorRouter extends State<EditorRouter> {
 
       _controller.replaceText(index, length,
           quill.CustomBlockEmbed(CustEmbedTypes.mention_user, value), null);
+
+      _controller.moveCursorToPosition(index + 1);
     }
   }
 
@@ -314,12 +320,29 @@ class _EditorRouter extends State<EditorRouter> {
 
       _controller.replaceText(index, length,
           quill.CustomBlockEmbed(CustEmbedTypes.lnbc, value), null);
+
+      _controller.moveCursorToPosition(index + 1);
     }
   }
 
-  void _inputTag() {
-    // this is a random address copy from search
-    _submitTag("Nostr");
+  Future<void> _inputTag() async {
+    var value = await TextInputDialog.show(context, "Please input Topic text",
+        valueCheck: tagInputCheck);
+    if (StringUtil.isNotBlank(value)) {
+      _submitTag(value);
+    }
+  }
+
+  bool tagInputCheck(BuildContext context, String value) {
+    if (value.contains(" ")) {
+      BotToast.showText(text: "Topic text can't contain blank space");
+      return false;
+    }
+    if (value.contains("\n")) {
+      BotToast.showText(text: "Topic text can't contain new line");
+      return false;
+    }
+    return true;
   }
 
   void _submitTag(String? value) {
@@ -329,6 +352,8 @@ class _EditorRouter extends State<EditorRouter> {
 
       _controller.replaceText(index, length,
           quill.CustomBlockEmbed(CustEmbedTypes.tag, value), null);
+
+      _controller.moveCursorToPosition(index + 1);
     }
   }
 

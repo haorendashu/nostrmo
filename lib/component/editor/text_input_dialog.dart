@@ -24,13 +24,14 @@ class TextInputDialog extends StatefulWidget {
   }
 
   static Future<String?> show(BuildContext context, String title,
-      {String? value}) async {
+      {String? value, bool Function(BuildContext, String)? valueCheck}) async {
     return await showDialog<String>(
         context: context,
         builder: (_context) {
           return TextInputDialog(
             title,
             value: value,
+            valueCheck: valueCheck,
           );
         });
   }
