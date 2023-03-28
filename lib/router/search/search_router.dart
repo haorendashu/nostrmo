@@ -124,7 +124,7 @@ class _SearchRouter extends CustState<SearchRouter>
     List<String>? authors;
     if (StringUtil.isNotBlank(value) && value.indexOf("npub") == 0) {
       try {
-        var result = Nip19.decodePubKey(value);
+        var result = Nip19.decode(value);
         authors = [result];
       } catch (e) {
         log(e.toString());

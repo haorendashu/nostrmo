@@ -8,13 +8,27 @@ class Nip19 {
   //   data = Bech32.convertBits(data, 8, 5, true);
   //   return Bech32.encode(Hrps.PUBLIC_KEY, data);
   // }
-  static String encodePubKey(String pubKey) {
-    var data = HEX.decode(pubKey);
-    data = _convertBits(data, 8, 5, true);
 
-    var encoder = Bech32Encoder();
-    Bech32 input = Bech32(Hrps.PUBLIC_KEY, data);
-    return encoder.convert(input);
+  static bool _isKey(String hrp, String str) {
+    if (str.indexOf(hrp) == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static bool isPubkey(String str) {
+    return _isKey(Hrps.PUBLIC_KEY, str);
+  }
+
+  static String encodePubKey(String pubkey) {
+    // var data = HEX.decode(pubKey);
+    // data = _convertBits(data, 8, 5, true);
+
+    // var encoder = Bech32Encoder();
+    // Bech32 input = Bech32(Hrps.PUBLIC_KEY, data);
+    // return encoder.convert(input);
+    return _encodeKey(Hrps.PUBLIC_KEY, pubkey);
   }
 
   static String encodeSimplePubKey(String pubKey) {
@@ -28,11 +42,36 @@ class Nip19 {
   //   var data = Bech32.convertBits(res.words, 5, 8, false);
   //   return hex.encode(data).substring(0, 64);
   // }
-  static String decodePubKey(String npub) {
+  static String decode(String npub) {
     var decoder = Bech32Decoder();
     var bech32Result = decoder.convert(npub);
     var data = _convertBits(bech32Result.data, 5, 8, false);
     return HEX.encode(data);
+  }
+
+  static String _encodeKey(String hrp, String key) {
+    var data = HEX.decode(key);
+    data = _convertBits(data, 8, 5, true);
+
+    var encoder = Bech32Encoder();
+    Bech32 input = Bech32(hrp, data);
+    return encoder.convert(input);
+  }
+
+  static bool isPrivateKey(String str) {
+    return _isKey(Hrps.PRIVATE_KEY, str);
+  }
+
+  static String encodePrivateKey(String pubkey) {
+    return _encodeKey(Hrps.PRIVATE_KEY, pubkey);
+  }
+
+  static bool isNoteId(String str) {
+    return _isKey(Hrps.NOTE_ID, str);
+  }
+
+  static String encodeNoteId(String id) {
+    return _encodeKey(Hrps.NOTE_ID, id);
   }
 
   static List<int> _convertBits(List<int> data, int from, int to, bool pad) {

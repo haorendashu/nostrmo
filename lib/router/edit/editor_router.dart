@@ -6,6 +6,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
+import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/editor/cust_embed_types.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
@@ -270,10 +271,16 @@ class _EditorRouter extends State<EditorRouter> {
     }
   }
 
-  void _inputMentionEvent() {
-    // this is a random address copy from search
-    _submitMentionEvent(
-        "ee532be23c8635b77e3e44e0340c5c52812230e4332096aa3c54187d3aea5548");
+  Future<void> _inputMentionEvent() async {
+    var value = await TextInputDialog.show(context, "Please input event id",
+        hintText: "event id");
+    if (StringUtil.isNotBlank(value)) {
+      // check nip19 value
+      if (Nip19.isNoteId(value!)) {
+        value = Nip19.decode(value);
+      }
+      _submitMentionEvent(value);
+    }
   }
 
   void _submitMentionEvent(String? value) {
@@ -288,10 +295,16 @@ class _EditorRouter extends State<EditorRouter> {
     }
   }
 
-  void _inputMentionUser() {
-    // this is a random address copy from search
-    _submitMentionUser(
-        "deab79dafa1c2be4b4a6d3aca1357b6caa0b744bf46ad529a5ae464288579e68");
+  Future<void> _inputMentionUser() async {
+    var value = await TextInputDialog.show(context, "Please input user pubkey",
+        hintText: "user pubkey");
+    if (StringUtil.isNotBlank(value)) {
+      // check nip19 value
+      if (Nip19.isPubkey(value!)) {
+        value = Nip19.decode(value);
+      }
+      _submitMentionUser(value);
+    }
   }
 
   void _submitMentionUser(String? value) {
@@ -328,19 +341,19 @@ class _EditorRouter extends State<EditorRouter> {
 
   Future<void> _inputTag() async {
     var value = await TextInputDialog.show(context, "Please input Topic text",
-        valueCheck: tagInputCheck, hintText: "Topic");
+        valueCheck: baseInputCheck, hintText: "Topic");
     if (StringUtil.isNotBlank(value)) {
       _submitTag(value);
     }
   }
 
-  bool tagInputCheck(BuildContext context, String value) {
+  bool baseInputCheck(BuildContext context, String value) {
     if (value.contains(" ")) {
-      BotToast.showText(text: "Topic text can't contain blank space");
+      BotToast.showText(text: "Text can't contain blank space");
       return false;
     }
     if (value.contains("\n")) {
-      BotToast.showText(text: "Topic text can't contain new line");
+      BotToast.showText(text: "Text can't contain new line");
       return false;
     }
     return true;
