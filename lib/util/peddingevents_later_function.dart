@@ -7,6 +7,8 @@ mixin PenddingEventsLaterFunction {
 
   List<Event> penddingEvents = [];
 
+  bool _running = true;
+
   void later(Event event, Function(List<Event>) func, Function? completeFunc) {
     penddingEvents.add(event);
     if (latering) {
@@ -15,6 +17,10 @@ mixin PenddingEventsLaterFunction {
 
     latering = true;
     Future.delayed(Duration(milliseconds: laterTimeMS), () {
+      if (!_running) {
+        return;
+      }
+
       latering = false;
       func(penddingEvents);
       penddingEvents.clear();
@@ -22,5 +28,9 @@ mixin PenddingEventsLaterFunction {
         completeFunc();
       }
     });
+  }
+
+  void disposeLater() {
+    _running = false;
   }
 }

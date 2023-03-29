@@ -151,6 +151,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
   @override
   void dispose() {
     super.dispose();
+    disposeLater();
 
     try {
       nostr!.pool.unsubscribe(subscribeId);

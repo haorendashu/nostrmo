@@ -238,4 +238,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       setState(() {});
     }
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    disposeLater();
+  }
 }

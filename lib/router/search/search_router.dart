@@ -150,4 +150,10 @@ class _SearchRouter extends CustState<SearchRouter>
   EventMemBox getEventBox() {
     return eventMemBox;
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    disposeLater();
+  }
 }

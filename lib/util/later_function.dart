@@ -3,6 +3,8 @@ mixin LaterFunction {
 
   bool latering = false;
 
+  bool _running = true;
+
   void later(Function func, Function? completeFunc) {
     if (latering) {
       return;
@@ -10,6 +12,10 @@ mixin LaterFunction {
 
     latering = true;
     Future.delayed(Duration(milliseconds: laterTimeMS), () {
+      if (!_running) {
+        return;
+      }
+
       latering = false;
       func();
       if (completeFunc != null) {
@@ -46,5 +52,9 @@ mixin LaterFunction {
         _goWaitForStop(func);
       }
     });
+  }
+
+  void disposeLater() {
+    _running = false;
   }
 }

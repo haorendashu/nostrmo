@@ -213,6 +213,7 @@ class _UserRouter extends CustState<UserRouter>
   @override
   void dispose() {
     super.dispose();
+    disposeLater();
 
     if (StringUtil.isNotBlank(subscribeId)) {
       try {
