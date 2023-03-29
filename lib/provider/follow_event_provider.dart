@@ -89,6 +89,11 @@ class FollowEventProvider extends ChangeNotifier
   }
 
   void onEvent(Event event) {
+    if (eventBox.isEmpty()) {
+      laterTimeMS = 200;
+    } else {
+      laterTimeMS = 500;
+    }
     later(event, (list) {
       bool added = false;
       for (var e in list) {

@@ -29,6 +29,7 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
+    var hintColor = themeData.hintColor;
 
     return Selector<SingleEventProvider, Event?>(
       builder: (context, event, child) {
@@ -37,6 +38,14 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
             margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
             color: cardColor,
             height: 50,
+            child: Center(
+              child: Text(
+                "loading",
+                style: TextStyle(
+                  color: hintColor,
+                ),
+              ),
+            ),
           );
         }
         _event = event;
