@@ -33,7 +33,11 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
     return Selector<SingleEventProvider, Event?>(
       builder: (context, event, child) {
         if (event == null) {
-          return Container();
+          return Container(
+            margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+            color: cardColor,
+            height: 50,
+          );
         }
         _event = event;
 
