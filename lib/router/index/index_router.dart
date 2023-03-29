@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
@@ -9,6 +10,7 @@ import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/router/dm/dm_router.dart';
 import 'package:nostrmo/router/follow/follow_router.dart';
+import 'package:nostrmo/router/globals/globals_index_router.dart';
 import 'package:nostrmo/router/notice/notice_router.dart';
 import 'package:nostrmo/router/search/search_router.dart';
 import 'package:pointycastle/pointycastle.dart';
@@ -52,12 +54,15 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
 
   late TabController followTabController;
 
+  late TabController globalsTabController;
+
   late TabController dmTabController;
 
   @override
   void initState() {
     super.initState();
     followTabController = TabController(length: 3, vsync: this);
+    globalsTabController = TabController(length: 3, vsync: this);
     dmTabController = TabController(length: 2, vsync: this);
   }
 
@@ -102,13 +107,34 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
         controller: followTabController,
       );
     } else if (_indexProvider.currentTap == 1) {
+      appBarCenter = TabBar(
+        tabs: [
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text("Events"),
+          ),
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text("Users"),
+          ),
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text("Topics"),
+          ),
+        ],
+        controller: globalsTabController,
+      );
+    } else if (_indexProvider.currentTap == 2) {
       appBarCenter = Center(
         child: Text(
           "Search",
           style: titleTextStyle,
         ),
       );
-    } else if (_indexProvider.currentTap == 2) {
+    } else if (_indexProvider.currentTap == 3) {
       appBarCenter = TabBar(
         tabs: [
           Container(
@@ -150,6 +176,9 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
                 FollowIndexRouter(
                   tabController: followTabController,
                 ),
+                GlobalsIndexRouter(
+                  tabController: globalsTabController,
+                ),
                 SearchRouter(),
                 DMRouter(
                   tabController: dmTabController,
@@ -158,12 +187,18 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
               ],
             )),
           ),
-          IndexBottomBar(),
+          // IndexBottomBar(),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: Drawer(
         child: IndexDrawerContnetComponnent(),
       ),
+      bottomNavigationBar: IndexBottomBar(),
     );
   }
 }

@@ -6,6 +6,8 @@ import '../../main.dart';
 import '../../provider/setting_provider.dart';
 
 class IndexBottomBar extends StatefulWidget {
+  static const double HEIGHT = 50;
+
   IndexBottomBar();
 
   @override
@@ -35,6 +37,18 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     current++;
 
     list.add(IndexBottomBarButton(
+      iconData: Icons.public, // notifications_active
+      index: current,
+      selected: current == currentTap,
+    ));
+    current++;
+
+    list.add(Expanded(
+        child: Container(
+      height: IndexBottomBar.HEIGHT,
+    )));
+
+    list.add(IndexBottomBarButton(
       iconData: Icons.search,
       index: current,
       selected: current == currentTap,
@@ -47,13 +61,6 @@ class _IndexBottomBar extends State<IndexBottomBar> {
       selected: current == currentTap,
     ));
     current++;
-
-    // list.add(IndexBottomBarButton(
-    //   iconData: Icons.notifications, // notifications_active
-    //   index: current,
-    //   selected: current == currentTap,
-    // ));
-    // current++;
 
     return Container(
       width: double.infinity,
@@ -106,7 +113,7 @@ class IndexBottomBarButton extends StatelessWidget {
           }
         },
         child: Container(
-          height: 50,
+          height: IndexBottomBar.HEIGHT,
           child: Icon(
             iconData,
             color: selected ? selectedColor : null,

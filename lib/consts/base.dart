@@ -14,6 +14,12 @@ class Base {
 
   static const double BASE_PADDING_HALF = 6;
 
+  static String INDEXS_EVENTS = "https://nostrmo.com/indexs/events.json";
+
+  static String INDEXS_CONTACTS = "https://nostrmo.com/indexs/contacts.json";
+
+  static String INDEXS_TOPICS = "https://nostrmo.com/indexs/topics.json";
+
   static String userAgent() {
     return "$APP_NAME $VERSION_NAME";
   }
