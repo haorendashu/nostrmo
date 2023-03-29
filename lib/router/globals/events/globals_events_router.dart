@@ -48,14 +48,14 @@ class _GlobalsEventsRouter extends CustState<GlobalsEventsRouter> {
   @override
   Future<void> onReady(BuildContext context) async {
     var str = await DioUtil.getStr(Base.INDEXS_EVENTS);
-    print(str);
+    // print(str);
     if (StringUtil.isNotBlank(str)) {
       ids.clear();
       var itfs = jsonDecode(str!);
       for (var itf in itfs) {
         ids.add(itf as String);
       }
-      print(ids);
+      // print(ids);
       setState(() {});
     }
   }
