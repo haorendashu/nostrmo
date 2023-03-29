@@ -10,6 +10,7 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/router/dm/dm_router.dart';
+import 'package:nostrmo/router/edit/editor_router.dart';
 import 'package:nostrmo/router/follow/follow_router.dart';
 import 'package:nostrmo/router/globals/globals_index_router.dart';
 import 'package:nostrmo/router/notice/notice_router.dart';
@@ -195,7 +196,7 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          RouterUtil.router(context, RouterPath.EDITOR);
+          EditorRouter.open(context);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
