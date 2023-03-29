@@ -62,10 +62,20 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     ));
     current++;
 
-    return Container(
-      width: double.infinity,
-      child: Row(
-        children: list,
+    // return Container(
+    //   width: double.infinity,
+    //   child: Row(
+    //     children: list,
+    //   ),
+    // );
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      child: Container(
+        color: Colors.transparent,
+        width: double.infinity,
+        child: Row(
+          children: list,
+        ),
       ),
     );
   }
