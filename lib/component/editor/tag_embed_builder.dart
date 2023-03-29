@@ -11,7 +11,7 @@ class TagEmbedBuilder extends EmbedBuilder {
       bool readOnly) {
     var tag = node.value.data;
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 4,
         right: 4,
       ),

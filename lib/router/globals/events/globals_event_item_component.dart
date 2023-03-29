@@ -37,7 +37,7 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
           return Container(
             margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
             color: cardColor,
-            height: 50,
+            height: 150,
             child: Center(
               child: Text(
                 "loading",

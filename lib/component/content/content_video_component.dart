@@ -34,7 +34,7 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
 
     return Container(
       width: double.maxFinite,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: Base.BASE_PADDING_HALF,
         bottom: Base.BASE_PADDING_HALF,
       ),

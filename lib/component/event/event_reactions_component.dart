@@ -227,7 +227,7 @@ class EventReactionNumComponent extends StatelessWidget {
         children: [
           iconWidget,
           Container(
-            margin: EdgeInsets.only(left: 4),
+            margin: const EdgeInsets.only(left: 4),
             child: Text(
               num.toString(),
               style: TextStyle(color: color, fontSize: fontSize),

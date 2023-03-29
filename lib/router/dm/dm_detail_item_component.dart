@@ -40,7 +40,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
     var themeData = Theme.of(context);
     var mainColor = themeData.appBarTheme.backgroundColor;
     Widget userHeadWidget = Container(
-      margin: EdgeInsets.only(top: 2),
+      margin: const EdgeInsets.only(top: 2),
       child: UserPicComponent(
         pubkey: widget.event.pubKey,
         width: IMAGE_WIDTH,
@@ -57,7 +57,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
         widget.event.content, widget.agreement, widget.sessionPubkey);
 
     var contentWidget = Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: Base.BASE_PADDING_HALF,
         right: Base.BASE_PADDING_HALF,
       ),
@@ -74,14 +74,14 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 4),
-            padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
+            margin: const EdgeInsets.only(top: 4),
+            padding: const EdgeInsets.all(Base.BASE_PADDING_HALF),
             constraints:
                 BoxConstraints(maxWidth: (maxWidth - IMAGE_WIDTH) * 0.85),
             decoration: BoxDecoration(
               // color: Colors.red,
               color: mainColor?.withOpacity(0.3),
-              borderRadius: BorderRadius.all(Radius.circular(5)),
+              borderRadius: const BorderRadius.all(Radius.circular(5)),
             ),
             // child: SelectableText(content),
             child: Column(

@@ -100,7 +100,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
               leftWidget,
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: Base.BASE_PADDING,
                     right: Base.BASE_PADDING,
                     top: 4,
@@ -132,7 +132,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 2),
+                        margin: const EdgeInsets.only(top: 2),
                         child: Row(children: contentList),
                       ),
                     ],

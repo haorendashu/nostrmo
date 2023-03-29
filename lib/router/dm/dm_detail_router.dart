@@ -89,7 +89,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
         GestureDetector(
           onTap: jumpToWriteMessage,
           child: Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: Base.BASE_PADDING,
               top: Base.BASE_PADDING_HALF,
               right: Base.BASE_PADDING,
@@ -118,7 +118,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
             child: GestureDetector(
               onTap: addDmSessionToKnown,
               child: Container(
-                margin: EdgeInsets.all(Base.BASE_PADDING),
+                margin: const EdgeInsets.all(Base.BASE_PADDING),
                 height: 30,
                 width: double.maxFinite,
                 decoration: BoxDecoration(

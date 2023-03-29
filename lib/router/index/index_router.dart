@@ -6,6 +6,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/cust_nostr.dart';
 import 'package:nostrmo/client/cust_relay.dart';
 import 'package:nostrmo/client/filter.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/router/dm/dm_router.dart';
@@ -13,6 +14,7 @@ import 'package:nostrmo/router/follow/follow_router.dart';
 import 'package:nostrmo/router/globals/globals_index_router.dart';
 import 'package:nostrmo/router/notice/notice_router.dart';
 import 'package:nostrmo/router/search/search_router.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:provider/provider.dart';
 
@@ -101,7 +103,7 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Mentioned"),
+            child: Text("Mention"),
           ),
         ],
         controller: followTabController,
@@ -192,7 +194,9 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          RouterUtil.router(context, RouterPath.EDITOR);
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: Drawer(

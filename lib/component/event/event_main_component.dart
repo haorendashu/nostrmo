@@ -109,7 +109,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         }
         list.add(Container(
           width: double.maxFinite,
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             bottom: Base.BASE_PADDING_HALF,
           ),
           child: Wrap(
@@ -157,8 +157,8 @@ class _EventMainComponent extends State<EventMainComponent> {
             right: Base.BASE_PADDING,
           ),
           child: Column(
-            children: list,
             mainAxisSize: MainAxisSize.min,
+            children: list,
           ),
         ),
       ],

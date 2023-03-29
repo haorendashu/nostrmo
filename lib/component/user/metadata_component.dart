@@ -43,7 +43,7 @@ class _MetadataComponent extends State<MetadataComponent> {
       mainList.add(
         Container(
           width: double.maxFinite,
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: Base.BASE_PADDING_HALF,
             left: Base.BASE_PADDING,
             right: Base.BASE_PADDING,

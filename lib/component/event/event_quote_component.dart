@@ -44,15 +44,16 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
         RouterUtil.router(context, RouterPath.THREAD_DETAIL, event!);
       },
       child: Screenshot(
+        controller: screenshotController,
         child: Container(
-          padding: EdgeInsets.only(top: Base.BASE_PADDING),
-          margin: EdgeInsets.all(Base.BASE_PADDING),
+          padding: const EdgeInsets.only(top: Base.BASE_PADDING),
+          margin: const EdgeInsets.all(Base.BASE_PADDING),
           decoration: BoxDecoration(
             color: cardColor,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
-                offset: Offset(0, 0),
+                offset: const Offset(0, 0),
                 blurRadius: 10,
                 spreadRadius: 0,
               ),
@@ -68,7 +69,6 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
             ),
           ),
         ),
-        controller: screenshotController,
       ),
     );
   }

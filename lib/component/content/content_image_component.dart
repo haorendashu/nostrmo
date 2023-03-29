@@ -12,7 +12,7 @@ class ContentImageComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: Base.BASE_PADDING_HALF / 2,
         bottom: Base.BASE_PADDING_HALF / 2,
       ),

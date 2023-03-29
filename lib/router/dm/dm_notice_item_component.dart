@@ -79,7 +79,7 @@ class DMNoticeItemComponent extends StatelessWidget {
           leftWidget,
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: Base.BASE_PADDING,
                 right: Base.BASE_PADDING,
                 top: 4,
@@ -92,7 +92,7 @@ class DMNoticeItemComponent extends StatelessWidget {
                     children: [
                       Text(
                         newestNotice.url,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -113,7 +113,7 @@ class DMNoticeItemComponent extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 2),
+                    margin: const EdgeInsets.only(top: 2),
                     child: Row(children: contentList),
                   ),
                 ],

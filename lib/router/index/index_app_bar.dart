@@ -57,7 +57,7 @@ class _IndexAppBar extends State<IndexAppBar> {
         ),
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: Base.BASE_PADDING,
               right: Base.BASE_PADDING,
             ),

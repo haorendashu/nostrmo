@@ -66,6 +66,7 @@ dependencies:
   share_plus: ^6.3.1
   video_player: ^2.6.0
   image_picker: ^0.8.7
+  keframe: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keframe/keframe.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
@@ -44,6 +45,13 @@ class _FollowRouter extends State<FollowRouter> with LoadMoreEvent {
     var main = ListView.builder(
       controller: _controller,
       itemBuilder: (BuildContext context, int index) {
+        // var event = events[index];
+        // return FrameSeparateWidget(
+        //   index: index,
+        //   child: EventListComponent(
+        //     event: event,
+        //   ),
+        // );
         var event = events[index];
         return EventListComponent(
           event: event,

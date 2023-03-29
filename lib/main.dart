@@ -162,8 +162,9 @@ class _MyApp extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-        builder: BotToastInit(), //1.调用BotToastInit
-        navigatorObservers: [BotToastNavigatorObserver()], //2.注册路由观察者
+        builder: BotToastInit(),
+        navigatorObservers: [BotToastNavigatorObserver()],
+        // showPerformanceOverlay: true,
         debugShowCheckedModeBanner: false,
         locale: locale,
         title: Base.APP_NAME,

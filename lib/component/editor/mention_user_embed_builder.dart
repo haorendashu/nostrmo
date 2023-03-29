@@ -12,7 +12,7 @@ class MentionUserEmbedBuilder extends EmbedBuilder {
       bool readOnly) {
     var pubkey = node.value.data;
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 4,
         right: 4,
       ),

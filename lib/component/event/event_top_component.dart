@@ -56,8 +56,8 @@ class _EventTopComponent extends State<EventTopComponent> {
               width: IMAGE_WIDTH,
               height: IMAGE_WIDTH,
               fit: BoxFit.cover,
-              placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             );
           }
         }
@@ -82,7 +82,7 @@ class _EventTopComponent extends State<EventTopComponent> {
               )),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+                  padding: const EdgeInsets.only(left: Base.BASE_PADDING_HALF),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,

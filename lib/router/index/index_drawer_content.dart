@@ -91,8 +91,8 @@ class _IndexDrawerContnetComponnent
     ));
 
     list.add(Container(
-      margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
-      padding: EdgeInsets.only(
+      margin: const EdgeInsets.only(top: Base.BASE_PADDING_HALF),
+      padding: const EdgeInsets.only(
         left: Base.BASE_PADDING * 2,
         bottom: Base.BASE_PADDING,
         top: Base.BASE_PADDING,

@@ -22,14 +22,14 @@ class ContentLnbcComponent extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.all(Base.BASE_PADDING),
-      padding: EdgeInsets.all(Base.BASE_PADDING * 2),
+      margin: const EdgeInsets.all(Base.BASE_PADDING),
+      padding: const EdgeInsets.all(Base.BASE_PADDING * 2),
       decoration: BoxDecoration(
         color: cardColor,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
             blurRadius: 10,
             spreadRadius: 0,
           ),
@@ -39,7 +39,7 @@ class ContentLnbcComponent extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.topLeft,
-            padding: EdgeInsets.only(bottom: Base.BASE_PADDING),
+            padding: const EdgeInsets.only(bottom: Base.BASE_PADDING),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -52,7 +52,7 @@ class ContentLnbcComponent extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  child: Icon(
+                  child: const Icon(
                     Icons.bolt,
                     color: Colors.orange,
                   ),
@@ -67,7 +67,7 @@ class ContentLnbcComponent extends StatelessWidget {
             child: Text("Wallet of Satoshi"),
           ),
           Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: Base.BASE_PADDING,
               bottom: Base.BASE_PADDING,
             ),

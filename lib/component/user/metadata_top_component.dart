@@ -145,7 +145,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     Widget userNameComponent = Container(
       // height: 40,
       width: double.maxFinite,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: Base.BASE_PADDING,
         right: Base.BASE_PADDING,
         // top: Base.BASE_PADDING_HALF,
@@ -156,7 +156,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         children: [
           Text(
             displayName,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -387,7 +387,7 @@ class MetadataIconDataComp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         bottom: Base.BASE_PADDING_HALF,
         left: Base.BASE_PADDING,
         right: Base.BASE_PADDING,
@@ -414,7 +414,7 @@ class MetadataIconDataComp extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: textBG
-                    ? EdgeInsets.only(
+                    ? const EdgeInsets.only(
                         left: Base.BASE_PADDING_HALF,
                         right: Base.BASE_PADDING_HALF,
                         top: 4,

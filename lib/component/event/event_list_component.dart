@@ -35,10 +35,11 @@ class _EventListComponent extends State<EventListComponent> {
     var cardColor = themeData.cardColor;
 
     var main = Screenshot(
+      controller: screenshotController,
       child: Container(
         color: cardColor,
-        margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-        padding: EdgeInsets.only(
+        margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+        padding: const EdgeInsets.only(
           top: Base.BASE_PADDING,
           // bottom: Base.BASE_PADDING,
         ),
@@ -49,7 +50,6 @@ class _EventListComponent extends State<EventListComponent> {
           textOnTap: jumpToThread,
         ),
       ),
-      controller: screenshotController,
     );
 
     if (widget.jumpable) {

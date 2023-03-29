@@ -65,31 +65,6 @@ class EventReactions {
         }
       } else if (event.kind == kind.EventKind.ZAP) {
         zapNum += ZapNumUtil.getNumFromZapEvent(event);
-        // for (var tag in event.tags) {
-        //   if (tag.length > 1) {
-        //     var tagType = tag[0] as String;
-        //     if (tagType == "bolt11") {
-        //       var zapStr = tag[1] as String;
-        //       var numStr = SpiderUtil.subUntil(zapStr, "lnbc", "1p");
-        //       if (StringUtil.isNotBlank(numStr)) {
-        //         var lastStr = numStr.substring(numStr.length - 1);
-        //         if (lastStr == "n") {
-        //           var formatNumStr = numStr.replaceAll("0n", "");
-        //           var num = int.tryParse(formatNumStr);
-        //           if (num != null) {
-        //             zapNum += num;
-        //           }
-        //         } else if (lastStr == "u") {
-        //           var formatNumStr = numStr.replaceAll("u", "");
-        //           var num = int.tryParse(formatNumStr);
-        //           if (num != null) {
-        //             zapNum += (num * 100);
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
       }
 
       return true;
