@@ -7,6 +7,7 @@ import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
+import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
 import 'package:nostrmo/router/notice/notice_router.dart';
 import 'package:nostrmo/router/tag/tag_detail_router.dart';
@@ -54,6 +55,8 @@ late EventReactionsProvider eventReactionsProvider;
 
 late NoticeProvider noticeProvider;
 
+late SingleEventProvider singleEventProvider;
+
 CustNostr? nostr;
 
 Future<void> main() async {
@@ -76,6 +79,7 @@ Future<void> main() async {
   indexProvider = IndexProvider();
   eventReactionsProvider = EventReactionsProvider();
   noticeProvider = NoticeProvider();
+  singleEventProvider = SingleEventProvider();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = genNostr(settingProvider.privateKey!);
@@ -152,6 +156,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<NoticeProvider>.value(
           value: noticeProvider,
+        ),
+        ListenableProvider<SingleEventProvider>.value(
+          value: singleEventProvider,
         ),
       ],
       child: MaterialApp(

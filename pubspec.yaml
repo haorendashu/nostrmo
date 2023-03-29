@@ -58,6 +58,7 @@ dependencies:
   hex: ^0.2.0
   wechat_assets_picker: ^8.4.0
   dio: ^5.0.3
+  dio_cookie_manager: ^2.0.0
   emoji_picker_flutter: ^1.5.2
   widget_size: ^1.0.0
   webview_flutter: ^4.0.7
