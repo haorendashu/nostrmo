@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/router/follow/mention_me_router.dart';
 
+import 'follow_posts_router.dart';
 import 'follow_router.dart';
 
 class FollowIndexRouter extends StatefulWidget {
@@ -19,6 +20,7 @@ class _FollowIndexRouter extends State<FollowIndexRouter> {
   Widget build(BuildContext context) {
     return TabBarView(
       children: [
+        FollowPostsRouter(),
         FollowRouter(),
         MentionMeRouter(),
       ],

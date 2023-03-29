@@ -15,9 +15,12 @@ class FollowEventProvider extends ChangeNotifier
 
   late EventMemBox eventBox;
 
+  late EventMemBox postsBox;
+
   FollowEventProvider() {
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-    eventBox = EventMemBox();
+    eventBox = EventMemBox(sortAfterAdd: false); // sortAfterAdd by call
+    postsBox = EventMemBox(sortAfterAdd: false);
   }
 
   List<Event> eventsByPubkey(String pubkey) {
@@ -27,6 +30,7 @@ class FollowEventProvider extends ChangeNotifier
   void refresh() {
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     eventBox.clear();
+    postsBox.clear();
     doQuery();
   }
 
@@ -86,8 +90,33 @@ class FollowEventProvider extends ChangeNotifier
 
   void onEvent(Event event) {
     later(event, (list) {
-      var result = eventBox.addList(list);
-      if (result) {
+      bool added = false;
+      for (var e in list) {
+        var result = eventBox.add(e);
+        if (result) {
+          // add success
+          added = true;
+
+          // check if is posts (no tag e)
+          bool isPosts = true;
+          for (var tag in e.tags) {
+            if (tag.length > 0 && tag[0] == "e") {
+              isPosts = false;
+              break;
+            }
+          }
+          if (isPosts) {
+            postsBox.add(e);
+          }
+        }
+      }
+
+      if (added) {
+        // sort
+        eventBox.sort();
+        postsBox.sort();
+
+        // update ui
         notifyListeners();
       }
     }, null);

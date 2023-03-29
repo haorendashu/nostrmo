@@ -57,7 +57,7 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    followTabController = TabController(length: 2, vsync: this);
+    followTabController = TabController(length: 3, vsync: this);
     dmTabController = TabController(length: 2, vsync: this);
   }
 
@@ -83,7 +83,15 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Following"),
+            child: Text("Posts"),
+          ),
+          Container(
+            height: IndexAppBar.height,
+            alignment: Alignment.center,
+            child: Text(
+              "Posts & Replies",
+              textAlign: TextAlign.center,
+            ),
           ),
           Container(
             height: IndexAppBar.height,
