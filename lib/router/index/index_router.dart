@@ -1,32 +1,15 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/cust_nostr.dart';
-import 'package:nostrmo/client/cust_relay.dart';
-import 'package:nostrmo/client/filter.dart';
-import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/main.dart';
-import 'package:nostrmo/provider/setting_provider.dart';
-import 'package:nostrmo/router/dm/dm_router.dart';
-import 'package:nostrmo/router/edit/editor_router.dart';
-import 'package:nostrmo/router/follow/follow_router.dart';
-import 'package:nostrmo/router/globals/globals_index_router.dart';
-import 'package:nostrmo/router/notice/notice_router.dart';
-import 'package:nostrmo/router/search/search_router.dart';
-import 'package:nostrmo/util/router_util.dart';
-import 'package:pointycastle/pointycastle.dart';
 import 'package:provider/provider.dart';
 
-import '../../component/user_pic_component.dart';
-import '../../data/metadata.dart';
-import '../../data/relay_status.dart';
+import '../../main.dart';
 import '../../provider/index_provider.dart';
-import '../../provider/metadata_provider.dart';
+import '../../provider/setting_provider.dart';
+import '../dm/dm_router.dart';
+import '../edit/editor_router.dart';
 import '../follow/follow_index_router.dart';
-import '../follow/mention_me_router.dart';
+import '../globals/globals_index_router.dart';
 import '../login/login_router.dart';
+import '../search/search_router.dart';
 import 'index_app_bar.dart';
 import 'index_bottom_bar.dart';
 import 'index_drawer_content.dart';
@@ -43,18 +26,6 @@ class IndexRouter extends StatefulWidget {
 }
 
 class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
-  // ECPrivateKey getPrivateKey(String privateKey) {
-  //   var d0 = BigInt.parse(privateKey, radix: 16);
-  //   return ECPrivateKey(d0, secp256k1);
-  // }
-
-  // var secp256k1 = ECDomainParameters("secp256k1");
-
-  // String keyToString(BigInt d0) {
-  //   ECPoint P = (secp256k1.G * d0)!;
-  //   return P.x!.toBigInteger()!.toRadixString(16).padLeft(64, "0");
-  // }
-
   late TabController followTabController;
 
   late TabController globalsTabController;
@@ -71,6 +42,8 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    mediaDataCache.update(context);
+
     var _settingProvider = Provider.of<SettingProvider>(context);
     if (nostr == null) {
       return LoginRouter();

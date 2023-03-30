@@ -4,6 +4,8 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../main.dart';
+
 class WebViewRouter extends StatefulWidget {
   String url;
 
@@ -34,8 +36,7 @@ class _WebViewRouter extends CustState<WebViewRouter> {
   @override
   Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
-    var mediaData = MediaQuery.of(context);
-    var paddingTop = mediaData.padding.top;
+    var paddingTop = mediaDataCache.padding.top;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
 
     return Scaffold(

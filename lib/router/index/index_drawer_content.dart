@@ -21,8 +21,7 @@ class _IndexDrawerContnetComponnent
 
   @override
   Widget build(BuildContext context) {
-    var mediaData = MediaQuery.of(context);
-    var paddingTop = mediaData.padding.top;
+    var paddingTop = mediaDataCache.padding.top;
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var hintColor = themeData.hintColor;

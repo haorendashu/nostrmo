@@ -27,8 +27,7 @@ class _IndexAppBar extends State<IndexAppBar> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-    var mediaQuery = MediaQuery.of(context);
-    var paddingTop = mediaQuery.padding.top;
+    var paddingTop = mediaDataCache.padding.top;
     var mainColor = themeData.primaryColor;
     var textColor = themeData.appBarTheme.titleTextStyle!.color;
 

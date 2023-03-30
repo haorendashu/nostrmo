@@ -26,7 +26,6 @@ class DMNoticeItemComponent extends StatelessWidget {
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
     var hintColor = themeData.hintColor;
-    var maxWidth = MediaQuery.of(context).size.width;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
     var content = newestNotice.content;

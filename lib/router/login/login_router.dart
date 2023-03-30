@@ -36,7 +36,7 @@ class _LoginRouter extends State<LoginRouter>
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
-    var maxWidth = MediaQuery.of(context).size.width;
+    var maxWidth = mediaDataCache.size.width;
     var mainWidth = maxWidth * 0.8;
 
     var logoWiget = Image.asset(

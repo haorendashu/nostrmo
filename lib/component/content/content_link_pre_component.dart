@@ -48,7 +48,7 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
             },
             previewData: data,
             text: widget.link,
-            width: MediaQuery.of(context).size.width,
+            width: mediaDataCache.size.width,
             onLinkPressed: (link) {
               WebViewRouter.open(context, link);
             },

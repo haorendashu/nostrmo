@@ -61,7 +61,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     var mainColor = themeData.primaryColor;
     var hintColor = themeData.hintColor;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
-    var maxWidth = MediaQuery.of(context).size.width;
+    var maxWidth = mediaDataCache.size.width;
     var bannerHeight = maxWidth / 3;
 
     String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);

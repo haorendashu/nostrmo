@@ -9,6 +9,7 @@ import 'package:pointycastle/export.dart' as pointycastle;
 
 import '../../component/user_pic_component.dart';
 import '../../consts/base.dart';
+import '../../main.dart';
 
 class DMDetailItemComponent extends StatefulWidget {
   String sessionPubkey;
@@ -46,7 +47,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
         width: IMAGE_WIDTH,
       ),
     );
-    var maxWidth = MediaQuery.of(context).size.width;
+    var maxWidth = mediaDataCache.size.width;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
     var hintColor = themeData.hintColor;
 

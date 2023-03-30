@@ -88,9 +88,8 @@ class _UserRouter extends CustState<UserRouter>
     }
     preBuild();
 
-    var mediaData = MediaQuery.of(context);
-    var paddingTop = mediaData.padding.top;
-    var maxWidth = mediaData.size.width;
+    var paddingTop = mediaDataCache.padding.top;
+    var maxWidth = mediaDataCache.size.width;
 
     showTitleHeight = maxWidth / 3 + 50;
     showAppbarBGHeight = showTitleHeight + 100;

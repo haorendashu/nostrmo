@@ -138,15 +138,6 @@ class ContentDecoder {
             // block
             handledStr = _closeHandledStr(handledStr, inlines);
             _closeInlines(inlines, list, textOnTap: textOnTap);
-            // var w = LinkPreview(
-            //   enableAnimation: true,
-            //   onPreviewDataFetched: (data) {
-            //     // Save preview data
-            //   },
-            //   previewData: null, // Pass the preview data from the state
-            //   text: handledStr,
-            //   width: MediaQuery.of(context).size.width,
-            // );
             var w = ContentLinkPreComponent(
               link: subStr,
             );

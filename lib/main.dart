@@ -35,6 +35,7 @@ import 'provider/setting_provider.dart';
 import 'router/edit/editor_router.dart';
 import 'router/index/index_router.dart';
 import 'util/colors_util.dart';
+import 'util/media_data_cache.dart';
 import 'util/string_util.dart';
 
 late SharedPreferences sharedPreferences;
@@ -63,6 +64,8 @@ late RelayProvider relayProvider;
 
 late LinkPreviewDataProvider linkPreviewDataProvider;
 
+late MediaDataCache mediaDataCache;
+
 CustNostr? nostr;
 
 Future<void> main() async {
@@ -88,6 +91,7 @@ Future<void> main() async {
   singleEventProvider = SingleEventProvider();
   relayProvider = RelayProvider.getInstance();
   linkPreviewDataProvider = LinkPreviewDataProvider();
+  mediaDataCache = MediaDataCache();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = genNostr(settingProvider.privateKey!);

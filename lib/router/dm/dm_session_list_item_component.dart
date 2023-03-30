@@ -46,7 +46,6 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
         var themeData = Theme.of(context);
         var mainColor = themeData.primaryColor;
         var hintColor = themeData.hintColor;
-        var maxWidth = MediaQuery.of(context).size.width;
         var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
         var dmSession = widget.detail.dmSession;

@@ -62,7 +62,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
     var localPubkey = nostr!.publicKey;
     agreement = NIP04.getAgreement(nostr!.privateKey);
 
-    var maxWidth = MediaQuery.of(context).size.width;
+    var maxWidth = mediaDataCache.size.width;
 
     Widget main = Container(
       width: maxWidth,
