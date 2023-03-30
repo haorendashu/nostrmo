@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/diagnostics.dart';
+import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
+import 'package:provider/provider.dart';
 
 import '../../component/user_pic_component.dart';
 import '../../consts/base.dart';
@@ -43,6 +45,16 @@ class _IndexAppBar extends State<IndexAppBar> {
     var center = widget.center;
     center ??= Container();
 
+    var rightWidget =
+        Selector<RelayProvider, String>(builder: (context, relayNum, child) {
+      return Text(
+        relayNum,
+        style: TextStyle(color: textColor),
+      );
+    }, selector: (context, _provider) {
+      return _provider.relayNumStr();
+    });
+
     return Container(
       padding: EdgeInsets.only(
         top: paddingTop,
@@ -66,10 +78,7 @@ class _IndexAppBar extends State<IndexAppBar> {
         ),
         GestureDetector(
           onTap: () {},
-          child: Text(
-            "3/4",
-            style: TextStyle(color: textColor),
-          ),
+          child: rightWidget,
         ),
       ]),
     );

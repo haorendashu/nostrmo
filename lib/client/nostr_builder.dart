@@ -12,6 +12,9 @@ CustNostr genNostr(String pk) {
   var _nostr = CustNostr(privateKey: pk);
   log("nostr init over");
 
+  _nostr.pool.listenRelayAdded(relayProvider.relayAddedListener);
+  _nostr.pool.listenRelayRemoved(relayProvider.relayRemovedListener);
+
   // add subscript
   contactListProvider.subscribe(targetNostr: _nostr);
   followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
@@ -27,8 +30,10 @@ CustNostr genNostr(String pk) {
 }
 
 Future<void> _loadRelayAndInit(CustNostr _nostr) async {
+  // TODO change nostr init to relayProvider
+
   List<String> relayAddrs = [
-    // "wss://nos.lol",
+    "wss://nos.lol",
     "wss://nostr.wine",
     "wss://atlas.nostr.land",
     "wss://relay.orangepill.dev",

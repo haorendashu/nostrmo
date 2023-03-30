@@ -28,6 +28,7 @@ import 'provider/data_util.dart';
 import 'provider/dm_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/metadata_provider.dart';
+import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
 import 'router/edit/editor_router.dart';
@@ -57,6 +58,8 @@ late NoticeProvider noticeProvider;
 
 late SingleEventProvider singleEventProvider;
 
+late RelayProvider relayProvider;
+
 CustNostr? nostr;
 
 Future<void> main() async {
@@ -80,6 +83,7 @@ Future<void> main() async {
   eventReactionsProvider = EventReactionsProvider();
   noticeProvider = NoticeProvider();
   singleEventProvider = SingleEventProvider();
+  relayProvider = RelayProvider.getInstance();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = genNostr(settingProvider.privateKey!);
@@ -159,6 +163,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<SingleEventProvider>.value(
           value: singleEventProvider,
+        ),
+        ListenableProvider<RelayProvider>.value(
+          value: relayProvider,
         ),
       ],
       child: MaterialApp(

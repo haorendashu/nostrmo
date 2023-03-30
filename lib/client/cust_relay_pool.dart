@@ -46,6 +46,10 @@ class CustRelayPool {
           custRelay.relay.send(subscription.toJson());
         }
       }
+
+      if (_relayAddedListener != null) {
+        _relayAddedListener!(custRelay);
+      }
       return true;
     }
     return false;
@@ -54,7 +58,10 @@ class CustRelayPool {
   void remove(String url) {
     log('Removing $url');
     _relays[url]?.relay.disconnect();
-    _relays.remove(url);
+    var relay = _relays.remove(url);
+    if (_relayRemovedListener != null && relay != null) {
+      _relayRemovedListener!(relay);
+    }
   }
 
   Future<void> send(List<dynamic> message) async {
@@ -186,5 +193,17 @@ class CustRelayPool {
     }
 
     return false;
+  }
+
+  Function(CustRelay)? _relayAddedListener;
+
+  void listenRelayAdded(Function(CustRelay) listener) {
+    _relayAddedListener = listener;
+  }
+
+  Function(CustRelay)? _relayRemovedListener;
+
+  void listenRelayRemoved(Function(CustRelay) listener) {
+    _relayRemovedListener = listener;
   }
 }
