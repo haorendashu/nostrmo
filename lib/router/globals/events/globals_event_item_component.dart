@@ -9,6 +9,7 @@ import 'package:screenshot/screenshot.dart';
 
 import '../../../consts/base.dart';
 
+@deprecated
 class GlobalEventItemComponent extends StatefulWidget {
   String eventId;
 
