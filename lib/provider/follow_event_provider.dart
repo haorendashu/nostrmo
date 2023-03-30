@@ -40,7 +40,7 @@ class FollowEventProvider extends ChangeNotifier
     var filter = Filter(
       kinds: [kind.EventKind.TEXT_NOTE, kind.EventKind.REPOST],
       until: until ?? _initTime,
-      limit: 50,
+      limit: 100,
     );
     targetNostr ??= nostr!;
 
