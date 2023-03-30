@@ -67,6 +67,7 @@ dependencies:
   video_player: ^2.6.0
   image_picker: ^0.8.7
   keframe: ^3.0.0
+  pretty_qr_code: ^2.0.3
 
 dev_dependencies:
   flutter_test:

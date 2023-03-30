@@ -56,42 +56,49 @@ class _NameComponnet extends State<NameComponnet> {
       }
     }
 
-    List<Widget> nameList = [
-      Text(
-        displayName,
+    List<InlineSpan> nameList = [
+      TextSpan(
+        text: StringUtil.breakWord(displayName),
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: widget.fontSize,
           color: widget.fontColor,
         ),
       ),
-      Container(
-        margin: EdgeInsets.only(left: 2),
-        child: Text(
-          name,
-          style: TextStyle(
-            fontSize: 12,
-            color: hintColor,
+      WidgetSpan(
+        child: Container(
+          margin: EdgeInsets.only(left: 2),
+          child: Text(
+            StringUtil.breakWord(name),
+            style: TextStyle(
+              fontSize: 12,
+              color: hintColor,
+            ),
           ),
         ),
       ),
     ];
     if (hasNip05 && widget.showNip05) {
-      nameList.add(Container(
-        margin: EdgeInsets.only(left: 3),
-        child: Icon(
-          Icons.check_circle,
-          color: mainColor,
-          size: 12,
+      nameList.add(WidgetSpan(
+        child: Container(
+          margin: EdgeInsets.only(left: 3),
+          child: Icon(
+            Icons.check_circle,
+            color: mainColor,
+            size: 12,
+          ),
         ),
       ));
     }
 
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: nameList,
-      ),
+    // return Container(
+    //   child: Row(
+    //     mainAxisSize: MainAxisSize.min,
+    //     children: nameList,
+    //   ),
+    // );
+    return Text.rich(
+      TextSpan(children: nameList),
     );
   }
 }

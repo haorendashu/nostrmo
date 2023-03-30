@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
@@ -105,7 +106,9 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     ];
     topBtnList.add(wrapBtn(MetadataIconBtn(
       iconData: Icons.qr_code,
-      onTap: () {},
+      onTap: () {
+        QrcodeDialog.show(context, widget.pubkey);
+      },
     )));
     if (!widget.isLocal) {
       topBtnList.add(wrapBtn(MetadataIconBtn(
