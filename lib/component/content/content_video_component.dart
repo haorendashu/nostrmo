@@ -46,7 +46,7 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
                     VideoPlayer(_controller),
-                    _ControlsOverlay(controller: _controller),
+                    ControlsOverlay(controller: _controller),
                     VideoProgressIndicator(_controller, allowScrubbing: true),
                   ],
                 ),
@@ -57,8 +57,19 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
   }
 }
 
-class _ControlsOverlay extends StatelessWidget {
-  const _ControlsOverlay({required this.controller});
+class ControlsOverlay extends StatefulWidget {
+  final VideoPlayerController controller;
+
+  ControlsOverlay({required this.controller});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _ControlsOverlay();
+  }
+}
+
+class _ControlsOverlay extends State<ControlsOverlay> {
+  late VideoPlayerController controller;
 
   static const List<Duration> _exampleCaptionOffsets = <Duration>[
     Duration(seconds: -10),
@@ -82,7 +93,11 @@ class _ControlsOverlay extends StatelessWidget {
     10.0,
   ];
 
-  final VideoPlayerController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = widget.controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +123,7 @@ class _ControlsOverlay extends StatelessWidget {
         GestureDetector(
           onTap: () {
             controller.value.isPlaying ? controller.pause() : controller.play();
+            setState(() {});
           },
         ),
         Align(

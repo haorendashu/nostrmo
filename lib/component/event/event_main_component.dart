@@ -30,12 +30,15 @@ class EventMainComponent extends StatefulWidget {
 
   Function? textOnTap;
 
+  bool showVideo;
+
   EventMainComponent({
     required this.screenshotController,
     required this.event,
     this.pagePubkey,
     this.showReplying = true,
     this.textOnTap,
+    this.showVideo = false,
   });
 
   @override
@@ -132,6 +135,7 @@ class _EventMainComponent extends State<EventMainComponent> {
               null,
               widget.event,
               textOnTap: widget.textOnTap,
+              showVideo: widget.showVideo,
             ),
           ),
         ),

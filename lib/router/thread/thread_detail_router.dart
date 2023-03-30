@@ -147,6 +147,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
                 child: EventListComponent(
                   event: currentEvent!,
                   jumpable: false,
+                  showVideo: true,
                 ),
                 onChange: (size) {
                   rootEventHeight = size.height;

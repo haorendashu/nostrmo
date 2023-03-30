@@ -9,6 +9,8 @@ import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
+import 'content_str_link_component.dart';
+
 class ContentDecoder {
   static const OTHER_LIGHTNING = "lightning=";
 
@@ -73,7 +75,7 @@ class ContentDecoder {
   }
 
   static List<Widget> decode(String? content, Event? event,
-      {Function? textOnTap}) {
+      {Function? textOnTap, bool showVideo = false}) {
     if (StringUtil.isBlank(content) && event != null) {
       content = event.content;
     }
@@ -105,13 +107,25 @@ class ContentDecoder {
             var imageWidget = ContentImageComponent(imageUrl: subStr);
             list.add(imageWidget);
           } else if (pathType == "video") {
-            // block
-            // handledStr = _closeHandledStr(handledStr, inlines);
-            // _closeInlines(inlines, list);
-            // var w = ContentVideoComponent(url: subStr);
-            // list.add(w);
-            // TODO need to handle, this is temp handle
-            handledStr = _addToHandledStr(handledStr, subStr);
+            if (showVideo) {
+              // block
+              handledStr = _closeHandledStr(handledStr, inlines);
+              _closeInlines(inlines, list);
+              var w = ContentVideoComponent(url: subStr);
+              list.add(w);
+            } else {
+              handledStr = _closeHandledStr(handledStr, inlines);
+              inlines.add(ContentStrLinkComponent(
+                str: subStr,
+                onTap: () {
+                  if (textOnTap != null) {
+                    textOnTap();
+                  }
+                },
+              ));
+            }
+            // // TODO need to handle, this is temp handle
+            // handledStr = _addToHandledStr(handledStr, subStr);
           } else if (pathType == "link") {
             // inline
             handledStr = _closeHandledStr(handledStr, inlines);
