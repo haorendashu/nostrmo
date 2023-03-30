@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/content/content_link_component.dart';
@@ -9,6 +10,7 @@ import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
+import 'content_link_pre_component.dart';
 import 'content_str_link_component.dart';
 
 class ContentDecoder {
@@ -74,7 +76,8 @@ class ContentDecoder {
     }
   }
 
-  static List<Widget> decode(String? content, Event? event,
+  static List<Widget> decode(
+      BuildContext context, String? content, Event? event,
       {Function? textOnTap, bool showVideo = false}) {
     if (StringUtil.isBlank(content) && event != null) {
       content = event.content;
@@ -114,6 +117,7 @@ class ContentDecoder {
               var w = ContentVideoComponent(url: subStr);
               list.add(w);
             } else {
+              // inline
               handledStr = _closeHandledStr(handledStr, inlines);
               inlines.add(ContentStrLinkComponent(
                 str: subStr,
@@ -127,9 +131,26 @@ class ContentDecoder {
             // // TODO need to handle, this is temp handle
             // handledStr = _addToHandledStr(handledStr, subStr);
           } else if (pathType == "link") {
-            // inline
+            // // inline
+            // handledStr = _closeHandledStr(handledStr, inlines);
+            // inlines.add(ContentLinkComponent(link: subStr));
+
+            // block
             handledStr = _closeHandledStr(handledStr, inlines);
-            inlines.add(ContentLinkComponent(link: subStr));
+            _closeInlines(inlines, list, textOnTap: textOnTap);
+            // var w = LinkPreview(
+            //   enableAnimation: true,
+            //   onPreviewDataFetched: (data) {
+            //     // Save preview data
+            //   },
+            //   previewData: null, // Pass the preview data from the state
+            //   text: handledStr,
+            //   width: MediaQuery.of(context).size.width,
+            // );
+            var w = ContentLinkPreComponent(
+              link: subStr,
+            );
+            list.add(w);
           }
         } else if (subStr.indexOf(LNBC) == 0) {
           // block

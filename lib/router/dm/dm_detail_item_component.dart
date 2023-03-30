@@ -87,7 +87,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: ContentDecoder.decode(content, widget.event),
+              children: ContentDecoder.decode(context, content, widget.event),
             ),
           ),
         ],

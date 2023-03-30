@@ -68,6 +68,7 @@ dependencies:
   image_picker: ^0.8.7
   keframe: ^3.0.0
   pretty_qr_code: ^2.0.3
+  flutter_link_previewer: ^3.2.0
 
 dev_dependencies:
   flutter_test:

@@ -132,6 +132,7 @@ class _EventMainComponent extends State<EventMainComponent> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: ContentDecoder.decode(
+              context,
               null,
               widget.event,
               textOnTap: widget.textOnTap,
