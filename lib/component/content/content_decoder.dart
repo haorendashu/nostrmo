@@ -26,20 +26,21 @@ class ContentDecoder {
     }
   }
 
-  static String _closeHandledStr(String handledStr, List<Widget> inlines) {
+  static String _closeHandledStr(String handledStr, List<dynamic> inlines) {
     if (StringUtil.isNotBlank(handledStr)) {
-      inlines.add(Text(handledStr));
+      // inlines.add(Text(handledStr));
+      inlines.add(handledStr);
     }
     return "";
   }
 
-  static void _closeInlines(List<Widget> inlines, List<Widget> list,
+  static void _closeInlines(List<dynamic> inlines, List<Widget> list,
       {Function? textOnTap}) {
     if (inlines.isNotEmpty) {
       if (inlines.length == 1) {
-        if (inlines[0] is Text) {
+        if (inlines[0] is String) {
           list.add(SelectableText(
-            (inlines[0] as Text).data!,
+            inlines[0],
             onTap: () {
               if (textOnTap != null) {
                 textOnTap();
@@ -52,8 +53,8 @@ class ContentDecoder {
       } else {
         List<InlineSpan> spans = [];
         for (var inline in inlines) {
-          if (inline is Text) {
-            spans.add(TextSpan(text: inline.data! + " "));
+          if (inline is String) {
+            spans.add(TextSpan(text: inline + " "));
           } else {
             spans.add(WidgetSpan(child: inline));
           }
@@ -83,7 +84,7 @@ class ContentDecoder {
     var strs = content.split("\n");
 
     for (var str in strs) {
-      List<Widget> inlines = [];
+      List<dynamic> inlines = [];
       String handledStr = "";
 
       ///
