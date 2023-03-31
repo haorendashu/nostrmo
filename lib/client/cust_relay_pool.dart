@@ -147,22 +147,22 @@ class CustRelayPool {
     if (messageType == 'EVENT') {
       try {
         final event = Event.fromJson(json[2]);
-        if (event.isValid &&
-            (_doSignatureVerification ? event.isSigned : true)) {
-          // add some statistics
-          custRelay.relayStatus.noteReceived++;
+        // if (event.isValid &&
+        //     (_doSignatureVerification ? event.isSigned : true)) {
+        // add some statistics
+        custRelay.relayStatus.noteReceived++;
 
-          event.source = json[3] ?? '';
-          final subId = json[1] as String;
-          var subscription = _subscriptions[subId];
+        event.source = json[3] ?? '';
+        final subId = json[1] as String;
+        var subscription = _subscriptions[subId];
 
-          if (subscription != null) {
-            subscription.onEvent(event);
-          } else {
-            subscription = custRelay.getRequestSubscription(subId);
-            subscription?.onEvent(event);
-          }
+        if (subscription != null) {
+          subscription.onEvent(event);
+        } else {
+          subscription = custRelay.getRequestSubscription(subId);
+          subscription?.onEvent(event);
         }
+        // }
       } catch (err) {
         log(err.toString());
       }
