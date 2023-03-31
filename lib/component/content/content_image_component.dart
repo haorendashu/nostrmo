@@ -20,7 +20,8 @@ class ContentImageComponent extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: imageUrl,
           fit: BoxFit.cover,
-          placeholder: (context, url) => CircularProgressIndicator(),
+          // placeholder: (context, url) => CircularProgressIndicator(),
+          placeholder: (context, url) => Container(),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
       ),
