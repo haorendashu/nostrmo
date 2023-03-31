@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/user/metadata_component.dart';
@@ -72,6 +74,15 @@ class _IndexDrawerContnetComponnent
       iconData: Icons.public,
       name: "Relays",
       onTap: () {},
+    ));
+
+    list.add(IndexDrawerItem(
+      iconData: Icons.key,
+      name: "Key Backup",
+      // borderBottom: true,
+      onTap: () {
+        RouterUtil.router(context, RouterPath.KEY_BACKUP);
+      },
     ));
 
     list.add(IndexDrawerItem(
@@ -154,6 +165,9 @@ class IndexDrawerItem extends StatelessWidget {
     var borderSide = BorderSide(width: 1, color: hintColor);
 
     return GestureDetector(
+      onTap: () {
+        onTap();
+      },
       behavior: HitTestBehavior.translucent,
       child: Container(
         height: 34,

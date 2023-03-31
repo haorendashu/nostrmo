@@ -9,6 +9,7 @@ import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
 import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:nostrmo/router/dm/dm_detail_router.dart';
+import 'package:nostrmo/router/keybackup/key_backup_router.dart';
 import 'package:nostrmo/router/notice/notice_router.dart';
 import 'package:nostrmo/router/tag/tag_detail_router.dart';
 import 'package:nostrmo/router/thread/thread_detail_router.dart';
@@ -205,6 +206,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
           RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
           RouterPath.NOTICES: (context) => NoticeRouter(),
+          RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
         },
       ),
     );
