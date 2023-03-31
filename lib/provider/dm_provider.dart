@@ -78,6 +78,8 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     return detail;
   }
 
+  int _initSince = 0;
+
   Future<void> initDMSessions(String localPubkey) async {
     _sessions.clear();
     _knownList.clear();
@@ -85,6 +87,10 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
     this.localPubkey = localPubkey;
     var events = await EventDB.list(kind.EventKind.DIRECT_MESSAGE, 0, 10000000);
+    if (events.isNotEmpty) {
+      // find the newest event, subscribe behind the new newest event
+      _initSince = events.first.createdAt;
+    }
 
     Map<String, List<Event>> eventListMap = {};
     for (var event in events) {
@@ -180,10 +186,12 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     var filter0 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
       authors: [targetNostr!.publicKey],
+      since: _initSince,
     );
     var filter1 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
       p: [targetNostr.publicKey],
+      since: _initSince,
     );
 
     targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
