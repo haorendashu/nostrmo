@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nostrmo/router/filter/filter_router.dart';
+import 'package:nostrmo/system_timer.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -223,8 +224,15 @@ class _MyApp extends State<MyApp> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    SystemTimer.run();
+  }
+
+  @override
   void dispose() {
     super.dispose();
+    SystemTimer.stopTask();
   }
 
   ThemeData getLightTheme() {

@@ -50,7 +50,7 @@ class CustRelayPool {
     custRelay.listen(_onEvent);
 
     if (await custRelay.relay.connect()) {
-      log("connect complete!");
+      log("Connect complete!");
       _relays[custRelay.relay.url] = custRelay;
       if (autoSubscribe) {
         for (Subscription subscription in _subscriptions.values) {
@@ -67,6 +67,8 @@ class CustRelayPool {
       }
       return true;
     }
+
+    custRelay.relayStatus.error++;
     return false;
   }
 

@@ -45,6 +45,20 @@ class RelayProvider extends ChangeNotifier {
     }
   }
 
+  void checkAndReconnect() {
+    Map<String, CustRelay> relayMap = {};
+    for (var custRelay in relays) {
+      relayMap[custRelay.relayStatus.addr] = custRelay;
+    }
+
+    for (var addr in relayAddrs) {
+      var custRelay = relayMap[addr];
+      if (custRelay == null) {
+        addRelay(addr);
+      }
+    }
+  }
+
   String relayNumStr() {
     var total = relayAddrs.length;
     var relayNum = relays.length;
