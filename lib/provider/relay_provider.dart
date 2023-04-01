@@ -82,6 +82,8 @@ class RelayProvider extends ChangeNotifier {
       log("begin to init $relayAddr");
       relayAddrs.add(relayAddr);
       nostr!.pool.add(custRelay, autoSubscribe: true);
+
+      _updateRelayToData();
     }
   }
 
@@ -89,7 +91,13 @@ class RelayProvider extends ChangeNotifier {
     if (relayAddrs.contains(relayAddr)) {
       relayAddrs.remove(relayAddr);
       nostr!.pool.remove(relayAddr);
+
+      _updateRelayToData();
     }
+  }
+
+  void _updateRelayToData() {
+    sharedPreferences.setStringList(DataKey.RELAY_LIST, relayAddrs);
   }
 
   CustRelay genRelay(String relayAddr) {
