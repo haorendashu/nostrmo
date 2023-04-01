@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:nostrmo/router/filter/filter_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,7 @@ import 'provider/contact_list_provider.dart';
 import 'provider/data_util.dart';
 import 'provider/dm_provider.dart';
 import 'provider/event_reactions_provider.dart';
+import 'provider/filter_provider.dart';
 import 'provider/follow_event_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/link_preview_data_provider.dart';
@@ -62,6 +64,8 @@ late SingleEventProvider singleEventProvider;
 
 late RelayProvider relayProvider;
 
+late FilterProvider filterProvider;
+
 late LinkPreviewDataProvider linkPreviewDataProvider;
 
 late MediaDataCache mediaDataCache;
@@ -90,6 +94,7 @@ Future<void> main() async {
   noticeProvider = NoticeProvider();
   singleEventProvider = SingleEventProvider();
   relayProvider = RelayProvider.getInstance();
+  filterProvider = FilterProvider.getInstance();
   linkPreviewDataProvider = LinkPreviewDataProvider();
   mediaDataCache = MediaDataCache();
 
@@ -176,6 +181,9 @@ class _MyApp extends State<MyApp> {
         ListenableProvider<RelayProvider>.value(
           value: relayProvider,
         ),
+        ListenableProvider<FilterProvider>.value(
+          value: filterProvider,
+        ),
         ListenableProvider<LinkPreviewDataProvider>.value(
           value: linkPreviewDataProvider,
         ),
@@ -208,6 +216,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.NOTICES: (context) => NoticeRouter(),
           RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
           RouterPath.RELAYS: (context) => RelaysRouter(),
+          RouterPath.FILTER: (context) => FilterRouter(),
         },
       ),
     );

@@ -66,12 +66,14 @@ class _IndexDrawerContnetComponnent
 
     list.add(IndexDrawerItem(
       iconData: Icons.block,
-      name: "Block",
-      onTap: () {},
+      name: "Filter",
+      onTap: () {
+        RouterUtil.router(context, RouterPath.FILTER);
+      },
     ));
 
     list.add(IndexDrawerItem(
-      iconData: Icons.public,
+      iconData: Icons.cloud,
       name: "Relays",
       onTap: () {
         RouterUtil.router(context, RouterPath.RELAYS);
@@ -79,7 +81,7 @@ class _IndexDrawerContnetComponnent
     ));
 
     list.add(IndexDrawerItem(
-      iconData: Icons.cloud,
+      iconData: Icons.key,
       name: "Key Backup",
       // borderBottom: true,
       onTap: () {
