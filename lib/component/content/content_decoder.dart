@@ -77,8 +77,13 @@ class ContentDecoder {
   }
 
   static List<Widget> decode(
-      BuildContext context, String? content, Event? event,
-      {Function? textOnTap, bool showVideo = false}) {
+    BuildContext context,
+    String? content,
+    Event? event, {
+    Function? textOnTap,
+    bool showVideo = false,
+    bool showLinkPreview = true,
+  }) {
     if (StringUtil.isBlank(content) && event != null) {
       content = event.content;
     }
@@ -131,17 +136,19 @@ class ContentDecoder {
             // // TODO need to handle, this is temp handle
             // handledStr = _addToHandledStr(handledStr, subStr);
           } else if (pathType == "link") {
-            // // inline
-            // handledStr = _closeHandledStr(handledStr, inlines);
-            // inlines.add(ContentLinkComponent(link: subStr));
-
-            // block
-            handledStr = _closeHandledStr(handledStr, inlines);
-            _closeInlines(inlines, list, textOnTap: textOnTap);
-            var w = ContentLinkPreComponent(
-              link: subStr,
-            );
-            list.add(w);
+            if (!showLinkPreview) {
+              // inline
+              handledStr = _closeHandledStr(handledStr, inlines);
+              inlines.add(ContentLinkComponent(link: subStr));
+            } else {
+              // block
+              handledStr = _closeHandledStr(handledStr, inlines);
+              _closeInlines(inlines, list, textOnTap: textOnTap);
+              var w = ContentLinkPreComponent(
+                link: subStr,
+              );
+              list.add(w);
+            }
           }
         } else if (subStr.indexOf(LNBC) == 0) {
           // block

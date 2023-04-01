@@ -55,8 +55,12 @@ class _MetadataComponent extends State<MetadataComponent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children:
-                  ContentDecoder.decode(context, widget.metadata!.about!, null),
+              children: ContentDecoder.decode(
+                context,
+                widget.metadata!.about!,
+                null,
+                showLinkPreview: false,
+              ),
             ),
           ),
         ),
