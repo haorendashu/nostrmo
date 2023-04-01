@@ -88,7 +88,7 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Events"),
+            child: Text("Notes"),
           ),
           Container(
             height: IndexAppBar.height,
