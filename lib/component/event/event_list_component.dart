@@ -50,7 +50,7 @@ class _EventListComponent extends State<EventListComponent> {
           screenshotController: screenshotController,
           event: widget.event,
           pagePubkey: widget.pagePubkey,
-          textOnTap: jumpToThread,
+          textOnTap: widget.jumpable ? jumpToThread : null,
           showVideo: widget.showVideo,
         ),
       ),
@@ -67,6 +67,7 @@ class _EventListComponent extends State<EventListComponent> {
   }
 
   void jumpToThread() {
+    print(widget.jumpable);
     RouterUtil.router(context, RouterPath.THREAD_DETAIL, widget.event);
   }
 }
