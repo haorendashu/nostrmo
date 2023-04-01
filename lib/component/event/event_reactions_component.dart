@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
@@ -98,14 +102,58 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 color: hintColor,
                 fontSize: fontSize,
               )),
+              // Expanded(
+              //     child: EventReactionNumComponent(
+              //   num: 0,
+              //   iconData: Icons.share,
+              //   onTap: onShareTap,
+              //   color: hintColor,
+              //   fontSize: fontSize,
+              // )),
               Expanded(
-                  child: EventReactionNumComponent(
-                num: 0,
-                iconData: Icons.share,
-                onTap: onShareTap,
-                color: hintColor,
-                fontSize: fontSize,
-              )),
+                child: PopupMenuButton<String>(
+                  itemBuilder: (context) {
+                    return [
+                      PopupMenuItem(
+                        value: "copyEvent",
+                        child: Text("Copy Note Json"),
+                      ),
+                      PopupMenuItem(
+                        value: "copyPubkey",
+                        child: Text("Copy Note Pubkey"),
+                      ),
+                      PopupMenuItem(
+                        value: "copyId",
+                        child: Text("Copy Note Id"),
+                      ),
+                      PopupMenuDivider(),
+                      PopupMenuItem(
+                        value: "share",
+                        child: Text("Share"),
+                      ),
+                      PopupMenuItem(
+                        value: "star",
+                        child: Text("Star"),
+                      ),
+                      PopupMenuDivider(),
+                      PopupMenuItem(
+                        value: "broadcase",
+                        child: Text("Broadcase"),
+                      ),
+                      PopupMenuItem(
+                        value: "block",
+                        child: Text("Block"),
+                      ),
+                    ];
+                  },
+                  onSelected: onPopupSelected,
+                  child: Icon(
+                    Icons.more_vert,
+                    size: 16,
+                    color: hintColor,
+                  ),
+                ),
+              ),
             ],
           ),
         );
@@ -127,6 +175,33 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         return false;
       },
     );
+  }
+
+  void onPopupSelected(String value) {
+    if (value == "copyEvent") {
+      var text = jsonEncode(widget.event.toJson());
+      _doCopy(text);
+    } else if (value == "copyPubkey") {
+      var text = Nip19.encodePubKey(widget.event.pubKey);
+      _doCopy(text);
+    } else if (value == "copyId") {
+      var text = Nip19.encodeNoteId(widget.event.id);
+      _doCopy(text);
+    } else if (value == "share") {
+      onShareTap();
+    } else if (value == "star") {
+      // TODO star event
+    } else if (value == "broadcase") {
+      nostr!.sendEvent(widget.event);
+    } else if (value == "block") {
+      filterProvider.addBlock(widget.event.pubKey);
+    }
+  }
+
+  void _doCopy(String text) {
+    Clipboard.setData(ClipboardData(text: text)).then((_) {
+      BotToast.showText(text: "Copy success!");
+    });
   }
 
   @override
@@ -221,6 +296,13 @@ class EventReactionNumComponent extends StatelessWidget {
       color: color,
     );
     if (num != 0) {
+      String numStr = num.toString();
+      if (num > 1000000) {
+        numStr = (num / 1000000).toStringAsFixed(1) + "m";
+      } else if (num > 1000) {
+        numStr = (num / 1000).toStringAsFixed(1) + "k";
+      }
+
       main = Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -229,7 +311,7 @@ class EventReactionNumComponent extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(left: 4),
             child: Text(
-              num.toString(),
+              numStr,
               style: TextStyle(color: color, fontSize: fontSize),
             ),
           ),
