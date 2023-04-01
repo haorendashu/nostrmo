@@ -219,7 +219,9 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     var er = widget.eventRelation;
     tags.add(["p", widget.event.pubKey]);
     if (er.tagPList.isNotEmpty) {
-      tags.add(er.tagPList);
+      for (var p in er.tagPList) {
+        tags.add(["p", p]);
+      }
     }
     if (StringUtil.isNotBlank(er.rootId)) {
       tags.add(["e", er.rootId, "", "root"]);

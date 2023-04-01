@@ -481,8 +481,9 @@ class _EditorRouter extends State<EditorRouter> {
       event =
           Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result);
     }
-    nostr!.sendEvent(event);
-    RouterUtil.back(context, event);
+    var e = nostr!.sendEvent(event);
+    // log(jsonEncode(e.toJson()));
+    RouterUtil.back(context, e);
   }
 
   String handleInlineValue(String result, String value) {
