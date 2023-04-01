@@ -194,6 +194,15 @@ class CustRelayPool {
           // add some statistics
           custRelay.relayStatus.noteReceived++;
 
+          // check block pubkey
+          if (filterProvider.checkBlock(event.pubKey)) {
+            return;
+          }
+          // check dirtyword
+          if (filterProvider.checkDirtyword(event.content)) {
+            return;
+          }
+
           event.source = json[3] ?? '';
           final subId = json[1] as String;
           var subscription = _subscriptions[subId];

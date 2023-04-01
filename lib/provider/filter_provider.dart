@@ -41,6 +41,9 @@ class FilterProvider extends ChangeNotifier {
   }
 
   bool checkDirtyword(String targetStr) {
+    if (dirtywordList.isEmpty) {
+      return false;
+    }
     return trieTree.check(targetStr);
   }
 
