@@ -7,6 +7,7 @@ import 'package:nostrmo/main.dart';
 import '../data/relay_status.dart';
 import 'cust_relay.dart';
 
+@deprecated
 CustNostr genNostr(String pk) {
   // init nostr
   var _nostr = CustNostr(privateKey: pk);
@@ -15,12 +16,13 @@ CustNostr genNostr(String pk) {
   _nostr.pool.listenRelayAdded(relayProvider.relayAddedListener);
   _nostr.pool.listenRelayRemoved(relayProvider.relayRemovedListener);
 
-  // add subscript
-  contactListProvider.subscribe(targetNostr: _nostr);
+  // add initQuery
+  var dmInitFuture = dmProvider.initDMSessions(_nostr.publicKey);
+  contactListProvider.query(targetNostr: _nostr);
   followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
   mentionMeProvider.doQuery(targetNostr: _nostr, initQuery: true);
-  dmProvider.initDMSessions(_nostr.publicKey).then((_) {
-    dmProvider.subscribe(targetNostr: _nostr);
+  dmInitFuture.then((_) {
+    dmProvider.subscribe(targetNostr: _nostr, initQuery: true);
   });
 
   // load relay addr and init

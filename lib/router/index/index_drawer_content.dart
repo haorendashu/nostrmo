@@ -73,7 +73,9 @@ class _IndexDrawerContnetComponnent
     list.add(IndexDrawerItem(
       iconData: Icons.public,
       name: "Relays",
-      onTap: () {},
+      onTap: () {
+        RouterUtil.router(context, RouterPath.RELAYS);
+      },
     ));
 
     list.add(IndexDrawerItem(

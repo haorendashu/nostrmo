@@ -7,13 +7,18 @@ import 'cust_relay.dart';
 import 'subscription.dart';
 
 class CustRelayPool {
+  // connected relays
   final Map<String, CustRelay> _relays = {};
-  final Map<String, Subscription> _subscriptions = {};
-  final Map<String, Subscription> _initQuery = {};
-  final bool _doSignatureVerification;
 
-  CustRelayPool({bool disableSignatureVerification = false})
-      : _doSignatureVerification = !disableSignatureVerification;
+  // subscription
+  final Map<String, Subscription> _subscriptions = {};
+  // init query
+  final Map<String, Subscription> _initQuery = {};
+
+  final bool _eventVerification;
+
+  CustRelayPool({bool eventVerification = false})
+      : _eventVerification = eventVerification;
 
   List<String> get list => _relays.keys.toList();
 
@@ -22,16 +27,22 @@ class CustRelayPool {
   Map<String, RelayInfo> get info =>
       _relays.map((key, value) => MapEntry(key, value.relay.info));
 
-  Map<String, bool> get isConnected =>
-      _relays.map((key, value) => MapEntry(key, value.relay.isConnected));
+  // move to relay provider
+  // Map<String, bool> get isConnected =>
+  //     _relays.map((key, value) => MapEntry(key, value.relay.isConnected));
 
-  Future<bool> add(CustRelay custRelay, {bool autoSubscribe = false}) async {
+  Future<bool> add(
+    CustRelay custRelay, {
+    bool autoSubscribe = false,
+    bool init = false,
+  }) async {
     if (_relays.containsKey(custRelay.relay.url)) {
       return true;
     }
 
     custRelay.relay.onError = (url) {
       log('Could not send or reconnect to relay $url');
+      custRelay.relayStatus.error++;
       remove(url);
     };
 
@@ -44,6 +55,10 @@ class CustRelayPool {
       if (autoSubscribe) {
         for (Subscription subscription in _subscriptions.values) {
           custRelay.relay.send(subscription.toJson());
+        }
+      } else if (init) {
+        for (Subscription subscription in _initQuery.values) {
+          relayDoQuery(custRelay, subscription);
         }
       }
 
@@ -83,10 +98,21 @@ class CustRelayPool {
         futures.add(custRelay.send(message));
       } catch (err) {
         log(err.toString());
+        custRelay.relayStatus.error++;
         remove(custRelay.relay.url);
       }
     }
     await Future.wait(futures);
+  }
+
+  void addInitQuery(List<Map<String, dynamic>> filters, Function(Event) onEvent,
+      [String? id]) {
+    if (filters.isEmpty) {
+      throw ArgumentError("No filters given", "filters");
+    }
+
+    final Subscription subscription = Subscription(filters, onEvent, id);
+    _initQuery[subscription.id] = subscription;
   }
 
   /// subscribe shoud be a long time filter search.
@@ -125,21 +151,38 @@ class CustRelayPool {
     List<Future<void>> futures = [];
     Subscription subscription = Subscription(filters, onEvent, id);
     for (CustRelay custRelay in _relays.values) {
-      if (custRelay.relay.access == WriteAccess.writeOnly) {
-        continue;
-      }
-
-      custRelay.saveQuery(subscription);
-
-      try {
-        futures.add(custRelay.send(subscription.toJson()));
-      } catch (err) {
-        log(err.toString());
-        remove(custRelay.relay.url);
-      }
+      // if (custRelay.relay.access == WriteAccess.writeOnly) {
+      //   continue;
+      // }
+      // custRelay.saveQuery(subscription);
+      // try {
+      //   futures.add(custRelay.send(subscription.toJson()));
+      // } catch (err) {
+      //   log(err.toString());
+      //   custRelay.relayStatus.error++;
+      //   remove(custRelay.relay.url);
+      // }
+      futures.add(relayDoQuery(custRelay, subscription));
     }
     await Future.wait(futures);
     return subscription.id;
+  }
+
+  Future<void> relayDoQuery(
+      CustRelay custRelay, Subscription subscription) async {
+    if (custRelay.relay.access == WriteAccess.writeOnly) {
+      return;
+    }
+
+    custRelay.saveQuery(subscription);
+
+    try {
+      return await custRelay.send(subscription.toJson());
+    } catch (err) {
+      log(err.toString());
+      custRelay.relayStatus.error++;
+      remove(custRelay.relay.url);
+    }
   }
 
   void _onEvent(CustRelay custRelay, List<dynamic> json) {
@@ -147,22 +190,21 @@ class CustRelayPool {
     if (messageType == 'EVENT') {
       try {
         final event = Event.fromJson(json[2]);
-        // if (event.isValid &&
-        //     (_doSignatureVerification ? event.isSigned : true)) {
-        // add some statistics
-        custRelay.relayStatus.noteReceived++;
+        if (!_eventVerification || (event.isValid && event.isSigned)) {
+          // add some statistics
+          custRelay.relayStatus.noteReceived++;
 
-        event.source = json[3] ?? '';
-        final subId = json[1] as String;
-        var subscription = _subscriptions[subId];
+          event.source = json[3] ?? '';
+          final subId = json[1] as String;
+          var subscription = _subscriptions[subId];
 
-        if (subscription != null) {
-          subscription.onEvent(event);
-        } else {
-          subscription = custRelay.getRequestSubscription(subId);
-          subscription?.onEvent(event);
+          if (subscription != null) {
+            subscription.onEvent(event);
+          } else {
+            subscription = custRelay.getRequestSubscription(subId);
+            subscription?.onEvent(event);
+          }
         }
-        // }
       } catch (err) {
         log(err.toString());
       }

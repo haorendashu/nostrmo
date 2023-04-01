@@ -11,16 +11,14 @@ class CustNostr {
   String _publicKey = '';
   final int powDifficulty;
   late CustRelayPool pool;
-  final bool disableSignatureVerification;
 
   CustNostr(
       {String privateKey = '',
       this.powDifficulty = 0,
-      this.disableSignatureVerification = false})
+      bool eventVerification = false})
       : _privateKey = privateKey {
     _publicKey = privateKey.isNotEmpty ? getPublicKey(privateKey) : '';
-    pool = CustRelayPool(
-        disableSignatureVerification: disableSignatureVerification);
+    pool = CustRelayPool(eventVerification: eventVerification);
   }
 
   set privateKey(String key) {

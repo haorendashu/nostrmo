@@ -181,7 +181,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     return addResult;
   }
 
-  void subscribe({CustNostr? targetNostr}) {
+  void subscribe({CustNostr? targetNostr, bool initQuery = false}) {
     targetNostr ??= nostr;
     var filter0 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
@@ -194,7 +194,12 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       since: _initSince,
     );
 
-    targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
+    if (initQuery) {
+      targetNostr.pool
+          .addInitQuery([filter0.toJson(), filter1.toJson()], onEvent);
+    } else {
+      targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
+    }
   }
 
   void handleEventImmediately(Event event) {

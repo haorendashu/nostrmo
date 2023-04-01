@@ -1,15 +1,22 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:nostr_dart/nostr_dart.dart';
+
+import '../client/cust_nostr.dart';
 import '../client/cust_relay.dart';
+import '../data/relay_status.dart';
 import '../main.dart';
 import 'data_util.dart';
 
 class RelayProvider extends ChangeNotifier {
   static RelayProvider? _relayProvider;
 
-  List<String> relayUrls = [];
+  List<String> relayAddrs = [];
 
   List<CustRelay> relays = [];
+
+  Map<String, RelayStatus> relayStatusMap = {};
 
   static RelayProvider getInstance() {
     if (_relayProvider == null) {
@@ -20,15 +27,15 @@ class RelayProvider extends ChangeNotifier {
   }
 
   List<String>? _load() {
-    relayUrls.clear();
+    relayAddrs.clear();
     var list = sharedPreferences.getStringList(DataKey.RELAY_LIST);
     if (list != null) {
-      relayUrls.addAll(relayUrls);
+      relayAddrs.addAll(list);
     }
 
-    if (relayUrls.isEmpty) {
+    if (relayAddrs.isEmpty) {
       // init relays
-      relayUrls = [
+      relayAddrs = [
         "wss://nos.lol",
         "wss://nostr.wine",
         "wss://atlas.nostr.land",
@@ -39,38 +46,74 @@ class RelayProvider extends ChangeNotifier {
   }
 
   String relayNumStr() {
-    var total = relayUrls.length;
+    var total = relayAddrs.length;
     var relayNum = relays.length;
     return "$relayNum / $total";
   }
 
-  // CustNostr genNostr(String pk) {
-  //   var _nostr = CustNostr(privateKey: pk);
-  //   log("nostr init over");
+  CustNostr genNostr(String pk) {
+    var _nostr = CustNostr(privateKey: pk);
+    log("nostr init over");
 
-  //   _nostr.pool.listenRelayAdded(relayAddedListener);
-  //   _nostr.pool.listenRelayRemoved(relayRemovedListener);
+    _nostr.pool.listenRelayAdded(relayAddedListener);
+    _nostr.pool.listenRelayRemoved(relayRemovedListener);
 
-  //   for (var relayAddr in relayUrls) {
-  //     var relayStatus = RelayStatus(relayAddr);
-  //     var relay = Relay(
-  //       relayStatus.addr,
-  //       access: WriteAccess.readWrite,
-  //     );
-  //     var custRelay = CustRelay(relay, relayStatus);
+    // add initQuery
+    var dmInitFuture = dmProvider.initDMSessions(_nostr.publicKey);
+    contactListProvider.query(targetNostr: _nostr);
+    followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
+    mentionMeProvider.doQuery(targetNostr: _nostr, initQuery: true);
+    dmInitFuture.then((_) {
+      dmProvider.subscribe(targetNostr: _nostr, initQuery: true);
+    });
 
-  //     _nostr.pool.add(custRelay, autoSubscribe: true);
-  //   }
+    for (var relayAddr in relayAddrs) {
+      log("begin to init $relayAddr");
+      var custRelay = genRelay(relayAddr);
+      _nostr.pool.add(custRelay, init: true);
+    }
 
-  //   return _nostr;
-  // }
+    return _nostr;
+  }
+
+  void addRelay(String relayAddr) {
+    if (!relayAddrs.contains(relayAddr)) {
+      var custRelay = genRelay(relayAddr);
+      log("begin to init $relayAddr");
+      relayAddrs.add(relayAddr);
+      nostr!.pool.add(custRelay, autoSubscribe: true);
+    }
+  }
+
+  void removeRelay(String relayAddr) {
+    if (relayAddrs.contains(relayAddr)) {
+      relayAddrs.remove(relayAddr);
+      nostr!.pool.remove(relayAddr);
+    }
+  }
+
+  CustRelay genRelay(String relayAddr) {
+    var relayStatus = relayStatusMap[relayAddr];
+    if (relayStatus == null) {
+      relayStatus = RelayStatus(relayAddr);
+      relayStatusMap[relayAddr] = relayStatus;
+    }
+
+    var relay = Relay(
+      relayStatus.addr,
+      access: WriteAccess.readWrite,
+    );
+    return CustRelay(relay, relayStatus);
+  }
 
   void relayAddedListener(CustRelay custRelay) {
     relays.add(custRelay);
+    custRelay.relayStatus.connected = true;
     notifyListeners();
   }
 
   void relayRemovedListener(CustRelay custRelay) {
+    custRelay.relayStatus.connected = false;
     relays.removeWhere((element) {
       return element.relay.url == custRelay.relay.url;
     });

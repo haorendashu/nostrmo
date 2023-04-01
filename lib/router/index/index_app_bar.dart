@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/diagnostics.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +77,9 @@ class _IndexAppBar extends State<IndexAppBar> {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            RouterUtil.router(context, RouterPath.RELAYS);
+          },
           child: rightWidget,
         ),
       ]),

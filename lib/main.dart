@@ -2,39 +2,38 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:nostrmo/data/db.dart';
-import 'package:nostrmo/provider/contact_list_provider.dart';
-import 'package:nostrmo/provider/event_reactions_provider.dart';
-import 'package:nostrmo/provider/follow_event_provider.dart';
-import 'package:nostrmo/provider/mention_me_provider.dart';
-import 'package:nostrmo/provider/single_event_provider.dart';
-import 'package:nostrmo/router/dm/dm_detail_router.dart';
-import 'package:nostrmo/router/keybackup/key_backup_router.dart';
-import 'package:nostrmo/router/notice/notice_router.dart';
-import 'package:nostrmo/router/tag/tag_detail_router.dart';
-import 'package:nostrmo/router/thread/thread_detail_router.dart';
-import 'package:nostrmo/router/user/user_contact_list_router.dart';
-import 'package:nostrmo/router/user/user_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'client/cust_nostr.dart';
-import 'client/nostr_builder.dart';
 import 'consts/base.dart';
 import 'consts/colors.dart';
 import 'consts/router_path.dart';
 import 'consts/theme_style.dart';
+import 'data/db.dart';
 import 'generated/l10n.dart';
+import 'provider/contact_list_provider.dart';
 import 'provider/data_util.dart';
 import 'provider/dm_provider.dart';
+import 'provider/event_reactions_provider.dart';
+import 'provider/follow_event_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/link_preview_data_provider.dart';
+import 'provider/mention_me_provider.dart';
 import 'provider/metadata_provider.dart';
 import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
-import 'router/edit/editor_router.dart';
+import 'provider/single_event_provider.dart';
+import 'router/dm/dm_detail_router.dart';
 import 'router/index/index_router.dart';
+import 'router/keybackup/key_backup_router.dart';
+import 'router/notice/notice_router.dart';
+import 'router/relays/relays_router.dart';
+import 'router/tag/tag_detail_router.dart';
+import 'router/thread/thread_detail_router.dart';
+import 'router/user/user_contact_list_router.dart';
+import 'router/user/user_router.dart';
 import 'util/colors_util.dart';
 import 'util/media_data_cache.dart';
 import 'util/string_util.dart';
@@ -95,7 +94,8 @@ Future<void> main() async {
   mediaDataCache = MediaDataCache();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
-    nostr = genNostr(settingProvider.privateKey!);
+    // nostr = genNostr(settingProvider.privateKey!);
+    nostr = relayProvider.genNostr(settingProvider.privateKey!);
   }
 
   FlutterNativeSplash.remove();
@@ -207,6 +207,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
           RouterPath.NOTICES: (context) => NoticeRouter(),
           RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
+          RouterPath.RELAYS: (context) => RelaysRouter(),
         },
       ),
     );

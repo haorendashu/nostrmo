@@ -184,7 +184,8 @@ class _LoginRouter extends State<LoginRouter>
       return;
     }
 
-    nostr = genNostr(pk);
+    // nostr = genNostr(pk);
+    nostr = relayProvider.genNostr(pk);
     settingProvider.privateKey = pk;
   }
 

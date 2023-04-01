@@ -37,14 +37,14 @@ class ContactListProvider extends ChangeNotifier {
 
   var subscriptId = StringUtil.rndNameStr(16);
 
-  void subscribe({CustNostr? targetNostr}) {
+  void query({CustNostr? targetNostr}) {
     targetNostr ??= nostr;
     subscriptId = StringUtil.rndNameStr(16);
     var filter = Filter(
         kinds: [kind.EventKind.CONTACT_LIST],
         limit: 1,
         authors: [targetNostr!.publicKey]);
-    targetNostr.pool.subscribe([filter.toJson()], _onEvent, subscriptId);
+    targetNostr.pool.addInitQuery([filter.toJson()], _onEvent, subscriptId);
   }
 
   void _onEvent(Event e) {

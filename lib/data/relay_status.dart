@@ -5,13 +5,12 @@ class RelayStatus {
 
   bool connected = false;
 
-  bool noteAble = true;
-
-  bool dmAble = true;
-
-  bool profileAble = true;
-
-  bool globalAble = true;
+  // bool noteAble = true;
+  // bool dmAble = true;
+  // bool profileAble = true;
+  // bool globalAble = true;
 
   int noteReceived = 0;
+
+  int error = 0;
 }
