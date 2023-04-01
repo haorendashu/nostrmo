@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
@@ -122,14 +124,19 @@ class _QrcodeDialog extends State<QrcodeDialog> {
         image: AssetImage("assets/imgs/logo/logo512.png"),
       ),
     ));
-    list.add(Container(
-      width: QR_WIDTH + Base.BASE_PADDING_HALF * 2,
-      padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
-      decoration: BoxDecoration(
-        color: hintColor.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(10),
+    list.add(GestureDetector(
+      onTap: () {
+        _doCopy(nip19Pubkey);
+      },
+      child: Container(
+        width: QR_WIDTH + Base.BASE_PADDING_HALF * 2,
+        padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
+        decoration: BoxDecoration(
+          color: hintColor.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: SelectableText(nip19Pubkey),
       ),
-      child: Text(nip19Pubkey),
     ));
 
     var main = Stack(
@@ -184,6 +191,12 @@ class _QrcodeDialog extends State<QrcodeDialog> {
         ),
       ),
     );
+  }
+
+  void _doCopy(String text) {
+    Clipboard.setData(ClipboardData(text: text)).then((_) {
+      BotToast.showText(text: "Pubkey copy success!");
+    });
   }
 
   void onShareTap() {
