@@ -20,7 +20,7 @@ class SystemTimer {
   }
 
   static void runTask() {
-    log("SystemTimer runTask");
+    // log("SystemTimer runTask");
     relayProvider.checkAndReconnect();
   }
 

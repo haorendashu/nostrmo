@@ -93,6 +93,8 @@ class ContentDecoder {
     content = content.replaceAll("\n\n", "\n");
     var strs = content.split("\n");
 
+    List<String> imageList = [];
+
     for (var str in strs) {
       List<dynamic> inlines = [];
       String handledStr = "";
@@ -109,10 +111,15 @@ class ContentDecoder {
           // link, image, video etc
           var pathType = getPathType(subStr);
           if (pathType == "image") {
+            imageList.add(subStr);
+
             // block
             handledStr = _closeHandledStr(handledStr, inlines);
             _closeInlines(inlines, list, textOnTap: textOnTap);
-            var imageWidget = ContentImageComponent(imageUrl: subStr);
+            var imageWidget = ContentImageComponent(
+              imageUrl: subStr,
+              imageList: imageList,
+            );
             list.add(imageWidget);
           } else if (pathType == "video") {
             if (showVideo) {
