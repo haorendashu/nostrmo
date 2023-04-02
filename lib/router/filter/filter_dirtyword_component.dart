@@ -73,10 +73,20 @@ class _FilterDirtywordComponent extends State<FilterDirtywordComponent> {
   }
 }
 
-class FilterDirtywordItemComponent extends StatelessWidget {
+class FilterDirtywordItemComponent extends StatefulWidget {
   String word;
 
   FilterDirtywordItemComponent({required this.word});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _FilterDirtywordItemComponent();
+  }
+}
+
+class _FilterDirtywordItemComponent
+    extends State<FilterDirtywordItemComponent> {
+  bool showDel = false;
 
   @override
   Widget build(BuildContext context) {
@@ -85,23 +95,49 @@ class FilterDirtywordItemComponent extends StatelessWidget {
     var mainColor = themeData.primaryColor;
     var fontColor = themeData.appBarTheme.titleTextStyle!.color;
 
-    return Container(
-      padding: EdgeInsets.only(
-        left: Base.BASE_PADDING_HALF,
-        right: Base.BASE_PADDING_HALF,
-        top: 4,
-        bottom: 4,
-      ),
-      decoration: BoxDecoration(
-        color: mainColor.withOpacity(0.8),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        word,
-        style: TextStyle(
-          color: fontColor,
+    List<Widget> list = [
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            showDel = true;
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.only(
+            left: Base.BASE_PADDING_HALF,
+            right: Base.BASE_PADDING_HALF,
+            top: 4,
+            bottom: 4,
+          ),
+          decoration: BoxDecoration(
+            color: mainColor.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+            widget.word,
+            style: TextStyle(
+              color: fontColor,
+            ),
+          ),
         ),
-      ),
+      )
+    ];
+
+    if (showDel) {
+      list.add(GestureDetector(
+        onTap: () {
+          filterProvider.removeDirtyword(widget.word);
+        },
+        child: Icon(
+          Icons.delete,
+          color: Colors.red,
+        ),
+      ));
+    }
+
+    return Stack(
+      alignment: Alignment.center,
+      children: list,
     );
   }
 }
