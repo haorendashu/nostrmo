@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../client/zap_num_util.dart';
 import '../../consts/base.dart';
@@ -96,9 +100,20 @@ class ContentLnbcComponent extends StatelessWidget {
           Container(
             width: double.maxFinite,
             child: InkWell(
-              onTap: () {
+              onTap: () async {
                 // TODO call to pay
                 print(lnbc);
+                var link = 'lightning:' + lnbc;
+                if (Platform.isAndroid) {
+                  AndroidIntent intent = AndroidIntent(
+                    action: 'action_view',
+                    data: link,
+                  );
+                  await intent.launch();
+                } else {
+                  var url = Uri.parse(link);
+                  launchUrl(url);
+                }
               },
               child: Container(
                 color: Colors.black,
