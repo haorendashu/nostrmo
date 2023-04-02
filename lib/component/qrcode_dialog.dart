@@ -135,7 +135,12 @@ class _QrcodeDialog extends State<QrcodeDialog> {
           color: hintColor.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: SelectableText(nip19Pubkey),
+        child: SelectableText(
+          nip19Pubkey,
+          onTap: () {
+            _doCopy(nip19Pubkey);
+          },
+        ),
       ),
     ));
 
