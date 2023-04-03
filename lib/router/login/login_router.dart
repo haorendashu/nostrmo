@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nostr_builder.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -184,7 +185,9 @@ class _LoginRouter extends State<LoginRouter>
       return;
     }
 
-    // nostr = genNostr(pk);
+    if (Nip19.isPrivateKey(pk)) {
+      pk = Nip19.decode(pk);
+    }
     nostr = relayProvider.genNostr(pk);
     settingProvider.privateKey = pk;
   }

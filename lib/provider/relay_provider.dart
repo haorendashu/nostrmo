@@ -141,4 +141,10 @@ class RelayProvider extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  void clear() {
+    sharedPreferences.remove(DataKey.RELAY_LIST);
+    relayStatusMap.clear();
+    _load();
+  }
 }

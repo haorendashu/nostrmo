@@ -142,6 +142,7 @@ class _IndexDrawerContnetComponnent
 
     eventReactionsProvider.clear();
     linkPreviewDataProvider.clear();
+    relayProvider.clear();
 
     // remove private key
     settingProvider.privateKey = null;
