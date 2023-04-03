@@ -17,30 +17,32 @@ class ZapAction {
 
     var relays = relayProvider.relayAddrs;
 
-    if (StringUtil.isNotBlank(metadata.lud16)) {
-      var lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
-      if (StringUtil.isNotBlank(lnurl)) {
-        var lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
-        if (StringUtil.isBlank(lnurl)) {
-          BotToast.showText(text: "Gen lnurl error.");
-          return;
-        }
-        var invoiceCode = await Zap.getInvoiceCode(
-          lnurl: lnurl!,
-          sats: sats,
-          recipientPubkey: pubkey,
-          targetNostr: nostr!,
-          relays: relays,
-          eventId: eventId,
-        );
-
-        if (StringUtil.isBlank(invoiceCode)) {
-          BotToast.showText(text: "Gen invoiceCode error.");
-          return;
-        }
-
-        await LightningUtil.goToPay(invoiceCode!);
+    String? lnurl = metadata.lud06;
+    if (StringUtil.isBlank(lnurl)) {
+      if (StringUtil.isNotBlank(metadata.lud16)) {
+        lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
       }
     }
+
+    if (StringUtil.isBlank(lnurl)) {
+      BotToast.showText(text: "Gen lnurl error.");
+      return;
+    }
+
+    var invoiceCode = await Zap.getInvoiceCode(
+      lnurl: lnurl!,
+      sats: sats,
+      recipientPubkey: pubkey,
+      targetNostr: nostr!,
+      relays: relays,
+      eventId: eventId,
+    );
+
+    if (StringUtil.isBlank(invoiceCode)) {
+      BotToast.showText(text: "Gen invoiceCode error.");
+      return;
+    }
+
+    await LightningUtil.goToPay(invoiceCode!);
   }
 }
