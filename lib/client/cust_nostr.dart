@@ -109,4 +109,11 @@ class CustNostr {
     pool.send(["EVENT", event.toJson()]);
     return event;
   }
+
+  void close() {
+    var addrs = pool.list;
+    for (var addr in addrs) {
+      pool.remove(addr);
+    }
+  }
 }

@@ -20,12 +20,14 @@ class CustRelayPool {
   CustRelayPool({bool eventVerification = false})
       : _eventVerification = eventVerification;
 
+  // List<CustRelay> get allRelays => _relays.values.toList();
+
   List<String> get list => _relays.keys.toList();
 
   List<String> get subscriptions => _subscriptions.keys.toList();
 
-  Map<String, RelayInfo> get info =>
-      _relays.map((key, value) => MapEntry(key, value.relay.info));
+  // Map<String, RelayInfo> get info =>
+  //     _relays.map((key, value) => MapEntry(key, value.relay.info));
 
   // move to relay provider
   // Map<String, bool> get isConnected =>
