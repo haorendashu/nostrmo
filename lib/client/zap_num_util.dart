@@ -24,18 +24,21 @@ class ZapNumUtil {
   static int getNumFromStr(String zapStr) {
     var numStr = SpiderUtil.subUntil(zapStr, "lnbc", "1p");
     if (StringUtil.isNotBlank(numStr)) {
-      var lastStr = numStr.substring(numStr.length - 1);
-      if (lastStr == "n") {
-        var formatNumStr = numStr.replaceAll("0n", "");
-        var num = int.tryParse(formatNumStr);
-        if (num != null) {
-          return num;
-        }
-      } else if (lastStr == "u") {
-        var formatNumStr = numStr.replaceAll("u", "");
-        var num = int.tryParse(formatNumStr);
-        if (num != null) {
-          return (num * 100);
+      var numStrLength = numStr.length;
+      if (numStrLength > 1) {
+        var lastStr = numStr.substring(numStr.length - 1);
+        var pureNumStr = numStr.substring(0, numStr.length - 1);
+        var pureNum = int.tryParse(pureNumStr);
+        if (pureNum != null) {
+          if (lastStr == "p") {
+            return (pureNum * 0.0001).round();
+          } else if (lastStr == "n") {
+            return (pureNum * 0.1).round();
+          } else if (lastStr == "u") {
+            return (pureNum * 100).round();
+          } else if (lastStr == "m") {
+            return (pureNum * 100000).round();
+          }
         }
       }
     }
