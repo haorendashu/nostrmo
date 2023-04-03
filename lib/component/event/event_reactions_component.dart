@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
+import 'package:nostrmo/client/zap/zap.dart';
+import 'package:nostrmo/client/zap/zap_action.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
 import 'package:nostrmo/router/edit/editor_router.dart';
+import 'package:nostrmo/util/lightning_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -95,13 +98,69 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 fontSize: fontSize,
               )),
               Expanded(
+                child: PopupMenuButton<int>(
+                  itemBuilder: (context) {
+                    return [
+                      PopupMenuItem(
+                        value: 500,
+                        child: Row(
+                          children: [
+                            Icon(Icons.bolt, color: Colors.orange),
+                            Text(" Zap 500")
+                          ],
+                          mainAxisSize: MainAxisSize.min,
+                        ),
+                      ),
+                      PopupMenuItem(
+                        value: 1000,
+                        child: Row(
+                          children: [
+                            Icon(Icons.bolt, color: Colors.orange),
+                            Text(" Zap 1000")
+                          ],
+                          mainAxisSize: MainAxisSize.min,
+                        ),
+                      ),
+                      PopupMenuItem(
+                        value: 2000,
+                        child: Row(
+                          children: [
+                            Icon(Icons.bolt, color: Colors.orange),
+                            Text(" Zap 2000")
+                          ],
+                          mainAxisSize: MainAxisSize.min,
+                        ),
+                      ),
+                      PopupMenuItem(
+                        value: 5000,
+                        child: Row(
+                          children: [
+                            Icon(Icons.bolt, color: Colors.orange),
+                            Text(" Zap 5000")
+                          ],
+                          mainAxisSize: MainAxisSize.min,
+                        ),
+                      ),
+                    ];
+                  },
+                  onSelected: onZapSelect,
                   child: EventReactionNumComponent(
-                num: zapNum,
-                iconData: Icons.bolt,
-                onTap: onZapTap,
-                color: hintColor,
-                fontSize: fontSize,
-              )),
+                    num: zapNum,
+                    iconData: Icons.bolt,
+                    onTap: null,
+                    color: hintColor,
+                    fontSize: fontSize,
+                  ),
+                ),
+              ),
+              // Expanded(
+              //     child: EventReactionNumComponent(
+              //   num: zapNum,
+              //   iconData: Icons.bolt,
+              //   onTap: onZapTap,
+              //   color: hintColor,
+              //   fontSize: fontSize,
+              // )),
               // Expanded(
               //     child: EventReactionNumComponent(
               //   num: 0,
@@ -251,7 +310,42 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }
   }
 
-  void onZapTap() {}
+  Future<void> onZapSelect(int sats) async {
+    await ZapAction.handleZap(context, sats, widget.event.pubKey,
+        eventId: widget.event.id);
+
+    // var metadata = metadataProvider.getMetadata(widget.event.pubKey);
+    // if (metadata == null) {
+    //   BotToast.showText(text: "Metadata can not be found.");
+    //   return;
+    // }
+
+    // var relays = relayProvider.relayAddrs;
+
+    // if (StringUtil.isNotBlank(metadata.lud16)) {
+    //   var lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
+    //   if (StringUtil.isNotBlank(lnurl)) {
+    //     var lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
+    //     if (StringUtil.isBlank(lnurl)) {
+    //       BotToast.showText(text: "Gen lnurl error.");
+    //       return;
+    //     }
+    //     var invoiceCode = await Zap.getInvoiceCode(
+    //         lnurl: lnurl!,
+    //         sats: sats,
+    //         recipientPubkey: widget.event.pubKey,
+    //         targetNostr: nostr!,
+    //         relays: relays);
+
+    //     if (StringUtil.isBlank(invoiceCode)) {
+    //       BotToast.showText(text: "Gen invoiceCode error.");
+    //       return;
+    //     }
+
+    //     await LightningUtil.goToPay(invoiceCode!);
+    //   }
+    // }
+  }
 
   void onShareTap() {
     widget.screenshotController.capture().then((Uint8List? imageData) async {
@@ -275,7 +369,7 @@ class EventReactionNumComponent extends StatelessWidget {
 
   int num;
 
-  Function onTap;
+  Function? onTap;
 
   Color color;
 
@@ -323,11 +417,18 @@ class EventReactionNumComponent extends StatelessWidget {
       main = iconWidget;
     }
 
-    return IconButton(
-      onPressed: () {
-        onTap();
-      },
-      icon: main,
-    );
+    if (onTap != null) {
+      return IconButton(
+        onPressed: () {
+          onTap!();
+        },
+        icon: main,
+      );
+    } else {
+      return Container(
+        alignment: Alignment.center,
+        child: main,
+      );
+    }
   }
 }

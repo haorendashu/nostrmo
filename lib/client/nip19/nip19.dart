@@ -45,13 +45,13 @@ class Nip19 {
   static String decode(String npub) {
     var decoder = Bech32Decoder();
     var bech32Result = decoder.convert(npub);
-    var data = _convertBits(bech32Result.data, 5, 8, false);
+    var data = convertBits(bech32Result.data, 5, 8, false);
     return HEX.encode(data);
   }
 
   static String _encodeKey(String hrp, String key) {
     var data = HEX.decode(key);
-    data = _convertBits(data, 8, 5, true);
+    data = convertBits(data, 8, 5, true);
 
     var encoder = Bech32Encoder();
     Bech32 input = Bech32(hrp, data);
@@ -74,7 +74,7 @@ class Nip19 {
     return _encodeKey(Hrps.NOTE_ID, id);
   }
 
-  static List<int> _convertBits(List<int> data, int from, int to, bool pad) {
+  static List<int> convertBits(List<int> data, int from, int to, bool pad) {
     var acc = 0;
     var bits = 0;
     var result = <int>[];

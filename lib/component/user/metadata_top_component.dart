@@ -11,6 +11,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
+import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../util/string_util.dart';
@@ -111,10 +112,59 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       },
     )));
     if (!widget.isLocal) {
-      topBtnList.add(wrapBtn(MetadataIconBtn(
-        iconData: Icons.currency_bitcoin,
-        onTap: () {},
+      topBtnList.add(wrapBtn(PopupMenuButton<int>(
+        itemBuilder: (context) {
+          return [
+            PopupMenuItem(
+              value: 500,
+              child: Row(
+                children: [
+                  Icon(Icons.bolt, color: Colors.orange),
+                  Text(" Zap 500")
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+            ),
+            PopupMenuItem(
+              value: 1000,
+              child: Row(
+                children: [
+                  Icon(Icons.bolt, color: Colors.orange),
+                  Text(" Zap 1000")
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+            ),
+            PopupMenuItem(
+              value: 2000,
+              child: Row(
+                children: [
+                  Icon(Icons.bolt, color: Colors.orange),
+                  Text(" Zap 2000")
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+            ),
+            PopupMenuItem(
+              value: 5000,
+              child: Row(
+                children: [
+                  Icon(Icons.bolt, color: Colors.orange),
+                  Text(" Zap 5000")
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+            ),
+          ];
+        },
+        onSelected: onZapSelect,
+        child: MetadataIconBtn(
+          iconData: Icons.currency_bitcoin,
+        ),
       )));
+      // topBtnList.add(wrapBtn(MetadataIconBtn(
+      //   iconData: Icons.currency_bitcoin,
+      // )));
       topBtnList.add(wrapBtn(MetadataIconBtn(
         iconData: Icons.mail,
         onTap: openDMSession,
@@ -296,34 +346,48 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     var detail = dmProvider.findOrNewADetail(widget.pubkey);
     RouterUtil.router(context, RouterPath.DM_DETAIL, detail);
   }
+
+  void onZapSelect(int sats) {
+    ZapAction.handleZap(context, sats, widget.pubkey);
+  }
 }
 
 class MetadataIconBtn extends StatelessWidget {
-  void Function() onTap;
+  void Function()? onTap;
 
   IconData iconData;
 
-  MetadataIconBtn({required this.iconData, required this.onTap});
+  MetadataIconBtn({required this.iconData, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(width: 1),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          height: 28,
-          width: 28,
-          child: Icon(
-            iconData,
-            size: 18,
-          ),
-        ),
+    var decoration = BoxDecoration(
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(width: 1),
+    );
+    var main = Container(
+      height: 28,
+      width: 28,
+      child: Icon(
+        iconData,
+        size: 18,
       ),
     );
+
+    if (onTap != null) {
+      return Ink(
+        decoration: decoration,
+        child: InkWell(
+          onTap: onTap,
+          child: main,
+        ),
+      );
+    } else {
+      return Container(
+        decoration: decoration,
+        child: main,
+      );
+    }
   }
 }
 
