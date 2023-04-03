@@ -48,4 +48,8 @@ class CustContactList {
   Iterable<Contact> list() {
     return _contacts.values;
   }
+
+  void clear() {
+    _contacts.clear();
+  }
 }

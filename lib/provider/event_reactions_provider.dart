@@ -140,4 +140,8 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
   void removePendding(String id) {
     _penddingIds.remove(id);
   }
+
+  void clear() {
+    _eventReactionsMap.clear();
+  }
 }

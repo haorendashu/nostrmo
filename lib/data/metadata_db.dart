@@ -35,4 +35,9 @@ class MetadataDB {
     await db.update("metadata", o.toJson(),
         where: "pub_key = ?", whereArgs: [o.pubKey]);
   }
+
+  static Future<void> deleteAll({DatabaseExecutor? db}) async {
+    db = await DB.getDB(db);
+    db.execute("delete from metadata");
+  }
 }

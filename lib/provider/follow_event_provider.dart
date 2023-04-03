@@ -44,14 +44,7 @@ class FollowEventProvider extends ChangeNotifier
     );
     targetNostr ??= nostr!;
 
-    if (_subscribeIds.isNotEmpty) {
-      for (var subscribeId in _subscribeIds) {
-        try {
-          targetNostr.pool.unsubscribe(subscribeId);
-        } catch (e) {}
-      }
-      _subscribeIds.clear();
-    }
+    doUnscribe(targetNostr);
 
     List<String> subscribeIds = [];
     Iterable<Contact> contactList = contactListProvider.list();
@@ -74,6 +67,17 @@ class FollowEventProvider extends ChangeNotifier
 
     if (!initQuery) {
       _subscribeIds = subscribeIds;
+    }
+  }
+
+  void doUnscribe(CustNostr targetNostr) {
+    if (_subscribeIds.isNotEmpty) {
+      for (var subscribeId in _subscribeIds) {
+        try {
+          targetNostr.pool.unsubscribe(subscribeId);
+        } catch (e) {}
+      }
+      _subscribeIds.clear();
     }
   }
 
@@ -126,5 +130,14 @@ class FollowEventProvider extends ChangeNotifier
         notifyListeners();
       }
     }, null);
+  }
+
+  void clear() {
+    eventBox.clear();
+    postsBox.clear();
+
+    doUnscribe(nostr!);
+
+    notifyListeners();
   }
 }

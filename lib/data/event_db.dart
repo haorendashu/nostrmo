@@ -47,6 +47,11 @@ class EventDB {
     }
   }
 
+  static Future<void> deleteAll({DatabaseExecutor? db}) async {
+    db = await DB.getDB(db);
+    db.execute("delete from event");
+  }
+
   static Event loadFromJson(Map<String, dynamic> data) {
     Map<String, dynamic> m = {};
     m.addAll(data);

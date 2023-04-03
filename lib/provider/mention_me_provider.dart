@@ -60,4 +60,9 @@ class MentionMeProvider extends ChangeNotifier
       }
     }, null);
   }
+
+  void clear() {
+    eventBox.clear();
+    notifyListeners();
+  }
 }

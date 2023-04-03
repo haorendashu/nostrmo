@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/data/dm_session_info_db.dart';
+import 'package:nostrmo/data/event_db.dart';
+import 'package:nostrmo/data/metadata_db.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
@@ -101,7 +104,7 @@ class _IndexDrawerContnetComponnent
     list.add(IndexDrawerItem(
       iconData: Icons.logout,
       name: "Sign out",
-      onTap: () {},
+      onTap: signOut,
     ));
 
     list.add(Container(
@@ -129,6 +132,27 @@ class _IndexDrawerContnetComponnent
   }
 
   void jumpToProfileEdit() {}
+
+  signOut() {
+    mentionMeProvider.clear();
+    followEventProvider.clear();
+    dmProvider.clear();
+    noticeProvider.clear();
+    contactListProvider.clear();
+
+    eventReactionsProvider.clear();
+    linkPreviewDataProvider.clear();
+
+    // remove private key
+    settingProvider.privateKey = null;
+    // clear local db
+    DMSessionInfoDB.deleteAll();
+    EventDB.deleteAll();
+    MetadataDB.deleteAll();
+
+    nostr!.close();
+    nostr = null;
+  }
 }
 
 class IndexDrawerItem extends StatelessWidget {

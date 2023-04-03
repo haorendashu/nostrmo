@@ -34,4 +34,8 @@ class LinkPreviewDataProvider extends ChangeNotifier {
   PreviewData? getPreviewData(String link) {
     return _data[link];
   }
+
+  void clear() {
+    _data.clear();
+  }
 }

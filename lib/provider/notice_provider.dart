@@ -1,10 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class NoticeProvider extends ChangeNotifier {
-  List<NoticeData> notices = [
-    // NoticeData(
-    //     "wss://atlas.nostr.land", "This is test notice content.", DateTime.now())
-  ];
+  List<NoticeData> notices = [];
 
   DateTime? readTime;
 
@@ -28,6 +25,11 @@ class NoticeProvider extends ChangeNotifier {
       readTime = notices.last.dateTime;
       notifyListeners();
     }
+  }
+
+  void clear() {
+    notices.clear();
+    notifyListeners();
   }
 }
 

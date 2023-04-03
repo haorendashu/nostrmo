@@ -34,4 +34,9 @@ class DMSessionInfoDB {
       whereArgs: [o.pubkey],
     );
   }
+
+  static Future<void> deleteAll({DatabaseExecutor? db}) async {
+    db = await DB.getDB(db);
+    db.execute("delete from dm_session_info");
+  }
 }

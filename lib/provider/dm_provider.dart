@@ -227,6 +227,14 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       notifyListeners();
     }
   }
+
+  void clear() {
+    _sessions.clear();
+    _knownList.clear();
+    _unknownList.clear();
+
+    notifyListeners();
+  }
 }
 
 class DMSessionDetail {

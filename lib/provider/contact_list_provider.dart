@@ -22,17 +22,21 @@ class ContactListProvider extends ChangeNotifier {
     if (_contactListProvider == null) {
       _contactListProvider = ContactListProvider();
 
-      var str = sharedPreferences.getString(DataKey.CONTACT_LIST);
-      if (StringUtil.isNotBlank(str)) {
-        var jsonMap = jsonDecode(str!);
-        _contactListProvider!._event = Event.fromJson(jsonMap);
-        _contactListProvider!._contactList =
-            CustContactList.fromJson(_contactListProvider!._event!.tags);
-      } else {
-        _contactListProvider!._contactList = CustContactList();
-      }
+      _contactListProvider!.reload();
     }
     return _contactListProvider!;
+  }
+
+  void reload() {
+    var str = sharedPreferences.getString(DataKey.CONTACT_LIST);
+    if (StringUtil.isNotBlank(str)) {
+      var jsonMap = jsonDecode(str!);
+      _contactListProvider!._event = Event.fromJson(jsonMap);
+      _contactListProvider!._contactList =
+          CustContactList.fromJson(_contactListProvider!._event!.tags);
+    } else {
+      _contactListProvider!._contactList = CustContactList();
+    }
   }
 
   var subscriptId = StringUtil.rndNameStr(16);
@@ -86,5 +90,12 @@ class ContactListProvider extends ChangeNotifier {
 
   Contact? getContact(String pubKey) {
     return _contactList!.get(pubKey);
+  }
+
+  void clear() {
+    _event = null;
+    _contactList!.clear();
+
+    notifyListeners();
   }
 }
