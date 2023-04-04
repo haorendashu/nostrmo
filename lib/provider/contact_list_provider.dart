@@ -21,21 +21,55 @@ class ContactListProvider extends ChangeNotifier {
   static ContactListProvider getInstance() {
     if (_contactListProvider == null) {
       _contactListProvider = ContactListProvider();
-
-      _contactListProvider!.reload();
+      // _contactListProvider!.reload();
     }
     return _contactListProvider!;
   }
 
-  void reload() {
-    var str = sharedPreferences.getString(DataKey.CONTACT_LIST);
+  void reload({CustNostr? targetNostr}) {
+    targetNostr ??= nostr;
+
+    String? pubkey;
+    if (targetNostr != null) {
+      pubkey = targetNostr.publicKey;
+    }
+
+    var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
     if (StringUtil.isNotBlank(str)) {
       var jsonMap = jsonDecode(str!);
-      _contactListProvider!._event = Event.fromJson(jsonMap);
-      _contactListProvider!._contactList =
-          CustContactList.fromJson(_contactListProvider!._event!.tags);
-    } else {
-      _contactListProvider!._contactList = CustContactList();
+
+      if (jsonMap is Map<String, dynamic>) {
+        String? eventStr;
+        if (StringUtil.isNotBlank(pubkey)) {
+          eventStr = jsonMap[pubkey];
+        } else if (jsonMap.length == 1) {
+          eventStr = jsonMap.entries.first.value as String;
+        }
+
+        if (eventStr != null) {
+          _contactListProvider!._event = Event.fromJson(jsonMap);
+          _contactListProvider!._contactList =
+              CustContactList.fromJson(_contactListProvider!._event!.tags);
+
+          return;
+        }
+      }
+    }
+
+    _contactListProvider!._contactList = CustContactList();
+  }
+
+  void clearCurrentContactList() {
+    var pubkey = nostr!.publicKey;
+    var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
+    if (StringUtil.isNotBlank(str)) {
+      var jsonMap = jsonDecode(str!);
+      if (jsonMap is Map) {
+        jsonMap.remove(pubkey);
+
+        var jsonStr = jsonEncode(jsonMap);
+        sharedPreferences.setString(DataKey.CONTACT_LISTS, jsonStr);
+      }
     }
   }
 
@@ -62,12 +96,23 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void _saveAndNotify() {
-    var jsonMap = _event!.toJson();
-    var jsonStr = jsonEncode(jsonMap);
-    sharedPreferences.setString(DataKey.CONTACT_LIST, jsonStr);
-    notifyListeners();
+    var eventJsonMap = _event!.toJson();
+    var eventJsonStr = jsonEncode(eventJsonMap);
 
-    // TODO refresh follow_event subscribe
+    var pubkey = nostr!.publicKey;
+    var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
+    if (StringUtil.isNotBlank(str)) {
+      var jsonMap = jsonDecode(str!);
+      if (jsonMap is Map) {
+        jsonMap[pubkey] = eventJsonStr;
+        var jsonStr = jsonEncode(jsonMap);
+
+        sharedPreferences.setString(DataKey.CONTACT_LISTS, jsonStr);
+        notifyListeners();
+      }
+    }
+
+    followEventProvider.metadataUpdatedCallback(_contactList);
   }
 
   void addContact(Contact contact) {
@@ -95,6 +140,7 @@ class ContactListProvider extends ChangeNotifier {
   void clear() {
     _event = null;
     _contactList!.clear();
+    clearCurrentContactList();
 
     notifyListeners();
   }

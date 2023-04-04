@@ -49,6 +49,10 @@ class CustContactList {
     return _contacts.values;
   }
 
+  bool isEmpty() {
+    return _contacts.isEmpty;
+  }
+
   void clear() {
     _contacts.clear();
   }

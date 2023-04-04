@@ -74,6 +74,7 @@ class RelayProvider extends ChangeNotifier {
 
     // add initQuery
     var dmInitFuture = dmProvider.initDMSessions(_nostr.publicKey);
+    contactListProvider.reload(targetNostr: _nostr);
     contactListProvider.query(targetNostr: _nostr);
     followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
     mentionMeProvider.doQuery(targetNostr: _nostr, initQuery: true);

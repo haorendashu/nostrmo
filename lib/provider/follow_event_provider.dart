@@ -3,6 +3,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/util/peddingevents_later_function.dart';
 
 import '../../client/event_kind.dart' as kind;
+import '../client/cust_contact_list.dart';
 import '../client/cust_nostr.dart';
 import '../client/filter.dart';
 import '../data/event_mem_box.dart';
@@ -139,5 +140,11 @@ class FollowEventProvider extends ChangeNotifier
     doUnscribe(nostr!);
 
     notifyListeners();
+  }
+
+  void metadataUpdatedCallback(CustContactList? _contactList) {
+    if (eventBox.isEmpty() && _contactList != null && !_contactList.isEmpty()) {
+      doQuery();
+    }
   }
 }
