@@ -47,7 +47,8 @@ class ContactListProvider extends ChangeNotifier {
         }
 
         if (eventStr != null) {
-          _contactListProvider!._event = Event.fromJson(jsonMap);
+          var eventMap = jsonDecode(eventStr);
+          _contactListProvider!._event = Event.fromJson(eventMap);
           _contactListProvider!._contactList =
               CustContactList.fromJson(_contactListProvider!._event!.tags);
 
