@@ -72,18 +72,18 @@ class CustNostr {
     return sendEvent(event);
   }
 
-  Event sendMetaData({String? name, String? about, String? picture}) {
-    Map<String, String> params = {};
-    ({'name': name, 'about': about, 'picture': picture}).forEach((key, value) {
-      if (value != null) params[key] = value;
-    });
+  // Event sendMetaData({String? name, String? about, String? picture}) {
+  //   Map<String, String> params = {};
+  //   ({'name': name, 'about': about, 'picture': picture}).forEach((key, value) {
+  //     if (value != null) params[key] = value;
+  //   });
 
-    if (params.isEmpty) throw ArgumentError("No metadata provided");
+  //   if (params.isEmpty) throw ArgumentError("No metadata provided");
 
-    final metaData = jsonEncode(params);
-    final event = Event(_publicKey, EventKind.metaData, [], metaData);
-    return sendEvent(event);
-  }
+  //   final metaData = jsonEncode(params);
+  //   final event = Event(_publicKey, EventKind.metaData, [], metaData);
+  //   return sendEvent(event);
+  // }
 
   Event recommendServer(String url) {
     if (!url.contains(RegExp(

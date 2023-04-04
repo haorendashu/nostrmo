@@ -2,8 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:nostrmo/router/filter/filter_router.dart';
-import 'package:nostrmo/system_timer.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +27,8 @@ import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'router/dm/dm_detail_router.dart';
+import 'router/filter/filter_router.dart';
+import 'router/profile_editor/profile_editor_router.dart';
 import 'router/index/index_router.dart';
 import 'router/keybackup/key_backup_router.dart';
 import 'router/notice/notice_router.dart';
@@ -37,6 +37,7 @@ import 'router/tag/tag_detail_router.dart';
 import 'router/thread/thread_detail_router.dart';
 import 'router/user/user_contact_list_router.dart';
 import 'router/user/user_router.dart';
+import 'system_timer.dart';
 import 'util/colors_util.dart';
 import 'util/media_data_cache.dart';
 import 'util/string_util.dart';
@@ -218,6 +219,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
           RouterPath.RELAYS: (context) => RelaysRouter(),
           RouterPath.FILTER: (context) => FilterRouter(),
+          RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),
         },
       ),
     );

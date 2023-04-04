@@ -131,7 +131,10 @@ class _IndexDrawerContnetComponnent
     );
   }
 
-  void jumpToProfileEdit() {}
+  void jumpToProfileEdit() {
+    var metadata = metadataProvider.getMetadata(nostr!.publicKey);
+    RouterUtil.router(context, RouterPath.PROFILE_EDITOR, metadata);
+  }
 
   signOut() {
     mentionMeProvider.clear();
