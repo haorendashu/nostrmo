@@ -260,7 +260,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
       metadataMap = {};
     }
 
-    metadataMap!["displayName"] = displayNameController.text;
+    metadataMap!["display_name"] = displayNameController.text;
     metadataMap["name"] = nameController.text;
     metadataMap["about"] = aboutController.text;
     metadataMap["picture"] = pictureController.text;
