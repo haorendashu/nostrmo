@@ -116,6 +116,36 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         itemBuilder: (context) {
           return [
             PopupMenuItem(
+              value: 10,
+              child: Row(
+                children: [
+                  Icon(Icons.bolt, color: Colors.orange),
+                  Text(" Zap 10")
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+            ),
+            PopupMenuItem(
+              value: 50,
+              child: Row(
+                children: [
+                  Icon(Icons.bolt, color: Colors.orange),
+                  Text(" Zap 50")
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+            ),
+            PopupMenuItem(
+              value: 100,
+              child: Row(
+                children: [
+                  Icon(Icons.bolt, color: Colors.orange),
+                  Text(" Zap 100")
+                ],
+                mainAxisSize: MainAxisSize.min,
+              ),
+            ),
+            PopupMenuItem(
               value: 500,
               child: Row(
                 children: [
@@ -131,16 +161,6 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
                 children: [
                   Icon(Icons.bolt, color: Colors.orange),
                   Text(" Zap 1000")
-                ],
-                mainAxisSize: MainAxisSize.min,
-              ),
-            ),
-            PopupMenuItem(
-              value: 2000,
-              child: Row(
-                children: [
-                  Icon(Icons.bolt, color: Colors.orange),
-                  Text(" Zap 2000")
                 ],
                 mainAxisSize: MainAxisSize.min,
               ),
