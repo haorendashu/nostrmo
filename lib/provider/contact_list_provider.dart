@@ -100,17 +100,19 @@ class ContactListProvider extends ChangeNotifier {
     var eventJsonStr = jsonEncode(eventJsonMap);
 
     var pubkey = nostr!.publicKey;
+    Map<String, dynamic>? allJsonMap;
+
     var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
     if (StringUtil.isNotBlank(str)) {
-      var jsonMap = jsonDecode(str!);
-      if (jsonMap is Map) {
-        jsonMap[pubkey] = eventJsonStr;
-        var jsonStr = jsonEncode(jsonMap);
-
-        sharedPreferences.setString(DataKey.CONTACT_LISTS, jsonStr);
-        notifyListeners();
-      }
+      allJsonMap = jsonDecode(str!);
     }
+    allJsonMap ??= {};
+
+    allJsonMap[pubkey] = eventJsonStr;
+    var jsonStr = jsonEncode(allJsonMap);
+
+    sharedPreferences.setString(DataKey.CONTACT_LISTS, jsonStr);
+    notifyListeners();
 
     followEventProvider.metadataUpdatedCallback(_contactList);
   }
