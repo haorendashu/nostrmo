@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/consts/lock_open.dart';
@@ -14,6 +15,8 @@ class SettingProvider extends ChangeNotifier {
   SharedPreferences? _sharedPreferences;
 
   SettingData? _settingData;
+
+  Map<String, String> _privateKeyMap = {};
 
   static Future<SettingProvider> getInstance() async {
     if (_settingProvider == null) {
@@ -31,6 +34,20 @@ class SettingProvider extends ChangeNotifier {
       if (jsonMap != null) {
         var setting = SettingData.fromJson(jsonMap);
         _settingData = setting;
+        _privateKeyMap.clear();
+        if (StringUtil.isNotBlank(_settingData!.privateKeyMap)) {
+          try {
+            var jsonKeyMap = jsonDecode(_settingData!.privateKeyMap!);
+            if (jsonKeyMap != null) {
+              for (var entry in (jsonKeyMap as Map<String, dynamic>).entries) {
+                _privateKeyMap[entry.key] = entry.value;
+              }
+            }
+          } catch (e) {
+            log("_settingData!.privateKeyMap! jsonDecode error");
+            log(e.toString());
+          }
+        }
         return;
       }
     }
@@ -43,9 +60,56 @@ class SettingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? get privateKey {
+    if (_settingData!.privateKeyIndex != null &&
+        _settingData!.privateKeyMap != null &&
+        _privateKeyMap.isNotEmpty) {
+      return _privateKeyMap[_settingData!.privateKeyIndex.toString()];
+    }
+    return null;
+  }
+
+  int addAndChangePrivateKey(String pk, {bool updateUI = false}) {
+    for (var i = 0; i < 20; i++) {
+      var index = i.toString();
+      var _pk = _privateKeyMap[index];
+      if (_pk == null) {
+        _privateKeyMap[index] = pk;
+
+        _settingData!.privateKeyIndex = i;
+
+        _settingData!.privateKeyMap = json.encode(_privateKeyMap);
+        saveAndNotifyListeners(updateUI: updateUI);
+
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  void removeKey(int index) {
+    var indexStr = index.toString();
+    _privateKeyMap.remove(indexStr);
+    _settingData!.privateKeyMap = json.encode(_privateKeyMap);
+    if (_settingData!.privateKeyIndex == index) {
+      if (_privateKeyMap.isEmpty) {
+        _settingData!.privateKeyIndex = null;
+      } else {
+        // find a index
+        var keyIndex = _privateKeyMap.keys.first;
+        _settingData!.privateKeyIndex = int.tryParse(keyIndex);
+      }
+    }
+
+    saveAndNotifyListeners();
+  }
+
   SettingData get settingData => _settingData!;
 
-  String? get privateKey => _settingData!.privateKey;
+  int? get privateKeyIndex => _settingData!.privateKeyIndex;
+
+  // String? get privateKeyMap => _settingData!.privateKeyMap;
 
   /// open lock
   int get lockOpen => _settingData!.lockOpen;
@@ -67,10 +131,15 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
-  set privateKey(String? o) {
-    _settingData!.privateKey = o;
-    saveAndNotifyListeners();
-  }
+  // set privateKeyIndex(int? o) {
+  //   _settingData!.privateKeyIndex = o;
+  //   saveAndNotifyListeners();
+  // }
+
+  // set privateKeyMap(String? o) {
+  //   _settingData!.privateKeyMap = o;
+  //   saveAndNotifyListeners();
+  // }
 
   /// open lock
   set lockOpen(int o) {
@@ -102,18 +171,23 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
-  Future<void> saveAndNotifyListeners() async {
+  Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
     var jsonStr = json.encode(m);
     // print(jsonStr);
     await _sharedPreferences!.setString(DataKey.SETTING, jsonStr);
-    notifyListeners();
+
+    if (updateUI) {
+      notifyListeners();
+    }
   }
 }
 
 class SettingData {
-  String? privateKey;
+  int? privateKeyIndex;
+
+  String? privateKeyMap;
 
   /// open lock
   late int lockOpen;
@@ -134,7 +208,8 @@ class SettingData {
   late int updatedTime;
 
   SettingData({
-    this.privateKey,
+    this.privateKeyIndex,
+    this.privateKeyMap,
     this.lockOpen = LockOpen.CLOSE,
     this.i18n,
     this.imgCompress = 50,
@@ -144,7 +219,8 @@ class SettingData {
   });
 
   SettingData.fromJson(Map<String, dynamic> json) {
-    privateKey = json['privateKey'];
+    privateKeyIndex = json['privateKeyIndex'];
+    privateKeyMap = json['privateKeyMap'];
     if (json['lockOpen'] != null) {
       lockOpen = json['lockOpen'];
     } else {
@@ -171,7 +247,8 @@ class SettingData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['privateKey'] = this.privateKey;
+    data['privateKeyIndex'] = this.privateKeyIndex;
+    data['privateKeyMap'] = this.privateKeyMap;
     data['lockOpen'] = this.lockOpen;
     data['i18n'] = this.i18n;
     data['imgCompress'] = this.imgCompress;

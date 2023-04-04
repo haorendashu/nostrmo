@@ -4,12 +4,13 @@ import 'package:sqflite/sqflite.dart';
 import 'db.dart';
 
 class DMSessionInfoDB {
-  static Future<List<DMSessionInfo>> all({DatabaseExecutor? db}) async {
+  static Future<List<DMSessionInfo>> all(int keyIndex,
+      {DatabaseExecutor? db}) async {
     db = await DB.getDB(db);
     List<DMSessionInfo> l = [];
-    List<dynamic> args = [];
+    List<dynamic> args = [keyIndex];
 
-    var sql = "select * from dm_session_info";
+    var sql = "select * from dm_session_info where key_index = ?";
 
     List<Map<String, dynamic>> list = await db.rawQuery(sql, args);
     for (var listObj in list) {
@@ -30,13 +31,13 @@ class DMSessionInfoDB {
     return await db.update(
       "dm_session_info",
       jsonObj,
-      where: "pubkey = ?",
-      whereArgs: [o.pubkey],
+      where: "key_index = ? and pubkey = ?",
+      whereArgs: [o.keyIndex, o.pubkey],
     );
   }
 
-  static Future<void> deleteAll({DatabaseExecutor? db}) async {
+  static Future<void> deleteAll(int keyIndex, {DatabaseExecutor? db}) async {
     db = await DB.getDB(db);
-    db.execute("delete from dm_session_info");
+    db.execute("delete from dm_session_info where key_index = ?", [keyIndex]);
   }
 }

@@ -188,8 +188,11 @@ class _LoginRouter extends State<LoginRouter>
     if (Nip19.isPrivateKey(pk)) {
       pk = Nip19.decode(pk);
     }
+    settingProvider.addAndChangePrivateKey(pk, updateUI: false);
     nostr = relayProvider.genNostr(pk);
-    settingProvider.privateKey = pk;
+    settingProvider.notifyListeners();
+
+    indexProvider.notifyListeners();
   }
 
   void tipAcceptTerm() {

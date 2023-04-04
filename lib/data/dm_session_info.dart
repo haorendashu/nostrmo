@@ -1,4 +1,6 @@
 class DMSessionInfo {
+  int? keyIndex;
+
   String? pubkey;
 
   /// the last readed event created at
@@ -14,6 +16,7 @@ class DMSessionInfo {
       {this.pubkey, this.readedTime, this.value1, this.value2, this.value3});
 
   DMSessionInfo.fromJson(Map<String, dynamic> json) {
+    keyIndex = json['key_index'];
     pubkey = json['pubkey'];
     readedTime = json['readed_time'];
     if (readedTime == null || readedTime! < 0) {
@@ -26,6 +29,7 @@ class DMSessionInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['key_index'] = this.keyIndex;
     data['pubkey'] = this.pubkey;
     data['readed_time'] = this.readedTime;
     data['value1'] = this.value1;

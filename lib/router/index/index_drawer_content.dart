@@ -144,15 +144,22 @@ class _IndexDrawerContnetComponnent
     linkPreviewDataProvider.clear();
     relayProvider.clear();
 
+    var currentIndex = settingProvider.privateKeyIndex!;
     // remove private key
-    settingProvider.privateKey = null;
+    settingProvider.removeKey(currentIndex);
     // clear local db
-    DMSessionInfoDB.deleteAll();
-    EventDB.deleteAll();
+    DMSessionInfoDB.deleteAll(currentIndex);
+    EventDB.deleteAll(currentIndex);
     MetadataDB.deleteAll();
 
     nostr!.close();
     nostr = null;
+
+    // signOut complete
+    if (settingProvider.privateKey != null) {
+      // use next privateKey to login
+      nostr = relayProvider.genNostr(settingProvider.privateKey!);
+    }
   }
 }
 

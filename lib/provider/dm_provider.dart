@@ -86,7 +86,9 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     _unknownList.clear();
 
     this.localPubkey = localPubkey;
-    var events = await EventDB.list(kind.EventKind.DIRECT_MESSAGE, 0, 10000000);
+    var keyIndex = settingProvider.privateKeyIndex!;
+    var events = await EventDB.list(
+        keyIndex, kind.EventKind.DIRECT_MESSAGE, 0, 10000000);
     if (events.isNotEmpty) {
       // find the newest event, subscribe behind the new newest event
       _initSince = events.first.createdAt;
@@ -94,6 +96,8 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
     Map<String, List<Event>> eventListMap = {};
     for (var event in events) {
+      // print("dmEvent");
+      // print(event.toJson());
       var pubkey = _getPubkey(localPubkey, event);
       if (StringUtil.isNotBlank(pubkey)) {
         var list = eventListMap[pubkey!];
@@ -106,7 +110,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     }
 
     infoMap = {};
-    var infos = await DMSessionInfoDB.all();
+    var infos = await DMSessionInfoDB.all(keyIndex);
     for (var info in infos) {
       infoMap[info.pubkey!] = info;
     }
@@ -213,12 +217,13 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
   void eventLaterHandle(List<Event> events) {
     bool updated = false;
+    var keyIndex = settingProvider.privateKeyIndex!;
     for (var event in events) {
       var addResult = _addEvent(localPubkey!, event);
       // save to local
       if (addResult) {
         updated = true;
-        EventDB.insert(event);
+        EventDB.insert(keyIndex, event);
       }
     }
 
