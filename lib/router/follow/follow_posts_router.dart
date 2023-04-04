@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
@@ -19,7 +20,8 @@ class FollowPostsRouter extends StatefulWidget {
   }
 }
 
-class _FollowPostsRouter extends State<FollowPostsRouter> with LoadMoreEvent {
+class _FollowPostsRouter extends KeepAliveCustState<FollowPostsRouter>
+    with LoadMoreEvent {
   ScrollController _controller = ScrollController();
 
   @override
@@ -29,7 +31,7 @@ class _FollowPostsRouter extends State<FollowPostsRouter> with LoadMoreEvent {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget doBuild(BuildContext context) {
     var _followEventProvider = Provider.of<FollowEventProvider>(context);
     var eventBox = _followEventProvider.postsBox;
     var events = eventBox.all();
@@ -77,4 +79,7 @@ class _FollowPostsRouter extends State<FollowPostsRouter> with LoadMoreEvent {
   EventMemBox getEventBox() {
     return followEventProvider.postsBox;
   }
+
+  @override
+  Future<void> onReady(BuildContext context) async {}
 }

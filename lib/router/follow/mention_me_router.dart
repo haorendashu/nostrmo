@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
@@ -21,7 +22,8 @@ class MentionMeRouter extends StatefulWidget {
   }
 }
 
-class _MentionMeRouter extends State<MentionMeRouter> with LoadMoreEvent {
+class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
+    with LoadMoreEvent {
   ScrollController _controller = ScrollController();
 
   @override
@@ -31,7 +33,7 @@ class _MentionMeRouter extends State<MentionMeRouter> with LoadMoreEvent {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget doBuild(BuildContext context) {
     var _mentionMeProvider = Provider.of<MentionMeProvider>(context);
     var eventBox = _mentionMeProvider.eventBox;
     var events = eventBox.all();
@@ -74,4 +76,7 @@ class _MentionMeRouter extends State<MentionMeRouter> with LoadMoreEvent {
   EventMemBox getEventBox() {
     return mentionMeProvider.eventBox;
   }
+
+  @override
+  Future<void> onReady(BuildContext context) async {}
 }

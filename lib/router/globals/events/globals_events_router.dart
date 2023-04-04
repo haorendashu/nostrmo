@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/keep_alive_cust_state.dart';
 
 import '../../../client/event_kind.dart' as kind;
 import '../../../client/filter.dart';
@@ -22,7 +23,7 @@ class GlobalsEventsRouter extends StatefulWidget {
   }
 }
 
-class _GlobalsEventsRouter extends CustState<GlobalsEventsRouter>
+class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
     with PenddingEventsLaterFunction {
   List<String> ids = [];
 

@@ -5,6 +5,7 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 
 import '../../../component/cust_state.dart';
+import '../../../component/keep_alive_cust_state.dart';
 import '../../../component/placeholder/tap_list_placeholder.dart';
 import '../../../consts/base.dart';
 import '../../../util/dio_util.dart';
@@ -17,7 +18,7 @@ class GlobalsTagsRouter extends StatefulWidget {
   }
 }
 
-class _GlobalsTagsRouter extends CustState<GlobalsTagsRouter> {
+class _GlobalsTagsRouter extends KeepAliveCustState<GlobalsTagsRouter> {
   List<String> topics = [];
 
   @override

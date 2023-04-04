@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/component/placeholder/metadata_placeholder.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class GlobalsUsersRouter extends StatefulWidget {
   }
 }
 
-class _GlobalsUsersRouter extends CustState<GlobalsUsersRouter> {
+class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
   List<String> pubkeys = [];
 
   @override
