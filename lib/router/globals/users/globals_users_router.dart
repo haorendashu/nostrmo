@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/component/placeholder/metadata_placeholder.dart';
 import 'package:provider/provider.dart';
 
+import '../../../component/placeholder/metadata_list_placeholder.dart';
 import '../../../component/user/metadata_component.dart';
 import '../../../consts/base.dart';
 import '../../../data/metadata.dart';
@@ -24,10 +26,8 @@ class _GlobalsUsersRouter extends CustState<GlobalsUsersRouter> {
   @override
   Widget doBuild(BuildContext context) {
     if (pubkeys.isEmpty) {
-      return Container(
-        child: Center(
-          child: Text("GlobalsEventsRouter"),
-        ),
+      return MetadataListPlaceholder(
+        onRefresh: refresh,
       );
     }
 
@@ -62,6 +62,10 @@ class _GlobalsUsersRouter extends CustState<GlobalsUsersRouter> {
 
   @override
   Future<void> onReady(BuildContext context) async {
+    refresh();
+  }
+
+  Future<void> refresh() async {
     var str = await DioUtil.getStr(Base.INDEXS_CONTACTS);
     if (StringUtil.isNotBlank(str)) {
       pubkeys.clear();
