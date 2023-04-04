@@ -5,6 +5,7 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 
 import '../../../component/cust_state.dart';
+import '../../../component/placeholder/tap_list_placeholder.dart';
 import '../../../consts/base.dart';
 import '../../../util/dio_util.dart';
 import '../../../util/string_util.dart';
@@ -25,11 +26,7 @@ class _GlobalsTagsRouter extends CustState<GlobalsTagsRouter> {
     var mainColor = themeData.primaryColor;
 
     if (topics.isEmpty) {
-      return Container(
-        child: Center(
-          child: Text("GlobalsTagsRouter"),
-        ),
-      );
+      return TapListPlaceholder();
     } else {
       List<Widget> list = [];
       for (var topic in topics) {
