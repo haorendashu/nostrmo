@@ -127,6 +127,8 @@ class _SearchRouter extends CustState<SearchRouter>
         // TODO handle error
         return;
       }
+    } else {
+      authors = [value];
     }
 
     eventMemBox = EventMemBox();
