@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:keframe/keframe.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/placeholder/event_placeholder.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
@@ -9,6 +10,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/placeholder/event_list_placeholder.dart';
 import '../../util/load_more_event.dart';
 
 class FollowRouter extends StatefulWidget {
@@ -33,10 +35,10 @@ class _FollowRouter extends State<FollowRouter> with LoadMoreEvent {
     var eventBox = _followEventProvider.eventBox;
     var events = eventBox.all();
     if (events.isEmpty) {
-      return Container(
-        child: Center(
-          child: Text("FOLLOW"),
-        ),
+      return EventListPlaceholder(
+        onRefresh: () {
+          followEventProvider.refresh();
+        },
       );
     }
     indexProvider.setFollowScrollController(_controller);

@@ -72,6 +72,7 @@ dependencies:
   easy_image_viewer: ^1.2.0
   android_intent_plus: ^3.1.6
   url_launcher: ^6.1.10
+  flutter_placeholder_textlines: ^1.2.0
 
 dev_dependencies:
   flutter_test:

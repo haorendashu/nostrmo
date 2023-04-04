@@ -20,6 +20,12 @@ class MentionMeProvider extends ChangeNotifier
     eventBox = EventMemBox();
   }
 
+  void refresh() {
+    _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    eventBox.clear();
+    doQuery();
+  }
+
   String? subscribeId;
 
   void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {

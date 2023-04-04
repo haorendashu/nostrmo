@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/event/event_list_component.dart';
+import '../../component/placeholder/event_list_placeholder.dart';
+import '../../component/placeholder/event_placeholder.dart';
 import '../../consts/router_path.dart';
 import '../../util/router_util.dart';
 
@@ -34,26 +36,31 @@ class _MentionMeRouter extends State<MentionMeRouter> with LoadMoreEvent {
     var eventBox = _mentionMeProvider.eventBox;
     var events = eventBox.all();
     if (events.isEmpty) {
-      return Container(
-        child: Center(
-          child: Text("Mention Me"),
-        ),
+      return EventListPlaceholder(
+        onRefresh: () {
+          mentionMeProvider.refresh();
+        },
       );
     }
     indexProvider.setMentionedScrollController(_controller);
     preBuild();
 
-    return Container(
-      child: ListView.builder(
-        controller: _controller,
-        itemBuilder: (BuildContext context, int index) {
-          var event = events[index];
-          return EventListComponent(
-            event: event,
-          );
-        },
-        itemCount: events.length,
-      ),
+    var main = ListView.builder(
+      controller: _controller,
+      itemBuilder: (BuildContext context, int index) {
+        var event = events[index];
+        return EventListComponent(
+          event: event,
+        );
+      },
+      itemCount: events.length,
+    );
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        mentionMeProvider.refresh();
+      },
+      child: main,
     );
   }
 

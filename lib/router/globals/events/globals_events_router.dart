@@ -6,6 +6,7 @@ import '../../../client/event_kind.dart' as kind;
 import '../../../client/filter.dart';
 import '../../../component/cust_state.dart';
 import '../../../component/event/event_list_component.dart';
+import '../../../component/placeholder/event_list_placeholder.dart';
 import '../../../consts/base.dart';
 import '../../../data/event_mem_box.dart';
 import '../../../main.dart';
@@ -30,10 +31,8 @@ class _GlobalsEventsRouter extends CustState<GlobalsEventsRouter>
   @override
   Widget doBuild(BuildContext context) {
     if (eventBox.isEmpty()) {
-      return Container(
-        child: Center(
-          child: Text("GlobalsEventsRouter"),
-        ),
+      return EventListPlaceholder(
+        onRefresh: refresh,
       );
     }
 
@@ -54,6 +53,14 @@ class _GlobalsEventsRouter extends CustState<GlobalsEventsRouter>
 
   @override
   Future<void> onReady(BuildContext context) async {
+    refresh();
+  }
+
+  Future<void> refresh() async {
+    if (StringUtil.isNotBlank(subscribeId)) {
+      unsubscribe();
+    }
+
     var str = await DioUtil.getStr(Base.INDEXS_EVENTS);
     // print(str);
     if (StringUtil.isNotBlank(str)) {
@@ -79,13 +86,17 @@ class _GlobalsEventsRouter extends CustState<GlobalsEventsRouter>
     }, subscribeId);
   }
 
+  void unsubscribe() {
+    try {
+      nostr!.pool.unsubscribe(subscribeId);
+    } catch (e) {}
+  }
+
   @override
   void dispose() {
     super.dispose();
 
-    try {
-      nostr!.pool.unsubscribe(subscribeId);
-    } catch (e) {}
+    unsubscribe();
     disposeLater();
   }
 }

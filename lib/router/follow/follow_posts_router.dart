@@ -8,6 +8,8 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/placeholder/event_list_placeholder.dart';
+import '../../component/placeholder/event_placeholder.dart';
 import '../../util/load_more_event.dart';
 
 class FollowPostsRouter extends StatefulWidget {
@@ -32,10 +34,10 @@ class _FollowPostsRouter extends State<FollowPostsRouter> with LoadMoreEvent {
     var eventBox = _followEventProvider.postsBox;
     var events = eventBox.all();
     if (events.isEmpty) {
-      return Container(
-        child: Center(
-          child: Text("Follow Posts"),
-        ),
+      return EventListPlaceholder(
+        onRefresh: () {
+          followEventProvider.refresh();
+        },
       );
     }
     indexProvider.setFollowPostsScrollController(_controller);
