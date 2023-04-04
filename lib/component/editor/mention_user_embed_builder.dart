@@ -11,12 +11,14 @@ class MentionUserEmbedBuilder extends EmbedBuilder {
   Widget build(BuildContext context, QuillController controller, Embed node,
       bool readOnly) {
     var pubkey = node.value.data;
-    return Container(
-      margin: const EdgeInsets.only(
-        left: 4,
-        right: 4,
+    return AbsorbPointer(
+      child: Container(
+        margin: const EdgeInsets.only(
+          left: 4,
+          right: 4,
+        ),
+        child: ContentMentionUserComponent(pubkey: pubkey),
       ),
-      child: ContentMentionUserComponent(pubkey: pubkey),
     );
   }
 

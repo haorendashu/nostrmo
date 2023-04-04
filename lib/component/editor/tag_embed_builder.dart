@@ -10,12 +10,14 @@ class TagEmbedBuilder extends EmbedBuilder {
   Widget build(BuildContext context, QuillController controller, Embed node,
       bool readOnly) {
     var tag = node.value.data;
-    return Container(
-      margin: const EdgeInsets.only(
-        left: 4,
-        right: 4,
+    return AbsorbPointer(
+      child: Container(
+        margin: const EdgeInsets.only(
+          left: 4,
+          right: 4,
+        ),
+        child: ContentTagComponent(tag: "#" + tag),
       ),
-      child: ContentTagComponent(tag: "#" + tag),
     );
   }
 
