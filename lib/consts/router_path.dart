@@ -8,6 +8,7 @@ class RouterPath {
   static const String USER = "/user";
   static const String PROFILE_EDITOR = "/profileEditor";
   static const String USER_CONTACT_LIST = "/userContactList";
+  static const String USER_RELAYS = "/userRelays";
   static const String DM_DETAIL = "/dmDetail";
   static const String THREAD_DETAIL = "/threadDetail";
   static const String TAG_DETAIL = "/tagDetail";

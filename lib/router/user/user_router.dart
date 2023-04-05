@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/consts/base.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
-import 'package:nostrmo/util/load_more_event.dart';
-import 'package:nostrmo/util/peddingevents_later_function.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -14,9 +10,12 @@ import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/router_path.dart';
+import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
+import '../../util/load_more_event.dart';
+import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import 'user_statistics_component.dart';

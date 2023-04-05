@@ -26,7 +26,13 @@ class UserStatisticsComponent extends StatefulWidget {
 }
 
 class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
+  Event? contactListEvent;
+
   CustContactList? contactList;
+
+  Event? relaysEvent;
+
+  List<dynamic>? relaysTags;
 
   EventMemBox? zapEventBox;
 
@@ -39,12 +45,9 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   Widget doBuild(BuildContext context) {
     if (contactList != null) {
       length = contactList!.list().length;
-      // List<String> relayList = [];
-      // for (var contact in contactList!.list()) {
-      //   if (StringUtil.isNotBlank(contact.url)) {
-      //     relayList.add(contact.url);
-      //   }
-      // }
+    }
+    if (relaysTags != null) {
+      relaysNum = relaysTags!.length;
     }
 
     List<Widget> list = [];
@@ -57,8 +60,8 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
         children: [
           UserStatisticsItemComponent(
               num: length, name: "Following", onTap: onFollowingTap),
-          UserStatisticsItemComponent(
-              num: followed, name: "Followed", onTap: onFollowedTap),
+          // UserStatisticsItemComponent(
+          //     num: followed, name: "Followed", onTap: onFollowedTap),
           UserStatisticsItemComponent(
               num: relaysNum, name: "Relays", onTap: onRelaysTap),
           UserStatisticsItemComponent(
@@ -70,15 +73,36 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   @override
   Future<void> onReady(BuildContext context) async {
-    var filter = Filter(
-        authors: [widget.pubkey],
-        limit: 1,
-        kinds: [kind.EventKind.CONTACT_LIST]);
-    nostr!.pool.query([filter.toJson()], (event) {
-      setState(() {
-        contactList = CustContactList.fromJson(event.tags);
+    {
+      var filter = Filter(
+          authors: [widget.pubkey],
+          limit: 1,
+          kinds: [kind.EventKind.CONTACT_LIST]);
+      nostr!.pool.query([filter.toJson()], (event) {
+        if ((contactListEvent != null &&
+                event.createdAt > contactListEvent!.createdAt) ||
+            contactListEvent == null) {
+          setState(() {
+            contactList = CustContactList.fromJson(event.tags);
+          });
+        }
       });
-    });
+    }
+
+    {
+      var filter = Filter(
+          authors: [widget.pubkey],
+          limit: 1,
+          kinds: [kind.EventKind.RELAY_LIST_METADATA]);
+      nostr!.pool.query([filter.toJson()], (event) {
+        if ((relaysEvent != null && event.createdAt > relaysEvent!.createdAt) ||
+            relaysEvent == null) {
+          setState(() {
+            relaysTags = event.tags;
+          });
+        }
+      });
+    }
   }
 
   onFollowingTap() {
@@ -92,7 +116,9 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   }
 
   onRelaysTap() {
-    print("onRelaysTap");
+    if (relaysTags != null && relaysTags!.isNotEmpty) {
+      RouterUtil.router(context, RouterPath.USER_RELAYS, relaysTags);
+    }
   }
 
   String zapSubscribeId = StringUtil.rndNameStr(10);

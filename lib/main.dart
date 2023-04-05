@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:nostrmo/router/user/user_relays_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -212,6 +213,7 @@ class _MyApp extends State<MyApp> {
           // RouterPath.EDITOR: (context) => EditorRouter(),
           RouterPath.USER: (context) => UserRouter(),
           RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
+          RouterPath.USER_RELAYS: (context) => UserRelayRouter(),
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
           RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
           RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),

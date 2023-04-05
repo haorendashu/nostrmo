@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 
+import '../client/event_kind.dart' as kind;
 import '../client/cust_nostr.dart';
 import '../client/cust_relay.dart';
 import '../data/relay_status.dart';
@@ -111,8 +112,21 @@ class RelayProvider extends ChangeNotifier {
     }
   }
 
+  bool containRelay(String relayAddr) {
+    return relayAddrs.contains(relayAddr);
+  }
+
   void _updateRelayToData() {
     sharedPreferences.setStringList(DataKey.RELAY_LIST, relayAddrs);
+
+    // update to relay
+    List<dynamic> tags = [];
+    for (var addr in relayAddrs) {
+      tags.add(["r", addr, ""]);
+    }
+    var event =
+        Event(nostr!.publicKey, kind.EventKind.RELAY_LIST_METADATA, tags, "");
+    nostr!.sendEvent(event);
   }
 
   CustRelay genRelay(String relayAddr) {
