@@ -1,6 +1,8 @@
 import 'package:nostr_dart/nostr_dart.dart';
 
 class EventRelation {
+  late String id;
+
   late String pubkey;
 
   List<String> tagPList = [];
@@ -11,6 +13,7 @@ class EventRelation {
   String? replyId;
 
   EventRelation.fromEvent(Event event) {
+    id = event.id;
     pubkey = event.pubKey;
 
     Map<String, int> pMap = {};

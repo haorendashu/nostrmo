@@ -58,7 +58,7 @@ class _EventMainComponent extends State<EventMainComponent> {
 
   @override
   Widget build(BuildContext context) {
-    if (eventRelation.pubkey != widget.event.pubKey) {
+    if (eventRelation.id != widget.event.id) {
       // change when thead root load lazy
       eventRelation = EventRelation.fromEvent(widget.event);
     }
