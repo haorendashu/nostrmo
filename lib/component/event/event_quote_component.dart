@@ -39,34 +39,30 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
 
-    return GestureDetector(
-      onTap: () {
-        RouterUtil.router(context, RouterPath.THREAD_DETAIL, event!);
-      },
-      child: Screenshot(
-        controller: screenshotController,
-        child: Container(
-          padding: const EdgeInsets.only(top: Base.BASE_PADDING),
-          margin: const EdgeInsets.all(Base.BASE_PADDING),
-          decoration: BoxDecoration(
-            color: cardColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                offset: const Offset(0, 0),
-                blurRadius: 10,
-                spreadRadius: 0,
-              ),
-            ],
-          ),
-          child: GestureDetector(
-            onTap: jumpToThread,
-            child: EventMainComponent(
-              screenshotController: screenshotController,
-              event: event!,
-              showReplying: false,
-              textOnTap: jumpToThread,
+    return Screenshot(
+      controller: screenshotController,
+      child: Container(
+        padding: const EdgeInsets.only(top: Base.BASE_PADDING),
+        margin: const EdgeInsets.all(Base.BASE_PADDING),
+        decoration: BoxDecoration(
+          color: cardColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: const Offset(0, 0),
+              blurRadius: 10,
+              spreadRadius: 0,
             ),
+          ],
+        ),
+        child: GestureDetector(
+          onTap: jumpToThread,
+          behavior: HitTestBehavior.translucent,
+          child: EventMainComponent(
+            screenshotController: screenshotController,
+            event: event!,
+            showReplying: false,
+            textOnTap: jumpToThread,
           ),
         ),
       ),
