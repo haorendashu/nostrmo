@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
@@ -25,17 +26,11 @@ class _ContentMentionUserComponent extends State<ContentMentionUserComponent> {
   Widget build(BuildContext context) {
     return Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
-        String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
-        String displayName = nip19Name;
-
-        if (metadata != null) {
-          if (StringUtil.isNotBlank(metadata.displayName)) {
-            displayName = metadata.displayName!;
-          }
-        }
+        String name =
+            SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
 
         return ContentStrLinkComponent(
-          str: "@" + displayName,
+          str: "@$name",
           showUnderline: false,
           onTap: () {
             RouterUtil.router(context, RouterPath.USER, widget.pubkey);

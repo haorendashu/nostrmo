@@ -3,6 +3,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/event/event_list_component.dart';
 import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:nostrmo/router/thread/thread_detail_event.dart';
 import 'package:nostrmo/router/thread/thread_detail_item_component.dart';
 import 'package:provider/provider.dart';
@@ -90,19 +91,26 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     Widget? appBarTitle;
     if (showTitle) {
       List<Widget> appBarTitleList = [];
-      var nameComponnet = Selector<MetadataProvider, Metadata?>(
-        builder: (context, metadata, child) {
-          return NameComponnet(
-            pubkey: currentEvent!.pubKey,
-            metadata: metadata,
-            showNip05: false,
-            fontSize: bodyLargeFontSize,
-            fontColor: titleTextColor,
-          );
-        },
-        selector: (context, _provider) {
-          return _provider.getMetadata(currentEvent!.pubKey);
-        },
+      // var nameComponnet = Selector<MetadataProvider, Metadata?>(
+      //   builder: (context, metadata, child) {
+      //     return NameComponnet(
+      //       pubkey: currentEvent!.pubKey,
+      //       metadata: metadata,
+      //       showNip05: false,
+      //       fontSize: bodyLargeFontSize,
+      //       fontColor: titleTextColor,
+      //     );
+      //   },
+      //   selector: (context, _provider) {
+      //     return _provider.getMetadata(currentEvent!.pubKey);
+      //   },
+      // );
+      var nameComponnet = SimpleNameComponent(
+        pubkey: currentEvent!.pubKey,
+        textStyle: TextStyle(
+          fontSize: bodyLargeFontSize,
+          color: titleTextColor,
+        ),
       );
       appBarTitleList.add(nameComponnet);
       appBarTitleList.add(Text(" : "));
@@ -130,12 +138,12 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           },
           child: Icon(Icons.arrow_back_ios),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_horiz),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {},
+        //     icon: Icon(Icons.more_horiz),
+        //   ),
+        // ],
         title: appBarTitle,
       ),
       body: NestedScrollView(
