@@ -25,12 +25,11 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
     }
   }
 
-  void addLike(String id) {
+  void addLike(String id, Event likeEvent) {
     var er = _eventReactionsMap[id];
     if (er != null) {
       er = er.clone();
-      er.likeNum++;
-      _eventReactionsMap[id] = er;
+      er.onEvent(likeEvent);
       notifyListeners();
     }
   }

@@ -319,8 +319,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   void onLikeTap() {
     if (myLikeEvents == null || myLikeEvents!.isEmpty) {
       // like
-      nostr!.sendLike(widget.event.id);
-      eventReactionsProvider.addLike(widget.event.id);
+      var likeEvent = nostr!.sendLike(widget.event.id);
+      eventReactionsProvider.addLike(widget.event.id, likeEvent);
     } else {
       // delete like
       for (var event in myLikeEvents!) {
