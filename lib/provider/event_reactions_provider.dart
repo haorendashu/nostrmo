@@ -30,6 +30,7 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
     if (er != null) {
       er = er.clone();
       er.onEvent(likeEvent);
+      _eventReactionsMap[id] = er;
       notifyListeners();
     }
   }
@@ -38,8 +39,13 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
     var er = _eventReactionsMap[id];
     if (er != null) {
       er = er.clone();
+      if (er.myLikeEvents != null) {
+        var length = er.myLikeEvents!.length;
+        er.likeNum -= length;
+      } else {
+        er.likeNum--;
+      }
       er.myLikeEvents = null;
-      er.likeNum--;
       _eventReactionsMap[id] = er;
       notifyListeners();
     }

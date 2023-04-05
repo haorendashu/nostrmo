@@ -325,8 +325,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       // delete like
       for (var event in myLikeEvents!) {
         nostr!.deleteLike(event.id);
-        eventReactionsProvider.deleteLike(widget.event.id);
       }
+      eventReactionsProvider.deleteLike(widget.event.id);
     }
   }
 
