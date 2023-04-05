@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/component/placeholder/metadata_placeholder.dart';
+import 'package:nostrmo/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../../component/placeholder/metadata_list_placeholder.dart';
@@ -22,6 +23,8 @@ class GlobalsUsersRouter extends StatefulWidget {
 }
 
 class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
+  ScrollController scrollController = ScrollController();
+
   List<String> pubkeys = [];
 
   @override
@@ -34,6 +37,7 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
 
     return Container(
       child: ListView.builder(
+        controller: scrollController,
         itemBuilder: (context, index) {
           var pubkey = pubkeys[index];
           if (StringUtil.isBlank(pubkey)) {
@@ -63,6 +67,7 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
 
   @override
   Future<void> onReady(BuildContext context) async {
+    indexProvider.setUserScrollController(scrollController);
     refresh();
   }
 

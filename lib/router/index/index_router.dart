@@ -50,6 +50,7 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
     }
     var _indexProvider = Provider.of<IndexProvider>(context);
     _indexProvider.setFollowTabController(followTabController);
+    _indexProvider.setGlobalTabController(globalsTabController);
     var themeData = Theme.of(context);
     var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
     var titleTextStyle = TextStyle(

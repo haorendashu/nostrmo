@@ -25,6 +25,8 @@ class GlobalsEventsRouter extends StatefulWidget {
 
 class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
     with PenddingEventsLaterFunction {
+  ScrollController scrollController = ScrollController();
+
   List<String> ids = [];
 
   EventMemBox eventBox = EventMemBox(sortAfterAdd: false);
@@ -41,6 +43,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
 
     return Container(
       child: ListView.builder(
+        controller: scrollController,
         itemBuilder: (context, index) {
           var event = list[index];
           return EventListComponent(event: event);
@@ -54,6 +57,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
 
   @override
   Future<void> onReady(BuildContext context) async {
+    indexProvider.setEventScrollController(scrollController);
     refresh();
   }
 

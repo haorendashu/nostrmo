@@ -40,6 +40,9 @@ class _IndexBottomBar extends State<IndexBottomBar> {
       iconData: Icons.public, // notifications_active
       index: current,
       selected: current == currentTap,
+      onDoubleTap: () {
+        indexProvider.globalScrollToTop();
+      },
     ));
     current++;
 

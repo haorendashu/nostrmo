@@ -52,4 +52,33 @@ class IndexProvider extends ChangeNotifier {
       }
     }
   }
+
+  TabController? _globalTabController;
+
+  void setGlobalTabController(TabController? globalTabController) {
+    _globalTabController = globalTabController;
+  }
+
+  ScrollController? _eventScrollController;
+
+  void setEventScrollController(ScrollController? eventScrollController) {
+    _eventScrollController = eventScrollController;
+  }
+
+  ScrollController? _userScrollController;
+
+  void setUserScrollController(ScrollController? userScrollController) {
+    _userScrollController = userScrollController;
+  }
+
+  void globalScrollToTop() {
+    if (_globalTabController != null) {
+      if (_globalTabController!.index == 0 && _eventScrollController != null) {
+        _eventScrollController!.jumpTo(0);
+      } else if (_globalTabController!.index == 1 &&
+          _userScrollController != null) {
+        _userScrollController!.jumpTo(0);
+      }
+    }
+  }
 }
