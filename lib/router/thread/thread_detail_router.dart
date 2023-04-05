@@ -200,6 +200,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     later(event, (list) {
       box.addList(list);
       listToTree();
+      eventReactionsProvider.onEvents(list);
     }, null);
   }
 

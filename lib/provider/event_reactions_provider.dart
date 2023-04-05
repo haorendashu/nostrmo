@@ -102,6 +102,10 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
     _penddingEvents.add(event);
   }
 
+  void onEvents(List<Event> events) {
+    _penddingEvents.addAll(events);
+  }
+
   List<Event> _penddingEvents = [];
 
   void _handleEvent() {
