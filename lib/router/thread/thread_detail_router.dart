@@ -116,7 +116,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       appBarTitleList.add(Text(" : "));
       appBarTitleList.add(Expanded(
           child: Text(
-        currentEvent!.content.replaceAll("\n", " ").replaceAll("\r", " "),
+        currentEvent.content.replaceAll("\n", " ").replaceAll("\r", " "),
         style: TextStyle(
           overflow: TextOverflow.ellipsis,
           fontSize: bodyLargeFontSize,

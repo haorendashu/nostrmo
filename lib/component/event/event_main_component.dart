@@ -79,14 +79,33 @@ class _EventMainComponent extends State<EventMainComponent> {
     }
 
     List<Widget> list = [];
-    if (repostEvent != null) {
+    if (widget.event.kind == kind.EventKind.REPOST) {
       list.add(Container(
         alignment: Alignment.centerLeft,
         child: Text("Boost:"),
       ));
-      list.add(EventQuoteComponent(
-        event: repostEvent,
-      ));
+      if (repostEvent != null) {
+        list.add(EventQuoteComponent(
+          event: repostEvent,
+        ));
+      } else {
+        list.add(
+          Container(
+            width: double.maxFinite,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: ContentDecoder.decode(
+                context,
+                null,
+                widget.event,
+                textOnTap: widget.textOnTap,
+                showVideo: widget.showVideo,
+              ),
+            ),
+          ),
+        );
+      }
     } else {
       if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
         var textStyle = TextStyle(
