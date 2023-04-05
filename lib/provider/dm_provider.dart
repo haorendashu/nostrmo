@@ -60,9 +60,17 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     }
   }
 
+  void addEventAndUpdateReadedTime(DMSessionDetail detail, Event event) {
+    penddingEvents.add(event);
+    eventLaterHandle(penddingEvents, updateUI: false);
+    updateReadedTime(detail);
+  }
+
   Future<DMSessionDetail> addDmSessionToKnown(DMSessionDetail detail) async {
+    var keyIndex = settingProvider.privateKeyIndex!;
     var pubkey = detail.dmSession.pubkey;
     DMSessionInfo o = DMSessionInfo(pubkey: pubkey);
+    o.keyIndex = keyIndex;
     o.readedTime = detail.dmSession.newestEvent!.createdAt;
     await DMSessionInfoDB.insert(o);
 
@@ -206,16 +214,16 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     }
   }
 
-  void handleEventImmediately(Event event) {
-    penddingEvents.add(event);
-    eventLaterHandle(penddingEvents);
-  }
+  // void handleEventImmediately(Event event) {
+  //   penddingEvents.add(event);
+  //   eventLaterHandle(penddingEvents);
+  // }
 
   void onEvent(Event event) {
     later(event, eventLaterHandle, null);
   }
 
-  void eventLaterHandle(List<Event> events) {
+  void eventLaterHandle(List<Event> events, {bool updateUI = true}) {
     bool updated = false;
     var keyIndex = settingProvider.privateKeyIndex!;
     for (var event in events) {
@@ -229,7 +237,9 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
     if (updated) {
       _sortDetailList();
-      notifyListeners();
+      if (updateUI) {
+        notifyListeners();
+      }
     }
   }
 

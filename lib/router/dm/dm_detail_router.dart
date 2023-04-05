@@ -167,8 +167,9 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
     if (detail != null &&
         detail!.info != null &&
         detail!.dmSession.newestEvent != null) {
-      detail!.info!.readedTime = detail!.dmSession.newestEvent!.createdAt;
-      DMSessionInfoDB.update(detail!.info!);
+      // detail!.info!.readedTime = detail!.dmSession.newestEvent!.createdAt;
+      // DMSessionInfoDB.update(detail!.info!);
+      dmProvider.updateReadedTime(detail);
     }
   }
 
@@ -185,9 +186,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
       tagsAddedWhenSend: [],
     );
     if (event != null) {
-      dmProvider.handleEventImmediately(event);
-      detail!.info!.readedTime = event.createdAt;
-      DMSessionInfoDB.update(detail!.info!);
+      dmProvider.addEventAndUpdateReadedTime(detail!, event);
       setState(() {});
     }
   }
