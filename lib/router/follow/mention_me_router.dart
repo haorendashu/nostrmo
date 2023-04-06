@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/component/event/zap_event_main_component.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/event/event_list_component.dart';
+import '../../component/event/zap_event_list_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../component/placeholder/event_placeholder.dart';
 import '../../consts/router_path.dart';
@@ -51,9 +53,11 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       controller: _controller,
       itemBuilder: (BuildContext context, int index) {
         var event = events[index];
-        return EventListComponent(
-          event: event,
-        );
+        if (event.kind == kind.EventKind.ZAP) {
+          return ZapEventListComponent(event: event);
+        } else {
+          return EventListComponent(event: event);
+        }
       },
       itemCount: events.length,
     );

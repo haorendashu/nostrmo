@@ -67,7 +67,6 @@ class _EventListComponent extends State<EventListComponent> {
   }
 
   void jumpToThread() {
-    print(widget.jumpable);
     RouterUtil.router(context, RouterPath.THREAD_DETAIL, widget.event);
   }
 }

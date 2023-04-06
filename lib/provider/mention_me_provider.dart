@@ -31,7 +31,11 @@ class MentionMeProvider extends ChangeNotifier
   void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {
     targetNostr ??= nostr!;
     var filter = Filter(
-      kinds: [kind.EventKind.TEXT_NOTE, kind.EventKind.REPOST],
+      kinds: [
+        kind.EventKind.TEXT_NOTE,
+        kind.EventKind.REPOST,
+        kind.EventKind.ZAP
+      ],
       until: until ?? _initTime,
       limit: 50,
       p: [targetNostr.publicKey],
