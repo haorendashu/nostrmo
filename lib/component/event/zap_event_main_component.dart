@@ -54,12 +54,12 @@ class _ZapEventMainComponent extends State<ZapEventMainComponent> {
     var zapNum = ZapNumUtil.getNumFromZapEvent(widget.event);
     String zapNumStr = zapNum.toString();
     if (zapNum > 1000000) {
-      zapNumStr = (zapNum / 1000000).toStringAsFixed(1) + "m";
+      zapNumStr = (zapNum / 1000000).toStringAsFixed(1) + "m sats";
     } else if (zapNum > 1000) {
-      zapNumStr = (zapNum / 1000).toStringAsFixed(1) + "k";
+      zapNumStr = (zapNum / 1000).toStringAsFixed(1) + "k sats";
     }
 
-    var text = " zaped $zapNumStr ";
+    var text = " zaped $zapNumStr sats";
 
     return ReactionEventItemComponent(
         pubkey: senderPubkey!, text: text, createdAt: widget.event.createdAt);
