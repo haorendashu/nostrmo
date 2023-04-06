@@ -5,6 +5,7 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/dm_session_info_db.dart';
 import 'package:nostrmo/data/event_db.dart';
 import 'package:nostrmo/data/metadata_db.dart';
+import 'package:nostrmo/router/user/user_statistics_component.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class _IndexDrawerContnetComponnent
 
   @override
   Widget build(BuildContext context) {
+    var pubkey = nostr!.publicKey;
     var paddingTop = mediaDataCache.padding.top;
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
@@ -33,19 +35,25 @@ class _IndexDrawerContnetComponnent
     List<Widget> list = [];
 
     list.add(Container(
-      margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
+      // margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
       child: Stack(children: [
         Selector<MetadataProvider, Metadata?>(
           builder: (context, metadata, child) {
-            return MetadataTopComponent(
-              pubkey: nostr!.publicKey,
-              metadata: metadata,
-              isLocal: true,
-              jumpable: true,
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MetadataTopComponent(
+                  pubkey: pubkey,
+                  metadata: metadata,
+                  isLocal: true,
+                  jumpable: true,
+                ),
+                UserStatisticsComponent(pubkey: pubkey),
+              ],
             );
           },
           selector: (context, _provider) {
-            return _provider.getMetadata(nostr!.publicKey);
+            return _provider.getMetadata(pubkey);
           },
         ),
         Positioned(
