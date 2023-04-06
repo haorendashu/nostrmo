@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/event/event_list_component.dart';
+import 'package:nostrmo/component/event_reply_callback.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:nostrmo/router/thread/thread_detail_event.dart';
@@ -130,6 +131,33 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       );
     }
 
+    var main = NestedScrollView(
+      controller: _controller,
+      headerSliverBuilder: (context, innerBoxIsScrolled) {
+        return <Widget>[
+          SliverToBoxAdapter(
+            child: WidgetSize(
+              child: EventListComponent(
+                event: currentEvent!,
+                jumpable: false,
+                showVideo: true,
+              ),
+              onChange: (size) {
+                rootEventHeight = size.height;
+              },
+            ),
+          ),
+        ];
+      },
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          var item = rootSubList![index];
+          return ThreadDetailItemComponent(item: item);
+        },
+        itemCount: rootSubList!.length,
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -146,31 +174,9 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         // ],
         title: appBarTitle,
       ),
-      body: NestedScrollView(
-        controller: _controller,
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return <Widget>[
-            SliverToBoxAdapter(
-              child: WidgetSize(
-                child: EventListComponent(
-                  event: currentEvent!,
-                  jumpable: false,
-                  showVideo: true,
-                ),
-                onChange: (size) {
-                  rootEventHeight = size.height;
-                },
-              ),
-            ),
-          ];
-        },
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            var item = rootSubList![index];
-            return ThreadDetailItemComponent(item: item);
-          },
-          itemCount: rootSubList!.length,
-        ),
+      body: EventReplyCallback(
+        child: main,
+        onReplyCallback: onReplyCallback,
       ),
     );
   }
@@ -253,5 +259,9 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   void dispose() {
     super.dispose();
     disposeLater();
+  }
+
+  onReplyCallback(Event event) {
+    onEvent(event);
   }
 }

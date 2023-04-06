@@ -104,6 +104,11 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
     nostr!.pool.query([filter.toJson()], onEvent);
   }
 
+  void addEventAndHandle(Event event) {
+    onEvent(event);
+    laterFunc();
+  }
+
   void onEvent(Event event) {
     _penddingEvents.add(event);
   }
