@@ -211,10 +211,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         value: "share",
                         child: Text("Share"),
                       ),
-                      PopupMenuItem(
-                        value: "star",
-                        child: Text("Star"),
-                      ),
+                      // PopupMenuItem(
+                      //   value: "star",
+                      //   child: Text("Star"),
+                      // ),
                       PopupMenuDivider(),
                       PopupMenuItem(
                         value: "broadcase",
