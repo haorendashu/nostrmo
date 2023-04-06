@@ -1,26 +1,25 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/client/zap/zap.dart';
-import 'package:nostrmo/client/zap/zap_action.dart';
-import 'package:nostrmo/component/event_reply_callback.dart';
-import 'package:nostrmo/data/event_reactions.dart';
-import 'package:nostrmo/main.dart';
-import 'package:nostrmo/provider/event_reactions_provider.dart';
-import 'package:nostrmo/router/edit/editor_router.dart';
-import 'package:nostrmo/util/lightning_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../client/event_relation.dart';
+import '../../client/nip19/nip19.dart';
+import '../../client/zap/zap_action.dart';
+import '../../data/event_reactions.dart';
+import '../../main.dart';
+import '../../provider/event_reactions_provider.dart';
+import '../../router/edit/editor_router.dart';
 import '../../util/store_util.dart';
+import '../../util/string_util.dart';
+import '../editor/cust_embed_types.dart';
+import '../event_reply_callback.dart';
 
 class EventReactionsComponent extends StatefulWidget {
   ScreenshotController screenshotController;
@@ -82,14 +81,37 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 color: hintColor,
                 fontSize: fontSize,
               )),
+              // Expanded(
+              //     child: EventReactionNumComponent(
+              //   num: repostNum,
+              //   iconData: Icons.repeat,
+              //   onTap: onRepostTap,
+              //   color: hintColor,
+              //   fontSize: fontSize,
+              // )),
               Expanded(
+                child: PopupMenuButton<String>(
+                  itemBuilder: (context) {
+                    return [
+                      PopupMenuItem(
+                        value: "boost",
+                        child: Text("Boost"),
+                      ),
+                      PopupMenuItem(
+                        value: "quote",
+                        child: Text("Quote"),
+                      ),
+                    ];
+                  },
+                  onSelected: onRepostTap,
                   child: EventReactionNumComponent(
-                num: repostNum,
-                iconData: Icons.repeat,
-                onTap: onRepostTap,
-                color: hintColor,
-                fontSize: fontSize,
-              )),
+                    num: repostNum,
+                    iconData: Icons.repeat,
+                    color: hintColor,
+                    fontSize: fontSize,
+                  ),
+                ),
+              ),
               Expanded(
                   child: EventReactionNumComponent(
                 num: likeNum,
@@ -319,9 +341,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }
   }
 
-  void onRepostTap() {
-    nostr!.sendRepost(widget.event.id);
-    eventReactionsProvider.addRepost(widget.event.id);
+  Future<void> onRepostTap(String value) async {
+    if (value == "boost") {
+      nostr!.sendRepost(widget.event.id);
+      eventReactionsProvider.addRepost(widget.event.id);
+    } else if (value == "quote") {
+      var event = await EditorRouter.open(context, initEmbeds: [
+        quill.CustomBlockEmbed(CustEmbedTypes.mention_evevt, widget.event.id)
+      ]);
+    }
   }
 
   void onLikeTap() {
@@ -341,38 +369,6 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   Future<void> onZapSelect(int sats) async {
     await ZapAction.handleZap(context, sats, widget.event.pubKey,
         eventId: widget.event.id);
-
-    // var metadata = metadataProvider.getMetadata(widget.event.pubKey);
-    // if (metadata == null) {
-    //   BotToast.showText(text: "Metadata can not be found.");
-    //   return;
-    // }
-
-    // var relays = relayProvider.relayAddrs;
-
-    // if (StringUtil.isNotBlank(metadata.lud16)) {
-    //   var lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
-    //   if (StringUtil.isNotBlank(lnurl)) {
-    //     var lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
-    //     if (StringUtil.isBlank(lnurl)) {
-    //       BotToast.showText(text: "Gen lnurl error.");
-    //       return;
-    //     }
-    //     var invoiceCode = await Zap.getInvoiceCode(
-    //         lnurl: lnurl!,
-    //         sats: sats,
-    //         recipientPubkey: widget.event.pubKey,
-    //         targetNostr: nostr!,
-    //         relays: relays);
-
-    //     if (StringUtil.isBlank(invoiceCode)) {
-    //       BotToast.showText(text: "Gen invoiceCode error.");
-    //       return;
-    //     }
-
-    //     await LightningUtil.goToPay(invoiceCode!);
-    //   }
-    // }
   }
 
   void onShareTap() {
@@ -406,7 +402,7 @@ class EventReactionNumComponent extends StatelessWidget {
   EventReactionNumComponent({
     required this.iconData,
     required this.num,
-    required this.onTap,
+    this.onTap,
     required this.color,
     required this.fontSize,
   });

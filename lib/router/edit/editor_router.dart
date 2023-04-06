@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -25,6 +24,7 @@ import 'package:nostrmo/util/string_util.dart';
 import 'package:pointycastle/ecc/api.dart';
 
 import '../../client/event_kind.dart' as kind;
+import '../../component/cust_state.dart';
 
 class EditorRouter extends StatefulWidget {
   // dm arg
@@ -37,11 +37,14 @@ class EditorRouter extends StatefulWidget {
 
   List<dynamic> tagsAddedWhenSend = [];
 
+  List<quill.BlockEmbed>? initEmbeds;
+
   EditorRouter({
     required this.tags,
     required this.tagsAddedWhenSend,
     this.agreement,
     this.pubkey,
+    this.initEmbeds,
   });
 
   static Future<Event?> open(
@@ -50,6 +53,7 @@ class EditorRouter extends StatefulWidget {
     List<dynamic>? tagsAddedWhenSend,
     ECDHBasicAgreement? agreement,
     String? pubkey,
+    List<quill.BlockEmbed>? initEmbeds,
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
@@ -59,6 +63,7 @@ class EditorRouter extends StatefulWidget {
         tagsAddedWhenSend: tagsAddedWhenSend!,
         agreement: agreement,
         pubkey: pubkey,
+        initEmbeds: initEmbeds,
       );
     }));
   }
@@ -69,7 +74,7 @@ class EditorRouter extends StatefulWidget {
   }
 }
 
-class _EditorRouter extends State<EditorRouter> {
+class _EditorRouter extends CustState<EditorRouter> {
   quill.QuillController _controller = quill.QuillController.basic();
 
   bool emojiShow = false;
@@ -96,7 +101,7 @@ class _EditorRouter extends State<EditorRouter> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget doBuild(BuildContext context) {
     // TODO embed: image、video、bitcoin
     // TODO embed input: image、video、bitcoin
     // TODO relation input: events、users、emoji
@@ -214,7 +219,7 @@ class _EditorRouter extends State<EditorRouter> {
             enableSkinTones: true,
             showRecentsTab: true,
             recentsLimit: 28,
-            noRecents: const Text(
+            noRecents: Text(
               'No Recents',
               style: TextStyle(fontSize: 14, color: Colors.black26),
               textAlign: TextAlign.center,
@@ -270,8 +275,6 @@ class _EditorRouter extends State<EditorRouter> {
   Future<void> pickImage() async {
     var filepath = await Uploader.pick(context);
     _imageSubmitted(filepath);
-    // _imageSubmitted(
-    //     "https://up.enterdesk.com/edpic/0c/ef/a0/0cefa0f17b83255217eddc20b15395f9.jpg");
   }
 
   void _imageSubmitted(String? value) {
@@ -541,5 +544,30 @@ class _EditorRouter extends State<EditorRouter> {
         index, length, emoji.emoji, TextSelection.collapsed(offset: index + 2),
         ignoreFocus: true);
     setState(() {});
+  }
+
+  @override
+  Future<void> onReady(BuildContext context) async {
+    if (widget.initEmbeds != null && widget.initEmbeds!.isNotEmpty) {
+      {
+        final index = _controller.selection.baseOffset;
+        final length = _controller.selection.extentOffset - index;
+
+        _controller.replaceText(index, length, "\n", null);
+
+        _controller.moveCursorToPosition(index + 1);
+      }
+
+      for (var embed in widget.initEmbeds!) {
+        final index = _controller.selection.baseOffset;
+        final length = _controller.selection.extentOffset - index;
+
+        _controller.replaceText(index, length, embed, null);
+
+        _controller.moveCursorToPosition(index + 1);
+      }
+
+      _controller.moveCursorToPosition(0);
+    }
   }
 }
