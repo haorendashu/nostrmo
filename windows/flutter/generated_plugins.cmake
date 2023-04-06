@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   emoji_picker_flutter
+  local_auth_windows
   pasteboard
   share_plus
   url_launcher_windows

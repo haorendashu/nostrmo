@@ -13,4 +13,5 @@ class RouterPath {
   static const String THREAD_DETAIL = "/threadDetail";
   static const String EVENT_DETAIL = "/eventDetail";
   static const String TAG_DETAIL = "/tagDetail";
+  static const String SETTING = "/setting";
 }

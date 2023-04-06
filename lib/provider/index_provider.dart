@@ -7,6 +7,12 @@ class IndexProvider extends ChangeNotifier {
 
   int get currentTap => _currentTap;
 
+  IndexProvider({int? indexTap}) {
+    if (indexTap != null) {
+      _currentTap = indexTap;
+    }
+  }
+
   void setCurrentTap(int v) {
     _currentTap = v;
     notifyListeners();

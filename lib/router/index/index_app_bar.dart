@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
-import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/provider/relay_provider.dart';
-import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/user_pic_component.dart';
 import '../../consts/base.dart';
+import '../../consts/router_path.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/relay_provider.dart';
+import '../../util/router_util.dart';
 
 class IndexAppBar extends StatefulWidget {
   static const double height = 56;
@@ -29,8 +29,8 @@ class _IndexAppBar extends State<IndexAppBar> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var paddingTop = mediaDataCache.padding.top;
-    var mainColor = themeData.primaryColor;
     var textColor = themeData.appBarTheme.titleTextStyle!.color;
+    var appBarBackgroundColor = themeData.appBarTheme.backgroundColor;
 
     var userPicWidget = GestureDetector(
       onTap: () {
@@ -62,7 +62,7 @@ class _IndexAppBar extends State<IndexAppBar> {
         right: Base.BASE_PADDING,
       ),
       height: paddingTop + IndexAppBar.height,
-      color: mainColor,
+      color: appBarBackgroundColor,
       child: Row(children: [
         Container(
           child: userPicWidget,

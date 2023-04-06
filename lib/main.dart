@@ -2,7 +2,9 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nostrmo/router/event_detail/event_detail_router.dart';
+import 'package:nostrmo/router/setting/setting_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -93,7 +95,9 @@ Future<void> main() async {
   followEventProvider = FollowEventProvider();
   mentionMeProvider = MentionMeProvider();
   dmProvider = DMProvider();
-  indexProvider = IndexProvider();
+  indexProvider = IndexProvider(
+    indexTap: settingProvider.defaultIndex,
+  );
   eventReactionsProvider = EventReactionsProvider();
   noticeProvider = NoticeProvider();
   singleEventProvider = SingleEventProvider();
@@ -103,7 +107,6 @@ Future<void> main() async {
   mediaDataCache = MediaDataCache();
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
-    // nostr = genNostr(settingProvider.privateKey!);
     nostr = relayProvider.genNostr(settingProvider.privateKey!);
   }
 
@@ -125,13 +128,12 @@ class _MyApp extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Locale _locale = Localizations.localeOf(context);
-
-    Locale? locale;
+    Locale? _locale;
     if (StringUtil.isNotBlank(settingProvider.i18n)) {
       for (var item in S.delegate.supportedLocales) {
-        if (item.languageCode == settingProvider.i18n) {
-          locale = Locale(settingProvider.i18n!);
+        if (item.languageCode == settingProvider.i18n &&
+            item.countryCode == settingProvider.i18nCC) {
+          _locale = Locale(settingProvider.i18n!, settingProvider.i18nCC);
           break;
         }
       }
@@ -197,7 +199,7 @@ class _MyApp extends State<MyApp> {
         navigatorObservers: [BotToastNavigatorObserver()],
         // showPerformanceOverlay: true,
         debugShowCheckedModeBanner: false,
-        locale: locale,
+        locale: _locale,
         title: Base.APP_NAME,
         localizationsDelegates: const [
           S.delegate,
@@ -224,6 +226,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.RELAYS: (context) => RelaysRouter(),
           RouterPath.FILTER: (context) => FilterRouter(),
           RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),
+          RouterPath.SETTING: (context) => SettingRouter(indexReload: reload),
         },
       ),
     );
@@ -242,7 +245,10 @@ class _MyApp extends State<MyApp> {
   }
 
   ThemeData getLightTheme() {
-    Color color500 = Color(0xff519495);
+    Color color500 = const Color(0xff519495);
+    if (settingProvider.themeColor != null) {
+      color500 = Color(settingProvider.themeColor!);
+    }
 
     MaterialColor themeColor = ColorList.getThemeColor(color500.value);
 
@@ -257,6 +263,13 @@ class _MyApp extends State<MyApp> {
     var titleTextStyle = TextStyle(
       color: Colors.white,
     );
+
+    if (settingProvider.fontFamily != null) {
+      textTheme =
+          GoogleFonts.getTextTheme(settingProvider.fontFamily!, textTheme);
+      titleTextStyle = GoogleFonts.getFont(settingProvider.fontFamily!,
+          textStyle: titleTextStyle);
+    }
 
     return ThemeData(
       brightness: Brightness.light,
@@ -282,7 +295,10 @@ class _MyApp extends State<MyApp> {
   }
 
   ThemeData getDarkTheme() {
-    Color color500 = Color(0xff519495);
+    Color color500 = const Color(0xff519495);
+    if (settingProvider.themeColor != null) {
+      color500 = Color(settingProvider.themeColor!);
+    }
 
     MaterialColor themeColor = ColorList.getThemeColor(color500.value);
 
@@ -299,6 +315,13 @@ class _MyApp extends State<MyApp> {
       color: topFontColor,
       // color: Colors.black,
     );
+
+    if (settingProvider.fontFamily != null) {
+      textTheme =
+          GoogleFonts.getTextTheme(settingProvider.fontFamily!, textTheme);
+      titleTextStyle = GoogleFonts.getFont(settingProvider.fontFamily!,
+          textStyle: titleTextStyle);
+    }
 
     return ThemeData(
       brightness: Brightness.dark,

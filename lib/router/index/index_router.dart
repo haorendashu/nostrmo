@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/index_provider.dart';
 import '../../provider/setting_provider.dart';
@@ -35,14 +36,28 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    followTabController = TabController(length: 3, vsync: this);
-    globalsTabController = TabController(length: 3, vsync: this);
+    int followInitTab = 0;
+    int globalsInitTab = 0;
+
+    if (settingProvider.defaultTab != null) {
+      if (settingProvider.defaultIndex == 1) {
+        globalsInitTab = settingProvider.defaultTab!;
+      } else {
+        followInitTab = settingProvider.defaultTab!;
+      }
+    }
+
+    followTabController =
+        TabController(initialIndex: followInitTab, length: 3, vsync: this);
+    globalsTabController =
+        TabController(initialIndex: globalsInitTab, length: 3, vsync: this);
     dmTabController = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     mediaDataCache.update(context);
+    var s = S.of(context);
 
     var _settingProvider = Provider.of<SettingProvider>(context);
     if (nostr == null) {
@@ -65,20 +80,20 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Posts"),
+            child: Text(s.Posts),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
             child: Text(
-              "Posts & Replies",
+              s.Posts_and_replies,
               textAlign: TextAlign.center,
             ),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Mentions"),
+            child: Text(s.Mentions),
           ),
         ],
         controller: followTabController,
@@ -89,17 +104,17 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Notes"),
+            child: Text(s.Notes),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Users"),
+            child: Text(s.Users),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Topics"),
+            child: Text(s.Topics),
           ),
         ],
         controller: globalsTabController,
@@ -107,7 +122,7 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
     } else if (_indexProvider.currentTap == 2) {
       appBarCenter = Center(
         child: Text(
-          "Search",
+          s.Search,
           style: titleTextStyle,
         ),
       );
@@ -122,20 +137,12 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("Request"),
+            child: Text(s.Request),
           ),
         ],
         controller: dmTabController,
       );
     }
-    // else if (_indexProvider.currentTap == 3) {
-    //   appBarCenter = Center(
-    //     child: Text(
-    //       "Notice",
-    //       style: titleTextStyle,
-    //     ),
-    //   );
-    // }
 
     return Scaffold(
       body: Column(

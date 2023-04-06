@@ -114,8 +114,14 @@ class SettingProvider extends ChangeNotifier {
   /// open lock
   int get lockOpen => _settingData!.lockOpen;
 
+  int? get defaultIndex => _settingData!.defaultIndex;
+
+  int? get defaultTab => _settingData!.defaultTab;
+
   /// i18n
   String? get i18n => _settingData!.i18n;
+
+  String? get i18nCC => _settingData!.i18nCC;
 
   /// image compress
   int get imgCompress => _settingData!.imgCompress;
@@ -125,6 +131,9 @@ class SettingProvider extends ChangeNotifier {
 
   /// theme color
   int? get themeColor => _settingData!.themeColor;
+
+  /// fontFamily
+  String? get fontFamily => _settingData!.fontFamily;
 
   set settingData(SettingData o) {
     _settingData = o;
@@ -147,9 +156,25 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set defaultIndex(int? o) {
+    _settingData!.defaultIndex = o;
+    saveAndNotifyListeners();
+  }
+
+  set defaultTab(int? o) {
+    _settingData!.defaultTab = o;
+    saveAndNotifyListeners();
+  }
+
   /// i18n
   set i18n(String? o) {
     _settingData!.i18n = o;
+    saveAndNotifyListeners();
+  }
+
+  void setI18n(String? i18n, String? i18nCC) {
+    _settingData!.i18n = i18n;
+    _settingData!.i18nCC = i18nCC;
     saveAndNotifyListeners();
   }
 
@@ -168,6 +193,12 @@ class SettingProvider extends ChangeNotifier {
   /// theme color
   set themeColor(int? o) {
     _settingData!.themeColor = o;
+    saveAndNotifyListeners();
+  }
+
+  /// fontFamily
+  set fontFamily(String? _fontFamily) {
+    _settingData!.fontFamily = _fontFamily;
     saveAndNotifyListeners();
   }
 
@@ -192,8 +223,14 @@ class SettingData {
   /// open lock
   late int lockOpen;
 
+  int? defaultIndex;
+
+  int? defaultTab;
+
   /// i18n
   String? i18n;
+
+  String? i18nCC;
 
   /// image compress
   late int imgCompress;
@@ -204,6 +241,9 @@ class SettingData {
   /// theme color
   int? themeColor;
 
+  /// fontFamily
+  String? fontFamily;
+
   /// updated time
   late int updatedTime;
 
@@ -211,10 +251,14 @@ class SettingData {
     this.privateKeyIndex,
     this.privateKeyMap,
     this.lockOpen = LockOpen.CLOSE,
+    this.defaultIndex,
+    this.defaultTab,
     this.i18n,
+    this.i18nCC,
     this.imgCompress = 50,
     this.themeStyle = ThemeStyle.AUTO,
     this.themeColor,
+    this.fontFamily,
     this.updatedTime = 0,
   });
 
@@ -226,7 +270,10 @@ class SettingData {
     } else {
       lockOpen = LockOpen.CLOSE;
     }
+    defaultIndex = json['defaultIndex'];
+    defaultTab = json['defaultTab'];
     i18n = json['i18n'];
+    i18nCC = json['i18nCC'];
     if (json['imgCompress'] != null) {
       imgCompress = json['imgCompress'];
     } else {
@@ -250,10 +297,14 @@ class SettingData {
     data['privateKeyIndex'] = this.privateKeyIndex;
     data['privateKeyMap'] = this.privateKeyMap;
     data['lockOpen'] = this.lockOpen;
+    data['defaultIndex'] = this.defaultIndex;
+    data['defaultTab'] = this.defaultTab;
     data['i18n'] = this.i18n;
+    data['i18nCC'] = this.i18nCC;
     data['imgCompress'] = this.imgCompress;
     data['themeStyle'] = this.themeStyle;
     data['themeColor'] = this.themeColor;
+    data['fontFamily'] = this.fontFamily;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

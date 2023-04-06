@@ -104,7 +104,9 @@ class _IndexDrawerContnetComponnent
       iconData: Icons.settings,
       name: "Setting",
       // borderBottom: true,
-      onTap: () {},
+      onTap: () {
+        RouterUtil.router(context, RouterPath.SETTING);
+      },
     ));
 
     list.add(Expanded(child: Container()));
