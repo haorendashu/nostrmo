@@ -8,6 +8,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/zap/zap.dart';
 import 'package:nostrmo/client/zap/zap_action.dart';
+import 'package:nostrmo/component/event_reply_callback.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/event_reactions_provider.dart';
@@ -290,7 +291,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     eventReactionsProvider.removePendding(id);
   }
 
-  void onCommmentTap() {
+  Future<void> onCommmentTap() async {
     List<dynamic> tags = [];
     List<dynamic> tagsAddedWhenSend = [];
     tagsAddedWhenSend.add(["e", widget.event.id, "", "reply"]);
@@ -307,8 +308,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }
 
     // TODO reply maybe change the placeholder in editor router.
-    EditorRouter.open(context,
+    var event = await EditorRouter.open(context,
         tags: tags, tagsAddedWhenSend: tagsAddedWhenSend);
+    if (event != null) {
+      eventReactionsProvider.addEventAndHandle(event);
+      var callback = EventReplyCallback.of(context);
+      if (callback != null) {
+        callback.onReply(event);
+      }
+    }
   }
 
   void onRepostTap() {
