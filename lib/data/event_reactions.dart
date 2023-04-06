@@ -1,22 +1,29 @@
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/zap_num_util.dart';
-import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/string_util.dart';
+
 import '../../client/event_kind.dart' as kind;
-import '../util/spider_util.dart';
+import '../client/zap_num_util.dart';
+import '../main.dart';
 
 class EventReactions {
   String id;
+
+  int replyNum = 0;
 
   List<Event> replies = [];
 
   int repostNum = 0;
 
+  List<Event> reposts = [];
+
   int likeNum = 0;
+
+  List<Event> likes = [];
 
   List<Event>? myLikeEvents;
 
   int zapNum = 0;
+
+  List<Event> zaps = [];
 
   Map<String, int> eventIdMap = {};
 
@@ -28,10 +35,14 @@ class EventReactions {
 
   EventReactions clone() {
     return EventReactions(id)
+      ..replyNum = replyNum
       ..replies = replies
       ..repostNum = repostNum
+      ..reposts = reposts
       ..likeNum = likeNum
+      ..likes = likes
       ..myLikeEvents = myLikeEvents
+      ..zaps = zaps
       ..zapNum = zapNum
       ..eventIdMap = eventIdMap
       ..accessTime = accessTime
@@ -50,14 +61,17 @@ class EventReactions {
       eventIdMap[id] = 1;
 
       if (event.kind == kind.EventKind.TEXT_NOTE) {
+        replyNum++;
         replies.add(event);
       } else if (event.kind == kind.EventKind.REPOST) {
         repostNum++;
+        reposts.add(event);
       } else if (event.kind == kind.EventKind.REACTION) {
         if (event.content == "-") {
           likeNum--;
         } else {
           likeNum++;
+          likes.add(event);
           if (event.pubKey == nostr!.publicKey) {
             myLikeEvents ??= [];
             myLikeEvents!.add(event);
@@ -65,6 +79,7 @@ class EventReactions {
         }
       } else if (event.kind == kind.EventKind.ZAP) {
         zapNum += ZapNumUtil.getNumFromZapEvent(event);
+        zaps.add(event);
       }
 
       return true;

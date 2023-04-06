@@ -9,20 +9,21 @@ import '../../provider/metadata_provider.dart';
 import '../../util/string_util.dart';
 import '../simple_name_component.dart';
 
-class ZapEventMetadataComponent extends StatefulWidget {
+class ReactionEventMetadataComponent extends StatefulWidget {
   String pubkey;
 
-  ZapEventMetadataComponent({
+  ReactionEventMetadataComponent({
     required this.pubkey,
   });
 
   @override
   State<StatefulWidget> createState() {
-    return _ZapEventMetadataComponent();
+    return _ReactionEventMetadataComponent();
   }
 }
 
-class _ZapEventMetadataComponent extends State<ZapEventMetadataComponent> {
+class _ReactionEventMetadataComponent
+    extends State<ReactionEventMetadataComponent> {
   static const double IMAGE_WIDTH = 20;
 
   @override
@@ -59,7 +60,7 @@ class _ZapEventMetadataComponent extends State<ZapEventMetadataComponent> {
       ));
 
       list.add(Container(
-        margin: EdgeInsets.only(left: 4),
+        margin: EdgeInsets.only(left: 5),
         child: Text(
           name,
           style: const TextStyle(

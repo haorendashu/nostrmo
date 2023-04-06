@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -230,6 +232,11 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                       ),
                       PopupMenuDivider(),
                       PopupMenuItem(
+                        value: "detail",
+                        child: Text("Detail"),
+                      ),
+                      PopupMenuDivider(),
+                      PopupMenuItem(
                         value: "share",
                         child: Text("Share"),
                       ),
@@ -289,6 +296,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     } else if (value == "copyId") {
       var text = Nip19.encodeNoteId(widget.event.id);
       _doCopy(text);
+    } else if (value == "detail") {
+      RouterUtil.router(context, RouterPath.EVENT_DETAIL, widget.event);
     } else if (value == "share") {
       onShareTap();
     } else if (value == "star") {

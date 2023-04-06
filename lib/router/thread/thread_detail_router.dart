@@ -25,6 +25,35 @@ class ThreadDetailRouter extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _ThreadDetailRouter();
   }
+
+  static Widget detailAppBarTitle(Event event, ThemeData themeData) {
+    var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
+
+    List<Widget> appBarTitleList = [];
+    var nameComponnet = SimpleNameComponent(
+      pubkey: event.pubKey,
+      textStyle: TextStyle(
+        fontSize: bodyLargeFontSize,
+        color: themeData.appBarTheme.titleTextStyle!.color,
+      ),
+    );
+    appBarTitleList.add(nameComponnet);
+    appBarTitleList.add(Text(" : "));
+    appBarTitleList.add(Expanded(
+        child: Text(
+      event.content.replaceAll("\n", " ").replaceAll("\r", " "),
+      style: TextStyle(
+        overflow: TextOverflow.ellipsis,
+        fontSize: bodyLargeFontSize,
+      ),
+    )));
+    return Container(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: appBarTitleList,
+      ),
+    );
+  }
 }
 
 class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
@@ -91,44 +120,32 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
     Widget? appBarTitle;
     if (showTitle) {
-      List<Widget> appBarTitleList = [];
-      // var nameComponnet = Selector<MetadataProvider, Metadata?>(
-      //   builder: (context, metadata, child) {
-      //     return NameComponnet(
-      //       pubkey: currentEvent!.pubKey,
-      //       metadata: metadata,
-      //       showNip05: false,
-      //       fontSize: bodyLargeFontSize,
-      //       fontColor: titleTextColor,
-      //     );
-      //   },
-      //   selector: (context, _provider) {
-      //     return _provider.getMetadata(currentEvent!.pubKey);
-      //   },
+      // List<Widget> appBarTitleList = [];
+      // var nameComponnet = SimpleNameComponent(
+      //   pubkey: currentEvent!.pubKey,
+      //   textStyle: TextStyle(
+      //     fontSize: bodyLargeFontSize,
+      //     color: titleTextColor,
+      //   ),
       // );
-      var nameComponnet = SimpleNameComponent(
-        pubkey: currentEvent!.pubKey,
-        textStyle: TextStyle(
-          fontSize: bodyLargeFontSize,
-          color: titleTextColor,
-        ),
-      );
-      appBarTitleList.add(nameComponnet);
-      appBarTitleList.add(Text(" : "));
-      appBarTitleList.add(Expanded(
-          child: Text(
-        currentEvent.content.replaceAll("\n", " ").replaceAll("\r", " "),
-        style: TextStyle(
-          overflow: TextOverflow.ellipsis,
-          fontSize: bodyLargeFontSize,
-        ),
-      )));
-      appBarTitle = Container(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: appBarTitleList,
-        ),
-      );
+      // appBarTitleList.add(nameComponnet);
+      // appBarTitleList.add(Text(" : "));
+      // appBarTitleList.add(Expanded(
+      //     child: Text(
+      //   currentEvent.content.replaceAll("\n", " ").replaceAll("\r", " "),
+      //   style: TextStyle(
+      //     overflow: TextOverflow.ellipsis,
+      //     fontSize: bodyLargeFontSize,
+      //   ),
+      // )));
+      // appBarTitle = Container(
+      //   child: Row(
+      //     mainAxisSize: MainAxisSize.min,
+      //     children: appBarTitleList,
+      //   ),
+      // );
+      appBarTitle =
+          ThreadDetailRouter.detailAppBarTitle(currentEvent!, themeData);
     }
 
     var main = NestedScrollView(

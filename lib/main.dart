@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:nostrmo/router/user/user_relays_router.dart';
+import 'package:nostrmo/router/event_detail/event_detail_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -37,6 +37,7 @@ import 'router/relays/relays_router.dart';
 import 'router/tag/tag_detail_router.dart';
 import 'router/thread/thread_detail_router.dart';
 import 'router/user/user_contact_list_router.dart';
+import 'router/user/user_relays_router.dart';
 import 'router/user/user_router.dart';
 import 'system_timer.dart';
 import 'util/colors_util.dart';
@@ -216,6 +217,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.USER_RELAYS: (context) => UserRelayRouter(),
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
           RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
+          RouterPath.EVENT_DETAIL: (context) => EventDetailRouter(),
           RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
           RouterPath.NOTICES: (context) => NoticeRouter(),
           RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
