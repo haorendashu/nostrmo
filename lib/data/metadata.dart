@@ -10,6 +10,7 @@ class Metadata {
   String? lud16;
   String? lud06;
   int? updated_at;
+  int? valid;
 
   Metadata({
     this.pubKey,
@@ -23,6 +24,7 @@ class Metadata {
     this.lud16,
     this.lud06,
     this.updated_at,
+    this.valid,
   });
 
   Metadata.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class Metadata {
     lud16 = json['lud16'];
     lud06 = json['lud06'];
     updated_at = json['updated_at'];
+    valid = json['valid'];
   }
 
   Map<String, dynamic> toFullJson() {
@@ -57,6 +60,7 @@ class Metadata {
     data['lud16'] = this.lud16;
     data['lud06'] = this.lud06;
     data['updated_at'] = this.updated_at;
+    data['valid'] = this.valid;
     return data;
   }
 }
