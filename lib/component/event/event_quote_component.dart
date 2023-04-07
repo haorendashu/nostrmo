@@ -6,7 +6,9 @@ import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
+import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 class EventQuoteComponent extends StatefulWidget {
@@ -30,7 +32,6 @@ class EventQuoteComponent extends StatefulWidget {
 
 class _EventQuoteComponent extends CustState<EventQuoteComponent> {
   ScreenshotController screenshotController = ScreenshotController();
-  Event? event;
 
   @override
   Widget doBuild(BuildContext context) {
@@ -48,41 +49,44 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
       ],
     );
 
-    Widget? mainWidget;
-    if (event == null && widget.event == null) {
-      return Container(
-        margin: const EdgeInsets.all(Base.BASE_PADDING),
-        height: 60,
-        decoration: boxDecoration,
-        child: Center(child: Text("Note loading...")),
-      );
+    if (widget.event != null) {
+      return buildEventWidget(widget.event!, cardColor, boxDecoration);
     }
-    event ??= widget.event;
 
+    return Selector<SingleEventProvider, Event?>(
+      builder: (context, event, child) {
+        if (event == null) {
+          return buildBlankWidget(boxDecoration);
+        }
+
+        return buildEventWidget(event, cardColor, boxDecoration);
+      },
+      selector: (context, _provider) {
+        return _provider.getEvent(widget.id!);
+      },
+    );
+  }
+
+  Widget buildEventWidget(
+      Event event, Color cardColor, BoxDecoration boxDecoration) {
     return Screenshot(
       controller: screenshotController,
       child: Container(
         padding: const EdgeInsets.only(top: Base.BASE_PADDING),
         margin: const EdgeInsets.all(Base.BASE_PADDING),
-        decoration: BoxDecoration(
-          color: cardColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              offset: const Offset(0, 0),
-              blurRadius: 10,
-              spreadRadius: 0,
-            ),
-          ],
-        ),
+        decoration: boxDecoration,
         child: GestureDetector(
-          onTap: jumpToThread,
+          onTap: () {
+            jumpToThread(event);
+          },
           behavior: HitTestBehavior.translucent,
           child: EventMainComponent(
             screenshotController: screenshotController,
             event: event!,
             showReplying: false,
-            textOnTap: jumpToThread,
+            textOnTap: () {
+              jumpToThread(event);
+            },
             showVideo: widget.showVideo,
           ),
         ),
@@ -90,21 +94,19 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
     );
   }
 
-  void jumpToThread() {
+  Widget buildBlankWidget(BoxDecoration boxDecoration) {
+    return Container(
+      margin: const EdgeInsets.all(Base.BASE_PADDING),
+      height: 60,
+      decoration: boxDecoration,
+      child: Center(child: Text("Note loading...")),
+    );
+  }
+
+  void jumpToThread(Event event) {
     RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
   }
 
   @override
-  Future<void> onReady(BuildContext context) async {
-    if (widget.event == null && widget.id != null) {
-      var filter = Filter(ids: [widget.id!]);
-      nostr!.pool.query([filter.toJson()], (_event) {
-        if (event == null) {
-          setState(() {
-            event = _event;
-          });
-        }
-      });
-    }
-  }
+  Future<void> onReady(BuildContext context) async {}
 }
