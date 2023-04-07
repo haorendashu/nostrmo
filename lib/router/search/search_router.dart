@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:provider/provider.dart';
@@ -123,6 +124,10 @@ class _SearchRouter extends CustState<SearchRouter>
 
     var value = controller.text;
     value = value.trim();
+    if (StringUtil.isBlank(value)) {
+      BotToast.showText(text: "Empty text may be ban by relays.");
+    }
+
     List<String>? authors;
     if (StringUtil.isNotBlank(value) && value.indexOf("npub") == 0) {
       try {
