@@ -46,6 +46,7 @@
     "Video_preview_in_list": "列表视频预览",
     "Network": "网络",
     "network_take_effect_tip": "网络会在下次启动APP时生效",
+    "Image_service": "图片服务",
     "Please_input": "请输入",
     "Notice": "提示"
 }

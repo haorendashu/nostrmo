@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
+import 'package:nostrmo/consts/image_services.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,10 @@ class SettingRouter extends StatefulWidget {
 }
 
 class _SettingRouter extends State<SettingRouter> {
+  void resetTheme() {
+    widget.indexReload();
+  }
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
@@ -55,6 +60,7 @@ class _SettingRouter extends State<SettingRouter> {
 
     initThemeStyleList(s);
     initFontEnumList(s);
+    initImageServcieList();
 
     List<Widget> list = [];
 
@@ -144,6 +150,11 @@ class _SettingRouter extends State<SettingRouter> {
       name: s.Network,
       onTap: inputNetwork,
       child: networkWidget,
+    ));
+    list.add(SettingGroupItemComponent(
+      name: s.Image_service,
+      value: getImageServcie(settingProvider.imageService).name,
+      onTap: pickImageServcie,
     ));
 
     return Scaffold(
@@ -500,10 +511,6 @@ class _SettingRouter extends State<SettingRouter> {
     }
   }
 
-  void resetTheme() {
-    widget.indexReload();
-  }
-
   inputNetwork() async {
     var s = S.of(context);
     var text = await TextInputDialog.show(
@@ -513,5 +520,38 @@ class _SettingRouter extends State<SettingRouter> {
     );
     settingProvider.network = text;
     BotToast.showText(text: s.network_take_effect_tip);
+  }
+
+  List<EnumObj>? imageServcieList;
+
+  void initImageServcieList() {
+    if (imageServcieList == null) {
+      imageServcieList = [];
+      imageServcieList!
+          .add(EnumObj(ImageServices.NOSTR_BUILD, ImageServices.NOSTR_BUILD));
+      imageServcieList!
+          .add(EnumObj(ImageServices.NOSTRIMG_COM, ImageServices.NOSTRIMG_COM));
+      imageServcieList!.add(
+          EnumObj(ImageServices.POMF2_LAIN_LA, ImageServices.POMF2_LAIN_LA));
+      imageServcieList!
+          .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
+    }
+  }
+
+  EnumObj getImageServcie(String? o) {
+    for (var eo in imageServcieList!) {
+      if (eo.value == o) {
+        return eo;
+      }
+    }
+    return imageServcieList![0];
+  }
+
+  Future<void> pickImageServcie() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, imageServcieList!);
+    if (resultEnumObj != null) {
+      settingProvider.imageService = resultEnumObj.value;
+    }
   }
 }

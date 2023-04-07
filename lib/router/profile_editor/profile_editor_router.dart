@@ -243,7 +243,10 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
   Future<String?> pickImageAndUpload() async {
     var filepath = await Uploader.pick(context);
     if (StringUtil.isNotBlank(filepath)) {
-      return await Uploader.upload(filepath!);
+      return await Uploader.upload(
+        filepath!,
+        imageService: settingProvider.imageService,
+      );
     }
   }
 

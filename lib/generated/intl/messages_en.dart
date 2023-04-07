@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Image Compress"),
+        "Image_service": MessageLookupByLibrary.simpleMessage("Image service"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link preview"),

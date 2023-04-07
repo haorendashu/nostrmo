@@ -149,10 +149,10 @@ class _TextInputDialog extends State<TextInputDialog> {
 
   void _onComfirm() {
     var value = controller.text;
-    if (StringUtil.isBlank(value)) {
-      BotToast.showText(text: "Input can't be null");
-      return;
-    }
+    // if (StringUtil.isBlank(value)) {
+    //   BotToast.showText(text: "Input can't be null");
+    //   return;
+    // }
 
     if (widget.valueCheck != null) {
       if (!widget.valueCheck!(context, value)) {

@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("全球"),
         "Hide": MessageLookupByLibrary.simpleMessage("隐藏"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
+        "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),

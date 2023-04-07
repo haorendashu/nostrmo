@@ -76,6 +76,9 @@ dependencies:
   flutter_font_picker: ^1.2.0
   local_auth: ^2.1.6
   flutter_socks_proxy: ^0.0.2
+  crypto: ^3.0.2
+  mime: ^1.0.4
+  pretty_dio_logger: ^1.3.1
 
 dev_dependencies:
   flutter_test:

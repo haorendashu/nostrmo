@@ -520,6 +520,16 @@ class S {
     );
   }
 
+  /// `Image service`
+  String get Image_service {
+    return Intl.message(
+      'Image service',
+      name: 'Image_service',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please input`
   String get Please_input {
     return Intl.message(

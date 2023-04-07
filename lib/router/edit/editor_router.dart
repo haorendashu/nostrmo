@@ -418,7 +418,10 @@ class _EditorRouter extends CustState<EditorRouter> {
           if (StringUtil.isNotBlank(value) && value is String) {
             if (value.indexOf("http") != 0) {
               // this is a local image, update it first
-              var imagePath = await Uploader.upload(value);
+              var imagePath = await Uploader.upload(
+                value,
+                imageService: settingProvider.imageService,
+              );
               if (StringUtil.isNotBlank(imagePath)) ;
               value = imagePath;
             }

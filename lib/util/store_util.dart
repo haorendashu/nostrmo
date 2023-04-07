@@ -83,4 +83,29 @@ class StoreUtil {
     var dir = Directory(dirPath);
     return dir.existsSync();
   }
+
+  static String? getfileType(String path) {
+    var index = path.lastIndexOf(".");
+    if (index == -1) {
+      return null;
+    }
+
+    var n = path.substring(index);
+    n = n.toLowerCase();
+
+    var strs = n.split("?");
+    var s = strs[0];
+
+    if (s == ".png" ||
+        s == ".jpg" ||
+        s == ".jpeg" ||
+        s == ".gif" ||
+        s == ".webp") {
+      return "image";
+    } else if (s == ".mp4" || s == ".mov" || s == ".wmv") {
+      return "video";
+    } else {
+      return null;
+    }
+  }
 }
