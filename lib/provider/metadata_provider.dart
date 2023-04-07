@@ -68,6 +68,9 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
   void _handlePenddingEvents() {
     for (var event in _penddingEvents) {
+      if (StringUtil.isBlank(event.content)) {
+        continue;
+      }
       var jsonObj = jsonDecode(event.content);
       var md = Metadata.fromJson(jsonObj);
       md.pubKey = event.pubKey;
