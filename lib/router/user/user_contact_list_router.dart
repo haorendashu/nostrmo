@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/cust_contact_list.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';
+import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
+import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 
 class UserContactListRouter extends StatefulWidget {
@@ -54,10 +55,17 @@ class _UserContactListRouter extends State<UserContactListRouter> {
             margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
             child: Selector<MetadataProvider, Metadata?>(
               builder: (context, metadata, child) {
-                return MetadataComponent(
-                  pubKey: contact.publicKey,
-                  metadata: metadata,
-                  jumpable: true,
+                return GestureDetector(
+                  onTap: () {
+                    RouterUtil.router(
+                        context, RouterPath.USER, contact.publicKey);
+                  },
+                  behavior: HitTestBehavior.translucent,
+                  child: MetadataComponent(
+                    pubKey: contact.publicKey,
+                    metadata: metadata,
+                    jumpable: true,
+                  ),
                 );
               },
               selector: (context, _provider) {

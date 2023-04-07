@@ -10,9 +10,11 @@ import 'package:provider/provider.dart';
 import '../../../component/placeholder/metadata_list_placeholder.dart';
 import '../../../component/user/metadata_component.dart';
 import '../../../consts/base.dart';
+import '../../../consts/router_path.dart';
 import '../../../data/metadata.dart';
 import '../../../provider/metadata_provider.dart';
 import '../../../util/dio_util.dart';
+import '../../../util/router_util.dart';
 import '../../../util/string_util.dart';
 
 class GlobalsUsersRouter extends StatefulWidget {
@@ -48,10 +50,16 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
             margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
             child: Selector<MetadataProvider, Metadata?>(
               builder: (context, metadata, child) {
-                return MetadataComponent(
-                  pubKey: pubkey,
-                  metadata: metadata,
-                  jumpable: true,
+                return GestureDetector(
+                  onTap: () {
+                    RouterUtil.router(context, RouterPath.USER, pubkey);
+                  },
+                  behavior: HitTestBehavior.translucent,
+                  child: MetadataComponent(
+                    pubKey: pubkey,
+                    metadata: metadata,
+                    jumpable: true,
+                  ),
                 );
               },
               selector: (context, _provider) {
