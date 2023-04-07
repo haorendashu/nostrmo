@@ -92,6 +92,11 @@ class _EventMainComponent extends State<EventMainComponent> {
           event: repostEvent,
           showVideo: widget.showVideo,
         ));
+      } else if (StringUtil.isNotBlank(eventRelation.rootId)) {
+        list.add(EventQuoteComponent(
+          id: eventRelation.rootId,
+          showVideo: widget.showVideo,
+        ));
       } else {
         list.add(
           Container(
