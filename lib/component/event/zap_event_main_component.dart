@@ -59,7 +59,7 @@ class _ZapEventMainComponent extends State<ZapEventMainComponent> {
       zapNumStr = (zapNum / 1000).toStringAsFixed(1) + "k sats";
     }
 
-    var text = " zaped $zapNumStr sats";
+    var text = "zaped $zapNumStr sats";
 
     return ReactionEventItemComponent(
         pubkey: senderPubkey!, text: text, createdAt: widget.event.createdAt);
