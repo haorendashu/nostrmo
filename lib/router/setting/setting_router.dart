@@ -533,8 +533,8 @@ class _SettingRouter extends State<SettingRouter> {
           .add(EnumObj(ImageServices.NOSTRIMG_COM, ImageServices.NOSTRIMG_COM));
       imageServcieList!.add(
           EnumObj(ImageServices.POMF2_LAIN_LA, ImageServices.POMF2_LAIN_LA));
-      imageServcieList!
-          .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
+      // imageServcieList!
+      //     .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
     }
   }
 
