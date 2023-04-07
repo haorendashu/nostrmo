@@ -7,6 +7,7 @@ import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:nostrmo/router/thread/thread_detail_event.dart';
 import 'package:nostrmo/router/thread/thread_detail_item_component.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
@@ -99,9 +100,20 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
       // load sourceEvent replies and avoid blank page
       var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
-      if (eventReactions != null) {
+      if (eventReactions != null && eventReactions.replies.isNotEmpty) {
         box.addList(eventReactions.replies);
-        listToTree(refresh: false);
+      } else {
+        box.add(sourceEvent!);
+      }
+      listToTree(refresh: false);
+
+      // do some init oper
+      var eventRelation = EventRelation.fromEvent(sourceEvent!);
+      rootId = eventRelation.rootId;
+      if (rootId == null) {
+        // source event is root event
+        rootId = sourceEvent!.id;
+        rootEvent = sourceEvent!;
       }
     }
 
@@ -189,24 +201,20 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   @override
   Future<void> onReady(BuildContext context) async {
-    if (sourceEvent != null) {
-      var eventRelation = EventRelation.fromEvent(sourceEvent!);
-      var rootId = eventRelation.rootId;
-      if (rootId == null) {
-        // source event is root event
-        rootId = sourceEvent!.id;
-        rootEvent = sourceEvent!;
-      } else {
+    if (StringUtil.isNotBlank(rootId)) {
+      if (rootEvent == null) {
         // source event isn't root event，query root event
-        var filter = Filter(ids: [rootId]);
+        var filter = Filter(ids: [rootId!]);
         nostr!.pool.query([filter.toJson()], onRootEvent);
       }
 
       // query sub events
-      var filter = Filter(e: [rootId], kinds: [kind.EventKind.TEXT_NOTE]);
+      var filter = Filter(e: [rootId!], kinds: [kind.EventKind.TEXT_NOTE]);
       nostr!.pool.query([filter.toJson()], onEvent);
     }
   }
+
+  String? rootId;
 
   Event? rootEvent;
 
