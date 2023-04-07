@@ -98,15 +98,6 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         return Container();
       }
 
-      // load sourceEvent replies and avoid blank page
-      var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
-      if (eventReactions != null && eventReactions.replies.isNotEmpty) {
-        box.addList(eventReactions.replies);
-      } else {
-        box.add(sourceEvent!);
-      }
-      listToTree(refresh: false);
-
       // do some init oper
       var eventRelation = EventRelation.fromEvent(sourceEvent!);
       rootId = eventRelation.rootId;
@@ -115,6 +106,15 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         rootId = sourceEvent!.id;
         rootEvent = sourceEvent!;
       }
+
+      // load sourceEvent replies and avoid blank page
+      var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
+      if (eventReactions != null && eventReactions.replies.isNotEmpty) {
+        box.addList(eventReactions.replies);
+      } else if (rootId != null) {
+        box.add(sourceEvent!);
+      }
+      listToTree(refresh: false);
     }
 
     // if (rootSubList == null || rootSubList!.isEmpty) {
