@@ -111,7 +111,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
       if (eventReactions != null && eventReactions.replies.isNotEmpty) {
         box.addList(eventReactions.replies);
-      } else if (rootId != null) {
+      } else if (rootEvent == null) {
         box.add(sourceEvent!);
       }
       listToTree(refresh: false);
