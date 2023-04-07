@@ -71,11 +71,11 @@ class _SettingRouter extends State<SettingRouter> {
         onTap: pickI18N,
       ),
     );
-    list.add(SettingGroupItemComponent(
-      name: s.Image_Compress,
-      value: getCompressList(settingProvider.imgCompress).name,
-      onTap: pickImageCompressList,
-    ));
+    // list.add(SettingGroupItemComponent(
+    //   name: s.Image_Compress,
+    //   value: getCompressList(settingProvider.imgCompress).name,
+    //   onTap: pickImageCompressList,
+    // ));
     list.add(SettingGroupItemComponent(
       name: s.Privacy_Lock,
       value: getLockOpenList(settingProvider.lockOpen).name,
