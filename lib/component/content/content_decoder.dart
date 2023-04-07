@@ -247,6 +247,9 @@ class ContentDecoder {
     } else if (s == ".mp4" || s == ".mov" || s == ".wmv") {
       return "video";
     } else {
+      if (path.contains("void.cat/d/")) {
+        return "image";
+      }
       return "link";
     }
   }
