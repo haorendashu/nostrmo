@@ -2,15 +2,18 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../component/cust_state.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/event/event_list_component.dart';
+import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../data/event_mem_box.dart';
 import '../../main.dart';
+import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
@@ -46,6 +49,7 @@ class _SearchRouter extends CustState<SearchRouter>
 
   @override
   Widget doBuild(BuildContext context) {
+    var _settingProvider = Provider.of<SettingProvider>(context);
     var events = eventMemBox.all();
     preBuild();
 
@@ -71,6 +75,8 @@ class _SearchRouter extends CustState<SearchRouter>
 
                 return EventListComponent(
                   event: event,
+                  showVideo:
+                      _settingProvider.videoPreviewInList == OpenStatus.OPEN,
                 );
               },
               itemCount: itemLength,

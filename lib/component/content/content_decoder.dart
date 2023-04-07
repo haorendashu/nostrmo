@@ -191,7 +191,10 @@ class ContentDecoder {
                 // mention event
                 handledStr = _closeHandledStr(handledStr, inlines);
                 _closeInlines(inlines, list, textOnTap: textOnTap);
-                var widget = EventQuoteComponent(id: tag[1]);
+                var widget = EventQuoteComponent(
+                  id: tag[1],
+                  showVideo: showVideo,
+                );
                 list.add(widget);
               } else if (tagType == "p") {
                 // inline

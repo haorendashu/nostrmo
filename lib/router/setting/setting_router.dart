@@ -42,6 +42,7 @@ class _SettingRouter extends State<SettingRouter> {
 
     var s = S.of(context);
 
+    initOpenList(s);
     initI18nList(s);
     initCompressList(s);
     initLockOpenList(s);
@@ -111,6 +112,19 @@ class _SettingRouter extends State<SettingRouter> {
       onTap: pickFontEnum,
     ));
 
+    list.add(
+        SettingGroupTitleComponent(iconData: Icons.article, title: s.Notes));
+    list.add(SettingGroupItemComponent(
+      name: s.Link_preview,
+      value: getOpenList(settingProvider.linkPreview).name,
+      onTap: pickLinkPreview,
+    ));
+    list.add(SettingGroupItemComponent(
+      name: s.Video_preview_in_list,
+      value: getOpenList(settingProvider.videoPreviewInList).name,
+      onTap: pickVideoPreviewInList,
+    ));
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -132,6 +146,26 @@ class _SettingRouter extends State<SettingRouter> {
         ),
       ),
     );
+  }
+
+  List<EnumObj>? openList;
+
+  void initOpenList(S s) {
+    if (openList == null) {
+      openList = [];
+      openList!.add(EnumObj(OpenStatus.OPEN, s.open));
+      openList!.add(EnumObj(OpenStatus.CLOSE, s.close));
+    }
+  }
+
+  EnumObj getOpenList(int? value) {
+    for (var o in openList!) {
+      if (value == o.value) {
+        return o;
+      }
+    }
+
+    return openList![0];
   }
 
   List<EnumObj>? i18nList;
@@ -427,6 +461,22 @@ class _SettingRouter extends State<SettingRouter> {
         ),
       ),
     );
+  }
+
+  Future<void> pickLinkPreview() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.linkPreview = resultEnumObj.value;
+    }
+  }
+
+  Future<void> pickVideoPreviewInList() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.videoPreviewInList = resultEnumObj.value;
+    }
   }
 
   void resetTheme() {

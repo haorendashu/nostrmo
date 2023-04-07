@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -12,6 +13,7 @@ import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
+import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
@@ -58,6 +60,7 @@ class _EventMainComponent extends State<EventMainComponent> {
 
   @override
   Widget build(BuildContext context) {
+    var _settingProvider = Provider.of<SettingProvider>(context);
     if (eventRelation.id != widget.event.id) {
       // change when thead root load lazy
       eventRelation = EventRelation.fromEvent(widget.event);
@@ -87,6 +90,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       if (repostEvent != null) {
         list.add(EventQuoteComponent(
           event: repostEvent,
+          showVideo: widget.showVideo,
         ));
       } else {
         list.add(
@@ -101,6 +105,8 @@ class _EventMainComponent extends State<EventMainComponent> {
                 widget.event,
                 textOnTap: widget.textOnTap,
                 showVideo: widget.showVideo,
+                showLinkPreview:
+                    _settingProvider.linkPreview == OpenStatus.OPEN,
               ),
             ),
           ),
@@ -156,6 +162,7 @@ class _EventMainComponent extends State<EventMainComponent> {
               widget.event,
               textOnTap: widget.textOnTap,
               showVideo: widget.showVideo,
+              showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
             ),
           ),
         ),

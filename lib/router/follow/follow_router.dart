@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 
 import '../../component/event/event_list_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
+import '../../consts/base_consts.dart';
+import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 
 class FollowRouter extends StatefulWidget {
@@ -33,6 +35,7 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
 
   @override
   Widget doBuild(BuildContext context) {
+    var _settingProvider = Provider.of<SettingProvider>(context);
     var _followEventProvider = Provider.of<FollowEventProvider>(context);
     var eventBox = _followEventProvider.eventBox;
     var events = eventBox.all();
@@ -59,6 +62,7 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
         var event = events[index];
         return EventListComponent(
           event: event,
+          showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
         );
       },
       itemCount: events.length,

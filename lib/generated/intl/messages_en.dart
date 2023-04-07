@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Image Compress"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
+        "Link_preview": MessageLookupByLibrary.simpleMessage("Link preview"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),
@@ -76,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_error": MessageLookupByLibrary.simpleMessage("Verify error"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Verify failure"),
+        "Video_preview_in_list":
+            MessageLookupByLibrary.simpleMessage("Video preview in list"),
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
         "open": MessageLookupByLibrary.simpleMessage("Open")

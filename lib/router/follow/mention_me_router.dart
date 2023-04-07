@@ -14,7 +14,9 @@ import '../../component/event/event_list_component.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../component/placeholder/event_placeholder.dart';
+import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
+import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
 
 class MentionMeRouter extends StatefulWidget {
@@ -36,6 +38,7 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
 
   @override
   Widget doBuild(BuildContext context) {
+    var _settingProvider = Provider.of<SettingProvider>(context);
     var _mentionMeProvider = Provider.of<MentionMeProvider>(context);
     var eventBox = _mentionMeProvider.eventBox;
     var events = eventBox.all();
@@ -56,7 +59,10 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
         if (event.kind == kind.EventKind.ZAP) {
           return ZapEventListComponent(event: event);
         } else {
-          return EventListComponent(event: event);
+          return EventListComponent(
+            event: event,
+            showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+          );
         }
       },
       itemCount: events.length,

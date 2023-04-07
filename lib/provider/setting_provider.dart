@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/lock_open.dart';
 import 'package:nostrmo/consts/theme_style.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -118,6 +119,14 @@ class SettingProvider extends ChangeNotifier {
 
   int? get defaultTab => _settingData!.defaultTab;
 
+  int get linkPreview => _settingData!.linkPreview != null
+      ? _settingData!.linkPreview!
+      : OpenStatus.OPEN;
+
+  int get videoPreviewInList => _settingData!.videoPreviewInList != null
+      ? _settingData!.videoPreviewInList!
+      : OpenStatus.CLOSE;
+
   /// i18n
   String? get i18n => _settingData!.i18n;
 
@@ -163,6 +172,16 @@ class SettingProvider extends ChangeNotifier {
 
   set defaultTab(int? o) {
     _settingData!.defaultTab = o;
+    saveAndNotifyListeners();
+  }
+
+  set linkPreview(int o) {
+    _settingData!.linkPreview = o;
+    saveAndNotifyListeners();
+  }
+
+  set videoPreviewInList(int o) {
+    _settingData!.videoPreviewInList = o;
     saveAndNotifyListeners();
   }
 
@@ -227,6 +246,10 @@ class SettingData {
 
   int? defaultTab;
 
+  int? linkPreview;
+
+  int? videoPreviewInList;
+
   /// i18n
   String? i18n;
 
@@ -253,6 +276,8 @@ class SettingData {
     this.lockOpen = LockOpen.CLOSE,
     this.defaultIndex,
     this.defaultTab,
+    this.linkPreview,
+    this.videoPreviewInList,
     this.i18n,
     this.i18nCC,
     this.imgCompress = 50,
@@ -272,6 +297,8 @@ class SettingData {
     }
     defaultIndex = json['defaultIndex'];
     defaultTab = json['defaultTab'];
+    linkPreview = json['linkPreview'];
+    videoPreviewInList = json['videoPreviewInList'];
     i18n = json['i18n'];
     i18nCC = json['i18nCC'];
     if (json['imgCompress'] != null) {
@@ -299,6 +326,8 @@ class SettingData {
     data['lockOpen'] = this.lockOpen;
     data['defaultIndex'] = this.defaultIndex;
     data['defaultTab'] = this.defaultTab;
+    data['linkPreview'] = this.linkPreview;
+    data['videoPreviewInList'] = this.videoPreviewInList;
     data['i18n'] = this.i18n;
     data['i18nCC'] = this.i18nCC;
     data['imgCompress'] = this.imgCompress;

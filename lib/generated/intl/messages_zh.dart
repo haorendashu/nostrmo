@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
+        "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
         "Notice": MessageLookupByLibrary.simpleMessage("提示"),
@@ -67,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("人们"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("验证异常"),
         "Verify_failure": MessageLookupByLibrary.simpleMessage("验证失败"),
+        "Video_preview_in_list": MessageLookupByLibrary.simpleMessage("列表视频预览"),
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
         "open": MessageLookupByLibrary.simpleMessage("打开")

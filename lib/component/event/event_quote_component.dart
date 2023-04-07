@@ -14,9 +14,12 @@ class EventQuoteComponent extends StatefulWidget {
 
   String? id;
 
+  bool showVideo;
+
   EventQuoteComponent({
     this.event,
     this.id,
+    this.showVideo = false,
   });
 
   @override
@@ -63,6 +66,7 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
             event: event!,
             showReplying: false,
             textOnTap: jumpToThread,
+            showVideo: widget.showVideo,
           ),
         ),
       ),

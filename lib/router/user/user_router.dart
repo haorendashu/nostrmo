@@ -9,11 +9,13 @@ import '../../component/appbar4stack.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/user/metadata_component.dart';
+import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
+import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
@@ -75,6 +77,7 @@ class _UserRouter extends CustState<UserRouter>
 
   @override
   Widget doBuild(BuildContext context) {
+    var _settingProvider = Provider.of<SettingProvider>(context);
     if (StringUtil.isBlank(pubkey)) {
       pubkey = RouterUtil.routerArgs(context) as String?;
       if (StringUtil.isBlank(pubkey)) {
@@ -171,6 +174,8 @@ class _UserRouter extends CustState<UserRouter>
                     }
                     return EventListComponent(
                       event: event,
+                      showVideo: _settingProvider.videoPreviewInList ==
+                          OpenStatus.OPEN,
                     );
                   },
                   itemCount: box.length(),

@@ -480,6 +480,26 @@ class S {
     );
   }
 
+  /// `Link preview`
+  String get Link_preview {
+    return Intl.message(
+      'Link preview',
+      name: 'Link_preview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video preview in list`
+  String get Video_preview_in_list {
+    return Intl.message(
+      'Video preview in list',
+      name: 'Video_preview_in_list',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please input`
   String get Please_input {
     return Intl.message(

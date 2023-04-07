@@ -6,10 +6,13 @@ import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
+import 'package:provider/provider.dart';
 
 import '../../component/user_pic_component.dart';
 import '../../consts/base.dart';
+import '../../consts/base_consts.dart';
 import '../../main.dart';
+import '../../provider/setting_provider.dart';
 
 class DMDetailItemComponent extends StatefulWidget {
   String sessionPubkey;
@@ -38,6 +41,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
 
   @override
   Widget build(BuildContext context) {
+    var _settingProvider = Provider.of<SettingProvider>(context);
     var themeData = Theme.of(context);
     var mainColor = themeData.appBarTheme.backgroundColor;
     Widget userHeadWidget = Container(
@@ -88,7 +92,13 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: ContentDecoder.decode(context, content, widget.event),
+              children: ContentDecoder.decode(
+                context,
+                content,
+                widget.event,
+                showLinkPreview:
+                    _settingProvider.linkPreview == OpenStatus.OPEN,
+              ),
             ),
           ),
         ],
