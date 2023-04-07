@@ -60,5 +60,7 @@
 		<string>Camera need to access for take a photo.</string>
 		<key>NSFaceIDUsageDescription</key>
 		<string>App requires FaceID to locked and opened.</string>
+		<key>ITSAppUsesNonExemptEncryption</key>
+		<false/>
 	</dict>
 </plist>
