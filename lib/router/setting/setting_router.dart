@@ -13,7 +13,6 @@ import '../../component/colors_selector_component.dart';
 import '../../component/enum_selector_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
-import '../../consts/lock_open copy.dart';
 import '../../consts/theme_style copy.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -55,7 +54,6 @@ class _SettingRouter extends State<SettingRouter> {
     initOpenList(s);
     initI18nList(s);
     initCompressList(s);
-    initLockOpenList(s);
     initDefaultList(s);
     initDefaultTabListTimeline(s);
     initDefaultTabListGlobal(s);
@@ -284,63 +282,39 @@ class _SettingRouter extends State<SettingRouter> {
 
   List<EnumObj>? lockOpenList;
 
-  void initLockOpenList(S s) {
-    if (lockOpenList == null) {
-      lockOpenList = [];
-      lockOpenList!.add(EnumObj(LockOpen.CLOSE, s.close));
-      lockOpenList!.add(EnumObj(LockOpen.PIN_CODE, s.Password));
-      lockOpenList!.add(EnumObj(LockOpen.FACE, s.Face));
-      lockOpenList!.add(EnumObj(LockOpen.FINGERPRINT, s.Fingerprint));
-    }
-  }
-
   EnumObj getLockOpenList(int lockOpen) {
-    for (var eo in lockOpenList!) {
-      if (eo.value == lockOpen) {
-        return eo;
-      }
+    if (lockOpen == OpenStatus.OPEN) {
+      return openList![0];
     }
-    return lockOpenList![0];
+    return openList![1];
   }
 
   Future<void> pickLockOpenList() async {
     List<EnumObj> newLockOpenList = [];
-    newLockOpenList.add(lockOpenList![0]);
-    // newLockOpenList.add(lockOpenList[1]); // 临时关闭 PinCode
+    newLockOpenList.add(openList![1]);
 
     var localAuth = LocalAuthentication();
     List<BiometricType> availableBiometrics =
         await localAuth.getAvailableBiometrics();
-    for (var bt in availableBiometrics) {
-      if (bt == BiometricType.strong) {
-        if (Platform.isIOS) {
-          newLockOpenList.add(lockOpenList![2]);
-        } else {
-          newLockOpenList.add(lockOpenList![3]);
-        }
-      }
-      print(bt);
+    if (availableBiometrics.isNotEmpty) {
+      newLockOpenList.add(openList![0]);
     }
+
+    var s = S.of(context);
 
     EnumObj? resultEnumObj =
         await EnumSelectorComponent.show(context, newLockOpenList);
     if (resultEnumObj != null) {
-      if (resultEnumObj.value == LockOpen.CLOSE) {
-        if (settingProvider.lockOpen == LockOpen.FACE ||
-            settingProvider.lockOpen == LockOpen.FINGERPRINT) {
-          bool didAuthenticate = await AuthUtil.authenticate(context,
-              S.of(context).Please_authenticate_to_turn_off_the_privacy_lock);
-          if (didAuthenticate) {
-            settingProvider.lockOpen = resultEnumObj.value;
-          }
+      if (resultEnumObj.value == OpenStatus.CLOSE) {
+        bool didAuthenticate = await AuthUtil.authenticate(
+            context, s.Please_authenticate_to_turn_off_the_privacy_lock);
+        if (didAuthenticate) {
+          settingProvider.lockOpen = resultEnumObj.value;
         }
         settingProvider.lockOpen = resultEnumObj.value;
-      } else if (resultEnumObj.value == LockOpen.PIN_CODE) {
-        settingProvider.lockOpen = resultEnumObj.value;
-      } else if (resultEnumObj.value == LockOpen.FACE ||
-          resultEnumObj.value == LockOpen.FINGERPRINT) {
-        bool didAuthenticate = await AuthUtil.authenticate(context,
-            S.of(context).Please_authenticate_to_turn_on_the_privacy_lock);
+      } else if (resultEnumObj.value == OpenStatus.OPEN) {
+        bool didAuthenticate = await AuthUtil.authenticate(
+            context, s.Please_authenticate_to_turn_on_the_privacy_lock);
         if (didAuthenticate) {
           settingProvider.lockOpen = resultEnumObj.value;
         }

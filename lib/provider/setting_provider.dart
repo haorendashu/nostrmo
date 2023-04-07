@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../consts/base_consts.dart';
-import '../consts/lock_open copy.dart';
 import '../consts/theme_style copy.dart';
 import '../util/string_util.dart';
 import 'data_util.dart';
@@ -291,7 +290,7 @@ class SettingData {
   SettingData({
     this.privateKeyIndex,
     this.privateKeyMap,
-    this.lockOpen = LockOpen.CLOSE,
+    this.lockOpen = OpenStatus.CLOSE,
     this.defaultIndex,
     this.defaultTab,
     this.linkPreview,
@@ -313,7 +312,7 @@ class SettingData {
     if (json['lockOpen'] != null) {
       lockOpen = json['lockOpen'];
     } else {
-      lockOpen = LockOpen.CLOSE;
+      lockOpen = OpenStatus.CLOSE;
     }
     defaultIndex = json['defaultIndex'];
     defaultTab = json['defaultTab'];

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/index_provider.dart';
 import '../../provider/setting_provider.dart';
+import '../../util/auth_util.dart';
 import '../dm/dm_router.dart';
 import '../edit/editor_router.dart';
 import '../follow/follow_index_router.dart';
@@ -26,7 +29,8 @@ class IndexRouter extends StatefulWidget {
   }
 }
 
-class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
+class _IndexRouter extends CustState<IndexRouter>
+    with TickerProviderStateMixin {
   late TabController followTabController;
 
   late TabController globalsTabController;
@@ -55,7 +59,20 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Future<void> onReady(BuildContext context) async {
+    if (settingProvider.lockOpen == OpenStatus.OPEN && !unlock) {
+      doAuth();
+    } else {
+      setState(() {
+        unlock = true;
+      });
+    }
+  }
+
+  bool unlock = false;
+
+  @override
+  Widget doBuild(BuildContext context) {
     mediaDataCache.update(context);
     var s = S.of(context);
 
@@ -63,6 +80,11 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
     if (nostr == null) {
       return LoginRouter();
     }
+
+    if (!unlock) {
+      return Scaffold();
+    }
+
     var _indexProvider = Provider.of<IndexProvider>(context);
     _indexProvider.setFollowTabController(followTabController);
     _indexProvider.setGlobalTabController(globalsTabController);
@@ -186,5 +208,18 @@ class _IndexRouter extends State<IndexRouter> with TickerProviderStateMixin {
       ),
       bottomNavigationBar: IndexBottomBar(),
     );
+  }
+
+  void doAuth() {
+    AuthUtil.authenticate(context, S.of(context).Please_authenticate_to_use_app)
+        .then((didAuthenticate) {
+      if (didAuthenticate) {
+        setState(() {
+          unlock = true;
+        });
+      } else {
+        doAuth();
+      }
+    });
   }
 }
