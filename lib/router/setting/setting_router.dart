@@ -1,6 +1,8 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +41,7 @@ class _SettingRouter extends State<SettingRouter> {
     var _settingProvider = Provider.of<SettingProvider>(context);
 
     var mainColor = themeData.primaryColor;
+    var hintColor = themeData.hintColor;
 
     var s = S.of(context);
 
@@ -123,6 +126,24 @@ class _SettingRouter extends State<SettingRouter> {
       name: s.Video_preview_in_list,
       value: getOpenList(settingProvider.videoPreviewInList).name,
       onTap: pickVideoPreviewInList,
+    ));
+    String? networkHintText = settingProvider.network;
+    if (StringUtil.isBlank(networkHintText)) {
+      networkHintText = s.Please_input + " " + s.Network;
+    }
+    Widget networkWidget = Text(
+      networkHintText!,
+      style: TextStyle(
+        color: hintColor,
+        overflow: TextOverflow.ellipsis,
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
+    );
+    list.add(SettingGroupItemComponent(
+      name: s.Network,
+      onTap: inputNetwork,
+      child: networkWidget,
     ));
 
     return Scaffold(
@@ -481,5 +502,16 @@ class _SettingRouter extends State<SettingRouter> {
 
   void resetTheme() {
     widget.indexReload();
+  }
+
+  inputNetwork() async {
+    var s = S.of(context);
+    var text = await TextInputDialog.show(
+      context,
+      "${s.Please_input} ${s.Network}\nSOCKS5/SOCKS4/PROXY username:password@host:port",
+      value: settingProvider.network,
+    );
+    settingProvider.network = text;
+    BotToast.showText(text: s.network_take_effect_tip);
   }
 }

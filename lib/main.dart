@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nostrmo/router/event_detail/event_detail_router.dart';
 import 'package:nostrmo/router/setting/setting_router.dart';
@@ -105,6 +106,12 @@ Future<void> main() async {
   filterProvider = FilterProvider.getInstance();
   linkPreviewDataProvider = LinkPreviewDataProvider();
   mediaDataCache = MediaDataCache();
+
+  if (StringUtil.isNotBlank(settingProvider.network)) {
+    var network = settingProvider.network;
+    network = network!.trim();
+    SocksProxy.initProxy(proxy: network);
+  }
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = relayProvider.genNostr(settingProvider.privateKey!);

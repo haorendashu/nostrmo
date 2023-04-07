@@ -75,6 +75,7 @@ dependencies:
   google_fonts: ^4.0.3
   flutter_font_picker: ^1.2.0
   local_auth: ^2.1.6
+  flutter_socks_proxy: ^0.0.2
 
 dev_dependencies:
   flutter_test:

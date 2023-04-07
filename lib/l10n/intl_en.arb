@@ -44,6 +44,8 @@
     "Request": "Request",
     "Link_preview": "Link preview",
     "Video_preview_in_list": "Video preview in list",
+    "Network": "Network",
+    "network_take_effect_tip": "The network will take effect the next time the app is launched",
     "Please_input": "Please input",
     "Notice": "Notice"
 }

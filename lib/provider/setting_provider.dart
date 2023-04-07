@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/consts/base_consts.dart';
-import 'package:nostrmo/consts/lock_open.dart';
-import 'package:nostrmo/consts/theme_style.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../consts/base_consts.dart';
+import '../consts/lock_open copy.dart';
+import '../consts/theme_style copy.dart';
+import '../util/string_util.dart';
 import 'data_util.dart';
 
 class SettingProvider extends ChangeNotifier {
@@ -127,6 +127,8 @@ class SettingProvider extends ChangeNotifier {
       ? _settingData!.videoPreviewInList!
       : OpenStatus.CLOSE;
 
+  String? get network => _settingData!.network;
+
   /// i18n
   String? get i18n => _settingData!.i18n;
 
@@ -182,6 +184,11 @@ class SettingProvider extends ChangeNotifier {
 
   set videoPreviewInList(int o) {
     _settingData!.videoPreviewInList = o;
+    saveAndNotifyListeners();
+  }
+
+  set network(String? o) {
+    _settingData!.network = o;
     saveAndNotifyListeners();
   }
 
@@ -250,6 +257,8 @@ class SettingData {
 
   int? videoPreviewInList;
 
+  String? network;
+
   /// i18n
   String? i18n;
 
@@ -278,6 +287,7 @@ class SettingData {
     this.defaultTab,
     this.linkPreview,
     this.videoPreviewInList,
+    this.network,
     this.i18n,
     this.i18nCC,
     this.imgCompress = 50,
@@ -299,6 +309,7 @@ class SettingData {
     defaultTab = json['defaultTab'];
     linkPreview = json['linkPreview'];
     videoPreviewInList = json['videoPreviewInList'];
+    network = json['network'];
     i18n = json['i18n'];
     i18nCC = json['i18nCC'];
     if (json['imgCompress'] != null) {
@@ -328,6 +339,7 @@ class SettingData {
     data['defaultTab'] = this.defaultTab;
     data['linkPreview'] = this.linkPreview;
     data['videoPreviewInList'] = this.videoPreviewInList;
+    data['network'] = this.network;
     data['i18n'] = this.i18n;
     data['i18nCC'] = this.i18nCC;
     data['imgCompress'] = this.imgCompress;

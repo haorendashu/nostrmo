@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link preview"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
+        "Network": MessageLookupByLibrary.simpleMessage("Network"),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -81,6 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
+            "The network will take effect the next time the app is launched"),
         "open": MessageLookupByLibrary.simpleMessage("Open")
       };
 }

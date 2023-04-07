@@ -500,6 +500,26 @@ class S {
     );
   }
 
+  /// `Network`
+  String get Network {
+    return Intl.message(
+      'Network',
+      name: 'Network',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The network will take effect the next time the app is launched`
+  String get network_take_effect_tip {
+    return Intl.message(
+      'The network will take effect the next time the app is launched',
+      name: 'network_take_effect_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please input`
   String get Please_input {
     return Intl.message(

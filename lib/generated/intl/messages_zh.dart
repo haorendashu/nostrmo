@@ -38,12 +38,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Follow_System": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("字体"),
         "Global": MessageLookupByLibrary.simpleMessage("全球"),
-        "Hide": MessageLookupByLibrary.simpleMessage("Hi隐藏de"),
+        "Hide": MessageLookupByLibrary.simpleMessage("隐藏"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
+        "Network": MessageLookupByLibrary.simpleMessage("网络"),
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
         "Notice": MessageLookupByLibrary.simpleMessage("提示"),
         "Password": MessageLookupByLibrary.simpleMessage("密码"),
@@ -71,6 +72,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage("列表视频预览"),
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
+        "network_take_effect_tip":
+            MessageLookupByLibrary.simpleMessage("网络会在下次启动APP时生效"),
         "open": MessageLookupByLibrary.simpleMessage("打开")
       };
 }

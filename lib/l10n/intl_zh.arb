@@ -4,7 +4,7 @@
     "open": "打开",
     "close": "关闭",
     "Show": "显示",
-    "Hide": "Hi隐藏de",
+    "Hide": "隐藏",
     "auto": "自动",
     "Language": "语言",
     "Follow_System": "跟随系统",
@@ -44,6 +44,8 @@
     "Request": "请求",
     "Link_preview": "链接预览",
     "Video_preview_in_list": "列表视频预览",
+    "Network": "网络",
+    "network_take_effect_tip": "网络会在下次启动APP时生效",
     "Please_input": "请输入",
     "Notice": "提示"
 }
