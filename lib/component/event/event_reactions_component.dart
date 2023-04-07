@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +51,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var fontSize = themeData.textTheme.bodySmall!.fontSize!;
+    var mediumFontSize = themeData.textTheme.bodyMedium!.fontSize;
+    var popFontStyle = TextStyle(
+      fontSize: mediumFontSize,
+    );
 
     return Selector<EventReactionsProvider, EventReactions?>(
       builder: (context, eventReactions, child) {
@@ -131,7 +136,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         child: Row(
                           children: [
                             Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 10")
+                            Text(" Zap 10", style: popFontStyle)
                           ],
                           mainAxisSize: MainAxisSize.min,
                         ),
@@ -141,7 +146,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         child: Row(
                           children: [
                             Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 50")
+                            Text(" Zap 50", style: popFontStyle)
                           ],
                           mainAxisSize: MainAxisSize.min,
                         ),
@@ -151,7 +156,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         child: Row(
                           children: [
                             Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 100")
+                            Text(" Zap 100", style: popFontStyle)
                           ],
                           mainAxisSize: MainAxisSize.min,
                         ),
@@ -161,7 +166,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         child: Row(
                           children: [
                             Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 500")
+                            Text(" Zap 500", style: popFontStyle)
                           ],
                           mainAxisSize: MainAxisSize.min,
                         ),
@@ -171,7 +176,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         child: Row(
                           children: [
                             Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 1000")
+                            Text(" Zap 1000", style: popFontStyle)
                           ],
                           mainAxisSize: MainAxisSize.min,
                         ),
@@ -181,7 +186,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         child: Row(
                           children: [
                             Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 5000")
+                            Text(" Zap 5000", style: popFontStyle)
                           ],
                           mainAxisSize: MainAxisSize.min,
                         ),
@@ -198,62 +203,57 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   ),
                 ),
               ),
-              // Expanded(
-              //     child: EventReactionNumComponent(
-              //   num: zapNum,
-              //   iconData: Icons.bolt,
-              //   onTap: onZapTap,
-              //   color: hintColor,
-              //   fontSize: fontSize,
-              // )),
-              // Expanded(
-              //     child: EventReactionNumComponent(
-              //   num: 0,
-              //   iconData: Icons.share,
-              //   onTap: onShareTap,
-              //   color: hintColor,
-              //   fontSize: fontSize,
-              // )),
               Expanded(
                 child: PopupMenuButton<String>(
                   itemBuilder: (context) {
-                    return [
+                    List<PopupMenuEntry<String>> list = [
                       PopupMenuItem(
                         value: "copyEvent",
-                        child: Text("Copy Note Json"),
+                        child: Text("Copy Note Json", style: popFontStyle),
                       ),
                       PopupMenuItem(
                         value: "copyPubkey",
-                        child: Text("Copy Note Pubkey"),
+                        child: Text("Copy Note Pubkey", style: popFontStyle),
                       ),
                       PopupMenuItem(
                         value: "copyId",
-                        child: Text("Copy Note Id"),
+                        child: Text("Copy Note Id", style: popFontStyle),
                       ),
                       PopupMenuDivider(),
                       PopupMenuItem(
                         value: "detail",
-                        child: Text("Detail"),
+                        child: Text("Detail", style: popFontStyle),
                       ),
-                      PopupMenuDivider(),
                       PopupMenuItem(
                         value: "share",
-                        child: Text("Share"),
+                        child: Text("Share", style: popFontStyle),
                       ),
-                      // PopupMenuItem(
-                      //   value: "star",
-                      //   child: Text("Star"),
-                      // ),
                       PopupMenuDivider(),
                       PopupMenuItem(
                         value: "broadcase",
-                        child: Text("Broadcase"),
+                        child: Text("Broadcase", style: popFontStyle),
                       ),
                       PopupMenuItem(
                         value: "block",
-                        child: Text("Block"),
+                        child: Text("Block", style: popFontStyle),
                       ),
                     ];
+
+                    if (widget.event.pubKey == nostr!.publicKey) {
+                      list.add(PopupMenuDivider());
+                      list.add(PopupMenuItem(
+                        value: "delete",
+                        child: Text(
+                          "Delete",
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: mediumFontSize,
+                          ),
+                        ),
+                      ));
+                    }
+
+                    return list;
                   },
                   onSelected: onPopupSelected,
                   child: Icon(
@@ -306,6 +306,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       nostr!.sendEvent(widget.event);
     } else if (value == "block") {
       filterProvider.addBlock(widget.event.pubKey);
+    } else if (value == "delete") {
+      nostr!.deleteEvent(widget.event.id);
+      followEventProvider.deleteEvent(widget.event.id);
+      mentionMeProvider.deleteEvent(widget.event.id);
+      var deleteCallback = EventDeleteCallback.of(context);
+      if (deleteCallback != null) {
+        deleteCallback.onDelete(widget.event);
+      }
+      // BotToast.showText(text: "Delete success!");
     }
   }
 
@@ -369,7 +378,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     } else {
       // delete like
       for (var event in myLikeEvents!) {
-        nostr!.deleteLike(event.id);
+        nostr!.deleteEvent(event.id);
       }
       eventReactionsProvider.deleteLike(widget.event.id);
     }

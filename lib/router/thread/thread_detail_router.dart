@@ -12,6 +12,7 @@ import 'package:widget_size/widget_size.dart';
 
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
+import '../../consts/base.dart';
 import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
@@ -114,38 +115,30 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     var themeData = Theme.of(context);
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
+    var cardColor = themeData.cardColor;
 
-    var currentEvent = rootEvent;
-    currentEvent ??= sourceEvent;
+    // var currentEvent = rootEvent;
+    // currentEvent ??= sourceEvent;
 
     Widget? appBarTitle;
-    if (showTitle) {
-      // List<Widget> appBarTitleList = [];
-      // var nameComponnet = SimpleNameComponent(
-      //   pubkey: currentEvent!.pubKey,
-      //   textStyle: TextStyle(
-      //     fontSize: bodyLargeFontSize,
-      //     color: titleTextColor,
-      //   ),
-      // );
-      // appBarTitleList.add(nameComponnet);
-      // appBarTitleList.add(Text(" : "));
-      // appBarTitleList.add(Expanded(
-      //     child: Text(
-      //   currentEvent.content.replaceAll("\n", " ").replaceAll("\r", " "),
-      //   style: TextStyle(
-      //     overflow: TextOverflow.ellipsis,
-      //     fontSize: bodyLargeFontSize,
-      //   ),
-      // )));
-      // appBarTitle = Container(
-      //   child: Row(
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: appBarTitleList,
-      //   ),
-      // );
-      appBarTitle =
-          ThreadDetailRouter.detailAppBarTitle(currentEvent!, themeData);
+    if (showTitle && rootEvent != null) {
+      appBarTitle = ThreadDetailRouter.detailAppBarTitle(rootEvent!, themeData);
+    }
+
+    Widget? rootEventWidget;
+    if (rootEvent == null) {
+      rootEventWidget = Container(
+        margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+        color: cardColor,
+        height: 60,
+        child: Center(child: Text("Note loading...")),
+      );
+    } else {
+      rootEventWidget = EventListComponent(
+        event: rootEvent!,
+        jumpable: false,
+        showVideo: true,
+      );
     }
 
     var main = NestedScrollView(
@@ -154,11 +147,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         return <Widget>[
           SliverToBoxAdapter(
             child: WidgetSize(
-              child: EventListComponent(
-                event: currentEvent!,
-                jumpable: false,
-                showVideo: true,
-              ),
+              child: rootEventWidget!,
               onChange: (size) {
                 rootEventHeight = size.height;
               },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/filter.dart';
@@ -116,20 +117,23 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
             ),
           ];
         },
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            var event = box.get(index);
-            if (event == null) {
-              return null;
-            }
+        body: EventDeleteCallback(
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                var event = box.get(index);
+                if (event == null) {
+                  return null;
+                }
 
-            return EventListComponent(
-              event: event,
-              showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
-            );
-          },
-          itemCount: box.length(),
-        ),
+                return EventListComponent(
+                  event: event,
+                  showVideo:
+                      _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+                );
+              },
+              itemCount: box.length(),
+            ),
+            onDeleteCallback: onDeleteCallback),
       ),
     );
   }
@@ -163,5 +167,10 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     try {
       nostr!.pool.unsubscribe(subscribeId);
     } catch (e) {}
+  }
+
+  onDeleteCallback(Event event) {
+    box.delete(event.id);
+    setState(() {});
   }
 }

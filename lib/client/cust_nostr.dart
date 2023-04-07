@@ -45,14 +45,14 @@ class CustNostr {
     return sendEvent(event);
   }
 
-  Event deleteLike(String likeEventId) {
+  Event deleteEvent(String eventId) {
     Event event = Event(
         _publicKey,
         kind.EventKind.EVENT_DELETION,
         [
-          ["e", likeEventId]
+          ["e", eventId]
         ],
-        "delete like");
+        "delete");
     return sendEvent(event);
   }
 

@@ -26,6 +26,13 @@ class MentionMeProvider extends ChangeNotifier
     doQuery();
   }
 
+  void deleteEvent(String id) {
+    var result = eventBox.delete(id);
+    if (result) {
+      notifyListeners();
+    }
+  }
+
   String? subscribeId;
 
   void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {

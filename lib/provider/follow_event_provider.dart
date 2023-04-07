@@ -37,6 +37,14 @@ class FollowEventProvider extends ChangeNotifier
 
   List<String> _subscribeIds = [];
 
+  void deleteEvent(String id) {
+    postsBox.delete(id);
+    var result = eventBox.delete(id);
+    if (result) {
+      notifyListeners();
+    }
+  }
+
   void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {
     var filter = Filter(
       kinds: [kind.EventKind.TEXT_NOTE, kind.EventKind.REPOST],

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_dart/src/event.dart';
+import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:provider/provider.dart';
 
@@ -46,16 +48,19 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
     var list = eventBox.all();
 
     return Container(
-      child: ListView.builder(
-        controller: scrollController,
-        itemBuilder: (context, index) {
-          var event = list[index];
-          return EventListComponent(
-            event: event,
-            showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
-          );
-        },
-        itemCount: list.length,
+      child: EventDeleteCallback(
+        onDeleteCallback: onDeleteCallback,
+        child: ListView.builder(
+          controller: scrollController,
+          itemBuilder: (context, index) {
+            var event = list[index];
+            return EventListComponent(
+              event: event,
+              showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+            );
+          },
+          itemCount: list.length,
+        ),
       ),
     );
   }
@@ -110,5 +115,10 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
 
     unsubscribe();
     disposeLater();
+  }
+
+  onDeleteCallback(Event event) {
+    eventBox.delete(event.id);
+    setState(() {});
   }
 }

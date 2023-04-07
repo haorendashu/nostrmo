@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
@@ -55,35 +56,38 @@ class _SearchRouter extends CustState<SearchRouter>
     preBuild();
 
     return Scaffold(
-      body: Container(
-        child: Column(children: [
-          Container(
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: "npub or hex",
+      body: EventDeleteCallback(
+        onDeleteCallback: onDeletedCallback,
+        child: Container(
+          child: Column(children: [
+            Container(
+              child: TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  hintText: "npub or hex",
+                ),
+                onEditingComplete: onEditingComplete,
               ),
-              onEditingComplete: onEditingComplete,
             ),
-          ),
-          Expanded(
-              child: Container(
-            child: ListView.builder(
-              controller: scrollController,
-              itemBuilder: (BuildContext context, int index) {
-                var event = events[index];
+            Expanded(
+                child: Container(
+              child: ListView.builder(
+                controller: scrollController,
+                itemBuilder: (BuildContext context, int index) {
+                  var event = events[index];
 
-                return EventListComponent(
-                  event: event,
-                  showVideo:
-                      _settingProvider.videoPreviewInList == OpenStatus.OPEN,
-                );
-              },
-              itemCount: itemLength,
-            ),
-          )),
-        ]),
+                  return EventListComponent(
+                    event: event,
+                    showVideo:
+                        _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+                  );
+                },
+                itemCount: itemLength,
+              ),
+            )),
+          ]),
+        ),
       ),
     );
   }
@@ -168,5 +172,10 @@ class _SearchRouter extends CustState<SearchRouter>
   void dispose() {
     super.dispose();
     disposeLater();
+  }
+
+  onDeletedCallback(Event event) {
+    eventMemBox.delete(event.id);
+    setState(() {});
   }
 }

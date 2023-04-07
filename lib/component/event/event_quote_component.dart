@@ -34,13 +34,30 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
 
   @override
   Widget doBuild(BuildContext context) {
-    if (event == null && widget.event == null) {
-      return Container();
-    }
-    event ??= widget.event;
-
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
+    var boxDecoration = BoxDecoration(
+      color: cardColor,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.2),
+          offset: const Offset(0, 0),
+          blurRadius: 10,
+          spreadRadius: 0,
+        ),
+      ],
+    );
+
+    Widget? mainWidget;
+    if (event == null && widget.event == null) {
+      return Container(
+        margin: const EdgeInsets.all(Base.BASE_PADDING),
+        height: 60,
+        decoration: boxDecoration,
+        child: Center(child: Text("Note loading...")),
+      );
+    }
+    event ??= widget.event;
 
     return Screenshot(
       controller: screenshotController,

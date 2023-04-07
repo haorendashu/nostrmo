@@ -32,6 +32,17 @@ class EventMemBox {
     });
   }
 
+  bool delete(String id) {
+    if (_idMap[id] == null) {
+      return false;
+    }
+
+    _idMap.remove(id);
+    _eventList.removeWhere((element) => element.id == id);
+
+    return true;
+  }
+
   bool add(Event event) {
     if (_idMap[event.id] != null) {
       return false;
