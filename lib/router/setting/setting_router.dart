@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
@@ -310,12 +312,14 @@ class _SettingRouter extends State<SettingRouter> {
     List<BiometricType> availableBiometrics =
         await localAuth.getAvailableBiometrics();
     for (var bt in availableBiometrics) {
-      if (bt == BiometricType.face) {
-        newLockOpenList.add(lockOpenList![2]);
-      } else if (bt == BiometricType.fingerprint) {
-        newLockOpenList.add(lockOpenList![3]);
+      if (bt == BiometricType.strong) {
+        if (Platform.isIOS) {
+          newLockOpenList.add(lockOpenList![2]);
+        } else {
+          newLockOpenList.add(lockOpenList![3]);
+        }
       }
-      // TODO iris
+      print(bt);
     }
 
     EnumObj? resultEnumObj =

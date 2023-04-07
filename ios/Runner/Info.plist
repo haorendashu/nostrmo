@@ -58,5 +58,7 @@
 		<string>Photo need to access for upload.</string>
 		<key>NSCameraUsageDescription</key>
 		<string>Camera need to access for take a photo.</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>App requires FaceID to locked and opened.</string>
 	</dict>
 </plist>
