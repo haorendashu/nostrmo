@@ -66,6 +66,13 @@ class _EventMainComponent extends State<EventMainComponent> {
       eventRelation = EventRelation.fromEvent(widget.event);
     }
 
+    bool imagePreview = _settingProvider.imagePreview == null ||
+        _settingProvider.imagePreview == OpenStatus.OPEN;
+    bool videoPreview = widget.showVideo;
+    if (_settingProvider.videoPreview != null) {
+      videoPreview = _settingProvider.videoPreview == OpenStatus.OPEN;
+    }
+
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
@@ -109,7 +116,8 @@ class _EventMainComponent extends State<EventMainComponent> {
                 null,
                 widget.event,
                 textOnTap: widget.textOnTap,
-                showVideo: widget.showVideo,
+                showImage: imagePreview,
+                showVideo: videoPreview,
                 showLinkPreview:
                     _settingProvider.linkPreview == OpenStatus.OPEN,
               ),
@@ -166,7 +174,8 @@ class _EventMainComponent extends State<EventMainComponent> {
               null,
               widget.event,
               textOnTap: widget.textOnTap,
-              showVideo: widget.showVideo,
+              showImage: imagePreview,
+              showVideo: videoPreview,
               showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
             ),
           ),

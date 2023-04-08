@@ -31,6 +31,7 @@ class _ThreadDetailItemMainComponent
         screenshotController: screenshotController,
         event: widget.item.event,
         showReplying: false,
+        showVideo: true,
       )
     ];
 
@@ -46,7 +47,7 @@ class _ThreadDetailItemMainComponent
         );
       }
       list.add(Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           // top: Base.BASE_PADDING,
           bottom: Base.BASE_PADDING,
           left: Base.BASE_PADDING,

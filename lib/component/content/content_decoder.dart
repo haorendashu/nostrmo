@@ -81,6 +81,7 @@ class ContentDecoder {
     String? content,
     Event? event, {
     Function? textOnTap,
+    bool showImage = true,
     bool showVideo = false,
     bool showLinkPreview = true,
   }) {
@@ -111,16 +112,22 @@ class ContentDecoder {
           // link, image, video etc
           var pathType = getPathType(subStr);
           if (pathType == "image") {
-            imageList.add(subStr);
+            if (showImage) {
+              imageList.add(subStr);
 
-            // block
-            handledStr = _closeHandledStr(handledStr, inlines);
-            _closeInlines(inlines, list, textOnTap: textOnTap);
-            var imageWidget = ContentImageComponent(
-              imageUrl: subStr,
-              imageList: imageList,
-            );
-            list.add(imageWidget);
+              // block
+              handledStr = _closeHandledStr(handledStr, inlines);
+              _closeInlines(inlines, list, textOnTap: textOnTap);
+              var imageWidget = ContentImageComponent(
+                imageUrl: subStr,
+                imageList: imageList,
+              );
+              list.add(imageWidget);
+            } else {
+              // inline
+              handledStr = _closeHandledStr(handledStr, inlines);
+              inlines.add(ContentLinkComponent(link: subStr));
+            }
           } else if (pathType == "video") {
             if (showVideo) {
               // block
@@ -131,14 +138,7 @@ class ContentDecoder {
             } else {
               // inline
               handledStr = _closeHandledStr(handledStr, inlines);
-              inlines.add(ContentStrLinkComponent(
-                str: subStr,
-                onTap: () {
-                  if (textOnTap != null) {
-                    textOnTap();
-                  }
-                },
-              ));
+              inlines.add(ContentLinkComponent(link: subStr));
             }
             // // TODO need to handle, this is temp handle
             // handledStr = _addToHandledStr(handledStr, subStr);

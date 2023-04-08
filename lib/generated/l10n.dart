@@ -530,6 +530,26 @@ class S {
     );
   }
 
+  /// `Forbid image`
+  String get Forbid_image {
+    return Intl.message(
+      'Forbid image',
+      name: 'Forbid_image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forbid video`
+  String get Forbid_video {
+    return Intl.message(
+      'Forbid video',
+      name: 'Forbid_video',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please input`
   String get Please_input {
     return Intl.message(

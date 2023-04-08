@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Fingerprint": MessageLookupByLibrary.simpleMessage("Fingerprint"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("Follow System"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Font Family"),
+        "Forbid_image": MessageLookupByLibrary.simpleMessage("Forbid image"),
+        "Forbid_video": MessageLookupByLibrary.simpleMessage("Forbid video"),
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "Image_Compress":

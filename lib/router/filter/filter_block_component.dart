@@ -21,7 +21,7 @@ class _FilterBlockComponent extends State<FilterBlockComponent> {
     var _filterProvider = Provider.of<FilterProvider>(context);
     var blockMap = _filterProvider.blocks;
     var blocks = blockMap.keys.toList();
-    print(blocks);
+    // print(blocks);
     return Container(
       child: ListView.builder(
         itemBuilder: (context, index) {

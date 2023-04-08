@@ -145,6 +145,10 @@ class SettingProvider extends ChangeNotifier {
 
   String? get imageService => _settingData!.imageService;
 
+  int? get videoPreview => _settingData!.videoPreview;
+
+  int? get imagePreview => _settingData!.imagePreview;
+
   /// i18n
   String? get i18n => _settingData!.i18n;
 
@@ -210,6 +214,16 @@ class SettingProvider extends ChangeNotifier {
 
   set imageService(String? o) {
     _settingData!.imageService = o;
+    saveAndNotifyListeners();
+  }
+
+  set videoPreview(int? o) {
+    _settingData!.videoPreview = o;
+    saveAndNotifyListeners();
+  }
+
+  set imagePreview(int? o) {
+    _settingData!.imagePreview = o;
     saveAndNotifyListeners();
   }
 
@@ -282,6 +296,10 @@ class SettingData {
 
   String? imageService;
 
+  int? videoPreview;
+
+  int? imagePreview;
+
   /// i18n
   String? i18n;
 
@@ -312,6 +330,8 @@ class SettingData {
     this.videoPreviewInList,
     this.network,
     this.imageService,
+    this.videoPreview,
+    this.imagePreview,
     this.i18n,
     this.i18nCC,
     this.imgCompress = 50,
@@ -335,6 +355,8 @@ class SettingData {
     videoPreviewInList = json['videoPreviewInList'];
     network = json['network'];
     imageService = json['imageService'];
+    videoPreview = json['videoPreview'];
+    imagePreview = json['imagePreview'];
     i18n = json['i18n'];
     i18nCC = json['i18nCC'];
     if (json['imgCompress'] != null) {
@@ -366,6 +388,8 @@ class SettingData {
     data['videoPreviewInList'] = this.videoPreviewInList;
     data['network'] = this.network;
     data['imageService'] = this.imageService;
+    data['videoPreview'] = this.videoPreview;
+    data['imagePreview'] = this.imagePreview;
     data['i18n'] = this.i18n;
     data['i18nCC'] = this.i18nCC;
     data['imgCompress'] = this.imgCompress;

@@ -156,6 +156,16 @@ class _SettingRouter extends State<SettingRouter> {
       value: getImageServcie(settingProvider.imageService).name,
       onTap: pickImageServcie,
     ));
+    list.add(SettingGroupItemComponent(
+      name: s.Forbid_image,
+      value: getOpenList(settingProvider.imagePreview).name,
+      onTap: pickImagePreview,
+    ));
+    list.add(SettingGroupItemComponent(
+      name: s.Forbid_video,
+      value: getOpenList(settingProvider.videoPreview).name,
+      onTap: pickVideoPreview,
+    ));
 
     return Scaffold(
       appBar: AppBar(
@@ -463,8 +473,8 @@ class _SettingRouter extends State<SettingRouter> {
         builder: (context) => FontPicker(
           onFontChanged: (PickerFont font) {
             // _selectedFont = font;
-            print(
-                "${font.fontFamily} with font weight ${font.fontWeight} and font style ${font.fontStyle}.}");
+            // print(
+            //     "${font.fontFamily} with font weight ${font.fontWeight} and font style ${font.fontStyle}.}");
             settingProvider.fontFamily = font.fontFamily;
             resetTheme();
           },
@@ -530,6 +540,22 @@ class _SettingRouter extends State<SettingRouter> {
         await EnumSelectorComponent.show(context, imageServcieList!);
     if (resultEnumObj != null) {
       settingProvider.imageService = resultEnumObj.value;
+    }
+  }
+
+  pickImagePreview() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.imagePreview = resultEnumObj.value;
+    }
+  }
+
+  pickVideoPreview() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.videoPreview = resultEnumObj.value;
     }
   }
 }
