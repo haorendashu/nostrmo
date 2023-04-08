@@ -20,4 +20,6 @@ class EventKind {
   static const int ZAP = 9735;
 
   static const int RELAY_LIST_METADATA = 10002;
+
+  static const int AUTHENTICATION = 22242;
 }

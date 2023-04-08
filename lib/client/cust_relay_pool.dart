@@ -1,8 +1,9 @@
 import 'dart:developer';
 
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/main.dart';
 
+import '../main.dart';
+import 'event_kind.dart' as kind;
 import 'cust_relay.dart';
 import 'subscription.dart';
 
@@ -237,6 +238,22 @@ class CustRelayPool {
 
       // notice save, TODO maybe should change code
       noticeProvider.onNotice(custRelay.relay.url, json[1] as String);
+    } else if (messageType == "AUTH") {
+      // auth needed
+      if (json.length < 2) {
+        log("AUTH result not right.");
+        return;
+      }
+
+      final challenge = json[1] as String;
+      var tags = [
+        ["relay", custRelay.relayStatus.addr],
+        ["challenge", challenge]
+      ];
+      var event =
+          Event(nostr!.publicKey, kind.EventKind.AUTHENTICATION, tags, "");
+      event.sign(nostr!.privateKey);
+      custRelay.relay.send(["AUTH", event.toJson()]);
     }
   }
 
