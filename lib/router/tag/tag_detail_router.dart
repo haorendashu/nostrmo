@@ -88,12 +88,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
           },
           child: Icon(Icons.arrow_back_ios),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_horiz),
-          ),
-        ],
+        actions: [],
         title: appBarTitle,
       ),
       body: NestedScrollView(
