@@ -192,7 +192,8 @@ class _LoginRouter extends State<LoginRouter>
     nostr = relayProvider.genNostr(pk);
     settingProvider.notifyListeners();
 
-    indexProvider.notifyListeners();
+    firstLogin = true;
+    indexProvider.setCurrentTap(1);
   }
 
   void tipAcceptTerm() {

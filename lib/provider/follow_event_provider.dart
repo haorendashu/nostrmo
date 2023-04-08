@@ -151,8 +151,15 @@ class FollowEventProvider extends ChangeNotifier
   }
 
   void metadataUpdatedCallback(CustContactList? _contactList) {
-    if (eventBox.isEmpty() && _contactList != null && !_contactList.isEmpty()) {
+    if (firstLogin ||
+        (eventBox.isEmpty() &&
+            _contactList != null &&
+            !_contactList.isEmpty())) {
       doQuery();
+    }
+
+    if (firstLogin && _contactList != null && _contactList.list().length > 10) {
+      firstLogin = false;
     }
   }
 }

@@ -80,6 +80,8 @@ late MediaDataCache mediaDataCache;
 
 CustNostr? nostr;
 
+bool firstLogin = false;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
