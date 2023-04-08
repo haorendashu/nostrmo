@@ -1,17 +1,16 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/component/cust_state.dart';
-import 'package:nostrmo/component/keep_alive_cust_state.dart';
-import 'package:nostrmo/component/placeholder/metadata_placeholder.dart';
-import 'package:nostrmo/main.dart';
 import 'package:provider/provider.dart';
 
+import '../../../component/keep_alive_cust_state.dart';
 import '../../../component/placeholder/metadata_list_placeholder.dart';
 import '../../../component/user/metadata_component.dart';
 import '../../../consts/base.dart';
 import '../../../consts/router_path.dart';
 import '../../../data/metadata.dart';
+import '../../../main.dart';
 import '../../../provider/metadata_provider.dart';
 import '../../../util/dio_util.dart';
 import '../../../util/router_util.dart';
@@ -87,7 +86,21 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
       for (var itf in itfs) {
         pubkeys.add(itf as String);
       }
+
+      // Disorder
+      for (var i = 1; i < pubkeys.length; i++) {
+        var j = getRandomInt(0, i);
+        var t = pubkeys[i];
+        pubkeys[i] = pubkeys[j];
+        pubkeys[j] = t;
+      }
+
       setState(() {});
     }
+  }
+
+  int getRandomInt(int min, int max) {
+    final _random = new Random();
+    return _random.nextInt((max - min).floor()) + min;
   }
 }
