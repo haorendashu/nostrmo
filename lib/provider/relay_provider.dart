@@ -55,7 +55,7 @@ class RelayProvider extends ChangeNotifier {
     for (var addr in relayAddrs) {
       var custRelay = relayMap[addr];
       if (custRelay == null) {
-        addRelay(addr);
+        _doAddRelay(addr);
       }
     }
   }
@@ -94,13 +94,17 @@ class RelayProvider extends ChangeNotifier {
 
   void addRelay(String relayAddr) {
     if (!relayAddrs.contains(relayAddr)) {
-      var custRelay = genRelay(relayAddr);
-      log("begin to init $relayAddr");
+      _doAddRelay(relayAddr);
       relayAddrs.add(relayAddr);
-      nostr!.pool.add(custRelay, autoSubscribe: true);
-
-      _updateRelayToData();
     }
+  }
+
+  void _doAddRelay(String relayAddr) {
+    var custRelay = genRelay(relayAddr);
+    log("begin to init $relayAddr");
+    nostr!.pool.add(custRelay, autoSubscribe: true);
+
+    _updateRelayToData();
   }
 
   void removeRelay(String relayAddr) {
