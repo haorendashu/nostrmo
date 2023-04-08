@@ -60,6 +60,8 @@ class SettingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Map<String, String> get privateKeyMap => _privateKeyMap;
+
   String? get privateKey {
     if (_settingData!.privateKeyIndex != null &&
         _settingData!.privateKeyMap != null &&
@@ -70,6 +72,19 @@ class SettingProvider extends ChangeNotifier {
   }
 
   int addAndChangePrivateKey(String pk, {bool updateUI = false}) {
+    int? findIndex;
+    var entries = _privateKeyMap.entries;
+    for (var entry in entries) {
+      if (entry.value == pk) {
+        findIndex = int.tryParse(entry.key);
+        break;
+      }
+    }
+    if (findIndex != null) {
+      privateKeyIndex = findIndex;
+      return findIndex;
+    }
+
     for (var i = 0; i < 20; i++) {
       var index = i.toString();
       var _pk = _privateKeyMap[index];
@@ -152,10 +167,10 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
-  // set privateKeyIndex(int? o) {
-  //   _settingData!.privateKeyIndex = o;
-  //   saveAndNotifyListeners();
-  // }
+  set privateKeyIndex(int? o) {
+    _settingData!.privateKeyIndex = o;
+    saveAndNotifyListeners();
+  }
 
   // set privateKeyMap(String? o) {
   //   _settingData!.privateKeyMap = o;

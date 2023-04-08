@@ -158,8 +158,9 @@ class RelayProvider extends ChangeNotifier {
   }
 
   void clear() {
-    sharedPreferences.remove(DataKey.RELAY_LIST);
+    // sharedPreferences.remove(DataKey.RELAY_LIST);
     relayStatusMap.clear();
+    relays.clear();
     _load();
   }
 }

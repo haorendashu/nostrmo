@@ -13,6 +13,7 @@ import '../../component/user/metadata_component.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
+import 'account_manager_component.dart';
 
 class IndexDrawerContnetComponnent extends StatefulWidget {
   @override
@@ -112,10 +113,17 @@ class _IndexDrawerContnetComponnent
     list.add(Expanded(child: Container()));
 
     list.add(IndexDrawerItem(
-      iconData: Icons.logout,
-      name: "Sign out",
-      onTap: signOut,
+      iconData: Icons.account_box,
+      name: "Account Manager",
+      onTap: () {
+        _showBasicModalBottomSheet(context);
+      },
     ));
+    // list.add(IndexDrawerItem(
+    //   iconData: Icons.logout,
+    //   name: "Sign out",
+    //   onTap: signOut,
+    // ));
 
     list.add(Container(
       margin: const EdgeInsets.only(top: Base.BASE_PADDING_HALF),
@@ -146,33 +154,43 @@ class _IndexDrawerContnetComponnent
     RouterUtil.router(context, RouterPath.PROFILE_EDITOR, metadata);
   }
 
-  signOut() {
-    mentionMeProvider.clear();
-    followEventProvider.clear();
-    dmProvider.clear();
-    noticeProvider.clear();
-    contactListProvider.clear();
+  // signOut() {
+  //   mentionMeProvider.clear();
+  //   followEventProvider.clear();
+  //   dmProvider.clear();
+  //   noticeProvider.clear();
+  //   contactListProvider.clear();
 
-    eventReactionsProvider.clear();
-    linkPreviewDataProvider.clear();
-    relayProvider.clear();
+  //   eventReactionsProvider.clear();
+  //   linkPreviewDataProvider.clear();
+  //   relayProvider.clear();
 
-    var currentIndex = settingProvider.privateKeyIndex!;
-    // remove private key
-    settingProvider.removeKey(currentIndex);
-    // clear local db
-    DMSessionInfoDB.deleteAll(currentIndex);
-    EventDB.deleteAll(currentIndex);
-    MetadataDB.deleteAll();
+  //   var currentIndex = settingProvider.privateKeyIndex!;
+  //   // remove private key
+  //   settingProvider.removeKey(currentIndex);
+  //   // clear local db
+  //   DMSessionInfoDB.deleteAll(currentIndex);
+  //   EventDB.deleteAll(currentIndex);
+  //   MetadataDB.deleteAll();
 
-    nostr!.close();
-    nostr = null;
+  //   nostr!.close();
+  //   nostr = null;
 
-    // signOut complete
-    if (settingProvider.privateKey != null) {
-      // use next privateKey to login
-      nostr = relayProvider.genNostr(settingProvider.privateKey!);
-    }
+  //   // signOut complete
+  //   if (settingProvider.privateKey != null) {
+  //     // use next privateKey to login
+  //     nostr = relayProvider.genNostr(settingProvider.privateKey!);
+  //   }
+  // }
+
+  void _showBasicModalBottomSheet(context) async {
+    showModalBottomSheet(
+      isScrollControlled: false, // true 为 全屏
+      context: context,
+      builder: (BuildContext context) {
+        return AccountManagerComponent();
+      },
+    );
   }
 }
 
