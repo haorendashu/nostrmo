@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/webview_router.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -128,7 +129,9 @@ class _LoginRouter extends State<LoginRouter>
           Text(s.I_accept_the + " "),
           Container(
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                WebViewRouter.open(context, Base.PRIVACY_LINK);
+              },
               child: Text(
                 s.terms_of_user,
                 style: TextStyle(

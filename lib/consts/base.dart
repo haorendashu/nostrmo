@@ -8,7 +8,7 @@ class Base {
   static int VERSION_NUM = 1;
 
   static const String PRIVACY_LINK =
-      "https://nostrmo.mizhichashao.com/pages/PolicyAndTerms.html";
+      "https://nostrmo.com/pages/PolicyAndTerms.html";
 
   static const double BASE_PADDING = 12;
 
