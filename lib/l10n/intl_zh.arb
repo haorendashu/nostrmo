@@ -77,7 +77,7 @@
     "Input_account_private_key": "添加账号密钥",
     "Add_account_and_login": "添加并且登录？",
     "Filter": "过滤",
-    "Relays": "服务端",
+    "Relays": "中继",
     "Key_Backup": "密钥备份",
     "Please_do_not_disclose_or_share_the_key_to_anyone": "请不要向任何人透露或共享密钥。",
     "Nostromo_developers_will_never_require_a_key_from_you": "Nostromo开发人员永远不会向你索要密钥。",
@@ -102,10 +102,10 @@
     "Website": "网站",
     "Nip05": "Nip05",
     "Lud16": "Lud16",
-    "Input_relay_address": "请输入服务端地址。",
+    "Input_relay_address": "请输入中继地址。",
     "Address_can_t_be_null": "地址不能为空。",
     "or": "或者",
-    "Empty_text_may_be_ban_by_relays": "输入空白可能会被服务端禁止。",
+    "Empty_text_may_be_ban_by_relays": "输入空白可能会被中继禁止。",
     "Note_loading": "动态加载中",
     "Following": "跟随中",
     "Read": "读",
@@ -123,5 +123,6 @@
     "Share": "分享",
     "Broadcase": "广播",
     "Block": "限制",
-    "Delete": "删除"
+    "Delete": "删除",
+    "Notices": "通知"
 }

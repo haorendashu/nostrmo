@@ -58,7 +58,7 @@ class NoticeListItemComponent extends StatelessWidget {
               style: TextStyle(
                 fontSize: smallTextSize,
                 color: themeData.hintColor,
-                overflow: TextOverflow.ellipsis,
+                // overflow: TextOverflow.ellipsis,
               ),
             ),
           ),

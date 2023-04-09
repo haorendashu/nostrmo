@@ -116,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading": MessageLookupByLibrary.simpleMessage("Note loading..."),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),
+        "Notices": MessageLookupByLibrary.simpleMessage("Notices"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
