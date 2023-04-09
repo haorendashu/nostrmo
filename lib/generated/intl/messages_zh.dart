@@ -63,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("捐赠"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("不压缩"),
         "Empty_text_may_be_ban_by_relays":
-            MessageLookupByLibrary.simpleMessage("输入空白可能会被服务端禁止。"),
+            MessageLookupByLibrary.simpleMessage("输入空白可能会被中继禁止。"),
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
         "Filter": MessageLookupByLibrary.simpleMessage("过滤"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("指纹识别"),
@@ -82,8 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("添加账号密钥"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage("请输入过滤词语"),
-        "Input_relay_address":
-            MessageLookupByLibrary.simpleMessage("请输入服务端地址。"),
+        "Input_relay_address": MessageLookupByLibrary.simpleMessage("请输入中继地址。"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
@@ -129,7 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隐私锁"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("密钥不能为空"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),
-        "Relays": MessageLookupByLibrary.simpleMessage("服务端"),
+        "Relays": MessageLookupByLibrary.simpleMessage("中继"),
         "Replying": MessageLookupByLibrary.simpleMessage("正在回复"),
         "Request": MessageLookupByLibrary.simpleMessage("请求"),
         "Search": MessageLookupByLibrary.simpleMessage("搜索"),
