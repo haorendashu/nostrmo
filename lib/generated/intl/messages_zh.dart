@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading": MessageLookupByLibrary.simpleMessage("动态加载中"),
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
         "Notice": MessageLookupByLibrary.simpleMessage("提示"),
+        "Notices": MessageLookupByLibrary.simpleMessage("通知"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("浏览器中打开"),
         "Password": MessageLookupByLibrary.simpleMessage("密码"),
         "Picture": MessageLookupByLibrary.simpleMessage("图片"),

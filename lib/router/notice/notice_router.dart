@@ -4,6 +4,7 @@ import 'package:nostrmo/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/router_path.dart';
+import '../../generated/l10n.dart';
 import '../../provider/notice_provider.dart';
 import '../../util/router_util.dart';
 import '../edit/editor_router.dart';
@@ -19,6 +20,8 @@ class NoticeRouter extends StatefulWidget {
 class _NoticeRouter extends State<NoticeRouter> {
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
+
     var _noticeProvider = Provider.of<NoticeProvider>(context);
     var notices = _noticeProvider.notices;
     var length = notices.length;
@@ -31,7 +34,7 @@ class _NoticeRouter extends State<NoticeRouter> {
             onTap: () {
               EditorRouter.open(context);
             },
-            child: Text("NOTICE"),
+            child: Text(s.Notices),
           ),
         ),
       );
@@ -49,7 +52,7 @@ class _NoticeRouter extends State<NoticeRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notices"),
+        title: Text(s.Notices),
       ),
       body: main,
     );

@@ -126,5 +126,6 @@
     "Delete": "Delete",
     "Metadata_can_not_be_found": "Metadata can not be found.",
     "not_found": "not found",
-    "Gen_invoice_code_error": "Gen invoice code error."
+    "Gen_invoice_code_error": "Gen invoice code error.",
+    "Notices": "Notices"
 }

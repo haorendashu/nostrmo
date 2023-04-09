@@ -14,6 +14,8 @@ import '../util/string_util.dart';
 class MetadataProvider extends ChangeNotifier with LaterFunction {
   Map<String, Metadata> _metadataCache = {};
 
+  Map<String, int> _handingPubkeys = {};
+
   static MetadataProvider? _metadataProvider;
 
   static Future<MetadataProvider> getInstance() async {
@@ -56,7 +58,8 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       return metadata;
     }
 
-    if (!_needUpdatePubKeys.contains(pubkey)) {
+    if (!_needUpdatePubKeys.contains(pubkey) &&
+        !_handingPubkeys.containsKey(pubkey)) {
       _needUpdatePubKeys.add(pubkey);
     }
     later(_laterCallback, null);
@@ -71,6 +74,9 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       if (StringUtil.isBlank(event.content)) {
         continue;
       }
+
+      _handingPubkeys.remove(event.pubKey);
+
       var jsonObj = jsonDecode(event.content);
       var md = Metadata.fromJson(jsonObj);
       md.pubKey = event.pubKey;
@@ -111,6 +117,9 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     // use query and close after EOSE
     nostr!.pool.query([filter.toJson()], _onEvent, subscriptId);
 
+    for (var pubkey in _needUpdatePubKeys) {
+      _handingPubkeys[pubkey] = 1;
+    }
     _needUpdatePubKeys.clear();
   }
 }
