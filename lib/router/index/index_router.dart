@@ -1,4 +1,9 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +61,8 @@ class _IndexRouter extends CustState<IndexRouter>
     globalsTabController =
         TabController(initialIndex: globalsInitTab, length: 3, vsync: this);
     dmTabController = TabController(length: 2, vsync: this);
+
+    asyncInitState();
   }
 
   @override
@@ -221,5 +228,40 @@ class _IndexRouter extends CustState<IndexRouter>
         doAuth();
       }
     });
+  }
+
+  StreamSubscription? _purchaseUpdatedSubscription;
+
+  void asyncInitState() async {
+    await FlutterInappPurchase.instance.initialize();
+    _purchaseUpdatedSubscription =
+        FlutterInappPurchase.purchaseUpdated.listen((productItem) async {
+      if (productItem == null) {
+        return;
+      }
+
+      try {
+        if (Platform.isAndroid) {
+          await FlutterInappPurchase.instance.finishTransaction(productItem);
+        } else if (Platform.isIOS) {
+          await FlutterInappPurchase.instance
+              .finishTransactionIOS(productItem.transactionId!);
+        }
+      } catch (e) {
+        print(e);
+      }
+      print('purchase-updated: $productItem');
+      BotToast.showText(text: "Thanks yours coffee!");
+    });
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+    if (_purchaseUpdatedSubscription != null) {
+      _purchaseUpdatedSubscription!.cancel();
+      _purchaseUpdatedSubscription = null;
+    }
+    await FlutterInappPurchase.instance.finalize();
   }
 }

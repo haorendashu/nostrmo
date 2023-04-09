@@ -95,9 +95,16 @@ class _IndexDrawerContnetComponnent
     list.add(IndexDrawerItem(
       iconData: Icons.key,
       name: "Key Backup",
-      // borderBottom: true,
       onTap: () {
         RouterUtil.router(context, RouterPath.KEY_BACKUP);
+      },
+    ));
+
+    list.add(IndexDrawerItem(
+      iconData: Icons.coffee_outlined,
+      name: "Donate",
+      onTap: () {
+        RouterUtil.router(context, RouterPath.DONATE);
       },
     ));
 

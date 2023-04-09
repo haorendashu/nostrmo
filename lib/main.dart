@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nostrmo/router/donate/donate_router.dart';
 import 'package:nostrmo/router/event_detail/event_detail_router.dart';
 import 'package:nostrmo/router/setting/setting_router.dart';
 import 'package:provider/provider.dart';
@@ -231,7 +232,7 @@ class _MyApp extends State<MyApp> {
         initialRoute: RouterPath.INDEX,
         routes: {
           RouterPath.INDEX: (context) => IndexRouter(reload: reload),
-          // RouterPath.EDITOR: (context) => EditorRouter(),
+          RouterPath.DONATE: (context) => DonateRouter(),
           RouterPath.USER: (context) => UserRouter(),
           RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
           RouterPath.USER_RELAYS: (context) => UserRelayRouter(),
