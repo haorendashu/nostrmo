@@ -50,8 +50,11 @@ class _ReactionEventItemComponent extends State<ReactionEventItemComponent> {
         left: Base.BASE_PADDING,
         right: Base.BASE_PADDING,
       ),
-      child: Row(
-        children: list,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: list,
+        ),
       ),
     );
   }
