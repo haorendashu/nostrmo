@@ -13,6 +13,7 @@ import '../../client/filter.dart';
 import '../../component/appbar4stack.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 
 class ProfileEditorRouter extends StatefulWidget {
@@ -41,6 +42,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
 
   @override
   Widget doBuild(BuildContext context) {
+    var s = S.of(context);
     if (metadata == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null && arg is Metadata) {
@@ -66,7 +68,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
 
     var submitBtn = TextButton(
       child: Text(
-        "Submit",
+        s.Submit,
         style: TextStyle(
           color: textColor,
           fontSize: 16,
@@ -98,7 +100,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
         Expanded(
           child: TextField(
             controller: displayNameController,
-            decoration: InputDecoration(labelText: "Display Name"),
+            decoration: InputDecoration(labelText: s.Display_Name),
           ),
         ),
         Container(
@@ -111,7 +113,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
         Expanded(
           child: TextField(
             controller: nameController,
-            decoration: InputDecoration(labelText: "Name"),
+            decoration: InputDecoration(labelText: s.Name),
           ),
         ),
       ]),
@@ -124,7 +126,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
         minLines: 2,
         maxLines: 10,
         controller: aboutController,
-        decoration: InputDecoration(labelText: "About"),
+        decoration: InputDecoration(labelText: s.About),
       ),
     ));
 
@@ -138,7 +140,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
             onTap: pickPicture,
             child: Icon(Icons.image),
           ),
-          labelText: "Picture",
+          labelText: s.Picture,
         ),
       ),
     ));
@@ -153,7 +155,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
             onTap: pickBanner,
             child: Icon(Icons.image),
           ),
-          labelText: "Banner",
+          labelText: s.Banner,
         ),
       ),
     ));
@@ -163,7 +165,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
       padding: padding,
       child: TextField(
         controller: websiteController,
-        decoration: InputDecoration(labelText: "Website"),
+        decoration: InputDecoration(labelText: s.Website),
       ),
     ));
 
@@ -172,7 +174,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
       padding: padding,
       child: TextField(
         controller: nip05Controller,
-        decoration: InputDecoration(labelText: "Nip05"),
+        decoration: InputDecoration(labelText: s.Nip05),
       ),
     ));
 
@@ -182,7 +184,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
       child: TextField(
         controller: lud16Controller,
         decoration: InputDecoration(
-            labelText: "Lud16", hintText: "walletname@walletservice.com"),
+            labelText: s.Lud16, hintText: "walletname@walletservice.com"),
       ),
     ));
 

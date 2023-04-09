@@ -11,6 +11,7 @@ import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/event_mem_box.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
@@ -44,6 +45,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   @override
   Widget doBuild(BuildContext context) {
+    var s = S.of(context);
     if (contactList != null) {
       length = contactList!.list().length;
     }
@@ -60,11 +62,11 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       child: Row(
         children: [
           UserStatisticsItemComponent(
-              num: length, name: "Following", onTap: onFollowingTap),
+              num: length, name: s.Following, onTap: onFollowingTap),
           // UserStatisticsItemComponent(
           //     num: followed, name: "Followed", onTap: onFollowedTap),
           UserStatisticsItemComponent(
-              num: relaysNum, name: "Relays", onTap: onRelaysTap),
+              num: relaysNum, name: s.Relays, onTap: onRelaysTap),
           UserStatisticsItemComponent(
             num: zapNum,
             name: "Zap",

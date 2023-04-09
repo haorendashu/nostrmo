@@ -2,12 +2,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/client/nostr_builder.dart';
-import 'package:nostrmo/consts/base.dart';
-import 'package:nostrmo/util/string_util.dart';
 
+import '../../client/nip19/nip19.dart';
+import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../util/string_util.dart';
 
 class LoginRouter extends StatefulWidget {
   @override
@@ -35,6 +35,7 @@ class _LoginRouter extends State<LoginRouter>
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
     var maxWidth = mediaDataCache.size.width;
@@ -89,7 +90,7 @@ class _LoginRouter extends State<LoginRouter>
           color: mainColor,
           alignment: Alignment.center,
           child: Text(
-            "Login",
+            s.Login,
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
@@ -105,7 +106,7 @@ class _LoginRouter extends State<LoginRouter>
       child: GestureDetector(
         onTap: generatePK,
         child: Text(
-          "Generate a new private key",
+          s.Generate_a_new_private_key,
           style: TextStyle(
             color: mainColor,
             decoration: TextDecoration.underline,
@@ -124,12 +125,12 @@ class _LoginRouter extends State<LoginRouter>
                   checkTerms = val;
                 });
               }),
-          Text("I accept the "),
+          Text(s.I_accept_the + " "),
           Container(
             child: GestureDetector(
               onTap: () {},
               child: Text(
-                "terms of user",
+                s.terms_of_user,
                 style: TextStyle(
                   color: mainColor,
                   decoration: TextDecoration.underline,
@@ -181,7 +182,7 @@ class _LoginRouter extends State<LoginRouter>
 
     var pk = controller.text;
     if (StringUtil.isBlank(pk)) {
-      BotToast.showText(text: "Private key is null.");
+      BotToast.showText(text: S.of(context).Private_key_is_null);
       return;
     }
 
@@ -197,7 +198,7 @@ class _LoginRouter extends State<LoginRouter>
   }
 
   void tipAcceptTerm() {
-    BotToast.showText(text: "Please accept the terms.");
+    BotToast.showText(text: S.of(context).Please_accept_the_terms);
     animationController.reset();
     animationController.forward();
   }

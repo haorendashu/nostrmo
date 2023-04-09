@@ -14,6 +14,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../consts/base.dart';
+import '../generated/l10n.dart';
 import '../provider/metadata_provider.dart';
 import '../util/router_util.dart';
 import '../util/store_util.dart';
@@ -200,7 +201,7 @@ class _QrcodeDialog extends State<QrcodeDialog> {
 
   void _doCopy(String text) {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
-      BotToast.showText(text: "Pubkey copy success!");
+      BotToast.showText(text: S.of(context).key_has_been_copy);
     });
   }
 

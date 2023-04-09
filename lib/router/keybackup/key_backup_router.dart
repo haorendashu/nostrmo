@@ -6,6 +6,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 
 import '../../component/appbar4stack.dart';
+import '../../generated/l10n.dart';
 
 class KeyBackupRouter extends StatefulWidget {
   @override
@@ -23,18 +24,20 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
 
   void initCheckBoxItems(BuildContext context) {
     if (checkboxItems == null) {
+      var s = S.of(context);
       checkboxItems = [];
       checkboxItems!.add(CheckboxItem(
-          "Please do not disclose or share the key to anyone.", false));
+          s.Please_do_not_disclose_or_share_the_key_to_anyone, false));
       checkboxItems!.add(CheckboxItem(
-          "Nostromo developers will never require a key from you.", false));
+          s.Nostromo_developers_will_never_require_a_key_from_you, false));
       checkboxItems!.add(CheckboxItem(
-          "Please keep the key properly for account recovery.", false));
+          s.Please_keep_the_key_properly_for_account_recovery, false));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var mainColor = themeData.primaryColor;
@@ -51,7 +54,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
     list.add(Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Text(
-        "Backup and Safety tips",
+        s.Backup_and_Safety_tips,
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 20,
@@ -62,7 +65,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
     list.add(Container(
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
       child: Text(
-        "The key is a random string that resembles your account password. Anyone with this key can access and control your account.",
+        s.The_key_is_a_random_string_that_resembles_,
       ),
     ));
 
@@ -79,8 +82,8 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
           color: mainColor,
           alignment: Alignment.center,
           child: Text(
-            "Copy Key",
-            style: TextStyle(
+            s.Copy_Key,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -94,7 +97,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
       child: GestureDetector(
         onTap: copyHexKey,
         child: Text(
-          "Copy Hex Key",
+          s.Copy_Hex_Key,
           style: TextStyle(
             color: mainColor,
             decoration: TextDecoration.underline,
@@ -170,7 +173,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
   bool checkTips() {
     for (var item in checkboxItems!) {
       if (!item.value) {
-        BotToast.showText(text: "Please check the tips.");
+        BotToast.showText(text: S.of(context).Please_check_the_tips);
         return false;
       }
     }
@@ -198,7 +201,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
 
   void doCopy(String key) {
     Clipboard.setData(ClipboardData(text: key)).then((_) {
-      BotToast.showText(text: "key has been copy!");
+      BotToast.showText(text: S.of(context).key_has_been_copy);
     });
   }
 }

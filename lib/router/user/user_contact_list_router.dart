@@ -7,6 +7,7 @@ import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
+import '../../generated/l10n.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 
@@ -24,6 +25,8 @@ class _UserContactListRouter extends State<UserContactListRouter> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
+
     if (contactList == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null) {
@@ -41,7 +44,7 @@ class _UserContactListRouter extends State<UserContactListRouter> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Following",
+          s.Following,
           style: TextStyle(
             fontSize: titleFontSize,
             fontWeight: FontWeight.bold,

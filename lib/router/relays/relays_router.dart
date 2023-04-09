@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';
 import '../../data/relay_status.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/relay_provider.dart';
 import '../../util/string_util.dart';
@@ -20,6 +21,7 @@ class _RelaysRouter extends State<RelaysRouter> {
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var _relayProvider = Provider.of<RelayProvider>(context);
     var relayAddrs = _relayProvider.relayAddrs;
     var relayStatusMap = relayProvider.relayStatusMap;
@@ -28,7 +30,7 @@ class _RelaysRouter extends State<RelaysRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Relays"),
+        title: Text(s.Relays),
       ),
       body: Column(children: [
         Expanded(
@@ -56,7 +58,7 @@ class _RelaysRouter extends State<RelaysRouter> {
             controller: controller,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.cloud),
-              hintText: "Input relay address.",
+              hintText: s.Input_relay_address,
               suffixIcon: IconButton(
                 icon: Icon(Icons.add),
                 onPressed: addRelay,
@@ -72,7 +74,7 @@ class _RelaysRouter extends State<RelaysRouter> {
     var addr = controller.text;
     addr = addr.trim();
     if (StringUtil.isBlank(addr)) {
-      BotToast.showText(text: "Address can't be null.");
+      BotToast.showText(text: S.of(context).Address_can_t_be_null);
       return;
     }
 

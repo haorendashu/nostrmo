@@ -16,6 +16,7 @@ import '../../client/event_relation.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/zap/zap_action.dart';
 import '../../data/event_reactions.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/event_reactions_provider.dart';
 import '../../router/edit/editor_router.dart';
@@ -49,6 +50,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var fontSize = themeData.textTheme.bodySmall!.fontSize!;
@@ -210,33 +212,33 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                     List<PopupMenuEntry<String>> list = [
                       PopupMenuItem(
                         value: "copyEvent",
-                        child: Text("Copy Note Json", style: popFontStyle),
+                        child: Text(s.Copy_Note_Json, style: popFontStyle),
                       ),
                       PopupMenuItem(
                         value: "copyPubkey",
-                        child: Text("Copy Note Pubkey", style: popFontStyle),
+                        child: Text(s.Copy_Note_Pubkey, style: popFontStyle),
                       ),
                       PopupMenuItem(
                         value: "copyId",
-                        child: Text("Copy Note Id", style: popFontStyle),
+                        child: Text(s.Copy_Note_Id, style: popFontStyle),
                       ),
                       PopupMenuDivider(),
                       PopupMenuItem(
                         value: "detail",
-                        child: Text("Detail", style: popFontStyle),
+                        child: Text(s.Detail, style: popFontStyle),
                       ),
                       PopupMenuItem(
                         value: "share",
-                        child: Text("Share", style: popFontStyle),
+                        child: Text(s.Share, style: popFontStyle),
                       ),
                       PopupMenuDivider(),
                       PopupMenuItem(
                         value: "broadcase",
-                        child: Text("Broadcase", style: popFontStyle),
+                        child: Text(s.Broadcase, style: popFontStyle),
                       ),
                       PopupMenuItem(
                         value: "block",
-                        child: Text("Block", style: popFontStyle),
+                        child: Text(s.Block, style: popFontStyle),
                       ),
                     ];
 
@@ -245,7 +247,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                       list.add(PopupMenuItem(
                         value: "delete",
                         child: Text(
-                          "Delete",
+                          s.Delete,
                           style: TextStyle(
                             color: Colors.red,
                             fontSize: mediumFontSize,
@@ -321,7 +323,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
   void _doCopy(String text) {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
-      BotToast.showText(text: "Copy success!");
+      BotToast.showText(text: S.of(context).Copy_success);
     });
   }
 

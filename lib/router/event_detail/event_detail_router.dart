@@ -8,6 +8,7 @@ import '../../component/event/event_list_component.dart';
 import '../../component/event/reaction_event_list_component.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../data/event_reactions.dart';
+import '../../generated/l10n.dart';
 import '../../provider/event_reactions_provider.dart';
 import '../../util/router_util.dart';
 import '../thread/thread_detail_router.dart';
@@ -46,6 +47,8 @@ class _EventDetailRouter extends State<EventDetailRouter> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
+
     if (event == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null && arg is Event) {
@@ -103,12 +106,12 @@ class _EventDetailRouter extends State<EventDetailRouter> {
                 return ZapEventListComponent(event: event);
               } else if (event.kind == kind.EventKind.TEXT_NOTE) {
                 return ReactionEventListComponent(
-                    event: event, text: "replied");
+                    event: event, text: s.replied);
               } else if (event.kind == kind.EventKind.REPOST) {
                 return ReactionEventListComponent(
-                    event: event, text: "boosted");
+                    event: event, text: s.boosted);
               } else if (event.kind == kind.EventKind.REACTION) {
-                return ReactionEventListComponent(event: event, text: "liked");
+                return ReactionEventListComponent(event: event, text: s.liked);
               }
 
               return Container();

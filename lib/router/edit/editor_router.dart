@@ -25,6 +25,7 @@ import 'package:pointycastle/ecc/api.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../component/cust_state.dart';
+import '../../generated/l10n.dart';
 
 class EditorRouter extends StatefulWidget {
   // dm arg
@@ -102,9 +103,7 @@ class _EditorRouter extends CustState<EditorRouter> {
 
   @override
   Widget doBuild(BuildContext context) {
-    // TODO embed: image、video、bitcoin
-    // TODO embed input: image、video、bitcoin
-    // TODO relation input: events、users、emoji
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var mainColor = themeData.primaryColor;
@@ -115,7 +114,7 @@ class _EditorRouter extends CustState<EditorRouter> {
       child: Container(
         margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
         child: quill.QuillEditor(
-          placeholder: "What's happening?",
+          placeholder: s.What_s_happening,
           controller: _controller,
           scrollController: ScrollController(),
           focusNode: focusNode,
@@ -252,7 +251,7 @@ class _EditorRouter extends CustState<EditorRouter> {
           Container(
             child: TextButton(
               child: Text(
-                "Send",
+                s.Send,
                 style: TextStyle(
                   color: textColor,
                   fontSize: 16,
@@ -298,7 +297,8 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputMentionEvent() async {
-    var value = await TextInputDialog.show(context, "Please input event id",
+    var value = await TextInputDialog.show(
+        context, S.of(context).Please_input_event_id,
         hintText: "event id");
     if (StringUtil.isNotBlank(value)) {
       // check nip19 value
@@ -322,7 +322,8 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputMentionUser() async {
-    var value = await TextInputDialog.show(context, "Please input user pubkey",
+    var value = await TextInputDialog.show(
+        context, S.of(context).Please_input_user_pubkey,
         hintText: "user pubkey");
     if (StringUtil.isNotBlank(value)) {
       // check nip19 value
@@ -346,7 +347,8 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputLnbc() async {
-    var value = await TextInputDialog.show(context, "Please input lnbc text",
+    var value = await TextInputDialog.show(
+        context, S.of(context).Please_input_lnbc_text,
         hintText: "lnbc...");
     if (StringUtil.isNotBlank(value)) {
       _lnbcSubmitted(value);
@@ -366,7 +368,8 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputTag() async {
-    var value = await TextInputDialog.show(context, "Please input Topic text",
+    var value = await TextInputDialog.show(
+        context, S.of(context).Please_input_Topic_text,
         valueCheck: baseInputCheck, hintText: "Topic");
     if (StringUtil.isNotBlank(value)) {
       _submitTag(value);
@@ -375,11 +378,11 @@ class _EditorRouter extends CustState<EditorRouter> {
 
   bool baseInputCheck(BuildContext context, String value) {
     if (value.contains(" ")) {
-      BotToast.showText(text: "Text can't contain blank space");
+      BotToast.showText(text: S.of(context).Text_can_t_contain_blank_space);
       return false;
     }
     if (value.contains("\n")) {
-      BotToast.showText(text: "Text can't contain new line");
+      BotToast.showText(text: S.of(context).Text_can_t_contain_new_line);
       return false;
     }
     return true;

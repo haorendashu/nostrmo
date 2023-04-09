@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../consts/base.dart';
+import '../../../generated/l10n.dart';
 
 @deprecated
 class GlobalEventItemComponent extends StatefulWidget {
@@ -28,6 +29,7 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var hintColor = themeData.hintColor;
@@ -41,7 +43,7 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
             height: 150,
             child: Center(
               child: Text(
-                "loading",
+                s.loading,
                 style: TextStyle(
                   color: hintColor,
                 ),

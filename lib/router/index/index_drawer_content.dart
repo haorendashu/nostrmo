@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../component/user/metadata_component.dart';
 import '../../data/metadata.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import 'account_manager_component.dart';
@@ -28,6 +29,7 @@ class _IndexDrawerContnetComponnent
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var pubkey = nostr!.publicKey;
     var paddingTop = mediaDataCache.padding.top;
     var themeData = Theme.of(context);
@@ -78,7 +80,7 @@ class _IndexDrawerContnetComponnent
 
     list.add(IndexDrawerItem(
       iconData: Icons.block,
-      name: "Filter",
+      name: s.Filter,
       onTap: () {
         RouterUtil.router(context, RouterPath.FILTER);
       },
@@ -86,7 +88,7 @@ class _IndexDrawerContnetComponnent
 
     list.add(IndexDrawerItem(
       iconData: Icons.cloud,
-      name: "Relays",
+      name: s.Relays,
       onTap: () {
         RouterUtil.router(context, RouterPath.RELAYS);
       },
@@ -94,7 +96,7 @@ class _IndexDrawerContnetComponnent
 
     list.add(IndexDrawerItem(
       iconData: Icons.key,
-      name: "Key Backup",
+      name: s.Key_Backup,
       onTap: () {
         RouterUtil.router(context, RouterPath.KEY_BACKUP);
       },
@@ -102,7 +104,7 @@ class _IndexDrawerContnetComponnent
 
     list.add(IndexDrawerItem(
       iconData: Icons.coffee_outlined,
-      name: "Donate",
+      name: s.Donate,
       onTap: () {
         RouterUtil.router(context, RouterPath.DONATE);
       },
@@ -110,7 +112,7 @@ class _IndexDrawerContnetComponnent
 
     list.add(IndexDrawerItem(
       iconData: Icons.settings,
-      name: "Setting",
+      name: s.Setting,
       // borderBottom: true,
       onTap: () {
         RouterUtil.router(context, RouterPath.SETTING);
@@ -121,7 +123,7 @@ class _IndexDrawerContnetComponnent
 
     list.add(IndexDrawerItem(
       iconData: Icons.account_box,
-      name: "Account Manager",
+      name: s.Account_Manager,
       onTap: () {
         _showBasicModalBottomSheet(context);
       },

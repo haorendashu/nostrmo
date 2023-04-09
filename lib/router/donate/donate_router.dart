@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../../component/appbar4stack.dart';
@@ -17,6 +18,8 @@ class DonateRouter extends StatefulWidget {
 class _DonateRouter extends State<DonateRouter> {
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
+
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var mainColor = themeData.primaryColor;
@@ -26,7 +29,7 @@ class _DonateRouter extends State<DonateRouter> {
     var appBar = Appbar4Stack(
       backgroundColor: appbarBackgroundColor,
       title: Text(
-        "Donate",
+        s.Donate,
         style: TextStyle(
           fontWeight: FontWeight.bold,
         ),
@@ -46,7 +49,7 @@ class _DonateRouter extends State<DonateRouter> {
       margin: EdgeInsets.only(
         bottom: 40,
       ),
-      child: Text("Buy me a coffee!"),
+      child: Text(s.Buy_me_a_coffee),
     ));
 
     list.add(Container(

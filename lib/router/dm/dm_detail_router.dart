@@ -13,6 +13,7 @@ import '../../component/name_component.dart';
 import '../../consts/base.dart';
 import '../../data/dm_session_info.dart';
 import '../../data/metadata.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/dm_provider.dart';
 import '../../provider/metadata_provider.dart';
@@ -35,6 +36,8 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
 
   @override
   Widget doBuild(BuildContext context) {
+    var s = S.of(context);
+
     if (detail == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg == null) {
@@ -100,7 +103,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
             // color: Colors.black,
             color: hintColor,
             child: Text(
-              "Write a message",
+              s.Write_a_message,
               style: TextStyle(
                   // color: Colors.white,
                   ),
@@ -127,7 +130,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> {
                 ),
                 child: Center(
                   child: Text(
-                    "Add to known list",
+                    s.Add_to_known_list,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

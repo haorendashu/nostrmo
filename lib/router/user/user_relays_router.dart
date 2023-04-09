@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../client/relay_metadata.dart';
 import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
 
 class UserRelayRouter extends StatefulWidget {
@@ -18,6 +19,7 @@ class _UserRelayRouter extends State<UserRelayRouter> {
   List<RelayMetadata>? relays;
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     if (relays == null) {
       relays = [];
       var arg = RouterUtil.routerArgs(context);
@@ -52,7 +54,7 @@ class _UserRelayRouter extends State<UserRelayRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Relays"),
+        title: Text(s.Relays),
       ),
       body: Container(
         margin: const EdgeInsets.only(
@@ -83,6 +85,7 @@ class RelayMetadataComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var hintColor = themeData.hintColor;
@@ -145,7 +148,7 @@ class RelayMetadataComponent extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(right: Base.BASE_PADDING),
                         child: Text(
-                          "Read",
+                          s.Read,
                           style: TextStyle(
                             fontSize: bodySmallFontSize,
                             color:
@@ -156,7 +159,7 @@ class RelayMetadataComponent extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(right: Base.BASE_PADDING),
                         child: Text(
-                          "Write",
+                          s.Write,
                           style: TextStyle(
                             fontSize: bodySmallFontSize,
                             color:

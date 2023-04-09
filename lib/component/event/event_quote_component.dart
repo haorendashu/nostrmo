@@ -11,6 +11,8 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../generated/l10n.dart';
+
 class EventQuoteComponent extends StatefulWidget {
   Event? event;
 
@@ -99,7 +101,7 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
       margin: const EdgeInsets.all(Base.BASE_PADDING),
       height: 60,
       decoration: boxDecoration,
-      child: Center(child: Text("Note loading...")),
+      child: Center(child: Text(S.of(context).Note_loading)),
     );
   }
 

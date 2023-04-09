@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
 
 class TextInputDialog extends StatefulWidget {
@@ -97,7 +98,7 @@ class _TextInputDialog extends State<TextInputDialog> {
             height: 40,
             alignment: Alignment.center,
             child: Text(
-              "Comfirm",
+              S.of(context).Comfirm,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,

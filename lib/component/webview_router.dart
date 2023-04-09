@@ -8,6 +8,7 @@ import 'package:nostrmo/util/string_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../generated/l10n.dart';
 import '../main.dart';
 
 class WebViewRouter extends StatefulWidget {
@@ -39,6 +40,7 @@ class _WebViewRouter extends CustState<WebViewRouter> {
 
   @override
   Widget doBuild(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var paddingTop = mediaDataCache.padding.top;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
@@ -80,15 +82,15 @@ class _WebViewRouter extends CustState<WebViewRouter> {
                   return [
                     PopupMenuItem(
                       value: "copyCurrentUrl",
-                      child: Text("Copy current Url"),
+                      child: Text(s.Copy_current_Url),
                     ),
                     PopupMenuItem(
                       value: "copyInitUrl",
-                      child: Text("Copy init Url"),
+                      child: Text(s.Copy_init_Url),
                     ),
                     PopupMenuItem(
                       value: "openInBrowser",
-                      child: Text("Open in browser"),
+                      child: Text(s.Open_in_browser),
                     ),
                   ];
                 },
@@ -133,7 +135,7 @@ class _WebViewRouter extends CustState<WebViewRouter> {
 
   void _doCopy(String text) {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
-      BotToast.showText(text: "Copy success!");
+      BotToast.showText(text: S.of(context).Copy_success);
     });
   }
 }

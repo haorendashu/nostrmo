@@ -16,6 +16,7 @@ import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/peddingevents_later_function.dart';
@@ -88,6 +89,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   @override
   Widget doBuild(BuildContext context) {
+    var s = S.of(context);
     if (sourceEvent == null) {
       var obj = RouterUtil.routerArgs(context);
       if (obj != null && obj is Event) {
@@ -143,7 +145,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
         color: cardColor,
         height: 60,
-        child: Center(child: Text("Note loading...")),
+        child: Center(child: Text(s.Note_loading)),
       );
     } else {
       rootEventWidget = EventListComponent(

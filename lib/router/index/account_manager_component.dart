@@ -17,6 +17,7 @@ import '../../component/comfirm_dialog.dart';
 import '../../consts/base.dart';
 import '../../data/dm_session_info_db.dart';
 import '../../data/event_db.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/string_util.dart';
 import 'index_drawer_content.dart';
@@ -31,6 +32,7 @@ class AccountManagerComponent extends StatefulWidget {
 class _AccountManagerComponent extends State<AccountManagerComponent> {
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var _settingProvider = Provider.of<SettingProvider>(context);
     var privateKeyMap = _settingProvider.privateKeyMap;
 
@@ -54,7 +56,7 @@ class _AccountManagerComponent extends State<AccountManagerComponent> {
       ),
       child: IndexDrawerItem(
         iconData: Icons.account_box,
-        name: "Account Manager",
+        name: s.Account_Manager,
         onTap: () {},
       ),
     ));
@@ -93,7 +95,7 @@ class _AccountManagerComponent extends State<AccountManagerComponent> {
           )),
         ),
         child: Text(
-          "Add Account",
+          s.Add_Account,
           style: TextStyle(color: btnTextColor),
         ),
       ),
@@ -110,10 +112,11 @@ class _AccountManagerComponent extends State<AccountManagerComponent> {
   }
 
   Future<void> addAccount() async {
-    var privateKey =
-        await TextInputDialog.show(context, "Input account private key");
+    var privateKey = await TextInputDialog.show(
+        context, S.of(context).Input_account_private_key);
     if (StringUtil.isNotBlank(privateKey)) {
-      var result = await ComfirmDialog.show(context, "Add account and login?");
+      var result = await ComfirmDialog.show(
+          context, S.of(context).Add_account_and_login);
       if (result == true) {
         if (Nip19.isPrivateKey(privateKey!)) {
           privateKey = Nip19.decode(privateKey);

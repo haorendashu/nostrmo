@@ -7,6 +7,7 @@ import 'package:nostrmo/provider/filter_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 
 class FilterBlockComponent extends StatefulWidget {
   @override
@@ -41,6 +42,7 @@ class FilterBlockItemComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
 
@@ -48,7 +50,7 @@ class FilterBlockItemComponent extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Clipboard.setData(ClipboardData(text: nip19Pubkey)).then((_) {
-          BotToast.showText(text: "key has been copy!");
+          BotToast.showText(text: s.key_has_been_copy);
         });
       },
       child: Container(

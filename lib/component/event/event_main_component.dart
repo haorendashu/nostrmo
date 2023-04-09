@@ -12,6 +12,7 @@ import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
+import '../../generated/l10n.dart';
 import '../../provider/metadata_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
@@ -60,6 +61,7 @@ class _EventMainComponent extends State<EventMainComponent> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var _settingProvider = Provider.of<SettingProvider>(context);
     if (eventRelation.id != widget.event.id) {
       // change when thead root load lazy
@@ -92,7 +94,7 @@ class _EventMainComponent extends State<EventMainComponent> {
     if (widget.event.kind == kind.EventKind.REPOST) {
       list.add(Container(
         alignment: Alignment.centerLeft,
-        child: Text("Boost:"),
+        child: Text("${s.Boost}:"),
       ));
       if (repostEvent != null) {
         list.add(EventQuoteComponent(
@@ -134,7 +136,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         List<Widget> replyingList = [];
         var length = eventRelation.tagPList.length;
         replyingList.add(Text(
-          "Replying: ",
+          "${s.Replying}: ",
           style: textStyle,
         ));
         for (var index = 0; index < length; index++) {

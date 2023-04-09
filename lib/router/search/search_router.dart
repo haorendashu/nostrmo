@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
@@ -11,9 +10,11 @@ import '../../component/cust_state.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/event/event_list_component.dart';
+import '../../component/event_delete_callback.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../data/event_mem_box.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
@@ -51,6 +52,7 @@ class _SearchRouter extends CustState<SearchRouter>
 
   @override
   Widget doBuild(BuildContext context) {
+    var s = S.of(context);
     var _settingProvider = Provider.of<SettingProvider>(context);
     var events = eventMemBox.all();
     preBuild();
@@ -65,7 +67,7 @@ class _SearchRouter extends CustState<SearchRouter>
                 controller: controller,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search),
-                  hintText: "npub or hex",
+                  hintText: "npub ${s.or} hex",
                 ),
                 onEditingComplete: onEditingComplete,
               ),
@@ -129,7 +131,7 @@ class _SearchRouter extends CustState<SearchRouter>
     var value = controller.text;
     value = value.trim();
     if (StringUtil.isBlank(value)) {
-      BotToast.showText(text: "Empty text may be ban by relays.");
+      BotToast.showText(text: S.of(context).Empty_text_may_be_ban_by_relays);
     }
 
     List<String>? authors;
