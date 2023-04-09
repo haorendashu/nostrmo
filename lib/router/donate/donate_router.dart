@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
-import 'package:nostrmo/consts/base.dart';
-import 'package:nostrmo/generated/l10n.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../../component/appbar4stack.dart';
+import '../../component/cust_state.dart';
+import '../../consts/base.dart';
 import '../../consts/coffee_ids.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../util/string_util.dart';
 
 class DonateRouter extends StatefulWidget {
   @override
@@ -15,9 +16,9 @@ class DonateRouter extends StatefulWidget {
   }
 }
 
-class _DonateRouter extends State<DonateRouter> {
+class _DonateRouter extends CustState<DonateRouter> {
   @override
-  Widget build(BuildContext context) {
+  Widget doBuild(BuildContext context) {
     var s = S.of(context);
 
     var themeData = Theme.of(context);
@@ -146,16 +147,16 @@ class _DonateRouter extends State<DonateRouter> {
       for (var item in list) {
         if (StringUtil.isNotBlank(item.price) &&
             item.productId == CoffeeIds.COFFEE1) {
-          price1 = item.price!;
+          price1 = item.localizedPrice!;
         } else if (StringUtil.isNotBlank(item.price) &&
             item.productId == CoffeeIds.COFFEE2) {
-          price2 = item.price!;
+          price2 = item.localizedPrice!;
         } else if (StringUtil.isNotBlank(item.price) &&
             item.productId == CoffeeIds.COFFEE5) {
-          price5 = item.price!;
+          price5 = item.localizedPrice!;
         } else if (StringUtil.isNotBlank(item.price) &&
             item.productId == CoffeeIds.COFFEE10) {
-          price10 = item.price!;
+          price10 = item.localizedPrice!;
         }
       }
       setState(() {});
@@ -164,6 +165,11 @@ class _DonateRouter extends State<DonateRouter> {
 
   Future<void> buy(String id) async {
     await FlutterInappPurchase.instance.requestPurchase(id);
+  }
+
+  @override
+  Future<void> onReady(BuildContext context) async {
+    updateIAPItems();
   }
 }
 
