@@ -237,6 +237,11 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
+    Color? cardColor = themeData.cardColor;
+    if (cardColor == Colors.white) {
+      cardColor = Colors.grey[300];
+    }
+
     return Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
       Color currentColor = Colors.green;
@@ -300,7 +305,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
           bottom: 4,
         ),
         decoration: BoxDecoration(
-          color: Colors.grey[300],
+          color: cardColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(

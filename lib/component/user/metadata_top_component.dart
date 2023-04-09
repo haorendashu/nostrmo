@@ -473,6 +473,12 @@ class MetadataIconDataComp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
+    Color? cardColor = themeData.cardColor;
+    if (cardColor == Colors.white) {
+      cardColor = Colors.grey[300];
+    }
+
     return Container(
       padding: const EdgeInsets.only(
         bottom: Base.BASE_PADDING_HALF,
@@ -509,7 +515,7 @@ class MetadataIconDataComp extends StatelessWidget {
                       )
                     : null,
                 decoration: BoxDecoration(
-                  color: textBG ? Colors.grey[300] : null,
+                  color: textBG ? cardColor : null,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
