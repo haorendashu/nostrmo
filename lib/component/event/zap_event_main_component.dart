@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/util/number_format_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/zap_num_util.dart';
@@ -52,12 +53,7 @@ class _ZapEventMainComponent extends State<ZapEventMainComponent> {
     }
 
     var zapNum = ZapNumUtil.getNumFromZapEvent(widget.event);
-    String zapNumStr = zapNum.toString();
-    if (zapNum > 1000000) {
-      zapNumStr = (zapNum / 1000000).toStringAsFixed(1) + "m sats";
-    } else if (zapNum > 1000) {
-      zapNumStr = (zapNum / 1000).toStringAsFixed(1) + "k sats";
-    }
+    String zapNumStr = NumberFormatUtil.format(zapNum);
 
     var text = "zaped $zapNumStr sats";
 

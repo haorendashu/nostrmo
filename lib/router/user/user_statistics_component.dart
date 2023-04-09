@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/zap_num_util.dart';
+import 'package:nostrmo/util/number_format_util.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/cust_contact_list.dart';
@@ -65,7 +66,11 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
           UserStatisticsItemComponent(
               num: relaysNum, name: "Relays", onTap: onRelaysTap),
           UserStatisticsItemComponent(
-              num: zapNum, name: "Zap", onTap: onZapTap),
+            num: zapNum,
+            name: "Zap",
+            onTap: onZapTap,
+            formatNum: true,
+          ),
         ],
       ),
     );
@@ -163,10 +168,13 @@ class UserStatisticsItemComponent extends StatelessWidget {
 
   Function onTap;
 
+  bool formatNum;
+
   UserStatisticsItemComponent({
     required this.num,
     required this.name,
     required this.onTap,
+    this.formatNum = false,
   });
 
   @override
@@ -177,8 +185,13 @@ class UserStatisticsItemComponent extends StatelessWidget {
 
     List<Widget> list = [];
     if (num != null) {
+      var numStr = num.toString();
+      if (formatNum) {
+        numStr = NumberFormatUtil.format(num!);
+      }
+
       list.add(Text(
-        num.toString(),
+        numStr,
         style: TextStyle(
           fontSize: fontSize,
         ),

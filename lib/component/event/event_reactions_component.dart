@@ -19,6 +19,7 @@ import '../../data/event_reactions.dart';
 import '../../main.dart';
 import '../../provider/event_reactions_provider.dart';
 import '../../router/edit/editor_router.dart';
+import '../../util/number_format_util.dart';
 import '../../util/store_util.dart';
 import '../../util/string_util.dart';
 import '../editor/cust_embed_types.dart';
@@ -434,12 +435,7 @@ class EventReactionNumComponent extends StatelessWidget {
       color: color,
     );
     if (num != 0) {
-      String numStr = num.toString();
-      if (num > 1000000) {
-        numStr = (num / 1000000).toStringAsFixed(1) + "m";
-      } else if (num > 1000) {
-        numStr = (num / 1000).toStringAsFixed(1) + "k";
-      }
+      String numStr = NumberFormatUtil.format(num);
 
       main = Row(
         mainAxisSize: MainAxisSize.min,
