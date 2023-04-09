@@ -27,7 +27,7 @@ class ZapAction {
       }
 
       if (StringUtil.isBlank(lnurl)) {
-        BotToast.showText(text: "Gen lnurl error.");
+        BotToast.showText(text: "Lnurl not found.");
         return;
       }
 
