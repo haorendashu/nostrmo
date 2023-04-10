@@ -99,6 +99,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
         "Notice": MessageLookupByLibrary.simpleMessage("提示"),
         "Notices": MessageLookupByLibrary.simpleMessage("通知"),
+        "Open_Event_from_cache":
+            MessageLookupByLibrary.simpleMessage("从缓存中查找动态"),
+        "Open_Note_detail": MessageLookupByLibrary.simpleMessage("打开动态详情"),
+        "Open_User_page": MessageLookupByLibrary.simpleMessage("打开用户页面"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("浏览器中打开"),
         "Password": MessageLookupByLibrary.simpleMessage("密码"),
         "Picture": MessageLookupByLibrary.simpleMessage("图片"),
@@ -120,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入事件Id"),
         "Please_input_lnbc_text":
             MessageLookupByLibrary.simpleMessage("请输入闪电网络发票"),
+        "Please_input_search_content":
+            MessageLookupByLibrary.simpleMessage("请输入搜索内容"),
         "Please_input_user_pubkey":
             MessageLookupByLibrary.simpleMessage("请输入用户公钥"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -133,6 +139,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Replying": MessageLookupByLibrary.simpleMessage("正在回复"),
         "Request": MessageLookupByLibrary.simpleMessage("请求"),
         "Search": MessageLookupByLibrary.simpleMessage("搜索"),
+        "Search_User_from_cache":
+            MessageLookupByLibrary.simpleMessage("从缓存中查找用户"),
+        "Search_pubkey_event":
+            MessageLookupByLibrary.simpleMessage("搜索Pubkey的Event"),
         "Send": MessageLookupByLibrary.simpleMessage("发送"),
         "Setting": MessageLookupByLibrary.simpleMessage("设置"),
         "Share": MessageLookupByLibrary.simpleMessage("分享"),

@@ -1,9 +1,10 @@
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/util/later_function.dart';
+
+import '../util/find_event_interface.dart';
 
 /// a memory event box
 /// use to hold event received from relay and offer event List to ui
-class EventMemBox {
+class EventMemBox implements FindEventInterface {
   List<Event> _eventList = [];
 
   Map<String, int> _idMap = {};
@@ -11,6 +12,21 @@ class EventMemBox {
   bool sortAfterAdd;
 
   EventMemBox({this.sortAfterAdd = true}) {}
+
+  @override
+  List<Event> findEvent(String str, {int? limit = 5}) {
+    List<Event> list = [];
+    for (var event in _eventList) {
+      if (event.content.contains(str)) {
+        list.add(event);
+
+        if (limit != null && list.length >= limit) {
+          break;
+        }
+      }
+    }
+    return list;
+  }
 
   Event? get newestEvent {
     if (_eventList.isEmpty) {

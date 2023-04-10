@@ -1339,6 +1339,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Please input search content`
+  String get Please_input_search_content {
+    return Intl.message(
+      'Please input search content',
+      name: 'Please_input_search_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open User page`
+  String get Open_User_page {
+    return Intl.message(
+      'Open User page',
+      name: 'Open_User_page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Note detail`
+  String get Open_Note_detail {
+    return Intl.message(
+      'Open Note detail',
+      name: 'Open_Note_detail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search User from cache`
+  String get Search_User_from_cache {
+    return Intl.message(
+      'Search User from cache',
+      name: 'Search_User_from_cache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Event from cache`
+  String get Open_Event_from_cache {
+    return Intl.message(
+      'Open Event from cache',
+      name: 'Open_Event_from_cache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search pubkey event`
+  String get Search_pubkey_event {
+    return Intl.message(
+      'Search pubkey event',
+      name: 'Search_pubkey_event',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

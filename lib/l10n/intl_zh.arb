@@ -124,5 +124,11 @@
     "Broadcase": "广播",
     "Block": "限制",
     "Delete": "删除",
-    "Notices": "通知"
+    "Notices": "通知",
+    "Please_input_search_content": "请输入搜索内容",
+    "Open_User_page": "打开用户页面",
+    "Open_Note_detail": "打开动态详情",
+    "Search_User_from_cache": "从缓存中查找用户",
+    "Open_Event_from_cache": "从缓存中查找动态",
+    "Search_pubkey_event": "搜索Pubkey的Event"
 }

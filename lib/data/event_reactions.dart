@@ -3,8 +3,9 @@ import 'package:nostr_dart/nostr_dart.dart';
 import '../../client/event_kind.dart' as kind;
 import '../client/zap_num_util.dart';
 import '../main.dart';
+import '../util/find_event_interface.dart';
 
-class EventReactions {
+class EventReactions implements FindEventInterface {
   String id;
 
   int replyNum = 0;
@@ -47,6 +48,21 @@ class EventReactions {
       ..eventIdMap = eventIdMap
       ..accessTime = accessTime
       ..dataTime = dataTime;
+  }
+
+  @override
+  List<Event> findEvent(String str, {int? limit = 5}) {
+    List<Event> list = [];
+    for (var event in replies) {
+      if (event.content.contains(str)) {
+        list.add(event);
+
+        if (limit != null && list.length >= limit) {
+          break;
+        }
+      }
+    }
+    return list;
   }
 
   void access(DateTime t) {

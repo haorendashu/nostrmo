@@ -24,36 +24,6 @@ mixin LaterFunction {
     });
   }
 
-  int whenStopMS = 200;
-
-  int stopTime = 0;
-
-  bool waitingStop = false;
-
-  void whenStop(Function func) {
-    _updateStopTime();
-    if (!waitingStop) {
-      waitingStop = true;
-      _goWaitForStop(func);
-    }
-  }
-
-  void _updateStopTime() {
-    stopTime = DateTime.now().millisecondsSinceEpoch + whenStopMS;
-  }
-
-  void _goWaitForStop(Function func) {
-    Future.delayed(Duration(milliseconds: whenStopMS), () {
-      var nowMS = DateTime.now().millisecondsSinceEpoch;
-      if (nowMS >= stopTime) {
-        waitingStop = false;
-        func();
-      } else {
-        _goWaitForStop(func);
-      }
-    });
-  }
-
   void disposeLater() {
     _running = false;
   }

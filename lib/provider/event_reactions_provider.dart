@@ -4,8 +4,10 @@ import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/later_function.dart';
+import 'package:nostrmo/util/when_stop_function.dart';
 
-class EventReactionsProvider extends ChangeNotifier with LaterFunction {
+class EventReactionsProvider extends ChangeNotifier
+    with LaterFunction, WhenStopFunction {
   int update_time = 1000 * 60 * 10;
 
   Map<String, EventReactions> _eventReactionsMap = {};
@@ -13,6 +15,10 @@ class EventReactionsProvider extends ChangeNotifier with LaterFunction {
   EventReactionsProvider() {
     laterTimeMS = 2000;
     whenStopMS = 500;
+  }
+
+  List<EventReactions> allReactions() {
+    return _eventReactionsMap.values.toList();
   }
 
   void addRepost(String id) {

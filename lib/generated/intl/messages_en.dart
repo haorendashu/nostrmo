@@ -117,6 +117,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),
         "Notices": MessageLookupByLibrary.simpleMessage("Notices"),
+        "Open_Event_from_cache":
+            MessageLookupByLibrary.simpleMessage("Open Event from cache"),
+        "Open_Note_detail":
+            MessageLookupByLibrary.simpleMessage("Open Note detail"),
+        "Open_User_page":
+            MessageLookupByLibrary.simpleMessage("Open User page"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -143,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please input event id"),
         "Please_input_lnbc_text":
             MessageLookupByLibrary.simpleMessage("Please input lnbc text"),
+        "Please_input_search_content":
+            MessageLookupByLibrary.simpleMessage("Please input search content"),
         "Please_input_user_pubkey":
             MessageLookupByLibrary.simpleMessage("Please input user pubkey"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -159,6 +167,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
         "Request": MessageLookupByLibrary.simpleMessage("Request"),
         "Search": MessageLookupByLibrary.simpleMessage("Search"),
+        "Search_User_from_cache":
+            MessageLookupByLibrary.simpleMessage("Search User from cache"),
+        "Search_pubkey_event":
+            MessageLookupByLibrary.simpleMessage("Search pubkey event"),
         "Send": MessageLookupByLibrary.simpleMessage("Send"),
         "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "Share": MessageLookupByLibrary.simpleMessage("Share"),

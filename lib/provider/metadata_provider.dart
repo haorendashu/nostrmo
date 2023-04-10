@@ -33,6 +33,25 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     return _metadataProvider!;
   }
 
+  List<Metadata> findUser(String str, {int? limit = 5}) {
+    List<Metadata> list = [];
+    if (StringUtil.isNotBlank(str)) {
+      var values = _metadataCache.values;
+      for (var metadata in values) {
+        if ((metadata.displayName != null &&
+                metadata.displayName!.contains(str)) ||
+            (metadata.name != null && metadata.name!.contains(str))) {
+          list.add(metadata);
+
+          if (limit != null && list.length >= limit) {
+            break;
+          }
+        }
+      }
+    }
+    return list;
+  }
+
   void _laterCallback() {
     if (_needUpdatePubKeys.isNotEmpty) {
       _laterSearch();

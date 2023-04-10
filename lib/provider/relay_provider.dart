@@ -86,7 +86,11 @@ class RelayProvider extends ChangeNotifier {
     for (var relayAddr in relayAddrs) {
       log("begin to init $relayAddr");
       var custRelay = genRelay(relayAddr);
-      _nostr.pool.add(custRelay, init: true);
+      try {
+        _nostr.pool.add(custRelay, init: true);
+      } catch (e) {
+        log("relay $relayAddr add to pool error ${e.toString()}");
+      }
     }
 
     return _nostr;

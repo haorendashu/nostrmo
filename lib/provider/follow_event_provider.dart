@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/util/peddingevents_later_function.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../client/cust_contact_list.dart';
@@ -8,10 +7,13 @@ import '../client/cust_nostr.dart';
 import '../client/filter.dart';
 import '../data/event_mem_box.dart';
 import '../main.dart';
+import '../util/find_event_interface.dart';
+import '../util/peddingevents_later_function.dart';
 import '../util/string_util.dart';
 
 class FollowEventProvider extends ChangeNotifier
-    with PenddingEventsLaterFunction {
+    with PenddingEventsLaterFunction
+    implements FindEventInterface {
   late int _initTime;
 
   late EventMemBox eventBox;
@@ -22,6 +24,11 @@ class FollowEventProvider extends ChangeNotifier
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     eventBox = EventMemBox(sortAfterAdd: false); // sortAfterAdd by call
     postsBox = EventMemBox(sortAfterAdd: false);
+  }
+
+  @override
+  List<Event> findEvent(String str, {int? limit = 5}) {
+    return eventBox.findEvent(str, limit: limit);
   }
 
   List<Event> eventsByPubkey(String pubkey) {

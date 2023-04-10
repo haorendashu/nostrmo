@@ -62,7 +62,11 @@ class _IndexRouter extends CustState<IndexRouter>
         TabController(initialIndex: globalsInitTab, length: 3, vsync: this);
     dmTabController = TabController(length: 2, vsync: this);
 
-    asyncInitState();
+    try {
+      asyncInitState();
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
