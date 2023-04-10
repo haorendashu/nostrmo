@@ -20,7 +20,7 @@ class EventFindUtil {
         }
       }
     }
-
+    eventBox.sort();
     return eventBox.all();
   }
 }
