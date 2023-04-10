@@ -39,6 +39,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool imageListMode;
 
+  bool showDetailBtn;
+
   EventMainComponent({
     required this.screenshotController,
     required this.event,
@@ -47,6 +49,7 @@ class EventMainComponent extends StatefulWidget {
     this.textOnTap,
     this.showVideo = false,
     this.imageListMode = false,
+    this.showDetailBtn = true,
   });
 
   @override
@@ -161,6 +164,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         screenshotController: widget.screenshotController,
         event: widget.event,
         eventRelation: eventRelation,
+        showDetailBtn: widget.showDetailBtn,
       ));
     }
 

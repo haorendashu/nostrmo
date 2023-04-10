@@ -71,6 +71,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
         var mainEventWidget = EventListComponent(
           event: event!,
           showVideo: true,
+          showDetailBtn: false,
         );
         if (eventReactions == null) {
           return mainEventWidget;

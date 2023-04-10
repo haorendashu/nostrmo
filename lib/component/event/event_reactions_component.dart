@@ -34,10 +34,13 @@ class EventReactionsComponent extends StatefulWidget {
 
   EventRelation eventRelation;
 
+  bool showDetailBtn;
+
   EventReactionsComponent({
     required this.screenshotController,
     required this.event,
     required this.eventRelation,
+    this.showDetailBtn = true,
   });
 
   @override
@@ -224,24 +227,28 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                         child: Text(s.Copy_Note_Id, style: popFontStyle),
                       ),
                       PopupMenuDivider(),
-                      PopupMenuItem(
+                    ];
+
+                    if (widget.showDetailBtn) {
+                      list.add(PopupMenuItem(
                         value: "detail",
                         child: Text(s.Detail, style: popFontStyle),
-                      ),
-                      PopupMenuItem(
-                        value: "share",
-                        child: Text(s.Share, style: popFontStyle),
-                      ),
-                      PopupMenuDivider(),
-                      PopupMenuItem(
-                        value: "broadcase",
-                        child: Text(s.Broadcase, style: popFontStyle),
-                      ),
-                      PopupMenuItem(
-                        value: "block",
-                        child: Text(s.Block, style: popFontStyle),
-                      ),
-                    ];
+                      ));
+                    }
+
+                    list.add(PopupMenuItem(
+                      value: "share",
+                      child: Text(s.Share, style: popFontStyle),
+                    ));
+                    list.add(PopupMenuDivider());
+                    list.add(PopupMenuItem(
+                      value: "broadcase",
+                      child: Text(s.Broadcase, style: popFontStyle),
+                    ));
+                    list.add(PopupMenuItem(
+                      value: "block",
+                      child: Text(s.Block, style: popFontStyle),
+                    ));
 
                     if (widget.event.pubKey == nostr!.publicKey) {
                       list.add(PopupMenuDivider());
