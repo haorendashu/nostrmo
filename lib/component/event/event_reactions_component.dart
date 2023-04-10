@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -292,6 +293,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   void onPopupSelected(String value) {
     if (value == "copyEvent") {
       var text = jsonEncode(widget.event.toJson());
+      log(text);
       _doCopy(text);
     } else if (value == "copyPubkey") {
       var text = Nip19.encodePubKey(widget.event.pubKey);

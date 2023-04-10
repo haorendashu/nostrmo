@@ -16,11 +16,14 @@ class EventListComponent extends StatefulWidget {
 
   bool showVideo;
 
+  bool imageListMode;
+
   EventListComponent({
     required this.event,
     this.pagePubkey,
     this.jumpable = true,
     this.showVideo = false,
+    this.imageListMode = true,
   });
 
   @override
@@ -52,6 +55,7 @@ class _EventListComponent extends State<EventListComponent> {
           pagePubkey: widget.pagePubkey,
           textOnTap: widget.jumpable ? jumpToThread : null,
           showVideo: widget.showVideo,
+          imageListMode: widget.imageListMode,
         ),
       ),
     );

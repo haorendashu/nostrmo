@@ -10,6 +10,7 @@ import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
+import '../../consts/base.dart';
 import 'content_link_pre_component.dart';
 import 'content_str_link_component.dart';
 
@@ -76,6 +77,33 @@ class ContentDecoder {
     }
   }
 
+  static ContentDecoderInfo _decodeTest(String content) {
+    content = content.trim();
+    content = content.replaceAll("\r\n", "\n");
+    content = content.replaceAll("\n\n", "\n");
+    var strs = content.split("\n");
+
+    ContentDecoderInfo info = ContentDecoderInfo();
+    for (var str in strs) {
+      List<dynamic> inlines = [];
+      String handledStr = "";
+
+      var subStrs = str.split(" ");
+      info.strs.add(subStrs);
+      for (var subStr in subStrs) {
+        if (subStr.indexOf("http") == 0) {
+          // link, image, video etc
+          var pathType = getPathType(subStr);
+          if (pathType == "image") {
+            info.imageNum++;
+          }
+        }
+      }
+    }
+
+    return info;
+  }
+
   static List<Widget> decode(
     BuildContext context,
     String? content,
@@ -84,19 +112,17 @@ class ContentDecoder {
     bool showImage = true,
     bool showVideo = false,
     bool showLinkPreview = true,
+    bool imageListMode = false,
   }) {
     if (StringUtil.isBlank(content) && event != null) {
       content = event.content;
     }
-    content = content!.trim();
     List<Widget> list = [];
-    content = content.replaceAll("\r\n", "\n");
-    content = content.replaceAll("\n\n", "\n");
-    var strs = content.split("\n");
-
     List<String> imageList = [];
 
-    for (var str in strs) {
+    var decodeInfo = _decodeTest(content!);
+
+    for (var subStrs in decodeInfo.strs) {
       List<dynamic> inlines = [];
       String handledStr = "";
 
@@ -106,7 +132,6 @@ class ContentDecoder {
       /// 3、block: put handledStr to inlines, put inlines to list as a line, put block to list as a line, new a new handledStr
       /// 4、if handledStr not empty, put to inlines, put inlines to list as a line
       ///
-      var subStrs = str.split(" ");
       for (var subStr in subStrs) {
         if (subStr.indexOf("http") == 0) {
           // link, image, video etc
@@ -114,15 +139,60 @@ class ContentDecoder {
           if (pathType == "image") {
             if (showImage) {
               imageList.add(subStr);
+              if (imageListMode && decodeInfo.imageNum > 1) {
+                // inline
+                handledStr = handledStr.trim();
+                var imagePlaceholder = Container(
+                  margin: const EdgeInsets.only(left: 4),
+                  child: const Icon(
+                    Icons.image,
+                    size: 15,
+                  ),
+                );
+                if (StringUtil.isBlank(handledStr) && inlines.isEmpty) {
+                  // add to pre line
+                  var listLength = list.length;
+                  if (listLength > 0) {
+                    var lastListWidget = list[listLength - 1];
+                    List<InlineSpan> spans = [];
+                    if (lastListWidget is SelectableText) {
+                      if (lastListWidget.data != null) {
+                        spans.add(TextSpan(text: lastListWidget.data!));
+                      } else if (lastListWidget.textSpan != null) {
+                        spans.addAll(lastListWidget.textSpan!.children!);
+                      }
+                    } else {
+                      spans.add(WidgetSpan(child: lastListWidget));
+                    }
+                    spans.add(WidgetSpan(child: imagePlaceholder));
 
-              // block
-              handledStr = _closeHandledStr(handledStr, inlines);
-              _closeInlines(inlines, list, textOnTap: textOnTap);
-              var imageWidget = ContentImageComponent(
-                imageUrl: subStr,
-                imageList: imageList,
-              );
-              list.add(imageWidget);
+                    list[listLength - 1] = SelectableText.rich(
+                      TextSpan(children: spans),
+                      onTap: () {
+                        if (textOnTap != null) {
+                          textOnTap();
+                        }
+                      },
+                    );
+                  }
+                } else {
+                  if (StringUtil.isNotBlank(handledStr)) {
+                    handledStr = _closeHandledStr(handledStr, inlines);
+                  }
+                  inlines.add(imagePlaceholder);
+                }
+              } else {
+                // block
+                handledStr = _closeHandledStr(handledStr, inlines);
+                _closeInlines(inlines, list, textOnTap: textOnTap);
+                var imageIndex = imageList.length - 1;
+                var imageWidget = ContentImageComponent(
+                  imageUrl: subStr,
+                  imageList: imageList,
+                  imageIndex: imageIndex,
+                );
+                list.add(imageWidget);
+              }
             } else {
               // inline
               handledStr = _closeHandledStr(handledStr, inlines);
@@ -223,8 +293,44 @@ class ContentDecoder {
       handledStr = _closeHandledStr(handledStr, inlines);
       _closeInlines(inlines, list, textOnTap: textOnTap);
     }
+
+    if (imageListMode && decodeInfo.imageNum > 1) {
+      // showImageList in bottom
+      List<Widget> imageWidgetList = [];
+      var index = 0;
+      for (var image in imageList) {
+        imageWidgetList.add(SliverToBoxAdapter(
+          child: Container(
+            margin: EdgeInsets.only(right: Base.BASE_PADDING_HALF),
+            width: CONTENT_IMAGE_LIST_HEIGHT,
+            height: CONTENT_IMAGE_LIST_HEIGHT,
+            child: ContentImageComponent(
+              imageUrl: image,
+              imageList: imageList,
+              imageIndex: index,
+              height: CONTENT_IMAGE_LIST_HEIGHT,
+              width: CONTENT_IMAGE_LIST_HEIGHT,
+              // imageBoxFix: BoxFit.fitWidth,
+            ),
+          ),
+        ));
+        index++;
+      }
+
+      list.add(Container(
+        height: CONTENT_IMAGE_LIST_HEIGHT,
+        width: double.infinity,
+        child: CustomScrollView(
+          slivers: imageWidgetList,
+          scrollDirection: Axis.horizontal,
+        ),
+      ));
+    }
+
     return list;
   }
+
+  static const double CONTENT_IMAGE_LIST_HEIGHT = 90;
 
   static String? getPathType(String path) {
     var index = path.lastIndexOf(".");
@@ -253,4 +359,9 @@ class ContentDecoder {
       return "link";
     }
   }
+}
+
+class ContentDecoderInfo {
+  int imageNum = 0;
+  List<List<String>> strs = [];
 }

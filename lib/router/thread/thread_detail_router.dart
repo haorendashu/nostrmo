@@ -152,6 +152,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         event: rootEvent!,
         jumpable: false,
         showVideo: true,
+        imageListMode: false,
       );
     }
 

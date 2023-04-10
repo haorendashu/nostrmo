@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/main.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:widget_size/widget_size.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/event_relation.dart';
@@ -35,6 +37,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool showVideo;
 
+  bool imageListMode;
+
   EventMainComponent({
     required this.screenshotController,
     required this.event,
@@ -42,6 +46,7 @@ class EventMainComponent extends StatefulWidget {
     this.showReplying = true,
     this.textOnTap,
     this.showVideo = false,
+    this.imageListMode = false,
   });
 
   @override
@@ -108,23 +113,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         ));
       } else {
         list.add(
-          Container(
-            width: double.maxFinite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: ContentDecoder.decode(
-                context,
-                null,
-                widget.event,
-                textOnTap: widget.textOnTap,
-                showImage: imagePreview,
-                showVideo: videoPreview,
-                showLinkPreview:
-                    _settingProvider.linkPreview == OpenStatus.OPEN,
-              ),
-            ),
-          ),
+          buildContentWidget(_settingProvider, imagePreview, videoPreview),
         );
       }
     } else {
@@ -166,22 +155,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       //   child: Text(widget.event.content),
       // ));
       list.add(
-        Container(
-          width: double.maxFinite,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: ContentDecoder.decode(
-              context,
-              null,
-              widget.event,
-              textOnTap: widget.textOnTap,
-              showImage: imagePreview,
-              showVideo: videoPreview,
-              showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
-            ),
-          ),
-        ),
+        buildContentWidget(_settingProvider, imagePreview, videoPreview),
       );
       list.add(EventReactionsComponent(
         screenshotController: widget.screenshotController,
@@ -210,6 +184,33 @@ class _EventMainComponent extends State<EventMainComponent> {
         ),
       ],
     );
+  }
+
+  bool forceShowLongContnet = false;
+
+  bool hideLongContent = false;
+
+  Widget buildContentWidget(
+      SettingProvider _settingProvider, bool imagePreview, bool videoPreview) {
+    var main = Container(
+      width: double.maxFinite,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: ContentDecoder.decode(
+          context,
+          null,
+          widget.event,
+          textOnTap: widget.textOnTap,
+          showImage: imagePreview,
+          showVideo: videoPreview,
+          showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
+          imageListMode: widget.imageListMode,
+        ),
+      ),
+    );
+
+    return main;
   }
 }
 

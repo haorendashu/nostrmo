@@ -84,12 +84,13 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
           behavior: HitTestBehavior.translucent,
           child: EventMainComponent(
             screenshotController: screenshotController,
-            event: event!,
+            event: event,
             showReplying: false,
             textOnTap: () {
               jumpToThread(event);
             },
             showVideo: widget.showVideo,
+            imageListMode: true,
           ),
         ),
       ),

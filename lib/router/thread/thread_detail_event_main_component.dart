@@ -32,6 +32,7 @@ class _ThreadDetailItemMainComponent
         event: widget.item.event,
         showReplying: false,
         showVideo: true,
+        imageListMode: false,
       )
     ];
 

@@ -9,12 +9,28 @@ class ContentImageComponent extends StatelessWidget {
 
   List<String>? imageList;
 
-  ContentImageComponent({required this.imageUrl, this.imageList});
+  int imageIndex;
+
+  double? width;
+
+  double? height;
+
+  BoxFit imageBoxFix;
+
+  ContentImageComponent({
+    required this.imageUrl,
+    this.imageList,
+    this.imageIndex = 0,
+    this.width,
+    this.height,
+    this.imageBoxFix = BoxFit.cover,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.maxFinite,
+      width: width ?? double.maxFinite,
+      height: height,
       margin: const EdgeInsets.only(
         top: Base.BASE_PADDING_HALF / 2,
         bottom: Base.BASE_PADDING_HALF / 2,
@@ -26,7 +42,9 @@ class ContentImageComponent extends StatelessWidget {
         child: Center(
           child: CachedNetworkImage(
             imageUrl: imageUrl,
-            fit: BoxFit.cover,
+            fit: imageBoxFix,
+            width: width ?? double.maxFinite,
+            height: height,
             // placeholder: (context, url) => CircularProgressIndicator(),
             placeholder: (context, url) => Container(),
             errorWidget: (context, url, error) => Icon(Icons.error),
@@ -44,7 +62,7 @@ class ContentImageComponent extends StatelessWidget {
       }
 
       MultiImageProvider multiImageProvider =
-          MultiImageProvider(imageProviders);
+          MultiImageProvider(imageProviders, initialIndex: imageIndex);
 
       showImageViewerPager(context, multiImageProvider, onPageChanged: (page) {
         // print("page changed to $page");
