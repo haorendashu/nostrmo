@@ -4,12 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_socks_proxy/socks_proxy.dart';
+import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nostrmo/router/donate/donate_router.dart';
 import 'package:nostrmo/router/event_detail/event_detail_router.dart';
 import 'package:nostrmo/router/setting/setting_router.dart';
+import 'package:nostrmo/util/locale_util.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 import 'client/cust_nostr.dart';
 import 'consts/base.dart';
@@ -157,6 +160,7 @@ class _MyApp extends State<MyApp> {
         }
       }
     }
+    setGetTimeAgoDefaultLocale(_locale);
 
     var lightTheme = getLightTheme();
     var darkTheme = getDarkTheme();
@@ -362,4 +366,39 @@ class _MyApp extends State<MyApp> {
       hintColor: hintColor,
     );
   }
+
+  void setGetTimeAgoDefaultLocale(Locale? locale) {
+    String? localeName = Intl.defaultLocale;
+    if (locale != null) {
+      localeName = LocaleUtil.getLocaleKey(locale);
+    }
+
+    if (StringUtil.isNotBlank(localeName)) {
+      if (GetTimeAgoSupportLocale.containsKey(localeName)) {
+        GetTimeAgo.setDefaultLocale(localeName!);
+      } else if (localeName == "zh_tw") {
+        GetTimeAgo.setDefaultLocale("zh_tr");
+      }
+    }
+  }
 }
+
+final Map<String, int> GetTimeAgoSupportLocale = {
+  'ar': 1,
+  'en': 1,
+  'es': 1,
+  'fr': 1,
+  'hi': 1,
+  'pt': 1,
+  'br': 1,
+  'zh': 1,
+  'zh_tr': 1,
+  'ja': 1,
+  'oc': 1,
+  'ko': 1,
+  'de': 1,
+  'id': 1,
+  'tr': 1,
+  'ur': 1,
+  'vi': 1,
+};
