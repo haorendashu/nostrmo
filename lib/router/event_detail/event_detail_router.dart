@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../component/event/event_list_component.dart';
+import '../../component/event/event_load_list_component.dart';
 import '../../component/event/reaction_event_list_component.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../data/event_reactions.dart';
@@ -21,6 +23,8 @@ class EventDetailRouter extends StatefulWidget {
 }
 
 class _EventDetailRouter extends State<EventDetailRouter> {
+  String? eventId;
+
   Event? event;
 
   bool showTitle = false;
@@ -51,30 +55,57 @@ class _EventDetailRouter extends State<EventDetailRouter> {
 
     if (event == null) {
       var arg = RouterUtil.routerArgs(context);
-      if (arg != null && arg is Event) {
-        event = arg;
+      if (arg != NullableIndexedWidgetBuilder) {
+        if (arg is Event) {
+          event = arg;
+          eventId = event!.id;
+        } else if (arg is String) {
+          eventId = arg;
+        }
       }
     }
-    if (event == null) {
+    if (event == null && eventId == null) {
       RouterUtil.back(context);
       return Container();
     }
     var themeData = Theme.of(context);
 
     Widget? appBarTitle;
-    if (showTitle) {
+    if (showTitle && event != null) {
       appBarTitle = ThreadDetailRouter.detailAppBarTitle(event!, themeData);
+    }
+
+    Widget? mainEventWidget;
+    if (event != null) {
+      mainEventWidget = EventListComponent(
+        event: event!,
+        showVideo: true,
+        showDetailBtn: false,
+      );
+    } else if (eventId != null) {
+      mainEventWidget = Selector<SingleEventProvider, Event?>(
+        builder: (context, _event, child) {
+          if (_event == null) {
+            return EventLoadListComponent();
+          } else {
+            event = _event;
+            return EventListComponent(
+              event: _event,
+              showVideo: true,
+              showDetailBtn: false,
+            );
+          }
+        },
+        selector: (context, _provider) {
+          return _provider.getEvent(eventId!);
+        },
+      );
     }
 
     var mainWidget = Selector<EventReactionsProvider, EventReactions?>(
       builder: (context, eventReactions, child) {
-        var mainEventWidget = EventListComponent(
-          event: event!,
-          showVideo: true,
-          showDetailBtn: false,
-        );
         if (eventReactions == null) {
-          return mainEventWidget;
+          return mainEventWidget!;
         }
 
         List<Event> allEvent = [];
@@ -92,7 +123,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
             return <Widget>[
               SliverToBoxAdapter(
                 child: WidgetSize(
-                  child: mainEventWidget,
+                  child: mainEventWidget!,
                   onChange: (size) {
                     rootEventHeight = size.height;
                   },
@@ -124,7 +155,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
         return main;
       },
       selector: (context, _provider) {
-        return _provider.get(event!.id);
+        return _provider.get(eventId!);
       },
       shouldRebuild: (previous, next) {
         if ((previous == null && next != null) ||

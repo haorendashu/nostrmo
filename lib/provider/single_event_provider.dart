@@ -52,7 +52,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
   }
 
   void _laterSearch() {
-    var filter = Filter(kinds: [kind.EventKind.TEXT_NOTE], ids: _needUpdateIds);
+    var filter = Filter(ids: _needUpdateIds);
     var subscriptId = StringUtil.rndNameStr(16);
     // use query and close after EOSE
     nostr!.pool.query([filter.toJson()], _onEvent, subscriptId);

@@ -13,6 +13,7 @@ import 'package:widget_size/widget_size.dart';
 
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
+import '../../component/event/event_load_list_component.dart';
 import '../../consts/base.dart';
 import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
@@ -141,12 +142,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
     Widget? rootEventWidget;
     if (rootEvent == null) {
-      rootEventWidget = Container(
-        margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-        color: cardColor,
-        height: 60,
-        child: Center(child: Text(s.Note_loading)),
-      );
+      rootEventWidget = EventLoadListComponent();
     } else {
       rootEventWidget = EventListComponent(
         event: rootEvent!,
