@@ -55,7 +55,7 @@
 			<true/>
 		</dict>
 		<key>NSPhotoLibraryUsageDescription</key>
-		<string>Photo need to access for upload.</string>
+		<string>Need to access the photo to upload, and use it for avatar or Note picture.</string>
 		<key>NSCameraUsageDescription</key>
 		<string>Camera need to access for take a photo.</string>
 		<key>NSFaceIDUsageDescription</key>
