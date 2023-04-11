@@ -111,7 +111,11 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         QrcodeDialog.show(context, widget.pubkey);
       },
     )));
-    if (!widget.isLocal) {
+
+    if (!widget.isLocal &&
+        widget.metadata != null &&
+        (StringUtil.isNotBlank(widget.metadata!.lud06) ||
+            StringUtil.isNotBlank(widget.metadata!.lud16))) {
       topBtnList.add(wrapBtn(PopupMenuButton<int>(
         itemBuilder: (context) {
           return [
@@ -182,9 +186,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
           iconData: Icons.currency_bitcoin,
         ),
       )));
-      // topBtnList.add(wrapBtn(MetadataIconBtn(
-      //   iconData: Icons.currency_bitcoin,
-      // )));
+
       topBtnList.add(wrapBtn(MetadataIconBtn(
         iconData: Icons.mail,
         onTap: openDMSession,
