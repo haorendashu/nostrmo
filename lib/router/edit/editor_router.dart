@@ -25,6 +25,10 @@ import 'package:pointycastle/ecc/api.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../component/cust_state.dart';
+import '../../component/editor/gen_lnbc_component.dart';
+import '../../component/editor/search_mention_event_component.dart';
+import '../../component/editor/search_mention_user_component.dart';
+import '../../component/editor/text_input_and_search_dialog.dart';
 import '../../generated/l10n.dart';
 
 class EditorRouter extends StatefulWidget {
@@ -297,8 +301,8 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputMentionEvent() async {
-    var value = await TextInputDialog.show(
-        context, S.of(context).Please_input_event_id,
+    var value = await TextInputAndSearchDialog.show(context, "Search",
+        S.of(context).Please_input_event_id, SearchMentionEventComponent(),
         hintText: "event id");
     if (StringUtil.isNotBlank(value)) {
       // check nip19 value
@@ -322,8 +326,8 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputMentionUser() async {
-    var value = await TextInputDialog.show(
-        context, S.of(context).Please_input_user_pubkey,
+    var value = await TextInputAndSearchDialog.show(context, "Search",
+        S.of(context).Please_input_user_pubkey, SearchMentionUserComponent(),
         hintText: "user pubkey");
     if (StringUtil.isNotBlank(value)) {
       // check nip19 value
@@ -347,8 +351,8 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputLnbc() async {
-    var value = await TextInputDialog.show(
-        context, S.of(context).Please_input_lnbc_text,
+    var value = await TextInputAndSearchDialog.show(context, "Input Sats Num",
+        S.of(context).Please_input_lnbc_text, GenLnbcComponent(),
         hintText: "lnbc...");
     if (StringUtil.isNotBlank(value)) {
       _lnbcSubmitted(value);

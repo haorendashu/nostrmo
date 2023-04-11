@@ -13,34 +13,8 @@ class ZapAction {
     var s = S.of(context);
     var cancelFunc = BotToast.showLoading();
     try {
-      var metadata = metadataProvider.getMetadata(pubkey);
-      if (metadata == null) {
-        BotToast.showText(text: s.Metadata_can_not_be_found);
-        return;
-      }
-
-      var relays = relayProvider.relayAddrs;
-
-      String? lnurl = metadata.lud06;
-      if (StringUtil.isBlank(lnurl)) {
-        if (StringUtil.isNotBlank(metadata.lud16)) {
-          lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
-        }
-      }
-
-      if (StringUtil.isBlank(lnurl)) {
-        BotToast.showText(text: "Lnurl ${s.not_found}");
-        return;
-      }
-
-      var invoiceCode = await Zap.getInvoiceCode(
-        lnurl: lnurl!,
-        sats: sats,
-        recipientPubkey: pubkey,
-        targetNostr: nostr!,
-        relays: relays,
-        eventId: eventId,
-      );
+      var invoiceCode =
+          await _doGenInvoiceCode(context, sats, pubkey, eventId: eventId);
 
       if (StringUtil.isBlank(invoiceCode)) {
         BotToast.showText(text: s.Gen_invoice_code_error);
@@ -51,5 +25,50 @@ class ZapAction {
     } finally {
       cancelFunc.call();
     }
+  }
+
+  static Future<String?> genInvoiceCode(
+      BuildContext context, int sats, String pubkey,
+      {String? eventId}) async {
+    var cancelFunc = BotToast.showLoading();
+    try {
+      return await _doGenInvoiceCode(context, sats, pubkey, eventId: eventId);
+    } finally {
+      cancelFunc.call();
+    }
+  }
+
+  static Future<String?> _doGenInvoiceCode(
+      BuildContext context, int sats, String pubkey,
+      {String? eventId}) async {
+    var s = S.of(context);
+    var metadata = metadataProvider.getMetadata(pubkey);
+    if (metadata == null) {
+      BotToast.showText(text: s.Metadata_can_not_be_found);
+      return null;
+    }
+
+    var relays = relayProvider.relayAddrs;
+
+    String? lnurl = metadata.lud06;
+    if (StringUtil.isBlank(lnurl)) {
+      if (StringUtil.isNotBlank(metadata.lud16)) {
+        lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
+      }
+    }
+
+    if (StringUtil.isBlank(lnurl)) {
+      BotToast.showText(text: "Lnurl ${s.not_found}");
+      return null;
+    }
+
+    return await Zap.getInvoiceCode(
+      lnurl: lnurl!,
+      sats: sats,
+      recipientPubkey: pubkey,
+      targetNostr: nostr!,
+      relays: relays,
+      eventId: eventId,
+    );
   }
 }
