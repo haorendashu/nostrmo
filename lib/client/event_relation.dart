@@ -45,11 +45,31 @@ class EventRelation {
       }
     }
 
-    if (tagEList.length == 1 && rootId == null) {
+    var tagELength = tagEList.length;
+    if (tagELength == 1 && rootId == null) {
       rootId = tagEList[0];
-    } else if (tagEList.length > 1) {
-      rootId ??= tagEList.first;
-      replyId ??= tagEList.last;
+    } else if (tagELength > 1) {
+      if (rootId == null && replyId == null) {
+        rootId = tagEList.first;
+        replyId = tagEList.last;
+      } else if (rootId != null && replyId == null) {
+        for (var i = tagELength - 1; i > -1; i--) {
+          var id = tagEList[i];
+          if (id != rootId) {
+            replyId = id;
+          }
+        }
+      } else if (rootId == null && replyId != null) {
+        for (var i = 0; i < tagELength; i++) {
+          var id = tagEList[i];
+          if (id != replyId) {
+            rootId = id;
+          }
+        }
+      } else {
+        rootId ??= tagEList.first;
+        replyId ??= tagEList.last;
+      }
     }
 
     pMap.remove(event.pubKey);
