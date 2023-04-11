@@ -133,5 +133,8 @@
     "Open_Note_detail": "Open Note detail",
     "Search_User_from_cache": "Search User from cache",
     "Open_Event_from_cache": "Open Event from cache",
-    "Search_pubkey_event": "Search pubkey event"
+    "Search_pubkey_event": "Search pubkey event",
+    "Data": "Data",
+    "Delete_Account": "Delete Account",
+    "Delete_Account_Tips": "We will try to delete you infomation. When you login with this Key again, you will lose your data."
 }

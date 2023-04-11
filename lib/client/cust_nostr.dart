@@ -56,6 +56,17 @@ class CustNostr {
     return sendEvent(event);
   }
 
+  Event deleteEvents(List<String> eventIds) {
+    List<List<dynamic>> tags = [];
+    for (var eventId in eventIds) {
+      tags.add(["e", eventId]);
+    }
+
+    Event event =
+        Event(_publicKey, kind.EventKind.EVENT_DELETION, tags, "delete");
+    return sendEvent(event);
+  }
+
   Event sendRepost(String id) {
     Event event = Event(
         _publicKey,

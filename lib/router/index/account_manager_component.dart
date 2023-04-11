@@ -25,11 +25,11 @@ import 'index_drawer_content.dart';
 class AccountManagerComponent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _AccountManagerComponent();
+    return AccountManagerComponentState();
   }
 }
 
-class _AccountManagerComponent extends State<AccountManagerComponent> {
+class AccountManagerComponentState extends State<AccountManagerComponent> {
   @override
   Widget build(BuildContext context) {
     var s = S.of(context);
@@ -72,7 +72,9 @@ class _AccountManagerComponent extends State<AccountManagerComponent> {
         privateKey: value,
         isCurrent: _settingProvider.privateKeyIndex == index,
         onLoginTap: onLoginTap,
-        onLogoutTap: onLogoutTap,
+        onLogoutTap: (index) {
+          onLogoutTap(index, context: context);
+        },
       ));
     });
 
@@ -156,7 +158,8 @@ class _AccountManagerComponent extends State<AccountManagerComponent> {
     }
   }
 
-  void onLogoutTap(int index) {
+  static void onLogoutTap(int index,
+      {bool routerBack = true, BuildContext? context}) {
     var oldIndex = settingProvider.privateKeyIndex;
     clearLocalData(index);
 
@@ -173,10 +176,12 @@ class _AccountManagerComponent extends State<AccountManagerComponent> {
     }
 
     settingProvider.notifyListeners();
-    RouterUtil.back(context);
+    if (routerBack && context != null) {
+      RouterUtil.back(context);
+    }
   }
 
-  void clearCurrentMemInfo() {
+  static void clearCurrentMemInfo() {
     mentionMeProvider.clear();
     followEventProvider.clear();
     dmProvider.clear();
@@ -188,7 +193,7 @@ class _AccountManagerComponent extends State<AccountManagerComponent> {
     relayProvider.clear();
   }
 
-  void clearLocalData(int index) {
+  static void clearLocalData(int index) {
     // remove private key
     settingProvider.removeKey(index);
     // clear local db

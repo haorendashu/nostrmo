@@ -16,7 +16,7 @@ class ComfirmDialog {
               TextButton(
                 child: Text(s.Cancel),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, false);
                 },
               ),
               TextButton(

@@ -6,6 +6,8 @@ import '../../util/string_util.dart';
 class SettingGroupItemComponent extends StatelessWidget {
   String name;
 
+  Color? nameColor;
+
   String? value;
 
   Widget? child;
@@ -14,6 +16,7 @@ class SettingGroupItemComponent extends StatelessWidget {
 
   SettingGroupItemComponent({
     required this.name,
+    this.nameColor,
     this.value,
     this.child,
     this.onTap,
@@ -39,9 +42,10 @@ class SettingGroupItemComponent extends StatelessWidget {
 
     Widget nameWidget = Text(
       name,
-      style: const TextStyle(
+      style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 16,
+        color: nameColor,
       ),
     );
 

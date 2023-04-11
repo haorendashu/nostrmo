@@ -60,12 +60,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Custom Font Family"),
         "Dark": MessageLookupByLibrary.simpleMessage("Dark"),
+        "Data": MessageLookupByLibrary.simpleMessage("Data"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Default Color"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("Default Font Family"),
         "Default_index": MessageLookupByLibrary.simpleMessage("Default index"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("Default tab"),
         "Delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "Delete_Account":
+            MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
+            "We will try to delete you infomation. When you login with this Key again, you will lose your data."),
         "Detail": MessageLookupByLibrary.simpleMessage("Detail"),
         "Dirtywords": MessageLookupByLibrary.simpleMessage("Dirtywords"),
         "Display_Name": MessageLookupByLibrary.simpleMessage("Display Name"),

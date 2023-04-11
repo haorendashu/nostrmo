@@ -143,4 +143,9 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     }
     _needUpdatePubKeys.clear();
   }
+
+  void clear() {
+    _metadataCache.clear();
+    MetadataDB.deleteAll();
+  }
 }

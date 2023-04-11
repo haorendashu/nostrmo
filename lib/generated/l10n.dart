@@ -1399,6 +1399,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Data`
+  String get Data {
+    return Intl.message(
+      'Data',
+      name: 'Data',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Account`
+  String get Delete_Account {
+    return Intl.message(
+      'Delete Account',
+      name: 'Delete_Account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will try to delete you infomation. When you login with this Key again, you will lose your data.`
+  String get Delete_Account_Tips {
+    return Intl.message(
+      'We will try to delete you infomation. When you login with this Key again, you will lose your data.',
+      name: 'Delete_Account_Tips',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

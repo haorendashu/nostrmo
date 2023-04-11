@@ -1,21 +1,32 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:nostrmo/component/editor/text_input_dialog.dart';
-import 'package:nostrmo/consts/image_services.dart';
-import 'package:nostrmo/provider/setting_provider.dart';
+import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/cust_contact_list.dart';
+import 'package:nostrmo/client/filter.dart';
+import 'package:nostrmo/data/event_mem_box.dart';
+import 'package:nostrmo/router/index/account_manager_component.dart';
+import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event_kind.dart' as kind;
 import '../../component/colors_selector_component.dart';
+import '../../component/comfirm_dialog.dart';
+import '../../component/editor/text_input_dialog.dart';
 import '../../component/enum_selector_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
+import '../../consts/image_services.dart';
 import '../../consts/theme_style copy.dart';
+import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/setting_provider.dart';
 import '../../util/auth_util.dart';
 import '../../util/locale_util.dart';
 import '../../util/string_util.dart';
@@ -35,7 +46,7 @@ class SettingRouter extends StatefulWidget {
   }
 }
 
-class _SettingRouter extends State<SettingRouter> {
+class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
   void resetTheme() {
     widget.indexReload();
   }
@@ -165,6 +176,19 @@ class _SettingRouter extends State<SettingRouter> {
       name: s.Forbid_video,
       value: getOpenList(settingProvider.videoPreview).name,
       onTap: pickVideoPreview,
+    ));
+
+    list.add(SettingGroupTitleComponent(iconData: Icons.source, title: s.Data));
+    list.add(SettingGroupItemComponent(
+      name: s.Delete_Account,
+      nameColor: Colors.red,
+      onTap: askToDeleteAccount,
+    ));
+
+    list.add(SliverToBoxAdapter(
+      child: Container(
+        height: 30,
+      ),
     ));
 
     return Scaffold(
@@ -556,6 +580,80 @@ class _SettingRouter extends State<SettingRouter> {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.videoPreview = resultEnumObj.value;
+    }
+  }
+
+  EventMemBox waitingDeleteEventBox = EventMemBox(sortAfterAdd: false);
+
+  CancelFunc? deleteAccountLoadingCancel;
+
+  askToDeleteAccount() async {
+    var result =
+        await ComfirmDialog.show(context, S.of(context).Delete_Account_Tips);
+    if (result == true) {
+      deleteAccountLoadingCancel = BotToast.showLoading();
+      try {
+        whenStopMS = 2000;
+
+        waitingDeleteEventBox.clear();
+
+        // use a blank metadata to update it
+        var blankMetadata = Metadata();
+        var updateEvent = Event(nostr!.publicKey, kind.EventKind.METADATA, [],
+            jsonEncode(blankMetadata));
+        nostr!.sendEvent(updateEvent);
+
+        // use a blank contact list to update it
+        var blankContactList = CustContactList();
+        nostr!.sendContactList(blankContactList);
+
+        var filter = Filter(authors: [
+          nostr!.publicKey
+        ], kinds: [
+          kind.EventKind.TEXT_NOTE,
+          kind.EventKind.REPOST,
+        ]);
+        nostr!.pool.query([filter.toJson()], onDeletedEventReceive);
+      } catch (e) {
+        log("delete account error ${e.toString()}");
+      }
+    }
+  }
+
+  onDeletedEventReceive(Event event) {
+    print(event.toJson());
+    waitingDeleteEventBox.add(event);
+    whenStop(handleDeleteEvent);
+  }
+
+  void handleDeleteEvent() {
+    try {
+      List<Event> all = waitingDeleteEventBox.all();
+      List<String> ids = [];
+      for (var event in all) {
+        ids.add(event.id);
+
+        if (ids.length > 20) {
+          nostr!.deleteEvents(ids);
+          ids.clear();
+        }
+      }
+
+      if (ids.isNotEmpty) {
+        nostr!.deleteEvents(ids);
+      }
+    } finally {
+      var index = settingProvider.privateKeyIndex;
+      if (index != null) {
+        AccountManagerComponentState.onLogoutTap(index,
+            routerBack: true, context: context);
+        metadataProvider.clear();
+      } else {
+        nostr = null;
+      }
+      if (deleteAccountLoadingCancel != null) {
+        deleteAccountLoadingCancel!.call();
+      }
     }
   }
 }
