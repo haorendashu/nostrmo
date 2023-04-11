@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/util/number_format_util.dart';
+import 'package:nostrmo/util/spider_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/zap_num_util.dart';
@@ -40,9 +42,15 @@ class _ZapEventMainComponent extends State<ZapEventMainComponent> {
     }
 
     if (StringUtil.isNotBlank(zapRequestEventStr)) {
-      var eventJson = jsonDecode(zapRequestEventStr!);
-      var zapRequestEvent = Event.fromJson(eventJson);
-      senderPubkey = zapRequestEvent.pubKey;
+      try {
+        var eventJson = jsonDecode(zapRequestEventStr!);
+        var zapRequestEvent = Event.fromJson(eventJson);
+        senderPubkey = zapRequestEvent.pubKey;
+      } catch (e) {
+        log("jsonDecode zapRequest error ${e.toString()}");
+        senderPubkey =
+            SpiderUtil.subUntil(zapRequestEventStr!, "pubkey\":\"", "\"");
+      }
     }
   }
 
