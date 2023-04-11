@@ -820,6 +820,16 @@ class S {
     );
   }
 
+  /// `Wrong Private Key format`
+  String get Wrong_Private_Key_format {
+    return Intl.message(
+      'Wrong Private Key format',
+      name: 'Wrong_Private_Key_format',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Filter`
   String get Filter {
     return Intl.message(

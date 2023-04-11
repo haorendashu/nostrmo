@@ -76,6 +76,7 @@
     "Add_Account": "Add Account",
     "Input_account_private_key": "Input account private key",
     "Add_account_and_login": "Add account and login?",
+    "Wrong_Private_Key_format": "Wrong Private Key format",
     "Filter": "Filter",
     "Relays": "Relays",
     "Key_Backup": "Key Backup",

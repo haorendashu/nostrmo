@@ -220,6 +220,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Write": MessageLookupByLibrary.simpleMessage("Write"),
         "Write_a_message":
             MessageLookupByLibrary.simpleMessage("Write a message"),
+        "Wrong_Private_Key_format":
+            MessageLookupByLibrary.simpleMessage("Wrong Private Key format"),
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),
         "boosted": MessageLookupByLibrary.simpleMessage("boosted"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),

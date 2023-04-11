@@ -76,6 +76,7 @@
     "Add_Account": "添加账号",
     "Input_account_private_key": "添加账号密钥",
     "Add_account_and_login": "添加并且登录？",
+    "Wrong_Private_Key_format": "密钥格式错误",
     "Filter": "过滤",
     "Relays": "中继",
     "Key_Backup": "密钥备份",

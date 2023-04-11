@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
@@ -115,7 +116,8 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
 
   Future<void> addAccount() async {
     var privateKey = await TextInputDialog.show(
-        context, S.of(context).Input_account_private_key);
+        context, S.of(context).Input_account_private_key,
+        valueCheck: addAccountCheck);
     if (StringUtil.isNotBlank(privateKey)) {
       var result = await ComfirmDialog.show(
           context, S.of(context).Add_account_and_login);
@@ -134,6 +136,24 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
         }
       }
     }
+  }
+
+  bool addAccountCheck(BuildContext p1, String privateKey) {
+    if (StringUtil.isNotBlank(privateKey)) {
+      if (Nip19.isPrivateKey(privateKey)) {
+        privateKey = Nip19.decode(privateKey);
+      }
+
+      // try to gen publicKey check the formate
+      try {
+        getPublicKey(privateKey);
+      } catch (e) {
+        BotToast.showText(text: S.of(context).Wrong_Private_Key_format);
+        return false;
+      }
+    }
+
+    return true;
   }
 
   void doLogin() {

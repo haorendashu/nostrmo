@@ -183,6 +183,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Word_can_t_be_null": MessageLookupByLibrary.simpleMessage("词语不能为空"),
         "Write": MessageLookupByLibrary.simpleMessage("写"),
         "Write_a_message": MessageLookupByLibrary.simpleMessage("写一个消息"),
+        "Wrong_Private_Key_format":
+            MessageLookupByLibrary.simpleMessage("密钥格式错误"),
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
         "boosted": MessageLookupByLibrary.simpleMessage("促进"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
