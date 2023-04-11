@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/content/content_link_component.dart';
 import 'package:nostrmo/component/content/content_lnbc_component.dart';
@@ -20,6 +21,8 @@ class ContentDecoder {
   static const LIGHTNING = "lightning:";
 
   static const LNBC = "lnbc";
+
+  static const NOTE_REFERENCES = "nostr:";
 
   static const LNBC_NUM_END = "1p";
 
@@ -227,6 +230,27 @@ class ContentDecoder {
               list.add(w);
             }
           }
+        } else if (subStr.indexOf(NOTE_REFERENCES) == 0) {
+          var key = subStr.replaceFirst(NOTE_REFERENCES, "");
+          if (Nip19.isPubkey(key)) {
+            // inline
+            // mention user
+            key = Nip19.decode(key);
+            handledStr = _closeHandledStr(handledStr, inlines);
+            inlines.add(ContentMentionUserComponent(pubkey: key));
+          } else if (Nip19.isNoteId(key)) {
+            // block
+            key = Nip19.decode(key);
+            handledStr = _closeHandledStr(handledStr, inlines);
+            _closeInlines(inlines, list, textOnTap: textOnTap);
+            var widget = EventQuoteComponent(
+              id: key,
+              showVideo: showVideo,
+            );
+            list.add(widget);
+          } else {
+            handledStr = _addToHandledStr(handledStr, subStr);
+          }
         } else if (subStr.indexOf(LNBC) == 0) {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
@@ -272,7 +296,6 @@ class ContentDecoder {
                 handledStr = _closeHandledStr(handledStr, inlines);
                 inlines.add(ContentMentionUserComponent(pubkey: tag[1]));
               } else {
-                // TODO need to handle, this is temp handle
                 handledStr = _addToHandledStr(handledStr, subStr);
               }
             }
