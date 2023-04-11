@@ -32,6 +32,7 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     return Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
         var themeData = Theme.of(context);
@@ -48,15 +49,15 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Lnurl and Lud16 can't found.",
+                    s.Lnurl_and_Lud16_can_t_found,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(Base.BASE_PADDING),
+                    padding: const EdgeInsets.all(Base.BASE_PADDING),
                     child: ContentStrLinkComponent(
-                      str: "Add now",
+                      str: s.Add_now,
                       onTap: () async {
                         await RouterUtil.router(
                             context, RouterPath.PROFILE_EDITOR, metadata);
@@ -75,7 +76,7 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
         list.add(Container(
           margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
           child: Text(
-            "Input Sats num to gen lightning invoice",
+            s.Input_Sats_num_to_gen_lightning_invoice,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: titleFontSize,
@@ -90,7 +91,7 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
             maxLines: 1,
             autofocus: true,
             decoration: InputDecoration(
-              hintText: "Input Sats num",
+              hintText: s.Input_Sats_num,
               border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
             ),
           ),
@@ -150,7 +151,7 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
     var text = controller.text;
     var num = int.tryParse(text);
     if (num == null) {
-      BotToast.showText(text: "Number parse error");
+      BotToast.showText(text: S.of(context).Number_parse_error);
       return;
     }
 

@@ -301,9 +301,14 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputMentionEvent() async {
-    var value = await TextInputAndSearchDialog.show(context, "Search",
-        S.of(context).Please_input_event_id, SearchMentionEventComponent(),
-        hintText: "event id");
+    var s = S.of(context);
+    var value = await TextInputAndSearchDialog.show(
+      context,
+      s.Search,
+      s.Please_input_event_id,
+      SearchMentionEventComponent(),
+      hintText: s.Note_Id,
+    );
     if (StringUtil.isNotBlank(value)) {
       // check nip19 value
       if (Nip19.isNoteId(value!)) {
@@ -326,9 +331,14 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputMentionUser() async {
-    var value = await TextInputAndSearchDialog.show(context, "Search",
-        S.of(context).Please_input_user_pubkey, SearchMentionUserComponent(),
-        hintText: "user pubkey");
+    var s = S.of(context);
+    var value = await TextInputAndSearchDialog.show(
+      context,
+      s.Search,
+      s.Please_input_user_pubkey,
+      SearchMentionUserComponent(),
+      hintText: s.User_Pubkey,
+    );
     if (StringUtil.isNotBlank(value)) {
       // check nip19 value
       if (Nip19.isPubkey(value!)) {
@@ -351,9 +361,13 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _inputLnbc() async {
-    var value = await TextInputAndSearchDialog.show(context, "Input Sats Num",
-        S.of(context).Please_input_lnbc_text, GenLnbcComponent(),
-        hintText: "lnbc...");
+    var value = await TextInputAndSearchDialog.show(
+      context,
+      S.of(context).Input_Sats_num,
+      S.of(context).Please_input_lnbc_text,
+      GenLnbcComponent(),
+      hintText: "lnbc...",
+    );
     if (StringUtil.isNotBlank(value)) {
       _lnbcSubmitted(value);
     }
@@ -374,7 +388,7 @@ class _EditorRouter extends CustState<EditorRouter> {
   Future<void> _inputTag() async {
     var value = await TextInputDialog.show(
         context, S.of(context).Please_input_Topic_text,
-        valueCheck: baseInputCheck, hintText: "Topic");
+        valueCheck: baseInputCheck, hintText: S.of(context).Topic);
     if (StringUtil.isNotBlank(value)) {
       _submitTag(value);
     }

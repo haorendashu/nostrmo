@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_Account": MessageLookupByLibrary.simpleMessage("添加账号"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("添加并且登录？"),
+        "Add_now": MessageLookupByLibrary.simpleMessage("现在添加"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("添加到已知列表"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("地址不能为空。"),
@@ -83,6 +84,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
+        "Input": MessageLookupByLibrary.simpleMessage("输入"),
+        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Stas 数量"),
+        "Input_Sats_num_to_gen_lightning_invoice":
+            MessageLookupByLibrary.simpleMessage("输入 Stas 数量以生成闪电网络发票"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("添加账号密钥"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage("请输入过滤词语"),
@@ -91,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),
+        "Lnurl_and_Lud16_can_t_found":
+            MessageLookupByLibrary.simpleMessage("Lnurl 和 Lud16 无法找到。"),
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
@@ -99,10 +106,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage("Nostromo开发人员永远不会向你索要密钥。"),
+        "Note_Id": MessageLookupByLibrary.simpleMessage("动态 Id"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("动态加载中"),
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
         "Notice": MessageLookupByLibrary.simpleMessage("提示"),
         "Notices": MessageLookupByLibrary.simpleMessage("通知"),
+        "Number_parse_error": MessageLookupByLibrary.simpleMessage("数字格式化失败"),
         "Open_Event_from_cache":
             MessageLookupByLibrary.simpleMessage("从缓存中查找动态"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage("打开动态详情"),
@@ -162,7 +171,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Color": MessageLookupByLibrary.simpleMessage("主题颜色"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("主题类型"),
         "Timeline": MessageLookupByLibrary.simpleMessage("时间线"),
+        "Topic": MessageLookupByLibrary.simpleMessage("主题"),
         "Topics": MessageLookupByLibrary.simpleMessage("主题"),
+        "User_Pubkey": MessageLookupByLibrary.simpleMessage("用户 Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("人们"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("验证异常"),
         "Verify_failure": MessageLookupByLibrary.simpleMessage("验证失败"),

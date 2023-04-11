@@ -1429,6 +1429,96 @@ class S {
       args: [],
     );
   }
+
+  /// `Lnurl and Lud16 can't found.`
+  String get Lnurl_and_Lud16_can_t_found {
+    return Intl.message(
+      'Lnurl and Lud16 can\'t found.',
+      name: 'Lnurl_and_Lud16_can_t_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add now`
+  String get Add_now {
+    return Intl.message(
+      'Add now',
+      name: 'Add_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input Sats num to gen lightning invoice`
+  String get Input_Sats_num_to_gen_lightning_invoice {
+    return Intl.message(
+      'Input Sats num to gen lightning invoice',
+      name: 'Input_Sats_num_to_gen_lightning_invoice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input Sats num`
+  String get Input_Sats_num {
+    return Intl.message(
+      'Input Sats num',
+      name: 'Input_Sats_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Number parse error`
+  String get Number_parse_error {
+    return Intl.message(
+      'Number parse error',
+      name: 'Number_parse_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input`
+  String get Input {
+    return Intl.message(
+      'Input',
+      name: 'Input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Topic`
+  String get Topic {
+    return Intl.message(
+      'Topic',
+      name: 'Topic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note Id`
+  String get Note_Id {
+    return Intl.message(
+      'Note Id',
+      name: 'Note_Id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Pubkey`
+  String get User_Pubkey {
+    return Intl.message(
+      'User Pubkey',
+      name: 'User_Pubkey',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

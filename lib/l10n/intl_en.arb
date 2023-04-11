@@ -136,5 +136,14 @@
     "Search_pubkey_event": "Search pubkey event",
     "Data": "Data",
     "Delete_Account": "Delete Account",
-    "Delete_Account_Tips": "We will try to delete you infomation. When you login with this Key again, you will lose your data."
+    "Delete_Account_Tips": "We will try to delete you infomation. When you login with this Key again, you will lose your data.",
+    "Lnurl_and_Lud16_can_t_found": "Lnurl and Lud16 can't found.",
+    "Add_now": "Add now",
+    "Input_Sats_num_to_gen_lightning_invoice": "Input Sats num to gen lightning invoice",
+    "Input_Sats_num": "Input Sats num",
+    "Number_parse_error": "Number parse error",
+    "Input": "Input",
+    "Topic": "Topic",
+    "Note_Id": "Note Id",
+    "User_Pubkey": "User Pubkey"
 }

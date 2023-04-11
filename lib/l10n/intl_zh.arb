@@ -133,5 +133,14 @@
     "Search_pubkey_event": "搜索Pubkey的Event",
     "Data": "数据",
     "Delete_Account": "删除账号",
-    "Delete_Account_Tips": "我们正在尝试删除你的账号信息。如果你下一次继续使用该密钥登录，你将会失去你的信息。"
+    "Delete_Account_Tips": "我们正在尝试删除你的账号信息。如果你下一次继续使用该密钥登录，你将会失去你的信息。",
+    "Lnurl_and_Lud16_can_t_found": "Lnurl 和 Lud16 无法找到。",
+    "Add_now": "现在添加",
+    "Input_Sats_num_to_gen_lightning_invoice": "输入 Stas 数量以生成闪电网络发票",
+    "Input_Sats_num": "输入 Stas 数量",
+    "Number_parse_error": "数字格式化失败",
+    "Input": "输入",
+    "Topic": "主题",
+    "Note_Id": "动态 Id",
+    "User_Pubkey": "用户 Pubkey"
 }

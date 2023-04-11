@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_Account": MessageLookupByLibrary.simpleMessage("Add Account"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Add account and login?"),
+        "Add_now": MessageLookupByLibrary.simpleMessage("Add now"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Add to known list"),
         "Address_can_t_be_null":
@@ -97,6 +98,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Image Compress"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Image service"),
+        "Input": MessageLookupByLibrary.simpleMessage("Input"),
+        "Input_Sats_num":
+            MessageLookupByLibrary.simpleMessage("Input Sats num"),
+        "Input_Sats_num_to_gen_lightning_invoice":
+            MessageLookupByLibrary.simpleMessage(
+                "Input Sats num to gen lightning invoice"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Input account private key"),
         "Input_dirtyword":
@@ -107,6 +114,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link preview"),
+        "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
+            "Lnurl and Lud16 can\'t found."),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
@@ -118,10 +127,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
                 "Nostromo developers will never require a key from you."),
+        "Note_Id": MessageLookupByLibrary.simpleMessage("Note Id"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("Note loading..."),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),
         "Notices": MessageLookupByLibrary.simpleMessage("Notices"),
+        "Number_parse_error":
+            MessageLookupByLibrary.simpleMessage("Number parse error"),
         "Open_Event_from_cache":
             MessageLookupByLibrary.simpleMessage("Open Event from cache"),
         "Open_Note_detail":
@@ -191,7 +203,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Theme Color"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Theme Style"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
+        "Topic": MessageLookupByLibrary.simpleMessage("Topic"),
         "Topics": MessageLookupByLibrary.simpleMessage("Topics"),
+        "User_Pubkey": MessageLookupByLibrary.simpleMessage("User Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("Users"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("Verify error"),
         "Verify_failure":
