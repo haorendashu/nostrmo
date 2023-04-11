@@ -112,80 +112,81 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       },
     )));
 
-    if (!widget.isLocal &&
-        widget.metadata != null &&
-        (StringUtil.isNotBlank(widget.metadata!.lud06) ||
-            StringUtil.isNotBlank(widget.metadata!.lud16))) {
-      topBtnList.add(wrapBtn(PopupMenuButton<int>(
-        itemBuilder: (context) {
-          return [
-            PopupMenuItem(
-              value: 10,
-              child: Row(
-                children: [
-                  Icon(Icons.bolt, color: Colors.orange),
-                  Text(" Zap 10")
-                ],
-                mainAxisSize: MainAxisSize.min,
+    if (!widget.isLocal) {
+      if (widget.metadata != null &&
+          (StringUtil.isNotBlank(widget.metadata!.lud06) ||
+              StringUtil.isNotBlank(widget.metadata!.lud16))) {
+        topBtnList.add(wrapBtn(PopupMenuButton<int>(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                value: 10,
+                child: Row(
+                  children: [
+                    Icon(Icons.bolt, color: Colors.orange),
+                    Text(" Zap 10")
+                  ],
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
-            ),
-            PopupMenuItem(
-              value: 50,
-              child: Row(
-                children: [
-                  Icon(Icons.bolt, color: Colors.orange),
-                  Text(" Zap 50")
-                ],
-                mainAxisSize: MainAxisSize.min,
+              PopupMenuItem(
+                value: 50,
+                child: Row(
+                  children: [
+                    Icon(Icons.bolt, color: Colors.orange),
+                    Text(" Zap 50")
+                  ],
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
-            ),
-            PopupMenuItem(
-              value: 100,
-              child: Row(
-                children: [
-                  Icon(Icons.bolt, color: Colors.orange),
-                  Text(" Zap 100")
-                ],
-                mainAxisSize: MainAxisSize.min,
+              PopupMenuItem(
+                value: 100,
+                child: Row(
+                  children: [
+                    Icon(Icons.bolt, color: Colors.orange),
+                    Text(" Zap 100")
+                  ],
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
-            ),
-            PopupMenuItem(
-              value: 500,
-              child: Row(
-                children: [
-                  Icon(Icons.bolt, color: Colors.orange),
-                  Text(" Zap 500")
-                ],
-                mainAxisSize: MainAxisSize.min,
+              PopupMenuItem(
+                value: 500,
+                child: Row(
+                  children: [
+                    Icon(Icons.bolt, color: Colors.orange),
+                    Text(" Zap 500")
+                  ],
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
-            ),
-            PopupMenuItem(
-              value: 1000,
-              child: Row(
-                children: [
-                  Icon(Icons.bolt, color: Colors.orange),
-                  Text(" Zap 1000")
-                ],
-                mainAxisSize: MainAxisSize.min,
+              PopupMenuItem(
+                value: 1000,
+                child: Row(
+                  children: [
+                    Icon(Icons.bolt, color: Colors.orange),
+                    Text(" Zap 1000")
+                  ],
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
-            ),
-            PopupMenuItem(
-              value: 5000,
-              child: Row(
-                children: [
-                  Icon(Icons.bolt, color: Colors.orange),
-                  Text(" Zap 5000")
-                ],
-                mainAxisSize: MainAxisSize.min,
+              PopupMenuItem(
+                value: 5000,
+                child: Row(
+                  children: [
+                    Icon(Icons.bolt, color: Colors.orange),
+                    Text(" Zap 5000")
+                  ],
+                  mainAxisSize: MainAxisSize.min,
+                ),
               ),
-            ),
-          ];
-        },
-        onSelected: onZapSelect,
-        child: MetadataIconBtn(
-          iconData: Icons.currency_bitcoin,
-        ),
-      )));
+            ];
+          },
+          onSelected: onZapSelect,
+          child: MetadataIconBtn(
+            iconData: Icons.currency_bitcoin,
+          ),
+        )));
+      }
 
       topBtnList.add(wrapBtn(MetadataIconBtn(
         iconData: Icons.mail,
