@@ -454,9 +454,13 @@ class _EditorRouter extends CustState<EditorRouter> {
             if (!_lastIsSpace(result) && !_lastIsLineEnd(result)) {
               result += " ";
             }
-            tags.add(["p", value]);
-            var index = tags.length - 1;
-            result += "#[$index] ";
+            if (widget.agreement == null) {
+              tags.add(["p", value]);
+              var index = tags.length - 1;
+              result += "#[$index] ";
+            } else {
+              result += "nostr:${Nip19.encodePubKey(value)} ";
+            }
             continue;
           }
 
@@ -465,9 +469,13 @@ class _EditorRouter extends CustState<EditorRouter> {
             if (!_lastIsLineEnd(result)) {
               result += " ";
             }
-            tags.add(["e", value, "", "mention"]);
-            var index = tags.length - 1;
-            result += "#[$index] ";
+            if (widget.agreement == null) {
+              tags.add(["e", value, "", "mention"]);
+              var index = tags.length - 1;
+              result += "#[$index] ";
+            } else {
+              result += "nostr:${Nip19.encodeNoteId(value)} ";
+            }
             continue;
           }
         } else {
