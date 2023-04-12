@@ -6,9 +6,20 @@ import 'thread_detail_event.dart';
 import 'thread_detail_event_main_component.dart';
 
 class ThreadDetailItemComponent extends StatefulWidget {
+  double totalMaxWidth;
+
   ThreadDetailEvent item;
 
-  ThreadDetailItemComponent({required this.item});
+  String sourceEventId;
+
+  GlobalKey sourceEventKey;
+
+  ThreadDetailItemComponent({
+    required this.item,
+    required this.totalMaxWidth,
+    required this.sourceEventId,
+    required this.sourceEventKey,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -26,7 +37,12 @@ class _ThreadDetailItemComponent extends State<ThreadDetailItemComponent> {
     return Container(
       color: cardColor,
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-      child: ThreadDetailItemMainComponent(item: widget.item),
+      child: ThreadDetailItemMainComponent(
+        item: widget.item,
+        totalMaxWidth: widget.totalMaxWidth,
+        sourceEventId: widget.sourceEventId,
+        sourceEventKey: widget.sourceEventKey,
+      ),
     );
   }
 }

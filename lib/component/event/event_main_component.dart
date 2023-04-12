@@ -42,6 +42,7 @@ class EventMainComponent extends StatefulWidget {
   bool showDetailBtn;
 
   EventMainComponent({
+    super.key,
     required this.screenshotController,
     required this.event,
     this.pagePubkey,

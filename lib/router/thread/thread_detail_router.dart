@@ -8,6 +8,7 @@ import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:nostrmo/router/thread/thread_detail_event.dart';
 import 'package:nostrmo/router/thread/thread_detail_item_component.dart';
 import 'package:nostrmo/util/string_util.dart';
+import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
@@ -23,6 +24,7 @@ import '../../provider/metadata_provider.dart';
 import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
+import 'thread_detail_event_main_component.dart';
 
 class ThreadDetailRouter extends StatefulWidget {
   @override
@@ -61,7 +63,7 @@ class ThreadDetailRouter extends StatefulWidget {
 }
 
 class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
-    with PenddingEventsLaterFunction {
+    with PenddingEventsLaterFunction, WhenStopFunction {
   EventMemBox box = EventMemBox();
 
   Event? sourceEvent;
@@ -87,6 +89,8 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       }
     });
   }
+
+  GlobalKey sourceEventKey = GlobalKey();
 
   @override
   Widget doBuild(BuildContext context) {
@@ -152,6 +156,36 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       );
     }
 
+    List<Widget> rootListWidget = [];
+    for (var item in rootSubList!) {
+      var totalLevelNum = item.totalLevelNum;
+      var needWidth = (totalLevelNum - 1) *
+              (Base.BASE_PADDING +
+                  ThreadDetailItemMainComponent.BORDER_LEFT_WIDTH) +
+          ThreadDetailItemMainComponent.EVENT_MAIN_MIN_WIDTH;
+      if (needWidth > mediaDataCache.size.width) {
+        rootListWidget.add(SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+            width: needWidth,
+            child: ThreadDetailItemComponent(
+              item: item,
+              totalMaxWidth: needWidth,
+              sourceEventId: sourceEvent!.id,
+              sourceEventKey: sourceEventKey,
+            ),
+          ),
+        ));
+      } else {
+        rootListWidget.add(ThreadDetailItemComponent(
+          item: item,
+          totalMaxWidth: needWidth,
+          sourceEventId: sourceEvent!.id,
+          sourceEventKey: sourceEventKey,
+        ));
+      }
+    }
+
     var main = NestedScrollView(
       controller: _controller,
       headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -166,13 +200,39 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           ),
         ];
       },
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          var item = rootSubList![index];
-          return ThreadDetailItemComponent(item: item);
-        },
-        itemCount: rootSubList!.length,
+      body: ListView(
+        children: rootListWidget,
       ),
+      // body: ListView.builder(
+      //   itemBuilder: (context, index) {
+      //     var item = rootSubList![index];
+      //     var totalLevelNum = item.totalLevelNum;
+      //     var needWidth = (totalLevelNum - 1) *
+      //             (Base.BASE_PADDING +
+      //                 ThreadDetailItemMainComponent.BORDER_LEFT_WIDTH) +
+      //         ThreadDetailItemMainComponent.EVENT_MAIN_MIN_WIDTH;
+      //     if (needWidth > mediaDataCache.size.width) {
+      //       return SingleChildScrollView(
+      //         scrollDirection: Axis.horizontal,
+      //         child: Container(
+      //           width: needWidth,
+      //           child: ThreadDetailItemComponent(
+      //             item: item,
+      //             totalMaxWidth: needWidth,
+      //             sourceEventId: sourceEvent!.id,
+      //           ),
+      //         ),
+      //       );
+      //     } else {
+      //       return ThreadDetailItemComponent(
+      //         item: item,
+      //         totalMaxWidth: needWidth,
+      //         sourceEventId: sourceEvent!.id,
+      //       );
+      //     }
+      //   },
+      //   itemCount: rootSubList!.length,
+      // ),
     );
 
     return Scaffold(
@@ -262,8 +322,20 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     }
 
     rootSubList = _rootSubList;
+    for (var rootSub in rootSubList!) {
+      rootSub.handleTotalLevelNum(0);
+    }
 
     if (refresh) {
+      // WidgetsBinding.instance.addPostFrameCallback((_) {
+      //   Scrollable.ensureVisible(sourceEventKey.currentContext!);
+      // });
+      whenStop(() {
+        if (sourceEventKey.currentContext != null) {
+          Scrollable.ensureVisible(sourceEventKey.currentContext!);
+        }
+      });
+
       setState(() {});
     }
   }
