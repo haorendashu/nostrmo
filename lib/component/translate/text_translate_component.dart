@@ -14,7 +14,9 @@ import '../cust_state.dart';
 class TextTranslateComponent extends StatefulWidget {
   String text;
 
-  TextTranslateComponent(this.text);
+  Function? textOnTap;
+
+  TextTranslateComponent(this.text, {this.textOnTap});
 
   @override
   State<StatefulWidget> createState() {
@@ -118,7 +120,14 @@ class _TextTranslateComponent extends CustState<TextTranslateComponent> {
             )));
       }
     }
-    return Text.rich(TextSpan(children: list));
+    return SelectableText.rich(
+      TextSpan(children: list),
+      onTap: () {
+        if (widget.textOnTap != null) {
+          widget.textOnTap!();
+        }
+      },
+    );
   }
 
   @override

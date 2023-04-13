@@ -48,24 +48,10 @@ class ContentDecoder {
     if (inlines.isNotEmpty) {
       if (inlines.length == 1) {
         if (inlines[0] is String) {
-          list.add(SelectableText.rich(
-            TextSpan(children: [
-              WidgetSpan(child: TextTranslateComponent(inlines[0]))
-            ]),
-            onTap: () {
-              if (textOnTap != null) {
-                textOnTap();
-              }
-            },
+          list.add(TextTranslateComponent(
+            inlines[0],
+            textOnTap: textOnTap,
           ));
-          // list.add(SelectableText(
-          //   inlines[0],
-          //   onTap: () {
-          //     if (textOnTap != null) {
-          //       textOnTap();
-          //     }
-          //   },
-          // ));
         } else {
           list.add(inlines[0]);
         }
@@ -73,20 +59,16 @@ class ContentDecoder {
         List<InlineSpan> spans = [];
         for (var inline in inlines) {
           if (inline is String) {
-            // spans.add(TextSpan(text: inline + " "));
-            spans.add(WidgetSpan(child: TextTranslateComponent(inline + " ")));
+            spans.add(WidgetSpan(
+                child: TextTranslateComponent(
+              inline + " ",
+              textOnTap: textOnTap,
+            )));
           } else {
             spans.add(WidgetSpan(child: inline));
           }
         }
-        list.add(SelectableText.rich(
-          TextSpan(children: spans),
-          onTap: () {
-            if (textOnTap != null) {
-              textOnTap();
-            }
-          },
-        ));
+        list.add(Text.rich(TextSpan(children: spans)));
       }
       inlines.clear();
     }
