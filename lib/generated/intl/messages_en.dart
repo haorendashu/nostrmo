@@ -213,6 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Translate Source Language"),
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Translate Target Language"),
+        "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload fail."),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("User Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("Users"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("Verify error"),

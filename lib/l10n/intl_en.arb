@@ -150,5 +150,6 @@
     "Translate": "Translate",
     "Translate_Source_Language": "Translate Source Language",
     "Translate_Target_Language": "Translate Target Language",
-    "Begin_to_download_translate_model": "Begin to download translate model"
+    "Begin_to_download_translate_model": "Begin to download translate model",
+    "Upload_fail": "Upload fail."
 }

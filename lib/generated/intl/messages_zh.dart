@@ -180,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("翻译来源语言"),
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("翻译目标语言"),
+        "Upload_fail": MessageLookupByLibrary.simpleMessage("上传失败"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("用户 Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("人们"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("验证异常"),
