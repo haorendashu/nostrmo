@@ -43,14 +43,18 @@ class _SearchMentionUserComponent extends State<SearchMentionUserComponent>
     }
     return SingleChildScrollView(
       child: Container(
+        alignment: Alignment.center,
         padding: const EdgeInsets.only(
           top: Base.BASE_PADDING_HALF,
           bottom: Base.BASE_PADDING_HALF,
         ),
-        child: Wrap(
-          children: userWidgetList,
-          spacing: 10,
-          runSpacing: 10,
+        child: Container(
+          width: itemWidth * 2 + 10,
+          child: Wrap(
+            children: userWidgetList,
+            spacing: 10,
+            runSpacing: 10,
+          ),
         ),
       ),
     );

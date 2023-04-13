@@ -102,7 +102,7 @@ class _TextInputAndSearchDialog extends State<TextInputAndSearchDialog>
       ),
     ));
     list.add(Container(
-      height: 230,
+      height: 235,
       width: double.infinity,
       child: TabBarView(
         children: [
