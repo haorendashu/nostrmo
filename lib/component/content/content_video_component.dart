@@ -1,4 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -21,11 +22,17 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.url)
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
+    if (widget.url.indexOf("http") == 0) {
+      _controller = VideoPlayerController.network(widget.url)
+        ..initialize().then((_) {
+          setState(() {});
+        });
+    } else {
+      _controller = VideoPlayerController.file(File(widget.url))
+        ..initialize().then((_) {
+          setState(() {});
+        });
+    }
   }
 
   @override

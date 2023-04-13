@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -9,6 +10,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
+import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/component/editor/cust_embed_types.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
@@ -16,6 +18,7 @@ import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
 import 'package:nostrmo/component/editor/pic_embed_builder.dart';
 import 'package:nostrmo/component/editor/tag_embed_builder.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
+import 'package:nostrmo/component/editor/video_embed_builder.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
@@ -127,6 +130,7 @@ class _EditorRouter extends CustState<EditorRouter> {
             MentionUserEmbedBuilder(),
             MentionEventEmbedBuilder(),
             PicEmbedBuilder(),
+            VideoEmbedBuilder(),
             LnbcEmbedBuilder(),
             TagEmbedBuilder(),
           ],
@@ -170,6 +174,10 @@ class _EditorRouter extends CustState<EditorRouter> {
           quill.QuillIconButton(
             onPressed: takeAPhoto,
             icon: Icon(Icons.camera),
+          ),
+          quill.QuillIconButton(
+            onPressed: tackAVideo,
+            icon: Icon(Icons.video_call),
           ),
           quill.QuillIconButton(
             onPressed: _inputLnbc,
@@ -285,16 +293,32 @@ class _EditorRouter extends CustState<EditorRouter> {
       final index = _controller.selection.baseOffset;
       final length = _controller.selection.extentOffset - index;
 
-      _controller.replaceText(
-          index, length, quill.BlockEmbed.image(value), null);
+      var fileType = ContentDecoder.getPathType(value);
+      if (fileType == "image") {
+        _controller.replaceText(
+            index, length, quill.BlockEmbed.image(value), null);
 
-      _controller.moveCursorToPosition(index + 1);
+        _controller.moveCursorToPosition(index + 1);
+      } else if (fileType == "video") {
+        _controller.replaceText(
+            index, length, quill.BlockEmbed.video(value), null);
+
+        _controller.moveCursorToPosition(index + 1);
+      }
     }
   }
 
   Future<void> takeAPhoto() async {
     ImagePicker _picker = ImagePicker();
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+    if (photo != null) {
+      _imageSubmitted(photo.path);
+    }
+  }
+
+  Future<void> tackAVideo() async {
+    ImagePicker _picker = ImagePicker();
+    final XFile? photo = await _picker.pickVideo(source: ImageSource.camera);
     if (photo != null) {
       _imageSubmitted(photo.path);
     }
@@ -436,15 +460,24 @@ class _EditorRouter extends CustState<EditorRouter> {
         if (operation.data is Map) {
           var m = operation.data as Map;
           var value = m["image"];
+          if (StringUtil.isBlank(value)) {
+            value = m["video"];
+          }
           if (StringUtil.isNotBlank(value) && value is String) {
             if (value.indexOf("http") != 0) {
+              print(value);
               // this is a local image, update it first
               var imagePath = await Uploader.upload(
                 value,
                 imageService: settingProvider.imageService,
               );
-              if (StringUtil.isNotBlank(imagePath)) ;
-              value = imagePath;
+              print(imagePath);
+              if (StringUtil.isNotBlank(imagePath)) {
+                value = imagePath;
+              } else {
+                BotToast.showText(text: "Upload fail.");
+                return;
+              }
             }
             result = handleBlockValue(result, value);
             continue;
