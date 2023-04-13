@@ -58,7 +58,7 @@
 		<string>Need to access the photo to upload, and use it for avatar or Note picture.</string>
 		<key>NSCameraUsageDescription</key>
 		<string>Camera need to access for take a photo.</string>
-		<key>NSMicrophoneUsageDescription </key>
+		<key>NSMicrophoneUsageDescription</key>
 		<string>Microphone need to access when record videos.</string>
 		<key>NSFaceIDUsageDescription</key>
 		<string>App requires FaceID to locked and opened.</string>
