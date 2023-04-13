@@ -69,11 +69,10 @@ class _SearchMentionUserComponent extends State<SearchMentionUserComponent>
 
     if (StringUtil.isNotBlank(text)) {
       var list = metadataProvider.findUser(text!, limit: searchMemLimit);
-
-      setState(() {
-        metadatas = list;
-      });
+      metadatas = list;
     }
+
+    setState(() {});
   }
 }
 
