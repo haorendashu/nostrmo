@@ -9,6 +9,7 @@ import 'package:nostrmo/component/content/content_mention_user_component.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
+import 'package:nostrmo/component/translate/text_translate_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
@@ -47,14 +48,24 @@ class ContentDecoder {
     if (inlines.isNotEmpty) {
       if (inlines.length == 1) {
         if (inlines[0] is String) {
-          list.add(SelectableText(
-            inlines[0],
+          list.add(SelectableText.rich(
+            TextSpan(children: [
+              WidgetSpan(child: TextTranslateComponent(inlines[0]))
+            ]),
             onTap: () {
               if (textOnTap != null) {
                 textOnTap();
               }
             },
           ));
+          // list.add(SelectableText(
+          //   inlines[0],
+          //   onTap: () {
+          //     if (textOnTap != null) {
+          //       textOnTap();
+          //     }
+          //   },
+          // ));
         } else {
           list.add(inlines[0]);
         }
@@ -62,7 +73,8 @@ class ContentDecoder {
         List<InlineSpan> spans = [];
         for (var inline in inlines) {
           if (inline is String) {
-            spans.add(TextSpan(text: inline + " "));
+            // spans.add(TextSpan(text: inline + " "));
+            spans.add(WidgetSpan(child: TextTranslateComponent(inline + " ")));
           } else {
             spans.add(WidgetSpan(child: inline));
           }

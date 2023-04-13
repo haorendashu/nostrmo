@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/cust_contact_list.dart';
@@ -18,7 +19,9 @@ import '../../client/event_kind.dart' as kind;
 import '../../component/colors_selector_component.dart';
 import '../../component/comfirm_dialog.dart';
 import '../../component/editor/text_input_dialog.dart';
+import '../../component/enum_multi_selector_component.dart';
 import '../../component/enum_selector_component.dart';
+import '../../component/translate/translate_model_manager.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/image_services.dart';
@@ -72,6 +75,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     initThemeStyleList(s);
     initFontEnumList(s);
     initImageServcieList();
+    initTranslateLanguages();
 
     List<Widget> list = [];
 
@@ -177,6 +181,23 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.videoPreview).name,
       onTap: pickVideoPreview,
     ));
+    list.add(SettingGroupItemComponent(
+      name: "Translate",
+      value: getOpenTranslate(settingProvider.openTranslate).name,
+      onTap: pickOpenTranslate,
+    ));
+    if (settingProvider.openTranslate == OpenStatus.OPEN) {
+      list.add(SettingGroupItemComponent(
+        name: "Translate Source Language",
+        value: settingProvider.translateSourceArgs,
+        onTap: pickTranslateSource,
+      ));
+      list.add(SettingGroupItemComponent(
+        name: "Translate Target Language",
+        value: settingProvider.translateTarget,
+        onTap: pickTranslateTarget,
+      ));
+    }
 
     list.add(SettingGroupTitleComponent(iconData: Icons.source, title: s.Data));
     list.add(SettingGroupItemComponent(
@@ -653,6 +674,93 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       }
       if (deleteAccountLoadingCancel != null) {
         deleteAccountLoadingCancel!.call();
+      }
+    }
+  }
+
+  List<EnumObj>? translateLanguages;
+
+  void initTranslateLanguages() {
+    if (translateLanguages == null) {
+      translateLanguages = [];
+      for (var tl in TranslateLanguage.values) {
+        translateLanguages!.add(EnumObj(tl.bcpCode, tl.bcpCode));
+      }
+    }
+  }
+
+  EnumObj getOpenTranslate(int? value) {
+    for (var o in openList!) {
+      if (value == o.value) {
+        return o;
+      }
+    }
+
+    return openList![1];
+  }
+
+  pickOpenTranslate() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      await handleTranslateModel(openTranslate: resultEnumObj.value);
+      settingProvider.openTranslate = resultEnumObj.value;
+    }
+  }
+
+  pickTranslateSource() async {
+    var translateSourceArgs = settingProvider.translateSourceArgs;
+    List<EnumObj> values = [];
+    if (StringUtil.isNotBlank(translateSourceArgs)) {
+      var strs = translateSourceArgs!.split(",");
+      for (var str in strs) {
+        values.add(EnumObj(str, str));
+      }
+    }
+    List<EnumObj>? resultEnumObjs = await EnumMultiSelectorComponent.show(
+        context, translateLanguages!, values);
+    if (resultEnumObjs != null) {
+      List<String> resultStrs = [];
+      for (var value in resultEnumObjs) {
+        resultStrs.add(value.value);
+      }
+      var text = resultStrs.join(",");
+      await handleTranslateModel(translateSourceArgs: text);
+      settingProvider.translateSourceArgs = text;
+    }
+  }
+
+  pickTranslateTarget() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, translateLanguages!);
+    if (resultEnumObj != null) {
+      await handleTranslateModel(translateTarget: resultEnumObj.value);
+      settingProvider.translateTarget = resultEnumObj.value;
+    }
+  }
+
+  Future<void> handleTranslateModel(
+      {int? openTranslate,
+      String? translateTarget,
+      String? translateSourceArgs}) async {
+    openTranslate = openTranslate ?? settingProvider.openTranslate;
+    translateTarget = translateTarget ?? settingProvider.translateTarget;
+    translateSourceArgs =
+        translateSourceArgs ?? settingProvider.translateSourceArgs;
+
+    if (openTranslate == OpenStatus.OPEN &&
+        StringUtil.isNotBlank(translateTarget) &&
+        StringUtil.isNotBlank(translateSourceArgs)) {
+      List<String> bcpCodes = translateSourceArgs!.split(",");
+      bcpCodes.add(translateTarget!);
+
+      var translateModelManager = TranslateModelManager.getInstance();
+      BotToast.showText(text: "Begin to download translate model");
+      var cancelFunc = BotToast.showLoading();
+      try {
+        await translateModelManager.checkAndDownloadTargetModel(bcpCodes);
+      } finally {
+        cancelFunc.call();
       }
     }
   }

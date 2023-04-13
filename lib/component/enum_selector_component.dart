@@ -7,13 +7,20 @@ import '../util/router_util.dart';
 class EnumSelectorComponent extends StatelessWidget {
   final List<EnumObj> list;
 
-  EnumSelectorComponent({required this.list});
+  Widget Function(BuildContext, EnumObj)? enumItemBuild;
+
+  EnumSelectorComponent({
+    required this.list,
+    this.enumItemBuild,
+  });
 
   static Future<EnumObj?> show(BuildContext context, List<EnumObj> list) async {
     return await showDialog<EnumObj?>(
       context: context,
       builder: (_context) {
-        return EnumSelectorComponent(list: list);
+        return EnumSelectorComponent(
+          list: list,
+        );
       },
     );
   }
@@ -27,10 +34,14 @@ class EnumSelectorComponent extends StatelessWidget {
     List<Widget> widgets = [];
     for (var i = 0; i < list.length; i++) {
       var enumObj = list[i];
-      widgets.add(EnumSelectorItemComponent(
-        enumObj: enumObj,
-        isLast: i == list.length - 1,
-      ));
+      if (enumItemBuild != null) {
+        widgets.add(enumItemBuild!(context, enumObj));
+      } else {
+        widgets.add(EnumSelectorItemComponent(
+          enumObj: enumObj,
+          isLast: i == list.length - 1,
+        ));
+      }
     }
 
     Widget main = Container(
@@ -91,9 +102,15 @@ class EnumSelectorItemComponent extends StatelessWidget {
 
   final bool isLast;
 
+  Function(EnumObj)? onTap;
+
+  Color? color;
+
   EnumSelectorItemComponent({
     required this.enumObj,
     this.isLast = false,
+    this.onTap,
+    this.color,
   });
 
   @override
@@ -102,20 +119,25 @@ class EnumSelectorItemComponent extends StatelessWidget {
     var dividerColor = themeData.dividerColor;
 
     Widget main = Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
           left: Base.BASE_PADDING + 5, right: Base.BASE_PADDING + 5),
       child: Text(enumObj.name),
     );
 
     return GestureDetector(
       onTap: () {
-        RouterUtil.back(context, enumObj);
+        if (onTap != null) {
+          onTap!(enumObj);
+        } else {
+          RouterUtil.back(context, enumObj);
+        }
       },
       child: Container(
         decoration: BoxDecoration(
-            border: isLast
-                ? null
-                : Border(bottom: BorderSide(color: dividerColor))),
+          color: color,
+          border:
+              isLast ? null : Border(bottom: BorderSide(color: dividerColor)),
+        ),
         alignment: Alignment.center,
         height: HEIGHT,
         child: main,

@@ -23,6 +23,7 @@ class SettingProvider extends ChangeNotifier {
       _settingProvider = SettingProvider();
       _settingProvider!._sharedPreferences = await DataUtil.getInstance();
       await _settingProvider!._init();
+      _settingProvider!._reloadTranslateSourceArgs();
     }
     return _settingProvider!;
   }
@@ -57,6 +58,7 @@ class SettingProvider extends ChangeNotifier {
 
   Future<void> reload() async {
     await _init();
+    _settingProvider!._reloadTranslateSourceArgs();
     notifyListeners();
   }
 
@@ -166,6 +168,38 @@ class SettingProvider extends ChangeNotifier {
   /// fontFamily
   String? get fontFamily => _settingData!.fontFamily;
 
+  int? get openTranslate => _settingData!.openTranslate;
+
+  static const ALL_SUPPORT_LANGUAGES =
+      "af,sq,ar,be,bn,bg,ca,zh,hr,cs,da,nl,en,eo,et,fi,fr,gl,ka,de,el,gu,ht,he,hi,hu,is,id,ga,it,ja,kn,ko,lv,lt,mk,ms,mt,mr,no,fa,pl,pt,ro,ru,sk,sl,es,sw,sv,tl,ta,te,th,tr,uk,ur,vi,cy";
+
+  String? get translateSourceArgs {
+    if (StringUtil.isNotBlank(_settingData!.translateSourceArgs)) {
+      return _settingData!.translateSourceArgs!;
+    }
+  }
+
+  String? get translateTarget => _settingData!.translateTarget;
+
+  Map<String, int> _translateSourceArgsMap = {};
+
+  void _reloadTranslateSourceArgs() {
+    _translateSourceArgsMap.clear();
+    var args = _settingData!.translateSourceArgs;
+    if (StringUtil.isNotBlank(args)) {
+      var argStrs = args!.split(",");
+      for (var argStr in argStrs) {
+        if (StringUtil.isNotBlank(argStr)) {
+          _translateSourceArgsMap[argStr] = 1;
+        }
+      }
+    }
+  }
+
+  bool translateSourceArgsCheck(String str) {
+    return _translateSourceArgsMap[str] != null;
+  }
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -263,12 +297,28 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set openTranslate(int? o) {
+    _settingData!.openTranslate = o;
+    saveAndNotifyListeners();
+  }
+
+  set translateSourceArgs(String? o) {
+    _settingData!.translateSourceArgs = o;
+    saveAndNotifyListeners();
+  }
+
+  set translateTarget(String? o) {
+    _settingData!.translateTarget = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
     var jsonStr = json.encode(m);
     // print(jsonStr);
     await _sharedPreferences!.setString(DataKey.SETTING, jsonStr);
+    _settingProvider!._reloadTranslateSourceArgs();
 
     if (updateUI) {
       notifyListeners();
@@ -317,6 +367,12 @@ class SettingData {
   /// fontFamily
   String? fontFamily;
 
+  int? openTranslate;
+
+  String? translateTarget;
+
+  String? translateSourceArgs;
+
   /// updated time
   late int updatedTime;
 
@@ -338,6 +394,9 @@ class SettingData {
     this.themeStyle = ThemeStyle.AUTO,
     this.themeColor,
     this.fontFamily,
+    this.openTranslate,
+    this.translateTarget,
+    this.translateSourceArgs,
     this.updatedTime = 0,
   });
 
@@ -370,6 +429,9 @@ class SettingData {
       themeStyle = ThemeStyle.AUTO;
     }
     themeColor = json['themeColor'];
+    openTranslate = json['openTranslate'];
+    translateTarget = json['translateTarget'];
+    translateSourceArgs = json['translateSourceArgs'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -396,6 +458,9 @@ class SettingData {
     data['themeStyle'] = this.themeStyle;
     data['themeColor'] = this.themeColor;
     data['fontFamily'] = this.fontFamily;
+    data['openTranslate'] = this.openTranslate;
+    data['translateTarget'] = this.translateTarget;
+    data['translateSourceArgs'] = this.translateSourceArgs;
     data['updatedTime'] = this.updatedTime;
     return data;
   }
