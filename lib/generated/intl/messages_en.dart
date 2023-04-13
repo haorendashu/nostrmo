@@ -38,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("Backup and Safety tips"),
         "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
+        "Begin_to_download_translate_model":
+            MessageLookupByLibrary.simpleMessage(
+                "Begin to download translate model"),
         "Block": MessageLookupByLibrary.simpleMessage("Block"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Blocks"),
         "Boost": MessageLookupByLibrary.simpleMessage("Boost"),
@@ -205,6 +208,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
         "Topic": MessageLookupByLibrary.simpleMessage("Topic"),
         "Topics": MessageLookupByLibrary.simpleMessage("Topics"),
+        "Translate": MessageLookupByLibrary.simpleMessage("Translate"),
+        "Translate_Source_Language":
+            MessageLookupByLibrary.simpleMessage("Translate Source Language"),
+        "Translate_Target_Language":
+            MessageLookupByLibrary.simpleMessage("Translate Target Language"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("User Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("Users"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("Verify error"),

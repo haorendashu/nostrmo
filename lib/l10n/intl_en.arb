@@ -146,5 +146,9 @@
     "Input": "Input",
     "Topic": "Topic",
     "Note_Id": "Note Id",
-    "User_Pubkey": "User Pubkey"
+    "User_Pubkey": "User Pubkey",
+    "Translate": "Translate",
+    "Translate_Source_Language": "Translate Source Language",
+    "Translate_Target_Language": "Translate Target Language",
+    "Begin_to_download_translate_model": "Begin to download translate model"
 }

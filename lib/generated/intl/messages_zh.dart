@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
         "Banner": MessageLookupByLibrary.simpleMessage("横幅"),
+        "Begin_to_download_translate_model":
+            MessageLookupByLibrary.simpleMessage("开始下载翻译模型"),
         "Block": MessageLookupByLibrary.simpleMessage("限制"),
         "Blocks": MessageLookupByLibrary.simpleMessage("限制"),
         "Boost": MessageLookupByLibrary.simpleMessage("促进"),
@@ -173,6 +175,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Timeline": MessageLookupByLibrary.simpleMessage("时间线"),
         "Topic": MessageLookupByLibrary.simpleMessage("主题"),
         "Topics": MessageLookupByLibrary.simpleMessage("主题"),
+        "Translate": MessageLookupByLibrary.simpleMessage("翻译"),
+        "Translate_Source_Language":
+            MessageLookupByLibrary.simpleMessage("翻译来源语言"),
+        "Translate_Target_Language":
+            MessageLookupByLibrary.simpleMessage("翻译目标语言"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("用户 Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("人们"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("验证异常"),

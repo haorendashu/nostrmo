@@ -182,18 +182,18 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickVideoPreview,
     ));
     list.add(SettingGroupItemComponent(
-      name: "Translate",
+      name: s.Translate,
       value: getOpenTranslate(settingProvider.openTranslate).name,
       onTap: pickOpenTranslate,
     ));
     if (settingProvider.openTranslate == OpenStatus.OPEN) {
       list.add(SettingGroupItemComponent(
-        name: "Translate Source Language",
+        name: s.Translate_Source_Language,
         value: settingProvider.translateSourceArgs,
         onTap: pickTranslateSource,
       ));
       list.add(SettingGroupItemComponent(
-        name: "Translate Target Language",
+        name: s.Translate_Target_Language,
         value: settingProvider.translateTarget,
         onTap: pickTranslateTarget,
       ));
@@ -755,7 +755,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       bcpCodes.add(translateTarget!);
 
       var translateModelManager = TranslateModelManager.getInstance();
-      BotToast.showText(text: "Begin to download translate model");
+      BotToast.showText(text: S.of(context).Begin_to_download_translate_model);
       var cancelFunc = BotToast.showLoading();
       try {
         await translateModelManager.checkAndDownloadTargetModel(bcpCodes);

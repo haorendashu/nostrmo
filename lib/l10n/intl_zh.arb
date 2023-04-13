@@ -143,5 +143,9 @@
     "Input": "输入",
     "Topic": "主题",
     "Note_Id": "动态 Id",
-    "User_Pubkey": "用户 Pubkey"
+    "User_Pubkey": "用户 Pubkey",
+    "Translate": "翻译",
+    "Translate_Source_Language": "翻译来源语言",
+    "Translate_Target_Language": "翻译目标语言",
+    "Begin_to_download_translate_model": "开始下载翻译模型"
 }
