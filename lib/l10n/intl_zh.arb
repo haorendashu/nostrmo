@@ -148,5 +148,6 @@
     "Translate_Source_Language": "翻译来源语言",
     "Translate_Target_Language": "翻译目标语言",
     "Begin_to_download_translate_model": "开始下载翻译模型",
-    "Upload_fail": "上传失败"
+    "Upload_fail": "上传失败",
+    "notes updated": "动态更新了"
 }
