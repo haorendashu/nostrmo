@@ -139,7 +139,10 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
   Future<void> onReady(BuildContext context) async {
     // tag query
     // https://github.com/nostr-protocol/nips/blob/master/12.md
-    var filter = Filter(kinds: [kind.EventKind.TEXT_NOTE], limit: 100);
+    var filter = Filter(kinds: [
+      kind.EventKind.TEXT_NOTE,
+      kind.EventKind.LONG_FORM,
+    ], limit: 100);
     var queryArg = filter.toJson();
     var plainTag = tag!.replaceFirst("#", "");
     // this place set #t not #r ???
