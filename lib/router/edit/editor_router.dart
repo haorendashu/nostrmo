@@ -490,7 +490,7 @@ class _EditorRouter extends CustState<EditorRouter> {
           value = m["tag"];
           if (StringUtil.isNotBlank(value)) {
             result = handleInlineValue(result, "#" + value);
-            tags.add(["tag", value]);
+            tags.add(["t", value]);
             continue;
           }
 
