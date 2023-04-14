@@ -12,6 +12,8 @@ class EventRelation {
 
   String? replyId;
 
+  String? subject;
+
   EventRelation.fromEvent(Event event) {
     id = event.id;
     pubkey = event.pubKey;
@@ -28,10 +30,11 @@ class EventRelation {
 
       var tagLength = tag.length;
       if (tagLength > 1 && tag[1] is String) {
+        var tagKey = tag[0];
         var value = tag[1] as String;
-        if (tag[0] == "p") {
+        if (tagKey == "p") {
           pMap[value] = 1;
-        } else if (tag[0] == "e") {
+        } else if (tagKey == "e") {
           tagEList.add(value);
           if (tagLength > 3) {
             var marker = tag[3];
@@ -41,6 +44,8 @@ class EventRelation {
               replyId = value;
             }
           }
+        } else if (tagKey == "subjet") {
+          subject = value;
         }
       }
     }

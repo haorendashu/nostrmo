@@ -48,6 +48,7 @@ class _ThreadDetailItemMainComponent
       showReplying: false,
       showVideo: true,
       imageListMode: false,
+      showSubject: false,
     );
 
     List<Widget> list = [];

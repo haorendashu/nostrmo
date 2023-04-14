@@ -49,6 +49,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool showLongContent;
 
+  bool showSubject;
+
   EventMainComponent({
     super.key,
     required this.screenshotController,
@@ -60,6 +62,7 @@ class EventMainComponent extends StatefulWidget {
     this.imageListMode = false,
     this.showDetailBtn = true,
     this.showLongContent = false,
+    this.showSubject = true,
   });
 
   @override
@@ -128,7 +131,7 @@ class _EventMainComponent extends State<EventMainComponent> {
               longFormInfo.title!,
               maxLines: 10,
               style: TextStyle(
-                fontSize: largeTextSize! + 4,
+                fontSize: largeTextSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -304,11 +307,27 @@ class _EventMainComponent extends State<EventMainComponent> {
             children: replyingList,
           ),
         ));
+      } else {
+        // hide the reply note subject!
+        if (widget.showSubject) {
+          if (StringUtil.isNotBlank(eventRelation.subject)) {
+            list.add(Container(
+              width: double.infinity,
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+              child: Text(
+                eventRelation.subject!,
+                maxLines: 10,
+                style: TextStyle(
+                  fontSize: largeTextSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ));
+          }
+        }
       }
-      // list.add(Container(
-      //   width: double.maxFinite,
-      //   child: Text(widget.event.content),
-      // ));
+
       list.add(
         buildContentWidget(_settingProvider, imagePreview, videoPreview),
       );
