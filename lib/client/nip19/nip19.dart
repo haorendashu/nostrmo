@@ -43,10 +43,15 @@ class Nip19 {
   //   return hex.encode(data).substring(0, 64);
   // }
   static String decode(String npub) {
-    var decoder = Bech32Decoder();
-    var bech32Result = decoder.convert(npub);
-    var data = convertBits(bech32Result.data, 5, 8, false);
-    return HEX.encode(data);
+    try {
+      var decoder = Bech32Decoder();
+      var bech32Result = decoder.convert(npub);
+      var data = convertBits(bech32Result.data, 5, 8, false);
+      return HEX.encode(data);
+    } catch (e) {
+      print(e);
+      return "";
+    }
   }
 
   static String _encodeKey(String hrp, String key) {
