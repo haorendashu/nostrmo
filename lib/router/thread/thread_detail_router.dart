@@ -123,20 +123,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       listToTree(refresh: false);
     }
 
-    // if (rootSubList == null || rootSubList!.isEmpty) {
-    //   return Scaffold(
-    //     body: Center(
-    //       child: Text("Thread Detail"),
-    //     ),
-    //   );
-    // }
     var themeData = Theme.of(context);
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
     var cardColor = themeData.cardColor;
-
-    // var currentEvent = rootEvent;
-    // currentEvent ??= sourceEvent;
 
     Widget? appBarTitle;
     if (showTitle && rootEvent != null) {
@@ -156,7 +146,15 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       );
     }
 
-    List<Widget> rootListWidget = [];
+    List<Widget> mainList = [];
+
+    mainList.add(WidgetSize(
+      child: rootEventWidget,
+      onChange: (size) {
+        rootEventHeight = size.height;
+      },
+    ));
+
     for (var item in rootSubList!) {
       var totalLevelNum = item.totalLevelNum;
       var needWidth = (totalLevelNum - 1) *
@@ -164,7 +162,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
                   ThreadDetailItemMainComponent.BORDER_LEFT_WIDTH) +
           ThreadDetailItemMainComponent.EVENT_MAIN_MIN_WIDTH;
       if (needWidth > mediaDataCache.size.width) {
-        rootListWidget.add(SingleChildScrollView(
+        mainList.add(SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Container(
             width: needWidth,
@@ -177,7 +175,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           ),
         ));
       } else {
-        rootListWidget.add(ThreadDetailItemComponent(
+        mainList.add(ThreadDetailItemComponent(
           item: item,
           totalMaxWidth: needWidth,
           sourceEventId: sourceEvent!.id,
@@ -186,53 +184,8 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       }
     }
 
-    var main = NestedScrollView(
-      controller: _controller,
-      headerSliverBuilder: (context, innerBoxIsScrolled) {
-        return <Widget>[
-          SliverToBoxAdapter(
-            child: WidgetSize(
-              child: rootEventWidget!,
-              onChange: (size) {
-                rootEventHeight = size.height;
-              },
-            ),
-          ),
-        ];
-      },
-      body: ListView(
-        children: rootListWidget,
-      ),
-      // body: ListView.builder(
-      //   itemBuilder: (context, index) {
-      //     var item = rootSubList![index];
-      //     var totalLevelNum = item.totalLevelNum;
-      //     var needWidth = (totalLevelNum - 1) *
-      //             (Base.BASE_PADDING +
-      //                 ThreadDetailItemMainComponent.BORDER_LEFT_WIDTH) +
-      //         ThreadDetailItemMainComponent.EVENT_MAIN_MIN_WIDTH;
-      //     if (needWidth > mediaDataCache.size.width) {
-      //       return SingleChildScrollView(
-      //         scrollDirection: Axis.horizontal,
-      //         child: Container(
-      //           width: needWidth,
-      //           child: ThreadDetailItemComponent(
-      //             item: item,
-      //             totalMaxWidth: needWidth,
-      //             sourceEventId: sourceEvent!.id,
-      //           ),
-      //         ),
-      //       );
-      //     } else {
-      //       return ThreadDetailItemComponent(
-      //         item: item,
-      //         totalMaxWidth: needWidth,
-      //         sourceEventId: sourceEvent!.id,
-      //       );
-      //     }
-      //   },
-      //   itemCount: rootSubList!.length,
-      // ),
+    var main = ListView(
+      children: mainList,
     );
 
     return Scaffold(
