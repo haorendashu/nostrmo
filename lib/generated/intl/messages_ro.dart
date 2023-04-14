@@ -256,6 +256,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Încărcare"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Rețeaua va intra în vigoare data viitoare când aplicația este lansată"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Actualizat dinamic"),
         "open": MessageLookupByLibrary.simpleMessage("deschis"),
         "or": MessageLookupByLibrary.simpleMessage("poate"),
         "replied": MessageLookupByLibrary.simpleMessage("răspuns"),

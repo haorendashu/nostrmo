@@ -240,6 +240,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("กำลังโหลด"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "เครือข่ายจะมีผลในครั้งต่อไปที่เริ่ม APP"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("ปรับปรุงแบบไดนามิก"),
         "open": MessageLookupByLibrary.simpleMessage("เปิด"),
         "or": MessageLookupByLibrary.simpleMessage("หรือ"),
         "replied": MessageLookupByLibrary.simpleMessage("ตอบกลับ"),

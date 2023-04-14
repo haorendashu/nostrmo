@@ -259,6 +259,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Зареждане"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Мрежата ще влезе в сила следващия път, когато приложението бъде стартирано"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Динамично актуализирани"),
         "open": MessageLookupByLibrary.simpleMessage("отворено"),
         "or": MessageLookupByLibrary.simpleMessage("може би"),
         "replied": MessageLookupByLibrary.simpleMessage("отговор"),

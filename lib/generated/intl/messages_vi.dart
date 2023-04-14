@@ -244,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Mạng sẽ có hiệu lực vào lần sau khi khởi động APP."),
+        "notes_updated": MessageLookupByLibrary.simpleMessage("Cập nhật động"),
         "open": MessageLookupByLibrary.simpleMessage("Mở"),
         "or": MessageLookupByLibrary.simpleMessage("Hoặc"),
         "replied": MessageLookupByLibrary.simpleMessage("Trả lời"),

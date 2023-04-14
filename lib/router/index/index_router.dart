@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
+import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:provider/provider.dart';
@@ -211,6 +213,11 @@ class _IndexRouter extends CustState<IndexRouter>
         child: Icon(Icons.add),
         onPressed: () {
           EditorRouter.open(context);
+          // var text =
+          //     "nprofile1qqsgfhhxuemwtwm8kjk5uppv7uxtmp5pz4wm2dv59lxx5pfnsk98ysqpqq2dp6klnprofile1qqsgfhhxuemwtwm8kjk5uppv7uxtmp5pz4wm2dv59lxx5pfnsk98ysqpqq2dp6kl";
+          // print(NIP19Tlv.isNprofile(text));
+          // var np = NIP19Tlv.decodeNprofile(text);
+          // print("${np!.pubkey} ${np.relays}");
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -46,6 +46,10 @@ class RelayProvider extends ChangeNotifier {
     }
   }
 
+  RelayStatus? getRelayStatus(String addr) {
+    return relayStatusMap[addr];
+  }
+
   void checkAndReconnect() {
     Map<String, CustRelay> relayMap = {};
     for (var custRelay in relays) {

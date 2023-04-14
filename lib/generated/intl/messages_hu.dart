@@ -247,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Betöltés"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "A hálózat akkor lép hatályba, amikor az alkalmazás legközelebb elindul"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Dinamikusan frissítve"),
         "open": MessageLookupByLibrary.simpleMessage("nyitva"),
         "or": MessageLookupByLibrary.simpleMessage("talán"),
         "replied": MessageLookupByLibrary.simpleMessage("válasz"),

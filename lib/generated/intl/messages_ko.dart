@@ -210,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("로드 중"),
         "network_take_effect_tip":
             MessageLookupByLibrary.simpleMessage("네트워크는 다음에 APP를 시작할 때 적용됩니다."),
+        "notes_updated": MessageLookupByLibrary.simpleMessage("동적 업데이트"),
         "open": MessageLookupByLibrary.simpleMessage("열기"),
         "or": MessageLookupByLibrary.simpleMessage("또는"),
         "replied": MessageLookupByLibrary.simpleMessage("회신"),

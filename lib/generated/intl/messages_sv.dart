@@ -246,6 +246,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Laddar"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Nätverket träder i kraft nästa gång appen startas"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Dynamiskt uppdaterat"),
         "open": MessageLookupByLibrary.simpleMessage("öppna"),
         "or": MessageLookupByLibrary.simpleMessage("kanske"),
         "replied": MessageLookupByLibrary.simpleMessage("svar"),

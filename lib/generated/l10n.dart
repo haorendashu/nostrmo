@@ -1580,7 +1580,17 @@ class S {
     );
   }
 
-  // skipped getter for the 'notes updated' key
+  /// `notes updated`
+  String get notes_updated {
+    return Intl.message(
+      'notes updated',
+      name: 'notes_updated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // skipped getter for the 'Add_this_relay_to_local?' key
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

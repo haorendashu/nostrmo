@@ -247,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Ladataan"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Verkko tulee voimaan seuraavan kerran, kun sovellus käynnistetään"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Dynaamisesti päivitetty"),
         "open": MessageLookupByLibrary.simpleMessage("avoin"),
         "or": MessageLookupByLibrary.simpleMessage("Ehkä"),
         "replied": MessageLookupByLibrary.simpleMessage("vastaus"),

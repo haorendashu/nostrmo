@@ -9,7 +9,7 @@ class Nip19 {
   //   return Bech32.encode(Hrps.PUBLIC_KEY, data);
   // }
 
-  static bool _isKey(String hrp, String str) {
+  static bool isKey(String hrp, String str) {
     if (str.indexOf(hrp) == 0) {
       return true;
     } else {
@@ -18,7 +18,7 @@ class Nip19 {
   }
 
   static bool isPubkey(String str) {
-    return _isKey(Hrps.PUBLIC_KEY, str);
+    return isKey(Hrps.PUBLIC_KEY, str);
   }
 
   static String encodePubKey(String pubkey) {
@@ -59,7 +59,7 @@ class Nip19 {
   }
 
   static bool isPrivateKey(String str) {
-    return _isKey(Hrps.PRIVATE_KEY, str);
+    return isKey(Hrps.PRIVATE_KEY, str);
   }
 
   static String encodePrivateKey(String pubkey) {
@@ -67,7 +67,7 @@ class Nip19 {
   }
 
   static bool isNoteId(String str) {
-    return _isKey(Hrps.NOTE_ID, str);
+    return isKey(Hrps.NOTE_ID, str);
   }
 
   static String encodeNoteId(String id) {

@@ -247,6 +247,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Nalaganje"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Omrežje bo začelo veljati ob naslednjem zagonu aplikacije"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Dinamično posodobljeno"),
         "open": MessageLookupByLibrary.simpleMessage("odprto"),
         "or": MessageLookupByLibrary.simpleMessage("mogoče"),
         "replied": MessageLookupByLibrary.simpleMessage("odgovor"),

@@ -213,6 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("ロード中"),
         "network_take_effect_tip":
             MessageLookupByLibrary.simpleMessage("ネットワークは次回のAPP起動時に有効になります"),
+        "notes_updated": MessageLookupByLibrary.simpleMessage("動的に更新されました"),
         "open": MessageLookupByLibrary.simpleMessage("開く"),
         "or": MessageLookupByLibrary.simpleMessage("または"),
         "replied": MessageLookupByLibrary.simpleMessage("返信"),

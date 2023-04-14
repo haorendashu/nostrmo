@@ -201,6 +201,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("加载中"),
         "network_take_effect_tip":
             MessageLookupByLibrary.simpleMessage("网络会在下次启动APP时生效"),
+        "notes_updated": MessageLookupByLibrary.simpleMessage("动态更新了"),
         "open": MessageLookupByLibrary.simpleMessage("打开"),
         "or": MessageLookupByLibrary.simpleMessage("或者"),
         "replied": MessageLookupByLibrary.simpleMessage("回复"),

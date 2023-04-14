@@ -252,6 +252,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("En carga"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "La red entrará en vigor la próxima vez que se inicie la aplicación"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Actualización dinámica"),
         "open": MessageLookupByLibrary.simpleMessage("Abrir"),
         "or": MessageLookupByLibrary.simpleMessage("O"),
         "replied": MessageLookupByLibrary.simpleMessage("Respuesta"),

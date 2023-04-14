@@ -237,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("تحميل"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "الشبكة سوف تدخل حيز التنفيذ في المرة القادمة التي يبدأ التطبيق"),
+        "notes_updated": MessageLookupByLibrary.simpleMessage("تحديث ديناميكي"),
         "open": MessageLookupByLibrary.simpleMessage("فتح ."),
         "or": MessageLookupByLibrary.simpleMessage("أو"),
         "replied": MessageLookupByLibrary.simpleMessage("رد : ."),

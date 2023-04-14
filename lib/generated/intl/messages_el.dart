@@ -258,6 +258,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Φόρτωση"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Το δίκτυο θα τεθεί σε ισχύ την επόμενη φορά που θα ξεκινήσει η εφαρμογή"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Δυναμική ενημέρωση"),
         "open": MessageLookupByLibrary.simpleMessage("ανοικτό"),
         "or": MessageLookupByLibrary.simpleMessage("ίσως"),
         "replied": MessageLookupByLibrary.simpleMessage("απάντηση"),

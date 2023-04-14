@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
+import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/content/content_link_component.dart';
 import 'package:nostrmo/component/content/content_lnbc_component.dart';
@@ -14,6 +17,7 @@ import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
 import 'content_link_pre_component.dart';
+import 'content_relay_component.dart';
 import 'content_str_link_component.dart';
 
 class ContentDecoder {
@@ -242,6 +246,39 @@ class ContentDecoder {
               showVideo: showVideo,
             );
             list.add(widget);
+          } else if (NIP19Tlv.isNprofile(key)) {
+            var nprofile = NIP19Tlv.decodeNprofile(key);
+            if (nprofile != null) {
+              // inline
+              // mention user
+              handledStr = _closeHandledStr(handledStr, inlines);
+              inlines.add(ContentMentionUserComponent(pubkey: nprofile.pubkey));
+            } else {
+              handledStr = _addToHandledStr(handledStr, subStr);
+            }
+          } else if (NIP19Tlv.isNrelay(key)) {
+            var nrelay = NIP19Tlv.decodeNrelay(key);
+            if (nrelay != null) {
+              // inline
+              handledStr = _closeHandledStr(handledStr, inlines);
+              inlines.add(ContentRelayComponent(nrelay.addr));
+            } else {
+              handledStr = _addToHandledStr(handledStr, subStr);
+            }
+          } else if (NIP19Tlv.isNevent(key)) {
+            var nevent = NIP19Tlv.decodeNevent(key);
+            if (nevent != null) {
+              // block
+              handledStr = _closeHandledStr(handledStr, inlines);
+              _closeInlines(inlines, list, textOnTap: textOnTap);
+              var widget = EventQuoteComponent(
+                id: nevent.id,
+                showVideo: showVideo,
+              );
+              list.add(widget);
+            } else {
+              handledStr = _addToHandledStr(handledStr, subStr);
+            }
           } else {
             handledStr = _addToHandledStr(handledStr, subStr);
           }

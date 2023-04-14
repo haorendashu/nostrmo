@@ -149,5 +149,6 @@
     "Translate_Target_Language": "翻译目标语言",
     "Begin_to_download_translate_model": "开始下载翻译模型",
     "Upload_fail": "上传失败",
-    "notes updated": "动态更新了"
+    "notes_updated": "动态更新了",
+    "Add_this_relay_to_local?": "添加该中继到本地？"
 }

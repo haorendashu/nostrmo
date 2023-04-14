@@ -1,10 +1,14 @@
 import 'dart:developer';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/main.dart';
 
 import '../../consts/base.dart';
 import '../../data/relay_status.dart';
+import '../../generated/l10n.dart';
 
 class RelaysItemComponent extends StatelessWidget {
   String addr;
@@ -79,6 +83,20 @@ class RelaysItemComponent extends StatelessWidget {
                     ],
                   ),
                 ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                var text = NIP19Tlv.encodeNrelay(Nrelay(addr));
+                Clipboard.setData(ClipboardData(text: text)).then((_) {
+                  BotToast.showText(text: S.of(context).Copy_success);
+                });
+              },
+              child: Container(
+                margin: EdgeInsets.only(right: Base.BASE_PADDING),
+                child: Icon(
+                  Icons.copy,
+                ),
               ),
             ),
             GestureDetector(

@@ -245,6 +245,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Načítání"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Síť nabude účinku při příštím spuštění aplikace"),
+        "notes_updated":
+            MessageLookupByLibrary.simpleMessage("Dynamicky aktualizované"),
         "open": MessageLookupByLibrary.simpleMessage("otevřít"),
         "or": MessageLookupByLibrary.simpleMessage("možná"),
         "replied": MessageLookupByLibrary.simpleMessage("odpověď"),
