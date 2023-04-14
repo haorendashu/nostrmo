@@ -147,9 +147,9 @@ class SettingProvider extends ChangeNotifier {
 
   String? get imageService => _settingData!.imageService;
 
-  int? get videoPreview => _settingData!.videoPreview;
+  int? get videoPreview => _settingData!.videoPreview ?? OpenStatus.CLOSE;
 
-  int? get imagePreview => _settingData!.imagePreview;
+  int? get imagePreview => _settingData!.imagePreview ?? OpenStatus.CLOSE;
 
   /// i18n
   String? get i18n => _settingData!.i18n;
