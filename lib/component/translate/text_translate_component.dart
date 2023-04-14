@@ -25,6 +25,8 @@ class TextTranslateComponent extends StatefulWidget {
 }
 
 class _TextTranslateComponent extends CustState<TextTranslateComponent> {
+  String? sourceText;
+
   static const double MARGIN = 4;
 
   String? targetText;
@@ -155,7 +157,8 @@ class _TextTranslateComponent extends CustState<TextTranslateComponent> {
       if (targetText != null) {
         // targetText had bean translated
         if (targetLanguage != null &&
-            targetLanguage!.bcpCode == settingProvider.translateTarget) {
+            targetLanguage!.bcpCode == settingProvider.translateTarget &&
+            widget.text == sourceText) {
           // and currentTargetLanguage = settingTranslate
           return;
         }
@@ -182,24 +185,27 @@ class _TextTranslateComponent extends CustState<TextTranslateComponent> {
       if (possibleLanguages.isNotEmpty) {
         var pl = possibleLanguages[0];
         if (!settingProvider.translateSourceArgsCheck(pl.languageTag)) {
+          if (targetText != null) {
+            // set targetText to null
+            setState(() {
+              targetText = null;
+            });
+          }
           return;
         }
 
         sourceLanguage = BCP47Code.fromRawValue(pl.languageTag);
-        if (sourceLanguage == TranslateLanguage.chinese) {
-          return;
-        }
       }
 
       if (sourceLanguage != null) {
         onDeviceTranslator = OnDeviceTranslator(
-            sourceLanguage: sourceLanguage!,
-            targetLanguage: TranslateLanguage.chinese);
+            sourceLanguage: sourceLanguage!, targetLanguage: targetLanguage!);
 
         var result = await onDeviceTranslator.translateText(widget.text);
         if (StringUtil.isNotBlank(result)) {
           setState(() {
             targetText = result;
+            sourceText = widget.text;
           });
         }
       }
