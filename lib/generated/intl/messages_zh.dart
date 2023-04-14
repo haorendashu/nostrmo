@@ -28,6 +28,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("添加并且登录？"),
         "Add_now": MessageLookupByLibrary.simpleMessage("现在添加"),
+        "Add_this_relay_to_local":
+            MessageLookupByLibrary.simpleMessage("添加该中继到本地？"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("添加到已知列表"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("地址不能为空。"),

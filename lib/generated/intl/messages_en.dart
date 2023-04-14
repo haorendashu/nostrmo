@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Add account and login?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Add now"),
+        "Add_this_relay_to_local":
+            MessageLookupByLibrary.simpleMessage("Add this relay to local?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Add to known list"),
         "Address_can_t_be_null":

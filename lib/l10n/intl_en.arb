@@ -153,5 +153,5 @@
     "Begin_to_download_translate_model": "Begin to download translate model",
     "Upload_fail": "Upload fail.",
     "notes_updated": "notes updated",
-    "Add_this_relay_to_local?": "Add this relay to local?"
+    "Add_this_relay_to_local": "Add this relay to local?"
 }

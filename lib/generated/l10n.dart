@@ -1590,7 +1590,15 @@ class S {
     );
   }
 
-  // skipped getter for the 'Add_this_relay_to_local?' key
+  /// `Add this relay to local?`
+  String get Add_this_relay_to_local {
+    return Intl.message(
+      'Add this relay to local?',
+      name: 'Add_this_relay_to_local',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
