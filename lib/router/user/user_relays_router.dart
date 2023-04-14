@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/data/relay_status.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
@@ -50,8 +51,6 @@ class _UserRelayRouter extends State<UserRelayRouter> {
       }
     }
 
-    var _relayProvider = Provider.of<RelayProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(s.Relays),
@@ -63,11 +62,15 @@ class _UserRelayRouter extends State<UserRelayRouter> {
         child: ListView.builder(
           itemBuilder: (context, index) {
             var relayMetadata = relays![index];
-            var contained = _relayProvider.containRelay(relayMetadata.addr);
-            return RelayMetadataComponent(
-              relayMetadata: relayMetadata,
-              addAble: !contained,
-            );
+            return Selector<RelayProvider, RelayStatus?>(
+                builder: (context, relayStatus, child) {
+              return RelayMetadataComponent(
+                relayMetadata: relayMetadata,
+                addAble: relayStatus == null,
+              );
+            }, selector: (context, _provider) {
+              return _provider.getRelayStatus(relayMetadata.addr);
+            });
           },
           itemCount: relays!.length,
         ),

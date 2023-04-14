@@ -102,8 +102,8 @@ class RelayProvider extends ChangeNotifier {
 
   void addRelay(String relayAddr) {
     if (!relayAddrs.contains(relayAddr)) {
-      _doAddRelay(relayAddr);
       relayAddrs.add(relayAddr);
+      _doAddRelay(relayAddr);
     }
   }
 
