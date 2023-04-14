@@ -41,7 +41,8 @@ class MentionMeProvider extends ChangeNotifier
       kinds: [
         kind.EventKind.TEXT_NOTE,
         kind.EventKind.REPOST,
-        kind.EventKind.ZAP
+        kind.EventKind.ZAP,
+        kind.EventKind.LONG_FORM,
       ],
       until: until ?? _initTime,
       limit: 50,

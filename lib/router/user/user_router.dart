@@ -239,7 +239,11 @@ class _UserRouter extends CustState<UserRouter>
 
     // load event from relay
     var filter = Filter(
-      kinds: [kind.EventKind.TEXT_NOTE, kind.EventKind.REPOST],
+      kinds: [
+        kind.EventKind.TEXT_NOTE,
+        kind.EventKind.REPOST,
+        kind.EventKind.LONG_FORM,
+      ],
       until: until,
       authors: [pubkey!],
       limit: queryLimit,

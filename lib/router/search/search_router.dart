@@ -249,10 +249,11 @@ class _SearchRouter extends CustState<SearchRouter>
 
     eventMemBox = EventMemBox();
     until = null;
-    filter = Filter(
-        kinds: [kind.EventKind.TEXT_NOTE, kind.EventKind.REPOST],
-        authors: authors,
-        limit: queryLimit);
+    filter = Filter(kinds: [
+      kind.EventKind.TEXT_NOTE,
+      kind.EventKind.REPOST,
+      kind.EventKind.LONG_FORM,
+    ], authors: authors, limit: queryLimit);
     penddingEvents.clear;
     doQuery();
   }

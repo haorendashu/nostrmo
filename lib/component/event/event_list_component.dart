@@ -20,6 +20,8 @@ class EventListComponent extends StatefulWidget {
 
   bool showDetailBtn;
 
+  bool showLongContent;
+
   EventListComponent({
     required this.event,
     this.pagePubkey,
@@ -27,6 +29,7 @@ class EventListComponent extends StatefulWidget {
     this.showVideo = false,
     this.imageListMode = true,
     this.showDetailBtn = true,
+    this.showLongContent = false,
   });
 
   @override
@@ -60,6 +63,7 @@ class _EventListComponent extends State<EventListComponent> {
           showVideo: widget.showVideo,
           imageListMode: widget.imageListMode,
           showDetailBtn: widget.showDetailBtn,
+          showLongContent: widget.showLongContent,
         ),
       ),
     );

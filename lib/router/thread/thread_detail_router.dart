@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/event_relation.dart';
-import 'package:nostrmo/component/event/event_list_component.dart';
-import 'package:nostrmo/component/event_reply_callback.dart';
-import 'package:nostrmo/component/name_component.dart';
-import 'package:nostrmo/component/simple_name_component.dart';
-import 'package:nostrmo/router/thread/thread_detail_event.dart';
-import 'package:nostrmo/router/thread/thread_detail_item_component.dart';
-import 'package:nostrmo/util/string_util.dart';
-import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
+import '../../client/event_relation.dart';
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
+import '../../component/event/event_list_component.dart';
 import '../../component/event/event_load_list_component.dart';
+import '../../component/event_reply_callback.dart';
+import '../../component/simple_name_component.dart';
 import '../../consts/base.dart';
 import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
@@ -24,7 +19,11 @@ import '../../provider/metadata_provider.dart';
 import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
+import '../../util/string_util.dart';
+import '../../util/when_stop_function.dart';
+import 'thread_detail_event.dart';
 import 'thread_detail_event_main_component.dart';
+import 'thread_detail_item_component.dart';
 
 class ThreadDetailRouter extends StatefulWidget {
   @override
@@ -153,6 +152,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         jumpable: false,
         showVideo: true,
         imageListMode: false,
+        showLongContent: true,
       );
     }
 

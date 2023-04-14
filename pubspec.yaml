@@ -82,6 +82,7 @@ dependencies:
   flutter_inapp_purchase: ^5.4.1
   google_mlkit_translation: ^0.5.0
   google_mlkit_language_id: ^0.5.0
+  flutter_markdown: ^0.6.14
 
 dev_dependencies:
   flutter_test:

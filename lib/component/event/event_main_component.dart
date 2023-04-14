@@ -1,25 +1,30 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/consts/base_consts.dart';
-import 'package:nostrmo/main.dart';
+import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostrmo/component/webview_router.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:widget_size/widget_size.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/event_relation.dart';
+import '../../client/long_form_info.dart';
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
+import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
+import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
+import '../comfirm_dialog.dart';
 import '../content/content_decoder.dart';
+import '../content/content_image_component.dart';
 import 'event_quote_component.dart';
 import 'event_reactions_component.dart';
 import 'event_top_component.dart';
@@ -41,6 +46,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool showDetailBtn;
 
+  bool showLongContent;
+
   EventMainComponent({
     super.key,
     required this.screenshotController,
@@ -51,6 +58,7 @@ class EventMainComponent extends StatefulWidget {
     this.showVideo = false,
     this.imageListMode = false,
     this.showDetailBtn = true,
+    this.showLongContent = false,
   });
 
   @override
@@ -87,6 +95,12 @@ class _EventMainComponent extends State<EventMainComponent> {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
+    var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
+
+    Color? contentCardColor = themeData.cardColor;
+    if (contentCardColor == Colors.white) {
+      contentCardColor = Colors.grey[300];
+    }
 
     Event? repostEvent;
     if (widget.event.kind == kind.EventKind.REPOST &&
@@ -100,7 +114,131 @@ class _EventMainComponent extends State<EventMainComponent> {
     }
 
     List<Widget> list = [];
-    if (widget.event.kind == kind.EventKind.REPOST) {
+    if (widget.event.kind == kind.EventKind.LONG_FORM) {
+      var longFormMargin = EdgeInsets.only(bottom: Base.BASE_PADDING_HALF);
+
+      List<Widget> subList = [];
+      var longFormInfo = LongFormInfo.fromEvent(widget.event);
+      if (StringUtil.isNotBlank(longFormInfo.title)) {
+        subList.add(
+          Container(
+            margin: longFormMargin,
+            child: Text(
+              longFormInfo.title!,
+              maxLines: 10,
+              style: TextStyle(
+                fontSize: largeTextSize! + 4,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        );
+      }
+      if (StringUtil.isNotBlank(longFormInfo.summary)) {
+        Widget summaryTextWidget = Text(
+          longFormInfo.summary!,
+          style: TextStyle(
+            color: hintColor,
+          ),
+        );
+        subList.add(
+          Container(
+            width: double.infinity,
+            margin: longFormMargin,
+            // padding: EdgeInsets.only(
+            //   left: Base.BASE_PADDING,
+            //   right: Base.BASE_PADDING,
+            //   top: Base.BASE_PADDING,
+            //   bottom: Base.BASE_PADDING,
+            // ),
+            // decoration: BoxDecoration(
+            //   color: contentCardColor,
+            //   borderRadius: BorderRadius.circular(10),
+            // ),
+            child: summaryTextWidget,
+          ),
+        );
+      }
+      if (StringUtil.isNotBlank(longFormInfo.image)) {
+        subList.add(Container(
+          margin: longFormMargin,
+          child: ContentImageComponent(
+            imageUrl: longFormInfo.image!,
+          ),
+        ));
+      }
+
+      list.add(
+        Container(
+          width: double.maxFinite,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: subList,
+          ),
+        ),
+      );
+
+      if (widget.showLongContent) {
+        list.add(Container(
+          width: double.infinity,
+          child: MarkdownBody(
+            data: widget.event.content,
+            selectable: true,
+            onTapLink: (String text, String? href, String title) async {
+              if (StringUtil.isNotBlank(href)) {
+                if (href!.indexOf("http") == 0) {
+                  WebViewRouter.open(context, href);
+                } else if (href.indexOf("nostr:") == 0) {
+                  var link = href.replaceFirst("nostr:", "");
+                  if (Nip19.isPubkey(link)) {
+                    // jump user page
+                    var pubkey = Nip19.decode(link);
+                    if (StringUtil.isNotBlank(pubkey)) {
+                      RouterUtil.router(context, RouterPath.USER, pubkey);
+                    }
+                  } else if (NIP19Tlv.isNprofile(link)) {
+                    var nprofile = NIP19Tlv.decodeNprofile(link);
+                    if (nprofile != null) {
+                      RouterUtil.router(
+                          context, RouterPath.USER, nprofile.pubkey);
+                    }
+                  } else if (Nip19.isNoteId(link)) {
+                    var noteId = Nip19.decode(link);
+                    if (StringUtil.isNotBlank(noteId)) {
+                      RouterUtil.router(
+                          context, RouterPath.EVENT_DETAIL, noteId);
+                    }
+                  } else if (NIP19Tlv.isNevent(link)) {
+                    var nevent = NIP19Tlv.decodeNevent(link);
+                    if (nevent != null) {
+                      RouterUtil.router(
+                          context, RouterPath.EVENT_DETAIL, nevent.id);
+                    }
+                  } else if (NIP19Tlv.isNrelay(link)) {
+                    var nrelay = NIP19Tlv.decodeNrelay(link);
+                    if (nrelay != null) {
+                      var result = await ComfirmDialog.show(
+                          context, S.of(context).Add_this_relay_to_local);
+                      if (result) {
+                        relayProvider.addRelay(nrelay.addr);
+                      }
+                    }
+                  }
+                }
+              }
+            },
+          ),
+        ));
+      }
+
+      list.add(EventReactionsComponent(
+        screenshotController: widget.screenshotController,
+        event: widget.event,
+        eventRelation: eventRelation,
+        showDetailBtn: widget.showDetailBtn,
+      ));
+    } else if (widget.event.kind == kind.EventKind.REPOST) {
       list.add(Container(
         alignment: Alignment.centerLeft,
         child: Text("${s.Boost}:"),

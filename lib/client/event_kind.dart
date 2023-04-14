@@ -22,4 +22,6 @@ class EventKind {
   static const int RELAY_LIST_METADATA = 10002;
 
   static const int AUTHENTICATION = 22242;
+
+  static const int LONG_FORM = 30023;
 }
