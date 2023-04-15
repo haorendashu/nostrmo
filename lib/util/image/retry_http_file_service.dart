@@ -29,7 +29,7 @@ class RetryHttpFileServcie extends FileService {
       // error! use nostrmo proxy service to download it
 
       var base64Url = base64UrlEncode(utf8.encode(url));
-      int t = (DateTime.now().millisecondsSinceEpoch / 1000) as int;
+      int t = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       var sign = HashUtil.md5("$base64Url$t${Base.IMAGE_PROXY_SERVICE_KEY}");
 
       url = "${Base.IMAGE_PROXY_SERVICE}$base64Url?t=$t&sign=$sign";
