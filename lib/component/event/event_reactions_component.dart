@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
@@ -314,7 +315,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     } else if (value == "star") {
       // TODO star event
     } else if (value == "broadcase") {
-      nostr!.sendEvent(widget.event);
+      nostr!.broadcase(widget.event);
     } else if (value == "block") {
       filterProvider.addBlock(widget.event.pubKey);
     } else if (value == "delete") {
@@ -374,6 +375,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     if (value == "boost") {
       nostr!.sendRepost(widget.event.id);
       eventReactionsProvider.addRepost(widget.event.id);
+
+      if (settingProvider.broadcaseWhenBoost == OpenStatus.OPEN) {
+        nostr!.broadcase(widget.event);
+      }
     } else if (value == "quote") {
       var event = await EditorRouter.open(context, initEmbeds: [
         quill.CustomBlockEmbed(CustEmbedTypes.mention_evevt, widget.event.id)

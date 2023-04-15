@@ -198,6 +198,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         onTap: pickTranslateTarget,
       ));
     }
+    list.add(SettingGroupItemComponent(
+      name: s.Broadcase_When_Boost,
+      value: getOpenList(settingProvider.broadcaseWhenBoost).name,
+      onTap: pickBroadcaseWhenBoost,
+    ));
 
     list.add(SettingGroupTitleComponent(iconData: Icons.source, title: s.Data));
     list.add(SettingGroupItemComponent(
@@ -762,6 +767,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       } finally {
         cancelFunc.call();
       }
+    }
+  }
+
+  pickBroadcaseWhenBoost() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.broadcaseWhenBoost = resultEnumObj.value;
     }
   }
 }

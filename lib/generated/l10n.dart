@@ -1599,6 +1599,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Broadcase When Boost`
+  String get Broadcase_When_Boost {
+    return Intl.message(
+      'Broadcase When Boost',
+      name: 'Broadcase_When_Boost',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

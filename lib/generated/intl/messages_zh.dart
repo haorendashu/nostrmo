@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("限制"),
         "Boost": MessageLookupByLibrary.simpleMessage("促进"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("广播"),
+        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("给我买一杯咖啡！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("提交"),

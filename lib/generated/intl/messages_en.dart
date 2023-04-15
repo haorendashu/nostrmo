@@ -47,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("Blocks"),
         "Boost": MessageLookupByLibrary.simpleMessage("Boost"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("Broadcase"),
+        "Broadcase_When_Boost":
+            MessageLookupByLibrary.simpleMessage("Broadcase When Boost"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Buy me a coffee!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),

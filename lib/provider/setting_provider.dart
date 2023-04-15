@@ -200,6 +200,9 @@ class SettingProvider extends ChangeNotifier {
     return _translateSourceArgsMap[str] != null;
   }
 
+  int? get broadcaseWhenBoost =>
+      _settingData!.broadcaseWhenBoost ?? OpenStatus.OPEN;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -312,6 +315,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set broadcaseWhenBoost(int? o) {
+    _settingData!.broadcaseWhenBoost = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -373,6 +381,8 @@ class SettingData {
 
   String? translateSourceArgs;
 
+  int? broadcaseWhenBoost;
+
   /// updated time
   late int updatedTime;
 
@@ -397,6 +407,7 @@ class SettingData {
     this.openTranslate,
     this.translateTarget,
     this.translateSourceArgs,
+    this.broadcaseWhenBoost,
     this.updatedTime = 0,
   });
 
@@ -432,6 +443,7 @@ class SettingData {
     openTranslate = json['openTranslate'];
     translateTarget = json['translateTarget'];
     translateSourceArgs = json['translateSourceArgs'];
+    broadcaseWhenBoost = json['broadcaseWhenBoost'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -461,6 +473,7 @@ class SettingData {
     data['openTranslate'] = this.openTranslate;
     data['translateTarget'] = this.translateTarget;
     data['translateSourceArgs'] = this.translateSourceArgs;
+    data['broadcaseWhenBoost'] = this.broadcaseWhenBoost;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

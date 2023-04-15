@@ -121,6 +121,11 @@ class CustNostr {
     return event;
   }
 
+  Event broadcase(Event event) {
+    pool.send(["EVENT", event.toJson()]);
+    return event;
+  }
+
   void close() {
     var addrs = pool.list;
     for (var addr in addrs) {
