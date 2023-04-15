@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../data/metadata.dart';
+import '../main.dart';
 import '../provider/metadata_provider.dart';
 import '../util/string_util.dart';
 
@@ -37,6 +38,7 @@ class _UserPicComponent extends State<UserPicComponent> {
               fit: BoxFit.cover,
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error),
+              cacheManager: localCacheManager,
             );
           }
         }

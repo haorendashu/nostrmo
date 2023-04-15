@@ -5,6 +5,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/metadata.dart';
+import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/string_util.dart';
 import '../simple_name_component.dart';
@@ -44,6 +45,7 @@ class _ReactionEventMetadataComponent
             fit: BoxFit.cover,
             placeholder: (context, url) => const CircularProgressIndicator(),
             errorWidget: (context, url, error) => const Icon(Icons.error),
+            cacheManager: localCacheManager,
           );
         }
       }

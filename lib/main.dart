@@ -4,12 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_socks_proxy/socks_proxy.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nostrmo/router/donate/donate_router.dart';
-import 'package:nostrmo/router/event_detail/event_detail_router.dart';
-import 'package:nostrmo/router/setting/setting_router.dart';
-import 'package:nostrmo/util/locale_util.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -36,12 +33,15 @@ import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'router/dm/dm_detail_router.dart';
+import 'router/donate/donate_router.dart';
+import 'router/event_detail/event_detail_router.dart';
 import 'router/filter/filter_router.dart';
 import 'router/profile_editor/profile_editor_router.dart';
 import 'router/index/index_router.dart';
 import 'router/keybackup/key_backup_router.dart';
 import 'router/notice/notice_router.dart';
 import 'router/relays/relays_router.dart';
+import 'router/setting/setting_router.dart';
 import 'router/tag/tag_detail_router.dart';
 import 'router/thread/thread_detail_router.dart';
 import 'router/user/user_contact_list_router.dart';
@@ -49,6 +49,8 @@ import 'router/user/user_relays_router.dart';
 import 'router/user/user_router.dart';
 import 'system_timer.dart';
 import 'util/colors_util.dart';
+import 'util/image/cache_manager_builder.dart';
+import 'util/locale_util.dart';
 import 'util/media_data_cache.dart';
 import 'util/string_util.dart';
 
@@ -81,6 +83,8 @@ late FilterProvider filterProvider;
 late LinkPreviewDataProvider linkPreviewDataProvider;
 
 late MediaDataCache mediaDataCache;
+
+late CacheManager localCacheManager;
 
 CustNostr? nostr;
 
@@ -121,6 +125,7 @@ Future<void> main() async {
   filterProvider = FilterProvider.getInstance();
   linkPreviewDataProvider = LinkPreviewDataProvider();
   mediaDataCache = MediaDataCache();
+  localCacheManager = CacheManagerBuilder.build();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;

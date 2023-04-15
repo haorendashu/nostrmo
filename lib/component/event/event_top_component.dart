@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
+import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 
 class EventTopComponent extends StatefulWidget {
@@ -58,6 +59,7 @@ class _EventTopComponent extends State<EventTopComponent> {
               fit: BoxFit.cover,
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
+              cacheManager: localCacheManager,
             );
           }
         }

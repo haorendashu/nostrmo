@@ -87,6 +87,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         fit: BoxFit.cover,
         placeholder: (context, url) => CircularProgressIndicator(),
         errorWidget: (context, url, error) => Icon(Icons.error),
+        cacheManager: localCacheManager,
       );
     }
     Widget? bannerImage;
@@ -97,6 +98,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         width: maxWidth,
         height: bannerHeight,
         fit: BoxFit.cover,
+        cacheManager: localCacheManager,
       );
     }
 

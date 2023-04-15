@@ -104,6 +104,7 @@ class SearchMentionUserItemComponent extends StatelessWidget {
         fit: BoxFit.cover,
         placeholder: (context, url) => CircularProgressIndicator(),
         errorWidget: (context, url, error) => Icon(Icons.error),
+        cacheManager: localCacheManager,
       );
     }
 

@@ -15,6 +15,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../consts/base.dart';
 import '../generated/l10n.dart';
+import '../main.dart';
 import '../provider/metadata_provider.dart';
 import '../util/router_util.dart';
 import '../util/store_util.dart';
@@ -66,6 +67,7 @@ class _QrcodeDialog extends State<QrcodeDialog> {
             fit: BoxFit.cover,
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Icon(Icons.error),
+            cacheManager: localCacheManager,
           );
         }
 
