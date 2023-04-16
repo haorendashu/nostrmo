@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/zap_num_util.dart';
-import 'package:nostrmo/util/number_format_util.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/cust_contact_list.dart';
-import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
+import '../../client/zap_num_util.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/event_mem_box.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../util/number_format_util.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 
@@ -90,6 +89,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
                 event.createdAt > contactListEvent!.createdAt) ||
             contactListEvent == null) {
           setState(() {
+            contactListEvent = event;
             contactList = CustContactList.fromJson(event.tags);
           });
         }
@@ -105,6 +105,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
         if ((relaysEvent != null && event.createdAt > relaysEvent!.createdAt) ||
             relaysEvent == null) {
           setState(() {
+            relaysEvent = event;
             relaysTags = event.tags;
           });
         }
