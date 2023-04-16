@@ -18,13 +18,16 @@ class FollowIndexRouter extends StatefulWidget {
 class _FollowIndexRouter extends State<FollowIndexRouter> {
   @override
   Widget build(BuildContext context) {
-    return TabBarView(
-      children: [
-        FollowPostsRouter(),
-        FollowRouter(),
-        MentionMeRouter(),
-      ],
-      controller: widget.tabController,
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: TabBarView(
+        children: [
+          FollowPostsRouter(),
+          FollowRouter(),
+          MentionMeRouter(),
+        ],
+        controller: widget.tabController,
+      ),
     );
   }
 }

@@ -22,18 +22,22 @@ class DMRouter extends StatefulWidget {
 class _DMRouter extends State<DMRouter> {
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     var agreement = NIP04.getAgreement(nostr!.privateKey);
 
-    return TabBarView(
-      controller: widget.tabController,
-      children: [
-        DMKnownListRouter(
-          agreement: agreement,
-        ),
-        DMUnknownListRouter(
-          agreement: agreement,
-        ),
-      ],
+    return Container(
+      color: themeData.scaffoldBackgroundColor,
+      child: TabBarView(
+        controller: widget.tabController,
+        children: [
+          DMKnownListRouter(
+            agreement: agreement,
+          ),
+          DMUnknownListRouter(
+            agreement: agreement,
+          ),
+        ],
+      ),
     );
   }
 }
