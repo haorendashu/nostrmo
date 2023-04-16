@@ -21,7 +21,8 @@ class RetryHttpFileServcie extends FileService {
       if (headers != null) {
         req.headers.addAll(headers);
       }
-      final httpResponse = await _httpClient.send(req);
+      final httpResponse =
+          await _httpClient.send(req).timeout(Duration(seconds: 60));
 
       var response = HttpGetResponse(httpResponse);
       if (response.statusCode > 299) {
