@@ -77,39 +77,48 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     );
   }
 
+  String queryId = "";
+
+  String queryId2 = "";
+
   @override
   Future<void> onReady(BuildContext context) async {
     {
+      queryId = StringUtil.rndNameStr(16);
       var filter = Filter(
           authors: [widget.pubkey],
           limit: 1,
           kinds: [kind.EventKind.CONTACT_LIST]);
       nostr!.pool.query([filter.toJson()], (event) {
-        if ((contactListEvent != null &&
-                event.createdAt > contactListEvent!.createdAt) ||
-            contactListEvent == null) {
+        if (((contactListEvent != null &&
+                    event.createdAt > contactListEvent!.createdAt) ||
+                contactListEvent == null) &&
+            !_disposed) {
           setState(() {
             contactListEvent = event;
             contactList = CustContactList.fromJson(event.tags);
           });
         }
-      });
+      }, queryId);
     }
 
     {
+      queryId2 = StringUtil.rndNameStr(16);
       var filter = Filter(
           authors: [widget.pubkey],
           limit: 1,
           kinds: [kind.EventKind.RELAY_LIST_METADATA]);
       nostr!.pool.query([filter.toJson()], (event) {
-        if ((relaysEvent != null && event.createdAt > relaysEvent!.createdAt) ||
-            relaysEvent == null) {
+        if (((relaysEvent != null &&
+                    event.createdAt > relaysEvent!.createdAt) ||
+                relaysEvent == null) &&
+            !_disposed) {
           setState(() {
             relaysEvent = event;
             relaysTags = event.tags;
           });
         }
-      });
+      }, queryId2);
     }
   }
 
@@ -129,13 +138,14 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     }
   }
 
-  String zapSubscribeId = StringUtil.rndNameStr(10);
+  String zapSubscribeId = "";
 
   onZapTap() {
     if (zapEventBox == null) {
       zapEventBox = EventMemBox(sortAfterAdd: false);
       // pull zap event
       var filter = Filter(kinds: [kind.EventKind.ZAP], p: [widget.pubkey]);
+      zapSubscribeId = StringUtil.rndNameStr(12);
       // print(filter);
       nostr!.pool.query([filter.toJson()], onZapEvent, zapSubscribeId);
 
@@ -158,10 +168,21 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   void dispose() {
     super.dispose();
 
-    try {
-      nostr!.pool.unsubscribe(zapSubscribeId);
-    } catch (e) {}
+    _disposed = true;
+    checkAndUnsubscribe(queryId);
+    checkAndUnsubscribe(queryId2);
+    checkAndUnsubscribe(zapSubscribeId);
   }
+
+  void checkAndUnsubscribe(String queryId) {
+    if (StringUtil.isNotBlank(queryId)) {
+      try {
+        nostr!.pool.unsubscribe(queryId);
+      } catch (e) {}
+    }
+  }
+
+  bool _disposed = false;
 }
 
 class UserStatisticsItemComponent extends StatelessWidget {
