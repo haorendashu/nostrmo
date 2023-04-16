@@ -76,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("输入空白可能会被中继禁止。"),
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
         "Filter": MessageLookupByLibrary.simpleMessage("过滤"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage("找到云端中继列表，你要下载吗？"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("指纹识别"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "Following": MessageLookupByLibrary.simpleMessage("跟随中"),

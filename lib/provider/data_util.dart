@@ -22,6 +22,8 @@ class DataKey {
 
   static final String RELAY_LIST = "relayList";
 
+  static final String RELAY_UPDATED_TIME = "relayUpdatedTime";
+
   static final String BLOCK_LIST = "blockList";
 
   static final String DIRTYWORD_LIST = "dirtywordList";

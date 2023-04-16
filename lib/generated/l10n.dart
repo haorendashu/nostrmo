@@ -1609,6 +1609,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Find clouded relay list, do you want to download it?`
+  String get Find_clouded_relay_list_do_you_want_to_download {
+    return Intl.message(
+      'Find clouded relay list, do you want to download it?',
+      name: 'Find_clouded_relay_list_do_you_want_to_download',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

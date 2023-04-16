@@ -154,5 +154,6 @@
     "Upload_fail": "Upload fail.",
     "notes_updated": "notes updated",
     "Add_this_relay_to_local": "Add this relay to local?",
-    "Broadcase_When_Boost": "Broadcase When Boost"
+    "Broadcase_When_Boost": "Broadcase When Boost",
+    "Find_clouded_relay_list_do_you_want_to_download": "Find clouded relay list, do you want to download it?"
 }

@@ -151,5 +151,6 @@
     "Upload_fail": "上传失败",
     "notes_updated": "动态更新了",
     "Add_this_relay_to_local": "添加该中继到本地？",
-    "Broadcase_When_Boost": "促进时广播"
+    "Broadcase_When_Boost": "促进时广播",
+    "Find_clouded_relay_list_do_you_want_to_download": "找到云端中继列表，你要下载吗？"
 }

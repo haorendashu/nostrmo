@@ -38,10 +38,10 @@ class RelayProvider extends ChangeNotifier {
       // init relays
       relayAddrs = [
         "wss://nos.lol",
-        "wss://nostr.wine",
-        "wss://atlas.nostr.land",
-        "wss://relay.orangepill.dev",
-        "wss://relay.damus.io",
+        // "wss://nostr.wine",
+        // "wss://atlas.nostr.land",
+        // "wss://relay.orangepill.dev",
+        // "wss://relay.damus.io",
         // "wss://nostr.vpn1.codingmerc.com",
       ];
     }
@@ -129,17 +129,25 @@ class RelayProvider extends ChangeNotifier {
     return relayAddrs.contains(relayAddr);
   }
 
-  void _updateRelayToData() {
+  int? updatedTime() {
+    return sharedPreferences.getInt(DataKey.RELAY_LIST);
+  }
+
+  void _updateRelayToData({bool upload = true}) {
     sharedPreferences.setStringList(DataKey.RELAY_LIST, relayAddrs);
+    sharedPreferences.setInt(
+        DataKey.RELAY_LIST, DateTime.now().millisecondsSinceEpoch ~/ 1000);
 
     // update to relay
-    List<dynamic> tags = [];
-    for (var addr in relayAddrs) {
-      tags.add(["r", addr, ""]);
+    if (upload) {
+      List<dynamic> tags = [];
+      for (var addr in relayAddrs) {
+        tags.add(["r", addr, ""]);
+      }
+      var event =
+          Event(nostr!.publicKey, kind.EventKind.RELAY_LIST_METADATA, tags, "");
+      nostr!.sendEvent(event);
     }
-    var event =
-        Event(nostr!.publicKey, kind.EventKind.RELAY_LIST_METADATA, tags, "");
-    nostr!.sendEvent(event);
   }
 
   CustRelay genRelay(String relayAddr) {
@@ -168,6 +176,18 @@ class RelayProvider extends ChangeNotifier {
       return element.relay.url == custRelay.relay.url;
     });
     notifyListeners();
+  }
+
+  void setRelayListAndUpdate(List<String> addrs) {
+    relayStatusMap.clear();
+    relays.clear();
+
+    relayAddrs.clear();
+    relayAddrs.addAll(addrs);
+    _updateRelayToData(upload: false);
+
+    nostr!.close;
+    checkAndReconnect();
   }
 
   void clear() {
