@@ -137,10 +137,6 @@ class _UserRouter extends CustState<UserRouter>
           title: appbarTitle,
         );
 
-        if (metadata != null) {
-          metadataProvider.update(pubkey!);
-        }
-
         return Scaffold(
             body: Stack(
           children: [
@@ -204,6 +200,8 @@ class _UserRouter extends CustState<UserRouter>
     controller.addListener(() {
       loadMoreScrollCallback(controller);
     });
+
+    metadataProvider.update(pubkey!);
   }
 
   void onEvent(event) {
