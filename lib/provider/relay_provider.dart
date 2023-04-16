@@ -42,6 +42,7 @@ class RelayProvider extends ChangeNotifier {
         "wss://atlas.nostr.land",
         "wss://relay.orangepill.dev",
         "wss://relay.damus.io",
+        // "wss://nostr.vpn1.codingmerc.com",
       ];
     }
   }

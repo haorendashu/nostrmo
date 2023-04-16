@@ -20,7 +20,7 @@ class Base {
 
   static String INDEXS_TOPICS = "https://nostrmo.com/indexs/topics.json";
 
-  static String IMAGE_PROXY_SERVICE = "http://imagebridge.nostrmo.com/";
+  static String IMAGE_PROXY_SERVICE = "https://imagebridge.nostrmo.com/";
 
   static String IMAGE_PROXY_SERVICE_KEY = "please_do_not_abuse_thanks";
 
