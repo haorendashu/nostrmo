@@ -38,10 +38,10 @@ class RelayProvider extends ChangeNotifier {
       // init relays
       relayAddrs = [
         "wss://nos.lol",
-        // "wss://nostr.wine",
-        // "wss://atlas.nostr.land",
-        // "wss://relay.orangepill.dev",
-        // "wss://relay.damus.io",
+        "wss://nostr.wine",
+        "wss://atlas.nostr.land",
+        "wss://relay.orangepill.dev",
+        "wss://relay.damus.io",
         // "wss://nostr.vpn1.codingmerc.com",
       ];
     }
@@ -130,13 +130,13 @@ class RelayProvider extends ChangeNotifier {
   }
 
   int? updatedTime() {
-    return sharedPreferences.getInt(DataKey.RELAY_LIST);
+    return sharedPreferences.getInt(DataKey.RELAY_UPDATED_TIME);
   }
 
   void _updateRelayToData({bool upload = true}) {
     sharedPreferences.setStringList(DataKey.RELAY_LIST, relayAddrs);
-    sharedPreferences.setInt(
-        DataKey.RELAY_LIST, DateTime.now().millisecondsSinceEpoch ~/ 1000);
+    sharedPreferences.setInt(DataKey.RELAY_UPDATED_TIME,
+        DateTime.now().millisecondsSinceEpoch ~/ 1000);
 
     // update to relay
     if (upload) {
