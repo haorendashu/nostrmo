@@ -3,11 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/nip19/nip19_tlv.dart';
-import 'package:nostrmo/component/content/content_link_component.dart';
-import 'package:nostrmo/component/content/content_str_link_component.dart';
-import 'package:nostrmo/component/content/content_tag_component.dart';
-import 'package:nostrmo/component/webview_router.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -15,6 +10,7 @@ import '../../client/event_kind.dart' as kind;
 import '../../client/event_relation.dart';
 import '../../client/long_form_info.dart';
 import '../../client/nip19/nip19.dart';
+import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
@@ -28,6 +24,9 @@ import '../../util/string_util.dart';
 import '../comfirm_dialog.dart';
 import '../content/content_decoder.dart';
 import '../content/content_image_component.dart';
+import '../content/content_link_component.dart';
+import '../content/content_tag_component.dart';
+import '../webview_router.dart';
 import 'event_quote_component.dart';
 import 'event_reactions_component.dart';
 import 'event_top_component.dart';
@@ -189,7 +188,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       );
 
       if (widget.showLongContent) {
-        var markdownWidget = buildMarkdownWidget();
+        var markdownWidget = buildMarkdownWidget(themeData);
 
         list.add(Container(
           width: double.infinity,
@@ -337,7 +336,7 @@ class _EventMainComponent extends State<EventMainComponent> {
     return main;
   }
 
-  buildMarkdownWidget() {
+  buildMarkdownWidget(ThemeData themeData) {
     return MarkdownBody(
       data: widget.event.content,
       selectable: true,
@@ -350,6 +349,12 @@ class _EventMainComponent extends State<EventMainComponent> {
         }
         return ContentImageComponent(imageUrl: uri.toString());
       },
+      styleSheet: MarkdownStyleSheet(
+        a: TextStyle(
+          color: themeData.primaryColor,
+          decoration: TextDecoration.underline,
+        ),
+      ),
       onTapLink: (String text, String? href, String title) async {
         // print("text $text href $href title $title");
         if (StringUtil.isNotBlank(href)) {
