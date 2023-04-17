@@ -4,6 +4,7 @@ import 'package:nostrmo/component/event/zap_event_main_component.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
 import 'package:nostrmo/util/load_more_event.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +13,10 @@ import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event/zap_event_list_component.dart';
+import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../component/placeholder/event_placeholder.dart';
+import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../provider/setting_provider.dart';
@@ -40,6 +43,7 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
   Widget doBuild(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
     var _mentionMeProvider = Provider.of<MentionMeProvider>(context);
+    var _mentionMeNewProvider = Provider.of<MentionMeNewProvider>(context);
     var eventBox = _mentionMeProvider.eventBox;
     var events = eventBox.all();
     if (events.isEmpty) {
@@ -68,12 +72,32 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       itemCount: events.length,
     );
 
-    return RefreshIndicator(
+    var ri = RefreshIndicator(
       onRefresh: () async {
         mentionMeProvider.refresh();
       },
       child: main,
     );
+
+    if (_mentionMeNewProvider.eventMemBox.isEmpty()) {
+      return ri;
+    } else {
+      var newEventNum = _mentionMeNewProvider.eventMemBox.length();
+      List<Widget> stackList = [ri];
+      stackList.add(Positioned(
+        top: Base.BASE_PADDING,
+        child: NewNotesUpdatedComponent(
+          num: newEventNum,
+          onTap: () {
+            mentionMeProvider.mergeNewEvent();
+          },
+        ),
+      ));
+      return Stack(
+        alignment: Alignment.center,
+        children: stackList,
+      );
+    }
   }
 
   @override

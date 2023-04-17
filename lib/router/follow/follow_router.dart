@@ -11,8 +11,11 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
+import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
+import '../../provider/follow_new_event_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 
@@ -37,6 +40,8 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
   Widget doBuild(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
     var _followEventProvider = Provider.of<FollowEventProvider>(context);
+    var _followNewEventProvider = Provider.of<FollowNewEventProvider>(context);
+
     var eventBox = _followEventProvider.eventBox;
     var events = eventBox.all();
     if (events.isEmpty) {
@@ -73,12 +78,32 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
     //   removeTop: true,
     //   child: main,
     // );
-    return RefreshIndicator(
+    var ri = RefreshIndicator(
       onRefresh: () async {
         followEventProvider.refresh();
       },
       child: main,
     );
+
+    if (_followNewEventProvider.eventMemBox.isEmpty()) {
+      return ri;
+    } else {
+      var newEventNum = _followNewEventProvider.eventMemBox.length();
+      List<Widget> stackList = [ri];
+      stackList.add(Positioned(
+        top: Base.BASE_PADDING,
+        child: NewNotesUpdatedComponent(
+          num: newEventNum,
+          onTap: () {
+            followEventProvider.mergeNewEvent();
+          },
+        ),
+      ));
+      return Stack(
+        alignment: Alignment.center,
+        children: stackList,
+      );
+    }
   }
 
   @override

@@ -7,6 +7,8 @@ import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nostrmo/provider/follow_new_event_provider.dart';
+import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -64,7 +66,11 @@ late ContactListProvider contactListProvider;
 
 late FollowEventProvider followEventProvider;
 
+late FollowNewEventProvider followNewEventProvider;
+
 late MentionMeProvider mentionMeProvider;
+
+late MentionMeNewProvider mentionMeNewProvider;
 
 late DMProvider dmProvider;
 
@@ -113,7 +119,9 @@ Future<void> main() async {
   metadataProvider = futureResultList[1] as MetadataProvider;
   contactListProvider = ContactListProvider.getInstance();
   followEventProvider = FollowEventProvider();
+  followNewEventProvider = FollowNewEventProvider();
   mentionMeProvider = MentionMeProvider();
+  mentionMeNewProvider = MentionMeNewProvider();
   dmProvider = DMProvider();
   indexProvider = IndexProvider(
     indexTap: settingProvider.defaultIndex,
@@ -197,8 +205,14 @@ class _MyApp extends State<MyApp> {
         ListenableProvider<FollowEventProvider>.value(
           value: followEventProvider,
         ),
+        ListenableProvider<FollowNewEventProvider>.value(
+          value: followNewEventProvider,
+        ),
         ListenableProvider<MentionMeProvider>.value(
           value: mentionMeProvider,
+        ),
+        ListenableProvider<MentionMeNewProvider>.value(
+          value: mentionMeNewProvider,
         ),
         ListenableProvider<DMProvider>.value(
           value: dmProvider,

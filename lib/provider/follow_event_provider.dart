@@ -40,6 +40,12 @@ class FollowEventProvider extends ChangeNotifier
     eventBox.clear();
     postsBox.clear();
     doQuery();
+
+    followNewEventProvider.clear();
+  }
+
+  int lastTime() {
+    return _initTime;
   }
 
   List<String> _subscribeIds = [];
@@ -52,13 +58,17 @@ class FollowEventProvider extends ChangeNotifier
     }
   }
 
+  List<int> queryEventKinds() {
+    return [
+      kind.EventKind.TEXT_NOTE,
+      kind.EventKind.REPOST,
+      kind.EventKind.LONG_FORM,
+    ];
+  }
+
   void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {
     var filter = Filter(
-      kinds: [
-        kind.EventKind.TEXT_NOTE,
-        kind.EventKind.REPOST,
-        kind.EventKind.LONG_FORM,
-      ],
+      kinds: queryEventKinds(),
       until: until ?? _initTime,
       limit: 100,
     );
@@ -113,6 +123,42 @@ class FollowEventProvider extends ChangeNotifier
     return subscribeId;
   }
 
+  // check if is posts (no tag e and not Mentions, TODO handle NIP27)
+  static bool eventIsPost(Event event) {
+    bool isPosts = true;
+    var tagLength = event.tags.length;
+    for (var i = 0; i < tagLength; i++) {
+      var tag = event.tags[i];
+      if (tag.length > 0 && tag[0] == "e") {
+        if (event.content.contains("[$i]")) {
+          continue;
+        }
+
+        isPosts = false;
+        break;
+      }
+    }
+
+    return isPosts;
+  }
+
+  void mergeNewEvent() {
+    var allEvents = followNewEventProvider.eventMemBox.all();
+    var postEvnets = followNewEventProvider.eventPostMemBox.all();
+
+    eventBox.addList(allEvents);
+    postsBox.addList(postEvnets);
+
+    // sort
+    eventBox.sort();
+    postsBox.sort();
+
+    followNewEventProvider.clear();
+
+    // update ui
+    notifyListeners();
+  }
+
   void onEvent(Event event) {
     if (eventBox.isEmpty()) {
       laterTimeMS = 200;
@@ -128,13 +174,7 @@ class FollowEventProvider extends ChangeNotifier
           added = true;
 
           // check if is posts (no tag e)
-          bool isPosts = true;
-          for (var tag in e.tags) {
-            if (tag.length > 0 && tag[0] == "e") {
-              isPosts = false;
-              break;
-            }
-          }
+          bool isPosts = eventIsPost(e);
           if (isPosts) {
             postsBox.add(e);
           }

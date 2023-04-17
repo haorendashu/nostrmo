@@ -24,6 +24,8 @@ class MentionMeProvider extends ChangeNotifier
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     eventBox.clear();
     doQuery();
+
+    mentionMeNewProvider.clear();
   }
 
   void deleteEvent(String id) {
@@ -33,17 +35,27 @@ class MentionMeProvider extends ChangeNotifier
     }
   }
 
+  int lastTime() {
+    return _initTime;
+  }
+
+  List<String> _subscribeIds = [];
+
+  List<int> queryEventKinds() {
+    return [
+      kind.EventKind.TEXT_NOTE,
+      kind.EventKind.REPOST,
+      kind.EventKind.ZAP,
+      kind.EventKind.LONG_FORM,
+    ];
+  }
+
   String? subscribeId;
 
   void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {
     targetNostr ??= nostr!;
     var filter = Filter(
-      kinds: [
-        kind.EventKind.TEXT_NOTE,
-        kind.EventKind.REPOST,
-        kind.EventKind.ZAP,
-        kind.EventKind.LONG_FORM,
-      ],
+      kinds: queryEventKinds(),
       until: until ?? _initTime,
       limit: 50,
       p: [targetNostr.publicKey],
@@ -81,6 +93,20 @@ class MentionMeProvider extends ChangeNotifier
 
   void clear() {
     eventBox.clear();
+    notifyListeners();
+  }
+
+  void mergeNewEvent() {
+    var allEvents = mentionMeNewProvider.eventMemBox.all();
+
+    eventBox.addList(allEvents);
+
+    // sort
+    eventBox.sort();
+
+    mentionMeNewProvider.clear();
+
+    // update ui
     notifyListeners();
   }
 }
