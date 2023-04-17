@@ -5,12 +5,17 @@ import 'package:nostrmo/component/webview_router.dart';
 class ContentLinkComponent extends StatelessWidget {
   String link;
 
-  ContentLinkComponent({required this.link});
+  String? title;
+
+  ContentLinkComponent({
+    required this.link,
+    this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ContentStrLinkComponent(
-      str: link,
+      str: title != null ? title! : link,
       onTap: () {
         WebViewRouter.open(context, link);
       },

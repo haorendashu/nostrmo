@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostrmo/component/content/content_link_component.dart';
+import 'package:nostrmo/component/content/content_str_link_component.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:provider/provider.dart';
@@ -187,65 +189,12 @@ class _EventMainComponent extends State<EventMainComponent> {
       );
 
       if (widget.showLongContent) {
-        var markdownWidget = MarkdownBody(
-          data: widget.event.content,
-          selectable: true,
-          imageBuilder: (Uri uri, String? title, String? alt) {
-            return ContentImageComponent(imageUrl: uri.toString());
-          },
-          onTapLink: (String text, String? href, String title) async {
-            // print("text $text href $href title $title");
-            if (StringUtil.isNotBlank(href)) {
-              if (href!.indexOf("http") == 0) {
-                WebViewRouter.open(context, href);
-              } else if (href.indexOf("nostr:") == 0) {
-                var link = href.replaceFirst("nostr:", "");
-                if (Nip19.isPubkey(link)) {
-                  // jump user page
-                  var pubkey = Nip19.decode(link);
-                  if (StringUtil.isNotBlank(pubkey)) {
-                    RouterUtil.router(context, RouterPath.USER, pubkey);
-                  }
-                } else if (NIP19Tlv.isNprofile(link)) {
-                  var nprofile = NIP19Tlv.decodeNprofile(link);
-                  if (nprofile != null) {
-                    RouterUtil.router(
-                        context, RouterPath.USER, nprofile.pubkey);
-                  }
-                } else if (Nip19.isNoteId(link)) {
-                  var noteId = Nip19.decode(link);
-                  if (StringUtil.isNotBlank(noteId)) {
-                    RouterUtil.router(context, RouterPath.EVENT_DETAIL, noteId);
-                  }
-                } else if (NIP19Tlv.isNevent(link)) {
-                  var nevent = NIP19Tlv.decodeNevent(link);
-                  if (nevent != null) {
-                    RouterUtil.router(
-                        context, RouterPath.EVENT_DETAIL, nevent.id);
-                  }
-                } else if (NIP19Tlv.isNrelay(link)) {
-                  var nrelay = NIP19Tlv.decodeNrelay(link);
-                  if (nrelay != null) {
-                    var result = await ComfirmDialog.show(
-                        context, S.of(context).Add_this_relay_to_local);
-                    if (result) {
-                      relayProvider.addRelay(nrelay.addr);
-                    }
-                  }
-                }
-              }
-            }
-          },
-        );
+        var markdownWidget = buildMarkdownWidget();
 
         list.add(Container(
           width: double.infinity,
           child: RepaintBoundary(child: markdownWidget),
         ));
-        // list.add(Container(
-        //   width: double.infinity,
-        //   child: markdownWidget,
-        // ));
       }
 
       list.add(EventReactionsComponent(
@@ -386,6 +335,63 @@ class _EventMainComponent extends State<EventMainComponent> {
     );
 
     return main;
+  }
+
+  buildMarkdownWidget() {
+    return MarkdownBody(
+      data: widget.event.content,
+      selectable: true,
+      imageBuilder: (Uri uri, String? title, String? alt) {
+        if (settingProvider.imagePreview == OpenStatus.CLOSE) {
+          return ContentLinkComponent(
+            link: uri.toString(),
+            title: title,
+          );
+        }
+        return ContentImageComponent(imageUrl: uri.toString());
+      },
+      onTapLink: (String text, String? href, String title) async {
+        // print("text $text href $href title $title");
+        if (StringUtil.isNotBlank(href)) {
+          if (href!.indexOf("http") == 0) {
+            WebViewRouter.open(context, href);
+          } else if (href.indexOf("nostr:") == 0) {
+            var link = href.replaceFirst("nostr:", "");
+            if (Nip19.isPubkey(link)) {
+              // jump user page
+              var pubkey = Nip19.decode(link);
+              if (StringUtil.isNotBlank(pubkey)) {
+                RouterUtil.router(context, RouterPath.USER, pubkey);
+              }
+            } else if (NIP19Tlv.isNprofile(link)) {
+              var nprofile = NIP19Tlv.decodeNprofile(link);
+              if (nprofile != null) {
+                RouterUtil.router(context, RouterPath.USER, nprofile.pubkey);
+              }
+            } else if (Nip19.isNoteId(link)) {
+              var noteId = Nip19.decode(link);
+              if (StringUtil.isNotBlank(noteId)) {
+                RouterUtil.router(context, RouterPath.EVENT_DETAIL, noteId);
+              }
+            } else if (NIP19Tlv.isNevent(link)) {
+              var nevent = NIP19Tlv.decodeNevent(link);
+              if (nevent != null) {
+                RouterUtil.router(context, RouterPath.EVENT_DETAIL, nevent.id);
+              }
+            } else if (NIP19Tlv.isNrelay(link)) {
+              var nrelay = NIP19Tlv.decodeNrelay(link);
+              if (nrelay != null) {
+                var result = await ComfirmDialog.show(
+                    context, S.of(context).Add_this_relay_to_local);
+                if (result) {
+                  relayProvider.addRelay(nrelay.addr);
+                }
+              }
+            }
+          }
+        }
+      },
+    );
   }
 }
 
