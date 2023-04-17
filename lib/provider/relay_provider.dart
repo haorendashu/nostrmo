@@ -6,6 +6,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import '../client/event_kind.dart' as kind;
 import '../client/cust_nostr.dart';
 import '../client/cust_relay.dart';
+import '../client/real_relay.dart';
 import '../data/relay_status.dart';
 import '../main.dart';
 import 'data_util.dart';
@@ -42,6 +43,7 @@ class RelayProvider extends ChangeNotifier {
         "wss://atlas.nostr.land",
         "wss://relay.orangepill.dev",
         "wss://relay.damus.io",
+        // "wss://filter.nostr.wine"
         // "wss://nostr.vpn1.codingmerc.com",
       ];
     }
@@ -158,7 +160,7 @@ class RelayProvider extends ChangeNotifier {
       relayStatusMap[relayAddr] = relayStatus;
     }
 
-    var relay = Relay(
+    var relay = RealRelay(
       relayStatus.addr,
       access: WriteAccess.readWrite,
     );

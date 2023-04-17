@@ -2,10 +2,11 @@ import '../data/relay_status.dart';
 
 import 'package:nostr_dart/nostr_dart.dart';
 
+import 'real_relay.dart';
 import 'subscription.dart';
 
 class CustRelay {
-  Relay relay;
+  RealRelay relay;
   RelayStatus relayStatus;
 
   final Map<String, Subscription> _queries = {};
@@ -22,9 +23,9 @@ class CustRelay {
 
   bool checkAndCompleteQuery(String id) {
     // all subscription should be close
-    send(["CLOSE", id]);
     var sub = _queries.remove(id);
     if (sub != null) {
+      send(["CLOSE", id]);
       return true;
     }
     return false;

@@ -18,7 +18,8 @@ class CustNostr {
       bool eventVerification = false})
       : _privateKey = privateKey {
     _publicKey = privateKey.isNotEmpty ? getPublicKey(privateKey) : '';
-    pool = CustRelayPool(eventVerification: eventVerification);
+    pool =
+        CustRelayPool(eventVerification: eventVerification, localNostr: this);
   }
 
   set privateKey(String key) {

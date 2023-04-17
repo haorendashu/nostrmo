@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:nostr_dart/nostr_dart.dart';
 
 import '../main.dart';
+import 'cust_nostr.dart';
 import 'event_kind.dart' as kind;
 import 'cust_relay.dart';
 import 'subscription.dart';
 
 class CustRelayPool {
+  CustNostr localNostr;
+
   // connected relays
   final Map<String, CustRelay> _relays = {};
 
@@ -18,8 +22,10 @@ class CustRelayPool {
 
   final bool _eventVerification;
 
-  CustRelayPool({bool eventVerification = false})
-      : _eventVerification = eventVerification;
+  CustRelayPool({
+    bool eventVerification = false,
+    required this.localNostr,
+  }) : _eventVerification = eventVerification;
 
   // List<CustRelay> get allRelays => _relays.values.toList();
 
@@ -252,8 +258,8 @@ class CustRelayPool {
         ["challenge", challenge]
       ];
       var event =
-          Event(nostr!.publicKey, kind.EventKind.AUTHENTICATION, tags, "");
-      event.sign(nostr!.privateKey);
+          Event(localNostr.publicKey, kind.EventKind.AUTHENTICATION, tags, "");
+      event.sign(localNostr.privateKey);
       custRelay.relay.send(["AUTH", event.toJson()]);
     }
   }
