@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/util/encrypt_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../consts/base.dart';
 import '../consts/base_consts.dart';
 import '../consts/theme_style copy.dart';
 import '../util/string_util.dart';
@@ -36,9 +38,28 @@ class SettingProvider extends ChangeNotifier {
         var setting = SettingData.fromJson(jsonMap);
         _settingData = setting;
         _privateKeyMap.clear();
-        if (StringUtil.isNotBlank(_settingData!.privateKeyMap)) {
+
+        // move privateKeyMap to encryptPrivateKeyMap since 1.2.0
+        String? privateKeyMapText = _settingData!.encryptPrivateKeyMap;
+        try {
+          if (StringUtil.isNotBlank(privateKeyMapText)) {
+            privateKeyMapText = EncryptUtil.aesDecrypt(
+                privateKeyMapText!, Base.KEY_EKEY, Base.KEY_IV);
+          } else if (StringUtil.isNotBlank(_settingData!.privateKeyMap) &&
+              StringUtil.isBlank(_settingData!.encryptPrivateKeyMap)) {
+            privateKeyMapText = _settingData!.privateKeyMap;
+            _settingData!.encryptPrivateKeyMap = EncryptUtil.aesEncrypt(
+                _settingData!.privateKeyMap!, Base.KEY_EKEY, Base.KEY_IV);
+            _settingData!.privateKeyMap = null;
+          }
+        } catch (e) {
+          log("settingProvider handle privateKey error");
+          log(e.toString());
+        }
+
+        if (StringUtil.isNotBlank(privateKeyMapText)) {
           try {
-            var jsonKeyMap = jsonDecode(_settingData!.privateKeyMap!);
+            var jsonKeyMap = jsonDecode(privateKeyMapText!);
             if (jsonKeyMap != null) {
               for (var entry in (jsonKeyMap as Map<String, dynamic>).entries) {
                 _privateKeyMap[entry.key] = entry.value;
@@ -66,7 +87,7 @@ class SettingProvider extends ChangeNotifier {
 
   String? get privateKey {
     if (_settingData!.privateKeyIndex != null &&
-        _settingData!.privateKeyMap != null &&
+        _settingData!.encryptPrivateKeyMap != null &&
         _privateKeyMap.isNotEmpty) {
       return _privateKeyMap[_settingData!.privateKeyIndex.toString()];
     }
@@ -95,7 +116,8 @@ class SettingProvider extends ChangeNotifier {
 
         _settingData!.privateKeyIndex = i;
 
-        _settingData!.privateKeyMap = json.encode(_privateKeyMap);
+        // _settingData!.privateKeyMap = json.encode(_privateKeyMap);
+        _encodePrivateKeyMap();
         saveAndNotifyListeners(updateUI: updateUI);
 
         return i;
@@ -105,10 +127,17 @@ class SettingProvider extends ChangeNotifier {
     return -1;
   }
 
+  void _encodePrivateKeyMap() {
+    var privateKeyMap = json.encode(_privateKeyMap);
+    _settingData!.encryptPrivateKeyMap =
+        EncryptUtil.aesEncrypt(privateKeyMap, Base.KEY_EKEY, Base.KEY_IV);
+  }
+
   void removeKey(int index) {
     var indexStr = index.toString();
     _privateKeyMap.remove(indexStr);
-    _settingData!.privateKeyMap = json.encode(_privateKeyMap);
+    // _settingData!.privateKeyMap = json.encode(_privateKeyMap);
+    _encodePrivateKeyMap();
     if (_settingData!.privateKeyIndex == index) {
       if (_privateKeyMap.isEmpty) {
         _settingData!.privateKeyIndex = null;
@@ -339,6 +368,8 @@ class SettingData {
 
   String? privateKeyMap;
 
+  String? encryptPrivateKeyMap;
+
   /// open lock
   late int lockOpen;
 
@@ -414,6 +445,7 @@ class SettingData {
   SettingData.fromJson(Map<String, dynamic> json) {
     privateKeyIndex = json['privateKeyIndex'];
     privateKeyMap = json['privateKeyMap'];
+    encryptPrivateKeyMap = json['encryptPrivateKeyMap'];
     if (json['lockOpen'] != null) {
       lockOpen = json['lockOpen'];
     } else {
@@ -455,6 +487,7 @@ class SettingData {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['privateKeyIndex'] = this.privateKeyIndex;
     data['privateKeyMap'] = this.privateKeyMap;
+    data['encryptPrivateKeyMap'] = this.encryptPrivateKeyMap;
     data['lockOpen'] = this.lockOpen;
     data['defaultIndex'] = this.defaultIndex;
     data['defaultTab'] = this.defaultTab;

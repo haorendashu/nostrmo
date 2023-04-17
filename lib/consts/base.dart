@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:nostrmo/util/hash_util.dart';
+
 class Base {
   static const APP_NAME = "Nostrmo";
 
@@ -27,4 +29,8 @@ class Base {
   static String userAgent() {
     return "$APP_NAME $VERSION_NAME";
   }
+
+  static String KEY_EKEY = HashUtil.md5("Jo49KwLvyhrsar");
+
+  static String KEY_IV = "1681713832000000";
 }
