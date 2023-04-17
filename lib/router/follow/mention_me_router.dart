@@ -79,23 +79,26 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
     );
 
     List<Widget> stackList = [ri];
-    stackList.add(Selector<MentionMeNewProvider, int>(
-      builder: (context, newEventNum, child) {
-        if (newEventNum <= 0) {
-          return Container();
-        }
+    stackList.add(Positioned(
+      top: Base.BASE_PADDING,
+      child: Selector<MentionMeNewProvider, int>(
+        builder: (context, newEventNum, child) {
+          if (newEventNum <= 0) {
+            return Container();
+          }
 
-        return NewNotesUpdatedComponent(
-          num: newEventNum,
-          onTap: () {
-            mentionMeProvider.mergeNewEvent();
-            _controller.jumpTo(0);
-          },
-        );
-      },
-      selector: (context, _provider) {
-        return _provider.eventMemBox.length();
-      },
+          return NewNotesUpdatedComponent(
+            num: newEventNum,
+            onTap: () {
+              mentionMeProvider.mergeNewEvent();
+              _controller.jumpTo(0);
+            },
+          );
+        },
+        selector: (context, _provider) {
+          return _provider.eventMemBox.length();
+        },
+      ),
     ));
     return Stack(
       alignment: Alignment.center,
