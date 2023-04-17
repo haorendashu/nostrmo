@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/consts/router_path.dart';
@@ -74,7 +75,21 @@ class _GlobalsTagsRouter extends KeepAliveCustState<GlobalsTagsRouter> {
       for (var itf in itfs) {
         topics.add(itf as String);
       }
+
+      // Disorder
+      for (var i = 1; i < topics.length; i++) {
+        var j = getRandomInt(0, i);
+        var t = topics[i];
+        topics[i] = topics[j];
+        topics[j] = t;
+      }
+
       setState(() {});
     }
+  }
+
+  int getRandomInt(int min, int max) {
+    final _random = new Random();
+    return _random.nextInt((max - min).floor()) + min;
   }
 }
