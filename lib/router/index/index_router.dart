@@ -213,11 +213,6 @@ class _IndexRouter extends CustState<IndexRouter>
         child: Icon(Icons.add),
         onPressed: () {
           EditorRouter.open(context);
-          // var text =
-          //     "nprofile1qqsgfhhxuemwtwm8kjk5uppv7uxtmp5pz4wm2dv59lxx5pfnsk98ysqpqq2dp6klnprofile1qqsgfhhxuemwtwm8kjk5uppv7uxtmp5pz4wm2dv59lxx5pfnsk98ysqpqq2dp6kl";
-          // print(NIP19Tlv.isNprofile(text));
-          // var np = NIP19Tlv.decodeNprofile(text);
-          // print("${np!.pubkey} ${np.relays}");
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

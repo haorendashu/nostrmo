@@ -59,7 +59,8 @@ class CustRelayPool {
         for (Subscription subscription in _subscriptions.values) {
           custRelay.relay.send(subscription.toJson());
         }
-      } else if (init) {
+      }
+      if (init) {
         for (Subscription subscription in _initQuery.values) {
           relayDoQuery(custRelay, subscription);
         }
