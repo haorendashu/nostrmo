@@ -40,7 +40,6 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
   Widget doBuild(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
     var _followEventProvider = Provider.of<FollowEventProvider>(context);
-    var _followNewEventProvider = Provider.of<FollowNewEventProvider>(context);
 
     var eventBox = _followEventProvider.eventBox;
     var events = eventBox.all();
@@ -73,11 +72,6 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
       itemCount: events.length,
     );
 
-    // return MediaQuery.removePadding(
-    //   context: context,
-    //   removeTop: true,
-    //   child: main,
-    // );
     var ri = RefreshIndicator(
       onRefresh: () async {
         followEventProvider.refresh();
@@ -85,25 +79,32 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
       child: main,
     );
 
-    if (_followNewEventProvider.eventMemBox.isEmpty()) {
-      return ri;
-    } else {
-      var newEventNum = _followNewEventProvider.eventMemBox.length();
-      List<Widget> stackList = [ri];
-      stackList.add(Positioned(
-        top: Base.BASE_PADDING,
-        child: NewNotesUpdatedComponent(
-          num: newEventNum,
-          onTap: () {
-            followEventProvider.mergeNewEvent();
-          },
-        ),
-      ));
-      return Stack(
-        alignment: Alignment.center,
-        children: stackList,
-      );
-    }
+    List<Widget> stackList = [ri];
+    stackList.add(Positioned(
+      top: Base.BASE_PADDING,
+      child: Selector<FollowNewEventProvider, int>(
+        builder: (context, newEventNum, child) {
+          if (newEventNum <= 0) {
+            return Container();
+          }
+
+          return NewNotesUpdatedComponent(
+            num: newEventNum,
+            onTap: () {
+              followEventProvider.mergeNewEvent();
+              _controller.jumpTo(0);
+            },
+          );
+        },
+        selector: (context, _provider) {
+          return _provider.eventMemBox.length();
+        },
+      ),
+    ));
+    return Stack(
+      alignment: Alignment.center,
+      children: stackList,
+    );
   }
 
   @override

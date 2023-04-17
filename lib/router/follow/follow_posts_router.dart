@@ -39,7 +39,6 @@ class _FollowPostsRouter extends KeepAliveCustState<FollowPostsRouter>
   Widget doBuild(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
     var _followEventProvider = Provider.of<FollowEventProvider>(context);
-    var _followNewEventProvider = Provider.of<FollowNewEventProvider>(context);
 
     var eventBox = _followEventProvider.postsBox;
     var events = eventBox.all();
@@ -72,25 +71,32 @@ class _FollowPostsRouter extends KeepAliveCustState<FollowPostsRouter>
       child: main,
     );
 
-    if (_followNewEventProvider.eventPostMemBox.isEmpty()) {
-      return ri;
-    } else {
-      var newEventNum = _followNewEventProvider.eventPostMemBox.length();
-      List<Widget> stackList = [ri];
-      stackList.add(Positioned(
-        top: Base.BASE_PADDING,
-        child: NewNotesUpdatedComponent(
-          num: newEventNum,
-          onTap: () {
-            followEventProvider.mergeNewEvent();
-          },
-        ),
-      ));
-      return Stack(
-        alignment: Alignment.center,
-        children: stackList,
-      );
-    }
+    List<Widget> stackList = [ri];
+    stackList.add(Positioned(
+      top: Base.BASE_PADDING,
+      child: Selector<FollowNewEventProvider, int>(
+        builder: (context, newEventNum, child) {
+          if (newEventNum <= 0) {
+            return Container();
+          }
+
+          return NewNotesUpdatedComponent(
+            num: newEventNum,
+            onTap: () {
+              followEventProvider.mergeNewEvent();
+              _controller.jumpTo(0);
+            },
+          );
+        },
+        selector: (context, _provider) {
+          return _provider.eventPostMemBox.length();
+        },
+      ),
+    ));
+    return Stack(
+      alignment: Alignment.center,
+      children: stackList,
+    );
   }
 
   @override

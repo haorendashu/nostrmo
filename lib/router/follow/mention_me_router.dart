@@ -43,7 +43,6 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
   Widget doBuild(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
     var _mentionMeProvider = Provider.of<MentionMeProvider>(context);
-    var _mentionMeNewProvider = Provider.of<MentionMeNewProvider>(context);
     var eventBox = _mentionMeProvider.eventBox;
     var events = eventBox.all();
     if (events.isEmpty) {
@@ -79,25 +78,29 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       child: main,
     );
 
-    if (_mentionMeNewProvider.eventMemBox.isEmpty()) {
-      return ri;
-    } else {
-      var newEventNum = _mentionMeNewProvider.eventMemBox.length();
-      List<Widget> stackList = [ri];
-      stackList.add(Positioned(
-        top: Base.BASE_PADDING,
-        child: NewNotesUpdatedComponent(
+    List<Widget> stackList = [ri];
+    stackList.add(Selector<MentionMeNewProvider, int>(
+      builder: (context, newEventNum, child) {
+        if (newEventNum <= 0) {
+          return Container();
+        }
+
+        return NewNotesUpdatedComponent(
           num: newEventNum,
           onTap: () {
             mentionMeProvider.mergeNewEvent();
+            _controller.jumpTo(0);
           },
-        ),
-      ));
-      return Stack(
-        alignment: Alignment.center,
-        children: stackList,
-      );
-    }
+        );
+      },
+      selector: (context, _provider) {
+        return _provider.eventMemBox.length();
+      },
+    ));
+    return Stack(
+      alignment: Alignment.center,
+      children: stackList,
+    );
   }
 
   @override
