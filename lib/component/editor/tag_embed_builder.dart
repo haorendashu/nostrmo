@@ -6,9 +6,11 @@ import 'package:nostrmo/component/content/content_tag_component.dart';
 import 'cust_embed_types.dart';
 
 class TagEmbedBuilder extends EmbedBuilder {
+  bool get expanded => false;
+
   @override
   Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly) {
+      bool readOnly, bool inline) {
     var tag = node.value.data;
     return AbsorbPointer(
       child: Container(

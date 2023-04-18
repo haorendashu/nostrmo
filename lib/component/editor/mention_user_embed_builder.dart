@@ -7,9 +7,11 @@ import '../content/content_mention_user_component.dart';
 import 'cust_embed_types.dart';
 
 class MentionUserEmbedBuilder extends EmbedBuilder {
+  bool get expanded => false;
+
   @override
   Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly) {
+      bool readOnly, bool inline) {
     var pubkey = node.value.data;
     return AbsorbPointer(
       child: Container(

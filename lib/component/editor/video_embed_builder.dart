@@ -8,7 +8,7 @@ import '../content/content_video_component.dart';
 class VideoEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly) {
+      bool readOnly, bool inline) {
     var url = node.value.data as String;
     return ContentVideoComponent(url: url);
   }
