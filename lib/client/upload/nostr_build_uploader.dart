@@ -14,7 +14,7 @@ class NostrBuildUploader {
     var response = await dio.post<String>(UPLOAD_ACTION, data: formData);
     var body = response.data;
     // TODO this rule need to update by api
-    var uploadResult = SpiderUtil.subUntil(body!, "<a id=\"theList\">", "</a>");
+    var uploadResult = SpiderUtil.subUntil(body!, "id=\"theList\">", "</a>");
 
     return uploadResult;
   }
