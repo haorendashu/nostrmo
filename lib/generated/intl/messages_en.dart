@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Buy me a coffee!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("Close at"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Comfirm"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("Copy Hex Key"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Copy Key"),
@@ -116,8 +117,12 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Input Sats num to gen lightning invoice"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Input account private key"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("Input can not be null"),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("Input dirtyword."),
+        "Input_parse_error":
+            MessageLookupByLibrary.simpleMessage("Input parse error"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("Input relay address."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Key Backup"),
@@ -136,7 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Nostromo developers will never require a key from you."),
+                "Nostrmo developers will never require a key from you."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Note Id"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("Note loading..."),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
@@ -238,6 +243,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Write a message"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("Wrong Private Key format"),
+        "You_had_voted_with":
+            MessageLookupByLibrary.simpleMessage("You had voted with"),
+        "Zap_num_can_not_bigger_then":
+            MessageLookupByLibrary.simpleMessage("Zap num can not bigger then"),
+        "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
+            "Zap num can not smaller then"),
+        "add_poll_option":
+            MessageLookupByLibrary.simpleMessage("add poll option"),
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),
         "boosted": MessageLookupByLibrary.simpleMessage("boosted"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
@@ -245,12 +258,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("key has been copy!"),
         "liked": MessageLookupByLibrary.simpleMessage("liked"),
         "loading": MessageLookupByLibrary.simpleMessage("loading"),
+        "max_zap_num": MessageLookupByLibrary.simpleMessage("max zap num"),
+        "min_zap_num": MessageLookupByLibrary.simpleMessage("min zap num"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "The network will take effect the next time the app is launched"),
         "not_found": MessageLookupByLibrary.simpleMessage("not found"),
         "notes_updated": MessageLookupByLibrary.simpleMessage("notes updated"),
         "open": MessageLookupByLibrary.simpleMessage("Open"),
         "or": MessageLookupByLibrary.simpleMessage("or"),
+        "poll_option_info":
+            MessageLookupByLibrary.simpleMessage("poll option info"),
         "replied": MessageLookupByLibrary.simpleMessage("replied"),
         "terms_of_user": MessageLookupByLibrary.simpleMessage("terms of user")
       };

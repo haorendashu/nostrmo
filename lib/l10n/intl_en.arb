@@ -81,7 +81,7 @@
     "Relays": "Relays",
     "Key_Backup": "Key Backup",
     "Please_do_not_disclose_or_share_the_key_to_anyone": "Please do not disclose or share the key to anyone.",
-    "Nostromo_developers_will_never_require_a_key_from_you": "Nostromo developers will never require a key from you.",
+    "Nostromo_developers_will_never_require_a_key_from_you": "Nostrmo developers will never require a key from you.",
     "Please_keep_the_key_properly_for_account_recovery": "Please keep the key properly for account recovery.",
     "Backup_and_Safety_tips": "Backup and Safety tips",
     "The_key_is_a_random_string_that_resembles_": "The key is a random string that resembles your account password. Anyone with this key can access and control your account.",
@@ -155,5 +155,15 @@
     "notes_updated": "notes updated",
     "Add_this_relay_to_local": "Add this relay to local?",
     "Broadcase_When_Boost": "Broadcase When Boost",
-    "Find_clouded_relay_list_do_you_want_to_download": "Find clouded relay list, do you want to download it?"
+    "Find_clouded_relay_list_do_you_want_to_download": "Find clouded relay list, do you want to download it?",
+    "Input_can_not_be_null": "Input can not be null",
+    "Input_parse_error": "Input parse error",
+    "You_had_voted_with": "You had voted with",
+    "Close_at": "Close at",
+    "Zap_num_can_not_smaller_then": "Zap num can not smaller then",
+    "Zap_num_can_not_bigger_then": "Zap num can not bigger then",
+    "min_zap_num": "min zap num",
+    "max_zap_num": "max zap num",
+    "poll_option_info": "poll option info",
+    "add_poll_option": "add poll option"
 }

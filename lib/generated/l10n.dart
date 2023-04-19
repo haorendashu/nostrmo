@@ -870,10 +870,10 @@ class S {
     );
   }
 
-  /// `Nostromo developers will never require a key from you.`
+  /// `Nostrmo developers will never require a key from you.`
   String get Nostromo_developers_will_never_require_a_key_from_you {
     return Intl.message(
-      'Nostromo developers will never require a key from you.',
+      'Nostrmo developers will never require a key from you.',
       name: 'Nostromo_developers_will_never_require_a_key_from_you',
       desc: '',
       args: [],
@@ -1615,6 +1615,106 @@ class S {
     return Intl.message(
       'Find clouded relay list, do you want to download it?',
       name: 'Find_clouded_relay_list_do_you_want_to_download',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input can not be null`
+  String get Input_can_not_be_null {
+    return Intl.message(
+      'Input can not be null',
+      name: 'Input_can_not_be_null',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input parse error`
+  String get Input_parse_error {
+    return Intl.message(
+      'Input parse error',
+      name: 'Input_parse_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You had voted with`
+  String get You_had_voted_with {
+    return Intl.message(
+      'You had voted with',
+      name: 'You_had_voted_with',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close at`
+  String get Close_at {
+    return Intl.message(
+      'Close at',
+      name: 'Close_at',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zap num can not smaller then`
+  String get Zap_num_can_not_smaller_then {
+    return Intl.message(
+      'Zap num can not smaller then',
+      name: 'Zap_num_can_not_smaller_then',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zap num can not bigger then`
+  String get Zap_num_can_not_bigger_then {
+    return Intl.message(
+      'Zap num can not bigger then',
+      name: 'Zap_num_can_not_bigger_then',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `min zap num`
+  String get min_zap_num {
+    return Intl.message(
+      'min zap num',
+      name: 'min_zap_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `max zap num`
+  String get max_zap_num {
+    return Intl.message(
+      'max zap num',
+      name: 'max_zap_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `poll option info`
+  String get poll_option_info {
+    return Intl.message(
+      'poll option info',
+      name: 'poll_option_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `add poll option`
+  String get add_poll_option {
+    return Intl.message(
+      'add poll option',
+      name: 'add_poll_option',
       desc: '',
       args: [],
     );

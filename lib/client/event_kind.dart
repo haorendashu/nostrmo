@@ -15,6 +15,8 @@ class EventKind {
 
   static const int REACTION = 7;
 
+  static const int POLL = 6969;
+
   static const int ZAP_REQUEST = 9734;
 
   static const int ZAP = 9735;

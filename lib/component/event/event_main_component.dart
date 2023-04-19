@@ -26,6 +26,7 @@ import '../content/content_decoder.dart';
 import '../content/content_image_component.dart';
 import '../content/content_link_component.dart';
 import '../content/content_tag_component.dart';
+import 'event_poll_component.dart';
 import '../webview_router.dart';
 import 'event_quote_component.dart';
 import 'event_reactions_component.dart';
@@ -279,6 +280,13 @@ class _EventMainComponent extends State<EventMainComponent> {
       list.add(
         buildContentWidget(_settingProvider, imagePreview, videoPreview),
       );
+
+      if (widget.event.kind == kind.EventKind.POLL) {
+        list.add(EventPollComponent(
+          event: widget.event,
+        ));
+      }
+
       list.add(EventReactionsComponent(
         screenshotController: widget.screenshotController,
         event: widget.event,

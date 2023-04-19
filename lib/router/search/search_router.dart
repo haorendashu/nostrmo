@@ -253,6 +253,7 @@ class _SearchRouter extends CustState<SearchRouter>
       kind.EventKind.TEXT_NOTE,
       kind.EventKind.REPOST,
       kind.EventKind.LONG_FORM,
+      kind.EventKind.POLL,
     ], authors: authors, limit: queryLimit);
     penddingEvents.clear;
     doQuery();

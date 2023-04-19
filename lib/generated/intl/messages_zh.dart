@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("给我买一杯咖啡！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("提交"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("复制原始密钥"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("复制密钥"),
@@ -92,12 +93,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
         "Input": MessageLookupByLibrary.simpleMessage("输入"),
-        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Stas 数量"),
+        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Sats 数量"),
         "Input_Sats_num_to_gen_lightning_invoice":
-            MessageLookupByLibrary.simpleMessage("输入 Stas 数量以生成闪电网络发票"),
+            MessageLookupByLibrary.simpleMessage("输入 Sats 数量以生成闪电网络发票"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("添加账号密钥"),
+        "Input_can_not_be_null": MessageLookupByLibrary.simpleMessage("输入不能为空"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage("请输入过滤词语"),
+        "Input_parse_error": MessageLookupByLibrary.simpleMessage("输入解析失败"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage("请输入中继地址。"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
@@ -112,7 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Network": MessageLookupByLibrary.simpleMessage("网络"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
-            MessageLookupByLibrary.simpleMessage("Nostromo开发人员永远不会向你索要密钥。"),
+            MessageLookupByLibrary.simpleMessage("Nostrmo开发人员永远不会向你索要密钥。"),
         "Note_Id": MessageLookupByLibrary.simpleMessage("动态 Id"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("动态加载中"),
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
@@ -198,17 +201,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "Write_a_message": MessageLookupByLibrary.simpleMessage("写一个消息"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("密钥格式错误"),
+        "You_had_voted_with": MessageLookupByLibrary.simpleMessage("你已经投票了"),
+        "Zap_num_can_not_bigger_then":
+            MessageLookupByLibrary.simpleMessage("Zap数量不能大于"),
+        "Zap_num_can_not_smaller_then":
+            MessageLookupByLibrary.simpleMessage("Zap数量不能小于"),
+        "add_poll_option": MessageLookupByLibrary.simpleMessage("添加投票选项"),
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
         "boosted": MessageLookupByLibrary.simpleMessage("促进"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
         "key_has_been_copy": MessageLookupByLibrary.simpleMessage("密钥复制成功"),
         "liked": MessageLookupByLibrary.simpleMessage("喜欢"),
         "loading": MessageLookupByLibrary.simpleMessage("加载中"),
+        "max_zap_num": MessageLookupByLibrary.simpleMessage("最大Zap数量"),
+        "min_zap_num": MessageLookupByLibrary.simpleMessage("最小Zap数量"),
         "network_take_effect_tip":
             MessageLookupByLibrary.simpleMessage("网络会在下次启动APP时生效"),
         "notes_updated": MessageLookupByLibrary.simpleMessage("动态更新了"),
         "open": MessageLookupByLibrary.simpleMessage("打开"),
         "or": MessageLookupByLibrary.simpleMessage("或者"),
+        "poll_option_info": MessageLookupByLibrary.simpleMessage("投票选项信息"),
         "replied": MessageLookupByLibrary.simpleMessage("回复"),
         "terms_of_user": MessageLookupByLibrary.simpleMessage("用户协议")
       };

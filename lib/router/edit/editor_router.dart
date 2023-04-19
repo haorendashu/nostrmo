@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -21,6 +22,7 @@ import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/editor/video_embed_builder.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/router/edit/poll_input_component.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -83,6 +85,8 @@ class EditorRouter extends StatefulWidget {
 }
 
 class _EditorRouter extends CustState<EditorRouter> {
+  double appbarHeight = 56;
+
   quill.QuillController _controller = quill.QuillController.basic();
 
   bool emojiShow = false;
@@ -92,6 +96,10 @@ class _EditorRouter extends CustState<EditorRouter> {
   late List<dynamic> tags;
 
   late List<dynamic> tagsAddedWhenSend;
+
+  bool inputPoll = false;
+
+  PollInputController pollInputController = PollInputController();
 
   @override
   void initState() {
@@ -117,34 +125,63 @@ class _EditorRouter extends CustState<EditorRouter> {
     var textColor = themeData.textTheme.bodyMedium!.color;
 
     List<Widget> list = [];
+
+    List<Widget> editorList = [];
+    var editorInputWidget = Container(
+      margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
+      child: quill.QuillEditor(
+        placeholder: s.What_s_happening,
+        controller: _controller,
+        scrollController: ScrollController(),
+        focusNode: focusNode,
+        readOnly: false,
+        embedBuilders: [
+          MentionUserEmbedBuilder(),
+          MentionEventEmbedBuilder(),
+          PicEmbedBuilder(),
+          VideoEmbedBuilder(),
+          LnbcEmbedBuilder(),
+          TagEmbedBuilder(),
+        ],
+        scrollable: true,
+        autoFocus: false,
+        expands: false,
+        // padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(
+          left: Base.BASE_PADDING,
+          right: Base.BASE_PADDING,
+        ),
+      ),
+    );
+    editorList.add(editorInputWidget);
+    if (inputPoll) {
+      editorList.add(PollInputComponent(
+        pollInputController: pollInputController,
+      ));
+    }
+
     list.add(Expanded(
-      child: Container(
-        margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
-        child: quill.QuillEditor(
-          placeholder: s.What_s_happening,
-          controller: _controller,
-          scrollController: ScrollController(),
-          focusNode: focusNode,
-          readOnly: false,
-          embedBuilders: [
-            MentionUserEmbedBuilder(),
-            MentionEventEmbedBuilder(),
-            PicEmbedBuilder(),
-            VideoEmbedBuilder(),
-            LnbcEmbedBuilder(),
-            TagEmbedBuilder(),
-          ],
-          scrollable: true,
-          autoFocus: false,
-          expands: false,
-          // padding: EdgeInsets.zero,
-          padding: EdgeInsets.only(
-            left: Base.BASE_PADDING,
-            right: Base.BASE_PADDING,
+      child: GestureDetector(
+        onTap: () {
+          // focus to eidtor input widget
+          focusNode.requestFocus();
+        },
+        child: Container(
+          constraints: BoxConstraints(
+              maxHeight: mediaDataCache.size.height -
+                  mediaDataCache.padding.top -
+                  appbarHeight -
+                  IndexAppBar.height),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: editorList,
+            ),
           ),
         ),
       ),
     ));
+
     list.add(
       quill.QuillToolbar(
         toolbarIconAlignment: WrapAlignment.start,
@@ -152,6 +189,53 @@ class _EditorRouter extends CustState<EditorRouter> {
         children: [],
       ),
     );
+
+    List<Widget> inputBtnList = [
+      quill.QuillIconButton(
+        onPressed: pickImage,
+        icon: Icon(Icons.image),
+      ),
+      quill.QuillIconButton(
+        onPressed: takeAPhoto,
+        icon: Icon(Icons.camera),
+      ),
+      quill.QuillIconButton(
+        onPressed: tackAVideo,
+        icon: Icon(Icons.video_call),
+      )
+    ];
+    if (widget.agreement == null &&
+        widget.tags.isEmpty &&
+        widget.tagsAddedWhenSend.isEmpty) {
+      inputBtnList.add(quill.QuillIconButton(
+        onPressed: _inputPoll,
+        icon: Icon(Icons.poll),
+      ));
+    }
+    inputBtnList.addAll([
+      quill.QuillIconButton(
+        onPressed: _inputLnbc,
+        icon: Icon(Icons.bolt),
+      ),
+      quill.QuillIconButton(
+        onPressed: emojiBeginToSelect,
+        icon: Icon(Icons.tag_faces),
+      ),
+      quill.QuillIconButton(
+        onPressed: _inputMentionUser,
+        icon: Icon(Icons.alternate_email_sharp),
+      ),
+      quill.QuillIconButton(
+        onPressed: _inputMentionEvent,
+        icon: Icon(Icons.format_quote),
+      ),
+      quill.QuillIconButton(
+        onPressed: _inputTag,
+        icon: Icon(Icons.tag),
+      ),
+      Expanded(child: Container())
+    ]);
+
     list.add(Container(
       height: IndexAppBar.height,
       decoration: BoxDecoration(
@@ -166,41 +250,7 @@ class _EditorRouter extends CustState<EditorRouter> {
         ],
       ),
       child: Row(
-        children: [
-          quill.QuillIconButton(
-            onPressed: pickImage,
-            icon: Icon(Icons.image),
-          ),
-          quill.QuillIconButton(
-            onPressed: takeAPhoto,
-            icon: Icon(Icons.camera),
-          ),
-          quill.QuillIconButton(
-            onPressed: tackAVideo,
-            icon: Icon(Icons.video_call),
-          ),
-          quill.QuillIconButton(
-            onPressed: _inputLnbc,
-            icon: Icon(Icons.bolt),
-          ),
-          quill.QuillIconButton(
-            onPressed: emojiBeginToSelect,
-            icon: Icon(Icons.tag_faces),
-          ),
-          quill.QuillIconButton(
-            onPressed: _inputMentionUser,
-            icon: Icon(Icons.alternate_email_sharp),
-          ),
-          quill.QuillIconButton(
-            onPressed: _inputMentionEvent,
-            icon: Icon(Icons.format_quote),
-          ),
-          quill.QuillIconButton(
-            onPressed: _inputTag,
-            icon: Icon(Icons.tag),
-          ),
-          Expanded(child: Container()),
-        ],
+        children: inputBtnList,
       ),
     ));
     if (emojiShow) {
@@ -452,6 +502,13 @@ class _EditorRouter extends CustState<EditorRouter> {
   }
 
   Future<void> _doDocumentSave() async {
+    if (inputPoll) {
+      var checkResult = pollInputController.checkInput(context);
+      if (!checkResult) {
+        return;
+      }
+    }
+
     var delta = _controller.document.toDelta();
     var operations = delta.toList();
     String result = "";
@@ -542,13 +599,19 @@ class _EditorRouter extends CustState<EditorRouter> {
       result = NIP04.encrypt(result, widget.agreement!, widget.pubkey!);
       event = Event(
           nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result);
+    } else if (inputPoll) {
+      // poll event
+      // get poll tag from PollInputComponentn
+      var pollTags = pollInputController.getTags();
+      allTags.addAll(pollTags);
+      event = Event(nostr!.publicKey, kind.EventKind.POLL, allTags, result);
     } else {
       // text note
       event =
           Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result);
     }
     var e = nostr!.sendEvent(event);
-    // log(jsonEncode(e.toJson()));
+    // log(jsonEncode(event.toJson()));
     RouterUtil.back(context, e);
   }
 
@@ -632,5 +695,12 @@ class _EditorRouter extends CustState<EditorRouter> {
 
       _controller.moveCursorToPosition(0);
     }
+  }
+
+  void _inputPoll() {
+    pollInputController.clear();
+    setState(() {
+      inputPoll = !inputPoll;
+    });
   }
 }

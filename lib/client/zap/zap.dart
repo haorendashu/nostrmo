@@ -55,6 +55,7 @@ class Zap {
     String? eventId,
     required CustNostr targetNostr,
     required List<String> relays,
+    String? pollOption,
   }) async {
     var lnurlLink = decodeLud06Link(lnurl);
     var lnurlResponse = await getLnurlResponse(lnurlLink);
@@ -81,9 +82,13 @@ class Zap {
     if (StringUtil.isNotBlank(eventId)) {
       tags.add(["e", eventId!]);
     }
+    if (StringUtil.isNotBlank(pollOption)) {
+      tags.add(["poll_option", pollOption!]);
+    }
     var event =
         Event(targetNostr.publicKey, kind.EventKind.ZAP_REQUEST, tags, "");
     event.sign(targetNostr.privateKey);
+    log(jsonEncode(event));
     var eventStr = Uri.encodeQueryComponent(jsonEncode(event));
     callback += "&nostr=$eventStr";
     callback += "&lnurl=$lnurl";
