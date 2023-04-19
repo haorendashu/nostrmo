@@ -297,10 +297,12 @@ class _MyApp extends State<MyApp> {
     Color? mainTextColor;
     Color hintColor = Colors.grey;
 
+    double baseFontSize = settingProvider.fontSize;
+
     var textTheme = TextTheme(
-      bodyLarge: TextStyle(fontSize: 16),
-      bodyMedium: TextStyle(fontSize: 14),
-      bodySmall: TextStyle(fontSize: 12),
+      bodyLarge: TextStyle(fontSize: baseFontSize + 2),
+      bodyMedium: TextStyle(fontSize: baseFontSize),
+      bodySmall: TextStyle(fontSize: baseFontSize - 2),
     );
     var titleTextStyle = TextStyle(
       color: Colors.white,
@@ -348,10 +350,12 @@ class _MyApp extends State<MyApp> {
     Color? topFontColor = Colors.white;
     Color hintColor = Colors.grey;
 
+    double baseFontSize = settingProvider.fontSize;
+
     var textTheme = TextTheme(
-      bodyLarge: TextStyle(fontSize: 16),
-      bodyMedium: TextStyle(fontSize: 14),
-      bodySmall: TextStyle(fontSize: 12),
+      bodyLarge: TextStyle(fontSize: baseFontSize + 2),
+      bodyMedium: TextStyle(fontSize: baseFontSize),
+      bodySmall: TextStyle(fontSize: baseFontSize - 2),
     );
     var titleTextStyle = TextStyle(
       color: topFontColor,

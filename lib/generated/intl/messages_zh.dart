@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Follow_System": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "Following": MessageLookupByLibrary.simpleMessage("跟随中"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("字体"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("字体大小"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("禁止图片"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("禁止视频"),
         "Generate_a_new_private_key":

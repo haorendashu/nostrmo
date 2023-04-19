@@ -97,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Follow_System": MessageLookupByLibrary.simpleMessage("Follow System"),
         "Following": MessageLookupByLibrary.simpleMessage("Following"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Font Family"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("Font Size"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Forbid image"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Forbid video"),
         "Gen_invoice_code_error":

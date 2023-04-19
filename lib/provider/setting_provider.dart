@@ -232,6 +232,8 @@ class SettingProvider extends ChangeNotifier {
   int? get broadcaseWhenBoost =>
       _settingData!.broadcaseWhenBoost ?? OpenStatus.OPEN;
 
+  double get fontSize => _settingData!.fontSize ?? Base.BASE_FONT_SIZE;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -349,6 +351,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set fontSize(double o) {
+    _settingData!.fontSize = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -414,6 +421,8 @@ class SettingData {
 
   int? broadcaseWhenBoost;
 
+  double? fontSize;
+
   /// updated time
   late int updatedTime;
 
@@ -439,6 +448,7 @@ class SettingData {
     this.translateTarget,
     this.translateSourceArgs,
     this.broadcaseWhenBoost,
+    this.fontSize,
     this.updatedTime = 0,
   });
 
@@ -476,6 +486,7 @@ class SettingData {
     translateTarget = json['translateTarget'];
     translateSourceArgs = json['translateSourceArgs'];
     broadcaseWhenBoost = json['broadcaseWhenBoost'];
+    fontSize = json['fontSize'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -507,6 +518,7 @@ class SettingData {
     data['translateTarget'] = this.translateTarget;
     data['translateSourceArgs'] = this.translateSourceArgs;
     data['broadcaseWhenBoost'] = this.broadcaseWhenBoost;
+    data['fontSize'] = this.fontSize;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

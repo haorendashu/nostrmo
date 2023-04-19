@@ -18,6 +18,7 @@
     "Image_Compress": "图片压缩",
     "Dont_Compress": "不压缩",
     "Font_Family": "字体",
+    "Font_Size": "字体大小",
     "Default_Font_Family": "默认字体",
     "Custom_Font_Family": "自定义字体",
     "Privacy_Lock": "隐私锁",

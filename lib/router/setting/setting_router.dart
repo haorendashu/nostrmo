@@ -135,6 +135,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getFontEnumResult(settingProvider.fontFamily),
       onTap: pickFontEnum,
     ));
+    list.add(SettingGroupItemComponent(
+      name: s.Font_Size,
+      value: getFontSize(settingProvider.fontSize).name,
+      onTap: pickFontSize,
+    ));
 
     list.add(
         SettingGroupTitleComponent(iconData: Icons.article, title: s.Notes));
@@ -531,6 +536,30 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         ),
       ),
     );
+  }
+
+  List<EnumObj> fontSizeList = [
+    EnumObj(16.0, "16"),
+    EnumObj(14.0, "14"),
+    EnumObj(12.0, "12")
+  ];
+
+  EnumObj getFontSize(double value) {
+    for (var eo in fontSizeList) {
+      if (eo.value == value) {
+        return eo;
+      }
+    }
+    return fontSizeList[1];
+  }
+
+  Future<void> pickFontSize() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, fontSizeList);
+    if (resultEnumObj != null) {
+      settingProvider.fontSize = resultEnumObj.value;
+      resetTheme();
+    }
   }
 
   Future<void> pickLinkPreview() async {

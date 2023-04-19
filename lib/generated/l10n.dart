@@ -240,6 +240,16 @@ class S {
     );
   }
 
+  /// `Font Size`
+  String get Font_Size {
+    return Intl.message(
+      'Font Size',
+      name: 'Font_Size',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Default Font Family`
   String get Default_Font_Family {
     return Intl.message(
