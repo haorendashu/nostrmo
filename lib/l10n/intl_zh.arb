@@ -163,5 +163,9 @@
     "min_zap_num": "最小Zap数量",
     "max_zap_num": "最大Zap数量",
     "poll_option_info": "投票选项信息",
-    "add_poll_option": "添加投票选项"
+    "add_poll_option": "添加投票选项",
+    "Forbid": "禁止",
+    "Sign_fail": "签名失败",
+    "Method": "方法",
+    "Content": "内容"
 }

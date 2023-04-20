@@ -166,5 +166,9 @@
     "min_zap_num": "min zap num",
     "max_zap_num": "max zap num",
     "poll_option_info": "poll option info",
-    "add_poll_option": "add poll option"
+    "add_poll_option": "add poll option",
+    "Forbid": "Forbid",
+    "Sign_fail": "Sign fail",
+    "Method": "Method",
+    "Content": "Content"
 }

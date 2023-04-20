@@ -1729,6 +1729,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Forbid`
+  String get Forbid {
+    return Intl.message(
+      'Forbid',
+      name: 'Forbid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign fail`
+  String get Sign_fail {
+    return Intl.message(
+      'Sign fail',
+      name: 'Sign_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Method`
+  String get Method {
+    return Intl.message(
+      'Method',
+      name: 'Method',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Content`
+  String get Content {
+    return Intl.message(
+      'Content',
+      name: 'Content',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

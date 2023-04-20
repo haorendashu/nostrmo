@@ -48,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("提交"),
+        "Content": MessageLookupByLibrary.simpleMessage("内容"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("复制原始密钥"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("复制密钥"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("复制动态Id"),
@@ -84,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Following": MessageLookupByLibrary.simpleMessage("跟随中"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("字体"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("字体大小"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("禁止"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("禁止图片"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("禁止视频"),
         "Generate_a_new_private_key":
@@ -112,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
+        "Method": MessageLookupByLibrary.simpleMessage("方法"),
         "Name": MessageLookupByLibrary.simpleMessage("名称"),
         "Network": MessageLookupByLibrary.simpleMessage("网络"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -171,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("设置"),
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
         "Show": MessageLookupByLibrary.simpleMessage("显示"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("签名失败"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("内容不能包含空格"),

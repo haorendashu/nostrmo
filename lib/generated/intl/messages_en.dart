@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Close at"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Comfirm"),
+        "Content": MessageLookupByLibrary.simpleMessage("Content"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("Copy Hex Key"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Copy Key"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("Copy Note Id"),
@@ -98,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Following": MessageLookupByLibrary.simpleMessage("Following"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Font Family"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("Font Size"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("Forbid"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Forbid image"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Forbid video"),
         "Gen_invoice_code_error":
@@ -137,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
         "Metadata_can_not_be_found":
             MessageLookupByLibrary.simpleMessage("Metadata can not be found."),
+        "Method": MessageLookupByLibrary.simpleMessage("Method"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -208,6 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "Share": MessageLookupByLibrary.simpleMessage("Share"),
         "Show": MessageLookupByLibrary.simpleMessage("Show"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Text can\'t contain blank space"),
