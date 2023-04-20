@@ -48,6 +48,9 @@ class _UserRouter extends CustState<UserRouter>
   @override
   void initState() {
     super.initState();
+
+    queryLimit = 200;
+
     _controller.addListener(() {
       var _showTitle = false;
       var _showAppbarBG = false;
