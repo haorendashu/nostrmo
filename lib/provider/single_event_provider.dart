@@ -12,6 +12,8 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
 
   List<String> _needUpdateIds = [];
 
+  Map<String, int> _handingIds = {};
+
   List<Event> _penddingEvents = [];
 
   Event? getEvent(String id) {
@@ -20,7 +22,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       return event;
     }
 
-    if (!_needUpdateIds.contains(id)) {
+    if (!_needUpdateIds.contains(id) && _handingIds[id] == null) {
       _needUpdateIds.add(id);
     }
     later(_laterCallback, null);
@@ -41,6 +43,8 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
   void _handlePenddingEvents() {
     for (var event in _penddingEvents) {
       _eventsMap[event.id] = event;
+
+      _handingIds.remove(event.id);
     }
     _penddingEvents.clear;
     notifyListeners();
@@ -56,6 +60,10 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
     var subscriptId = StringUtil.rndNameStr(16);
     // use query and close after EOSE
     nostr!.pool.query([filter.toJson()], _onEvent, subscriptId);
+
+    for (var id in _needUpdateIds) {
+      _handingIds[id] = 1;
+    }
     _needUpdateIds.clear();
   }
 }
