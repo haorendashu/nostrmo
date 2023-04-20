@@ -7,6 +7,7 @@ import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:provider/provider.dart';
@@ -88,6 +89,8 @@ late FilterProvider filterProvider;
 
 late LinkPreviewDataProvider linkPreviewDataProvider;
 
+late BadgeDefinitionProvider badgeDefinitionProvider;
+
 late MediaDataCache mediaDataCache;
 
 late CacheManager localCacheManager;
@@ -132,6 +135,7 @@ Future<void> main() async {
   relayProvider = RelayProvider.getInstance();
   filterProvider = FilterProvider.getInstance();
   linkPreviewDataProvider = LinkPreviewDataProvider();
+  badgeDefinitionProvider = BadgeDefinitionProvider();
   mediaDataCache = MediaDataCache();
   localCacheManager = CacheManagerBuilder.build();
 
@@ -234,6 +238,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<LinkPreviewDataProvider>.value(
           value: linkPreviewDataProvider,
+        ),
+        ListenableProvider<BadgeDefinitionProvider>.value(
+          value: badgeDefinitionProvider,
         ),
       ],
       child: MaterialApp(

@@ -7,6 +7,7 @@ import '../../data/metadata.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
 import 'metadata_top_component.dart';
+import 'user_badges_component.dart';
 
 class MetadataComponent extends StatefulWidget {
   String pubKey;
@@ -15,10 +16,13 @@ class MetadataComponent extends StatefulWidget {
 
   bool jumpable;
 
+  bool showBadges;
+
   MetadataComponent({
     required this.pubKey,
     this.metadata,
     this.jumpable = false,
+    this.showBadges = false,
   });
 
   @override
@@ -37,6 +41,12 @@ class _MetadataComponent extends State<MetadataComponent> {
       metadata: widget.metadata,
       jumpable: widget.jumpable,
     ));
+
+    if (widget.showBadges) {
+      mainList.add(UserBadgesComponent(
+        pubkey: widget.pubKey,
+      ));
+    }
 
     if (widget.metadata != null &&
         StringUtil.isNotBlank(widget.metadata!.about)) {

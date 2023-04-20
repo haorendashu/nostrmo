@@ -150,6 +150,7 @@ class _UserRouter extends CustState<UserRouter>
                     child: MetadataComponent(
                       pubKey: pubkey!,
                       metadata: metadata,
+                      showBadges: true,
                     ),
                   ),
                   SliverToBoxAdapter(

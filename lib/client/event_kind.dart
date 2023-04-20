@@ -15,6 +15,8 @@ class EventKind {
 
   static const int REACTION = 7;
 
+  static const int BADGE_AWARD = 8;
+
   static const int POLL = 6969;
 
   static const int ZAP_REQUEST = 9734;
@@ -24,6 +26,8 @@ class EventKind {
   static const int RELAY_LIST_METADATA = 10002;
 
   static const int AUTHENTICATION = 22242;
+
+  static const int BADGE_DEFINITION = 30009;
 
   static const int LONG_FORM = 30023;
 }

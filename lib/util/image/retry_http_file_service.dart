@@ -15,6 +15,7 @@ class RetryHttpFileServcie extends FileService {
   @override
   Future<FileServiceResponse> get(String url,
       {Map<String, String>? headers}) async {
+    url = url.trim();
     // log("begin to load image from ${url}");
     try {
       final req = http.Request('GET', Uri.parse(url));
