@@ -12,7 +12,7 @@ class SystemTimer {
     if (timer != null) {
       timer!.cancel();
     }
-    timer = Timer.periodic(Duration(minutes: 1), (timer) {
+    timer = Timer.periodic(Duration(seconds: 30), (timer) {
       try {
         runTask();
         counter++;
@@ -24,10 +24,11 @@ class SystemTimer {
 
   static void runTask() {
     // log("SystemTimer runTask");
-    relayProvider.checkAndReconnect();
     if (counter % 2 == 0 && nostr != null) {
-      followNewEventProvider.queryNew();
+      relayProvider.checkAndReconnect();
       mentionMeNewProvider.queryNew();
+    } else {
+      followNewEventProvider.queryNew();
     }
   }
 
