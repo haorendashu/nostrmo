@@ -60,10 +60,11 @@ class FollowEventProvider extends ChangeNotifier
 
   List<int> queryEventKinds() {
     return [
-      kind.EventKind.TEXT_NOTE,
-      kind.EventKind.REPOST,
-      kind.EventKind.LONG_FORM,
-      kind.EventKind.POLL,
+      // kind.EventKind.TEXT_NOTE,
+      // kind.EventKind.REPOST,
+      // kind.EventKind.LONG_FORM,
+      kind.EventKind.FILE_HEADER,
+      // kind.EventKind.POLL,
     ];
   }
 
@@ -83,7 +84,7 @@ class FollowEventProvider extends ChangeNotifier
     for (Contact contact in contactList) {
       ids.add(contact.publicKey);
       if (ids.length > 100) {
-        filter.authors = ids;
+        // filter.authors = ids;
         var subscribeId =
             _doQueryFunc(targetNostr, filter, initQuery: initQuery);
         subscribeIds.add(subscribeId);

@@ -19,6 +19,8 @@ class EventKind {
 
   static const int POLL = 6969;
 
+  static const int FILE_HEADER = 1063;
+
   static const int ZAP_REQUEST = 9734;
 
   static const int ZAP = 9735;

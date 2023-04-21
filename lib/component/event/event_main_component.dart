@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -295,6 +296,50 @@ class _EventMainComponent extends State<EventMainComponent> {
         list.add(EventPollComponent(
           event: widget.event,
         ));
+      }
+
+      if (widget.event.kind == kind.EventKind.FILE_HEADER) {
+        String? m;
+        String? url;
+        for (var tag in widget.event.tags) {
+          if (tag.length > 1) {
+            var key = tag[0];
+            var value = tag[1];
+            if (key == "url") {
+              url = value;
+            } else if (key == "m") {
+              m = value;
+            }
+          }
+        }
+
+        if (StringUtil.isNotBlank(url)) {
+          //  show and decode depend m
+          if (StringUtil.isNotBlank(m)) {
+            if (m!.indexOf("image/") == 0) {
+              list.add(ContentImageComponent(imageUrl: url!));
+            } else if (m.indexOf("video/") == 0 && widget.showVideo) {
+              list.add(ContentVideoComponent(url: url!));
+            } else {
+              list.add(ContentLinkComponent(link: url!));
+            }
+          } else {
+            var fileType = ContentDecoder.getPathType(url!);
+            if (fileType == "image") {
+              list.add(ContentImageComponent(imageUrl: url));
+            } else if (fileType == "video") {
+              if (settingProvider.videoPreview != OpenStatus.OPEN &&
+                  (settingProvider.videoPreviewInList == OpenStatus.OPEN ||
+                      widget.showVideo)) {
+                list.add(ContentVideoComponent(url: url));
+              } else {
+                list.add(ContentLinkComponent(link: url));
+              }
+            } else {
+              list.add(ContentLinkComponent(link: url));
+            }
+          }
+        }
       }
 
       list.add(EventReactionsComponent(

@@ -142,6 +142,8 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     var filter = Filter(kinds: [
       kind.EventKind.TEXT_NOTE,
       kind.EventKind.LONG_FORM,
+      kind.EventKind.FILE_HEADER,
+      kind.EventKind.POLL,
     ], limit: 100);
     var queryArg = filter.toJson();
     var plainTag = tag!.replaceFirst("#", "");

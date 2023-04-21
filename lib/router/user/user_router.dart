@@ -245,6 +245,7 @@ class _UserRouter extends CustState<UserRouter>
         kind.EventKind.TEXT_NOTE,
         kind.EventKind.REPOST,
         kind.EventKind.LONG_FORM,
+        kind.EventKind.FILE_HEADER,
         kind.EventKind.POLL,
       ],
       until: until,
