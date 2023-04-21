@@ -57,20 +57,22 @@ class ContentImageComponent extends StatelessWidget {
   }
 
   void previewImages(context) {
-    if (imageList != null && imageList!.isNotEmpty) {
-      List<ImageProvider> imageProviders = [];
-      for (var imageUrl in imageList!) {
-        imageProviders.add(CachedNetworkImageProvider(imageUrl));
-      }
-
-      MultiImageProvider multiImageProvider =
-          MultiImageProvider(imageProviders, initialIndex: imageIndex);
-
-      showImageViewerPager(context, multiImageProvider, onPageChanged: (page) {
-        // print("page changed to $page");
-      }, onViewerDismissed: (page) {
-        // print("dismissed while on page $page");
-      });
+    if (imageList == null || imageList!.isNotEmpty) {
+      imageList = [imageUrl];
     }
+
+    List<ImageProvider> imageProviders = [];
+    for (var imageUrl in imageList!) {
+      imageProviders.add(CachedNetworkImageProvider(imageUrl));
+    }
+
+    MultiImageProvider multiImageProvider =
+        MultiImageProvider(imageProviders, initialIndex: imageIndex);
+
+    showImageViewerPager(context, multiImageProvider, onPageChanged: (page) {
+      // print("page changed to $page");
+    }, onViewerDismissed: (page) {
+      // print("dismissed while on page $page");
+    });
   }
 }
