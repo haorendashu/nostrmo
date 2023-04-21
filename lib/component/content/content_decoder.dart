@@ -12,6 +12,7 @@ import 'package:nostrmo/component/content/content_mention_user_component.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
+import 'package:nostrmo/component/translate/line_translate_component.dart';
 import 'package:nostrmo/component/translate/text_translate_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 
@@ -52,27 +53,36 @@ class ContentDecoder {
     if (inlines.isNotEmpty) {
       if (inlines.length == 1) {
         if (inlines[0] is String) {
-          list.add(TextTranslateComponent(
-            inlines[0],
+          // list.add(TextTranslateComponent(
+          //   inlines[0],
+          //   textOnTap: textOnTap,
+          // ));
+          list.add(LineTranslateComponent(
+            []..add(inlines[0]),
             textOnTap: textOnTap,
           ));
         } else {
           list.add(inlines[0]);
         }
       } else {
-        List<InlineSpan> spans = [];
-        for (var inline in inlines) {
-          if (inline is String) {
-            spans.add(WidgetSpan(
-                child: TextTranslateComponent(
-              inline + " ",
-              textOnTap: textOnTap,
-            )));
-          } else {
-            spans.add(WidgetSpan(child: inline));
-          }
-        }
-        list.add(Text.rich(TextSpan(children: spans)));
+        // List<InlineSpan> spans = [];
+        // for (var inline in inlines) {
+        //   if (inline is String) {
+        //     spans.add(WidgetSpan(
+        //         child: TextTranslateComponent(
+        //       inline + " ",
+        //       textOnTap: textOnTap,
+        //     )));
+        //   } else {
+        //     spans.add(WidgetSpan(child: inline));
+        //   }
+        // }
+        // list.add(Text.rich(TextSpan(children: spans)));
+
+        list.add(LineTranslateComponent(
+          []..addAll(inlines),
+          textOnTap: textOnTap,
+        ));
       }
       inlines.clear();
     }
