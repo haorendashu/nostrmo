@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -28,8 +29,13 @@ import '../content/content_decoder.dart';
 import '../content/content_image_component.dart';
 import '../content/content_link_component.dart';
 import '../content/content_tag_component.dart';
+import '../content/markdown/markdown_mention_event_Inline_syntax.dart';
 import '../content/markdown/markdown_mention_user_element_builder.dart';
 import '../content/markdown/markdown_mention_user_inline_syntax.dart';
+import '../content/markdown/markdown_nevent_inline_syntax.dart';
+import '../content/markdown/markdown_nprofile_inline_syntax.dart';
+import '../content/markdown/markdown_nrelay_element_builder.dart';
+import '../content/markdown/markdown_nrelay_inline_syntax copy.dart';
 import 'event_poll_component.dart';
 import '../webview_router.dart';
 import 'event_quote_component.dart';
@@ -353,11 +359,19 @@ class _EventMainComponent extends State<EventMainComponent> {
       data: widget.event.content,
       selectable: true,
       builders: {
-        MarkdownMentionUserInlineSyntax.TAG: MarkdownMentionUserElementBuilder()
+        MarkdownMentionUserElementBuilder.TAG:
+            MarkdownMentionUserElementBuilder(),
+        MarkdownMentionEventElementBuilder.TAG:
+            MarkdownMentionEventElementBuilder(),
+        MarkdownNrelayElementBuilder.TAG: MarkdownNrelayElementBuilder(),
       },
       blockSyntaxes: [],
       inlineSyntaxes: [
+        MarkdownMentionEventInlineSyntax(),
         MarkdownMentionUserInlineSyntax(),
+        MarkdownNeventInlineSyntax(),
+        MarkdownNprofileInlineSyntax(),
+        MarkdownNrelayInlineSyntax(),
       ],
       imageBuilder: (Uri uri, String? title, String? alt) {
         if (settingProvider.imagePreview == OpenStatus.CLOSE) {
@@ -401,6 +415,11 @@ class _EventMainComponent extends State<EventMainComponent> {
               var nevent = NIP19Tlv.decodeNevent(link);
               if (nevent != null) {
                 RouterUtil.router(context, RouterPath.EVENT_DETAIL, nevent.id);
+              }
+            } else if (NIP19Tlv.isNaddr(link)) {
+              var naddr = NIP19Tlv.decodeNaddr(link);
+              if (naddr != null) {
+                RouterUtil.router(context, RouterPath.EVENT_DETAIL, naddr.id);
               }
             } else if (NIP19Tlv.isNrelay(link)) {
               var nrelay = NIP19Tlv.decodeNrelay(link);

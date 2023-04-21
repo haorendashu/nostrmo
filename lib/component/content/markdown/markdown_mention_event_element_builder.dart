@@ -7,9 +7,10 @@ import 'package:markdown/src/ast.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/content/content_mention_user_component.dart';
+import 'package:nostrmo/component/event/event_quote_component.dart';
 
-class MarkdownMentionUserElementBuilder implements MarkdownElementBuilder {
-  static const String TAG = "mentionUser";
+class MarkdownMentionEventElementBuilder implements MarkdownElementBuilder {
+  static const String TAG = "mentionEvent";
 
   @override
   Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {
@@ -17,17 +18,27 @@ class MarkdownMentionUserElementBuilder implements MarkdownElementBuilder {
     var nip19Text = pureText.replaceFirst("nostr:", "");
 
     String? key;
-    if (Nip19.isPubkey(nip19Text)) {
+
+    if (Nip19.isNoteId(nip19Text)) {
       key = Nip19.decode(nip19Text);
-    } else if (NIP19Tlv.isNprofile(nip19Text)) {
-      var nprofile = NIP19Tlv.decodeNprofile(nip19Text);
-      if (nprofile != null) {
-        key = nprofile.pubkey;
+    } else if (NIP19Tlv.isNevent(nip19Text)) {
+      var nevent = NIP19Tlv.decodeNevent(nip19Text);
+      if (nevent != null) {
+        print(nevent.relays);
+        key = nevent.id;
+      }
+    } else if (NIP19Tlv.isNaddr(nip19Text)) {
+      var naddr = NIP19Tlv.decodeNaddr(nip19Text);
+      if (naddr != null) {
+        print(naddr.relays);
+        key = naddr.id;
       }
     }
 
     if (key != null) {
-      return ContentMentionUserComponent(pubkey: key);
+      return EventQuoteComponent(
+        id: key,
+      );
     }
   }
 

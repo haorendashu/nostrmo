@@ -4,8 +4,8 @@ import 'package:markdown/markdown.dart' as md;
 
 import 'markdown_mention_user_element_builder.dart';
 
-class MarkdownMentionUserInlineSyntax extends md.InlineSyntax {
-  MarkdownMentionUserInlineSyntax() : super('nostr:npub1[a-zA-Z0-9]+');
+class MarkdownNprofileInlineSyntax extends md.InlineSyntax {
+  MarkdownNprofileInlineSyntax() : super('nostr:nprofile[a-zA-Z0-9]+');
 
   @override
   bool onMatch(md.InlineParser parser, Match match) {

@@ -7,9 +7,10 @@ import 'package:markdown/src/ast.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/content/content_mention_user_component.dart';
+import 'package:nostrmo/component/content/content_relay_component.dart';
 
-class MarkdownMentionUserElementBuilder implements MarkdownElementBuilder {
-  static const String TAG = "mentionUser";
+class MarkdownNrelayElementBuilder implements MarkdownElementBuilder {
+  static const String TAG = "relay";
 
   @override
   Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {
@@ -17,17 +18,15 @@ class MarkdownMentionUserElementBuilder implements MarkdownElementBuilder {
     var nip19Text = pureText.replaceFirst("nostr:", "");
 
     String? key;
-    if (Nip19.isPubkey(nip19Text)) {
-      key = Nip19.decode(nip19Text);
-    } else if (NIP19Tlv.isNprofile(nip19Text)) {
-      var nprofile = NIP19Tlv.decodeNprofile(nip19Text);
-      if (nprofile != null) {
-        key = nprofile.pubkey;
+    if (NIP19Tlv.isNrelay(nip19Text)) {
+      var nrelay = NIP19Tlv.decodeNrelay(nip19Text);
+      if (nrelay != null) {
+        key = nrelay.addr;
       }
     }
 
     if (key != null) {
-      return ContentMentionUserComponent(pubkey: key);
+      return ContentRelayComponent(key);
     }
   }
 
