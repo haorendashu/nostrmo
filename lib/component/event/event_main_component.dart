@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:markdown/markdown.dart' as md;
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -26,6 +28,8 @@ import '../content/content_decoder.dart';
 import '../content/content_image_component.dart';
 import '../content/content_link_component.dart';
 import '../content/content_tag_component.dart';
+import '../content/markdown/markdown_mention_user_element_builder.dart';
+import '../content/markdown/markdown_mention_user_inline_syntax.dart';
 import 'event_poll_component.dart';
 import '../webview_router.dart';
 import 'event_quote_component.dart';
@@ -348,6 +352,13 @@ class _EventMainComponent extends State<EventMainComponent> {
     return MarkdownBody(
       data: widget.event.content,
       selectable: true,
+      builders: {
+        MarkdownMentionUserInlineSyntax.TAG: MarkdownMentionUserElementBuilder()
+      },
+      blockSyntaxes: [],
+      inlineSyntaxes: [
+        MarkdownMentionUserInlineSyntax(),
+      ],
       imageBuilder: (Uri uri, String? title, String? alt) {
         if (settingProvider.imagePreview == OpenStatus.CLOSE) {
           return ContentLinkComponent(
