@@ -34,6 +34,8 @@ class _NameComponnet extends State<NameComponnet> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
+    var textSize = themeData.textTheme.bodyMedium!.fontSize;
+    var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
     Color hintColor = themeData.hintColor;
     var metadata = widget.metadata;
     String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
@@ -61,7 +63,7 @@ class _NameComponnet extends State<NameComponnet> {
         text: StringUtil.breakWord(displayName),
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: widget.fontSize,
+          fontSize: widget.fontSize ?? textSize,
           color: widget.fontColor,
         ),
       ),
@@ -71,7 +73,7 @@ class _NameComponnet extends State<NameComponnet> {
           child: Text(
             StringUtil.breakWord(name),
             style: TextStyle(
-              fontSize: 12,
+              fontSize: smallTextSize,
               color: hintColor,
             ),
           ),
@@ -85,7 +87,7 @@ class _NameComponnet extends State<NameComponnet> {
           child: Icon(
             Icons.check_circle,
             color: mainColor,
-            size: 12,
+            size: smallTextSize,
           ),
         ),
       ));

@@ -539,9 +539,15 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
   }
 
   List<EnumObj> fontSizeList = [
+    EnumObj(20.0, "20"),
+    EnumObj(19.0, "19"),
+    EnumObj(18.0, "18"),
+    EnumObj(17.0, "17"),
     EnumObj(16.0, "16"),
+    EnumObj(15.0, "15"),
     EnumObj(14.0, "14"),
-    EnumObj(12.0, "12")
+    EnumObj(13.0, "13"),
+    EnumObj(12.0, "12"),
   ];
 
   EnumObj getFontSize(double value) {
