@@ -233,7 +233,9 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   List<ThreadDetailEvent>? rootSubList;
 
   void onRootEvent(Event event) {
-    rootEvent = event;
+    setState(() {
+      rootEvent = event;
+    });
   }
 
   void onEvent(Event event) {

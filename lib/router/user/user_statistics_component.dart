@@ -152,6 +152,9 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       zapNum = 0;
     } else {
       // Router to vist list
+      zapEventBox!.sort();
+      var list = zapEventBox!.all();
+      RouterUtil.router(context, RouterPath.USER_ZAP_LIST, list);
     }
   }
 

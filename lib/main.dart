@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
+import 'package:nostrmo/router/user/user_zap_list_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -265,6 +266,7 @@ class _MyApp extends State<MyApp> {
           RouterPath.DONATE: (context) => DonateRouter(),
           RouterPath.USER: (context) => UserRouter(),
           RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
+          RouterPath.USER_ZAP_LIST: (context) => UserZapListRouter(),
           RouterPath.USER_RELAYS: (context) => UserRelayRouter(),
           RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
           RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
