@@ -81,6 +81,8 @@ class FollowEventProvider extends ChangeNotifier
     List<String> subscribeIds = [];
     Iterable<Contact> contactList = contactListProvider.list();
     List<String> ids = [];
+    // timeline pull my events too.
+    ids.add(targetNostr.publicKey);
     for (Contact contact in contactList) {
       ids.add(contact.publicKey);
       if (ids.length > 100) {
