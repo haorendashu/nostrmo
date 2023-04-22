@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
+import 'package:nostrmo/router/tag/topic_map.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/filter.dart';
@@ -148,7 +149,12 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     var queryArg = filter.toJson();
     var plainTag = tag!.replaceFirst("#", "");
     // this place set #t not #r ???
-    queryArg["#t"] = [plainTag];
+    var list = TopicMap.getList(plainTag);
+    if (list != null) {
+      queryArg["#t"] = list;
+    } else {
+      queryArg["#t"] = [plainTag];
+    }
     nostr!.pool.query([queryArg], onEvent, subscribeId);
   }
 
