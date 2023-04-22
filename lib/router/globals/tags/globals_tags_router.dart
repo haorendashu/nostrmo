@@ -55,11 +55,13 @@ class _GlobalsTagsRouter extends KeepAliveCustState<GlobalsTagsRouter> {
       return Container(
         // padding: EdgeInsets.all(Base.BASE_PADDING),
         child: Center(
-          child: Wrap(
-            children: list,
-            spacing: 14,
-            runSpacing: 14,
-            alignment: WrapAlignment.center,
+          child: SingleChildScrollView(
+            child: Wrap(
+              children: list,
+              spacing: 14,
+              runSpacing: 14,
+              alignment: WrapAlignment.center,
+            ),
           ),
         ),
       );
