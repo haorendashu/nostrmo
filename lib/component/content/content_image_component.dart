@@ -57,7 +57,7 @@ class ContentImageComponent extends StatelessWidget {
   }
 
   void previewImages(context) {
-    if (imageList == null || imageList!.isNotEmpty) {
+    if (imageList == null || imageList!.isEmpty) {
       imageList = [imageUrl];
     }
 
