@@ -185,6 +185,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     }
 
     var main = ListView(
+      controller: _controller,
       children: mainList,
     );
 
