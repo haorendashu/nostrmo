@@ -8,6 +8,10 @@ class DMSession {
 
   DMSession({required this.pubkey});
 
+  DMSession clone() {
+    return DMSession(pubkey: this.pubkey).._box = this._box;
+  }
+
   bool addEvent(Event event) {
     return _box.add(event);
   }

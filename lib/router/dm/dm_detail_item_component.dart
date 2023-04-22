@@ -90,7 +90,9 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
             ),
             // child: SelectableText(content),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: widget.isLocal
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: ContentDecoder.decode(
                 context,

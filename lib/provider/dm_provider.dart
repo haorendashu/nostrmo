@@ -190,10 +190,15 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     }
     var addResult = session.addEvent(event);
 
+    if (addResult) {
+      session = session.clone();
+      _sessions[pubkey!] = session;
+    }
+
     return addResult;
   }
 
-  void subscribe({CustNostr? targetNostr, bool initQuery = false}) {
+  void query({CustNostr? targetNostr, bool initQuery = false}) {
     targetNostr ??= nostr;
     var filter0 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
@@ -210,7 +215,8 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       targetNostr.pool
           .addInitQuery([filter0.toJson(), filter1.toJson()], onEvent);
     } else {
-      targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
+      // targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
+      targetNostr.pool.query([filter0.toJson(), filter1.toJson()], onEvent);
     }
   }
 

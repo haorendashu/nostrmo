@@ -123,11 +123,7 @@ class _LineTranslateComponent extends CustState<LineTranslateComponent> {
       }
     }
 
-    return Container(
-      // color: Colors.red,
-      width: double.maxFinite,
-      child: SelectableText.rich(TextSpan(children: spans)),
-    );
+    return SelectableText.rich(TextSpan(children: spans));
   }
 
   @override
