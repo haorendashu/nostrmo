@@ -30,6 +30,10 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
   List<DMSessionDetail> get unknownList => _unknownList;
 
+  DMSession? getSession(String pubkey) {
+    return _sessions[pubkey];
+  }
+
   DMSessionDetail findOrNewADetail(String pubkey) {
     for (var detail in knownList) {
       if (detail.dmSession.pubkey == pubkey) {

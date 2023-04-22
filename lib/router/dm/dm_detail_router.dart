@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/dm_session.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/editor/editor_mixin.dart';
 import 'package:nostrmo/consts/router_path.dart';
@@ -84,33 +85,36 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     agreement = NIP04.getAgreement(nostr!.privateKey);
 
     var maxWidth = mediaDataCache.size.width;
-    var maxHeight = mediaDataCache.size.height;
 
     List<Widget> list = [];
 
-    var listWidget = Selector<DMProvider, DMSessionDetail?>(
-      builder: (context, _detail, child) {
+    var listWidget = Selector<DMProvider, DMSession?>(
+      builder: (context, session, child) {
+        if (session == null) {
+          return Container();
+        }
+
         return ListView.builder(
           itemBuilder: (context, index) {
-            var event = _detail!.dmSession.get(index);
+            var event = session.get(index);
             if (event == null) {
               return null;
             }
 
             return DMDetailItemComponent(
-              sessionPubkey: _detail.dmSession.pubkey,
+              sessionPubkey: detail!.dmSession.pubkey,
               event: event,
               isLocal: localPubkey == event.pubKey,
               agreement: agreement!,
             );
           },
           reverse: true,
-          itemCount: _detail!.dmSession.length(),
+          itemCount: session.length(),
           dragStartBehavior: DragStartBehavior.down,
         );
       },
       selector: (context, _provider) {
-        return _provider.findOrNewADetail(detail!.dmSession.pubkey);
+        return _provider.getSession(detail!.dmSession.pubkey);
       },
     );
 

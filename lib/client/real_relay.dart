@@ -21,7 +21,6 @@ class RealRelay {
   late RelayInfo info;
 
   late WebSocketHandler _ws;
-  final Queue<Completer<void>> _pendingResponses = Queue();
   Function? _listener;
   Function(String)? onError;
   final RelayInfoProvider _relayInfoProvider;
@@ -55,8 +54,8 @@ class RealRelay {
     try {
       info = await _relayInfoProvider.get(url);
 
-      // Relay must support NIP-15 and NIP-20
-      if (info.nips.contains(15) && info.nips.contains(20)) {
+      // Relay must support NIP-15 and NIP-20, but NIP-15 had meger into NIP-01
+      if (info.nips.contains(20)) {
         await _ws.connect();
         result = true;
       }
@@ -85,9 +84,7 @@ class RealRelay {
   void _onData(String message) {
     final List<dynamic> json = jsonDecode(message);
     if (json[0] == 'OK' || json[0] == 'EOSE') {
-      if (_pendingResponses.isNotEmpty) {
-        _pendingResponses.removeFirst().complete();
-      }
+      // notice the request whick want to callback
     }
     if (json[0] == 'NOTICE') {
       log("$url: ${json.toString()}");
