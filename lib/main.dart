@@ -19,6 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'client/cust_nostr.dart';
 import 'consts/base.dart';
@@ -112,6 +113,23 @@ bool firstLogin = false;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (PlatformUtil.isPC()) {
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = WindowOptions(
+      size: Size(1024, 800),
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      titleBarStyle: TitleBarStyle.normal,
+      title: Base.APP_NAME,
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
 
   if (Platform.isWindows || Platform.isLinux) {
     // Initialize FFI
