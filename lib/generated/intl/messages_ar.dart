@@ -26,13 +26,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("إدارة الحسابات"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("إضافة حساب"),
+        "Add_a_Note": MessageLookupByLibrary.simpleMessage("نشر ديناميكية"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("إضافة تسجيل الدخول ؟"),
         "Add_now": MessageLookupByLibrary.simpleMessage("إضافة الآن"),
+        "Add_this_relay_to_local":
+            MessageLookupByLibrary.simpleMessage("إضافة إلى ترحيل المحلية ؟"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("إضافة إلى قائمة معروفة"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "العنوان لا يمكن أن تكون فارغة ."),
+        "Any": MessageLookupByLibrary.simpleMessage("بشكل تعسفي"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("يتطلب التوثيق"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -44,10 +48,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("تقييد"),
         "Boost": MessageLookupByLibrary.simpleMessage("الترويج"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("البث"),
+        "Broadcase_When_Boost":
+            MessageLookupByLibrary.simpleMessage("تعزيز البث"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("إشتري لي فنجان قهوة"),
         "Cancel": MessageLookupByLibrary.simpleMessage("ألغى"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("توقف"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("قدم"),
+        "Content": MessageLookupByLibrary.simpleMessage("المحتويات"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("نسخ المفتاح الأصلي"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("نسخ المفتاح"),
@@ -87,47 +95,62 @@ class MessageLookup extends MessageLookupByLibrary {
             "مدخلات فارغة قد يكون معطوبا من قبل التتابع ."),
         "Face": MessageLookupByLibrary.simpleMessage("التعرف على الوجه"),
         "Filter": MessageLookupByLibrary.simpleMessage("تصفية"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage(
+                "العثور على قائمة ترحيل سحابة ، هل تريد تحميل ؟"),
         "Fingerprint":
             MessageLookupByLibrary.simpleMessage("التعرف على بصمات الأصابع"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("متابعة النظام"),
         "Following": MessageLookupByLibrary.simpleMessage("اتبع"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("فونت"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("حجم الخط"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("حظر"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("حظر الصور"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("حظر الفيديو"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("توليد مفتاح جديد"),
         "Global": MessageLookupByLibrary.simpleMessage("العالمية"),
+        "Globals": MessageLookupByLibrary.simpleMessage("ساحة"),
         "Hide": MessageLookupByLibrary.simpleMessage("أخفى"),
+        "Home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("أنا أقبل"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("ضغط الصور"),
         "Image_service": MessageLookupByLibrary.simpleMessage("خدمات الصور"),
         "Input": MessageLookupByLibrary.simpleMessage("المدخلات"),
-        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("أدخل عدد ستاس"),
+        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("أدخل عدد ساتس"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "أدخل عدد ستاس لتوليد فاتورة شبكة البرق"),
+                "أدخل عدد من سات لتوليد فاتورة شبكة البرق"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("إضافة مفتاح الحساب"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("لا يمكن إدخال فارغة"),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("الرجاء إدخال فلتر الكلمات"),
+        "Input_parse_error":
+            MessageLookupByLibrary.simpleMessage("فشل تحليل المدخلات"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
             "من فضلك أدخل عنوان التتابع ."),
         "Key_Backup":
             MessageLookupByLibrary.simpleMessage("مفتاح النسخ الاحتياطي"),
         "Language": MessageLookupByLibrary.simpleMessage("لغة"),
         "Light": MessageLookupByLibrary.simpleMessage("لون فاتح"),
+        "Lightning_Invoice":
+            MessageLookupByLibrary.simpleMessage("فاتورة البرق"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("رابط معاينة"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "lnurl و lud16 لا يمكن العثور عليها ."),
         "Login": MessageLookupByLibrary.simpleMessage("سجل"),
         "Lud16": MessageLookupByLibrary.simpleMessage("لود"),
         "Mentions": MessageLookupByLibrary.simpleMessage("ذكر"),
+        "Method": MessageLookupByLibrary.simpleMessage("طريقة ."),
+        "More": MessageLookupByLibrary.simpleMessage("أكثر ."),
         "Name": MessageLookupByLibrary.simpleMessage("الإسم"),
         "Network": MessageLookupByLibrary.simpleMessage("شبكة"),
         "Nip05": MessageLookupByLibrary.simpleMessage("نيب05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "نوسترومو المطور لن يطلب منك مفتاح ."),
+                "نوسترمو المطور لن يطلب منك مفتاح ."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("دينامية الهوية"),
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("تحميل الديناميكي"),
@@ -144,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("فتح صفحة المستخدم"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("فتح المتصفح"),
         "Password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
+        "Pay": MessageLookupByLibrary.simpleMessage("باي"),
         "Picture": MessageLookupByLibrary.simpleMessage("صور"),
         "Please_accept_the_terms":
             MessageLookupByLibrary.simpleMessage("يرجى قبول اتفاق المستخدم ."),
@@ -180,6 +204,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("قفل الخصوصية"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "المفتاح لا يمكن أن تكون فارغة"),
+        "Quote": MessageLookupByLibrary.simpleMessage("استشهد"),
         "Read": MessageLookupByLibrary.simpleMessage("قرأ"),
         "Relays": MessageLookupByLibrary.simpleMessage("تتابع"),
         "Replying": MessageLookupByLibrary.simpleMessage("الرد"),
@@ -193,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("ضبط"),
         "Share": MessageLookupByLibrary.simpleMessage("شارك"),
         "Show": MessageLookupByLibrary.simpleMessage("عرض ."),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("فشل التوقيع"),
         "Submit": MessageLookupByLibrary.simpleMessage("قدم"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "المحتوى لا يمكن أن تحتوي على مسافات"),
@@ -203,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "المفتاح عبارة عن سلسلة عشوائية تشبه كلمة مرور حسابك . أي شخص لديه هذا المفتاح يمكن الوصول إلى الحساب الخاص بك والتحكم فيها ."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("موضوع اللون"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("نوع الموضوع"),
+        "There_should_be_a_universe_here":
+            MessageLookupByLibrary.simpleMessage("يجب أن يكون هناك عالم"),
         "Timeline": MessageLookupByLibrary.simpleMessage("خط الزمن"),
         "Topic": MessageLookupByLibrary.simpleMessage("موضوع ."),
         "Topics": MessageLookupByLibrary.simpleMessage("موضوع ."),
@@ -212,6 +240,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("ترجمة اللغة الهدف"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("فشل تحميل"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "استخدام شبكة البرق المحفظة لمسح وإرسال ساتس"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("مستخدم pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("الناس"),
         "Verify_error":
@@ -228,6 +259,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Write_a_message": MessageLookupByLibrary.simpleMessage("كتابة رسالة"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("شكل مفتاح الخطأ"),
+        "You_had_voted_with":
+            MessageLookupByLibrary.simpleMessage("لقد صوتت بالفعل ."),
+        "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
+            "لا يمكن أن يكون أكبر من عدد الزاب"),
+        "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
+            "الزاب عدد لا يمكن أن يكون أقل من"),
+        "add_poll_option":
+            MessageLookupByLibrary.simpleMessage("إضافة خيارات التصويت"),
         "auto": MessageLookupByLibrary.simpleMessage("أوتوماتيكي"),
         "boosted": MessageLookupByLibrary.simpleMessage("الترويج"),
         "close": MessageLookupByLibrary.simpleMessage("غلق"),
@@ -235,11 +274,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("مفتاح النسخ المتماثل بنجاح"),
         "liked": MessageLookupByLibrary.simpleMessage("مثل ."),
         "loading": MessageLookupByLibrary.simpleMessage("تحميل"),
+        "max_zap_num":
+            MessageLookupByLibrary.simpleMessage("أقصى عدد من الزاب"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("الحد الأدنى من عدد الزاب"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "الشبكة سوف تدخل حيز التنفيذ في المرة القادمة التي يبدأ التطبيق"),
         "notes_updated": MessageLookupByLibrary.simpleMessage("تحديث ديناميكي"),
         "open": MessageLookupByLibrary.simpleMessage("فتح ."),
         "or": MessageLookupByLibrary.simpleMessage("أو"),
+        "poll_option_info":
+            MessageLookupByLibrary.simpleMessage("معلومات عن خيارات التصويت"),
         "replied": MessageLookupByLibrary.simpleMessage("رد : ."),
         "terms_of_user":
             MessageLookupByLibrary.simpleMessage("بروتوكول المستخدم")

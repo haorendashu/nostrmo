@@ -26,13 +26,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("Kontoverwaltung"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Konto hinzufügen"),
+        "Add_a_Note":
+            MessageLookupByLibrary.simpleMessage("Aktualisierungen posten"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Hinzufügen und einloggen?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Jetzt hinzufügen"),
+        "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
+            "Füge das Relais zum Lokal hinzu?"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage(
             "Zur bekannten Liste hinzufügen"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "Die Adresse kann nicht leer sein."),
+        "Any": MessageLookupByLibrary.simpleMessage("willkürlich"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage(
             "Authentifizierung erforderlich"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -45,10 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("Grenzwert"),
         "Boost": MessageLookupByLibrary.simpleMessage("fördern"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("Radiosendung"),
+        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Übertragung während der Promotion"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Gib mir eine Tasse Kaffee!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("Stoppen Sie bei"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Absenden"),
+        "Content": MessageLookupByLibrary.simpleMessage("Inhalt"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Originalschlüssel kopieren"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Schlüssel kopieren"),
@@ -89,11 +98,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Die Eingabe von Leerzeichen kann durch das Relais verboten werden."),
         "Face": MessageLookupByLibrary.simpleMessage("Gesichtserkennung"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filter"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage(
+                "Haben Sie die Cloud Relay Liste gefunden, möchten Sie sie herunterladen?"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage(
             "Identifikation von Fingerabdrücken"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("Folgesystem"),
         "Following": MessageLookupByLibrary.simpleMessage("Nachfolgend"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Schriftart"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("Schriftgröße"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("verbieten"),
         "Forbid_image":
             MessageLookupByLibrary.simpleMessage("Bilder verbieten"),
         "Forbid_video":
@@ -101,33 +115,43 @@ class MessageLookup extends MessageLookupByLibrary {
         "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
             "Einen neuen Schlüssel generieren"),
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
+        "Globals": MessageLookupByLibrary.simpleMessage("Quadrat"),
         "Hide": MessageLookupByLibrary.simpleMessage("Ausblenden"),
+        "Home": MessageLookupByLibrary.simpleMessage("Startseite"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ich akzeptiere"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Bildkomprimierung"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Bilddienste"),
         "Input": MessageLookupByLibrary.simpleMessage("Eingabe"),
-        "Input_Sats_num": MessageLookupByLibrary.simpleMessage(
-            "Geben Sie die Anzahl der Stas ein"),
+        "Input_Sats_num":
+            MessageLookupByLibrary.simpleMessage("Eingangssatzmenge"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Geben Sie die Anzahl der Stas ein, um Lightning Network Rechnungen zu generieren"),
+                "Geben Sie die Anzahl der Satelliten ein, um Lightning Network Rechnungen zu generieren"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Kontoschlüssel hinzufügen"),
+        "Input_can_not_be_null": MessageLookupByLibrary.simpleMessage(
+            "Eingabe kann nicht leer sein"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie Filterbegriffe ein"),
+        "Input_parse_error": MessageLookupByLibrary.simpleMessage(
+            "Eingabe-Parsing fehlgeschlagen"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie die Relaisadresse ein."),
         "Key_Backup":
             MessageLookupByLibrary.simpleMessage("Schlüsselsicherung"),
         "Language": MessageLookupByLibrary.simpleMessage("Sprache"),
         "Light": MessageLookupByLibrary.simpleMessage("helle Farbe"),
+        "Lightning_Invoice":
+            MessageLookupByLibrary.simpleMessage("Blitzrechnung"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link-Vorschau"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl und Lud16 können nicht gefunden werden."),
         "Login": MessageLookupByLibrary.simpleMessage("Anmelden"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Erwähnung"),
+        "Method": MessageLookupByLibrary.simpleMessage("Methode"),
+        "More": MessageLookupByLibrary.simpleMessage("mehr"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Netzwerk"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -151,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Im Browser öffnen"),
         "Password": MessageLookupByLibrary.simpleMessage("Passwort"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Bezahlen"),
         "Picture": MessageLookupByLibrary.simpleMessage("Bild"),
         "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
             "Bitte akzeptieren Sie die Nutzungsvereinbarung."),
@@ -189,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Datenschutzsperre"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "Schlüssel kann nicht leer sein"),
+        "Quote": MessageLookupByLibrary.simpleMessage("Zitat"),
         "Read": MessageLookupByLibrary.simpleMessage("lesen"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relais"),
         "Replying":
@@ -203,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("einrichten"),
         "Share": MessageLookupByLibrary.simpleMessage("Teilen"),
         "Show": MessageLookupByLibrary.simpleMessage("Anzeige"),
+        "Sign_fail":
+            MessageLookupByLibrary.simpleMessage("Unterschrift fehlgeschlagen"),
         "Submit": MessageLookupByLibrary.simpleMessage("Absenden"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Inhalt kann keine Leerzeichen enthalten"),
@@ -213,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Der Schlüssel ist eine zufällige Zeichenfolge, ähnlich Ihrem Kontopasswort. Jeder mit diesem Schlüssel kann auf Ihr Konto zugreifen und es kontrollieren."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Designfarben"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Thementyp"),
+        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
+            "Es sollte hier ein Universum geben."),
         "Timeline": MessageLookupByLibrary.simpleMessage("Zeitleiste"),
         "Topic": MessageLookupByLibrary.simpleMessage("Thema"),
         "Topics": MessageLookupByLibrary.simpleMessage("Thema"),
@@ -223,6 +253,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zielsprache der Übersetzung"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Hochladen fehlgeschlagen"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "Scannen und Senden von Sats mit Lightning Wallet"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Benutzer-Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("Menschen"),
         "Verify_error":
@@ -241,6 +274,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Eine Nachricht schreiben"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("Schlüsselformatfehler"),
+        "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
+            "Sie haben bereits abgestimmt"),
+        "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
+            "Zap-Menge darf nicht größer sein als"),
+        "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
+            "Zap-Menge darf nicht kleiner sein als"),
+        "add_poll_option": MessageLookupByLibrary.simpleMessage(
+            "Abstimmungsoptionen hinzufügen"),
         "auto": MessageLookupByLibrary.simpleMessage("automatisch"),
         "boosted": MessageLookupByLibrary.simpleMessage("fördern"),
         "close": MessageLookupByLibrary.simpleMessage("schließen"),
@@ -248,12 +289,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Schlüssel erfolgreich kopiert"),
         "liked": MessageLookupByLibrary.simpleMessage("wie"),
         "loading": MessageLookupByLibrary.simpleMessage("Laden"),
+        "max_zap_num":
+            MessageLookupByLibrary.simpleMessage("Maximale Anzahl Zaps"),
+        "min_zap_num": MessageLookupByLibrary.simpleMessage("Min. Zap Menge"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Das Netzwerk wird beim nächsten Start der App wirksam"),
         "notes_updated":
             MessageLookupByLibrary.simpleMessage("Dynamisch aktualisiert"),
         "open": MessageLookupByLibrary.simpleMessage("offen"),
         "or": MessageLookupByLibrary.simpleMessage("vielleicht"),
+        "poll_option_info": MessageLookupByLibrary.simpleMessage(
+            "Informationen über Wahlmöglichkeiten"),
         "replied": MessageLookupByLibrary.simpleMessage("Antwort"),
         "terms_of_user":
             MessageLookupByLibrary.simpleMessage("Nutzungsvereinbarung")

@@ -25,13 +25,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("o"),
         "Account_Manager": MessageLookupByLibrary.simpleMessage("správa účtu"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Přidat účet"),
+        "Add_a_Note":
+            MessageLookupByLibrary.simpleMessage("Zveřejnit aktualizace"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Přidat a přihlásit se?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Přidat nyní"),
+        "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
+            "Přidat tuhle štafetu k místnímu?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Přidat do známého seznamu"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Adresa nemůže být prázdná."),
+        "Any": MessageLookupByLibrary.simpleMessage("libovolně"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Požadovat autentizaci"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -45,10 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Boost": MessageLookupByLibrary.simpleMessage("podporovat"),
         "Broadcase":
             MessageLookupByLibrary.simpleMessage("rozhlasové vysílání"),
+        "Broadcase_When_Boost":
+            MessageLookupByLibrary.simpleMessage("Vysílání během propagace"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Kup mi šálek kávy!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("zrušit"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("Zastavte se na"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Odeslat"),
+        "Content": MessageLookupByLibrary.simpleMessage("obsah"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Kopírovat původní klíč"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Kopírovat klíč"),
@@ -88,18 +97,25 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vstupní polotovary mohou být relé zakázány."),
         "Face": MessageLookupByLibrary.simpleMessage("detekce obličeje"),
         "Filter": MessageLookupByLibrary.simpleMessage("filtr"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage(
+                "Našel jsem seznam cloudových přenosů, chceš si ho stáhnout?"),
         "Fingerprint":
             MessageLookupByLibrary.simpleMessage("identifikace otisku prstu"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Sledovat systém"),
         "Following": MessageLookupByLibrary.simpleMessage("Následující"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("písmo"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("velikost písma"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("zakázat"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Zakázat obrázky"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Zakázat videa"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Vytvořit nový klíč"),
         "Global": MessageLookupByLibrary.simpleMessage("Globální"),
+        "Globals": MessageLookupByLibrary.simpleMessage("čtverec"),
         "Hide": MessageLookupByLibrary.simpleMessage("skrýt"),
+        "Home": MessageLookupByLibrary.simpleMessage("domovská stránka"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Přijímám"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Komprese obrazu"),
@@ -107,25 +123,33 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Obrazové služby"),
         "Input": MessageLookupByLibrary.simpleMessage("vstup"),
         "Input_Sats_num":
-            MessageLookupByLibrary.simpleMessage("Zadejte číslo Stas"),
+            MessageLookupByLibrary.simpleMessage("Množství vstupních sat"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Zadejte počet Stas pro generování faktur bleskové sítě"),
+                "Zadejte počet satelitů pro generování faktur bleskové sítě"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Přidat klíč účtu"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("Vstup nemůže být prázdný"),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("Zadejte filtrační termíny"),
+        "Input_parse_error":
+            MessageLookupByLibrary.simpleMessage("Analýza vstupu selhala"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("Zadejte prosím adresu."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Záloha klíče"),
         "Language": MessageLookupByLibrary.simpleMessage("jazyk"),
         "Light": MessageLookupByLibrary.simpleMessage("světlá barva"),
+        "Lightning_Invoice":
+            MessageLookupByLibrary.simpleMessage("Faktura blesku"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Náhled odkazu"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl a Lud16 nelze najít."),
         "Login": MessageLookupByLibrary.simpleMessage("Přihlásit se"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("zmínka"),
+        "Method": MessageLookupByLibrary.simpleMessage("metoda"),
+        "More": MessageLookupByLibrary.simpleMessage("více"),
         "Name": MessageLookupByLibrary.simpleMessage("jméno"),
         "Network": MessageLookupByLibrary.simpleMessage("síť"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -149,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Otevřít v prohlížeči"),
         "Password": MessageLookupByLibrary.simpleMessage("heslo"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Zaplať"),
         "Picture": MessageLookupByLibrary.simpleMessage("obrázek"),
         "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
             "Přijměte prosím uživatelský souhlas."),
@@ -185,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Zámek soukromí"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Klíč nemůže být prázdný"),
+        "Quote": MessageLookupByLibrary.simpleMessage("citace"),
         "Read": MessageLookupByLibrary.simpleMessage("číst"),
         "Relays": MessageLookupByLibrary.simpleMessage("relé"),
         "Replying": MessageLookupByLibrary.simpleMessage("Odpověď probíhá"),
@@ -198,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("nastavit"),
         "Share": MessageLookupByLibrary.simpleMessage("sdílet"),
         "Show": MessageLookupByLibrary.simpleMessage("displej"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("Podpis selhal"),
         "Submit": MessageLookupByLibrary.simpleMessage("Odeslat"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Obsah nesmí obsahovat mezery"),
@@ -208,6 +235,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Klíč je náhodný řetězec, podobný heslu vašeho účtu. Kdokoliv s tímto klíčem může přistupovat k vašemu účtu a ovládat ho."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Barvy motivu"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Typ tématu"),
+        "There_should_be_a_universe_here":
+            MessageLookupByLibrary.simpleMessage("Měl by tu být vesmír."),
         "Timeline": MessageLookupByLibrary.simpleMessage("Časová osa"),
         "Topic": MessageLookupByLibrary.simpleMessage("téma"),
         "Topics": MessageLookupByLibrary.simpleMessage("téma"),
@@ -218,6 +247,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cílový jazyk překladu"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Nahrávání selhalo"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "Skenování a odesílání satelitů pomocí Lightning Wallet"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Uživatelský Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("lidé"),
@@ -236,6 +268,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Napište zprávu"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("Chyba formátu klíče"),
+        "You_had_voted_with":
+            MessageLookupByLibrary.simpleMessage("Už jste hlasovali."),
+        "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
+            "Zap množství nemůže být větší než"),
+        "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
+            "Množství Zap nesmí být menší než"),
+        "add_poll_option":
+            MessageLookupByLibrary.simpleMessage("Přidat možnosti hlasování"),
         "auto": MessageLookupByLibrary.simpleMessage("automatické"),
         "boosted": MessageLookupByLibrary.simpleMessage("podporovat"),
         "close": MessageLookupByLibrary.simpleMessage("zavřít"),
@@ -243,12 +283,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Klíč byl úspěšně zkopírován"),
         "liked": MessageLookupByLibrary.simpleMessage("jako"),
         "loading": MessageLookupByLibrary.simpleMessage("Načítání"),
+        "max_zap_num":
+            MessageLookupByLibrary.simpleMessage("Maximální počet Zapů"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("Min. množství Zap"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Síť nabude účinku při příštím spuštění aplikace"),
         "notes_updated":
             MessageLookupByLibrary.simpleMessage("Dynamicky aktualizované"),
         "open": MessageLookupByLibrary.simpleMessage("otevřít"),
         "or": MessageLookupByLibrary.simpleMessage("možná"),
+        "poll_option_info": MessageLookupByLibrary.simpleMessage(
+            "Informace o volebních možnostech"),
         "replied": MessageLookupByLibrary.simpleMessage("odpověď"),
         "terms_of_user":
             MessageLookupByLibrary.simpleMessage("Uživatelská smlouva")

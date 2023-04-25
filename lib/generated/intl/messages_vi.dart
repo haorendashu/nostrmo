@@ -26,13 +26,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("Quản lý tài khoản"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Thêm tài khoản"),
+        "Add_a_Note": MessageLookupByLibrary.simpleMessage("Phát hành Dynamic"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Thêm và đăng nhập?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Thêm vào"),
+        "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
+            "Thêm chuyển tiếp đó đến địa phương?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Thêm vào danh sách đã biết"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "Địa chỉ không được để trống."),
+        "Any": MessageLookupByLibrary.simpleMessage("Bất kỳ"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Yêu cầu xác thực"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -45,10 +49,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("Giới hạn"),
         "Boost": MessageLookupByLibrary.simpleMessage("Khuyến mãi"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("Phát sóng"),
+        "Broadcase_When_Boost":
+            MessageLookupByLibrary.simpleMessage("Phát sóng khi quảng bá"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Mua cho tôi một tách cà phê!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("Dừng lại ở"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Giới thiệu"),
+        "Content": MessageLookupByLibrary.simpleMessage("Nội dung"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Sao chép khóa gốc"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Sao chép chìa khóa"),
@@ -88,36 +96,50 @@ class MessageLookup extends MessageLookupByLibrary {
             "Nhập khoảng trắng có thể bị cấm chuyển tiếp."),
         "Face": MessageLookupByLibrary.simpleMessage("Nhận diện khuôn mặt"),
         "Filter": MessageLookupByLibrary.simpleMessage("Bộ lọc"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage(
+                "Tìm danh sách chuyển tiếp đám mây, bạn có muốn tải xuống không?"),
         "Fingerprint":
             MessageLookupByLibrary.simpleMessage("Nhận dạng vân tay"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Theo dõi hệ thống"),
         "Following": MessageLookupByLibrary.simpleMessage("Đang theo dõi"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Phông chữ"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("Cỡ phông chữ"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("Cấm"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("cấm hình ảnh"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("cấm video"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Tạo một key mới"),
         "Global": MessageLookupByLibrary.simpleMessage("Toàn cầu"),
+        "Globals": MessageLookupByLibrary.simpleMessage("Quảng trường"),
         "Hide": MessageLookupByLibrary.simpleMessage("Ẩn"),
+        "Home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Tôi chấp nhận"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("Nén ảnh"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Dịch vụ hình ảnh"),
         "Input": MessageLookupByLibrary.simpleMessage("Nhập"),
-        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("Nhập số Stas"),
+        "Input_Sats_num":
+            MessageLookupByLibrary.simpleMessage("Nhập số lượng Sats"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Nhập số Stas để tạo hóa đơn Lightning Network"),
+                "Nhập số lượng Sats để tạo hóa đơn Lightning Network"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Thêm khóa tài khoản"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("Input không thể để trống"),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("Vui lòng nhập từ đã lọc"),
+        "Input_parse_error":
+            MessageLookupByLibrary.simpleMessage("Lỗi phân tích đầu vào"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
             "Vui lòng nhập địa chỉ chuyển tiếp."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Sao lưu khóa"),
         "Language": MessageLookupByLibrary.simpleMessage("Ngôn ngữ"),
         "Light": MessageLookupByLibrary.simpleMessage("Màu sáng"),
+        "Lightning_Invoice":
+            MessageLookupByLibrary.simpleMessage("Hóa đơn Lightning"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Xem thử liên kết"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
@@ -125,12 +147,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Đề cập"),
+        "Method": MessageLookupByLibrary.simpleMessage("Phương pháp"),
+        "More": MessageLookupByLibrary.simpleMessage("Thêm"),
         "Name": MessageLookupByLibrary.simpleMessage("Tên"),
         "Network": MessageLookupByLibrary.simpleMessage("Mạng lưới"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Các nhà phát triển Nostromo sẽ không bao giờ yêu cầu bạn khóa."),
+                "Nhà phát triển Nostmo sẽ không bao giờ yêu cầu bạn khóa."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("ID động"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("Đang tải động"),
         "Notes": MessageLookupByLibrary.simpleMessage("Động"),
@@ -147,6 +171,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Mở trong trình duyệt"),
         "Password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("Hình ảnh"),
         "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
             "Vui lòng chấp nhận thỏa thuận người dùng."),
@@ -183,6 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Khóa riêng tư"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Key không thể để trống"),
+        "Quote": MessageLookupByLibrary.simpleMessage("Trích dẫn"),
         "Read": MessageLookupByLibrary.simpleMessage("Đọc"),
         "Relays": MessageLookupByLibrary.simpleMessage("Chuyển tiếp"),
         "Replying": MessageLookupByLibrary.simpleMessage("Trả lời"),
@@ -196,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Thiết lập"),
         "Share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
         "Show": MessageLookupByLibrary.simpleMessage("Hiển thị"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("Chữ ký thất bại"),
         "Submit": MessageLookupByLibrary.simpleMessage("Giới thiệu"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Nội dung không thể chứa khoảng trắng"),
@@ -206,6 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Khóa là một chuỗi ngẫu nhiên, tương tự như mật khẩu tài khoản của bạn. Bất cứ ai có khóa này đều có thể truy cập và kiểm soát tài khoản của bạn."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Màu sắc chủ đề"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Loại chủ đề"),
+        "There_should_be_a_universe_here":
+            MessageLookupByLibrary.simpleMessage("Phải có một vũ trụ ở đây."),
         "Timeline": MessageLookupByLibrary.simpleMessage("Dòng thời gian"),
         "Topic": MessageLookupByLibrary.simpleMessage("Chủ đề"),
         "Topics": MessageLookupByLibrary.simpleMessage("Chủ đề"),
@@ -216,6 +245,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dịch ngôn ngữ đích"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Tải lên không thành công"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "Quét và gửi Sats với ví Lightning Web"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Người dùng PubKey"),
         "Users": MessageLookupByLibrary.simpleMessage("Người"),
@@ -235,6 +267,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Viết một tin nhắn"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("Lỗi định dạng khóa"),
+        "You_had_voted_with":
+            MessageLookupByLibrary.simpleMessage("Bạn đã bỏ phiếu"),
+        "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
+            "Số lượng Zap không được lớn hơn"),
+        "Zap_num_can_not_smaller_then":
+            MessageLookupByLibrary.simpleMessage("Số lượng Zap không nhỏ hơn"),
+        "add_poll_option":
+            MessageLookupByLibrary.simpleMessage("Thêm tùy chọn bỏ phiếu"),
         "auto": MessageLookupByLibrary.simpleMessage("Tự động"),
         "boosted": MessageLookupByLibrary.simpleMessage("Khuyến mãi"),
         "close": MessageLookupByLibrary.simpleMessage("Đóng cửa"),
@@ -242,11 +282,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sao chép khóa thành công"),
         "liked": MessageLookupByLibrary.simpleMessage("Thích"),
         "loading": MessageLookupByLibrary.simpleMessage("Đang tải"),
+        "max_zap_num":
+            MessageLookupByLibrary.simpleMessage("Số lượng Zap tối đa"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("Số lượng Zap tối thiểu"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Mạng sẽ có hiệu lực vào lần sau khi khởi động APP."),
         "notes_updated": MessageLookupByLibrary.simpleMessage("Cập nhật động"),
         "open": MessageLookupByLibrary.simpleMessage("Mở"),
         "or": MessageLookupByLibrary.simpleMessage("Hoặc"),
+        "poll_option_info":
+            MessageLookupByLibrary.simpleMessage("Thông tin lựa chọn bỏ phiếu"),
         "replied": MessageLookupByLibrary.simpleMessage("Trả lời"),
         "terms_of_user":
             MessageLookupByLibrary.simpleMessage("Thỏa thuận người dùng")

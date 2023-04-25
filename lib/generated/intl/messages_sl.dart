@@ -26,13 +26,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("upravljanje računov"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Dodaj račun"),
+        "Add_a_Note":
+            MessageLookupByLibrary.simpleMessage("Objavi posodobitve"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Dodaj in se prijavi?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Dodaj zdaj"),
+        "Add_this_relay_to_local":
+            MessageLookupByLibrary.simpleMessage("Dodaj ta rele lokalnemu?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Dodaj na znani seznam"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Naslov ne more biti prazen."),
+        "Any": MessageLookupByLibrary.simpleMessage("samovoljno"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage(
             "Zahteva preverjanje pristnosti"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -45,10 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("meja"),
         "Boost": MessageLookupByLibrary.simpleMessage("spodbujanje"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("radijsko oddajanje"),
+        "Broadcase_When_Boost":
+            MessageLookupByLibrary.simpleMessage("Oddajanje med promocijo"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Kupi mi skodelico kave!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("prekliči"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("Stop at"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Pošlji"),
+        "Content": MessageLookupByLibrary.simpleMessage("vsebina"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Kopiraj izvirni ključ"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Kopiraj ključ"),
@@ -87,39 +96,52 @@ class MessageLookup extends MessageLookupByLibrary {
             "Rele lahko prepove vhodne prazne luči."),
         "Face": MessageLookupByLibrary.simpleMessage("zaznavanje obraza"),
         "Filter": MessageLookupByLibrary.simpleMessage("filter"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage(
+                "Našel sem seznam prenosov oblakov. Ga želiš prenesti?"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage(
             "identifikacija prstnih odtisov"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Sistem sledenja"),
         "Following": MessageLookupByLibrary.simpleMessage("Naslednje"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("tipka"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("velikost pisave"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("prepovedati"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Prepovej slike"),
         "Forbid_video":
             MessageLookupByLibrary.simpleMessage("Prepovej videoposnetke"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Ustvari nov ključ"),
         "Global": MessageLookupByLibrary.simpleMessage("Globalno"),
+        "Globals": MessageLookupByLibrary.simpleMessage("kvadrat"),
         "Hide": MessageLookupByLibrary.simpleMessage("skrij"),
+        "Home": MessageLookupByLibrary.simpleMessage("Domača stran"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Sprejmem"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Stiskanje slike"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Storitve slik"),
         "Input": MessageLookupByLibrary.simpleMessage("vnos"),
         "Input_Sats_num":
-            MessageLookupByLibrary.simpleMessage("Vnesite številko Stas"),
+            MessageLookupByLibrary.simpleMessage("Količina vhodnih satelitov"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Vnesite število Stas za ustvarjanje računov strele omrežja"),
+                "Vnesite število Sat za ustvarjanje računov strele omrežja"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Dodaj ključ računa"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("Vnos ne more biti prazen"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage(
             "Prosim vnesite filtrirne izraze"),
+        "Input_parse_error":
+            MessageLookupByLibrary.simpleMessage("Razčlenitev vnosa ni uspela"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("Prosim vnesite naslov."),
         "Key_Backup":
             MessageLookupByLibrary.simpleMessage("Varnostna kopija ključa"),
         "Language": MessageLookupByLibrary.simpleMessage("jezik"),
         "Light": MessageLookupByLibrary.simpleMessage("barva svetlobe"),
+        "Lightning_Invoice":
+            MessageLookupByLibrary.simpleMessage("Račun o streli"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Predogled povezave"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
@@ -127,6 +149,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Login": MessageLookupByLibrary.simpleMessage("Vpišite se"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("omeniti"),
+        "Method": MessageLookupByLibrary.simpleMessage("metoda"),
+        "More": MessageLookupByLibrary.simpleMessage("več"),
         "Name": MessageLookupByLibrary.simpleMessage("ime"),
         "Network": MessageLookupByLibrary.simpleMessage("omrežje"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -150,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Odpri v brskalniku"),
         "Password": MessageLookupByLibrary.simpleMessage("geslo"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Plačaj"),
         "Picture": MessageLookupByLibrary.simpleMessage("slika"),
         "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
             "Prosimo, sprejmite uporabniško pogodbo."),
@@ -187,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zaklepanje zasebnosti"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Ključa ne more biti prazen"),
+        "Quote": MessageLookupByLibrary.simpleMessage("citiraj"),
         "Read": MessageLookupByLibrary.simpleMessage("preberi"),
         "Relays": MessageLookupByLibrary.simpleMessage("rele"),
         "Replying": MessageLookupByLibrary.simpleMessage("Odgovor v teku"),
@@ -200,6 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("nastavitev"),
         "Share": MessageLookupByLibrary.simpleMessage("delež"),
         "Show": MessageLookupByLibrary.simpleMessage("prikaz"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("Podpis ni uspel"),
         "Submit": MessageLookupByLibrary.simpleMessage("Pošlji"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Vsebina ne more vsebovati presledkov"),
@@ -210,6 +237,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Ključ je naključni niz, podoben geslu vašega računa. Vsakdo s tem ključem lahko dostopa do vašega računa in ga nadzira."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Barve teme"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Vrsta teme"),
+        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
+            "Tukaj bi moralo biti vesolje."),
         "Timeline": MessageLookupByLibrary.simpleMessage("Časovnica"),
         "Topic": MessageLookupByLibrary.simpleMessage("tema"),
         "Topics": MessageLookupByLibrary.simpleMessage("tema"),
@@ -219,6 +248,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Ciljni jezik prevoda"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Prenos ni uspel"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "Skeniranje in pošiljanje Sat z Lightning Wallet"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Uporabniški Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("ljudje"),
@@ -238,6 +270,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Napiši sporočilo"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("Napaka oblike ključa"),
+        "You_had_voted_with":
+            MessageLookupByLibrary.simpleMessage("Ste že glasovali."),
+        "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
+            "Količina Zap ne more biti večja od"),
+        "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
+            "Količina Zap ne more biti manjša od"),
+        "add_poll_option":
+            MessageLookupByLibrary.simpleMessage("Dodaj možnosti glasovanja"),
         "auto": MessageLookupByLibrary.simpleMessage("samodejno"),
         "boosted": MessageLookupByLibrary.simpleMessage("spodbujanje"),
         "close": MessageLookupByLibrary.simpleMessage("zapri"),
@@ -245,12 +285,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ključ je uspešno kopiran"),
         "liked": MessageLookupByLibrary.simpleMessage("kot"),
         "loading": MessageLookupByLibrary.simpleMessage("Nalaganje"),
+        "max_zap_num":
+            MessageLookupByLibrary.simpleMessage("Največje število Zaps"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("Minimalna količina Zap"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Omrežje bo začelo veljati ob naslednjem zagonu aplikacije"),
         "notes_updated":
             MessageLookupByLibrary.simpleMessage("Dinamično posodobljeno"),
         "open": MessageLookupByLibrary.simpleMessage("odprto"),
         "or": MessageLookupByLibrary.simpleMessage("mogoče"),
+        "poll_option_info": MessageLookupByLibrary.simpleMessage(
+            "Informacije o možnostih glasovanja"),
         "replied": MessageLookupByLibrary.simpleMessage("odgovor"),
         "terms_of_user":
             MessageLookupByLibrary.simpleMessage("Uporabniška pogodba")

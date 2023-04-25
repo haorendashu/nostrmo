@@ -25,12 +25,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("정보"),
         "Account_Manager": MessageLookupByLibrary.simpleMessage("계정 관리"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("계정 추가"),
+        "Add_a_Note": MessageLookupByLibrary.simpleMessage("게시 동적"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("추가 및 로그인?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("지금 추가"),
+        "Add_this_relay_to_local":
+            MessageLookupByLibrary.simpleMessage("이 트렁크를 로컬에 추가하시겠습니까?"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("알려진 목록에 추가"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("주소는 비워둘 수 없습니다."),
+        "Any": MessageLookupByLibrary.simpleMessage("임의"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("인증 필요"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("백업 및 보안 팁"),
@@ -41,9 +45,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("제한 사항"),
         "Boost": MessageLookupByLibrary.simpleMessage("촉진"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("방송"),
+        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage("촉진 시 방송"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("커피 한 잔 사줘!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("취소"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("중지"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("제출"),
+        "Content": MessageLookupByLibrary.simpleMessage("내용"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("원래 키 복사"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("키 복사"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("동적 ID 복사"),
@@ -73,45 +80,58 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("공백을 입력하면 트렁크에서 사용할 수 없습니다."),
         "Face": MessageLookupByLibrary.simpleMessage("얼굴 인식"),
         "Filter": MessageLookupByLibrary.simpleMessage("필터링"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage(
+                "클라우드 트렁크 목록을 찾았습니다. 다운로드하시겠습니까?"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("지문 인식"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("시스템 따르기"),
         "Following": MessageLookupByLibrary.simpleMessage("따르는 중"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("글꼴"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("글꼴 크기"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("금지"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("그림 금지"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("비디오 금지"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("새 키 생성"),
         "Global": MessageLookupByLibrary.simpleMessage("글로벌"),
+        "Globals": MessageLookupByLibrary.simpleMessage("광장"),
         "Hide": MessageLookupByLibrary.simpleMessage("숨기기"),
+        "Home": MessageLookupByLibrary.simpleMessage("첫 페이지"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("받아들일게요"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("그림 압축"),
         "Image_service": MessageLookupByLibrary.simpleMessage("사진 서비스"),
         "Input": MessageLookupByLibrary.simpleMessage("입력"),
-        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("Stas 수량 입력"),
+        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("Sats 수량 입력"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Stas 수량을 입력하여 번개 네트워크 청구서 생성"),
+                "Sats 수량을 입력하여 번개 네트워크 청구서 생성"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("계정 키 추가"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("입력은 비워둘 수 없습니다."),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("필터 단어를 입력하십시오."),
+        "Input_parse_error": MessageLookupByLibrary.simpleMessage("입력 확인 실패"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("트렁크 주소를 입력하십시오."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("키 백업"),
         "Language": MessageLookupByLibrary.simpleMessage("언어"),
         "Light": MessageLookupByLibrary.simpleMessage("연한 색"),
+        "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("번개 송장"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("링크 미리 보기"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl 및 Lud16을 찾을 수 없습니다."),
         "Login": MessageLookupByLibrary.simpleMessage("로그인"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("언급"),
+        "Method": MessageLookupByLibrary.simpleMessage("방법"),
+        "More": MessageLookupByLibrary.simpleMessage("추가"),
         "Name": MessageLookupByLibrary.simpleMessage("이름"),
         "Network": MessageLookupByLibrary.simpleMessage("인터넷"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Nostromo 개발자는 절대 당신에게 키를 요구하지 않습니다."),
+                "Nostrmo 개발자는 절대 키를 요청하지 않습니다."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("동적 ID"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("동적 로드 중"),
         "Notes": MessageLookupByLibrary.simpleMessage("동적"),
@@ -124,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_User_page": MessageLookupByLibrary.simpleMessage("사용자 페이지 열기"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("브라우저에서 열기"),
         "Password": MessageLookupByLibrary.simpleMessage("암호"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("그림"),
         "Please_accept_the_terms":
             MessageLookupByLibrary.simpleMessage("사용자 계약을 수락하십시오."),
@@ -155,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("개인 정보 보호 잠금 장치"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("키는 비워둘 수 없습니다."),
+        "Quote": MessageLookupByLibrary.simpleMessage("참조"),
         "Read": MessageLookupByLibrary.simpleMessage("읽다"),
         "Relays": MessageLookupByLibrary.simpleMessage("중계"),
         "Replying": MessageLookupByLibrary.simpleMessage("응답 중"),
@@ -168,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("설치"),
         "Share": MessageLookupByLibrary.simpleMessage("공유"),
         "Show": MessageLookupByLibrary.simpleMessage("표시"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("서명 실패"),
         "Submit": MessageLookupByLibrary.simpleMessage("제출"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("컨텐트에 공백을 포함할 수 없습니다."),
@@ -178,6 +201,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "키는 계정 암호와 유사한 임의의 문자열입니다.이 키를 가진 사람은 누구나 계정에 액세스하고 제어할 수 있습니다."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("테마 색상"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("주제 유형"),
+        "There_should_be_a_universe_here":
+            MessageLookupByLibrary.simpleMessage("여기 우주가 있을 거예요."),
         "Timeline": MessageLookupByLibrary.simpleMessage("타임라인"),
         "Topic": MessageLookupByLibrary.simpleMessage("주제"),
         "Topics": MessageLookupByLibrary.simpleMessage("주제"),
@@ -187,6 +212,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("대상 언어 번역"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("업로드 실패"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage("번개 웹 지갑을 사용하여 Sats 검색 및 전송"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("사용자 Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("사람들"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("인증 예외"),
@@ -202,17 +229,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "Write_a_message": MessageLookupByLibrary.simpleMessage("메시지 쓰기"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("키 형식 오류"),
+        "You_had_voted_with": MessageLookupByLibrary.simpleMessage("투표하셨잖아요"),
+        "Zap_num_can_not_bigger_then":
+            MessageLookupByLibrary.simpleMessage("Zap 수량은 초과할 수 없습니다."),
+        "Zap_num_can_not_smaller_then":
+            MessageLookupByLibrary.simpleMessage("Zap 수량은 작을수 없습니다."),
+        "add_poll_option": MessageLookupByLibrary.simpleMessage("투표 옵션 추가"),
         "auto": MessageLookupByLibrary.simpleMessage("자동"),
         "boosted": MessageLookupByLibrary.simpleMessage("촉진"),
         "close": MessageLookupByLibrary.simpleMessage("닫기"),
         "key_has_been_copy": MessageLookupByLibrary.simpleMessage("키 복사 성공"),
         "liked": MessageLookupByLibrary.simpleMessage("좋아하다"),
         "loading": MessageLookupByLibrary.simpleMessage("로드 중"),
+        "max_zap_num": MessageLookupByLibrary.simpleMessage("최대 Zap 수"),
+        "min_zap_num": MessageLookupByLibrary.simpleMessage("최소 Zap 수"),
         "network_take_effect_tip":
             MessageLookupByLibrary.simpleMessage("네트워크는 다음에 APP를 시작할 때 적용됩니다."),
         "notes_updated": MessageLookupByLibrary.simpleMessage("동적 업데이트"),
         "open": MessageLookupByLibrary.simpleMessage("열기"),
         "or": MessageLookupByLibrary.simpleMessage("또는"),
+        "poll_option_info": MessageLookupByLibrary.simpleMessage("투표 옵션 정보"),
         "replied": MessageLookupByLibrary.simpleMessage("회신"),
         "terms_of_user": MessageLookupByLibrary.simpleMessage("사용자 프로토콜")
       };

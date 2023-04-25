@@ -25,12 +25,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("について"),
         "Account_Manager": MessageLookupByLibrary.simpleMessage("アカウント管理"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("アカウントの追加"),
+        "Add_a_Note": MessageLookupByLibrary.simpleMessage("ダイナミックなパブリッシュ"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("追加してログインしますか？"),
         "Add_now": MessageLookupByLibrary.simpleMessage("追加"),
+        "Add_this_relay_to_local":
+            MessageLookupByLibrary.simpleMessage("ローカルに中継を追加しますか？"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("既知のリストに追加"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("アドレスを空にすることはできません。"),
+        "Any": MessageLookupByLibrary.simpleMessage("任意"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("認証が必要"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("バックアップとセキュリティのヒント"),
@@ -41,9 +45,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("制限＃セイゲン＃"),
         "Boost": MessageLookupByLibrary.simpleMessage("促進"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("ブロードキャスト"),
+        "Broadcase_When_Boost":
+            MessageLookupByLibrary.simpleMessage("プロモート時放送"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("コーヒーを買ってくれ！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("停止中"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("送信"),
+        "Content": MessageLookupByLibrary.simpleMessage("内容"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("元の鍵をコピー"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("キーのコピー"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("動的Idのコピー"),
@@ -74,45 +82,58 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("入力空白は中継禁止になる可能性があります。"),
         "Face": MessageLookupByLibrary.simpleMessage("顔認識"),
         "Filter": MessageLookupByLibrary.simpleMessage("フィルタリング"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage("クラウド中継リストを見つけて、ダウンロードしますか。"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("指紋認証"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("フォローアップシステム"),
         "Following": MessageLookupByLibrary.simpleMessage("フォロー中"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("フォント"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("フォントサイズ"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("禁止"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("禁止画像"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("禁止ビデオ"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("新しい鍵を生成する"),
         "Global": MessageLookupByLibrary.simpleMessage("グローバル"),
+        "Globals": MessageLookupByLibrary.simpleMessage("広場"),
         "Hide": MessageLookupByLibrary.simpleMessage("非表示"),
+        "Home": MessageLookupByLibrary.simpleMessage("トップページ"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("私は受け入れる"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("画像圧縮"),
         "Image_service": MessageLookupByLibrary.simpleMessage("画像サービス"),
         "Input": MessageLookupByLibrary.simpleMessage("インプット"),
-        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("Stas数を入力"),
+        "Input_Sats_num": MessageLookupByLibrary.simpleMessage("Sats数量の入力"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "稲妻ネットワーク請求書を生成するためのStas数を入力します"),
+                "Sats数量を入力して、ライトニングネットワーク請求書を生成します"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("アカウントキーの追加"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("入力を空にすることはできません"),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("フィルタリング語句を入力してください"),
+        "Input_parse_error":
+            MessageLookupByLibrary.simpleMessage("入力解析に失敗しました"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("中継アドレスを入力してください。"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("鍵バックアップ"),
         "Language": MessageLookupByLibrary.simpleMessage("言語"),
         "Light": MessageLookupByLibrary.simpleMessage("薄い色"),
+        "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("電光インボイス"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("リンクプレビュー"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("LnurlとLud 16は見つかりませんでした。"),
         "Login": MessageLookupByLibrary.simpleMessage("ログイン＃ログイン＃"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("に言及"),
+        "Method": MessageLookupByLibrary.simpleMessage("方法＃ホウホウ＃"),
+        "More": MessageLookupByLibrary.simpleMessage("詳細"),
         "Name": MessageLookupByLibrary.simpleMessage("の名前をあげる"),
         "Network": MessageLookupByLibrary.simpleMessage("ネットワーク"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Nostromo開発者はあなたに鍵を要求することはありません。"),
+                "Nostrmo開発者はあなたに鍵を要求することはありません。"),
         "Note_Id": MessageLookupByLibrary.simpleMessage("動的Id"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("動的ロード中"),
         "Notes": MessageLookupByLibrary.simpleMessage("動的＃ドウテキ＃"),
@@ -126,6 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_User_page": MessageLookupByLibrary.simpleMessage("ユーザーページを開く"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("ブラウザで開く"),
         "Password": MessageLookupByLibrary.simpleMessage("パスワード"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("画像"),
         "Please_accept_the_terms":
             MessageLookupByLibrary.simpleMessage("ユーザープロトコルを受け入れてください。"),
@@ -157,6 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("プライバシーロック"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("鍵を空にすることはできません"),
+        "Quote": MessageLookupByLibrary.simpleMessage("参照＃サンショウ＃"),
         "Read": MessageLookupByLibrary.simpleMessage("読み取り"),
         "Relays": MessageLookupByLibrary.simpleMessage("ちゅうけい"),
         "Replying": MessageLookupByLibrary.simpleMessage("返信中"),
@@ -170,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("設定＃セッテイ＃"),
         "Share": MessageLookupByLibrary.simpleMessage("分かち合う"),
         "Show": MessageLookupByLibrary.simpleMessage("表示"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("署名に失敗しました"),
         "Submit": MessageLookupByLibrary.simpleMessage("送信"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("コンテンツにスペースを含めることはできません"),
@@ -180,6 +204,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "鍵は、アカウントのパスワードに似たランダムな文字列です。この鍵を所有している人は、アカウントにアクセスして制御することができます。"),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("テーマの色"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("トピック・タイプ"),
+        "There_should_be_a_universe_here":
+            MessageLookupByLibrary.simpleMessage("ここには宇宙があるはずだ"),
         "Timeline": MessageLookupByLibrary.simpleMessage("タイムライン"),
         "Topic": MessageLookupByLibrary.simpleMessage("トピック＃トピック＃"),
         "Topics": MessageLookupByLibrary.simpleMessage("トピック＃トピック＃"),
@@ -189,6 +215,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("翻訳先言語"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("アップロードに失敗しました"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "稲妻ネットワークウォレットを使用してSatsをスキャンして送信"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("ユーザPubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("人びと"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("例外の検証"),
@@ -204,6 +233,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Write_a_message": MessageLookupByLibrary.simpleMessage("メッセージを書く"),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("鍵フォーマットエラー"),
+        "You_had_voted_with":
+            MessageLookupByLibrary.simpleMessage("あなたは投票しました"),
+        "Zap_num_can_not_bigger_then":
+            MessageLookupByLibrary.simpleMessage("Zapの数はより大きくすることはできません"),
+        "Zap_num_can_not_smaller_then":
+            MessageLookupByLibrary.simpleMessage("Zapの数は未満ではありません"),
+        "add_poll_option": MessageLookupByLibrary.simpleMessage("投票オプションの追加"),
         "auto": MessageLookupByLibrary.simpleMessage("自動"),
         "boosted": MessageLookupByLibrary.simpleMessage("促進"),
         "close": MessageLookupByLibrary.simpleMessage("閉じる"),
@@ -211,11 +247,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("鍵のコピーに成功しました"),
         "liked": MessageLookupByLibrary.simpleMessage("が気に入る"),
         "loading": MessageLookupByLibrary.simpleMessage("ロード中"),
+        "max_zap_num": MessageLookupByLibrary.simpleMessage("最大Zap数"),
+        "min_zap_num": MessageLookupByLibrary.simpleMessage("最小Zap数"),
         "network_take_effect_tip":
             MessageLookupByLibrary.simpleMessage("ネットワークは次回のAPP起動時に有効になります"),
         "notes_updated": MessageLookupByLibrary.simpleMessage("動的に更新されました"),
         "open": MessageLookupByLibrary.simpleMessage("開く"),
         "or": MessageLookupByLibrary.simpleMessage("または"),
+        "poll_option_info": MessageLookupByLibrary.simpleMessage("投票オプション情報"),
         "replied": MessageLookupByLibrary.simpleMessage("返信"),
         "terms_of_user": MessageLookupByLibrary.simpleMessage("ユーザプロトコル")
       };

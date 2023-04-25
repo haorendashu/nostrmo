@@ -26,13 +26,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("Управление счетами"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Добавить аккаунт"),
+        "Add_a_Note":
+            MessageLookupByLibrary.simpleMessage("Динамика публикации"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Добавить и войти?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Добавить"),
+        "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
+            "Добавить эту ретрансляцию локально?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Добавить в список известных"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Адрес не может быть пустым."),
+        "Any": MessageLookupByLibrary.simpleMessage("Произвольный"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Требуется аутентификация."),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -45,10 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Blocks": MessageLookupByLibrary.simpleMessage("Ограничения"),
         "Boost": MessageLookupByLibrary.simpleMessage("Содействие"),
         "Broadcase": MessageLookupByLibrary.simpleMessage("Радио"),
+        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Содействие временному вещанию"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Купи мне кофе!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Отменить"),
+        "Close_at": MessageLookupByLibrary.simpleMessage("Остановиться на"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Представлено"),
+        "Content": MessageLookupByLibrary.simpleMessage("Содержание"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Копировать исходный ключ"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Копировать ключ"),
@@ -91,39 +100,52 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ввод пробелов может быть запрещен ретрансляцией."),
         "Face": MessageLookupByLibrary.simpleMessage("Распознавание лиц"),
         "Filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
+        "Find_clouded_relay_list_do_you_want_to_download":
+            MessageLookupByLibrary.simpleMessage(
+                "Найдите список облачных ретрансляторов, которые вы хотите скачать?"),
         "Fingerprint":
             MessageLookupByLibrary.simpleMessage("Отпечатки пальцев"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Следующая система"),
         "Following": MessageLookupByLibrary.simpleMessage("Следовать"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Шрифт"),
+        "Font_Size": MessageLookupByLibrary.simpleMessage("Размер шрифта"),
+        "Forbid": MessageLookupByLibrary.simpleMessage("Запрет"),
         "Forbid_image":
             MessageLookupByLibrary.simpleMessage("Запретить фотографии"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Запретить видео"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Создать новый ключ"),
         "Global": MessageLookupByLibrary.simpleMessage("Глобальный уровень"),
+        "Globals": MessageLookupByLibrary.simpleMessage("Площадь"),
         "Hide": MessageLookupByLibrary.simpleMessage("Скрыть"),
+        "Home": MessageLookupByLibrary.simpleMessage("Главная страница"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Я согласен."),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Сжатие изображений"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Фотослужба"),
         "Input": MessageLookupByLibrary.simpleMessage("Ввод"),
         "Input_Sats_num":
-            MessageLookupByLibrary.simpleMessage("Количество входных станций"),
+            MessageLookupByLibrary.simpleMessage("Введите количество Sats"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Введите количество станций для получения счета - фактуры Lightning Network"),
+                "Введите количество Sats для получения счета - фактуры Lightning Network"),
         "Input_account_private_key": MessageLookupByLibrary.simpleMessage(
             "Добавить ключ учетной записи"),
+        "Input_can_not_be_null":
+            MessageLookupByLibrary.simpleMessage("Ввод не может быть пустым"),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("Введите фильтрующие слова."),
+        "Input_parse_error":
+            MessageLookupByLibrary.simpleMessage("Ошибка анализа ввода"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("Введите адрес ретрансляции."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage(
             "Резервное копирование ключей"),
         "Language": MessageLookupByLibrary.simpleMessage("Язык"),
         "Light": MessageLookupByLibrary.simpleMessage("Светлый"),
+        "Lightning_Invoice":
+            MessageLookupByLibrary.simpleMessage("Счет - фактура Молния"),
         "Link_preview": MessageLookupByLibrary.simpleMessage(
             "Предварительный просмотр ссылок"),
         "Lnurl_and_Lud16_can_t_found":
@@ -131,12 +153,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Login": MessageLookupByLibrary.simpleMessage("Регистрация"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Луд16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Упоминание"),
+        "Method": MessageLookupByLibrary.simpleMessage("Методы"),
+        "More": MessageLookupByLibrary.simpleMessage("Больше."),
         "Name": MessageLookupByLibrary.simpleMessage("Имя"),
         "Network": MessageLookupByLibrary.simpleMessage("Сеть"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Нип05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Разработчики Nostromo никогда не попросят у вас ключ."),
+                "Разработчики Nostrmo никогда не будут запрашивать у вас ключи."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Динамический ID"),
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Динамическая загрузка"),
@@ -154,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Открыть в браузере"),
         "Password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Пэй."),
         "Picture": MessageLookupByLibrary.simpleMessage("Фотографии"),
         "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, примите пользовательское соглашение."),
@@ -191,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Блок конфиденциальности"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Ключ не может быть пустым"),
+        "Quote": MessageLookupByLibrary.simpleMessage("Ссылки"),
         "Read": MessageLookupByLibrary.simpleMessage("Читать"),
         "Relays": MessageLookupByLibrary.simpleMessage("Трансляция"),
         "Replying": MessageLookupByLibrary.simpleMessage("Отвечаю."),
@@ -204,6 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Настройка"),
         "Share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "Show": MessageLookupByLibrary.simpleMessage("Показать"),
+        "Sign_fail": MessageLookupByLibrary.simpleMessage("Ошибка подписи"),
         "Submit": MessageLookupByLibrary.simpleMessage("Представлено"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Содержание не может содержать пробелов"),
@@ -214,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Ключ - это случайная строка, похожая на пароль вашей учетной записи. Любой, у кого есть этот ключ, может получить доступ к вашей учетной записи и контролировать ее."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Цвет темы"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Тип темы"),
+        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
+            "Здесь должна быть вселенная."),
         "Timeline": MessageLookupByLibrary.simpleMessage("Линия времени"),
         "Topic": MessageLookupByLibrary.simpleMessage("Тема"),
         "Topics": MessageLookupByLibrary.simpleMessage("Тема"),
@@ -223,6 +252,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Перевод целевого языка"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Ошибка загрузки"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "Сканирование и отправка Sats с помощью веб - кошелька Lightning"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Пользователь Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("Люди"),
@@ -242,6 +274,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Напишите сообщение."),
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("Ошибка формата ключа"),
+        "You_had_voted_with":
+            MessageLookupByLibrary.simpleMessage("Ты уже проголосовал."),
+        "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
+            "Количество Zap не должно превышать"),
+        "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
+            "Количество Zap не может быть меньше"),
+        "add_poll_option":
+            MessageLookupByLibrary.simpleMessage("Добавить опции голосования"),
         "auto": MessageLookupByLibrary.simpleMessage("Автоматический"),
         "boosted": MessageLookupByLibrary.simpleMessage("Содействие"),
         "close": MessageLookupByLibrary.simpleMessage("Закрыть"),
@@ -249,12 +289,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Удалось скопировать ключ"),
         "liked": MessageLookupByLibrary.simpleMessage("Нравится"),
         "loading": MessageLookupByLibrary.simpleMessage("Загрузка"),
+        "max_zap_num":
+            MessageLookupByLibrary.simpleMessage("Максимальное количество Zap"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("Минимальное количество Zap"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Сеть вступит в силу при следующем запуске приложения."),
         "notes_updated":
             MessageLookupByLibrary.simpleMessage("Динамическое обновление."),
         "open": MessageLookupByLibrary.simpleMessage("Открыть"),
         "or": MessageLookupByLibrary.simpleMessage("Или..."),
+        "poll_option_info": MessageLookupByLibrary.simpleMessage(
+            "Информация о вариантах голосования"),
         "replied": MessageLookupByLibrary.simpleMessage("Ответить"),
         "terms_of_user":
             MessageLookupByLibrary.simpleMessage("Пользовательское соглашение")
