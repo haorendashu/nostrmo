@@ -118,7 +118,7 @@ Future<void> main() async {
     await windowManager.ensureInitialized();
 
     WindowOptions windowOptions = WindowOptions(
-      size: Size(1024, 800),
+      size: Size(1280, 800),
       center: true,
       backgroundColor: Colors.transparent,
       skipTaskbar: false,
