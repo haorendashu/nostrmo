@@ -97,7 +97,7 @@ class _IndexDrawerContnetComponnent
     if (PlatformUtil.isPC()) {
       list.add(IndexDrawerItem(
         iconData: Icons.home,
-        name: "Home",
+        name: s.Home,
         color: _indexProvider.currentTap == 0 ? mainColor : null,
         onTap: () {
           indexProvider.setCurrentTap(0);
@@ -105,7 +105,7 @@ class _IndexDrawerContnetComponnent
       ));
       list.add(IndexDrawerItem(
         iconData: Icons.public,
-        name: "Globals",
+        name: s.Globals,
         color: _indexProvider.currentTap == 1 ? mainColor : null,
         onTap: () {
           indexProvider.setCurrentTap(1);
@@ -113,7 +113,7 @@ class _IndexDrawerContnetComponnent
       ));
       list.add(IndexDrawerItem(
         iconData: Icons.search,
-        name: "Search",
+        name: s.Search,
         color: _indexProvider.currentTap == 2 ? mainColor : null,
         onTap: () {
           indexProvider.setCurrentTap(2);
@@ -177,7 +177,7 @@ class _IndexDrawerContnetComponnent
     if (PlatformUtil.isPC()) {
       list.add(IndexDrawerItem(
         iconData: Icons.add,
-        name: "Add a Note",
+        name: s.Add_a_Note,
         onTap: () {
           EditorRouter.open(context);
         },
