@@ -7,7 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/component/pc_router_fake.dart';
 import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/provider/pc_router_fake_provider.dart';
+import 'package:nostrmo/router/thread/thread_detail_router.dart';
+import 'package:nostrmo/router/user/user_router.dart';
+import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -38,6 +45,10 @@ class IndexRouter extends StatefulWidget {
 
 class _IndexRouter extends CustState<IndexRouter>
     with TickerProviderStateMixin {
+  static double PC_MAX_COLUMN_0 = 200;
+
+  static double PC_MAX_COLUMN_1 = 550;
+
   late TabController followTabController;
 
   late TabController globalsTabController;
@@ -64,10 +75,12 @@ class _IndexRouter extends CustState<IndexRouter>
         TabController(initialIndex: globalsInitTab, length: 3, vsync: this);
     dmTabController = TabController(length: 2, vsync: this);
 
-    try {
-      asyncInitState();
-    } catch (e) {
-      print(e);
+    if (!PlatformUtil.isPC()) {
+      try {
+        asyncInitState();
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
@@ -107,15 +120,24 @@ class _IndexRouter extends CustState<IndexRouter>
       fontWeight: FontWeight.bold,
       color: titleTextColor,
     );
+    Color? indicatorColor = titleTextColor;
+    if (PlatformUtil.isPC()) {
+      indicatorColor = themeData.primaryColor;
+    }
 
     Widget? appBarCenter;
     if (_indexProvider.currentTap == 0) {
       appBarCenter = TabBar(
+        indicatorColor: indicatorColor,
+        indicatorWeight: 3,
         tabs: [
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text(s.Posts),
+            child: Text(
+              s.Posts,
+              style: titleTextStyle,
+            ),
           ),
           Container(
             height: IndexAppBar.height,
@@ -123,33 +145,48 @@ class _IndexRouter extends CustState<IndexRouter>
             child: Text(
               s.Posts_and_replies,
               textAlign: TextAlign.center,
+              style: titleTextStyle,
             ),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text(s.Mentions),
+            child: Text(
+              s.Mentions,
+              style: titleTextStyle,
+            ),
           ),
         ],
         controller: followTabController,
       );
     } else if (_indexProvider.currentTap == 1) {
       appBarCenter = TabBar(
+        indicatorColor: indicatorColor,
+        indicatorWeight: 3,
         tabs: [
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text(s.Notes),
+            child: Text(
+              s.Notes,
+              style: titleTextStyle,
+            ),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text(s.Users),
+            child: Text(
+              s.Users,
+              style: titleTextStyle,
+            ),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text(s.Topics),
+            child: Text(
+              s.Topics,
+              style: titleTextStyle,
+            ),
           ),
         ],
         controller: globalsTabController,
@@ -163,64 +200,156 @@ class _IndexRouter extends CustState<IndexRouter>
       );
     } else if (_indexProvider.currentTap == 3) {
       appBarCenter = TabBar(
+        indicatorColor: indicatorColor,
+        indicatorWeight: 3,
         tabs: [
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text("DMs"),
+            child: Text(
+              "DMs",
+              style: themeData.appBarTheme.titleTextStyle,
+            ),
           ),
           Container(
             height: IndexAppBar.height,
             alignment: Alignment.center,
-            child: Text(s.Request),
+            child: Text(
+              s.Request,
+              style: themeData.appBarTheme.titleTextStyle,
+            ),
           ),
         ],
         controller: dmTabController,
       );
     }
 
-    return Scaffold(
-      body: Column(
-        children: [
-          IndexAppBar(
-            center: appBarCenter,
-          ),
-          MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: Expanded(
-                child: IndexedStack(
-              index: _indexProvider.currentTap,
-              children: [
-                FollowIndexRouter(
-                  tabController: followTabController,
-                ),
-                GlobalsIndexRouter(
-                  tabController: globalsTabController,
-                ),
-                SearchRouter(),
-                DMRouter(
-                  tabController: dmTabController,
-                ),
-                // NoticeRouter(),
-              ],
-            )),
-          ),
-          // IndexBottomBar(),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          EditorRouter.open(context);
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      drawer: Drawer(
-        child: IndexDrawerContnetComponnent(),
-      ),
-      bottomNavigationBar: IndexBottomBar(),
+    var addBtn = FloatingActionButton(
+      child: Icon(Icons.add),
+      onPressed: () {
+        EditorRouter.open(context);
+      },
     );
+
+    var mainCenterWidget = MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Expanded(
+          child: IndexedStack(
+        index: _indexProvider.currentTap,
+        children: [
+          FollowIndexRouter(
+            tabController: followTabController,
+          ),
+          GlobalsIndexRouter(
+            tabController: globalsTabController,
+          ),
+          SearchRouter(),
+          DMRouter(
+            tabController: dmTabController,
+          ),
+          // NoticeRouter(),
+        ],
+      )),
+    );
+
+    var mainIndex = Column(
+      children: [
+        IndexAppBar(
+          center: appBarCenter,
+        ),
+        mainCenterWidget,
+      ],
+    );
+
+    if (PlatformUtil.isPC()) {
+      var maxWidth = mediaDataCache.size.width;
+      double column0Width = maxWidth * 1 / 5;
+      double column1Width = maxWidth * 2 / 5;
+      if (column0Width > PC_MAX_COLUMN_0) {
+        column0Width = PC_MAX_COLUMN_0;
+      }
+      if (column1Width > PC_MAX_COLUMN_1) {
+        column1Width = PC_MAX_COLUMN_1;
+      }
+
+      return Scaffold(
+        // floatingActionButton: addBtn,
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: Row(children: [
+          Container(
+            width: column0Width,
+            child: IndexDrawerContnetComponnent(),
+          ),
+          Container(
+            width: column1Width,
+            margin: EdgeInsets.only(
+              // left: 1,
+              right: 1,
+            ),
+            child: mainIndex,
+          ),
+          Expanded(
+            child: Container(
+              child: Selector<PcRouterFakeProvider, List<RouterFakeInfo>>(
+                builder: (context, infos, child) {
+                  if (infos.isEmpty) {
+                    return Container(
+                      child: Center(
+                        child: Text(s.There_should_be_a_universe_here),
+                      ),
+                    );
+                  }
+
+                  List<Widget> pages = [];
+                  for (var info in infos) {
+                    if (StringUtil.isNotBlank(info.routerPath) &&
+                        routes[info.routerPath] != null) {
+                      var builder = routes[info.routerPath];
+                      if (builder != null) {
+                        pages.add(PcRouterFake(
+                          info: info,
+                          child: builder(context),
+                        ));
+                      }
+                    } else if (info.buildContent != null) {
+                      pages.add(PcRouterFake(
+                        info: info,
+                        child: info.buildContent!(context),
+                      ));
+                    }
+                  }
+
+                  return IndexedStack(
+                    index: pages.length - 1,
+                    children: pages,
+                  );
+                },
+                selector: (context, _provider) {
+                  return _provider.routerFakeInfos;
+                },
+                shouldRebuild: (previous, next) {
+                  if (previous != next) {
+                    return true;
+                  }
+                  return false;
+                },
+              ),
+            ),
+          )
+        ]),
+      );
+    } else {
+      return Scaffold(
+        body: mainIndex,
+        floatingActionButton: addBtn,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        drawer: Drawer(
+          child: IndexDrawerContnetComponnent(),
+        ),
+        bottomNavigationBar: IndexBottomBar(),
+      );
+    }
   }
 
   void doAuth() {

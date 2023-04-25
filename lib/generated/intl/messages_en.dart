@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("Account Manager"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Add Account"),
+        "Add_a_Note": MessageLookupByLibrary.simpleMessage("Add a Note"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Add account and login?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Add now"),
@@ -35,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add to known list"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Address can\'t be null."),
+        "Any": MessageLookupByLibrary.simpleMessage("Any"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Authenticat need"),
         "Backup_and_Safety_tips":
@@ -131,6 +133,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Key Backup"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
+        "Lightning_Invoice":
+            MessageLookupByLibrary.simpleMessage("Lightning Invoice"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link preview"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl and Lud16 can\'t found."),
@@ -140,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Metadata_can_not_be_found":
             MessageLookupByLibrary.simpleMessage("Metadata can not be found."),
         "Method": MessageLookupByLibrary.simpleMessage("Method"),
+        "More": MessageLookupByLibrary.simpleMessage("More"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -162,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("Picture"),
         "Please_accept_the_terms":
             MessageLookupByLibrary.simpleMessage("Please accept the terms."),
@@ -198,6 +204,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Privacy Lock"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Private key is null."),
+        "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relays"),
         "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
@@ -222,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "The key is a random string that resembles your account password. Anyone with this key can access and control your account."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Theme Color"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Theme Style"),
+        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
+            "There should be a universe here"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
         "Topic": MessageLookupByLibrary.simpleMessage("Topic"),
         "Topics": MessageLookupByLibrary.simpleMessage("Topics"),
@@ -231,6 +240,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Translate Target Language"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload fail."),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage(
+                "Use lightning wallet scan and send sats."),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("User Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("Users"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("Verify error"),

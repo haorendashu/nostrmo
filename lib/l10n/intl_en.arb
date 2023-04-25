@@ -117,6 +117,7 @@
     "Open_in_browser": "Open in browser",
     "Copy_success": "Copy success!",
     "Boost": "Boost",
+    "Quote": "Quote",
     "Replying": "Replying",
     "Copy_Note_Json": "Copy Note Json",
     "Copy_Note_Pubkey": "Copy Note Pubkey",
@@ -170,5 +171,12 @@
     "Forbid": "Forbid",
     "Sign_fail": "Sign fail",
     "Method": "Method",
-    "Content": "Content"
+    "Content": "Content",
+    "Use_lightning_wallet_scan_and_send_sats": "Use lightning wallet scan and send sats.",
+    "Any": "Any",
+    "Lightning_Invoice": "Lightning Invoice",
+    "Pay": "Pay",
+    "There_should_be_a_universe_here": "There should be a universe here",
+    "More": "More",
+    "Add_a_Note": "Add a Note"
 }

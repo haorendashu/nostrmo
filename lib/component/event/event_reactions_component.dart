@@ -106,15 +106,16 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               // )),
               Expanded(
                 child: PopupMenuButton<String>(
+                  tooltip: s.Boost,
                   itemBuilder: (context) {
                     return [
                       PopupMenuItem(
                         value: "boost",
-                        child: Text("Boost"),
+                        child: Text(s.Boost),
                       ),
                       PopupMenuItem(
                         value: "quote",
-                        child: Text("Quote"),
+                        child: Text(s.Quote),
                       ),
                     ];
                   },
@@ -137,6 +138,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               )),
               Expanded(
                 child: PopupMenuButton<int>(
+                  tooltip: "Zap",
                   itemBuilder: (context) {
                     return [
                       PopupMenuItem(
@@ -213,6 +215,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               ),
               Expanded(
                 child: PopupMenuButton<String>(
+                  tooltip: s.More,
                   itemBuilder: (context) {
                     List<PopupMenuEntry<String>> list = [
                       PopupMenuItem(

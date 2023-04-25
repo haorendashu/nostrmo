@@ -53,6 +53,10 @@ class CustContactList {
     return _contacts.isEmpty;
   }
 
+  int total() {
+    return _contacts.length;
+  }
+
   void clear() {
     _contacts.clear();
   }

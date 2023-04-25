@@ -5,7 +5,10 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/dm_session_info_db.dart';
 import 'package:nostrmo/data/event_db.dart';
 import 'package:nostrmo/data/metadata_db.dart';
+import 'package:nostrmo/provider/index_provider.dart';
+import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/router/user/user_statistics_component.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +17,7 @@ import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
+import '../edit/editor_router.dart';
 import 'account_manager_component.dart';
 
 class IndexDrawerContnetComponnent extends StatefulWidget {
@@ -25,14 +29,19 @@ class IndexDrawerContnetComponnent extends StatefulWidget {
 
 class _IndexDrawerContnetComponnent
     extends State<IndexDrawerContnetComponnent> {
+  ScrollController userStatisticscontroller = ScrollController();
+
   double profileEditBtnWidth = 40;
 
   @override
   Widget build(BuildContext context) {
+    var _indexProvider = Provider.of<IndexProvider>(context);
+
     var s = S.of(context);
     var pubkey = nostr!.publicKey;
     var paddingTop = mediaDataCache.padding.top;
     var themeData = Theme.of(context);
+    var mainColor = themeData.primaryColor;
     var cardColor = themeData.cardColor;
     var hintColor = themeData.hintColor;
     List<Widget> list = [];
@@ -42,17 +51,11 @@ class _IndexDrawerContnetComponnent
       child: Stack(children: [
         Selector<MetadataProvider, Metadata?>(
           builder: (context, metadata, child) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MetadataTopComponent(
-                  pubkey: pubkey,
-                  metadata: metadata,
-                  isLocal: true,
-                  jumpable: true,
-                ),
-                UserStatisticsComponent(pubkey: pubkey),
-              ],
+            return MetadataTopComponent(
+              pubkey: pubkey,
+              metadata: metadata,
+              isLocal: true,
+              jumpable: true,
             );
           },
           selector: (context, _provider) {
@@ -78,6 +81,54 @@ class _IndexDrawerContnetComponnent
       ]),
     ));
 
+    list.add(GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onHorizontalDragUpdate: (detail) {
+        userStatisticscontroller
+            .jumpTo(userStatisticscontroller.offset - detail.delta.dx);
+      },
+      child: SingleChildScrollView(
+        controller: userStatisticscontroller,
+        scrollDirection: Axis.horizontal,
+        child: UserStatisticsComponent(pubkey: pubkey),
+      ),
+    ));
+
+    if (PlatformUtil.isPC()) {
+      list.add(IndexDrawerItem(
+        iconData: Icons.home,
+        name: "Home",
+        color: _indexProvider.currentTap == 0 ? mainColor : null,
+        onTap: () {
+          indexProvider.setCurrentTap(0);
+        },
+      ));
+      list.add(IndexDrawerItem(
+        iconData: Icons.public,
+        name: "Globals",
+        color: _indexProvider.currentTap == 1 ? mainColor : null,
+        onTap: () {
+          indexProvider.setCurrentTap(1);
+        },
+      ));
+      list.add(IndexDrawerItem(
+        iconData: Icons.search,
+        name: "Search",
+        color: _indexProvider.currentTap == 2 ? mainColor : null,
+        onTap: () {
+          indexProvider.setCurrentTap(2);
+        },
+      ));
+      list.add(IndexDrawerItem(
+        iconData: Icons.mail,
+        name: "DMs",
+        color: _indexProvider.currentTap == 3 ? mainColor : null,
+        onTap: () {
+          indexProvider.setCurrentTap(3);
+        },
+      ));
+    }
+
     list.add(IndexDrawerItem(
       iconData: Icons.block,
       name: s.Filter,
@@ -102,13 +153,15 @@ class _IndexDrawerContnetComponnent
       },
     ));
 
-    list.add(IndexDrawerItem(
-      iconData: Icons.coffee_outlined,
-      name: s.Donate,
-      onTap: () {
-        RouterUtil.router(context, RouterPath.DONATE);
-      },
-    ));
+    if (!PlatformUtil.isPC()) {
+      list.add(IndexDrawerItem(
+        iconData: Icons.coffee_outlined,
+        name: s.Donate,
+        onTap: () {
+          RouterUtil.router(context, RouterPath.DONATE);
+        },
+      ));
+    }
 
     list.add(IndexDrawerItem(
       iconData: Icons.settings,
@@ -120,6 +173,16 @@ class _IndexDrawerContnetComponnent
     ));
 
     list.add(Expanded(child: Container()));
+
+    if (PlatformUtil.isPC()) {
+      list.add(IndexDrawerItem(
+        iconData: Icons.add,
+        name: "Add a Note",
+        onTap: () {
+          EditorRouter.open(context);
+        },
+      ));
+    }
 
     list.add(IndexDrawerItem(
       iconData: Icons.account_box,
@@ -163,35 +226,6 @@ class _IndexDrawerContnetComponnent
     RouterUtil.router(context, RouterPath.PROFILE_EDITOR, metadata);
   }
 
-  // signOut() {
-  //   mentionMeProvider.clear();
-  //   followEventProvider.clear();
-  //   dmProvider.clear();
-  //   noticeProvider.clear();
-  //   contactListProvider.clear();
-
-  //   eventReactionsProvider.clear();
-  //   linkPreviewDataProvider.clear();
-  //   relayProvider.clear();
-
-  //   var currentIndex = settingProvider.privateKeyIndex!;
-  //   // remove private key
-  //   settingProvider.removeKey(currentIndex);
-  //   // clear local db
-  //   DMSessionInfoDB.deleteAll(currentIndex);
-  //   EventDB.deleteAll(currentIndex);
-  //   MetadataDB.deleteAll();
-
-  //   nostr!.close();
-  //   nostr = null;
-
-  //   // signOut complete
-  //   if (settingProvider.privateKey != null) {
-  //     // use next privateKey to login
-  //     nostr = relayProvider.genNostr(settingProvider.privateKey!);
-  //   }
-  // }
-
   void _showBasicModalBottomSheet(context) async {
     showModalBottomSheet(
       isScrollControlled: false, // true 为 全屏
@@ -210,6 +244,8 @@ class IndexDrawerItem extends StatelessWidget {
 
   Function onTap;
 
+  Color? color;
+
   // bool borderTop;
 
   // bool borderBottom;
@@ -218,6 +254,7 @@ class IndexDrawerItem extends StatelessWidget {
     required this.iconData,
     required this.name,
     required this.onTap,
+    this.color,
     // this.borderTop = true,
     // this.borderBottom = false,
   });
@@ -233,10 +270,13 @@ class IndexDrawerItem extends StatelessWidget {
         left: Base.BASE_PADDING * 2,
         right: Base.BASE_PADDING,
       ),
-      child: Icon(iconData),
+      child: Icon(
+        iconData,
+        color: color,
+      ),
     ));
 
-    list.add(Text(name));
+    list.add(Text(name, style: TextStyle(color: color)));
 
     var borderSide = BorderSide(width: 1, color: hintColor);
 

@@ -4,9 +4,9 @@ import 'package:nostrmo/util/router_util.dart';
 import '../generated/l10n.dart';
 
 class ComfirmDialog {
-  static Future<bool> show(BuildContext context, String content) async {
+  static Future<bool?> show(BuildContext context, String content) async {
     var s = S.of(context);
-    return await showDialog(
+    return await showDialog<bool>(
         context: context,
         builder: (context) {
           return AlertDialog(

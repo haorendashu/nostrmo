@@ -17,6 +17,7 @@ import '../../component/placeholder/event_list_placeholder.dart';
 import '../../component/placeholder/event_placeholder.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
+import '../../util/platform_util.dart';
 
 class FollowPostsRouter extends StatefulWidget {
   @override
@@ -64,12 +65,22 @@ class _FollowPostsRouter extends KeepAliveCustState<FollowPostsRouter>
       itemCount: events.length,
     );
 
-    var ri = RefreshIndicator(
+    Widget ri = RefreshIndicator(
       onRefresh: () async {
         followEventProvider.refresh();
       },
       child: main,
     );
+
+    if (PlatformUtil.isPC()) {
+      ri = GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          _controller.jumpTo(_controller.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: ri,
+      );
+    }
 
     List<Widget> stackList = [ri];
     stackList.add(Positioned(

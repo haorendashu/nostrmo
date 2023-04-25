@@ -20,6 +20,8 @@ class _UserRelayRouter extends State<UserRelayRouter> {
   List<RelayMetadata>? relays;
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
+
     var s = S.of(context);
     if (relays == null) {
       relays = [];
@@ -53,6 +55,15 @@ class _UserRelayRouter extends State<UserRelayRouter> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            RouterUtil.back(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
+        ),
         title: Text(s.Relays),
       ),
       body: Container(

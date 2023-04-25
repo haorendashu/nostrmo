@@ -1,6 +1,8 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
 import 'package:nostrmo/client/upload/void_cat.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -44,6 +46,15 @@ class Uploader {
   }
 
   static Future<String?> pick(BuildContext context) async {
+    if (PlatformUtil.isPC()) {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+      if (result != null) {
+        return result.files.single.path;
+      }
+
+      return null;
+    }
     var assets = await AssetPicker.pickAssets(
       context,
       pickerConfig: const AssetPickerConfig(maxAssets: 1),

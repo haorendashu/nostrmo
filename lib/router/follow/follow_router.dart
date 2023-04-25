@@ -7,6 +7,7 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
@@ -72,12 +73,22 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
       itemCount: events.length,
     );
 
-    var ri = RefreshIndicator(
+    Widget ri = RefreshIndicator(
       onRefresh: () async {
         followEventProvider.refresh();
       },
       child: main,
     );
+
+    if (PlatformUtil.isPC()) {
+      ri = GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          _controller.jumpTo(_controller.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: ri,
+      );
+    }
 
     List<Widget> stackList = [ri];
     stackList.add(Positioned(

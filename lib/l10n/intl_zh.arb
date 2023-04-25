@@ -117,6 +117,7 @@
     "Open_in_browser": "浏览器中打开",
     "Copy_success": "复制成功",
     "Boost": "促进",
+    "Quote": "引用",
     "Replying": "正在回复",
     "Copy_Note_Json": "复制动态Json",
     "Copy_Note_Pubkey": "复制动态作者",
@@ -167,5 +168,12 @@
     "Forbid": "禁止",
     "Sign_fail": "签名失败",
     "Method": "方法",
-    "Content": "内容"
+    "Content": "内容",
+    "Use_lightning_wallet_scan_and_send_sats": "使用闪电网络钱包扫描并发送Sats",
+    "Any": "任意",
+    "Lightning_Invoice": "闪电发票",
+    "Pay": "Pay",
+    "There_should_be_a_universe_here": "这里应该有一个宇宙",
+    "More": "更多",
+    "Add_a_Note": "发布动态"
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:nostrmo/provider/relay_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/cust_contact_list.dart';
@@ -38,41 +41,80 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   EventMemBox? zapEventBox;
 
   int length = 0;
-  int? followed;
   int relaysNum = 0;
   int? zapNum;
+
+  bool isLocal = false;
+
+  String? pubkey;
 
   @override
   Widget doBuild(BuildContext context) {
     var s = S.of(context);
-    if (contactList != null) {
-      length = contactList!.list().length;
+    if (pubkey != null && pubkey != widget.pubkey) {
+      // arg changed! reset
+      contactListEvent = null;
+      contactList = null;
+      relaysEvent = null;
+      relaysTags = null;
+      zapEventBox = null;
+
+      length = 0;
+      relaysNum = 0;
+      zapNum;
+      doQuery();
     }
-    if (relaysTags != null) {
-      relaysNum = relaysTags!.length;
-    }
+    pubkey = widget.pubkey;
+
+    isLocal = widget.pubkey == nostr!.publicKey;
 
     List<Widget> list = [];
+
+    if (isLocal) {
+      list.add(
+          Selector<ContactListProvider, int>(builder: (context, num, child) {
+        return UserStatisticsItemComponent(
+            num: num, name: s.Following, onTap: onFollowingTap);
+      }, selector: (context, _provider) {
+        return _provider.total();
+      }));
+    } else {
+      if (contactList != null) {
+        length = contactList!.list().length;
+      }
+      list.add(UserStatisticsItemComponent(
+          num: length, name: s.Following, onTap: onFollowingTap));
+    }
+
+    if (isLocal) {
+      list.add(Selector<RelayProvider, int>(builder: (context, num, child) {
+        return UserStatisticsItemComponent(
+            num: num, name: s.Relays, onTap: onRelaysTap);
+      }, selector: (context, _provider) {
+        return _provider.total();
+      }));
+    } else {
+      if (relaysTags != null) {
+        relaysNum = relaysTags!.length;
+      }
+      list.add(UserStatisticsItemComponent(
+          num: relaysNum, name: s.Relays, onTap: onRelaysTap));
+    }
+
+    list.add(UserStatisticsItemComponent(
+      num: zapNum,
+      name: "Zap",
+      onTap: onZapTap,
+      formatNum: true,
+    ));
 
     return Container(
       // color: Colors.red,
       height: 18,
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
       child: Row(
-        children: [
-          UserStatisticsItemComponent(
-              num: length, name: s.Following, onTap: onFollowingTap),
-          // UserStatisticsItemComponent(
-          //     num: followed, name: "Followed", onTap: onFollowedTap),
-          UserStatisticsItemComponent(
-              num: relaysNum, name: s.Relays, onTap: onRelaysTap),
-          UserStatisticsItemComponent(
-            num: zapNum,
-            name: "Zap",
-            onTap: onZapTap,
-            formatNum: true,
-          ),
-        ],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: list,
       ),
     );
   }
@@ -83,6 +125,12 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   @override
   Future<void> onReady(BuildContext context) async {
+    if (!isLocal) {
+      doQuery();
+    }
+  }
+
+  void doQuery() {
     {
       queryId = StringUtil.rndNameStr(16);
       var filter = Filter(
@@ -125,6 +173,11 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   onFollowingTap() {
     if (contactList != null) {
       RouterUtil.router(context, RouterPath.USER_CONTACT_LIST, contactList);
+    } else if (isLocal) {
+      var cl = contactListProvider.contactList;
+      if (cl != null) {
+        RouterUtil.router(context, RouterPath.USER_CONTACT_LIST, cl);
+      }
     }
   }
 
@@ -135,6 +188,8 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   onRelaysTap() {
     if (relaysTags != null && relaysTags!.isNotEmpty) {
       RouterUtil.router(context, RouterPath.USER_RELAYS, relaysTags);
+    } else if (isLocal) {
+      RouterUtil.router(context, RouterPath.RELAYS);
     }
   }
 

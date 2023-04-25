@@ -18,6 +18,7 @@ import '../../../main.dart';
 import '../../../provider/setting_provider.dart';
 import '../../../util/dio_util.dart';
 import '../../../util/peddingevents_later_function.dart';
+import '../../../util/platform_util.dart';
 import '../../../util/string_util.dart';
 import 'globals_event_item_component.dart';
 
@@ -47,22 +48,32 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
 
     var list = eventBox.all();
 
-    return Container(
-      child: EventDeleteCallback(
-        onDeleteCallback: onDeleteCallback,
-        child: ListView.builder(
-          controller: scrollController,
-          itemBuilder: (context, index) {
-            var event = list[index];
-            return EventListComponent(
-              event: event,
-              showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
-            );
-          },
-          itemCount: list.length,
-        ),
+    var main = EventDeleteCallback(
+      onDeleteCallback: onDeleteCallback,
+      child: ListView.builder(
+        controller: scrollController,
+        itemBuilder: (context, index) {
+          var event = list[index];
+          return EventListComponent(
+            event: event,
+            showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+          );
+        },
+        itemCount: list.length,
       ),
     );
+
+    if (PlatformUtil.isPC()) {
+      return GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          scrollController.jumpTo(scrollController.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: main,
+      );
+    }
+
+    return main;
   }
 
   var subscribeId = StringUtil.rndNameStr(16);

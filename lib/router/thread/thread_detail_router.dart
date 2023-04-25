@@ -17,6 +17,7 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/peddingevents_later_function.dart';
+import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../util/string_util.dart';
@@ -91,6 +92,26 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   GlobalKey sourceEventKey = GlobalKey();
 
+  void initFromArgs() {
+    // do some init oper
+    var eventRelation = EventRelation.fromEvent(sourceEvent!);
+    rootId = eventRelation.rootId;
+    if (rootId == null) {
+      // source event is root event
+      rootId = sourceEvent!.id;
+      rootEvent = sourceEvent!;
+    }
+
+    // load sourceEvent replies and avoid blank page
+    var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
+    if (eventReactions != null && eventReactions.replies.isNotEmpty) {
+      box.addList(eventReactions.replies);
+    } else if (rootEvent == null) {
+      box.add(sourceEvent!);
+    }
+    listToTree(refresh: false);
+  }
+
   @override
   Widget doBuild(BuildContext context) {
     var s = S.of(context);
@@ -104,23 +125,23 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         return Container();
       }
 
-      // do some init oper
-      var eventRelation = EventRelation.fromEvent(sourceEvent!);
-      rootId = eventRelation.rootId;
-      if (rootId == null) {
-        // source event is root event
-        rootId = sourceEvent!.id;
-        rootEvent = sourceEvent!;
-      }
+      initFromArgs();
+    } else {
+      var obj = RouterUtil.routerArgs(context);
+      if (obj != null && obj is Event) {
+        if (obj.id != sourceEvent!.id) {
+          // arg change! reset.
+          sourceEvent = null;
+          rootId = null;
+          rootEvent = null;
+          box = EventMemBox();
+          rootSubList = [];
 
-      // load sourceEvent replies and avoid blank page
-      var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
-      if (eventReactions != null && eventReactions.replies.isNotEmpty) {
-        box.addList(eventReactions.replies);
-      } else if (rootEvent == null) {
-        box.add(sourceEvent!);
+          sourceEvent = obj;
+          initFromArgs();
+          doQuery();
+        }
       }
-      listToTree(refresh: false);
     }
 
     var themeData = Theme.of(context);
@@ -184,10 +205,20 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       }
     }
 
-    var main = ListView(
+    Widget main = ListView(
       controller: _controller,
       children: mainList,
     );
+
+    if (PlatformUtil.isPC()) {
+      main = GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          _controller.jumpTo(_controller.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: main,
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -195,7 +226,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           onTap: () {
             RouterUtil.back(context);
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
         ),
         // actions: [
         //   IconButton(
@@ -214,6 +248,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   @override
   Future<void> onReady(BuildContext context) async {
+    doQuery();
+  }
+
+  void doQuery() {
     if (StringUtil.isNotBlank(rootId)) {
       if (rootEvent == null) {
         // source event isn't root event，query root event
@@ -237,7 +275,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   Event? rootEvent;
 
-  List<ThreadDetailEvent>? rootSubList;
+  List<ThreadDetailEvent>? rootSubList = [];
 
   void onRootEvent(Event event) {
     setState(() {

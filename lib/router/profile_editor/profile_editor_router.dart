@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/data/metadata.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
@@ -15,6 +16,7 @@ import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../index/index_app_bar.dart';
 
 class ProfileEditorRouter extends StatefulWidget {
   @override
@@ -92,6 +94,12 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
     var padding = EdgeInsets.only(left: 20, right: 20);
 
     List<Widget> list = [];
+
+    if (PlatformUtil.isPC()) {
+      list.add(Container(
+        height: 30,
+      ));
+    }
 
     list.add(Container(
       margin: margin,

@@ -43,6 +43,15 @@ class _UserContactListRouter extends State<UserContactListRouter> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            RouterUtil.back(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
+        ),
         title: Text(
           s.Following,
           style: TextStyle(

@@ -42,6 +42,7 @@ class _ZapEventListComponent extends State<ZapEventListComponent> {
 
     if (widget.jumpable) {
       return GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: jumpToThread,
         child: main,
       );

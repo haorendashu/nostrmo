@@ -7,6 +7,7 @@ import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,15 @@ import '../../util/string_util.dart';
 import 'metadata_component.dart';
 
 class MetadataTopComponent extends StatefulWidget {
+  static double getPcBannerHeight(double maxHeight) {
+    var height = maxHeight * 0.2;
+    if (height > 200) {
+      return 200;
+    }
+
+    return height;
+  }
+
   String pubkey;
 
   Metadata? metadata;
@@ -64,6 +74,10 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var maxWidth = mediaDataCache.size.width;
     var bannerHeight = maxWidth / 3;
+    if (PlatformUtil.isPC()) {
+      bannerHeight =
+          MetadataTopComponent.getPcBannerHeight(mediaDataCache.size.height);
+    }
 
     String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
     String displayName = nip19Name;

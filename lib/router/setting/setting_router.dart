@@ -12,6 +12,8 @@ import 'package:nostrmo/client/cust_contact_list.dart';
 import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/router/index/account_manager_component.dart';
+import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
@@ -91,11 +93,13 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     //   value: getCompressList(settingProvider.imgCompress).name,
     //   onTap: pickImageCompressList,
     // ));
-    list.add(SettingGroupItemComponent(
-      name: s.Privacy_Lock,
-      value: getLockOpenList(settingProvider.lockOpen).name,
-      onTap: pickLockOpenList,
-    ));
+    if (!PlatformUtil.isPC()) {
+      list.add(SettingGroupItemComponent(
+        name: s.Privacy_Lock,
+        value: getLockOpenList(settingProvider.lockOpen).name,
+        onTap: pickLockOpenList,
+      ));
+    }
     list.add(SettingGroupItemComponent(
       name: s.Default_index,
       value: getDefaultIndex(settingProvider.defaultIndex).name,
@@ -148,11 +152,13 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.linkPreview).name,
       onTap: pickLinkPreview,
     ));
-    list.add(SettingGroupItemComponent(
-      name: s.Video_preview_in_list,
-      value: getOpenList(settingProvider.videoPreviewInList).name,
-      onTap: pickVideoPreviewInList,
-    ));
+    if (!PlatformUtil.isPC()) {
+      list.add(SettingGroupItemComponent(
+        name: s.Video_preview_in_list,
+        value: getOpenList(settingProvider.videoPreviewInList).name,
+        onTap: pickVideoPreviewInList,
+      ));
+    }
     String? networkHintText = settingProvider.network;
     if (StringUtil.isBlank(networkHintText)) {
       networkHintText = s.Please_input + " " + s.Network;
@@ -181,27 +187,29 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.imagePreview).name,
       onTap: pickImagePreview,
     ));
-    list.add(SettingGroupItemComponent(
-      name: s.Forbid_video,
-      value: getOpenList(settingProvider.videoPreview).name,
-      onTap: pickVideoPreview,
-    ));
-    list.add(SettingGroupItemComponent(
-      name: s.Translate,
-      value: getOpenTranslate(settingProvider.openTranslate).name,
-      onTap: pickOpenTranslate,
-    ));
-    if (settingProvider.openTranslate == OpenStatus.OPEN) {
+    if (!PlatformUtil.isPC()) {
       list.add(SettingGroupItemComponent(
-        name: s.Translate_Source_Language,
-        value: settingProvider.translateSourceArgs,
-        onTap: pickTranslateSource,
+        name: s.Forbid_video,
+        value: getOpenList(settingProvider.videoPreview).name,
+        onTap: pickVideoPreview,
       ));
       list.add(SettingGroupItemComponent(
-        name: s.Translate_Target_Language,
-        value: settingProvider.translateTarget,
-        onTap: pickTranslateTarget,
+        name: s.Translate,
+        value: getOpenTranslate(settingProvider.openTranslate).name,
+        onTap: pickOpenTranslate,
       ));
+      if (settingProvider.openTranslate == OpenStatus.OPEN) {
+        list.add(SettingGroupItemComponent(
+          name: s.Translate_Source_Language,
+          value: settingProvider.translateSourceArgs,
+          onTap: pickTranslateSource,
+        ));
+        list.add(SettingGroupItemComponent(
+          name: s.Translate_Target_Language,
+          value: settingProvider.translateTarget,
+          onTap: pickTranslateTarget,
+        ));
+      }
     }
     list.add(SettingGroupItemComponent(
       name: s.Broadcase_When_Boost,
@@ -522,14 +530,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
   }
 
   void pickFont() {
-    Navigator.push(
+    RouterUtil.push(
       context,
       MaterialPageRoute(
         builder: (context) => FontPicker(
           onFontChanged: (PickerFont font) {
-            // _selectedFont = font;
-            // print(
-            //     "${font.fontFamily} with font weight ${font.fontWeight} and font style ${font.fontStyle}.}");
             settingProvider.fontFamily = font.fontFamily;
             resetTheme();
           },

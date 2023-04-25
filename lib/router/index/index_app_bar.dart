@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/user_pic_component.dart';
@@ -32,15 +33,22 @@ class _IndexAppBar extends State<IndexAppBar> {
     var textColor = themeData.appBarTheme.titleTextStyle!.color;
     var appBarBackgroundColor = themeData.appBarTheme.backgroundColor;
 
-    var userPicWidget = GestureDetector(
-      onTap: () {
-        Scaffold.of(context).openDrawer();
-      },
-      child: UserPicComponent(
-        pubkey: nostr!.publicKey,
+    Widget? userPicWidget;
+    if (!PlatformUtil.isPC()) {
+      userPicWidget = GestureDetector(
+        onTap: () {
+          Scaffold.of(context).openDrawer();
+        },
+        child: UserPicComponent(
+          pubkey: nostr!.publicKey,
+          width: picHeight,
+        ),
+      );
+    } else {
+      userPicWidget = Container(
         width: picHeight,
-      ),
-    );
+      );
+    }
 
     var center = widget.center;
     center ??= Container();

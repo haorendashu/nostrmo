@@ -39,11 +39,13 @@ class DMDetailItemComponent extends StatefulWidget {
 class _DMDetailItemComponent extends State<DMDetailItemComponent> {
   static const double IMAGE_WIDTH = 34;
 
+  static const double BLANK_WIDTH = 50;
+
   @override
   Widget build(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
     var themeData = Theme.of(context);
-    var mainColor = themeData.appBarTheme.backgroundColor;
+    var mainColor = themeData.primaryColor;
     Widget userHeadWidget = Container(
       margin: const EdgeInsets.only(top: 2),
       child: UserPicComponent(
@@ -51,7 +53,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
         width: IMAGE_WIDTH,
       ),
     );
-    var maxWidth = mediaDataCache.size.width;
+    // var maxWidth = mediaDataCache.size.width;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
     var hintColor = themeData.hintColor;
 
@@ -81,11 +83,11 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
           Container(
             margin: const EdgeInsets.only(top: 4),
             padding: const EdgeInsets.all(Base.BASE_PADDING_HALF),
-            constraints:
-                BoxConstraints(maxWidth: (maxWidth - IMAGE_WIDTH) * 0.85),
+            // constraints:
+            //     BoxConstraints(maxWidth: (maxWidth - IMAGE_WIDTH) * 0.85),
             decoration: BoxDecoration(
               // color: Colors.red,
-              color: mainColor?.withOpacity(0.3),
+              color: mainColor.withOpacity(0.3),
               borderRadius: const BorderRadius.all(Radius.circular(5)),
             ),
             // child: SelectableText(content),
@@ -118,13 +120,13 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
 
     List<Widget> list = [];
     if (widget.isLocal) {
-      list.add(Expanded(child: Container()));
-      list.add(contentWidget);
+      list.add(Container(width: BLANK_WIDTH));
+      list.add(Expanded(child: contentWidget));
       list.add(userHeadWidget);
     } else {
       list.add(userHeadWidget);
-      list.add(contentWidget);
-      list.add(Expanded(child: Container()));
+      list.add(Expanded(child: contentWidget));
+      list.add(Container(width: BLANK_WIDTH));
     }
 
     return Container(

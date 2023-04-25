@@ -42,6 +42,15 @@ class _UserZapListRouter extends State<UserZapListRouter> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            RouterUtil.back(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
+        ),
         title: Text(
           "⚡Zaps⚡",
           style: TextStyle(

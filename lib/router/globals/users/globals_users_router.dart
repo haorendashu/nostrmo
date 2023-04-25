@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../../component/keep_alive_cust_state.dart';
@@ -36,40 +37,50 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
       );
     }
 
-    return Container(
-      child: ListView.builder(
-        controller: scrollController,
-        itemBuilder: (context, index) {
-          var pubkey = pubkeys[index];
-          if (StringUtil.isBlank(pubkey)) {
-            return Container();
-          }
+    var main = ListView.builder(
+      controller: scrollController,
+      itemBuilder: (context, index) {
+        var pubkey = pubkeys[index];
+        if (StringUtil.isBlank(pubkey)) {
+          return Container();
+        }
 
-          return Container(
-            margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-            child: Selector<MetadataProvider, Metadata?>(
-              builder: (context, metadata, child) {
-                return GestureDetector(
-                  onTap: () {
-                    RouterUtil.router(context, RouterPath.USER, pubkey);
-                  },
-                  behavior: HitTestBehavior.translucent,
-                  child: MetadataComponent(
-                    pubKey: pubkey,
-                    metadata: metadata,
-                    jumpable: true,
-                  ),
-                );
-              },
-              selector: (context, _provider) {
-                return _provider.getMetadata(pubkey);
-              },
-            ),
-          );
-        },
-        itemCount: pubkeys.length,
-      ),
+        return Container(
+          margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+          child: Selector<MetadataProvider, Metadata?>(
+            builder: (context, metadata, child) {
+              return GestureDetector(
+                onTap: () {
+                  RouterUtil.router(context, RouterPath.USER, pubkey);
+                },
+                behavior: HitTestBehavior.translucent,
+                child: MetadataComponent(
+                  pubKey: pubkey,
+                  metadata: metadata,
+                  jumpable: true,
+                ),
+              );
+            },
+            selector: (context, _provider) {
+              return _provider.getMetadata(pubkey);
+            },
+          ),
+        );
+      },
+      itemCount: pubkeys.length,
     );
+
+    if (PlatformUtil.isPC()) {
+      return GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          scrollController.jumpTo(scrollController.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: main,
+      );
+    }
+
+    return main;
   }
 
   @override

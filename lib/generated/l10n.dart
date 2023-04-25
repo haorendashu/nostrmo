@@ -1230,6 +1230,16 @@ class S {
     );
   }
 
+  /// `Quote`
+  String get Quote {
+    return Intl.message(
+      'Quote',
+      name: 'Quote',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Replying`
   String get Replying {
     return Intl.message(
@@ -1765,6 +1775,76 @@ class S {
     return Intl.message(
       'Content',
       name: 'Content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use lightning wallet scan and send sats.`
+  String get Use_lightning_wallet_scan_and_send_sats {
+    return Intl.message(
+      'Use lightning wallet scan and send sats.',
+      name: 'Use_lightning_wallet_scan_and_send_sats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Any`
+  String get Any {
+    return Intl.message(
+      'Any',
+      name: 'Any',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lightning Invoice`
+  String get Lightning_Invoice {
+    return Intl.message(
+      'Lightning Invoice',
+      name: 'Lightning_Invoice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay`
+  String get Pay {
+    return Intl.message(
+      'Pay',
+      name: 'Pay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There should be a universe here`
+  String get There_should_be_a_universe_here {
+    return Intl.message(
+      'There should be a universe here',
+      name: 'There_should_be_a_universe_here',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get More {
+    return Intl.message(
+      'More',
+      name: 'More',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add a Note`
+  String get Add_a_Note {
+    return Intl.message(
+      'Add a Note',
+      name: 'Add_a_Note',
       desc: '',
       args: [],
     );

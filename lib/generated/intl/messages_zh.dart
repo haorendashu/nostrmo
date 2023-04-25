@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("关于"),
         "Account_Manager": MessageLookupByLibrary.simpleMessage("账号管理"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("添加账号"),
+        "Add_a_Note": MessageLookupByLibrary.simpleMessage("发布动态"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("添加并且登录？"),
         "Add_now": MessageLookupByLibrary.simpleMessage("现在添加"),
@@ -33,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("添加到已知列表"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("地址不能为空。"),
+        "Any": MessageLookupByLibrary.simpleMessage("任意"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("需要身份验证"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
@@ -108,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
+        "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("闪电发票"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl 和 Lud16 无法找到。"),
@@ -115,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
         "Method": MessageLookupByLibrary.simpleMessage("方法"),
+        "More": MessageLookupByLibrary.simpleMessage("更多"),
         "Name": MessageLookupByLibrary.simpleMessage("名称"),
         "Network": MessageLookupByLibrary.simpleMessage("网络"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -132,6 +136,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_User_page": MessageLookupByLibrary.simpleMessage("打开用户页面"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("浏览器中打开"),
         "Password": MessageLookupByLibrary.simpleMessage("密码"),
+        "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("图片"),
         "Please_accept_the_terms":
             MessageLookupByLibrary.simpleMessage("请接受用户协议。"),
@@ -161,6 +166,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("动态 & 回复"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隐私锁"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("密钥不能为空"),
+        "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),
         "Relays": MessageLookupByLibrary.simpleMessage("中继"),
         "Replying": MessageLookupByLibrary.simpleMessage("正在回复"),
@@ -185,6 +191,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "密钥是一个随机字符串，类似于您的帐户密码。任何拥有此密钥的人都可以访问和控制您的帐户。"),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("主题颜色"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("主题类型"),
+        "There_should_be_a_universe_here":
+            MessageLookupByLibrary.simpleMessage("这里应该有一个宇宙"),
         "Timeline": MessageLookupByLibrary.simpleMessage("时间线"),
         "Topic": MessageLookupByLibrary.simpleMessage("主题"),
         "Topics": MessageLookupByLibrary.simpleMessage("主题"),
@@ -194,6 +202,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("翻译目标语言"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("上传失败"),
+        "Use_lightning_wallet_scan_and_send_sats":
+            MessageLookupByLibrary.simpleMessage("使用闪电网络钱包扫描并发送Sats"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("用户 Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("人们"),
         "Verify_error": MessageLookupByLibrary.simpleMessage("验证异常"),

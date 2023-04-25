@@ -12,6 +12,7 @@ import '../../component/event/zap_event_list_component.dart';
 import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';
 import '../../provider/event_reactions_provider.dart';
+import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../thread/thread_detail_router.dart';
 
@@ -53,15 +54,14 @@ class _EventDetailRouter extends State<EventDetailRouter> {
   Widget build(BuildContext context) {
     var s = S.of(context);
 
-    if (event == null) {
-      var arg = RouterUtil.routerArgs(context);
-      if (arg != NullableIndexedWidgetBuilder) {
-        if (arg is Event) {
-          event = arg;
-          eventId = event!.id;
-        } else if (arg is String) {
-          eventId = arg;
-        }
+    var arg = RouterUtil.routerArgs(context);
+    if (arg != null) {
+      if (arg is Event) {
+        event = arg;
+        eventId = event!.id;
+      } else if (arg is String) {
+        event = null;
+        eventId = arg;
       }
     }
     if (event == null && eventId == null) {
@@ -117,40 +117,43 @@ class _EventDetailRouter extends State<EventDetailRouter> {
           return event2.createdAt - event1.createdAt;
         });
 
-        var main = NestedScrollView(
+        Widget main = ListView.builder(
           controller: _controller,
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return <Widget>[
-              SliverToBoxAdapter(
-                child: WidgetSize(
-                  child: mainEventWidget!,
-                  onChange: (size) {
-                    rootEventHeight = size.height;
-                  },
-                ),
-              ),
-            ];
-          },
-          body: ListView.builder(
-            itemBuilder: (context, index) {
-              var event = allEvent[index];
-              if (event.kind == kind.EventKind.ZAP) {
-                return ZapEventListComponent(event: event);
-              } else if (event.kind == kind.EventKind.TEXT_NOTE) {
-                return ReactionEventListComponent(
-                    event: event, text: s.replied);
-              } else if (event.kind == kind.EventKind.REPOST) {
-                return ReactionEventListComponent(
-                    event: event, text: s.boosted);
-              } else if (event.kind == kind.EventKind.REACTION) {
-                return ReactionEventListComponent(event: event, text: s.liked);
-              }
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return WidgetSize(
+                child: mainEventWidget!,
+                onChange: (size) {
+                  rootEventHeight = size.height;
+                },
+              );
+            }
 
-              return Container();
-            },
-            itemCount: allEvent.length,
-          ),
+            var event = allEvent[index - 1];
+            if (event.kind == kind.EventKind.ZAP) {
+              return ZapEventListComponent(event: event);
+            } else if (event.kind == kind.EventKind.TEXT_NOTE) {
+              return ReactionEventListComponent(event: event, text: s.replied);
+            } else if (event.kind == kind.EventKind.REPOST) {
+              return ReactionEventListComponent(event: event, text: s.boosted);
+            } else if (event.kind == kind.EventKind.REACTION) {
+              return ReactionEventListComponent(event: event, text: s.liked);
+            }
+
+            return Container();
+          },
+          itemCount: allEvent.length + 1,
         );
+
+        if (PlatformUtil.isPC()) {
+          main = GestureDetector(
+            onVerticalDragUpdate: (detail) {
+              _controller.jumpTo(_controller.offset - detail.delta.dy);
+            },
+            behavior: HitTestBehavior.translucent,
+            child: main,
+          );
+        }
 
         return main;
       },
@@ -178,7 +181,10 @@ class _EventDetailRouter extends State<EventDetailRouter> {
           onTap: () {
             RouterUtil.back(context);
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
         ),
         title: appBarTitle,
       ),

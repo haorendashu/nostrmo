@@ -13,6 +13,7 @@ import '../../data/event_mem_box.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/peddingevents_later_function.dart';
+import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../util/string_util.dart';
@@ -60,6 +61,15 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
       if (arg != null && arg is String) {
         tag = arg;
       }
+    } else {
+      var arg = RouterUtil.routerArgs(context);
+      if (arg != null && arg is String && tag != arg) {
+        // arg changed! reset
+        tag = arg;
+
+        box = EventMemBox();
+        doQuery();
+      }
     }
     if (StringUtil.isBlank(tag)) {
       RouterUtil.back(context);
@@ -81,56 +91,66 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
       );
     }
 
+    Widget main = EventDeleteCallback(
+      onDeleteCallback: onDeleteCallback,
+      child: ListView.builder(
+        controller: _controller,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Container(
+              height: tagHeight,
+              color: cardColor,
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+              child: Text(
+                tag!,
+                style: TextStyle(
+                  fontSize: bodyLargeFontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          }
+
+          var event = box.get(index - 1);
+          if (event == null) {
+            return null;
+          }
+
+          return EventListComponent(
+            event: event,
+            showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+          );
+        },
+        itemCount: box.length() + 1,
+      ),
+    );
+
+    if (PlatformUtil.isPC()) {
+      main = GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          _controller.jumpTo(_controller.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: main,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
             RouterUtil.back(context);
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
         ),
         actions: [],
         title: appBarTitle,
       ),
-      body: NestedScrollView(
-        controller: _controller,
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return <Widget>[
-            SliverToBoxAdapter(
-              child: Container(
-                child: Text(
-                  tag!,
-                  style: TextStyle(
-                    fontSize: bodyLargeFontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                height: tagHeight,
-                color: cardColor,
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-              ),
-            ),
-          ];
-        },
-        body: EventDeleteCallback(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                var event = box.get(index);
-                if (event == null) {
-                  return null;
-                }
-
-                return EventListComponent(
-                  event: event,
-                  showVideo:
-                      _settingProvider.videoPreviewInList == OpenStatus.OPEN,
-                );
-              },
-              itemCount: box.length(),
-            ),
-            onDeleteCallback: onDeleteCallback),
-      ),
+      body: main,
     );
   }
 
@@ -138,6 +158,10 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
 
   @override
   Future<void> onReady(BuildContext context) async {
+    doQuery();
+  }
+
+  void doQuery() {
     // tag query
     // https://github.com/nostr-protocol/nips/blob/master/12.md
     var filter = Filter(kinds: [

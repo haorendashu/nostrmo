@@ -20,6 +20,7 @@ import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../provider/setting_provider.dart';
+import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 
 class MentionMeRouter extends StatefulWidget {
@@ -71,12 +72,22 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       itemCount: events.length,
     );
 
-    var ri = RefreshIndicator(
+    Widget ri = RefreshIndicator(
       onRefresh: () async {
         mentionMeProvider.refresh();
       },
       child: main,
     );
+
+    if (PlatformUtil.isPC()) {
+      ri = GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          _controller.jumpTo(_controller.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: ri,
+      );
+    }
 
     List<Widget> stackList = [ri];
     stackList.add(Positioned(

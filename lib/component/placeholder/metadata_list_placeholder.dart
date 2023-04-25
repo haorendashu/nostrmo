@@ -6,19 +6,23 @@ class MetadataListPlaceholder extends StatelessWidget {
 
   MetadataListPlaceholder({this.onRefresh});
 
+  ScrollController _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        if (onRefresh != null) {
-          onRefresh!();
-        }
-      },
-      child: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return MetadataPlaceholder();
+    return GestureDetector(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          if (onRefresh != null) {
+            onRefresh!();
+          }
         },
-        itemCount: 10,
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return MetadataPlaceholder();
+          },
+          itemCount: 10,
+        ),
       ),
     );
   }

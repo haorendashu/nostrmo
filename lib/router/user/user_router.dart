@@ -18,6 +18,7 @@ import '../../provider/metadata_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
+import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import 'user_statistics_component.dart';
@@ -40,8 +41,6 @@ class _UserRouter extends CustState<UserRouter>
   bool showTitle = false;
 
   bool showAppbarBG = false;
-
-  List<Event>? events;
 
   EventMemBox box = EventMemBox();
 
@@ -86,9 +85,21 @@ class _UserRouter extends CustState<UserRouter>
       if (StringUtil.isBlank(pubkey)) {
         RouterUtil.back(context);
       }
-      events ??= followEventProvider.eventsByPubkey(pubkey!);
-      if (events != null && events!.isNotEmpty) {
-        box.addList(events!);
+      var events = followEventProvider.eventsByPubkey(pubkey!);
+      if (events != null && events.isNotEmpty) {
+        box.addList(events);
+      }
+    } else {
+      var arg = RouterUtil.routerArgs(context);
+      if (arg != null && arg is String) {
+        if (arg != pubkey) {
+          // arg change! reset.
+          box.clear();
+          until = null;
+
+          pubkey = arg;
+          doQuery();
+        }
       }
     }
     preBuild();
@@ -140,48 +151,49 @@ class _UserRouter extends CustState<UserRouter>
           title: appbarTitle,
         );
 
+        Widget main = NestedScrollView(
+          key: globalKey,
+          controller: _controller,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverToBoxAdapter(
+                child: MetadataComponent(
+                  pubKey: pubkey!,
+                  metadata: metadata,
+                  showBadges: true,
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: UserStatisticsComponent(
+                  pubkey: pubkey!,
+                ),
+              ),
+            ];
+          },
+          body: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                var event = box.get(index);
+                if (event == null) {
+                  return null;
+                }
+                return EventListComponent(
+                  event: event,
+                  showVideo:
+                      _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+                );
+              },
+              itemCount: box.length(),
+            ),
+          ),
+        );
+
         return Scaffold(
             body: Stack(
           children: [
-            NestedScrollView(
-              key: globalKey,
-              controller: _controller,
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverToBoxAdapter(
-                    child: MetadataComponent(
-                      pubKey: pubkey!,
-                      metadata: metadata,
-                      showBadges: true,
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: UserStatisticsComponent(
-                      pubkey: pubkey!,
-                    ),
-                  ),
-                ];
-              },
-              body: MediaQuery.removePadding(
-                removeTop: true,
-                context: context,
-                child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    var event = box.get(index);
-                    if (event == null) {
-                      return null;
-                    }
-                    return EventListComponent(
-                      event: event,
-                      showVideo: _settingProvider.videoPreviewInList ==
-                          OpenStatus.OPEN,
-                    );
-                  },
-                  itemCount: box.length(),
-                ),
-              ),
-            ),
+            main,
             Positioned(
               top: paddingTop,
               child: Container(

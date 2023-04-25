@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/webview_router.dart';
+import 'package:nostrmo/util/platform_util.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -41,6 +42,11 @@ class _LoginRouter extends State<LoginRouter>
     var mainColor = themeData.primaryColor;
     var maxWidth = mediaDataCache.size.width;
     var mainWidth = maxWidth * 0.8;
+    if (PlatformUtil.isPC()) {
+      if (mainWidth > 550) {
+        mainWidth = 550;
+      }
+    }
 
     var logoWiget = Image.asset(
       "assets/imgs/logo/logo512.png",
@@ -157,6 +163,7 @@ class _LoginRouter extends State<LoginRouter>
           children: [
             Container(
               width: mainWidth,
+              // color: Colors.red,
               child: Column(
                 children: mainList,
                 mainAxisSize: MainAxisSize.min,

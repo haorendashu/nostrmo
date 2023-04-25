@@ -13,6 +13,7 @@ import '../../data/relay_status.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/relay_provider.dart';
+import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import 'relays_item_component.dart';
 
@@ -33,10 +34,26 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
     var relayStatusMap = relayProvider.relayStatusMap;
     var themeData = Theme.of(context);
     var color = themeData.textTheme.bodyLarge!.color;
+    var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(s.Relays),
+        leading: GestureDetector(
+          onTap: () {
+            RouterUtil.back(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
+        ),
+        title: Text(
+          s.Relays,
+          style: TextStyle(
+            fontSize: titleFontSize,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Column(children: [
         Expanded(
@@ -116,7 +133,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
             remoteRelayEvent!.createdAt - relaysUpdatedTime > 60 * 5)) {
       var result = await ComfirmDialog.show(context,
           S.of(context).Find_clouded_relay_list_do_you_want_to_download);
-      if (result) {
+      if (result == true) {
         List<String> list = [];
         for (var tag in remoteRelayEvent!.tags) {
           if (tag.length > 1) {

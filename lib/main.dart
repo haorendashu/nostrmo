@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,9 +13,12 @@ import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'client/cust_nostr.dart';
 import 'consts/base.dart';
@@ -32,6 +37,7 @@ import 'provider/index_provider.dart';
 import 'provider/link_preview_data_provider.dart';
 import 'provider/mention_me_provider.dart';
 import 'provider/metadata_provider.dart';
+import 'provider/pc_router_fake_provider.dart';
 import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
@@ -96,12 +102,23 @@ late MediaDataCache mediaDataCache;
 
 late CacheManager localCacheManager;
 
+late PcRouterFakeProvider pcRouterFakeProvider;
+
+late Map<String, WidgetBuilder> routes;
+
 CustNostr? nostr;
 
 bool firstLogin = false;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux) {
+    // Initialize FFI
+    sqfliteFfiInit();
+    // Change the default factory
+    databaseFactory = databaseFactoryFfi;
+  }
 
   try {
     // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
@@ -139,6 +156,7 @@ Future<void> main() async {
   badgeDefinitionProvider = BadgeDefinitionProvider();
   mediaDataCache = MediaDataCache();
   localCacheManager = CacheManagerBuilder.build();
+  pcRouterFakeProvider = PcRouterFakeProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -193,6 +211,25 @@ class _MyApp extends State<MyApp> {
       defaultDarkTheme = darkTheme;
     }
 
+    routes = {
+      RouterPath.INDEX: (context) => IndexRouter(reload: reload),
+      RouterPath.DONATE: (context) => DonateRouter(),
+      RouterPath.USER: (context) => UserRouter(),
+      RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
+      RouterPath.USER_ZAP_LIST: (context) => UserZapListRouter(),
+      RouterPath.USER_RELAYS: (context) => UserRelayRouter(),
+      RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
+      RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
+      RouterPath.EVENT_DETAIL: (context) => EventDetailRouter(),
+      RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
+      RouterPath.NOTICES: (context) => NoticeRouter(),
+      RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
+      RouterPath.RELAYS: (context) => RelaysRouter(),
+      RouterPath.FILTER: (context) => FilterRouter(),
+      RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),
+      RouterPath.SETTING: (context) => SettingRouter(indexReload: reload),
+    };
+
     return MultiProvider(
       providers: [
         ListenableProvider<SettingProvider>.value(
@@ -243,6 +280,9 @@ class _MyApp extends State<MyApp> {
         ListenableProvider<BadgeDefinitionProvider>.value(
           value: badgeDefinitionProvider,
         ),
+        ListenableProvider<PcRouterFakeProvider>.value(
+          value: pcRouterFakeProvider,
+        ),
       ],
       child: MaterialApp(
         builder: BotToastInit(),
@@ -261,24 +301,7 @@ class _MyApp extends State<MyApp> {
         theme: defaultTheme,
         darkTheme: defaultDarkTheme,
         initialRoute: RouterPath.INDEX,
-        routes: {
-          RouterPath.INDEX: (context) => IndexRouter(reload: reload),
-          RouterPath.DONATE: (context) => DonateRouter(),
-          RouterPath.USER: (context) => UserRouter(),
-          RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
-          RouterPath.USER_ZAP_LIST: (context) => UserZapListRouter(),
-          RouterPath.USER_RELAYS: (context) => UserRelayRouter(),
-          RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
-          RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
-          RouterPath.EVENT_DETAIL: (context) => EventDetailRouter(),
-          RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
-          RouterPath.NOTICES: (context) => NoticeRouter(),
-          RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
-          RouterPath.RELAYS: (context) => RelaysRouter(),
-          RouterPath.FILTER: (context) => FilterRouter(),
-          RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),
-          RouterPath.SETTING: (context) => SettingRouter(indexReload: reload),
-        },
+        routes: routes,
       ),
     );
   }
@@ -305,6 +328,7 @@ class _MyApp extends State<MyApp> {
 
     Color? mainTextColor;
     Color hintColor = Colors.grey;
+    var scaffoldBackgroundColor = Colors.grey[100];
 
     double baseFontSize = settingProvider.fontSize;
 
@@ -314,7 +338,7 @@ class _MyApp extends State<MyApp> {
       bodySmall: TextStyle(fontSize: baseFontSize - 2),
     );
     var titleTextStyle = TextStyle(
-      color: Colors.white,
+      color: PlatformUtil.isPC() ? Colors.black : Colors.white,
     );
 
     if (settingProvider.fontFamily != null) {
@@ -330,11 +354,12 @@ class _MyApp extends State<MyApp> {
       primarySwatch: themeColor,
       // scaffoldBackgroundColor: Base.SCAFFOLD_BACKGROUND_COLOR,
       // scaffoldBackgroundColor: Colors.grey[100],
-      scaffoldBackgroundColor: Colors.grey[100],
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
       primaryColor: themeColor[500],
       appBarTheme: AppBarTheme(
         // color: Base.APPBAR_COLOR,
-        backgroundColor: themeColor[500],
+        backgroundColor:
+            PlatformUtil.isPC() ? scaffoldBackgroundColor : themeColor[500],
         titleTextStyle: titleTextStyle,
         elevation: 0,
       ),
@@ -344,6 +369,7 @@ class _MyApp extends State<MyApp> {
       // indicatorColor: ColorsUtil.hexToColor("#818181"),
       textTheme: textTheme,
       hintColor: hintColor,
+      buttonTheme: ButtonThemeData(),
     );
   }
 

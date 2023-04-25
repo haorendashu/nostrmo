@@ -14,7 +14,7 @@ class NewNotesUpdatedComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
-    var textColor = themeData.appBarTheme.titleTextStyle!.color;
+    Color? textColor = Colors.white;
 
     return GestureDetector(
       onTap: () {

@@ -21,7 +21,7 @@ class ZapAction {
         return;
       }
 
-      await LightningUtil.goToPay(invoiceCode!);
+      await LightningUtil.goToPay(context, invoiceCode!);
     } finally {
       cancelFunc.call();
     }

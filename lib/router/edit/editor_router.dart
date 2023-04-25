@@ -24,6 +24,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/edit/poll_input_component.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:pointycastle/ecc/api.dart';
@@ -70,15 +71,21 @@ class EditorRouter extends StatefulWidget {
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
-    return Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return EditorRouter(
-        tags: tags!,
-        tagsAddedWhenSend: tagsAddedWhenSend!,
-        agreement: agreement,
-        pubkey: pubkey,
-        initEmbeds: initEmbeds,
-      );
+
+    var editor = EditorRouter(
+      tags: tags,
+      tagsAddedWhenSend: tagsAddedWhenSend,
+      agreement: agreement,
+      pubkey: pubkey,
+      initEmbeds: initEmbeds,
+    );
+
+    return RouterUtil.push(context, MaterialPageRoute(builder: (context) {
+      return editor;
     }));
+    // return Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //   return editor;
+    // }));
   }
 
   @override
@@ -140,6 +147,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
     list.add(Expanded(
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           // focus to eidtor input widget
           focusNode.requestFocus();

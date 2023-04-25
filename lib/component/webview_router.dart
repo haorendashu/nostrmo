@@ -8,6 +8,7 @@ import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/nip07_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,6 +24,10 @@ class WebViewRouter extends StatefulWidget {
   WebViewRouter({required this.url});
 
   static void open(BuildContext context, String link) {
+    if (PlatformUtil.isPC()) {
+      launchUrl(Uri.parse(link));
+      return;
+    }
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return WebViewRouter(url: link);
     }));

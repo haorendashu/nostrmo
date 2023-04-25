@@ -25,6 +25,7 @@ import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
+import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 
@@ -39,11 +40,13 @@ class _SearchRouter extends CustState<SearchRouter>
     with PenddingEventsLaterFunction, LoadMoreEvent, WhenStopFunction {
   TextEditingController controller = TextEditingController();
 
+  ScrollController loadableScrollController = ScrollController();
+
   ScrollController scrollController = ScrollController();
 
   @override
   Future<void> onReady(BuildContext context) async {
-    bindLoadMoreScroll(scrollController);
+    bindLoadMoreScroll(loadableScrollController);
 
     controller.addListener(() {
       var hasText = StringUtil.isNotBlank(controller.text);
@@ -80,6 +83,7 @@ class _SearchRouter extends CustState<SearchRouter>
       );
     }
 
+    bool? loadable;
     Widget? body;
     if (searchAction == null && searchAbles.isNotEmpty) {
       // no searchAction, show searchAbles
@@ -112,8 +116,10 @@ class _SearchRouter extends CustState<SearchRouter>
       );
     } else {
       if (searchAction == SearchActions.searchMetadataFromCache) {
+        loadable = false;
         body = Container(
           child: ListView.builder(
+            controller: scrollController,
             itemBuilder: (BuildContext context, int index) {
               var metadata = metadatas[index];
 
@@ -131,8 +137,10 @@ class _SearchRouter extends CustState<SearchRouter>
           ),
         );
       } else if (searchAction == SearchActions.searchEventFromCache) {
+        loadable = false;
         body = Container(
           child: ListView.builder(
+            controller: scrollController,
             itemBuilder: (BuildContext context, int index) {
               var event = events[index];
 
@@ -146,10 +154,11 @@ class _SearchRouter extends CustState<SearchRouter>
           ),
         );
       } else if (searchAction == SearchActions.searchPubkeyEvent) {
+        loadable = true;
         var events = eventMemBox.all();
         body = Container(
           child: ListView.builder(
-            controller: scrollController,
+            controller: loadableScrollController,
             itemBuilder: (BuildContext context, int index) {
               var event = events[index];
 
@@ -164,7 +173,25 @@ class _SearchRouter extends CustState<SearchRouter>
         );
       }
     }
-    body ??= Container();
+    if (body != null) {
+      if (loadable != null && PlatformUtil.isPC()) {
+        body = GestureDetector(
+          onVerticalDragUpdate: (detail) {
+            if (loadable == true) {
+              loadableScrollController
+                  .jumpTo(loadableScrollController.offset - detail.delta.dy);
+            } else {
+              scrollController
+                  .jumpTo(scrollController.offset - detail.delta.dy);
+            }
+          },
+          behavior: HitTestBehavior.translucent,
+          child: body,
+        );
+      }
+    } else {
+      body = Container();
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

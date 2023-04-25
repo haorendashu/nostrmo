@@ -7,6 +7,7 @@ import 'package:markdown/markdown.dart' as md;
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -318,7 +319,9 @@ class _EventMainComponent extends State<EventMainComponent> {
           if (StringUtil.isNotBlank(m)) {
             if (m!.indexOf("image/") == 0) {
               list.add(ContentImageComponent(imageUrl: url!));
-            } else if (m.indexOf("video/") == 0 && widget.showVideo) {
+            } else if (m.indexOf("video/") == 0 &&
+                widget.showVideo &&
+                !PlatformUtil.isPC()) {
               list.add(ContentVideoComponent(url: url!));
             } else {
               list.add(ContentLinkComponent(link: url!));
@@ -327,7 +330,7 @@ class _EventMainComponent extends State<EventMainComponent> {
             var fileType = ContentDecoder.getPathType(url!);
             if (fileType == "image") {
               list.add(ContentImageComponent(imageUrl: url));
-            } else if (fileType == "video") {
+            } else if (fileType == "video" && !PlatformUtil.isPC()) {
               if (settingProvider.videoPreview != OpenStatus.OPEN &&
                   (settingProvider.videoPreviewInList == OpenStatus.OPEN ||
                       widget.showVideo)) {
@@ -471,7 +474,7 @@ class _EventMainComponent extends State<EventMainComponent> {
               if (nrelay != null) {
                 var result = await ComfirmDialog.show(
                     context, S.of(context).Add_this_relay_to_local);
-                if (result) {
+                if (result == true) {
                   relayProvider.addRelay(nrelay.addr);
                 }
               }

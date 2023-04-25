@@ -14,6 +14,7 @@ import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/event/event_quote_component.dart';
 import 'package:nostrmo/component/translate/line_translate_component.dart';
 import 'package:nostrmo/component/translate/text_translate_component.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
@@ -210,7 +211,7 @@ class ContentDecoder {
               inlines.add(ContentLinkComponent(link: subStr));
             }
           } else if (pathType == "video") {
-            if (showVideo) {
+            if (showVideo && !PlatformUtil.isPC()) {
               // block
               handledStr = _closeHandledStr(handledStr, inlines);
               _closeInlines(inlines, list);

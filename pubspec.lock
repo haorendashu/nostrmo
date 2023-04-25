@@ -385,6 +385,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: e6c7ad8e572379df86ea64ef0a5395889fba3954411d47ca021b888d79f8e798
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.11"
   fixnum:
     dependency: transitive
     description:
@@ -559,10 +567,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "4bef634684b2c7f3468c77c766c831229af829a0cd2d4ee6c1b99558bd14e5d2"
+      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   flutter_quill:
     dependency: "direct main"
     description:
@@ -1153,10 +1161,10 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: "8c6892037b1824e2d7e8f59d54b3105932899008642e6372e5079c6939b4b625"
+      sha256: "692261968a494e47323dcc8bc66d8d52e81bc27cb4b808e4e8d7e8079d4cc01a"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.1"
+    version: "6.3.2"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -1275,13 +1283,29 @@ packages:
     source: hosted
     version: "2.2.5"
   sqflite_common:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqflite_common
-      sha256: bfd6973aaeeb93475bc0d875ac9aefddf7965ef22ce09790eb963992ffc5183f
+      sha256: "220831bf0bd5333ff2445eee35ec131553b804e6b5d47a4a37ca6f5eb66e282c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2+2"
+    version: "2.4.4"
+  sqflite_common_ffi:
+    dependency: "direct main"
+    description:
+      name: sqflite_common_ffi
+      sha256: "55641c9310e1da0856559f077ccc3cb7637b718d10b1fd8461c8088ef2d2f720"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.4"
+  sqlite3:
+    dependency: transitive
+    description:
+      name: sqlite3
+      sha256: a3ba4b66a7ab170ce7aa3f5ac43c19ee8d6637afbe7b7c95c94112b4f4d91566
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.11.0"
   stack_trace:
     dependency: transitive
     description:
@@ -1555,13 +1579,13 @@ packages:
     source: hosted
     version: "1.0.0"
   win32:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: win32
-      sha256: c9ebe7ee4ab0c2194e65d3a07d8c54c5d00bb001b76081c4a04cdb8448b59e46
+      sha256: dd8f9344bc305ae2923e3d11a2a911d9a4e2c7dd6fe0ed10626d63211a69676e
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.3"
+    version: "4.1.3"
   xdg_directories:
     dependency: transitive
     description:

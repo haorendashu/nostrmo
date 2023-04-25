@@ -118,6 +118,10 @@ class ContactListProvider extends ChangeNotifier {
     followEventProvider.metadataUpdatedCallback(_contactList);
   }
 
+  int total() {
+    return _contactList!.total();
+  }
+
   void addContact(Contact contact) {
     _contactList!.add(contact);
     _event = nostr!.sendContactList(_contactList!);
@@ -131,6 +135,8 @@ class ContactListProvider extends ChangeNotifier {
 
     _saveAndNotify();
   }
+
+  CustContactList? get contactList => _contactList;
 
   Iterable<Contact> list() {
     return _contactList!.list();

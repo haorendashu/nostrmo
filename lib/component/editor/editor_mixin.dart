@@ -7,6 +7,7 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:pointycastle/ecc/api.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -71,15 +72,17 @@ mixin EditorMixin {
         onPressed: pickImage,
         icon: Icon(Icons.image),
       ),
-      quill.QuillIconButton(
+    ];
+    if (!PlatformUtil.isPC()) {
+      inputBtnList.add(quill.QuillIconButton(
         onPressed: takeAPhoto,
         icon: Icon(Icons.camera),
-      ),
-      quill.QuillIconButton(
+      ));
+      inputBtnList.add(quill.QuillIconButton(
         onPressed: tackAVideo,
         icon: Icon(Icons.video_call),
-      )
-    ];
+      ));
+    }
     if (getAgreement() == null &&
         getTags().isEmpty &&
         getTagsAddedWhenSend().isEmpty) {
@@ -162,7 +165,7 @@ mixin EditorMixin {
           skinToneIndicatorColor: Colors.grey,
           enableSkinTones: true,
           showRecentsTab: true,
-          recentsLimit: 28,
+          recentsLimit: 30,
           noRecents: Text(
             'No Recents',
             style: TextStyle(fontSize: 14, color: Colors.black26),

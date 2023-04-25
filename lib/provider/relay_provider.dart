@@ -75,6 +75,10 @@ class RelayProvider extends ChangeNotifier {
     return "$relayNum / $total";
   }
 
+  int total() {
+    return relayAddrs.length;
+  }
+
   CustNostr genNostr(String pk) {
     var _nostr = CustNostr(privateKey: pk);
     log("nostr init over");

@@ -30,7 +30,7 @@ class ContentImageComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? double.maxFinite,
+      width: width,
       height: height,
       margin: const EdgeInsets.only(
         top: Base.BASE_PADDING_HALF / 2,
@@ -44,7 +44,7 @@ class ContentImageComponent extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: imageUrl,
             fit: imageBoxFix,
-            width: width ?? double.maxFinite,
+            width: width,
             height: height,
             // placeholder: (context, url) => CircularProgressIndicator(),
             placeholder: (context, url) => Container(),

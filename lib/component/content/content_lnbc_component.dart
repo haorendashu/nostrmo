@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../client/zap_num_util.dart';
 import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 
 class ContentLnbcComponent extends StatelessWidget {
   String lnbc;
@@ -15,12 +16,13 @@ class ContentLnbcComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var cardColor = themeData.cardColor;
     double largeFontSize = 20;
 
-    var numStr = "Any";
+    var numStr = s.Any;
     var num = ZapNumUtil.getNumFromStr(lnbc);
     if (num > 0) {
       numStr = num.toString();
@@ -62,15 +64,15 @@ class ContentLnbcComponent extends StatelessWidget {
                     color: Colors.orange,
                   ),
                 ),
-                Text("Lightning Invoice"),
+                Text(s.Lightning_Invoice),
               ],
             ),
           ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            padding: EdgeInsets.only(top: Base.BASE_PADDING),
-            child: Text("Wallet of Satoshi"),
-          ),
+          // Container(
+          //   alignment: Alignment.bottomLeft,
+          //   padding: EdgeInsets.only(top: Base.BASE_PADDING),
+          //   child: Text("Wallet of Satoshi"),
+          // ),
           Container(
             margin: const EdgeInsets.only(
               top: Base.BASE_PADDING,
@@ -102,27 +104,15 @@ class ContentLnbcComponent extends StatelessWidget {
             width: double.maxFinite,
             child: InkWell(
               onTap: () async {
-                // TODO call to pay
-                // print(lnbc);
-                // var link = 'lightning:' + lnbc;
-                // if (Platform.isAndroid) {
-                //   AndroidIntent intent = AndroidIntent(
-                //     action: 'action_view',
-                //     data: link,
-                //   );
-                //   await intent.launch();
-                // } else {
-                //   var url = Uri.parse(link);
-                //   launchUrl(url);
-                // }
-                LightningUtil.goToPay(lnbc);
+                // call to pay
+                LightningUtil.goToPay(context, lnbc);
               },
               child: Container(
                 color: Colors.black,
                 height: 50,
                 alignment: Alignment.center,
                 child: Text(
-                  "Pay",
+                  s.Pay,
                   style: TextStyle(
                     color: Colors.white,
                   ),

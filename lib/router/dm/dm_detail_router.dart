@@ -60,14 +60,12 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     var hintColor = themeData.hintColor;
     var s = S.of(context);
 
-    if (detail == null) {
-      var arg = RouterUtil.routerArgs(context);
-      if (arg == null) {
-        RouterUtil.back(context);
-        return Container();
-      }
-      detail = arg as DMSessionDetail;
+    var arg = RouterUtil.routerArgs(context);
+    if (arg == null) {
+      RouterUtil.back(context);
+      return Container();
     }
+    detail = arg as DMSessionDetail;
 
     var nameComponnet = Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
@@ -83,8 +81,6 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
 
     var localPubkey = nostr!.publicKey;
     agreement = NIP04.getAgreement(nostr!.privateKey);
-
-    var maxWidth = mediaDataCache.size.width;
 
     List<Widget> list = [];
 
@@ -188,38 +184,43 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     }
 
     Widget main = Container(
-      width: maxWidth,
+      width: double.maxFinite,
+      height: double.maxFinite,
       child: Column(children: list),
     );
 
     if (detail!.info == null && detail!.dmSession.newestEvent != null) {
-      main = Stack(
-        children: [
-          main,
-          Positioned(
-            child: GestureDetector(
-              onTap: addDmSessionToKnown,
-              child: Container(
-                margin: const EdgeInsets.all(Base.BASE_PADDING),
-                height: 30,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Center(
-                  child: Text(
-                    s.Add_to_known_list,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+      main = Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        child: Stack(
+          children: [
+            Positioned.fill(child: main),
+            Positioned(
+              child: GestureDetector(
+                onTap: addDmSessionToKnown,
+                child: Container(
+                  margin: const EdgeInsets.all(Base.BASE_PADDING),
+                  height: 30,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      s.Add_to_known_list,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     }
 
@@ -229,7 +230,10 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
           onTap: () {
             RouterUtil.back(context);
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
         ),
         title: nameComponnet,
       ),
