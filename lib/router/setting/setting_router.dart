@@ -232,6 +232,15 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            RouterUtil.back(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
+        ),
         title: Text(
           s.Setting,
           style: TextStyle(
