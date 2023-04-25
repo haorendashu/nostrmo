@@ -109,7 +109,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Generate a new private key"),
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
+        "Globals": MessageLookupByLibrary.simpleMessage("Globals"),
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
+        "Home": MessageLookupByLibrary.simpleMessage("Home"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("I accept the"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Image Compress"),

@@ -93,7 +93,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("生成一个新的密钥"),
         "Global": MessageLookupByLibrary.simpleMessage("全球"),
+        "Globals": MessageLookupByLibrary.simpleMessage("广场"),
         "Hide": MessageLookupByLibrary.simpleMessage("隐藏"),
+        "Home": MessageLookupByLibrary.simpleMessage("首页"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),

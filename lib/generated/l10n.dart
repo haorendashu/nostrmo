@@ -1849,6 +1849,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Home`
+  String get Home {
+    return Intl.message(
+      'Home',
+      name: 'Home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Globals`
+  String get Globals {
+    return Intl.message(
+      'Globals',
+      name: 'Globals',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
