@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/main.dart';
+import 'package:nostrmo/util/platform_util.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
@@ -72,6 +74,11 @@ class _TextInputAndSearchDialog extends State<TextInputAndSearchDialog>
     var cardColro = themeData.cardColor;
     var mainColor = themeData.primaryColor;
 
+    double mainHeight = 235;
+    if (PlatformUtil.isPC()) {
+      mainHeight = mediaDataCache.size.height / 2;
+    }
+
     var textInputWidget = TextInputDialogInnerComponent(
       widget.title,
       hintText: widget.hintText,
@@ -102,7 +109,7 @@ class _TextInputAndSearchDialog extends State<TextInputAndSearchDialog>
       ),
     ));
     list.add(Container(
-      height: 235,
+      height: mainHeight,
       width: double.infinity,
       child: TabBarView(
         children: [
