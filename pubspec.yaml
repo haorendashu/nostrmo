@@ -90,6 +90,7 @@ dependencies:
   window_manager: ^0.3.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -145,11 +146,18 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-flutter_icons:
+# new version icons
+flutter_launcher_icons:
   image_path_ios: 'assets/imgs/logo/logo_ios.jpg'
   image_path_android: 'assets/imgs/logo/logo_android.png'
   android: true
   ios: true
+  windows:
+    generate: true
+    image_path: "assets/imgs/logo/logo_android.png"
+  macos:
+    generate: true
+    image_path: "assets/imgs/logo/logo_ios.jpg"
 
 flutter_native_splash:
   color: "#f6f3f3"

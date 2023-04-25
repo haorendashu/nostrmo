@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/util/encrypt_util.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../consts/base.dart';
@@ -232,7 +233,9 @@ class SettingProvider extends ChangeNotifier {
   int? get broadcaseWhenBoost =>
       _settingData!.broadcaseWhenBoost ?? OpenStatus.OPEN;
 
-  double get fontSize => _settingData!.fontSize ?? Base.BASE_FONT_SIZE;
+  double get fontSize =>
+      _settingData!.fontSize ??
+      (PlatformUtil.isPC() ? Base.BASE_FONT_SIZE_PC : Base.BASE_FONT_SIZE);
 
   set settingData(SettingData o) {
     _settingData = o;
