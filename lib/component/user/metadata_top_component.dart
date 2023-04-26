@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/util/platform_util.dart';
@@ -383,7 +384,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
 
   copyPubKey() {
     Clipboard.setData(ClipboardData(text: nip19PubKey)).then((_) {
-      BotToast.showText(text: "key has been copy!");
+      BotToast.showText(text: S.of(context).key_has_been_copy);
     });
   }
 
