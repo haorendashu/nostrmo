@@ -38,12 +38,12 @@ class RelayProvider extends ChangeNotifier {
     if (relayAddrs.isEmpty) {
       // init relays
       relayAddrs = [
-        // "wss://nos.lol",
-        // "wss://nostr.wine",
-        // "wss://atlas.nostr.land",
-        // "wss://relay.orangepill.dev",
-        // "wss://relay.damus.io",
-        "wss://universe.nostrich.land",
+        "wss://nos.lol",
+        "wss://nostr.wine",
+        "wss://atlas.nostr.land",
+        "wss://relay.orangepill.dev",
+        "wss://relay.damus.io",
+        // "wss://universe.nostrich.land",
         // "wss://filter.nostr.wine"
         // "wss://nostr.vpn1.codingmerc.com",
       ];
