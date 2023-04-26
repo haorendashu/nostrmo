@@ -539,8 +539,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
   }
 
   void pickFont() {
-    RouterUtil.push(
-      context,
+    Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => FontPicker(
           onFontChanged: (PickerFont font) {

@@ -393,10 +393,12 @@ class _IndexRouter extends CustState<IndexRouter>
   @override
   void dispose() async {
     super.dispose();
-    if (_purchaseUpdatedSubscription != null) {
-      _purchaseUpdatedSubscription!.cancel();
-      _purchaseUpdatedSubscription = null;
+    if (!PlatformUtil.isPC()) {
+      if (_purchaseUpdatedSubscription != null) {
+        _purchaseUpdatedSubscription!.cancel();
+        _purchaseUpdatedSubscription = null;
+      }
+      await FlutterInappPurchase.instance.finalize();
     }
-    await FlutterInappPurchase.instance.finalize();
   }
 }
