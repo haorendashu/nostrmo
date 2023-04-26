@@ -50,7 +50,7 @@ class FollowNewEventProvider extends ChangeNotifier
         filter.authors = ids;
         var subscribeId = _doQueryFunc(filter);
         subscribeIds.add(subscribeId);
-        ids.clear();
+        ids = [];
       }
     }
     if (ids.isNotEmpty) {

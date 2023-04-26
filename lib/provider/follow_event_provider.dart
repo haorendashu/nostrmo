@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 
@@ -86,11 +89,11 @@ class FollowEventProvider extends ChangeNotifier
     for (Contact contact in contactList) {
       ids.add(contact.publicKey);
       if (ids.length > 100) {
-        // filter.authors = ids;
+        filter.authors = ids;
         var subscribeId =
             _doQueryFunc(targetNostr, filter, initQuery: initQuery);
         subscribeIds.add(subscribeId);
-        ids.clear();
+        ids = [];
       }
     }
     if (ids.isNotEmpty) {
@@ -117,6 +120,7 @@ class FollowEventProvider extends ChangeNotifier
 
   String _doQueryFunc(CustNostr targetNostr, Filter filter,
       {bool initQuery = false}) {
+    log(jsonEncode(filter.toJson()));
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
       // targetNostr.pool.subscribe([filter.toJson()], onEvent, subscribeId);
