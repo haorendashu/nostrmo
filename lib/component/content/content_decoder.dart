@@ -398,24 +398,23 @@ class ContentDecoder {
   static const double CONTENT_IMAGE_LIST_HEIGHT = 90;
 
   static String? getPathType(String path) {
-    var index = path.lastIndexOf(".");
+    var strs = path.split("?");
+    var index = strs[0].lastIndexOf(".");
     if (index == -1) {
       return null;
     }
 
+    path = strs[0];
     var n = path.substring(index);
     n = n.toLowerCase();
 
-    var strs = n.split("?");
-    var s = strs[0];
-
-    if (s == ".png" ||
-        s == ".jpg" ||
-        s == ".jpeg" ||
-        s == ".gif" ||
-        s == ".webp") {
+    if (n == ".png" ||
+        n == ".jpg" ||
+        n == ".jpeg" ||
+        n == ".gif" ||
+        n == ".webp") {
       return "image";
-    } else if (s == ".mp4" || s == ".mov" || s == ".wmv") {
+    } else if (n == ".mp4" || n == ".mov" || n == ".wmv") {
       return "video";
     } else {
       if (path.contains("void.cat/d/")) {
