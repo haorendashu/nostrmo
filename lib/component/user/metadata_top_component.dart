@@ -73,6 +73,8 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     var hintColor = themeData.hintColor;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var maxWidth = mediaDataCache.size.width;
+    var largeFontSize = themeData.textTheme.bodyLarge!.fontSize;
+    var fontSize = themeData.textTheme.bodyMedium!.fontSize;
     var bannerHeight = maxWidth / 3;
     if (PlatformUtil.isPC()) {
       bannerHeight =
@@ -80,14 +82,16 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     }
 
     String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
-    String displayName = nip19Name;
+    String displayName = "";
     String? name;
     if (widget.metadata != null) {
       if (StringUtil.isNotBlank(widget.metadata!.displayName)) {
         displayName = widget.metadata!.displayName!;
-      }
-      if (StringUtil.isNotBlank(widget.metadata!.name)) {
-        name = widget.metadata!.name;
+        if (StringUtil.isNotBlank(widget.metadata!.name)) {
+          name = widget.metadata!.name;
+        }
+      } else if (StringUtil.isNotBlank(widget.metadata!.name)) {
+        displayName = widget.metadata!.name!;
       }
     }
 
@@ -234,6 +238,30 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ));
     }
 
+    List<Widget> nameList = [];
+    if (StringUtil.isBlank(displayName)) {
+      displayName = nip19Name;
+    }
+    nameList.add(Text(
+      displayName,
+      style: TextStyle(
+        fontSize: largeFontSize,
+        fontWeight: FontWeight.bold,
+      ),
+    ));
+    if (StringUtil.isNotBlank(name)) {
+      nameList.add(Container(
+        margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+        child: Text(
+          name != null ? "@$name" : "",
+          style: TextStyle(
+            fontSize: fontSize,
+            color: hintColor,
+          ),
+        ),
+      ));
+    }
+
     Widget userNameComponent = Container(
       // height: 40,
       width: double.maxFinite,
@@ -245,25 +273,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ),
       // color: Colors.green,
       child: Row(
-        children: [
-          Text(
-            displayName,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
-            child: Text(
-              name != null ? "@" + name : "",
-              style: TextStyle(
-                fontSize: 15,
-                color: hintColor,
-              ),
-            ),
-          )
-        ],
+        children: nameList,
       ),
     );
     if (widget.jumpable) {

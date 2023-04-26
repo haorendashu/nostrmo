@@ -39,7 +39,7 @@ class _NameComponnet extends State<NameComponnet> {
     Color hintColor = themeData.hintColor;
     var metadata = widget.metadata;
     String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
-    String displayName = nip19Name;
+    String displayName = "";
     String name = "";
     if (widget.fontColor != null) {
       hintColor = widget.fontColor!;
@@ -49,37 +49,46 @@ class _NameComponnet extends State<NameComponnet> {
     if (metadata != null) {
       if (StringUtil.isNotBlank(metadata.displayName)) {
         displayName = metadata.displayName!;
+        if (StringUtil.isNotBlank(metadata.name)) {
+          name = metadata.name!;
+        }
+      } else if (StringUtil.isNotBlank(metadata.name)) {
+        displayName = metadata.name!;
       }
-      if (StringUtil.isNotBlank(metadata.name)) {
-        name = "@" + metadata.name!;
-      }
+
       if (StringUtil.isNotBlank(metadata.nip05)) {
         hasNip05 = true;
       }
     }
 
-    List<InlineSpan> nameList = [
-      TextSpan(
-        text: StringUtil.breakWord(displayName),
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: widget.fontSize ?? textSize,
-          color: widget.fontColor,
-        ),
+    List<InlineSpan> nameList = [];
+
+    if (StringUtil.isBlank(displayName)) {
+      displayName = nip19Name;
+    }
+    nameList.add(TextSpan(
+      text: StringUtil.breakWord(displayName),
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: widget.fontSize ?? textSize,
+        color: widget.fontColor,
       ),
-      WidgetSpan(
+    ));
+    if (StringUtil.isNotBlank(name)) {
+      nameList.add(WidgetSpan(
         child: Container(
           margin: EdgeInsets.only(left: 2),
           child: Text(
-            StringUtil.breakWord(name),
+            StringUtil.breakWord("@$name"),
             style: TextStyle(
               fontSize: smallTextSize,
               color: hintColor,
             ),
           ),
         ),
-      ),
-    ];
+      ));
+    }
+
     if (hasNip05 && widget.showNip05) {
       nameList.add(WidgetSpan(
         child: Container(
@@ -93,12 +102,6 @@ class _NameComponnet extends State<NameComponnet> {
       ));
     }
 
-    // return Container(
-    //   child: Row(
-    //     mainAxisSize: MainAxisSize.min,
-    //     children: nameList,
-    //   ),
-    // );
     return Text.rich(
       TextSpan(children: nameList),
     );
