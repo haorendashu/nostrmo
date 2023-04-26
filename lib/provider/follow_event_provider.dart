@@ -120,7 +120,6 @@ class FollowEventProvider extends ChangeNotifier
 
   String _doQueryFunc(CustNostr targetNostr, Filter filter,
       {bool initQuery = false}) {
-    log(jsonEncode(filter.toJson()));
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
       // targetNostr.pool.subscribe([filter.toJson()], onEvent, subscribeId);
