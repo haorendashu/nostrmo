@@ -176,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("搜索"),
         "Search_User_from_cache":
             MessageLookupByLibrary.simpleMessage("从缓存中查找用户"),
+        "Search_note_content": MessageLookupByLibrary.simpleMessage("搜索动态内容"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("搜索Pubkey的Event"),
         "Send": MessageLookupByLibrary.simpleMessage("发送"),

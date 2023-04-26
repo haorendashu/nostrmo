@@ -134,6 +134,7 @@
     "Search_User_from_cache": "从缓存中查找用户",
     "Open_Event_from_cache": "从缓存中查找动态",
     "Search_pubkey_event": "搜索Pubkey的Event",
+    "Search_note_content": "搜索动态内容",
     "Data": "数据",
     "Delete_Account": "删除账号",
     "Delete_Account_Tips": "我们正在尝试删除你的账号信息。如果你下一次继续使用该密钥登录，你将会失去你的信息。",

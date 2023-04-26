@@ -104,6 +104,10 @@ class _SearchRouter extends CustState<SearchRouter>
         } else if (action == SearchActions.searchPubkeyEvent) {
           list.add(SearchActionItemComponent(
               title: s.Search_pubkey_event, onTap: onEditingComplete));
+        } else if (action == SearchActions.searchNoteContent) {
+          list.add(SearchActionItemComponent(
+              title: "${s.Search_note_content} NIP-50",
+              onTap: searchNoteContent));
         }
       }
       body = Container(
@@ -219,11 +223,20 @@ class _SearchRouter extends CustState<SearchRouter>
     );
   }
 
+  List<int> searchEventKinds = [
+    kind.EventKind.TEXT_NOTE,
+    kind.EventKind.REPOST,
+    kind.EventKind.LONG_FORM,
+    kind.EventKind.FILE_HEADER,
+    kind.EventKind.POLL,
+  ];
+
   String? subscribeId;
 
   EventMemBox eventMemBox = EventMemBox();
 
-  Filter? filter;
+  // Filter? filter;
+  Map<String, dynamic>? filterMap;
 
   @override
   void doQuery() {
@@ -234,8 +247,8 @@ class _SearchRouter extends CustState<SearchRouter>
     }
     subscribeId = generatePrivateKey();
 
-    filter!.until = until;
-    nostr!.pool.query([filter!.toJson()], (event) {
+    filterMap!["until"] = until;
+    nostr!.pool.query([filterMap!], (event) {
       later(event, (list) {
         var addResult = eventMemBox.addList(list);
         if (addResult) {
@@ -276,13 +289,10 @@ class _SearchRouter extends CustState<SearchRouter>
 
     eventMemBox = EventMemBox();
     until = null;
-    filter = Filter(kinds: [
-      kind.EventKind.TEXT_NOTE,
-      kind.EventKind.REPOST,
-      kind.EventKind.LONG_FORM,
-      kind.EventKind.FILE_HEADER,
-      kind.EventKind.POLL,
-    ], authors: authors, limit: queryLimit);
+    filterMap =
+        Filter(kinds: searchEventKinds, authors: authors, limit: queryLimit)
+            .toJson();
+    filterMap!.remove("search");
     penddingEvents.clear;
     doQuery();
   }
@@ -397,9 +407,29 @@ class _SearchRouter extends CustState<SearchRouter>
       searchAbles.add(SearchActions.searchMetadataFromCache);
       searchAbles.add(SearchActions.searchEventFromCache);
       searchAbles.add(SearchActions.searchPubkeyEvent);
+      searchAbles.add(SearchActions.searchNoteContent);
     }
 
     lastText = text;
     setState(() {});
+  }
+
+  searchNoteContent() {
+    hideKeyBoard();
+    searchAction = SearchActions.searchPubkeyEvent;
+
+    var value = controller.text;
+    value = value.trim();
+    if (StringUtil.isBlank(value)) {
+      BotToast.showText(text: S.of(context).Empty_text_may_be_ban_by_relays);
+    }
+
+    eventMemBox = EventMemBox();
+    until = null;
+    filterMap = Filter(kinds: searchEventKinds, limit: queryLimit).toJson();
+    filterMap!.remove("authors");
+    filterMap!["search"] = value;
+    penddingEvents.clear;
+    doQuery();
   }
 }

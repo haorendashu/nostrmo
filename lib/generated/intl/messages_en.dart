@@ -214,6 +214,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("Search"),
         "Search_User_from_cache":
             MessageLookupByLibrary.simpleMessage("Search User from cache"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("Search note content"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Search pubkey event"),
         "Send": MessageLookupByLibrary.simpleMessage("Send"),

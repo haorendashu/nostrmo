@@ -1430,6 +1430,16 @@ class S {
     );
   }
 
+  /// `Search note content`
+  String get Search_note_content {
+    return Intl.message(
+      'Search note content',
+      name: 'Search_note_content',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Data`
   String get Data {
     return Intl.message(

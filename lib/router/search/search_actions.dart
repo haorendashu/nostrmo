@@ -8,4 +8,6 @@ class SearchActions {
   static const String searchEventFromCache = "searchEventFromCache";
 
   static const String searchPubkeyEvent = "searchPubkeyEvent";
+
+  static const String searchNoteContent = "searchNoteContent";
 }
