@@ -127,6 +127,7 @@ PODS:
     - MLImage (= 1.0.0-beta3)
     - MLKitCommon (~> 8.0)
     - Protobuf (~> 3.12)
+  - MTBBarcodeScanner (5.0.11)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -142,6 +143,9 @@ PODS:
     - FlutterMacOS
   - PromisesObjC (2.1.1)
   - Protobuf (3.21.7)
+  - qr_code_scanner (0.2.0):
+    - Flutter
+    - MTBBarcodeScanner
   - SDWebImage (5.15.6):
     - SDWebImage/Core (= 5.15.6)
   - SDWebImage/Core (5.15.6)
@@ -178,6 +182,7 @@ DEPENDENCIES:
   - pasteboard (from `.symlinks/plugins/pasteboard/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
+  - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -202,6 +207,7 @@ SPEC REPOS:
     - MLKitNaturalLanguage
     - MLKitTranslate
     - MLKitVision
+    - MTBBarcodeScanner
     - nanopb
     - PromisesObjC
     - Protobuf
@@ -240,6 +246,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
   photo_manager:
     :path: ".symlinks/plugins/photo_manager/ios"
+  qr_code_scanner:
+    :path: ".symlinks/plugins/qr_code_scanner/ios"
   share_plus:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
@@ -281,12 +289,14 @@ SPEC CHECKSUMS:
   MLKitNaturalLanguage: 3350ebe7436046cd3146b8df9a2e06d6ba7a6439
   MLKitTranslate: e2998053668911b4de2cebe5ce072fd035189686
   MLKitVision: 96c96571190b7f63eddf4a12068ce8a8689e0d2c
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
   path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   Protobuf: f4128517d7a42302e106cc3afe614ee3a7513e94
+  qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
   SDWebImage: d47d81bea8a77187896b620dc79c3c528e8906b9
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
