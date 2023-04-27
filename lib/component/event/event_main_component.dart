@@ -510,12 +510,18 @@ class _EventReplyingcomponent extends State<EventReplyingcomponent> {
           var hintColor = themeData.hintColor;
           var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
           String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
-          String displayName = nip19Name;
+          String displayName = "";
 
           if (metadata != null) {
             if (StringUtil.isNotBlank(metadata.displayName)) {
               displayName = metadata.displayName!;
+            } else if (StringUtil.isNotBlank(metadata.name)) {
+              displayName = metadata.name!;
             }
+          }
+
+          if (StringUtil.isBlank(displayName)) {
+            displayName = nip19Name;
           }
 
           return Text(
