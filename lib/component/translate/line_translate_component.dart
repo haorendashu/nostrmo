@@ -123,7 +123,14 @@ class _LineTranslateComponent extends CustState<LineTranslateComponent> {
       }
     }
 
-    return SelectableText.rich(TextSpan(children: spans));
+    return SelectableText.rich(
+      TextSpan(children: spans),
+      onTap: () {
+        if (widget.textOnTap != null) {
+          widget.textOnTap!();
+        }
+      },
+    );
   }
 
   @override

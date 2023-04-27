@@ -214,7 +214,7 @@ class ContentDecoder {
             if (showVideo && !PlatformUtil.isPC()) {
               // block
               handledStr = _closeHandledStr(handledStr, inlines);
-              _closeInlines(inlines, list);
+              _closeInlines(inlines, list, textOnTap: textOnTap);
               var w = ContentVideoComponent(url: subStr);
               list.add(w);
             } else {
