@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/main.dart';
 
 import '../../client/cust_contact_list.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
 import 'user_contact_list_component.dart';
 
-class UserContactListRouter extends StatefulWidget {
+class UserHistoryContactListRouter extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _UserContactListRouter();
+    return _UserHistoryContactListRouter();
   }
 }
 
-class _UserContactListRouter extends State<UserContactListRouter> {
+class _UserHistoryContactListRouter
+    extends State<UserHistoryContactListRouter> {
   CustContactList? contactList;
 
   @override
@@ -31,6 +33,7 @@ class _UserContactListRouter extends State<UserContactListRouter> {
     }
     var themeData = Theme.of(context);
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
+    var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +43,7 @@ class _UserContactListRouter extends State<UserContactListRouter> {
           },
           child: Icon(
             Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
+            color: titleTextColor,
           ),
         ),
         title: Text(
@@ -50,8 +53,28 @@ class _UserContactListRouter extends State<UserContactListRouter> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          Container(
+            child: TextButton(
+              child: Text(
+                s.Recovery,
+                style: TextStyle(
+                  color: titleTextColor,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: doRecovery,
+              style: ButtonStyle(),
+            ),
+          ),
+        ],
       ),
       body: UserContactListComponent(contactList: contactList!),
     );
+  }
+
+  void doRecovery() {
+    contactListProvider.updateContacts(contactList!);
+    RouterUtil.back(context);
   }
 }

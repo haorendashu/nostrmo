@@ -1879,6 +1879,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Begin to load Contact History`
+  String get Begin_to_load_Contact_History {
+    return Intl.message(
+      'Begin to load Contact History',
+      name: 'Begin_to_load_Contact_History',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recovery`
+  String get Recovery {
+    return Intl.message(
+      'Recovery',
+      name: 'Recovery',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:bot_toast/bot_toast.dart';
+import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/component/enum_selector_component.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
@@ -74,7 +80,12 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       list.add(
           Selector<ContactListProvider, int>(builder: (context, num, child) {
         return UserStatisticsItemComponent(
-            num: num, name: s.Following, onTap: onFollowingTap);
+          num: num,
+          name: s.Following,
+          onTap: onFollowingTap,
+          onLongPressStart: onLongPressStart,
+          onLongPressEnd: onLongPressEnd,
+        );
       }, selector: (context, _provider) {
         return _provider.total();
       }));
@@ -117,6 +128,51 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
         children: list,
       ),
     );
+  }
+
+  String? fetchLocalContactsId;
+
+  EventMemBox? localContactBox;
+
+  void onLongPressStart(LongPressStartDetails d) {
+    if (fetchLocalContactsId == null) {
+      fetchLocalContactsId = StringUtil.rndNameStr(16);
+      localContactBox = EventMemBox(sortAfterAdd: false);
+      var filter = Filter(
+          authors: [widget.pubkey], kinds: [kind.EventKind.CONTACT_LIST]);
+      nostr!.pool.query([filter.toJson()], (event) {
+        localContactBox!.add(event);
+      }, fetchLocalContactsId);
+      BotToast.showText(text: S.of(context).Begin_to_load_Contact_History);
+    }
+  }
+
+  Future<void> onLongPressEnd(LongPressEndDetails d) async {
+    if (fetchLocalContactsId != null) {
+      nostr!.pool.unsubscribe(fetchLocalContactsId!);
+      fetchLocalContactsId = null;
+
+      var format = FixedDateTimeFormatter("YYYY-MM-DD hh:mm:ss");
+
+      localContactBox!.sort();
+      var list = localContactBox!.all();
+
+      List<EnumObj> enumList = [];
+      for (var event in list) {
+        var _contactList = CustContactList.fromJson(event.tags);
+        var dt = DateTime.fromMillisecondsSinceEpoch(event.createdAt * 1000);
+        enumList.add(
+            EnumObj(event, "${format.encode(dt)} (${_contactList.total()})"));
+      }
+
+      var result = await EnumSelectorComponent.show(context, enumList);
+      if (result != null) {
+        var event = result.value as Event;
+        var _contactList = CustContactList.fromJson(event.tags);
+        RouterUtil.router(
+            context, RouterPath.USER_HISTORY_CONTACT_LIST, _contactList);
+      }
+    }
   }
 
   String queryId = "";
@@ -252,11 +308,17 @@ class UserStatisticsItemComponent extends StatelessWidget {
 
   bool formatNum;
 
+  Function(LongPressStartDetails)? onLongPressStart;
+
+  Function(LongPressEndDetails)? onLongPressEnd;
+
   UserStatisticsItemComponent({
     required this.num,
     required this.name,
     required this.onTap,
     this.formatNum = false,
+    this.onLongPressStart,
+    this.onLongPressEnd,
   });
 
   @override
@@ -300,6 +362,8 @@ class UserStatisticsItemComponent extends StatelessWidget {
       onTap: () {
         onTap();
       },
+      onLongPressStart: onLongPressStart,
+      onLongPressEnd: onLongPressEnd,
       child: Container(
         margin: EdgeInsets.only(left: Base.BASE_PADDING),
         child: Row(children: list),

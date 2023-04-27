@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Begin to download translate model"),
+        "Begin_to_load_Contact_History": MessageLookupByLibrary.simpleMessage(
+            "Begin to load Contact History"),
         "Block": MessageLookupByLibrary.simpleMessage("Block"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Blocks"),
         "Boost": MessageLookupByLibrary.simpleMessage("Boost"),
@@ -208,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Private key is null."),
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
+        "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relays"),
         "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
         "Request": MessageLookupByLibrary.simpleMessage("Request"),

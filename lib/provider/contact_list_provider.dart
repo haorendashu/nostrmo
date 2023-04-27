@@ -136,6 +136,13 @@ class ContactListProvider extends ChangeNotifier {
     _saveAndNotify();
   }
 
+  void updateContacts(CustContactList contactList) {
+    _contactList = contactList;
+    _event = nostr!.sendContactList(contactList);
+
+    _saveAndNotify();
+  }
+
   CustContactList? get contactList => _contactList;
 
   Iterable<Contact> list() {
