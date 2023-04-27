@@ -88,6 +88,7 @@ dependencies:
   sqflite_common_ffi: ^2.2.4
   sqflite_common: ^2.4.4
   window_manager: ^0.3.2
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

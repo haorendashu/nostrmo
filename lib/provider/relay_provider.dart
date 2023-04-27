@@ -47,7 +47,7 @@ class RelayProvider extends ChangeNotifier {
         // "wss://universe.nostrich.land/",
         // "wss://relay.snort.social/",
         // "wss://universe.nostrich.land",
-        // "wss://filter.nostr.wine"
+        // "wss://filter.nostr.wine",
         // "wss://nostr.vpn1.codingmerc.com",
       ];
     }

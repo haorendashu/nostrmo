@@ -52,6 +52,7 @@ import 'router/profile_editor/profile_editor_router.dart';
 import 'router/index/index_router.dart';
 import 'router/keybackup/key_backup_router.dart';
 import 'router/notice/notice_router.dart';
+import 'router/qrscanner/qrscanner_router.dart';
 import 'router/relays/relays_router.dart';
 import 'router/setting/setting_router.dart';
 import 'router/tag/tag_detail_router.dart';
@@ -249,6 +250,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.FILTER: (context) => FilterRouter(),
       RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),
       RouterPath.SETTING: (context) => SettingRouter(indexReload: reload),
+      RouterPath.QRSCANNER: (context) => QRScannerRouter(),
     };
 
     return MultiProvider(

@@ -3,7 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostr_dart/nostr_dart.dart';
+import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
+import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
@@ -17,6 +19,7 @@ import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../util/string_util.dart';
+import '../comfirm_dialog.dart';
 import 'metadata_component.dart';
 
 class MetadataTopComponent extends StatefulWidget {
@@ -126,6 +129,15 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         child: Container(),
       )
     ];
+
+    if (!PlatformUtil.isPC() && widget.pubkey == nostr!.publicKey) {
+      // is phont and local
+      topBtnList.add(wrapBtn(MetadataIconBtn(
+        iconData: Icons.qr_code_scanner,
+        onTap: handleScanner,
+      )));
+    }
+
     topBtnList.add(wrapBtn(MetadataIconBtn(
       iconData: Icons.qr_code,
       onTap: () {
@@ -399,6 +411,44 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
 
   void onZapSelect(int sats) {
     ZapAction.handleZap(context, sats, widget.pubkey);
+  }
+
+  Future<void> handleScanner() async {
+    var result = await RouterUtil.router(context, RouterPath.QRSCANNER);
+    if (StringUtil.isNotBlank(result)) {
+      if (Nip19.isPubkey(result)) {
+        var pubkey = Nip19.decode(result);
+        RouterUtil.router(context, RouterPath.USER, pubkey);
+      } else if (NIP19Tlv.isNprofile(result)) {
+        var nprofile = NIP19Tlv.decodeNprofile(result);
+        if (nprofile != null) {
+          RouterUtil.router(context, RouterPath.USER, nprofile!.pubkey);
+        }
+      } else if (Nip19.isNoteId(result)) {
+        var noteId = Nip19.decode(result);
+        RouterUtil.router(context, RouterPath.EVENT_DETAIL, noteId);
+      } else if (NIP19Tlv.isNevent(result)) {
+        var nevent = NIP19Tlv.decodeNevent(result);
+        if (nevent != null) {
+          RouterUtil.router(context, RouterPath.EVENT_DETAIL, nevent.id);
+        }
+      } else if (NIP19Tlv.isNrelay(result)) {
+        var nrelay = NIP19Tlv.decodeNrelay(result);
+        if (nrelay != null) {
+          var result = await ComfirmDialog.show(
+              context, S.of(context).Add_this_relay_to_local);
+          if (result == true) {
+            relayProvider.addRelay(nrelay.addr);
+          }
+        }
+      } else if (result.indexOf("http") == 0) {
+        WebViewRouter.open(context, result);
+      } else {
+        Clipboard.setData(ClipboardData(text: result)).then((_) {
+          BotToast.showText(text: S.of(context).Copy_success);
+        });
+      }
+    }
   }
 }
 
