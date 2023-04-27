@@ -8,7 +8,7 @@ import 'package:flutter_font_picker/flutter_font_picker.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/cust_contact_list.dart';
+import 'package:nostrmo/client/nip02/cust_contact_list.dart';
 import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/router/index/account_manager_component.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/cust_contact_list.dart';
+import '../../client/nip02/cust_contact_list.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';

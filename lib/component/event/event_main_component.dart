@@ -13,7 +13,7 @@ import 'package:screenshot/screenshot.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/event_relation.dart';
-import '../../client/long_form_info.dart';
+import '../../client/nip23/long_form_info.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';

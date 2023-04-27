@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/zap/zap_action.dart';
-import 'package:nostrmo/client/zap_num_util.dart';
+import 'package:nostrmo/client/zap/zap_num_util.dart';
 import 'package:nostrmo/component/content/content_str_link_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';

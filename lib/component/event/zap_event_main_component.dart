@@ -7,7 +7,7 @@ import 'package:nostrmo/util/number_format_util.dart';
 import 'package:nostrmo/util/spider_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/zap_num_util.dart';
+import '../../client/zap/zap_num_util.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';

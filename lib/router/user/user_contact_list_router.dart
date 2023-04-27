@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../client/cust_contact_list.dart';
+import '../../client/nip02/cust_contact_list.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
 import 'user_contact_list_component.dart';

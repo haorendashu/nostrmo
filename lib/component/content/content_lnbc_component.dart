@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/util/lightning_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../client/zap_num_util.dart';
+import '../../client/zap/zap_num_util.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 

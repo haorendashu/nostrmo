@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/dm_session.dart';
+import 'package:nostrmo/client/nip04/dm_session.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/editor/editor_mixin.dart';
 import 'package:nostrmo/consts/router_path.dart';

@@ -11,9 +11,9 @@ import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
-import '../../client/cust_contact_list.dart';
+import '../../client/nip02/cust_contact_list.dart';
 import '../../client/filter.dart';
-import '../../client/zap_num_util.dart';
+import '../../client/zap/zap_num_util.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';

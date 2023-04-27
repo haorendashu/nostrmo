@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:nostr_dart/nostr_dart.dart';
 
 import 'event_kind.dart' as kind;
-import 'cust_contact_list.dart';
+import 'nip02/cust_contact_list.dart';
 import 'cust_relay_pool.dart';
 
 class CustNostr {

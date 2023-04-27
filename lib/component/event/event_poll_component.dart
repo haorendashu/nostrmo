@@ -6,12 +6,12 @@ import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/zap/zap_action.dart';
-import 'package:nostrmo/client/zap_num_util.dart';
+import 'package:nostrmo/client/zap/zap_num_util.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/util/spider_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/poll_info.dart';
+import '../../client/nip69/poll_info.dart';
 import '../../consts/base.dart';
 import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
 
 import '../../client/event_kind.dart' as kind;
-import '../client/cust_contact_list.dart';
+import '../client/nip02/cust_contact_list.dart';
 import '../client/cust_nostr.dart';
 import '../client/filter.dart';
 import '../data/event_mem_box.dart';

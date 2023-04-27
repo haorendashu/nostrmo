@@ -1,7 +1,7 @@
 import 'package:nostr_dart/nostr_dart.dart';
 
 import '../../client/event_kind.dart' as kind;
-import '../client/zap_num_util.dart';
+import '../client/zap/zap_num_util.dart';
 import '../main.dart';
 import '../util/find_event_interface.dart';
 

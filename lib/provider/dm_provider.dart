@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/dm_session.dart';
+import 'package:nostrmo/client/nip04/dm_session.dart';
 import 'package:nostrmo/data/dm_session_info.dart';
 import 'package:nostrmo/data/dm_session_info_db.dart';
 import 'package:nostrmo/util/later_function.dart';
