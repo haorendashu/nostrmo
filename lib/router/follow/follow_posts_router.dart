@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/component/new_notes_updated_component.dart';
 import 'package:nostrmo/consts/base.dart';

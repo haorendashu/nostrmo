@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/src/event.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../../client/event.dart';
 import '../../../client/event_kind.dart' as kind;
 import '../../../client/filter.dart';
 import '../../../component/cust_state.dart';
@@ -100,7 +100,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
     }
 
     var filter = Filter(ids: ids, kinds: [kind.EventKind.TEXT_NOTE]);
-    nostr!.pool.subscribe([filter.toJson()], (event) {
+    nostr!.subscribe([filter.toJson()], (event) {
       if (eventBox.isEmpty()) {
         laterTimeMS = 200;
       } else {
@@ -111,12 +111,12 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
         eventBox.addList(list);
         setState(() {});
       }, null);
-    }, subscribeId);
+    }, id: subscribeId);
   }
 
   void unsubscribe() {
     try {
-      nostr!.pool.unsubscribe(subscribeId);
+      nostr!.unsubscribe(subscribeId);
     } catch (e) {}
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 
+import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
 import '../client/filter.dart';
 import '../main.dart';
@@ -59,7 +59,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
     var filter = Filter(ids: _needUpdateIds);
     var subscriptId = StringUtil.rndNameStr(16);
     // use query and close after EOSE
-    nostr!.pool.query([filter.toJson()], _onEvent, subscriptId);
+    nostr!.query([filter.toJson()], _onEvent, id: subscriptId);
 
     for (var id in _needUpdateIds) {
       _handingIds[id] = 1;

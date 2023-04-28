@@ -1,4 +1,4 @@
-import 'package:nostr_dart/nostr_dart.dart';
+import '../event.dart';
 
 class LongFormInfo {
   String? title;

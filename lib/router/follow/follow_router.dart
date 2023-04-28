@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:keframe/keframe.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/component/placeholder/event_placeholder.dart';
 import 'package:nostrmo/consts/router_path.dart';

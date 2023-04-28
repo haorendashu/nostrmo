@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
+import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/appbar4stack.dart';
@@ -298,7 +298,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
         kinds: [kind.EventKind.METADATA],
         authors: [nostr!.publicKey],
         limit: 1);
-    nostr!.pool.query([filter.toJson()], (event) {
+    nostr!.query([filter.toJson()], (event) {
       if (profileEvent == null) {
         profileEvent = event;
       } else if (event.createdAt > profileEvent!.createdAt) {

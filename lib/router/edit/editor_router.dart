@@ -7,7 +7,6 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
@@ -29,6 +28,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:pointycastle/ecc/api.dart';
 
+import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../component/cust_state.dart';
 import '../../component/editor/editor_mixin.dart';

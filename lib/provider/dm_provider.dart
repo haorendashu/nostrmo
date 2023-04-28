@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/nip04/dm_session.dart';
-import 'package:nostrmo/data/dm_session_info.dart';
-import 'package:nostrmo/data/dm_session_info_db.dart';
-import 'package:nostrmo/util/later_function.dart';
-import 'package:nostrmo/util/peddingevents_later_function.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../../client/event_kind.dart' as kind;
-import '../client/cust_nostr.dart';
+import '../client/event.dart';
 import '../client/filter.dart';
+import '../client/nip04/dm_session.dart';
+import '../client/nostr.dart';
+import '../data/dm_session_info.dart';
+import '../data/dm_session_info_db.dart';
 import '../data/event_db.dart';
 import '../main.dart';
+import '../util/peddingevents_later_function.dart';
+import '../util/string_util.dart';
 
 class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
   static DMProvider? _dmProvider;
@@ -202,7 +201,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     return addResult;
   }
 
-  void query({CustNostr? targetNostr, bool initQuery = false}) {
+  void query({Nostr? targetNostr, bool initQuery = false}) {
     targetNostr ??= nostr;
     var filter0 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
@@ -216,11 +215,10 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     );
 
     if (initQuery) {
-      targetNostr.pool
-          .addInitQuery([filter0.toJson(), filter1.toJson()], onEvent);
+      targetNostr.addInitQuery([filter0.toJson(), filter1.toJson()], onEvent);
     } else {
       // targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
-      targetNostr.pool.query([filter0.toJson(), filter1.toJson()], onEvent);
+      targetNostr.query([filter0.toJson(), filter1.toJson()], onEvent);
     }
   }
 

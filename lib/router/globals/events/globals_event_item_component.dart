@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/single_event_provider.dart';
@@ -7,6 +6,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../../client/event.dart';
 import '../../../consts/base.dart';
 import '../../../generated/l10n.dart';
 

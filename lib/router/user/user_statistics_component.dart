@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/nip02/cust_contact_list.dart';
 import '../../client/filter.dart';
@@ -140,16 +140,16 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       localContactBox = EventMemBox(sortAfterAdd: false);
       var filter = Filter(
           authors: [widget.pubkey], kinds: [kind.EventKind.CONTACT_LIST]);
-      nostr!.pool.query([filter.toJson()], (event) {
+      nostr!.query([filter.toJson()], (event) {
         localContactBox!.add(event);
-      }, fetchLocalContactsId);
+      }, id: fetchLocalContactsId);
       BotToast.showText(text: S.of(context).Begin_to_load_Contact_History);
     }
   }
 
   Future<void> onLongPressEnd(LongPressEndDetails d) async {
     if (fetchLocalContactsId != null) {
-      nostr!.pool.unsubscribe(fetchLocalContactsId!);
+      nostr!.unsubscribe(fetchLocalContactsId!);
       fetchLocalContactsId = null;
 
       var format = FixedDateTimeFormatter("YYYY-MM-DD hh:mm:ss");
@@ -193,7 +193,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
           authors: [widget.pubkey],
           limit: 1,
           kinds: [kind.EventKind.CONTACT_LIST]);
-      nostr!.pool.query([filter.toJson()], (event) {
+      nostr!.query([filter.toJson()], (event) {
         if (((contactListEvent != null &&
                     event.createdAt > contactListEvent!.createdAt) ||
                 contactListEvent == null) &&
@@ -203,7 +203,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
             contactList = CustContactList.fromJson(event.tags);
           });
         }
-      }, queryId);
+      }, id: queryId);
     }
 
     {
@@ -212,7 +212,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
           authors: [widget.pubkey],
           limit: 1,
           kinds: [kind.EventKind.RELAY_LIST_METADATA]);
-      nostr!.pool.query([filter.toJson()], (event) {
+      nostr!.query([filter.toJson()], (event) {
         if (((relaysEvent != null &&
                     event.createdAt > relaysEvent!.createdAt) ||
                 relaysEvent == null) &&
@@ -222,7 +222,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
             relaysTags = event.tags;
           });
         }
-      }, queryId2);
+      }, id: queryId2);
     }
   }
 
@@ -258,7 +258,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       var filter = Filter(kinds: [kind.EventKind.ZAP], p: [widget.pubkey]);
       zapSubscribeId = StringUtil.rndNameStr(12);
       // print(filter);
-      nostr!.pool.query([filter.toJson()], onZapEvent, zapSubscribeId);
+      nostr!.query([filter.toJson()], onZapEvent, id: zapSubscribeId);
 
       zapNum = 0;
     } else {
@@ -291,7 +291,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   void checkAndUnsubscribe(String queryId) {
     if (StringUtil.isNotBlank(queryId)) {
       try {
-        nostr!.pool.unsubscribe(queryId);
+        nostr!.unsubscribe(queryId);
       } catch (e) {}
     }
   }

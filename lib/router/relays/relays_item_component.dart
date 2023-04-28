@@ -7,6 +7,7 @@ import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/main.dart';
 
 import '../../consts/base.dart';
+import '../../consts/client_connected.dart';
 import '../../data/relay_status.dart';
 import '../../generated/l10n.dart';
 
@@ -22,7 +23,7 @@ class RelaysItemComponent extends StatelessWidget {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     Color borderLeftColor = Colors.green;
-    if (!relayStatus.connected) {
+    if (relayStatus.connected != ClientConneccted.CONNECTED) {
       borderLeftColor = Colors.red;
     }
 

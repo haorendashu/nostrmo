@@ -1,6 +1,5 @@
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/util/string_util.dart';
-
+import '../../util/string_util.dart';
+import '../event.dart';
 import '../event_kind.dart' as kind;
 
 class BadgeDefinition {

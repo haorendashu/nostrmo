@@ -1,10 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/comfirm_dialog.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
@@ -114,7 +114,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
         authors: [nostr!.publicKey],
         limit: 1,
         kinds: [kind.EventKind.RELAY_LIST_METADATA]);
-    nostr!.pool.query([filter.toJson()], (event) {
+    nostr!.query([filter.toJson()], (event) {
       if ((remoteRelayEvent != null &&
               event.createdAt > remoteRelayEvent!.createdAt) ||
           remoteRelayEvent == null) {

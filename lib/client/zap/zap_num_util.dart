@@ -1,8 +1,7 @@
-import 'package:nostr_dart/nostr_dart.dart';
-
 import '../../../client/event_kind.dart' as kind;
 import '../../util/spider_util.dart';
 import '../../util/string_util.dart';
+import '../event.dart';
 
 class ZapNumUtil {
   static int getNumFromZapEvent(Event event) {

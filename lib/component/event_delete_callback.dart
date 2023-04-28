@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
+
+import '../client/event.dart';
 
 class EventDeleteCallback extends InheritedWidget {
   Function(Event) onDeleteCallback;

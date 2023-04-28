@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bech32/bech32.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 
+import '../event.dart';
 import '../event_kind.dart' as kind;
 import '../../util/dio_util.dart';
 import '../../util/string_util.dart';
-import '../cust_nostr.dart';
 import '../nip19/nip19.dart';
+import '../nostr.dart';
 import 'lnurl_response.dart';
 
 class Zap {
@@ -53,7 +53,7 @@ class Zap {
     required int sats,
     required String recipientPubkey,
     String? eventId,
-    required CustNostr targetNostr,
+    required Nostr targetNostr,
     required List<String> relays,
     String? pollOption,
   }) async {
@@ -87,7 +87,7 @@ class Zap {
     }
     var event =
         Event(targetNostr.publicKey, kind.EventKind.ZAP_REQUEST, tags, "");
-    event.sign(targetNostr.privateKey);
+    event.sign(targetNostr.privateKey!);
     log(jsonEncode(event));
     var eventStr = Uri.encodeQueryComponent(jsonEncode(event));
     callback += "&nostr=$eventStr";

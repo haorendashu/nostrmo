@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/router/tag/topic_map.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event.dart';
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
@@ -179,7 +179,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     } else {
       queryArg["#t"] = [plainTag];
     }
-    nostr!.pool.query([queryArg], onEvent, subscribeId);
+    nostr!.query([queryArg], onEvent, id: subscribeId);
   }
 
   void onEvent(Event event) {
@@ -195,7 +195,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     disposeLater();
 
     try {
-      nostr!.pool.unsubscribe(subscribeId);
+      nostr!.unsubscribe(subscribeId);
     } catch (e) {}
   }
 

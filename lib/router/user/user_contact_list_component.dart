@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/nip02/contact.dart';
 import '../../client/nip02/cust_contact_list.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';

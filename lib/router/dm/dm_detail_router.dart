@@ -80,7 +80,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     );
 
     var localPubkey = nostr!.publicKey;
-    agreement = NIP04.getAgreement(nostr!.privateKey);
+    agreement = NIP04.getAgreement(nostr!.privateKey!);
 
     List<Widget> list = [];
 

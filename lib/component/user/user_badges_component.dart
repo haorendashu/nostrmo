@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/consts/base.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
-import 'package:nostrmo/util/later_function.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../client/nip58/badge_definition.dart';
+import '../../consts/base.dart';
+import '../../data/event_mem_box.dart';
 import '../../main.dart';
 import '../../provider/badge_definition_provider.dart';
+import '../../util/later_function.dart';
+import '../../util/string_util.dart';
 import '../badge_component.dart';
 import '../cust_state.dart';
 
@@ -95,7 +95,7 @@ class _UserBadgesComponent extends CustState<UserBadgesComponent>
   Future<void> onReady(BuildContext context) async {
     var filter =
         Filter(p: [widget.pubkey], kinds: [kind.EventKind.BADGE_AWARD]);
-    nostr!.pool.query([filter.toJson()], (event) {
+    nostr!.query([filter.toJson()], (event) {
       var result = eventMemBox.add(event);
       if (result) {
         later(() {
@@ -108,7 +108,7 @@ class _UserBadgesComponent extends CustState<UserBadgesComponent>
   @override
   void dispose() {
     super.dispose();
-    nostr!.pool.unsubscribe(subscribeId);
+    nostr!.unsubscribe(subscribeId);
     disposeLater();
   }
 }

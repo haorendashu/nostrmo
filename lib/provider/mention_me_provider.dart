@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/util/peddingevents_later_function.dart';
 
 import '../../client/event_kind.dart' as kind;
-import '../client/cust_nostr.dart';
+import '../client/event.dart';
 import '../client/filter.dart';
+import '../client/nostr.dart';
 import '../data/event_mem_box.dart';
 import '../main.dart';
+import '../util/peddingevents_later_function.dart';
 import '../util/string_util.dart';
 
 class MentionMeProvider extends ChangeNotifier
@@ -52,7 +52,7 @@ class MentionMeProvider extends ChangeNotifier
 
   String? subscribeId;
 
-  void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {
+  void doQuery({Nostr? targetNostr, bool initQuery = false, int? until}) {
     targetNostr ??= nostr!;
     var filter = Filter(
       kinds: queryEventKinds(),
@@ -63,21 +63,21 @@ class MentionMeProvider extends ChangeNotifier
 
     if (subscribeId != null) {
       try {
-        targetNostr.pool.unsubscribe(subscribeId!);
+        targetNostr.unsubscribe(subscribeId!);
       } catch (e) {}
     }
 
     subscribeId = _doQueryFunc(targetNostr, filter, initQuery: initQuery);
   }
 
-  String _doQueryFunc(CustNostr targetNostr, Filter filter,
+  String _doQueryFunc(Nostr targetNostr, Filter filter,
       {bool initQuery = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
       // targetNostr.pool.subscribe([filter.toJson()], onEvent, subscribeId);
-      targetNostr.pool.addInitQuery([filter.toJson()], onEvent, subscribeId);
+      targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
     } else {
-      targetNostr.pool.query([filter.toJson()], onEvent, subscribeId);
+      targetNostr.query([filter.toJson()], onEvent, id: subscribeId);
     }
     return subscribeId;
   }

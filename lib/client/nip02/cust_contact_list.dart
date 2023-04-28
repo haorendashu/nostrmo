@@ -1,4 +1,4 @@
-import 'package:nostr_dart/nostr_dart.dart';
+import 'contact.dart';
 
 class CustContactList {
   final Map<String, Contact> _contacts;

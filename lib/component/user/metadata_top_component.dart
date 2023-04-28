@@ -2,7 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/component/webview_router.dart';
@@ -14,6 +13,7 @@ import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/nip02/contact.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';

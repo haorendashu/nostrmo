@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event.dart';
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';

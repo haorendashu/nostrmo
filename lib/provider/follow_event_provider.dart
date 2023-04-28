@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 
 import '../../client/event_kind.dart' as kind;
+import '../client/event.dart';
+import '../client/nip02/contact.dart';
 import '../client/nip02/cust_contact_list.dart';
-import '../client/cust_nostr.dart';
 import '../client/filter.dart';
+import '../client/nostr.dart';
 import '../data/event_mem_box.dart';
 import '../main.dart';
 import '../util/find_event_interface.dart';
@@ -71,7 +72,7 @@ class FollowEventProvider extends ChangeNotifier
     ];
   }
 
-  void doQuery({CustNostr? targetNostr, bool initQuery = false, int? until}) {
+  void doQuery({Nostr? targetNostr, bool initQuery = false, int? until}) {
     var filter = Filter(
       kinds: queryEventKinds(),
       until: until ?? _initTime,
@@ -107,25 +108,25 @@ class FollowEventProvider extends ChangeNotifier
     }
   }
 
-  void doUnscribe(CustNostr targetNostr) {
+  void doUnscribe(Nostr targetNostr) {
     if (_subscribeIds.isNotEmpty) {
       for (var subscribeId in _subscribeIds) {
         try {
-          targetNostr.pool.unsubscribe(subscribeId);
+          targetNostr.unsubscribe(subscribeId);
         } catch (e) {}
       }
       _subscribeIds.clear();
     }
   }
 
-  String _doQueryFunc(CustNostr targetNostr, Filter filter,
+  String _doQueryFunc(Nostr targetNostr, Filter filter,
       {bool initQuery = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
       // targetNostr.pool.subscribe([filter.toJson()], onEvent, subscribeId);
-      targetNostr.pool.addInitQuery([filter.toJson()], onEvent, subscribeId);
+      targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
     } else {
-      targetNostr.pool.query([filter.toJson()], onEvent, subscribeId);
+      targetNostr.query([filter.toJson()], onEvent, id: subscribeId);
     }
     return subscribeId;
   }

@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/nip07_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
@@ -14,6 +13,7 @@ import 'package:nostrmo/util/string_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../client/event.dart';
 import '../client/nip07/nip07_methods.dart';
 import '../generated/l10n.dart';
 import '../main.dart';
@@ -86,7 +86,7 @@ class _WebViewRouter extends CustState<WebViewRouter> {
             var tags = eventObj["tags"];
             Event event = Event(nostr!.publicKey, eventObj["kind"], tags ?? [],
                 eventObj["content"]);
-            event.sign(nostr!.privateKey);
+            event.sign(nostr!.privateKey!);
 
             var eventResultStr = jsonEncode(event.toJson());
             // TODO this method to handle " may be error

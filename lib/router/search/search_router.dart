@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/data/event_find_util.dart';
 import 'package:nostrmo/data/metadata.dart';
@@ -11,6 +10,8 @@ import 'package:nostrmo/router/search/search_actions.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/client_utils/keys.dart';
+import '../../client/event.dart';
 import '../../client/nip19/nip19.dart';
 import '../../component/cust_state.dart';
 import '../../client/event_kind.dart' as kind;
@@ -248,18 +249,18 @@ class _SearchRouter extends CustState<SearchRouter>
     subscribeId = generatePrivateKey();
 
     filterMap!["until"] = until;
-    nostr!.pool.query([filterMap!], (event) {
+    nostr!.query([filterMap!], (event) {
       later(event, (list) {
         var addResult = eventMemBox.addList(list);
         if (addResult) {
           setState(() {});
         }
       }, null);
-    }, subscribeId);
+    }, id: subscribeId);
   }
 
   void unSubscribe() {
-    nostr!.pool.unsubscribe(subscribeId!);
+    nostr!.unsubscribe(subscribeId!);
     subscribeId = null;
   }
 

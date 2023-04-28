@@ -23,7 +23,7 @@ class _DMRouter extends State<DMRouter> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-    var agreement = NIP04.getAgreement(nostr!.privateKey);
+    var agreement = NIP04.getAgreement(nostr!.privateKey!);
 
     return Container(
       color: themeData.scaffoldBackgroundColor,

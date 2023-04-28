@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
+import '../../client/event.dart';
 import '../../client/event_relation.dart';
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
@@ -256,7 +256,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       if (rootEvent == null) {
         // source event isn't root event，query root event
         var filter = Filter(ids: [rootId!]);
-        nostr!.pool.query([filter.toJson()], onRootEvent);
+        nostr!.query([filter.toJson()], onRootEvent);
       }
 
       // query sub events
@@ -267,7 +267,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         kind.EventKind.FILE_HEADER,
         kind.EventKind.POLL,
       ]);
-      nostr!.pool.query([filter.toJson()], onEvent);
+      nostr!.query([filter.toJson()], onEvent);
     }
   }
 

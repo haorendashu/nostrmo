@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/filter.dart';
-import 'package:nostrmo/component/cust_state.dart';
-import 'package:nostrmo/component/event/event_main_component.dart';
-import 'package:nostrmo/consts/base.dart';
-import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/main.dart';
-import 'package:nostrmo/provider/single_event_provider.dart';
-import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../client/event.dart';
+import '../../consts/base.dart';
+import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';
+import '../../provider/single_event_provider.dart';
+import '../../util/router_util.dart';
+import '../cust_state.dart';
+import 'event_main_component.dart';
 
 class EventQuoteComponent extends StatefulWidget {
   Event? event;

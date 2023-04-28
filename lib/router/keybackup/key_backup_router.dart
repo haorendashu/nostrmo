@@ -186,7 +186,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
       return;
     }
 
-    doCopy(nostr!.privateKey);
+    doCopy(nostr!.privateKey!);
   }
 
   void copyKey() {
@@ -195,7 +195,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
     }
 
     var pk = nostr!.privateKey;
-    var nip19Key = Nip19.encodePrivateKey(pk);
+    var nip19Key = Nip19.encodePrivateKey(pk!);
     doCopy(nip19Key);
   }
 

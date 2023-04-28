@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -234,13 +233,13 @@ class _UserRouter extends CustState<UserRouter>
 
     if (StringUtil.isNotBlank(subscribeId)) {
       try {
-        nostr!.pool.unsubscribe(subscribeId!);
+        nostr!.unsubscribe(subscribeId!);
       } catch (e) {}
     }
   }
 
   void unSubscribe() {
-    nostr!.pool.unsubscribe(subscribeId!);
+    nostr!.unsubscribe(subscribeId!);
     subscribeId = null;
   }
 
@@ -265,7 +264,7 @@ class _UserRouter extends CustState<UserRouter>
       limit: queryLimit,
     );
     subscribeId = StringUtil.rndNameStr(16);
-    nostr!.pool.query([filter.toJson()], onEvent, subscribeId);
+    nostr!.query([filter.toJson()], onEvent, id: subscribeId);
   }
 
   @override

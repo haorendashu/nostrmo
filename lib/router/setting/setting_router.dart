@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip02/cust_contact_list.dart';
 import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
@@ -17,6 +16,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../component/colors_selector_component.dart';
 import '../../component/comfirm_dialog.dart';
@@ -687,7 +687,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           kind.EventKind.TEXT_NOTE,
           kind.EventKind.REPOST,
         ]);
-        nostr!.pool.query([filter.toJson()], onDeletedEventReceive);
+        nostr!.query([filter.toJson()], onDeletedEventReceive);
       } catch (e) {
         log("delete account error ${e.toString()}");
       }

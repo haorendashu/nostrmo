@@ -1,9 +1,11 @@
+import '../consts/client_connected.dart';
+
 class RelayStatus {
   String addr;
 
   RelayStatus(this.addr);
 
-  bool connected = false;
+  int connected = ClientConneccted.UN_CONNECT;
 
   // bool noteAble = true;
   // bool dmAble = true;

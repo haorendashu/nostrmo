@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 
+import '../client/event.dart';
 import '../client/filter.dart';
 import '../data/event_mem_box.dart';
 import '../main.dart';
@@ -18,7 +18,7 @@ class MentionMeNewProvider extends ChangeNotifier
   void queryNew() {
     if (subscribeId != null) {
       try {
-        nostr!.pool.unsubscribe(subscribeId!);
+        nostr!.unsubscribe(subscribeId!);
       } catch (e) {}
     }
 
@@ -33,9 +33,9 @@ class MentionMeNewProvider extends ChangeNotifier
       kinds: mentionMeProvider.queryEventKinds(),
       p: [nostr!.publicKey],
     );
-    nostr!.pool.query([filter.toJson()], (event) {
+    nostr!.query([filter.toJson()], (event) {
       later(event, handleEvents, null);
-    }, subscribeId);
+    }, id: subscribeId);
   }
 
   handleEvents(List<Event> events) {

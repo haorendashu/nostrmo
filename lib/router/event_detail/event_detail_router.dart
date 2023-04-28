@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
+import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../component/event/event_list_component.dart';
 import '../../component/event/event_load_list_component.dart';
@@ -12,6 +11,7 @@ import '../../component/event/zap_event_list_component.dart';
 import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';
 import '../../provider/event_reactions_provider.dart';
+import '../../provider/single_event_provider.dart';
 import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../thread/thread_detail_router.dart';

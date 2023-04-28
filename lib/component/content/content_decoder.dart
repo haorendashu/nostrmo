@@ -2,25 +2,24 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/client/nip19/nip19_tlv.dart';
-import 'package:nostrmo/component/content/content_image_component.dart';
-import 'package:nostrmo/component/content/content_link_component.dart';
-import 'package:nostrmo/component/content/content_lnbc_component.dart';
-import 'package:nostrmo/component/content/content_mention_user_component.dart';
-import 'package:nostrmo/component/content/content_tag_component.dart';
-import 'package:nostrmo/component/content/content_video_component.dart';
-import 'package:nostrmo/component/event/event_quote_component.dart';
-import 'package:nostrmo/component/translate/line_translate_component.dart';
-import 'package:nostrmo/component/translate/text_translate_component.dart';
-import 'package:nostrmo/util/platform_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 
+import '../../client/event.dart';
+import '../../client/nip19/nip19.dart';
+import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
+import '../../util/platform_util.dart';
+import '../../util/string_util.dart';
+import '../event/event_quote_component.dart';
+import '../translate/line_translate_component.dart';
+import 'content_image_component.dart';
+import 'content_link_component.dart';
 import 'content_link_pre_component.dart';
+import 'content_lnbc_component.dart';
+import 'content_mention_user_component.dart';
 import 'content_relay_component.dart';
 import 'content_str_link_component.dart';
+import 'content_tag_component.dart';
+import 'content_video_component.dart';
 
 class ContentDecoder {
   static const OTHER_LIGHTNING = "lightning=";

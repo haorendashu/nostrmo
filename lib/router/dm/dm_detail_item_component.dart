@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/consts/router_path.dart';
@@ -8,6 +7,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 import 'package:provider/provider.dart';
 
+import '../../client/event.dart';
 import '../../component/user_pic_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';

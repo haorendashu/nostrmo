@@ -1,10 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/util/platform_util.dart';
 
+import '../../client/client_utils/keys.dart';
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';

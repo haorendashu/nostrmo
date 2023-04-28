@@ -1,4 +1,4 @@
-import 'package:nostr_dart/nostr_dart.dart';
+import 'event.dart';
 
 class EventRelation {
   late String id;
@@ -6,6 +6,7 @@ class EventRelation {
   late String pubkey;
 
   List<String> tagPList = [];
+
   List<String> tagEList = [];
 
   String? rootId;

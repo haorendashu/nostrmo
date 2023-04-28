@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
@@ -13,6 +12,7 @@ import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/client_utils/keys.dart';
 import '../../client/nip19/nip19.dart';
 import '../../component/comfirm_dialog.dart';
 import '../../consts/base.dart';

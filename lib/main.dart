@@ -9,6 +9,7 @@ import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nostrmo/client/nostr.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
@@ -22,7 +23,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'client/cust_nostr.dart';
 import 'consts/base.dart';
 import 'consts/colors.dart';
 import 'consts/router_path.dart';
@@ -109,7 +109,7 @@ late PcRouterFakeProvider pcRouterFakeProvider;
 
 late Map<String, WidgetBuilder> routes;
 
-CustNostr? nostr;
+Nostr? nostr;
 
 bool firstLogin = false;
 

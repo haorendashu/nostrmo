@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 
+import '../../client/event.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../util/router_util.dart';

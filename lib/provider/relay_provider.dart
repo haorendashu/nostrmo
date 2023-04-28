@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
 
+import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
-import '../client/cust_nostr.dart';
-import '../client/cust_relay.dart';
-import '../client/real_relay.dart';
+import '../client/nostr.dart';
+import '../client/relay.dart';
+import '../consts/client_connected.dart';
 import '../data/relay_status.dart';
 import '../main.dart';
 import 'data_util.dart';
@@ -15,8 +15,6 @@ class RelayProvider extends ChangeNotifier {
   static RelayProvider? _relayProvider;
 
   List<String> relayAddrs = [];
-
-  List<CustRelay> relays = [];
 
   Map<String, RelayStatus> relayStatusMap = {};
 
@@ -57,38 +55,26 @@ class RelayProvider extends ChangeNotifier {
     return relayStatusMap[addr];
   }
 
-  void checkAndReconnect() {
-    Map<String, CustRelay> relayMap = {};
-    for (var custRelay in relays) {
-      relayMap[custRelay.relayStatus.addr] = custRelay;
-    }
-
-    var relayIsEmpty = relayMap.isEmpty;
-
-    for (var addr in relayAddrs) {
-      var custRelay = relayMap[addr];
-      if (custRelay == null) {
-        _doAddRelay(addr, init: relayIsEmpty);
-      }
-    }
-  }
-
   String relayNumStr() {
     var total = relayAddrs.length;
-    var relayNum = relays.length;
-    return "$relayNum / $total";
+
+    int connectedNum = 0;
+    var it = relayStatusMap.values;
+    for (var status in it) {
+      if (status.connected == ClientConneccted.CONNECTED) {
+        connectedNum++;
+      }
+    }
+    return "$connectedNum / $total";
   }
 
   int total() {
     return relayAddrs.length;
   }
 
-  CustNostr genNostr(String pk) {
-    var _nostr = CustNostr(privateKey: pk);
+  Nostr genNostr(String pk) {
+    var _nostr = Nostr(privateKey: pk);
     log("nostr init over");
-
-    _nostr.pool.listenRelayAdded(relayAddedListener);
-    _nostr.pool.listenRelayRemoved(relayRemovedListener);
 
     // add initQuery
     var dmInitFuture = dmProvider.initDMSessions(_nostr.publicKey);
@@ -104,13 +90,17 @@ class RelayProvider extends ChangeNotifier {
       log("begin to init $relayAddr");
       var custRelay = genRelay(relayAddr);
       try {
-        _nostr.pool.add(custRelay, init: true);
+        _nostr.addRelay(custRelay, init: true);
       } catch (e) {
         log("relay $relayAddr add to pool error ${e.toString()}");
       }
     }
 
     return _nostr;
+  }
+
+  void onRelayStatusChange() {
+    notifyListeners();
   }
 
   void addRelay(String relayAddr) {
@@ -124,13 +114,13 @@ class RelayProvider extends ChangeNotifier {
   void _doAddRelay(String relayAddr, {bool init = false}) {
     var custRelay = genRelay(relayAddr);
     log("begin to init $relayAddr");
-    nostr!.pool.add(custRelay, autoSubscribe: true, init: init);
+    nostr!.addRelay(custRelay, autoSubscribe: true, init: init);
   }
 
   void removeRelay(String relayAddr) {
     if (relayAddrs.contains(relayAddr)) {
       relayAddrs.remove(relayAddr);
-      nostr!.pool.remove(relayAddr);
+      nostr!.removeRelay(relayAddr);
 
       _updateRelayToData();
     }
@@ -161,50 +151,44 @@ class RelayProvider extends ChangeNotifier {
     }
   }
 
-  CustRelay genRelay(String relayAddr) {
+  Relay genRelay(String relayAddr) {
     var relayStatus = relayStatusMap[relayAddr];
     if (relayStatus == null) {
       relayStatus = RelayStatus(relayAddr);
       relayStatusMap[relayAddr] = relayStatus;
     }
 
-    var relay = RealRelay(
-      relayStatus.addr,
+    return Relay(
+      relayAddr,
+      relayStatus,
       access: WriteAccess.readWrite,
-    );
-    return CustRelay(relay, relayStatus);
-  }
-
-  void relayAddedListener(CustRelay custRelay) {
-    relays.add(custRelay);
-    custRelay.relayStatus.connected = true;
-    notifyListeners();
-  }
-
-  void relayRemovedListener(CustRelay custRelay) {
-    custRelay.relayStatus.connected = false;
-    relays.removeWhere((element) {
-      return element.relay.url == custRelay.relay.url;
-    });
-    notifyListeners();
+    )..relayStatusCallback = onRelayStatusChange;
   }
 
   void setRelayListAndUpdate(List<String> addrs) {
     relayStatusMap.clear();
-    relays.clear();
 
     relayAddrs.clear();
     relayAddrs.addAll(addrs);
     _updateRelayToData(upload: false);
 
-    nostr!.close;
-    checkAndReconnect();
+    nostr!.close();
+    nostr = Nostr(privateKey: nostr!.privateKey);
+
+    // reconnect all client
+    for (var relayAddr in relayAddrs) {
+      var custRelay = genRelay(relayAddr);
+      try {
+        nostr!.addRelay(custRelay, autoSubscribe: true);
+      } catch (e) {
+        log("relay $relayAddr add to pool error ${e.toString()}");
+      }
+    }
   }
 
   void clear() {
     // sharedPreferences.remove(DataKey.RELAY_LIST);
     relayStatusMap.clear();
-    relays.clear();
     _load();
   }
 }

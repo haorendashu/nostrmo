@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/client/cust_nostr.dart';
 
 import '../../client/event_kind.dart' as kind;
+import '../client/event.dart';
+import '../client/nip02/contact.dart';
 import '../client/nip02/cust_contact_list.dart';
 import '../client/filter.dart';
+import '../client/nostr.dart';
 import '../main.dart';
 import '../util/string_util.dart';
 import 'data_util.dart';
@@ -26,7 +27,7 @@ class ContactListProvider extends ChangeNotifier {
     return _contactListProvider!;
   }
 
-  void reload({CustNostr? targetNostr}) {
+  void reload({Nostr? targetNostr}) {
     targetNostr ??= nostr;
 
     String? pubkey;
@@ -76,14 +77,14 @@ class ContactListProvider extends ChangeNotifier {
 
   var subscriptId = StringUtil.rndNameStr(16);
 
-  void query({CustNostr? targetNostr}) {
+  void query({Nostr? targetNostr}) {
     targetNostr ??= nostr;
     subscriptId = StringUtil.rndNameStr(16);
     var filter = Filter(
         kinds: [kind.EventKind.CONTACT_LIST],
         limit: 1,
         authors: [targetNostr!.publicKey]);
-    targetNostr.pool.addInitQuery([filter.toJson()], _onEvent, subscriptId);
+    targetNostr.addInitQuery([filter.toJson()], _onEvent, id: subscriptId);
   }
 
   void _onEvent(Event e) {

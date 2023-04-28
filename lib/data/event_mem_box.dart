@@ -1,5 +1,4 @@
-import 'package:nostr_dart/nostr_dart.dart';
-
+import '../client/event.dart';
 import '../util/find_event_interface.dart';
 
 /// a memory event box

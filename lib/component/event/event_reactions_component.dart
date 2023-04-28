@@ -5,27 +5,27 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-import 'package:nostr_dart/nostr_dart.dart';
-import 'package:nostrmo/component/event_delete_callback.dart';
-import 'package:nostrmo/consts/base_consts.dart';
-import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../client/event.dart';
 import '../../client/event_relation.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/zap/zap_action.dart';
+import '../../consts/base_consts.dart';
+import '../../consts/router_path.dart';
 import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/event_reactions_provider.dart';
 import '../../router/edit/editor_router.dart';
 import '../../util/number_format_util.dart';
+import '../../util/router_util.dart';
 import '../../util/store_util.dart';
 import '../../util/string_util.dart';
 import '../editor/cust_embed_types.dart';
+import '../event_delete_callback.dart';
 import '../event_reply_callback.dart';
 
 class EventReactionsComponent extends StatefulWidget {
