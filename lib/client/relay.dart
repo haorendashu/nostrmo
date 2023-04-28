@@ -40,12 +40,13 @@ class Relay {
         _wsChannel = WebSocketChannel.connect(wsUrl);
         log("Connect complete!");
         _wsChannel!.stream.listen((message) {
+          print(message);
           if (onMessage != null) {
             final List<dynamic> json = jsonDecode(message);
             onMessage!(this, json);
           }
         }, onError: (error) async {
-          log(error);
+          print(error);
           _onError("Websocket error $url", reconnect: true);
         }, onDone: () {
           _onError("Websocket stream closed by remote:  $url", reconnect: true);
