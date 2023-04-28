@@ -71,9 +71,10 @@ class RelayPool {
 
   void removeAll() {
     var keys = _relays.keys;
-    for (var key in keys) {
-      remove(key);
+    for (var url in keys) {
+      _relays[url]?.disconnect();
     }
+    _relays.clear();
   }
 
   void remove(String url) {
