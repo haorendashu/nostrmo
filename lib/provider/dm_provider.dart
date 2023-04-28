@@ -206,12 +206,12 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     var filter0 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
       authors: [targetNostr!.publicKey],
-      since: _initSince,
+      since: _initSince + 1,
     );
     var filter1 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
       p: [targetNostr.publicKey],
-      since: _initSince,
+      since: _initSince + 1,
     );
 
     if (initQuery) {
