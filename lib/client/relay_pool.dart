@@ -26,18 +26,6 @@ class RelayPool {
 
   RelayPool(this.localNostr, this.eventVerification);
 
-  // String relayNumStr() {
-  //   var total = _relays.length;
-  //   int activeNum = 0;
-  //   var it = _relays.values;
-  //   for (var relay in it) {
-  //     if (relay.isConnecting) {
-  //       activeNum++;
-  //     }
-  //   }
-  //   return "$activeNum / $total";
-  // }
-
   Future<bool> add(
     Relay relay, {
     bool autoSubscribe = false,
@@ -224,6 +212,12 @@ class RelayPool {
     final subscription = _subscriptions.remove(id);
     if (subscription != null) {
       send(["CLOSE", subscription.id]);
+    } else {
+      // check query and send close
+      var it = _relays.values;
+      for (var relay in it) {
+        relay.checkAndCompleteQuery(id);
+      }
     }
   }
 
