@@ -3,7 +3,7 @@ import 'package:nostrmo/util/hash_util.dart';
 class Base {
   static const APP_NAME = "Nostrmo";
 
-  static String VERSION_NAME = "1.4.3";
+  static String VERSION_NAME = "1.5.0";
 
   static int VERSION_NUM = 1;
 
