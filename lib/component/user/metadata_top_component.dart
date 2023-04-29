@@ -330,6 +330,9 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
           topList.add(MetadataIconDataComp(
             iconData: Icons.link,
             text: widget.metadata!.website!,
+            onTap: () {
+              WebViewRouter.open(context, widget.metadata!.website!);
+            },
           ));
         }
         if (StringUtil.isNotBlank(widget.metadata!.lud16)) {

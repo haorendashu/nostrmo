@@ -18,8 +18,6 @@ import '../util/string_util.dart';
 class FollowEventProvider extends ChangeNotifier
     with PenddingEventsLaterFunction
     implements FindEventInterface {
-  int queryTimeInterval = 60 * 2;
-
   late int _initTime;
 
   late EventMemBox eventBox;
