@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -36,6 +37,9 @@ class DioUtil {
     }
     Response resp = await dio.get(link, queryParameters: queryParameters);
     if (resp.statusCode == 200) {
+      if (resp.data is String) {
+        return json.decode(resp.data);
+      }
       return resp.data;
     } else {
       return null;
