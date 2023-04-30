@@ -6,7 +6,7 @@ import '../util/find_event_interface.dart';
 class EventMemBox implements FindEventInterface {
   List<Event> _eventList = [];
 
-  Map<String, int> _idMap = {};
+  Map<String, Event> _idMap = {};
 
   bool sortAfterAdd;
 
@@ -59,11 +59,13 @@ class EventMemBox implements FindEventInterface {
   }
 
   bool add(Event event) {
-    if (_idMap[event.id] != null) {
+    var oldEvent = _idMap[event.id];
+    if (oldEvent != null) {
+      oldEvent.sources.addAll(event.sources);
       return false;
     }
 
-    _idMap[event.id] = 1;
+    _idMap[event.id] = event;
     _eventList.add(event);
     if (sortAfterAdd) {
       sort();
@@ -74,10 +76,13 @@ class EventMemBox implements FindEventInterface {
   bool addList(List<Event> list) {
     bool added = false;
     for (var event in list) {
-      if (_idMap[event.id] == null) {
-        _idMap[event.id] = 1;
+      var oldEvent = _idMap[event.id];
+      if (oldEvent == null) {
+        _idMap[event.id] = event;
         _eventList.add(event);
         added = true;
+      } else {
+        oldEvent.sources.addAll(event.sources);
       }
     }
 

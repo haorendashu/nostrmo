@@ -66,7 +66,7 @@ class Event {
   String sig = '';
 
   /// Relay that an event was received from
-  String source = '';
+  List<String> sources = [];
 
   /// Returns the Event object as a JSON object
   Map<String, dynamic> toJson() {

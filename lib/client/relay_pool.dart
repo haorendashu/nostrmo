@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:nostrmo/util/string_util.dart';
 
+import '../consts/client_connected.dart';
 import '../main.dart';
 import 'event.dart';
 import 'event_kind.dart';
@@ -57,6 +58,17 @@ class RelayPool {
     return false;
   }
 
+  List<Relay> activeRelays() {
+    List<Relay> list = [];
+    var it = _relays.values;
+    for (var relay in it) {
+      if (relay.relayStatus.connected == ClientConneccted.CONNECTED) {
+        list.add(relay);
+      }
+    }
+    return list;
+  }
+
   void removeAll() {
     var keys = _relays.keys;
     for (var url in keys) {
@@ -106,7 +118,7 @@ class RelayPool {
             return;
           }
 
-          event.source = relay.url;
+          event.sources.add(relay.url);
           final subId = json[1] as String;
           var subscription = _subscriptions[subId];
 
@@ -221,6 +233,28 @@ class RelayPool {
     }
   }
 
+  // different relay use different filter
+  String queryByFilters(Map<String, List<Map<String, dynamic>>> filtersMap,
+      Function(Event) onEvent,
+      {String? id, Function? onComplete}) {
+    if (filtersMap.isEmpty) {
+      throw ArgumentError("No filters given", "filters");
+    }
+    id ??= StringUtil.rndNameStr(16);
+    if (onComplete != null) {
+      _queryCompleteCallbacks[id] = onComplete;
+    }
+    for (Relay relay in _relays.values) {
+      var filters = filtersMap[relay.url];
+      if (filters == null) {
+        continue;
+      }
+      Subscription subscription = Subscription(filters, onEvent, id);
+      relayDoQuery(relay, subscription);
+    }
+    return id;
+  }
+
   /// query should be a one time filter search.
   /// like: query metadata, query old event.
   /// query info will hold in relay and close in relay when EOSE message be received.
@@ -230,11 +264,11 @@ class RelayPool {
       throw ArgumentError("No filters given", "filters");
     }
     Subscription subscription = Subscription(filters, onEvent, id);
-    for (Relay relay in _relays.values) {
-      relayDoQuery(relay, subscription);
-    }
     if (onComplete != null) {
       _queryCompleteCallbacks[subscription.id] = onComplete;
+    }
+    for (Relay relay in _relays.values) {
+      relayDoQuery(relay, subscription);
     }
     return subscription.id;
   }
