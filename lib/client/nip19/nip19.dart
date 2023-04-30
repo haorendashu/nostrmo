@@ -49,7 +49,7 @@ class Nip19 {
       var data = convertBits(bech32Result.data, 5, 8, false);
       return HEX.encode(data);
     } catch (e) {
-      print(e);
+      print("Nip19 decode error ${e.toString()}");
       return "";
     }
   }
