@@ -102,6 +102,9 @@ class _IndexDrawerContnetComponnent
         onTap: () {
           indexProvider.setCurrentTap(0);
         },
+        onDoubleTap: () {
+          indexProvider.followScrollToTop();
+        },
       ));
       list.add(IndexDrawerItem(
         iconData: Icons.public,
@@ -109,6 +112,9 @@ class _IndexDrawerContnetComponnent
         color: _indexProvider.currentTap == 1 ? mainColor : null,
         onTap: () {
           indexProvider.setCurrentTap(1);
+        },
+        onDoubleTap: () {
+          indexProvider.globalScrollToTop();
         },
       ));
       list.add(IndexDrawerItem(
@@ -244,6 +250,8 @@ class IndexDrawerItem extends StatelessWidget {
 
   Function onTap;
 
+  Function? onDoubleTap;
+
   Color? color;
 
   // bool borderTop;
@@ -255,6 +263,7 @@ class IndexDrawerItem extends StatelessWidget {
     required this.name,
     required this.onTap,
     this.color,
+    this.onDoubleTap,
     // this.borderTop = true,
     // this.borderBottom = false,
   });
@@ -283,6 +292,11 @@ class IndexDrawerItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         onTap();
+      },
+      onDoubleTap: () {
+        if (onDoubleTap != null) {
+          onDoubleTap!();
+        }
       },
       behavior: HitTestBehavior.translucent,
       child: Container(
