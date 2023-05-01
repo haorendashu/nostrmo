@@ -264,7 +264,22 @@ class _UserRouter extends CustState<UserRouter>
       limit: queryLimit,
     );
     subscribeId = StringUtil.rndNameStr(16);
-    nostr!.query([filter.toJson()], onEvent, id: subscribeId);
+
+    if (!box.isEmpty()) {
+      var activeRelays = nostr!.activeRelays();
+      var oldestCreatedAts = box.oldestCreatedAtByRelay(
+        activeRelays,
+      );
+      Map<String, List<Map<String, dynamic>>> filtersMap = {};
+      for (var relay in activeRelays) {
+        var oldestCreatedAt = oldestCreatedAts[relay.url];
+        filter.until = oldestCreatedAt;
+        filtersMap[relay.url] = [filter.toJson()];
+      }
+      nostr!.queryByFilters(filtersMap, onEvent, id: subscribeId);
+    } else {
+      nostr!.query([filter.toJson()], onEvent, id: subscribeId);
+    }
   }
 
   @override

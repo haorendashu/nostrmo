@@ -77,7 +77,22 @@ class MentionMeProvider extends ChangeNotifier
       // targetNostr.pool.subscribe([filter.toJson()], onEvent, subscribeId);
       targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
     } else {
-      targetNostr.query([filter.toJson()], onEvent, id: subscribeId);
+      if (!eventBox.isEmpty()) {
+        var activeRelays = targetNostr.activeRelays();
+        var oldestCreatedAts =
+            eventBox.oldestCreatedAtByRelay(activeRelays, _initTime);
+        Map<String, List<Map<String, dynamic>>> filtersMap = {};
+        for (var relay in activeRelays) {
+          var oldestCreatedAt = oldestCreatedAts[relay.url];
+          if (oldestCreatedAt != null) {
+            filter.until = oldestCreatedAt;
+            filtersMap[relay.url] = [filter.toJson()];
+          }
+        }
+        targetNostr.queryByFilters(filtersMap, onEvent, id: subscribeId);
+      } else {
+        targetNostr.query([filter.toJson()], onEvent, id: subscribeId);
+      }
     }
     return subscribeId;
   }

@@ -136,6 +136,13 @@ class Nostr {
     return _pool.query(filters, onEvent, id: id, onComplete: onComplete);
   }
 
+  String queryByFilters(Map<String, List<Map<String, dynamic>>> filtersMap,
+      Function(Event) onEvent,
+      {String? id, Function? onComplete}) {
+    return _pool.queryByFilters(filtersMap, onEvent,
+        id: id, onComplete: onComplete);
+  }
+
   Future<bool> addRelay(
     Relay relay, {
     bool autoSubscribe = false,
@@ -146,5 +153,9 @@ class Nostr {
 
   void removeRelay(String url) {
     _pool.remove(url);
+  }
+
+  List<Relay> activeRelays() {
+    return _pool.activeRelays();
   }
 }

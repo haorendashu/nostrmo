@@ -55,12 +55,12 @@ mixin LoadMoreEvent {
       return;
     }
 
-    // check query data length if there was no more event
-    var currentLength = eventMemBox.length();
-    if (currentLength - beginQueryNum == 0) {
-      // maybe there was no more event
-      return;
-    }
+    // // check query data length if there was no more event
+    // var currentLength = eventMemBox.length();
+    // if (currentLength - beginQueryNum == 0) {
+    //   // maybe there was no more event
+    //   return;
+    // }
 
     // query from the oldest event createdAt
     var oldestEvent = eventMemBox.oldestEvent;

@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import '../client/event.dart';
+import '../client/relay.dart';
 import '../util/find_event_interface.dart';
 
 /// a memory event box
@@ -39,6 +42,39 @@ class EventMemBox implements FindEventInterface {
       return null;
     }
     return _eventList.last;
+  }
+
+  // find event oldest createdAt by relay
+  Map<String, int> oldestCreatedAtByRelay(List<Relay> relays, [int? initTime]) {
+    Map<String, int> result = {};
+    Map<String, Relay> relayMap = {};
+    for (var relay in relays) {
+      relayMap[relay.url] = relay;
+    }
+
+    var length = _eventList.length;
+    for (var index = length - 1; index > -1; index--) {
+      var event = _eventList[index];
+      for (var source in event.sources) {
+        if (relayMap[source] != null) {
+          log("$source findCreatedAt $length $index ${length - index}");
+          result[source] = event.createdAt;
+          relayMap.remove(source);
+        }
+      }
+
+      if (relayMap.isEmpty) {
+        break;
+      }
+    }
+
+    if (relayMap.isNotEmpty && initTime != null) {
+      for (var relay in relayMap.values) {
+        result[relay.url] = initTime;
+      }
+    }
+
+    return result;
   }
 
   void sort() {

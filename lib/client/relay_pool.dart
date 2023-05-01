@@ -244,13 +244,16 @@ class RelayPool {
     if (onComplete != null) {
       _queryCompleteCallbacks[id] = onComplete;
     }
-    for (Relay relay in _relays.values) {
-      var filters = filtersMap[relay.url];
-      if (filters == null) {
-        continue;
+    var entries = filtersMap.entries;
+    for (var entry in entries) {
+      var url = entry.key;
+      var filters = entry.value;
+
+      var relay = _relays[url];
+      if (relay != null) {
+        Subscription subscription = Subscription(filters, onEvent, id);
+        relayDoQuery(relay, subscription);
       }
-      Subscription subscription = Subscription(filters, onEvent, id);
-      relayDoQuery(relay, subscription);
     }
     return id;
   }
