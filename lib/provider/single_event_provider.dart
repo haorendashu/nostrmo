@@ -56,6 +56,10 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
   }
 
   void _laterSearch() {
+    if (_needUpdateIds.isEmpty) {
+      return;
+    }
+
     var filter = Filter(ids: _needUpdateIds);
     var subscriptId = StringUtil.rndNameStr(16);
     // use query and close after EOSE

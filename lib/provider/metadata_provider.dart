@@ -128,6 +128,10 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   }
 
   void _laterSearch() {
+    if (_needUpdatePubKeys.isEmpty) {
+      return;
+    }
+
     List<Map<String, dynamic>> filters = [];
     for (var pubkey in _needUpdatePubKeys) {
       var filter =

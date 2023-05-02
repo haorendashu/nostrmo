@@ -100,11 +100,9 @@ class EventReactionsProvider extends ChangeNotifier
   Map<String, int> _penddingIds = {};
 
   void _doPull() {
-    // Map<String, int> idMap = {};
-    // for (var id in _penddingIds) {
-    //   idMap[id] = 1;
-    // }
-    // _penddingIds.clear();
+    if (_penddingIds.isEmpty) {
+      return;
+    }
 
     var filter = Filter(e: _penddingIds.keys.toList());
     _penddingIds.clear();
