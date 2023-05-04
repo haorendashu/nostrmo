@@ -358,15 +358,19 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   }
 
   Future<void> onCommmentTap() async {
+    var er = widget.eventRelation;
     List<dynamic> tags = [];
     List<dynamic> tagsAddedWhenSend = [];
     String relayAddr = "";
     if (widget.event.sources.isNotEmpty) {
       relayAddr = widget.event.sources[0];
     }
-    tagsAddedWhenSend.add(["e", widget.event.id, relayAddr, "reply"]);
+    String directMarked = "reply";
+    if (StringUtil.isBlank(er.rootId)) {
+      directMarked = "root";
+    }
+    tagsAddedWhenSend.add(["e", widget.event.id, relayAddr, directMarked]);
 
-    var er = widget.eventRelation;
     tags.add(["p", widget.event.pubKey]);
     if (er.tagPList.isNotEmpty) {
       for (var p in er.tagPList) {
