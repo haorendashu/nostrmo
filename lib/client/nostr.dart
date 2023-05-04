@@ -67,14 +67,12 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event sendRepost(String id) {
-    Event event = Event(
-        _publicKey,
-        EventKind.REPOST,
-        [
-          ["e", id]
-        ],
-        "#[0]");
+  Event sendRepost(String id, [String? relayAddr]) {
+    List<dynamic> tag = ["e", id];
+    if (StringUtil.isNotBlank(relayAddr)) {
+      tag.add(relayAddr);
+    }
+    Event event = Event(_publicKey, EventKind.REPOST, [tag], "#[0]");
     return sendEvent(event);
   }
 

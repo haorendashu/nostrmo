@@ -387,7 +387,11 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
   Future<void> onRepostTap(String value) async {
     if (value == "boost") {
-      nostr!.sendRepost(widget.event.id);
+      String? relayAddr;
+      if (widget.event.sources.isNotEmpty) {
+        relayAddr = widget.event.sources[0];
+      }
+      nostr!.sendRepost(widget.event.id, relayAddr);
       eventReactionsProvider.addRepost(widget.event.id);
 
       if (settingProvider.broadcaseWhenBoost == OpenStatus.OPEN) {
