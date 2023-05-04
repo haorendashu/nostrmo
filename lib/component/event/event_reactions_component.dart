@@ -360,7 +360,11 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   Future<void> onCommmentTap() async {
     List<dynamic> tags = [];
     List<dynamic> tagsAddedWhenSend = [];
-    tagsAddedWhenSend.add(["e", widget.event.id, "", "reply"]);
+    String relayAddr = "";
+    if (widget.event.sources.isNotEmpty) {
+      relayAddr = widget.event.sources[0];
+    }
+    tagsAddedWhenSend.add(["e", widget.event.id, relayAddr, "reply"]);
 
     var er = widget.eventRelation;
     tags.add(["p", widget.event.pubKey]);
@@ -370,7 +374,11 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       }
     }
     if (StringUtil.isNotBlank(er.rootId)) {
-      tags.add(["e", er.rootId, "", "root"]);
+      String relayAddr = "";
+      if (StringUtil.isNotBlank(er.rootRelayAddr)) {
+        relayAddr = er.rootRelayAddr!;
+      }
+      tags.add(["e", er.rootId, relayAddr, "root"]);
     }
 
     // TODO reply maybe change the placeholder in editor router.

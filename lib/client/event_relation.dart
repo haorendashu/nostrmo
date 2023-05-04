@@ -11,7 +11,11 @@ class EventRelation {
 
   String? rootId;
 
+  String? rootRelayAddr;
+
   String? replyId;
+
+  String? replyRelayAddr;
 
   String? subject;
 
@@ -41,8 +45,10 @@ class EventRelation {
             var marker = tag[3];
             if (marker == "root") {
               rootId = value;
+              rootRelayAddr = tag[2];
             } else if (marker == "reply") {
               replyId = value;
+              replyRelayAddr = tag[2];
             }
           }
         } else if (tagKey == "subjet") {
@@ -76,6 +82,10 @@ class EventRelation {
         rootId ??= tagEList.first;
         replyId ??= tagEList.last;
       }
+    }
+
+    if (rootId != null && replyId == rootId && rootRelayAddr == null) {
+      rootRelayAddr = replyRelayAddr;
     }
 
     pMap.remove(event.pubKey);
