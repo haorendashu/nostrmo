@@ -226,6 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("Share"),
         "Show": MessageLookupByLibrary.simpleMessage("Show"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
+        "Source": MessageLookupByLibrary.simpleMessage("Source"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Text can\'t contain blank space"),

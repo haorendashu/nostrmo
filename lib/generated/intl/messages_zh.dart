@@ -184,6 +184,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
         "Show": MessageLookupByLibrary.simpleMessage("显示"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("签名失败"),
+        "Source": MessageLookupByLibrary.simpleMessage("来源"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("内容不能包含空格"),

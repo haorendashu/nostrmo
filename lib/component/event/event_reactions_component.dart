@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -246,6 +247,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                     ));
                     list.add(PopupMenuDivider());
                     list.add(PopupMenuItem(
+                      value: "source",
+                      child: Text(s.Source, style: popFontStyle),
+                    ));
+                    list.add(PopupMenuItem(
                       value: "broadcase",
                       child: Text(s.Broadcase, style: popFontStyle),
                     ));
@@ -319,6 +324,12 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       // TODO star event
     } else if (value == "broadcase") {
       nostr!.broadcase(widget.event);
+    } else if (value == "source") {
+      List<EnumObj> list = [];
+      for (var source in widget.event.sources) {
+        list.add(EnumObj(source, source));
+      }
+      EnumSelectorComponent.show(context, list);
     } else if (value == "block") {
       filterProvider.addBlock(widget.event.pubKey);
     } else if (value == "delete") {
