@@ -399,7 +399,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       }
     } else if (value == "quote") {
       var event = await EditorRouter.open(context, initEmbeds: [
-        quill.CustomBlockEmbed(CustEmbedTypes.mention_evevt, widget.event.id)
+        quill.CustomBlockEmbed(CustEmbedTypes.mention_event, widget.event.id)
       ]);
     }
   }

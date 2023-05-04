@@ -262,7 +262,7 @@ mixin EditorMixin {
       final length = editorController.selection.extentOffset - index;
 
       editorController.replaceText(index, length,
-          quill.CustomBlockEmbed(CustEmbedTypes.mention_evevt, value), null);
+          quill.CustomBlockEmbed(CustEmbedTypes.mention_event, value), null);
 
       editorController.moveCursorToPosition(index + 1);
     }
@@ -441,7 +441,12 @@ mixin EditorMixin {
               result += " ";
             }
             if (agreement == null) {
-              tags.add(["e", value, "", "mention"]);
+              var relayAddr = "";
+              var mentionEvent = singleEventProvider.getEvent(value);
+              if (mentionEvent != null && mentionEvent.sources.isNotEmpty) {
+                relayAddr = mentionEvent.sources[0];
+              }
+              tags.add(["e", value, relayAddr, "mention"]);
               var index = tags.length - 1;
               result += "#[$index] ";
             } else {
