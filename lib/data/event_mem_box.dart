@@ -107,7 +107,10 @@ class EventMemBox implements FindEventInterface {
   bool add(Event event) {
     var oldEvent = _idMap[event.id];
     if (oldEvent != null) {
-      oldEvent.sources.addAll(event.sources);
+      if (event.sources.isNotEmpty &&
+          !oldEvent.sources.contains(event.sources[0])) {
+        oldEvent.sources.add(event.sources[0]);
+      }
       return false;
     }
 
@@ -128,7 +131,10 @@ class EventMemBox implements FindEventInterface {
         _eventList.add(event);
         added = true;
       } else {
-        oldEvent.sources.addAll(event.sources);
+        if (event.sources.isNotEmpty &&
+            !oldEvent.sources.contains(event.sources[0])) {
+          oldEvent.sources.add(event.sources[0]);
+        }
       }
     }
 
