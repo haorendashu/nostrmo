@@ -253,7 +253,7 @@ class _SearchRouter extends CustState<SearchRouter>
       var oldestCreatedAts = eventMemBox.oldestCreatedAtByRelay(activeRelays);
       Map<String, List<Map<String, dynamic>>> filtersMap = {};
       for (var relay in activeRelays) {
-        var oldestCreatedAt = oldestCreatedAts[relay.url];
+        var oldestCreatedAt = oldestCreatedAts.createdAtMap[relay.url];
         filterMap!["until"] = oldestCreatedAt;
         Map<String, dynamic> fm = {};
         for (var entry in filterMap!.entries) {

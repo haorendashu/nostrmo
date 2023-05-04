@@ -37,6 +37,8 @@ mixin LoadMoreEvent {
 
   int beginQueryNum = 0;
 
+  bool forceUserLimit = false;
+
   // this function should be call by user in the build function
   void preBuild() {
     var eventMemBox = getEventBox();
@@ -54,13 +56,14 @@ mixin LoadMoreEvent {
             queryInterval) {
       return;
     }
+    // print("do loadMore");
 
-    // // check query data length if there was no more event
-    // var currentLength = eventMemBox.length();
-    // if (currentLength - beginQueryNum == 0) {
-    //   // maybe there was no more event
-    //   return;
-    // }
+    var currentLength = eventMemBox.length();
+    if (currentLength - beginQueryNum == 0) {
+      forceUserLimit = true;
+    } else {
+      forceUserLimit = false;
+    }
 
     // query from the oldest event createdAt
     var oldestEvent = eventMemBox.oldestEvent;

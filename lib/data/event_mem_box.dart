@@ -45,8 +45,9 @@ class EventMemBox implements FindEventInterface {
   }
 
   // find event oldest createdAt by relay
-  Map<String, int> oldestCreatedAtByRelay(List<Relay> relays, [int? initTime]) {
-    Map<String, int> result = {};
+  OldestCreatedAtByRelayResult oldestCreatedAtByRelay(List<Relay> relays,
+      [int? initTime]) {
+    OldestCreatedAtByRelayResult result = OldestCreatedAtByRelayResult();
     Map<String, Relay> relayMap = {};
     for (var relay in relays) {
       relayMap[relay.url] = relay;
@@ -57,8 +58,8 @@ class EventMemBox implements FindEventInterface {
       var event = _eventList[index];
       for (var source in event.sources) {
         if (relayMap[source] != null) {
-          log("$source findCreatedAt $length $index ${length - index}");
-          result[source] = event.createdAt;
+          // log("$source findCreatedAt $length $index ${length - index}");
+          result.createdAtMap[source] = event.createdAt;
           relayMap.remove(source);
         }
       }
@@ -70,9 +71,18 @@ class EventMemBox implements FindEventInterface {
 
     if (relayMap.isNotEmpty && initTime != null) {
       for (var relay in relayMap.values) {
-        result[relay.url] = initTime;
+        result.createdAtMap[relay.url] = initTime;
       }
     }
+
+    // count av createdAt
+    var it = result.createdAtMap.values;
+    var relayNum = it.length;
+    double counter = 0;
+    for (var value in it) {
+      counter += value;
+    }
+    result.avCreatedAt = counter ~/ relayNum;
 
     return result;
   }
@@ -179,4 +189,10 @@ class EventMemBox implements FindEventInterface {
     _eventList.clear();
     _idMap.clear();
   }
+}
+
+class OldestCreatedAtByRelayResult {
+  Map<String, int> createdAtMap = {};
+
+  int avCreatedAt = 0;
 }

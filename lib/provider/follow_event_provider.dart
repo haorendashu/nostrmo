@@ -72,11 +72,15 @@ class FollowEventProvider extends ChangeNotifier
     ];
   }
 
-  void doQuery({Nostr? targetNostr, bool initQuery = false, int? until}) {
+  void doQuery(
+      {Nostr? targetNostr,
+      bool initQuery = false,
+      int? until,
+      bool forceUserLimit = false}) {
     var filter = Filter(
       kinds: queryEventKinds(),
       until: until ?? _initTime,
-      limit: 100,
+      limit: 20,
     );
     targetNostr ??= nostr!;
 
@@ -84,22 +88,30 @@ class FollowEventProvider extends ChangeNotifier
 
     List<String> subscribeIds = [];
     Iterable<Contact> contactList = contactListProvider.list();
+    var contactListLength = contactList.length;
     List<String> ids = [];
     // timeline pull my events too.
+    int maxQueryIdsNum = 500;
+    if (contactListLength > maxQueryIdsNum) {
+      var times = (contactListLength / maxQueryIdsNum).ceil();
+      maxQueryIdsNum = (contactListLength / times).ceil();
+    }
+    maxQueryIdsNum += 2;
     ids.add(targetNostr.publicKey);
     for (Contact contact in contactList) {
       ids.add(contact.publicKey);
-      if (ids.length > 100) {
+      if (ids.length > maxQueryIdsNum) {
         filter.authors = ids;
-        var subscribeId =
-            _doQueryFunc(targetNostr, filter, initQuery: initQuery);
+        var subscribeId = _doQueryFunc(targetNostr, filter,
+            initQuery: initQuery, forceUserLimit: forceUserLimit);
         subscribeIds.add(subscribeId);
         ids = [];
       }
     }
     if (ids.isNotEmpty) {
       filter.authors = ids;
-      var subscribeId = _doQueryFunc(targetNostr, filter, initQuery: initQuery);
+      var subscribeId = _doQueryFunc(targetNostr, filter,
+          initQuery: initQuery, forceUserLimit: forceUserLimit);
       subscribeIds.add(subscribeId);
     }
 
@@ -120,7 +132,7 @@ class FollowEventProvider extends ChangeNotifier
   }
 
   String _doQueryFunc(Nostr targetNostr, Filter filter,
-      {bool initQuery = false}) {
+      {bool initQuery = false, bool forceUserLimit = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
       targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
@@ -131,9 +143,20 @@ class FollowEventProvider extends ChangeNotifier
             eventBox.oldestCreatedAtByRelay(activeRelays, _initTime);
         Map<String, List<Map<String, dynamic>>> filtersMap = {};
         for (var relay in activeRelays) {
-          var oldestCreatedAt = oldestCreatedAts[relay.url];
+          var oldestCreatedAt = oldestCreatedAts.createdAtMap[relay.url];
           if (oldestCreatedAt != null) {
             filter.until = oldestCreatedAt;
+            if (!forceUserLimit) {
+              filter.limit = null;
+              if (filter.until! < oldestCreatedAts.avCreatedAt - 60 * 60 * 18) {
+                filter.since = oldestCreatedAt - 60 * 60 * 12;
+              } else if (filter.until! >
+                  oldestCreatedAts.avCreatedAt - 60 * 60 * 6) {
+                filter.since = oldestCreatedAt - 60 * 60 * 36;
+              } else {
+                filter.since = oldestCreatedAt - 60 * 60 * 24;
+              }
+            }
             filtersMap[relay.url] = [filter.toJson()];
           }
         }

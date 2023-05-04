@@ -83,7 +83,7 @@ class MentionMeProvider extends ChangeNotifier
             eventBox.oldestCreatedAtByRelay(activeRelays, _initTime);
         Map<String, List<Map<String, dynamic>>> filtersMap = {};
         for (var relay in activeRelays) {
-          var oldestCreatedAt = oldestCreatedAts[relay.url];
+          var oldestCreatedAt = oldestCreatedAts.createdAtMap[relay.url];
           if (oldestCreatedAt != null) {
             filter.until = oldestCreatedAt;
             filtersMap[relay.url] = [filter.toJson()];

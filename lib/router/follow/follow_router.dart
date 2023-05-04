@@ -120,7 +120,7 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
   @override
   void doQuery() {
     preQuery();
-    followEventProvider.doQuery(until: until);
+    followEventProvider.doQuery(until: until, forceUserLimit: forceUserLimit);
   }
 
   @override
