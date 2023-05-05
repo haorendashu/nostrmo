@@ -32,6 +32,8 @@ class ContentDecoder {
 
   static const MENTION_USER = "@npub";
 
+  static const MENTION_NOTE = "@note";
+
   static const LNBC_NUM_END = "1p";
 
   static String _addToHandledStr(String handledStr, String subStr) {
@@ -301,6 +303,17 @@ class ContentDecoder {
           key = Nip19.decode(key);
           handledStr = _closeHandledStr(handledStr, inlines);
           inlines.add(ContentMentionUserComponent(pubkey: key));
+        } else if (subStr.indexOf(MENTION_NOTE) == 0) {
+          var key = subStr.replaceFirst("@", "");
+          // block
+          key = Nip19.decode(key);
+          handledStr = _closeHandledStr(handledStr, inlines);
+          _closeInlines(inlines, list, textOnTap: textOnTap);
+          var widget = EventQuoteComponent(
+            id: key,
+            showVideo: showVideo,
+          );
+          list.add(widget);
         } else if (subStr.indexOf(LNBC) == 0) {
           // block
           handledStr = _closeHandledStr(handledStr, inlines);
