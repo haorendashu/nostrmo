@@ -137,10 +137,14 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       var filter =
           Filter(kinds: [kind.EventKind.METADATA], authors: [pubkey], limit: 1);
       filters.add(filter.toJson());
+      if (filters.length > 11) {
+        nostr!.query(filters, _onEvent);
+        filters.clear();
+      }
     }
-    var subscriptId = StringUtil.rndNameStr(16);
-    // use query and close after EOSE
-    nostr!.query(filters, _onEvent, id: subscriptId);
+    if (filters.isNotEmpty) {
+      nostr!.query(filters, _onEvent);
+    }
 
     for (var pubkey in _needUpdatePubKeys) {
       _handingPubkeys[pubkey] = 1;
