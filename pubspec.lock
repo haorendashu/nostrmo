@@ -495,10 +495,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "55f12ad3d53a96803dce13fe3d18507a0b6d620ec9f91162fae8f893982ce377"
+      sha256: "803d39a210f5aaa7b9d1a999ef1dac5fef4931916483f23a196fcc6e5cd75ee1"
       url: "https://pub.dev"
     source: hosted
-    version: "7.1.7"
+    version: "7.1.14"
   flutter_socks_proxy:
     dependency: "direct main"
     description:

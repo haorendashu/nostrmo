@@ -108,35 +108,37 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var mainColor = themeData.primaryColor;
     var textColor = themeData.textTheme.bodyMedium!.color;
+    var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
     List<Widget> list = [];
 
+    Widget quillWidget = quill.QuillEditor(
+      placeholder: s.What_s_happening,
+      controller: editorController,
+      scrollController: ScrollController(),
+      focusNode: focusNode,
+      readOnly: false,
+      embedBuilders: [
+        MentionUserEmbedBuilder(),
+        MentionEventEmbedBuilder(),
+        PicEmbedBuilder(),
+        VideoEmbedBuilder(),
+        LnbcEmbedBuilder(),
+        TagEmbedBuilder(),
+      ],
+      scrollable: true,
+      autoFocus: false,
+      expands: false,
+      // padding: EdgeInsets.zero,
+      padding: EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+      ),
+    );
     List<Widget> editorList = [];
     var editorInputWidget = Container(
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
-      child: quill.QuillEditor(
-        placeholder: s.What_s_happening,
-        controller: editorController,
-        scrollController: ScrollController(),
-        focusNode: focusNode,
-        readOnly: false,
-        embedBuilders: [
-          MentionUserEmbedBuilder(),
-          MentionEventEmbedBuilder(),
-          PicEmbedBuilder(),
-          VideoEmbedBuilder(),
-          LnbcEmbedBuilder(),
-          TagEmbedBuilder(),
-        ],
-        scrollable: true,
-        autoFocus: false,
-        expands: false,
-        // padding: EdgeInsets.zero,
-        padding: EdgeInsets.only(
-          left: Base.BASE_PADDING,
-          right: Base.BASE_PADDING,
-        ),
-      ),
+      child: quillWidget,
     );
     editorList.add(editorInputWidget);
     if (inputPoll) {
@@ -194,7 +196,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
                 s.Send,
                 style: TextStyle(
                   color: textColor,
-                  fontSize: 16,
+                  fontSize: fontSize,
                 ),
               ),
               onPressed: documentSave,

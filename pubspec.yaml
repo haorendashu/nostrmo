@@ -43,7 +43,7 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.18
   bot_toast: ^4.0.1
-  flutter_quill: ^7.1.7
+  flutter_quill: ^7.1.14
   # nostr_dart: ^0.6.5
   bip340: ^0.1.0
   string_validator: ^1.0.0
