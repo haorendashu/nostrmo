@@ -26,6 +26,7 @@ class SettingGroupItemComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
+    var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
     if (child == null && StringUtil.isNotBlank(value)) {
       child = Text(
@@ -33,7 +34,7 @@ class SettingGroupItemComponent extends StatelessWidget {
         style: TextStyle(
           color: hintColor,
           fontWeight: FontWeight.bold,
-          fontSize: 16,
+          fontSize: fontSize,
         ),
       );
     }
@@ -44,7 +45,7 @@ class SettingGroupItemComponent extends StatelessWidget {
       name,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 16,
+        fontSize: fontSize,
         color: nameColor,
       ),
     );

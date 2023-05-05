@@ -16,6 +16,7 @@ class SettingGroupTitleComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
+    var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
     return SliverToBoxAdapter(
       child: Container(
@@ -36,7 +37,7 @@ class SettingGroupTitleComponent extends StatelessWidget {
               style: TextStyle(
                 color: hintColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: fontSize,
               ),
             ),
           ],
