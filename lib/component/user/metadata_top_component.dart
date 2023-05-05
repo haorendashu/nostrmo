@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
@@ -20,6 +21,7 @@ import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../util/string_util.dart';
 import '../comfirm_dialog.dart';
+import '../image_preview_dialog.dart';
 import 'metadata_component.dart';
 
 class MetadataTopComponent extends StatefulWidget {
@@ -41,11 +43,14 @@ class MetadataTopComponent extends StatefulWidget {
 
   bool jumpable;
 
+  bool userPicturePreview;
+
   MetadataTopComponent({
     required this.pubkey,
     this.metadata,
     this.isLocal = false,
     this.jumpable = false,
+    this.userPicturePreview = false,
   });
 
   @override
@@ -356,7 +361,12 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ),
       child: imageWidget,
     );
-    if (widget.jumpable) {
+    if (widget.userPicturePreview) {
+      userImageWidget = GestureDetector(
+        onTap: userPicturePreview,
+        child: userImageWidget,
+      );
+    } else if (widget.jumpable) {
       userImageWidget = GestureDetector(
         onTap: jumpToUserRouter,
         child: userImageWidget,
@@ -451,6 +461,20 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
           BotToast.showText(text: S.of(context).Copy_success);
         });
       }
+    }
+  }
+
+  void userPicturePreview() {
+    if (widget.metadata != null &&
+        StringUtil.isNotBlank(widget.metadata!.picture)) {
+      List<ImageProvider> imageProviders = [];
+      imageProviders.add(CachedNetworkImageProvider(widget.metadata!.picture!));
+
+      MultiImageProvider multiImageProvider =
+          MultiImageProvider(imageProviders, initialIndex: 0);
+
+      ImagePreviewDialog.show(context, multiImageProvider,
+          doubleTapZoomable: true, swipeDismissible: true);
     }
   }
 }

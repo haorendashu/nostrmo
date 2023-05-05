@@ -18,11 +18,14 @@ class MetadataComponent extends StatefulWidget {
 
   bool showBadges;
 
+  bool userPicturePreview;
+
   MetadataComponent({
     required this.pubKey,
     this.metadata,
     this.jumpable = false,
     this.showBadges = false,
+    this.userPicturePreview = false,
   });
 
   @override
@@ -40,6 +43,7 @@ class _MetadataComponent extends State<MetadataComponent> {
       pubkey: widget.pubKey,
       metadata: widget.metadata,
       jumpable: widget.jumpable,
+      userPicturePreview: widget.userPicturePreview,
     ));
 
     if (widget.showBadges) {

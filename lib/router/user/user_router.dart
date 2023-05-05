@@ -160,6 +160,7 @@ class _UserRouter extends CustState<UserRouter>
                   pubKey: pubkey!,
                   metadata: metadata,
                   showBadges: true,
+                  userPicturePreview: true,
                 ),
               ),
               SliverToBoxAdapter(
