@@ -64,5 +64,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Image gallery need to access for save image to local.</string>
 </dict>
 </plist>

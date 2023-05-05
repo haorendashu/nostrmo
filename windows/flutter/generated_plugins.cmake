@@ -4,8 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   emoji_picker_flutter
+  file_saver
   local_auth_windows
   pasteboard
+  permission_handler_windows
   screen_retriever
   share_plus
   url_launcher_windows

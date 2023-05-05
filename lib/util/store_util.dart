@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -107,5 +109,10 @@ class StoreUtil {
     } else {
       return null;
     }
+  }
+
+  static Future saveBS2Gallery(String extension, Uint8List uint8list) async {
+    var tempPath = await StoreUtil.saveBS2TempFile(extension, uint8list);
+    return await ImageGallerySaver.saveFile(tempPath);
   }
 }

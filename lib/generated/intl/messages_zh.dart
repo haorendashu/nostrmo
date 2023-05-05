@@ -98,6 +98,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Home": MessageLookupByLibrary.simpleMessage("首页"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
+        "Image_save_success": MessageLookupByLibrary.simpleMessage("图片保存成功"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
         "Input": MessageLookupByLibrary.simpleMessage("输入"),
         "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Sats 数量"),

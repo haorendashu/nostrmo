@@ -1909,6 +1909,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Image save success`
+  String get Image_save_success {
+    return Intl.message(
+      'Image save success',
+      name: 'Image_save_success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -184,5 +184,6 @@
     "Globals": "Globals",
     "Begin_to_load_Contact_History": "Begin to load Contact History",
     "Recovery": "Recovery",
-    "Source": "Source"
+    "Source": "Source",
+    "Image_save_success": "Image save success"
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/main.dart';
 
 import '../../consts/base.dart';
+import '../image_preview_dialog.dart';
 
 class ContentImageComponent extends StatelessWidget {
   String imageUrl;
@@ -69,10 +70,7 @@ class ContentImageComponent extends StatelessWidget {
     MultiImageProvider multiImageProvider =
         MultiImageProvider(imageProviders, initialIndex: imageIndex);
 
-    showImageViewerPager(context, multiImageProvider, onPageChanged: (page) {
-      // print("page changed to $page");
-    }, onViewerDismissed: (page) {
-      // print("dismissed while on page $page");
-    });
+    ImagePreviewDialog.show(context, multiImageProvider,
+        doubleTapZoomable: true, swipeDismissible: true);
   }
 }

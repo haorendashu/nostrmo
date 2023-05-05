@@ -117,6 +117,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("I accept the"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Image Compress"),
+        "Image_save_success":
+            MessageLookupByLibrary.simpleMessage("Image save success"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Image service"),
         "Input": MessageLookupByLibrary.simpleMessage("Input"),
         "Input_Sats_num":
