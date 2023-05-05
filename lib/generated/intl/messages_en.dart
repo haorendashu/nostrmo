@@ -224,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Search pubkey event"),
         "Send": MessageLookupByLibrary.simpleMessage("Send"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("Send fail"),
         "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "Share": MessageLookupByLibrary.simpleMessage("Share"),
         "Show": MessageLookupByLibrary.simpleMessage("Show"),

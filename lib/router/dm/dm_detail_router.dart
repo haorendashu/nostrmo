@@ -245,11 +245,13 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     var cancelFunc = BotToast.showLoading();
     try {
       var event = await doDocumentSave();
-      if (event != null) {
-        dmProvider.addEventAndUpdateReadedTime(detail!, event);
-        editorController.clear();
-        setState(() {});
+      if (event == null) {
+        BotToast.showText(text: S.of(context).Send_fail);
+        return;
       }
+      dmProvider.addEventAndUpdateReadedTime(detail!, event);
+      editorController.clear();
+      setState(() {});
     } finally {
       cancelFunc.call();
     }

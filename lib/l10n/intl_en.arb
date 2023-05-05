@@ -185,5 +185,6 @@
     "Begin_to_load_Contact_History": "Begin to load Contact History",
     "Recovery": "Recovery",
     "Source": "Source",
-    "Image_save_success": "Image save success"
+    "Image_save_success": "Image save success",
+    "Send_fail": "Send fail"
 }

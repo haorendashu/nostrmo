@@ -35,7 +35,7 @@ class Nostr {
 
   String get publicKey => _publicKey;
 
-  Event sendLike(String id) {
+  Event? sendLike(String id) {
     Event event = Event(
         _publicKey,
         EventKind.REACTION,
@@ -46,7 +46,7 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event deleteEvent(String eventId) {
+  Event? deleteEvent(String eventId) {
     Event event = Event(
         _publicKey,
         EventKind.EVENT_DELETION,
@@ -57,7 +57,7 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event deleteEvents(List<String> eventIds) {
+  Event? deleteEvents(List<String> eventIds) {
     List<List<dynamic>> tags = [];
     for (var eventId in eventIds) {
       tags.add(["e", eventId]);
@@ -67,7 +67,7 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event sendRepost(String id, [String? relayAddr]) {
+  Event? sendRepost(String id, [String? relayAddr]) {
     List<dynamic> tag = ["e", id];
     if (StringUtil.isNotBlank(relayAddr)) {
       tag.add(relayAddr);
@@ -76,12 +76,12 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event sendTextNote(String text, [List<dynamic> tags = const []]) {
+  Event? sendTextNote(String text, [List<dynamic> tags = const []]) {
     Event event = Event(_publicKey, EventKind.TEXT_NOTE, tags, text);
     return sendEvent(event);
   }
 
-  Event recommendServer(String url) {
+  Event? recommendServer(String url) {
     if (!url.contains(RegExp(
         r'^(wss?:\/\/)([0-9]{1,3}(?:\.[0-9]{1,3}){3}|[^:]+):?([0-9]{1,5})?$'))) {
       throw ArgumentError.value(url, 'url', 'Not a valid relay URL');
@@ -90,20 +90,23 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event sendContactList(CustContactList contacts) {
+  Event? sendContactList(CustContactList contacts) {
     final tags = contacts.toJson();
     final event = Event(_publicKey, EventKind.CONTACT_LIST, tags, "");
     return sendEvent(event);
   }
 
-  Event sendEvent(Event event) {
+  Event? sendEvent(Event event) {
     if (StringUtil.isBlank(_privateKey)) {
       // TODO to show Notice
       throw StateError("Private key is missing. Message can't be signed.");
     }
     event.sign(_privateKey!);
-    _pool.send(["EVENT", event.toJson()]);
-    return event;
+    var result = _pool.send(["EVENT", event.toJson()]);
+    if (result) {
+      return event;
+    }
+    return null;
   }
 
   Event broadcase(Event event) {

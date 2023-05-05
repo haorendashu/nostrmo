@@ -181,6 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("搜索Pubkey的Event"),
         "Send": MessageLookupByLibrary.simpleMessage("发送"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("发送失败"),
         "Setting": MessageLookupByLibrary.simpleMessage("设置"),
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
         "Show": MessageLookupByLibrary.simpleMessage("显示"),

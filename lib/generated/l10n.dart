@@ -1919,6 +1919,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Send fail`
+  String get Send_fail {
+    return Intl.message(
+      'Send fail',
+      name: 'Send_fail',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

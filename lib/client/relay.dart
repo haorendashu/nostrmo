@@ -63,7 +63,8 @@ class Relay {
   }
 
   bool send(List<dynamic> message) {
-    if (_wsChannel != null) {
+    if (_wsChannel != null &&
+        relayStatus.connected == ClientConneccted.CONNECTED) {
       try {
         final encoded = jsonEncode(message);
         _wsChannel!.sink.add(encoded);
