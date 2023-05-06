@@ -39,10 +39,15 @@ class _QRScannerRouter extends State<QRScannerRouter> {
     );
   }
 
+  bool scanComplete = false;
+
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      RouterUtil.back(context, scanData.code);
+      if (!scanComplete) {
+        scanComplete = true;
+        RouterUtil.back(context, scanData.code);
+      }
     });
   }
 

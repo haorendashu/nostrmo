@@ -83,6 +83,7 @@ class _UserRouter extends CustState<UserRouter>
       pubkey = RouterUtil.routerArgs(context) as String?;
       if (StringUtil.isBlank(pubkey)) {
         RouterUtil.back(context);
+        return Container();
       }
       var events = followEventProvider.eventsByPubkey(pubkey!);
       if (events != null && events.isNotEmpty) {
