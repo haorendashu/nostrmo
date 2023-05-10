@@ -29,6 +29,7 @@ import 'consts/router_path.dart';
 import 'consts/theme_style.dart';
 import 'data/db.dart';
 import 'generated/l10n.dart';
+import 'home_component.dart';
 import 'provider/contact_list_provider.dart';
 import 'provider/data_util.dart';
 import 'provider/dm_provider.dart';
@@ -44,6 +45,7 @@ import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
+import 'provider/webview_provider.dart';
 import 'router/dm/dm_detail_router.dart';
 import 'router/donate/donate_router.dart';
 import 'router/event_detail/event_detail_router.dart';
@@ -108,6 +110,8 @@ late CacheManager localCacheManager;
 late PcRouterFakeProvider pcRouterFakeProvider;
 
 late Map<String, WidgetBuilder> routes;
+
+late WebViewProvider webViewProvider;
 
 Nostr? nostr;
 
@@ -177,6 +181,7 @@ Future<void> main() async {
   mediaDataCache = MediaDataCache();
   localCacheManager = CacheManagerBuilder.build();
   pcRouterFakeProvider = PcRouterFakeProvider();
+  webViewProvider = WebViewProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -306,25 +311,31 @@ class _MyApp extends State<MyApp> {
         ListenableProvider<PcRouterFakeProvider>.value(
           value: pcRouterFakeProvider,
         ),
+        ListenableProvider<WebViewProvider>.value(
+          value: webViewProvider,
+        ),
       ],
-      child: MaterialApp(
-        builder: BotToastInit(),
-        navigatorObservers: [BotToastNavigatorObserver()],
-        // showPerformanceOverlay: true,
-        debugShowCheckedModeBanner: false,
+      child: HomeComponent(
         locale: _locale,
-        title: Base.APP_NAME,
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        theme: defaultTheme,
-        darkTheme: defaultDarkTheme,
-        initialRoute: RouterPath.INDEX,
-        routes: routes,
+        child: MaterialApp(
+          builder: BotToastInit(),
+          navigatorObservers: [BotToastNavigatorObserver()],
+          // showPerformanceOverlay: true,
+          debugShowCheckedModeBanner: false,
+          locale: _locale,
+          title: Base.APP_NAME,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+          theme: defaultTheme,
+          darkTheme: defaultDarkTheme,
+          initialRoute: RouterPath.INDEX,
+          routes: routes,
+        ),
       ),
     );
   }

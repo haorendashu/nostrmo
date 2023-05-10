@@ -6,10 +6,12 @@ import 'package:nostrmo/data/dm_session_info_db.dart';
 import 'package:nostrmo/data/event_db.dart';
 import 'package:nostrmo/data/metadata_db.dart';
 import 'package:nostrmo/provider/index_provider.dart';
+import 'package:nostrmo/provider/webview_provider.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/router/user/user_statistics_component.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/user/metadata_component.dart';
@@ -172,11 +174,26 @@ class _IndexDrawerContnetComponnent
     list.add(IndexDrawerItem(
       iconData: Icons.settings,
       name: s.Setting,
-      // borderBottom: true,
       onTap: () {
         RouterUtil.router(context, RouterPath.SETTING);
       },
     ));
+
+    list.add(Selector<WebViewProvider, String?>(builder: (context, url, child) {
+      if (StringUtil.isBlank(url)) {
+        return Container();
+      }
+
+      return IndexDrawerItem(
+        iconData: Icons.public,
+        name: "Show Webview",
+        onTap: () {
+          webViewProvider.show();
+        },
+      );
+    }, selector: (context, _provider) {
+      return _provider.url;
+    }));
 
     list.add(Expanded(child: Container()));
 

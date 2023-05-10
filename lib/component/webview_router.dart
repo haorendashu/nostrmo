@@ -21,16 +21,17 @@ import '../main.dart';
 class WebViewRouter extends StatefulWidget {
   String url;
 
-  WebViewRouter({required this.url});
+  WebViewRouter({super.key, required this.url});
 
   static void open(BuildContext context, String link) {
     if (PlatformUtil.isPC()) {
       launchUrl(Uri.parse(link));
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return WebViewRouter(url: link);
-    }));
+    // Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //   return WebViewRouter(url: link);
+    // }));
+    webViewProvider.open(link);
   }
 
   @override
@@ -162,9 +163,7 @@ async signEvent(event) {
               left: Base.BASE_PADDING,
               top: btnTopPosition,
               child: GestureDetector(
-                onTap: () {
-                  RouterUtil.back(context);
-                },
+                onTap: handleBack,
                 child: Container(
                   height: btnWidth,
                   width: btnWidth,
@@ -194,6 +193,14 @@ async signEvent(event) {
                     PopupMenuItem(
                       value: "openInBrowser",
                       child: Text(s.Open_in_browser),
+                    ),
+                    PopupMenuItem(
+                      value: "hideBrowser",
+                      child: Text(s.Hide),
+                    ),
+                    PopupMenuItem(
+                      value: "close",
+                      child: Text(s.close),
                     ),
                   ];
                 },
@@ -225,16 +232,18 @@ async signEvent(event) {
   Future<void> onPopupSelected(String value) async {
     var url = await _controller.currentUrl();
     if (value == "copyCurrentUrl") {
-      // if (StringUtil.isNotBlank(url)) {
-      //   _doCopy(url!);
-      // }
-      _controller.runJavaScript(
-          "window.nostr.callback(\"callbackResult_86205894\", \"37c10448a0fd9295d166100dcd80b01f52f3cc70c98431a89f480fc9f8256861\");");
+      if (StringUtil.isNotBlank(url)) {
+        _doCopy(url!);
+      }
     } else if (value == "copyInitUrl") {
       _doCopy(widget.url);
     } else if (value == "openInBrowser") {
       var _url = Uri.parse(widget.url);
       launchUrl(_url);
+    } else if (value == "hideBrowser") {
+      webViewProvider.hide();
+    } else if (value == "close") {
+      webViewProvider.close();
     }
   }
 
@@ -242,5 +251,22 @@ async signEvent(event) {
     Clipboard.setData(ClipboardData(text: text)).then((_) {
       BotToast.showText(text: S.of(context).Copy_success);
     });
+  }
+
+  Future<void> handleBack() async {
+    var canGoBack = await _controller.canGoBack();
+    if (canGoBack) {
+      _controller.goBack();
+    } else {
+      // RouterUtil.back(context);
+      webViewProvider.close();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.loadRequest(Uri.parse('about:blank'));
+    // log("dispose!!!!");
   }
 }
