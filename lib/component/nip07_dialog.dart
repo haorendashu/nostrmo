@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../consts/base.dart';
@@ -134,13 +135,16 @@ class _NIP07Dialog extends State<NIP07Dialog> {
 
     var main = Container(
       padding: const EdgeInsets.all(20),
+      constraints: BoxConstraints(maxHeight: mediaDataCache.size.height * 0.85),
       decoration: BoxDecoration(
         color: cardColor,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: list,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: list,
+        ),
       ),
     );
 
