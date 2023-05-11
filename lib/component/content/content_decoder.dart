@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
+import 'package:string_validator/string_validator.dart';
 
 import '../../client/event.dart';
 import '../../client/nip19/nip19.dart';
@@ -20,6 +21,7 @@ import 'content_relay_component.dart';
 import 'content_str_link_component.dart';
 import 'content_tag_component.dart';
 import 'content_video_component.dart';
+import 'content_youtube_component.dart';
 
 class ContentDecoder {
   static const OTHER_LIGHTNING = "lightning=";
@@ -236,10 +238,19 @@ class ContentDecoder {
               // block
               handledStr = _closeHandledStr(handledStr, inlines);
               _closeInlines(inlines, list, textOnTap: textOnTap);
+              // if (!PlatformUtil.isPC() &&
+              //     (subStr.contains("youtube.com") ||
+              //         subStr.contains("youtu.be"))) {
+              //   var w = ContnetYoutubeComponent(
+              //     link: subStr,
+              //   );
+              //   list.add(w);
+              // } else {
               var w = ContentLinkPreComponent(
                 link: subStr,
               );
               list.add(w);
+              // }
             }
           }
         } else if (subStr.indexOf(NOTE_REFERENCES) == 0) {
