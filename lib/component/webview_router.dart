@@ -152,73 +152,79 @@ async signEvent(event) {
     var btnTopPosition = Base.BASE_PADDING + Base.BASE_PADDING_HALF;
 
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(top: paddingTop),
-        child: Stack(
-          children: [
-            WebViewWidget(
-              controller: _controller,
-            ),
-            Positioned(
-              left: Base.BASE_PADDING,
-              top: btnTopPosition,
-              child: GestureDetector(
-                onTap: handleBack,
-                child: Container(
-                  height: btnWidth,
-                  width: btnWidth,
-                  decoration: BoxDecoration(
-                    color: scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(btnWidth / 2),
+      body: WillPopScope(
+        child: Container(
+          margin: EdgeInsets.only(top: paddingTop),
+          child: Stack(
+            children: [
+              WebViewWidget(
+                controller: _controller,
+              ),
+              Positioned(
+                left: Base.BASE_PADDING,
+                top: btnTopPosition,
+                child: GestureDetector(
+                  onTap: handleBack,
+                  child: Container(
+                    height: btnWidth,
+                    width: btnWidth,
+                    decoration: BoxDecoration(
+                      color: scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(btnWidth / 2),
+                    ),
+                    child: Icon(Icons.arrow_back_ios_new),
+                    alignment: Alignment.center,
                   ),
-                  child: Icon(Icons.arrow_back_ios_new),
-                  alignment: Alignment.center,
                 ),
               ),
-            ),
-            Positioned(
-              right: Base.BASE_PADDING,
-              top: btnTopPosition,
-              child: PopupMenuButton<String>(
-                itemBuilder: (context) {
-                  return [
-                    PopupMenuItem(
-                      value: "copyCurrentUrl",
-                      child: Text(s.Copy_current_Url),
+              Positioned(
+                right: Base.BASE_PADDING,
+                top: btnTopPosition,
+                child: PopupMenuButton<String>(
+                  itemBuilder: (context) {
+                    return [
+                      PopupMenuItem(
+                        value: "copyCurrentUrl",
+                        child: Text(s.Copy_current_Url),
+                      ),
+                      PopupMenuItem(
+                        value: "copyInitUrl",
+                        child: Text(s.Copy_init_Url),
+                      ),
+                      PopupMenuItem(
+                        value: "openInBrowser",
+                        child: Text(s.Open_in_browser),
+                      ),
+                      PopupMenuItem(
+                        value: "hideBrowser",
+                        child: Text(s.Hide),
+                      ),
+                      PopupMenuItem(
+                        value: "close",
+                        child: Text(s.close),
+                      ),
+                    ];
+                  },
+                  onSelected: onPopupSelected,
+                  child: Container(
+                    height: btnWidth,
+                    width: btnWidth,
+                    decoration: BoxDecoration(
+                      color: scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(btnWidth / 2),
                     ),
-                    PopupMenuItem(
-                      value: "copyInitUrl",
-                      child: Text(s.Copy_init_Url),
-                    ),
-                    PopupMenuItem(
-                      value: "openInBrowser",
-                      child: Text(s.Open_in_browser),
-                    ),
-                    PopupMenuItem(
-                      value: "hideBrowser",
-                      child: Text(s.Hide),
-                    ),
-                    PopupMenuItem(
-                      value: "close",
-                      child: Text(s.close),
-                    ),
-                  ];
-                },
-                onSelected: onPopupSelected,
-                child: Container(
-                  height: btnWidth,
-                  width: btnWidth,
-                  decoration: BoxDecoration(
-                    color: scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(btnWidth / 2),
+                    child: Icon(Icons.more_horiz),
+                    alignment: Alignment.center,
                   ),
-                  child: Icon(Icons.more_horiz),
-                  alignment: Alignment.center,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        onWillPop: () async {
+          await handleBack();
+          return false;
+        },
       ),
     );
   }
