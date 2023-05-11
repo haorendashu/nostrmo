@@ -1939,6 +1939,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Show web`
+  String get Show_web {
+    return Intl.message(
+      'Show web',
+      name: 'Show_web',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Web Utils`
+  String get Web_Utils {
+    return Intl.message(
+      'Web Utils',
+      name: 'Web_Utils',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

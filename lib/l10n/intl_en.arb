@@ -187,5 +187,7 @@
     "Source": "Source",
     "Image_save_success": "Image save success",
     "Send_fail": "Send fail",
-    "Web_Appbar": "Web Appbar"
+    "Web_Appbar": "Web Appbar",
+    "Show_web": "Show web",
+    "Web_Utils": "Web Utils"
 }

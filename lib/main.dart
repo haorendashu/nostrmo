@@ -15,6 +15,7 @@ import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
+import 'package:nostrmo/router/web_utils/web_utils_router.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -256,6 +257,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),
       RouterPath.SETTING: (context) => SettingRouter(indexReload: reload),
       RouterPath.QRSCANNER: (context) => QRScannerRouter(),
+      RouterPath.WEBUTILS: (context) => WebUtilsRouter(),
     };
 
     return MultiProvider(

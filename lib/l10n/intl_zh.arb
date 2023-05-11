@@ -182,5 +182,7 @@
     "Source": "来源",
     "Image_save_success": "图片保存成功",
     "Send_fail": "发送失败",
-    "Web_Appbar": "网页导航栏"
+    "Web_Appbar": "网页导航栏",
+    "Show_web": "打开网页",
+    "Web_Utils": "网页工具"
 }

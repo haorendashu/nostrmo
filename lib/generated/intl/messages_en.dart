@@ -228,6 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "Share": MessageLookupByLibrary.simpleMessage("Share"),
         "Show": MessageLookupByLibrary.simpleMessage("Show"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Show web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
         "Source": MessageLookupByLibrary.simpleMessage("Source"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
@@ -262,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("Web Appbar"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Web Utils"),
         "Website": MessageLookupByLibrary.simpleMessage("Website"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("What\'s happening?"),

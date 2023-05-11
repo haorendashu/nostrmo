@@ -181,12 +181,18 @@ class _IndexDrawerContnetComponnent
 
     list.add(Selector<WebViewProvider, String?>(builder: (context, url, child) {
       if (StringUtil.isBlank(url)) {
-        return Container();
+        return IndexDrawerItem(
+          iconData: Icons.view_list,
+          name: s.Web_Utils,
+          onTap: () {
+            RouterUtil.router(context, RouterPath.WEBUTILS);
+          },
+        );
       }
 
       return IndexDrawerItem(
         iconData: Icons.public,
-        name: "Show Webview",
+        name: s.Show_web,
         onTap: () {
           webViewProvider.show();
         },
