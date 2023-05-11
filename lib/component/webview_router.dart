@@ -9,6 +9,7 @@ import 'package:nostrmo/component/nip07_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
+import 'package:nostrmo/provider/webview_provider.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -240,6 +241,7 @@ nip04: {
     var mainColor = themeData.primaryColor;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var _settingProvider = Provider.of<SettingProvider>(context);
+    var _webViewProvider = Provider.of<WebViewProvider>(context);
 
     if (url != null && widget.url != url) {
       url = widget.url;
@@ -316,15 +318,19 @@ nip04: {
       );
     }
 
-    return Scaffold(
-      appBar: appbar,
-      body: WillPopScope(
+    if (_webViewProvider.showable) {
+      bodyWidget = WillPopScope(
         child: bodyWidget,
         onWillPop: () async {
           await handleBack();
           return false;
         },
-      ),
+      );
+    }
+
+    return Scaffold(
+      appBar: appbar,
+      body: bodyWidget,
     );
   }
 
