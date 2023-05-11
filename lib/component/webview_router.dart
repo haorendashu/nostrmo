@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../client/event.dart';
+import '../client/nip04/nip04.dart';
 import '../client/nip07/nip07_methods.dart';
 import '../generated/l10n.dart';
 import '../main.dart';
@@ -121,11 +122,62 @@ class _WebViewRouter extends CustState<WebViewRouter> {
             relayMaps[relayAddr] = {"read": true, "write": true};
           }
           var resultStr = jsonEncode(relayMaps);
+          resultStr = resultStr.replaceAll("\"", "\\\"");
           var script =
               "window.nostr.callback(\"$resultId\", JSON.parse(\"$resultStr\"));";
           _controller.runJavaScript(script);
         } else {
           nip07Reject(resultId, S.of(context).Forbid);
+        }
+      },
+    );
+    _controller.addJavaScriptChannel(
+      "Nostrmo_JS_nip04_encrypt",
+      onMessageReceived: (jsMsg) async {
+        var jsonObj = jsonDecode(jsMsg.message);
+        var resultId = jsonObj["resultId"];
+        var msg = jsonObj["msg"];
+        if (msg != null && msg is Map) {
+          var pubkey = msg["pubkey"];
+          var plaintext = msg["plaintext"];
+
+          var comfirmResult = await NIP07Dialog.show(
+              context, NIP07Methods.nip04_encrypt,
+              content: plaintext);
+          if (comfirmResult == true) {
+            var agreement = NIP04.getAgreement(nostr!.privateKey!);
+            var resultStr = NIP04.encrypt(plaintext, agreement, pubkey);
+            var script =
+                "window.nostr.callback(\"$resultId\", \"$resultStr\");";
+            _controller.runJavaScript(script);
+          } else {
+            nip07Reject(resultId, S.of(context).Forbid);
+          }
+        }
+      },
+    );
+    _controller.addJavaScriptChannel(
+      "Nostrmo_JS_nip04_decrypt",
+      onMessageReceived: (jsMsg) async {
+        var jsonObj = jsonDecode(jsMsg.message);
+        var resultId = jsonObj["resultId"];
+        var msg = jsonObj["msg"];
+        if (msg != null && msg is Map) {
+          var pubkey = msg["pubkey"];
+          var ciphertext = msg["ciphertext"];
+
+          var comfirmResult = await NIP07Dialog.show(
+              context, NIP07Methods.nip04_decrypt,
+              content: ciphertext);
+          if (comfirmResult == true) {
+            var agreement = NIP04.getAgreement(nostr!.privateKey!);
+            var resultStr = NIP04.decrypt(ciphertext, agreement, pubkey);
+            var script =
+                "window.nostr.callback(\"$resultId\", \"$resultStr\");";
+            _controller.runJavaScript(script);
+          } else {
+            nip07Reject(resultId, S.of(context).Forbid);
+          }
         }
       },
     );
@@ -163,6 +215,14 @@ async signEvent(event) {
 },
 async getRelays() {
     return window.nostr._call(Nostrmo_JS_getRelays);
+},
+nip04: {
+  async encrypt(pubkey, plaintext) {
+    return window.nostr._call(Nostrmo_JS_nip04_encrypt, {"pubkey": pubkey, "plaintext": plaintext});
+  },
+  async decrypt(pubkey, ciphertext) {
+      return window.nostr._call(Nostrmo_JS_nip04_decrypt, {"pubkey": pubkey, "ciphertext": ciphertext});
+  },
 },
 };
 """);
