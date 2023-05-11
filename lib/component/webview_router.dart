@@ -47,6 +47,8 @@ class WebViewRouter extends StatefulWidget {
 class _WebViewRouter extends CustState<WebViewRouter> {
   WebViewController _controller = WebViewController();
 
+  String? url;
+
   double btnWidth = 40;
 
   void nip07Reject(String resultId, String contnet) {
@@ -239,6 +241,11 @@ nip04: {
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var _settingProvider = Provider.of<SettingProvider>(context);
 
+    if (url != null && widget.url != url) {
+      url = widget.url;
+      _controller.loadRequest(Uri.parse(widget.url));
+    }
+
     var btnTopPosition = Base.BASE_PADDING + Base.BASE_PADDING_HALF;
 
     var main = WebViewWidget(
@@ -359,6 +366,7 @@ nip04: {
   @override
   Future<void> onReady(BuildContext context) async {
     _controller.setJavaScriptMode(JavaScriptMode.unrestricted);
+    url = widget.url;
     _controller.loadRequest(Uri.parse(widget.url));
   }
 
