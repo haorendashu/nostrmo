@@ -106,6 +106,29 @@ class _WebViewRouter extends CustState<WebViewRouter> {
         }
       },
     );
+    _controller.addJavaScriptChannel(
+      "Nostrmo_JS_getRelays",
+      onMessageReceived: (jsMsg) async {
+        var jsonObj = jsonDecode(jsMsg.message);
+        var resultId = jsonObj["resultId"];
+
+        var comfirmResult =
+            await NIP07Dialog.show(context, NIP07Methods.getRelays);
+        if (comfirmResult == true) {
+          var relayMaps = {};
+          var relayAddrs = relayProvider.relayAddrs;
+          for (var relayAddr in relayAddrs) {
+            relayMaps[relayAddr] = {"read": true, "write": true};
+          }
+          var resultStr = jsonEncode(relayMaps);
+          var script =
+              "window.nostr.callback(\"$resultId\", JSON.parse(\"$resultStr\"));";
+          _controller.runJavaScript(script);
+        } else {
+          nip07Reject(resultId, S.of(context).Forbid);
+        }
+      },
+    );
     _controller.setNavigationDelegate(NavigationDelegate(
       onWebResourceError: (error) {
         print(error);
@@ -135,9 +158,11 @@ reject(resultId, message) {
 async getPublicKey() {
     return window.nostr._call(Nostrmo_JS_getPublicKey);
 },
-
 async signEvent(event) {
     return window.nostr._call(Nostrmo_JS_signEvent, JSON.stringify(event));
+},
+async getRelays() {
+    return window.nostr._call(Nostrmo_JS_getRelays);
 },
 };
 """);
