@@ -144,6 +144,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getFontSize(settingProvider.fontSize).name,
       onTap: pickFontSize,
     ));
+    list.add(SettingGroupItemComponent(
+      name: s.Web_Appbar,
+      value: getOpenList(settingProvider.webviewAppbarOpen).name,
+      onTap: pickWebviewAppbar,
+    ));
 
     list.add(
         SettingGroupTitleComponent(iconData: Icons.article, title: s.Notes));
@@ -823,6 +828,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.broadcaseWhenBoost = resultEnumObj.value;
+    }
+  }
+
+  pickWebviewAppbar() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.webviewAppbarOpen = resultEnumObj.value;
     }
   }
 }

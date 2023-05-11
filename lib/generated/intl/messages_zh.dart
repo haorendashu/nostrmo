@@ -215,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_error": MessageLookupByLibrary.simpleMessage("验证异常"),
         "Verify_failure": MessageLookupByLibrary.simpleMessage("验证失败"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage("列表视频预览"),
+        "Web_Appbar": MessageLookupByLibrary.simpleMessage("网页导航栏"),
         "Website": MessageLookupByLibrary.simpleMessage("网站"),
         "What_s_happening": MessageLookupByLibrary.simpleMessage("有什么有趣的事情？"),
         "Word_can_t_be_null": MessageLookupByLibrary.simpleMessage("词语不能为空"),

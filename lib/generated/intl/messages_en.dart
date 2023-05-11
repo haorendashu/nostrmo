@@ -261,6 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verify failure"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
+        "Web_Appbar": MessageLookupByLibrary.simpleMessage("Web Appbar"),
         "Website": MessageLookupByLibrary.simpleMessage("Website"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("What\'s happening?"),

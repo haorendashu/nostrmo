@@ -12,9 +12,12 @@ class HomeComponent extends StatefulWidget {
 
   Locale? locale;
 
+  ThemeData? theme;
+
   HomeComponent({
     required this.child,
     this.locale,
+    this.theme,
   });
 
   @override
@@ -37,6 +40,7 @@ class _HomeComponent extends State<HomeComponent> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
+      theme: widget.theme,
       home: Stack(
         children: [
           Positioned.fill(child: widget.child),

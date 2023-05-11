@@ -1929,6 +1929,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Web Appbar`
+  String get Web_Appbar {
+    return Intl.message(
+      'Web Appbar',
+      name: 'Web_Appbar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

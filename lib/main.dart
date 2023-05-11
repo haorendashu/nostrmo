@@ -317,6 +317,7 @@ class _MyApp extends State<MyApp> {
       ],
       child: HomeComponent(
         locale: _locale,
+        theme: defaultTheme,
         child: MaterialApp(
           builder: BotToastInit(),
           navigatorObservers: [BotToastNavigatorObserver()],

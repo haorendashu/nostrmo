@@ -237,6 +237,8 @@ class SettingProvider extends ChangeNotifier {
       _settingData!.fontSize ??
       (PlatformUtil.isPC() ? Base.BASE_FONT_SIZE_PC : Base.BASE_FONT_SIZE);
 
+  int get webviewAppbarOpen => _settingData!.webviewAppbarOpen;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -359,6 +361,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set webviewAppbarOpen(int o) {
+    _settingData!.webviewAppbarOpen = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -426,6 +433,8 @@ class SettingData {
 
   double? fontSize;
 
+  late int webviewAppbarOpen;
+
   /// updated time
   late int updatedTime;
 
@@ -452,6 +461,7 @@ class SettingData {
     this.translateSourceArgs,
     this.broadcaseWhenBoost,
     this.fontSize,
+    this.webviewAppbarOpen = OpenStatus.OPEN,
     this.updatedTime = 0,
   });
 
@@ -490,6 +500,9 @@ class SettingData {
     translateSourceArgs = json['translateSourceArgs'];
     broadcaseWhenBoost = json['broadcaseWhenBoost'];
     fontSize = json['fontSize'];
+    webviewAppbarOpen = json['webviewAppbarOpen'] != null
+        ? json['webviewAppbarOpen']
+        : OpenStatus.OPEN;
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -522,6 +535,7 @@ class SettingData {
     data['translateSourceArgs'] = this.translateSourceArgs;
     data['broadcaseWhenBoost'] = this.broadcaseWhenBoost;
     data['fontSize'] = this.fontSize;
+    data['webviewAppbarOpen'] = this.webviewAppbarOpen;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

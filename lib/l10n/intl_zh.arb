@@ -181,5 +181,6 @@
     "Globals": "广场",
     "Source": "来源",
     "Image_save_success": "图片保存成功",
-    "Send_fail": "发送失败"
+    "Send_fail": "发送失败",
+    "Web_Appbar": "网页导航栏"
 }

@@ -7,9 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/nip07_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -147,85 +150,124 @@ async signEvent(event) {
     var s = S.of(context);
     var themeData = Theme.of(context);
     var paddingTop = mediaDataCache.padding.top;
+    var mainColor = themeData.primaryColor;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
+    var _settingProvider = Provider.of<SettingProvider>(context);
 
     var btnTopPosition = Base.BASE_PADDING + Base.BASE_PADDING_HALF;
 
-    return Scaffold(
-      body: WillPopScope(
-        child: Container(
-          margin: EdgeInsets.only(top: paddingTop),
-          child: Stack(
-            children: [
-              WebViewWidget(
-                controller: _controller,
-              ),
-              Positioned(
-                left: Base.BASE_PADDING,
-                top: btnTopPosition,
-                child: GestureDetector(
-                  onTap: handleBack,
-                  child: Container(
-                    height: btnWidth,
-                    width: btnWidth,
-                    decoration: BoxDecoration(
-                      color: scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(btnWidth / 2),
-                    ),
-                    child: Icon(Icons.arrow_back_ios_new),
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-              Positioned(
-                right: Base.BASE_PADDING,
-                top: btnTopPosition,
-                child: PopupMenuButton<String>(
-                  itemBuilder: (context) {
-                    return [
-                      PopupMenuItem(
-                        value: "copyCurrentUrl",
-                        child: Text(s.Copy_current_Url),
-                      ),
-                      PopupMenuItem(
-                        value: "copyInitUrl",
-                        child: Text(s.Copy_init_Url),
-                      ),
-                      PopupMenuItem(
-                        value: "openInBrowser",
-                        child: Text(s.Open_in_browser),
-                      ),
-                      PopupMenuItem(
-                        value: "hideBrowser",
-                        child: Text(s.Hide),
-                      ),
-                      PopupMenuItem(
-                        value: "close",
-                        child: Text(s.close),
-                      ),
-                    ];
-                  },
-                  onSelected: onPopupSelected,
-                  child: Container(
-                    height: btnWidth,
-                    width: btnWidth,
-                    decoration: BoxDecoration(
-                      color: scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(btnWidth / 2),
-                    ),
-                    child: Icon(Icons.more_horiz),
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
+    var main = WebViewWidget(
+      controller: _controller,
+    );
+
+    AppBar? appbar;
+    late Widget bodyWidget;
+    if (_settingProvider.webviewAppbarOpen == OpenStatus.OPEN) {
+      bodyWidget = main;
+      appbar = AppBar(
+        backgroundColor: mainColor,
+        leading: GestureDetector(
+          child: Icon(Icons.arrow_back_ios_new),
+          onTap: handleBack,
         ),
+        actions: [
+          getMoreWidget(Container(
+            height: btnWidth,
+            width: btnWidth,
+            margin: EdgeInsets.only(right: Base.BASE_PADDING),
+            child: Icon(Icons.more_horiz),
+            alignment: Alignment.center,
+          ))
+        ],
+      );
+    } else {
+      var lefeBtn = GestureDetector(
+        onTap: handleBack,
+        child: Container(
+          height: btnWidth,
+          width: btnWidth,
+          decoration: BoxDecoration(
+            color: scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(btnWidth / 2),
+          ),
+          child: Icon(Icons.arrow_back_ios_new),
+          alignment: Alignment.center,
+        ),
+      );
+
+      bodyWidget = Container(
+        margin: EdgeInsets.only(top: paddingTop),
+        child: Stack(
+          children: [
+            main,
+            Positioned(
+              left: Base.BASE_PADDING,
+              top: btnTopPosition,
+              child: lefeBtn,
+            ),
+            Positioned(
+              right: Base.BASE_PADDING,
+              top: btnTopPosition,
+              child: getMoreWidget(Container(
+                height: btnWidth,
+                width: btnWidth,
+                decoration: BoxDecoration(
+                  color: scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.circular(btnWidth / 2),
+                ),
+                child: Icon(Icons.more_horiz),
+                alignment: Alignment.center,
+              )),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Scaffold(
+      appBar: appbar,
+      body: WillPopScope(
+        child: bodyWidget,
         onWillPop: () async {
           await handleBack();
           return false;
         },
       ),
+    );
+  }
+
+  Widget getMoreWidget(Widget icon) {
+    var s = S.of(context);
+    var themeData = Theme.of(context);
+    var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
+
+    return PopupMenuButton<String>(
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+            value: "copyCurrentUrl",
+            child: Text(s.Copy_current_Url),
+          ),
+          PopupMenuItem(
+            value: "copyInitUrl",
+            child: Text(s.Copy_init_Url),
+          ),
+          PopupMenuItem(
+            value: "openInBrowser",
+            child: Text(s.Open_in_browser),
+          ),
+          PopupMenuItem(
+            value: "hideBrowser",
+            child: Text(s.Hide),
+          ),
+          PopupMenuItem(
+            value: "close",
+            child: Text(s.close),
+          ),
+        ];
+      },
+      onSelected: onPopupSelected,
+      child: icon,
     );
   }
 
