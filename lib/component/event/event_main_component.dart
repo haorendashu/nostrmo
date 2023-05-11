@@ -403,8 +403,30 @@ class _EventMainComponent extends State<EventMainComponent> {
   }
 
   buildMarkdownWidget(ThemeData themeData) {
+    // handle old mention, replace to NIP-27 style: nostr:note1xxxx or nostr:npub1xxx
+    var content = widget.event.content;
+    var tagLength = widget.event.tags.length;
+    for (var i = 0; i < tagLength; i++) {
+      var tag = widget.event.tags[i];
+      String? link;
+
+      if (tag is List && tag.length > 1) {
+        var key = tag[0];
+        var value = tag[1];
+        if (key == "e") {
+          link = "nostr:${Nip19.encodeNoteId(value)}";
+        } else if (key == "p") {
+          link = "nostr:${Nip19.encodePubKey(value)}";
+        }
+      }
+
+      if (StringUtil.isNotBlank(link)) {
+        content = content.replaceAll("#[$i]", link!);
+      }
+    }
+
     return MarkdownBody(
-      data: widget.event.content,
+      data: content,
       selectable: true,
       builders: {
         MarkdownMentionUserElementBuilder.TAG:
