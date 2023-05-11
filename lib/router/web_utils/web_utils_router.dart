@@ -115,13 +115,10 @@ class _WebUtilsRouter extends CustState<WebUtilsRouter> {
     var str = await DioUtil.getStr(Base.WEB_TOOLS);
     if (StringUtil.isNotBlank(str)) {
       var itfs = jsonDecode(str!);
-      print(itfs);
       webUtils = [];
       for (var itf in itfs) {
         if (itf is Map) {
           webUtils.add(WebUtilItem(itf["link"], itf["des"]));
-        } else {
-          print(itf);
         }
       }
       setState(() {});
