@@ -179,27 +179,30 @@ class _IndexDrawerContnetComponnent
       },
     ));
 
-    list.add(Selector<WebViewProvider, String?>(builder: (context, url, child) {
-      if (StringUtil.isBlank(url)) {
+    if (!PlatformUtil.isPC()) {
+      list.add(
+          Selector<WebViewProvider, String?>(builder: (context, url, child) {
+        if (StringUtil.isBlank(url)) {
+          return IndexDrawerItem(
+            iconData: Icons.view_list,
+            name: s.Web_Utils,
+            onTap: () {
+              RouterUtil.router(context, RouterPath.WEBUTILS);
+            },
+          );
+        }
+
         return IndexDrawerItem(
-          iconData: Icons.view_list,
-          name: s.Web_Utils,
+          iconData: Icons.public,
+          name: s.Show_web,
           onTap: () {
-            RouterUtil.router(context, RouterPath.WEBUTILS);
+            webViewProvider.show();
           },
         );
-      }
-
-      return IndexDrawerItem(
-        iconData: Icons.public,
-        name: s.Show_web,
-        onTap: () {
-          webViewProvider.show();
-        },
-      );
-    }, selector: (context, _provider) {
-      return _provider.url;
-    }));
+      }, selector: (context, _provider) {
+        return _provider.url;
+      }));
+    }
 
     list.add(Expanded(child: Container()));
 
