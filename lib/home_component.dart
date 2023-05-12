@@ -33,6 +33,7 @@ class _HomeComponent extends State<HomeComponent> {
 
     return MaterialApp(
       locale: widget.locale,
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
