@@ -1,18 +1,19 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/zap/zap_action.dart';
-import 'package:nostrmo/client/zap/zap_num_util.dart';
-import 'package:nostrmo/component/content/content_str_link_component.dart';
-import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/data/metadata.dart';
-import 'package:nostrmo/provider/metadata_provider.dart';
-import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';
+import '../../consts/router_path.dart';
+import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/metadata_provider.dart';
+import '../../util/router_util.dart';
+import '../../util/string_util.dart';
+import '../content/content_str_link_component.dart';
 
 class GenLnbcComponent extends StatefulWidget {
   @override
@@ -23,11 +24,13 @@ class GenLnbcComponent extends StatefulWidget {
 
 class _GenLnbcComponent extends State<GenLnbcComponent> {
   late TextEditingController controller;
+  late TextEditingController commentController;
 
   @override
   void initState() {
     super.initState();
     controller = TextEditingController();
+    commentController = TextEditingController();
   }
 
   @override
@@ -85,6 +88,7 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
         ));
 
         list.add(Container(
+          margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
           child: TextField(
             controller: controller,
             minLines: 1,
@@ -92,6 +96,19 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
             autofocus: true,
             decoration: InputDecoration(
               hintText: s.Input_Sats_num,
+              border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
+            ),
+          ),
+        ));
+
+        list.add(Container(
+          child: TextField(
+            controller: commentController,
+            minLines: 1,
+            maxLines: 1,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: "${s.Input_Comment} (${s.Optional})",
               border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
             ),
           ),
@@ -155,7 +172,10 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
       return;
     }
 
-    var lnbcStr = await ZapAction.genInvoiceCode(context, num, pubkey);
+    var comment = commentController.text;
+    log("comment $comment");
+    var lnbcStr =
+        await ZapAction.genInvoiceCode(context, num, pubkey, comment: comment);
     if (StringUtil.isNotBlank(lnbcStr)) {
       RouterUtil.back(context, lnbcStr);
     }

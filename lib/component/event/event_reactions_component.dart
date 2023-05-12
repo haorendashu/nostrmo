@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:nostrmo/component/enum_selector_component.dart';
+import 'package:nostrmo/component/zap_gen_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -209,6 +210,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                     num: zapNum,
                     iconData: Icons.bolt,
                     onTap: null,
+                    onLongPress: genZap,
                     color: hintColor,
                     fontSize: fontSize,
                   ),
@@ -452,6 +454,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       print(onError);
     });
   }
+
+  void genZap() {
+    ZapGenDialog.show(context, widget.event.pubKey, eventId: widget.event.id);
+  }
 }
 
 class EventReactionNumComponent extends StatelessWidget {
@@ -459,7 +465,9 @@ class EventReactionNumComponent extends StatelessWidget {
 
   int num;
 
-  Function? onTap;
+  GestureTapCallback? onTap;
+
+  GestureLongPressCallback? onLongPress;
 
   Color color;
 
@@ -469,6 +477,7 @@ class EventReactionNumComponent extends StatelessWidget {
     required this.iconData,
     required this.num,
     this.onTap,
+    this.onLongPress,
     required this.color,
     required this.fontSize,
   });
@@ -502,12 +511,14 @@ class EventReactionNumComponent extends StatelessWidget {
       main = iconWidget;
     }
 
-    if (onTap != null) {
-      return IconButton(
-        onPressed: () {
-          onTap!();
-        },
-        icon: main,
+    if (onTap != null || onLongPress != null) {
+      return GestureDetector(
+        onTap: onTap,
+        onLongPress: onLongPress,
+        child: Container(
+          alignment: Alignment.center,
+          child: main,
+        ),
       );
     } else {
       return Container(

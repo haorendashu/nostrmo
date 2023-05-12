@@ -9,12 +9,12 @@ import 'zap.dart';
 
 class ZapAction {
   static Future<void> handleZap(BuildContext context, int sats, String pubkey,
-      {String? eventId, String? pollOption}) async {
+      {String? eventId, String? pollOption, String? comment}) async {
     var s = S.of(context);
     var cancelFunc = BotToast.showLoading();
     try {
       var invoiceCode = await _doGenInvoiceCode(context, sats, pubkey,
-          eventId: eventId, pollOption: pollOption);
+          eventId: eventId, pollOption: pollOption, comment: comment);
 
       if (StringUtil.isBlank(invoiceCode)) {
         BotToast.showText(text: s.Gen_invoice_code_error);
@@ -29,11 +29,11 @@ class ZapAction {
 
   static Future<String?> genInvoiceCode(
       BuildContext context, int sats, String pubkey,
-      {String? eventId, String? pollOption}) async {
+      {String? eventId, String? pollOption, String? comment}) async {
     var cancelFunc = BotToast.showLoading();
     try {
       return await _doGenInvoiceCode(context, sats, pubkey,
-          eventId: eventId, pollOption: pollOption);
+          eventId: eventId, pollOption: pollOption, comment: comment);
     } finally {
       cancelFunc.call();
     }
@@ -41,7 +41,7 @@ class ZapAction {
 
   static Future<String?> _doGenInvoiceCode(
       BuildContext context, int sats, String pubkey,
-      {String? eventId, String? pollOption}) async {
+      {String? eventId, String? pollOption, String? comment}) async {
     var s = S.of(context);
     var metadata = metadataProvider.getMetadata(pubkey);
     if (metadata == null) {
@@ -79,6 +79,7 @@ class ZapAction {
       relays: relays,
       eventId: eventId,
       pollOption: pollOption,
+      comment: comment,
     );
   }
 }

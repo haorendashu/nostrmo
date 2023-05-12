@@ -121,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Image save success"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Image service"),
         "Input": MessageLookupByLibrary.simpleMessage("Input"),
+        "Input_Comment": MessageLookupByLibrary.simpleMessage("Input Comment"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Input Sats num"),
         "Input_Sats_num_to_gen_lightning_invoice":
@@ -172,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Open User page"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Open in browser"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("Picture"),

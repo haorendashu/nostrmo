@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/component/webview_router.dart';
+import 'package:nostrmo/component/zap_gen_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
@@ -221,6 +222,10 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
           },
           onSelected: onZapSelect,
           child: MetadataIconBtn(
+            onLongPress: () {
+              print("onLongPress");
+              ZapGenDialog.show(context, widget.pubkey);
+            },
             iconData: Icons.currency_bitcoin,
           ),
         )));
@@ -482,9 +487,11 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
 class MetadataIconBtn extends StatelessWidget {
   void Function()? onTap;
 
+  void Function()? onLongPress;
+
   IconData iconData;
 
-  MetadataIconBtn({required this.iconData, this.onTap});
+  MetadataIconBtn({required this.iconData, this.onTap, this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
@@ -501,11 +508,12 @@ class MetadataIconBtn extends StatelessWidget {
       ),
     );
 
-    if (onTap != null) {
+    if (onTap != null || onLongPress != null) {
       return Ink(
         decoration: decoration,
         child: InkWell(
           onTap: onTap,
+          onLongPress: onLongPress,
           child: main,
         ),
       );

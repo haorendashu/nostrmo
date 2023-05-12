@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_save_success": MessageLookupByLibrary.simpleMessage("图片保存成功"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
         "Input": MessageLookupByLibrary.simpleMessage("输入"),
+        "Input_Comment": MessageLookupByLibrary.simpleMessage("输入评论"),
         "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Sats 数量"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage("输入 Sats 数量以生成闪电网络发票"),
@@ -138,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage("打开动态详情"),
         "Open_User_page": MessageLookupByLibrary.simpleMessage("打开用户页面"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("浏览器中打开"),
+        "Optional": MessageLookupByLibrary.simpleMessage("可选"),
         "Password": MessageLookupByLibrary.simpleMessage("密码"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("图片"),

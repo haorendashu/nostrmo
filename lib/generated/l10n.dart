@@ -1959,6 +1959,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Input Comment`
+  String get Input_Comment {
+    return Intl.message(
+      'Input Comment',
+      name: 'Input_Comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Optional`
+  String get Optional {
+    return Intl.message(
+      'Optional',
+      name: 'Optional',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

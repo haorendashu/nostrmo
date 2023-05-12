@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bech32/bech32.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 import '../event.dart';
 import '../event_kind.dart' as kind;
@@ -56,6 +57,7 @@ class Zap {
     required Nostr targetNostr,
     required List<String> relays,
     String? pollOption,
+    String? comment,
   }) async {
     var lnurlLink = decodeLud06Link(lnurl);
     var lnurlResponse = await getLnurlResponse(lnurlLink);
@@ -73,6 +75,18 @@ class Zap {
     var amount = sats * 1000;
     callback += "amount=$amount";
 
+    String eventContent = "";
+    if (StringUtil.isNotBlank(comment)) {
+      var commentNum = lnurlResponse.commentAllowed;
+      if (commentNum != null) {
+        if (commentNum < comment!.length) {
+          comment = comment.substring(0, commentNum);
+        }
+        callback += "&comment=${Uri.encodeQueryComponent(comment)}";
+        eventContent = comment;
+      }
+    }
+
     var tags = [
       ["relays", ...relays],
       ["amount", amount.toString()],
@@ -85,8 +99,8 @@ class Zap {
     if (StringUtil.isNotBlank(pollOption)) {
       tags.add(["poll_option", pollOption!]);
     }
-    var event =
-        Event(targetNostr.publicKey, kind.EventKind.ZAP_REQUEST, tags, "");
+    var event = Event(
+        targetNostr.publicKey, kind.EventKind.ZAP_REQUEST, tags, eventContent);
     event.sign(targetNostr.privateKey!);
     log(jsonEncode(event));
     var eventStr = Uri.encodeQueryComponent(jsonEncode(event));
