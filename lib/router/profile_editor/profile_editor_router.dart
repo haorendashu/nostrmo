@@ -226,8 +226,9 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
           ),
           Positioned(
             top: mediaDataCache.padding.top,
+            left: 0,
+            right: 0,
             child: Container(
-              width: mediaDataCache.size.width,
               child: appBar,
             ),
           ),
