@@ -11,6 +11,7 @@ import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/nip04/nip04.dart';
 import '../../client/nip19/nip19.dart';
+import '../../client/nip19/nip19_tlv.dart';
 import '../../client/upload/uploader.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -425,13 +426,13 @@ mixin EditorMixin {
             if (!_lastIsSpace(result) && !_lastIsLineEnd(result)) {
               result += " ";
             }
-            if (agreement == null) {
-              tags.add(["p", value]);
-              var index = tags.length - 1;
-              result += "#[$index] ";
-            } else {
-              result += "nostr:${Nip19.encodePubKey(value)} ";
-            }
+            // if (agreement == null) {
+            //   tags.add(["p", value]);
+            //   var index = tags.length - 1;
+            //   result += "#[$index] ";
+            // } else {
+            result += "nostr:${Nip19.encodePubKey(value)} ";
+            // }
             continue;
           }
 
@@ -440,15 +441,31 @@ mixin EditorMixin {
             if (!_lastIsLineEnd(result)) {
               result += " ";
             }
-            if (agreement == null) {
-              var relayAddr = "";
-              var mentionEvent = singleEventProvider.getEvent(value);
-              if (mentionEvent != null && mentionEvent.sources.isNotEmpty) {
-                relayAddr = mentionEvent.sources[0];
+            // if (agreement == null) {
+            //   var relayAddr = "";
+            //   var mentionEvent = singleEventProvider.getEvent(value);
+            //   if (mentionEvent != null && mentionEvent.sources.isNotEmpty) {
+            //     relayAddr = mentionEvent.sources[0];
+            //   }
+            //   tags.add(["e", value, relayAddr, "mention"]);
+            //   var index = tags.length - 1;
+            //   result += "#[$index] ";
+            // } else {
+            //   result += "nostr:${Nip19.encodeNoteId(value)} ";
+            // }
+            var mentionEvent = singleEventProvider.getEvent(value);
+            if (mentionEvent != null && mentionEvent.sources.isNotEmpty) {
+              List<String> relays = [];
+              if (mentionEvent.sources.length > 3) {
+                relays.add(mentionEvent.sources[0]);
+                relays.add(mentionEvent.sources[1]);
+                relays.add(mentionEvent.sources[2]);
+              } else {
+                relays.addAll(mentionEvent.sources);
               }
-              tags.add(["e", value, relayAddr, "mention"]);
-              var index = tags.length - 1;
-              result += "#[$index] ";
+              var nevent = Nevent(
+                  id: value, relays: relays, author: mentionEvent.pubKey);
+              result += "nostr:${NIP19Tlv.encodeNevent(nevent)}";
             } else {
               result += "nostr:${Nip19.encodeNoteId(value)} ";
             }
