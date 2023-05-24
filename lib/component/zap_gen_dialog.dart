@@ -171,8 +171,9 @@ class _ZapGenDialog extends State<ZapGenDialog> {
     }
 
     var comment = commentController.text;
+    RouterUtil.back(context);
+
     await ZapAction.handleZap(context, num, widget.pubkey,
         eventId: widget.eventId, comment: comment);
-    RouterUtil.back(context);
   }
 }

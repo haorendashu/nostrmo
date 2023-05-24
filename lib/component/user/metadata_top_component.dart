@@ -223,7 +223,6 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
           onSelected: onZapSelect,
           child: MetadataIconBtn(
             onLongPress: () {
-              print("onLongPress");
               ZapGenDialog.show(context, widget.pubkey);
             },
             iconData: Icons.currency_bitcoin,
