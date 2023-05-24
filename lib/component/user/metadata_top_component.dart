@@ -509,11 +509,20 @@ class MetadataIconBtn extends StatelessWidget {
     );
 
     if (onTap != null || onLongPress != null) {
-      return Ink(
-        decoration: decoration,
-        child: InkWell(
-          onTap: onTap,
-          onLongPress: onLongPress,
+      // return Ink(
+      //   decoration: decoration,
+      //   child: InkWell(
+      //     onTap: onTap,
+      //     onLongPress: onLongPress,
+      //     child: main,
+      //   ),
+      // );
+      return GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: onTap,
+        onLongPress: onLongPress,
+        child: Container(
+          decoration: decoration,
           child: main,
         ),
       );
