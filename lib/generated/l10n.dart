@@ -1300,11 +1300,11 @@ class S {
     );
   }
 
-  /// `Broadcase`
-  String get Broadcase {
+  /// `Broadcast`
+  String get Broadcast {
     return Intl.message(
-      'Broadcase',
-      name: 'Broadcase',
+      'Broadcast',
+      name: 'Broadcast',
       desc: '',
       args: [],
     );
@@ -1630,11 +1630,11 @@ class S {
     );
   }
 
-  /// `Broadcase When Boost`
-  String get Broadcase_When_Boost {
+  /// `Broadcast When Boost`
+  String get Broadcast_When_Boost {
     return Intl.message(
-      'Broadcase When Boost',
-      name: 'Broadcase_When_Boost',
+      'Broadcast When Boost',
+      name: 'Broadcast_When_Boost',
       desc: '',
       args: [],
     );

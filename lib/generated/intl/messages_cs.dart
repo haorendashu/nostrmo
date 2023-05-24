@@ -48,10 +48,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("limit"),
         "Blocks": MessageLookupByLibrary.simpleMessage("limit"),
         "Boost": MessageLookupByLibrary.simpleMessage("podporovat"),
-        "Broadcase":
-            MessageLookupByLibrary.simpleMessage("rozhlasové vysílání"),
-        "Broadcase_When_Boost":
-            MessageLookupByLibrary.simpleMessage("Vysílání během propagace"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Kup mi šálek kávy!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("zrušit"),

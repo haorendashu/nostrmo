@@ -49,9 +49,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("raja-arvo"),
         "Blocks": MessageLookupByLibrary.simpleMessage("raja-arvo"),
         "Boost": MessageLookupByLibrary.simpleMessage("edistää"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("radiolähetys"),
-        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Lähetys myynninedistämisen aikana"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Tarjoa kuppi kahvia!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("peruuta"),

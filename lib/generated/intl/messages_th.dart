@@ -48,9 +48,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("ข้อ จำกัด"),
         "Blocks": MessageLookupByLibrary.simpleMessage("ข้อ จำกัด"),
         "Boost": MessageLookupByLibrary.simpleMessage("โปรโมชั่น"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("ออกอากาศ"),
-        "Broadcase_When_Boost":
-            MessageLookupByLibrary.simpleMessage("ออกอากาศเมื่ออำนวยความสะดวก"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("ซื้อกาแฟให้ฉัน!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("การยกเลิก"),

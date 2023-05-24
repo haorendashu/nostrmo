@@ -49,9 +49,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("meja"),
         "Blocks": MessageLookupByLibrary.simpleMessage("meja"),
         "Boost": MessageLookupByLibrary.simpleMessage("spodbujanje"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("radijsko oddajanje"),
-        "Broadcase_When_Boost":
-            MessageLookupByLibrary.simpleMessage("Oddajanje med promocijo"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Kupi mi skodelico kave!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("prekliči"),

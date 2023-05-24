@@ -49,9 +49,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("határérték"),
         "Blocks": MessageLookupByLibrary.simpleMessage("határérték"),
         "Boost": MessageLookupByLibrary.simpleMessage("előmozdítani"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("rádióközvetítés"),
-        "Broadcase_When_Boost":
-            MessageLookupByLibrary.simpleMessage("Közvetítés a promóció során"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Hívj meg egy csésze kávéra!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("törlés"),

@@ -47,9 +47,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("تقييد"),
         "Blocks": MessageLookupByLibrary.simpleMessage("تقييد"),
         "Boost": MessageLookupByLibrary.simpleMessage("الترويج"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("البث"),
-        "Broadcase_When_Boost":
-            MessageLookupByLibrary.simpleMessage("تعزيز البث"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("إشتري لي فنجان قهوة"),
         "Cancel": MessageLookupByLibrary.simpleMessage("ألغى"),

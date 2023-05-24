@@ -44,8 +44,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("제한 사항"),
         "Blocks": MessageLookupByLibrary.simpleMessage("제한 사항"),
         "Boost": MessageLookupByLibrary.simpleMessage("촉진"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("방송"),
-        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage("촉진 시 방송"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("커피 한 잔 사줘!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("취소"),
         "Close_at": MessageLookupByLibrary.simpleMessage("중지"),

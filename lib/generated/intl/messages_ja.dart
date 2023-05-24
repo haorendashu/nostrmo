@@ -44,9 +44,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("制限＃セイゲン＃"),
         "Blocks": MessageLookupByLibrary.simpleMessage("制限＃セイゲン＃"),
         "Boost": MessageLookupByLibrary.simpleMessage("促進"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("ブロードキャスト"),
-        "Broadcase_When_Boost":
-            MessageLookupByLibrary.simpleMessage("プロモート時放送"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("コーヒーを買ってくれ！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止中"),

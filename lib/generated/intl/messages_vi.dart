@@ -48,9 +48,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("Giới hạn"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Giới hạn"),
         "Boost": MessageLookupByLibrary.simpleMessage("Khuyến mãi"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("Phát sóng"),
-        "Broadcase_When_Boost":
-            MessageLookupByLibrary.simpleMessage("Phát sóng khi quảng bá"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Mua cho tôi một tách cà phê!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),

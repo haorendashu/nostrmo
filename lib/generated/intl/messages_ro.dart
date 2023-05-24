@@ -48,9 +48,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("limită"),
         "Blocks": MessageLookupByLibrary.simpleMessage("limită"),
         "Boost": MessageLookupByLibrary.simpleMessage("promovare"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("difuzare radio"),
-        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Transmisie în timpul promovării"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Cumpără-mi o ceaşcă de cafea!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("anulează"),

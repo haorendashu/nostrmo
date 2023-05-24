@@ -48,9 +48,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("piirmäär"),
         "Blocks": MessageLookupByLibrary.simpleMessage("piirmäär"),
         "Boost": MessageLookupByLibrary.simpleMessage("edendada"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("raadioülekanne"),
-        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Edastamine reklaamimise ajal"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Osta mulle tass kohvi!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("tühista"),

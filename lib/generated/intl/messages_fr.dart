@@ -50,9 +50,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("Restrictions"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Restrictions"),
         "Boost": MessageLookupByLibrary.simpleMessage("Promotion"),
-        "Broadcase": MessageLookupByLibrary.simpleMessage("Diffusion"),
-        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Diffusion au moment de la promotion"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Achète - moi un café!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Annulation"),

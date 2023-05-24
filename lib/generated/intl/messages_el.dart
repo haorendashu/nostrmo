@@ -50,10 +50,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("όριο"),
         "Blocks": MessageLookupByLibrary.simpleMessage("όριο"),
         "Boost": MessageLookupByLibrary.simpleMessage("προώθηση"),
-        "Broadcase":
-            MessageLookupByLibrary.simpleMessage("ραδιοφωνική μετάδοση"),
-        "Broadcase_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Εκπομπή κατά τη διάρκεια της προώθησης"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Αγόρασε μου ένα φλιτζάνι καφέ!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("ακύρωση"),
