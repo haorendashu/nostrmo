@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../client/event.dart';
@@ -62,8 +64,14 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
 
     var filter = Filter(ids: _needUpdateIds);
     var subscriptId = StringUtil.rndNameStr(16);
-    // use query and close after EOSE
-    nostr!.query([filter.toJson()], _onEvent, id: subscriptId);
+    List<String> tempIds = [];
+    tempIds.addAll(_needUpdateIds);
+    nostr!.query([filter.toJson()], _onEvent, id: subscriptId, onComplete: () {
+      // log("singleEventProvider onComplete $tempIds");
+      for (var id in tempIds) {
+        _handingIds.remove(id);
+      }
+    });
 
     for (var id in _needUpdateIds) {
       _handingIds[id] = 1;
