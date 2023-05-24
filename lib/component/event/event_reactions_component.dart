@@ -254,7 +254,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                     ));
                     list.add(PopupMenuItem(
                       value: "broadcase",
-                      child: Text(s.Broadcase, style: popFontStyle),
+                      child: Text(s.Broadcast, style: popFontStyle),
                     ));
                     list.add(PopupMenuItem(
                       value: "block",

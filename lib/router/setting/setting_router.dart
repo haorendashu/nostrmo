@@ -217,7 +217,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       }
     }
     list.add(SettingGroupItemComponent(
-      name: s.Broadcase_When_Boost,
+      name: s.Broadcast_When_Boost,
       value: getOpenList(settingProvider.broadcaseWhenBoost).name,
       onTap: pickBroadcaseWhenBoost,
     ));
