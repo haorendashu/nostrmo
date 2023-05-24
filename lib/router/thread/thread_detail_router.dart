@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
@@ -156,7 +157,22 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
     Widget? rootEventWidget;
     if (rootEvent == null) {
-      rootEventWidget = EventLoadListComponent();
+      rootEventWidget = Selector<SingleEventProvider, Event?>(
+          builder: (context, event, child) {
+        if (event == null) {
+          return EventLoadListComponent();
+        }
+
+        return EventListComponent(
+          event: event,
+          jumpable: false,
+          showVideo: true,
+          imageListMode: false,
+          showLongContent: true,
+        );
+      }, selector: (context, provider) {
+        return provider.getEvent(rootId!);
+      });
     } else {
       rootEventWidget = EventListComponent(
         event: rootEvent!,
@@ -253,11 +269,11 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   void doQuery() {
     if (StringUtil.isNotBlank(rootId)) {
-      if (rootEvent == null) {
-        // source event isn't root event，query root event
-        var filter = Filter(ids: [rootId!]);
-        nostr!.query([filter.toJson()], onRootEvent);
-      }
+      // if (rootEvent == null) {
+      //   // source event isn't root event，query root event
+      //   var filter = Filter(ids: [rootId!]);
+      //   nostr!.query([filter.toJson()], onRootEvent);
+      // }
 
       // query sub events
       var filter = Filter(e: [
@@ -277,11 +293,11 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   List<ThreadDetailEvent>? rootSubList = [];
 
-  void onRootEvent(Event event) {
-    setState(() {
-      rootEvent = event;
-    });
-  }
+  // void onRootEvent(Event event) {
+  //   setState(() {
+  //     rootEvent = event;
+  //   });
+  // }
 
   void onEvent(Event event) {
     later(event, (list) {
