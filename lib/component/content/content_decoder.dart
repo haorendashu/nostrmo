@@ -257,8 +257,8 @@ class ContentDecoder {
           }
         } else if (subStr.indexOf(NOTE_REFERENCES) == 0 ||
             subStr.indexOf(NOTE_REFERENCES_AT) == 0) {
-          var key = subStr.replaceFirst(NOTE_REFERENCES, "");
-          key = key.replaceFirst(NOTE_REFERENCES_AT, "");
+          var key = subStr.replaceFirst(NOTE_REFERENCES_AT, "");
+          key = key.replaceFirst(NOTE_REFERENCES, "");
           if (Nip19.isPubkey(key)) {
             // inline
             // mention user
