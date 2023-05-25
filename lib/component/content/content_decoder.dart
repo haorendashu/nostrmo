@@ -32,6 +32,8 @@ class ContentDecoder {
 
   static const NOTE_REFERENCES = "nostr:";
 
+  static const NOTE_REFERENCES_AT = "@nostr:";
+
   static const MENTION_USER = "@npub";
 
   static const MENTION_NOTE = "@note";
@@ -253,8 +255,10 @@ class ContentDecoder {
               // }
             }
           }
-        } else if (subStr.indexOf(NOTE_REFERENCES) == 0) {
+        } else if (subStr.indexOf(NOTE_REFERENCES) == 0 ||
+            subStr.indexOf(NOTE_REFERENCES_AT) == 0) {
           var key = subStr.replaceFirst(NOTE_REFERENCES, "");
+          key = key.replaceFirst(NOTE_REFERENCES_AT, "");
           if (Nip19.isPubkey(key)) {
             // inline
             // mention user
