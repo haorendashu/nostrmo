@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:nostrmo/main.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../client/event_kind.dart' as kind;
 import '../../client/event.dart';
+import '../../client/event_relation.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../util/router_util.dart';
@@ -79,6 +85,28 @@ class _EventListComponent extends State<EventListComponent> {
   }
 
   void jumpToThread() {
+    if (widget.event.kind == kind.EventKind.REPOST) {
+      // try to find target event
+      if (widget.event.content.contains("\"pubkey\"")) {
+        try {
+          var jsonMap = jsonDecode(widget.event.content);
+          var repostEvent = Event.fromJson(jsonMap);
+          RouterUtil.router(context, RouterPath.THREAD_DETAIL, repostEvent);
+          return;
+        } catch (e) {
+          print(e);
+        }
+      }
+
+      var eventRelation = EventRelation.fromEvent(widget.event);
+      if (StringUtil.isNotBlank(eventRelation.rootId)) {
+        var event = singleEventProvider.getEvent(eventRelation.rootId!);
+        if (event != null) {
+          RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
+          return;
+        }
+      }
+    }
     RouterUtil.router(context, RouterPath.THREAD_DETAIL, widget.event);
   }
 }
