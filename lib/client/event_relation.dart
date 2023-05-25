@@ -1,3 +1,6 @@
+import 'package:nostrmo/client/nip19/nip19.dart';
+import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+
 import 'event.dart';
 
 class EventRelation {
@@ -38,6 +41,16 @@ class EventRelation {
         var tagKey = tag[0];
         var value = tag[1] as String;
         if (tagKey == "p") {
+          // check if is Text Note References
+          var nip19Str = "nostr:${Nip19.encodePubKey(value)}";
+          if (event.content.contains(nip19Str)) {
+            continue;
+          }
+          nip19Str = NIP19Tlv.encodeNprofile(Nprofile(pubkey: value));
+          if (event.content.contains(nip19Str)) {
+            continue;
+          }
+
           pMap[value] = 1;
         } else if (tagKey == "e") {
           tagEList.add(value);
