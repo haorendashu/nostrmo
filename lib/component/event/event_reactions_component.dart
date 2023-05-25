@@ -373,10 +373,11 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }
     tagsAddedWhenSend.add(["e", widget.event.id, relayAddr, directMarked]);
 
-    tags.add(["p", widget.event.pubKey]);
+    List<dynamic> tagPs = [];
+    tagPs.add(["p", widget.event.pubKey]);
     if (er.tagPList.isNotEmpty) {
       for (var p in er.tagPList) {
-        tags.add(["p", p]);
+        tagPs.add(["p", p]);
       }
     }
     if (StringUtil.isNotBlank(er.rootId)) {
@@ -389,7 +390,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
     // TODO reply maybe change the placeholder in editor router.
     var event = await EditorRouter.open(context,
-        tags: tags, tagsAddedWhenSend: tagsAddedWhenSend);
+        tags: tags, tagsAddedWhenSend: tagsAddedWhenSend, tagPs: tagPs);
     if (event != null) {
       eventReactionsProvider.addEventAndHandle(event);
       var callback = EventReplyCallback.of(context);

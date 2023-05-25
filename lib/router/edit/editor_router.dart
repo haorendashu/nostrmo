@@ -1,42 +1,27 @@
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-import 'package:image_picker/image_picker.dart';
-import 'package:nostrmo/client/nip04/nip04.dart';
-import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/client/upload/uploader.dart';
-import 'package:nostrmo/component/content/content_decoder.dart';
-import 'package:nostrmo/component/editor/cust_embed_types.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
 import 'package:nostrmo/component/editor/pic_embed_builder.dart';
 import 'package:nostrmo/component/editor/tag_embed_builder.dart';
-import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/editor/video_embed_builder.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/edit/poll_input_component.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:pointycastle/ecc/api.dart';
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../component/cust_state.dart';
 import '../../component/editor/editor_mixin.dart';
-import '../../component/editor/gen_lnbc_component.dart';
-import '../../component/editor/search_mention_event_component.dart';
-import '../../component/editor/search_mention_user_component.dart';
-import '../../component/editor/text_input_and_search_dialog.dart';
 import '../../generated/l10n.dart';
+import 'editor_notify_item_component.dart';
 
 class EditorRouter extends StatefulWidget {
   static double appbarHeight = 56;
@@ -51,11 +36,14 @@ class EditorRouter extends StatefulWidget {
 
   List<dynamic> tagsAddedWhenSend = [];
 
+  List<dynamic> tagPs = [];
+
   List<quill.BlockEmbed>? initEmbeds;
 
   EditorRouter({
     required this.tags,
     required this.tagsAddedWhenSend,
+    required this.tagPs,
     this.agreement,
     this.pubkey,
     this.initEmbeds,
@@ -65,16 +53,19 @@ class EditorRouter extends StatefulWidget {
     BuildContext context, {
     List<dynamic>? tags,
     List<dynamic>? tagsAddedWhenSend,
+    List<dynamic>? tagPs,
     ECDHBasicAgreement? agreement,
     String? pubkey,
     List<quill.BlockEmbed>? initEmbeds,
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
+    tagPs ??= [];
 
     var editor = EditorRouter(
       tags: tags,
       tagsAddedWhenSend: tagsAddedWhenSend,
+      tagPs: tagPs,
       agreement: agreement,
       pubkey: pubkey,
       initEmbeds: initEmbeds,
@@ -95,6 +86,8 @@ class EditorRouter extends StatefulWidget {
 }
 
 class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
+  List<EditorNotifyItem>? notifyItems;
+
   @override
   void initState() {
     super.initState();
@@ -103,6 +96,15 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
   @override
   Widget doBuild(BuildContext context) {
+    if (notifyItems == null) {
+      notifyItems = [];
+      for (var tagP in widget.tagPs) {
+        if (tagP is List<dynamic> && tagP.length > 1) {
+          notifyItems!.add(EditorNotifyItem(pubkey: tagP[1]));
+        }
+      }
+    }
+
     var s = S.of(context);
     var themeData = Theme.of(context);
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
@@ -111,6 +113,26 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
     List<Widget> list = [];
+
+    if (notifyItems != null && notifyItems!.isNotEmpty) {
+      List<Widget> tagPsWidgets = [];
+      tagPsWidgets.add(Text("Notify:"));
+      for (var item in notifyItems!) {
+        tagPsWidgets.add(EditorNotifyItemComponent(item: item));
+      }
+      list.add(Container(
+        padding:
+            EdgeInsets.only(left: Base.BASE_PADDING, right: Base.BASE_PADDING),
+        margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+        width: double.maxFinite,
+        child: Wrap(
+          spacing: Base.BASE_PADDING_HALF,
+          runSpacing: Base.BASE_PADDING_HALF,
+          children: tagPsWidgets,
+          crossAxisAlignment: WrapCrossAlignment.center,
+        ),
+      ));
+    }
 
     Widget quillWidget = quill.QuillEditor(
       placeholder: s.What_s_happening,
@@ -279,6 +301,17 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
   @override
   List getTagsAddedWhenSend() {
-    return widget.tagsAddedWhenSend;
+    if (notifyItems == null || notifyItems!.isEmpty) {
+      return widget.tagsAddedWhenSend;
+    }
+
+    List<dynamic> list = [];
+    list.addAll(widget.tagsAddedWhenSend);
+    for (var item in notifyItems!) {
+      if (item.selected) {
+        list.add(["p", item.pubkey]);
+      }
+    }
+    return list;
   }
 }
