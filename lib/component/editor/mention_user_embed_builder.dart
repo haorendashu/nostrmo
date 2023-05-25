@@ -11,7 +11,7 @@ class MentionUserEmbedBuilder extends EmbedBuilder {
 
   @override
   Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly, bool inline) {
+      bool readOnly, bool inline, TextStyle textStyle) {
     var pubkey = node.value.data;
     return AbsorbPointer(
       child: Container(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:nostrmo/component/content/content_tag_component.dart';
 
@@ -10,7 +9,7 @@ class TagEmbedBuilder extends EmbedBuilder {
 
   @override
   Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly, bool inline) {
+      bool readOnly, bool inline, TextStyle textStyle) {
     var tag = node.value.data;
     return AbsorbPointer(
       child: Container(

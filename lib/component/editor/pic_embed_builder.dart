@@ -9,7 +9,7 @@ import '../../main.dart';
 class PicEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly, bool inline) {
+      bool readOnly, bool inline, TextStyle textStyle) {
     var imageUrl = node.value.data as String;
     if (imageUrl.indexOf("http") == 0) {
       // netword image

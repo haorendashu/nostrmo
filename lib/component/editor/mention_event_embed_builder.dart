@@ -8,7 +8,7 @@ import 'cust_embed_types.dart';
 class MentionEventEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly, bool inline) {
+      bool readOnly, bool inline, TextStyle textStyle) {
     var id = node.value.data;
     return AbsorbPointer(
       child: EventQuoteComponent(id: id),
