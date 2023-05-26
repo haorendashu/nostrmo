@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
@@ -254,7 +255,9 @@ class _SearchRouter extends CustState<SearchRouter>
       Map<String, List<Map<String, dynamic>>> filtersMap = {};
       for (var relay in activeRelays) {
         var oldestCreatedAt = oldestCreatedAts.createdAtMap[relay.url];
-        filterMap!["until"] = oldestCreatedAt;
+        if (oldestCreatedAt != null) {
+          filterMap!["until"] = oldestCreatedAt;
+        }
         Map<String, dynamic> fm = {};
         for (var entry in filterMap!.entries) {
           fm[entry.key] = entry.value;
@@ -263,7 +266,9 @@ class _SearchRouter extends CustState<SearchRouter>
       }
       nostr!.queryByFilters(filtersMap, onQueryEvent, id: subscribeId);
     } else {
-      filterMap!["until"] = until;
+      if (until != null) {
+        filterMap!["until"] = until;
+      }
       nostr!.query([filterMap!], onQueryEvent, id: subscribeId);
     }
   }
@@ -303,7 +308,9 @@ class _SearchRouter extends CustState<SearchRouter>
         return;
       }
     } else {
-      authors = [value];
+      if (StringUtil.isNotBlank(value)) {
+        authors = [value];
+      }
     }
 
     eventMemBox = EventMemBox();
@@ -312,6 +319,7 @@ class _SearchRouter extends CustState<SearchRouter>
         Filter(kinds: searchEventKinds, authors: authors, limit: queryLimit)
             .toJson();
     filterMap!.remove("search");
+    log(jsonEncode(filterMap));
     penddingEvents.clear;
     doQuery();
   }
