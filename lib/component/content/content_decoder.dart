@@ -1,13 +1,16 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
+import 'package:nostrmo/component/content/content_event_tag_infos.dart';
 import 'package:string_validator/string_validator.dart';
 
 import '../../client/event.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
+import '../../main.dart';
 import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
 import '../event/event_quote_component.dart';
@@ -140,6 +143,10 @@ class ContentDecoder {
     List<String> imageList = [];
 
     var decodeInfo = _decodeTest(content!);
+    ContentEventTagInfos? tagInfos;
+    if (event != null) {
+      tagInfos = ContentEventTagInfos.fromEvent(event);
+    }
 
     for (var subStrs in decodeInfo.strs) {
       List<dynamic> inlines = [];
@@ -387,6 +394,28 @@ class ContentDecoder {
           handledStr = _closeHandledStr(handledStr, inlines);
           inlines.add(ContentTagComponent(tag: subStr));
         } else {
+          var length = subStr.length;
+          if (length > 2) {
+            if (subStr.substring(0, 1) == ":" &&
+                subStr.substring(length - 1) == ":" &&
+                tagInfos != null) {
+              var imagePath = tagInfos.emojiMap[subStr];
+              if (StringUtil.isNotBlank(imagePath)) {
+                handledStr = _closeHandledStr(handledStr, inlines);
+
+                inlines.add(CachedNetworkImage(
+                  width: 30, // it should according to fontSize
+                  imageUrl: imagePath!,
+                  // fit: imageBoxFix,
+                  placeholder: (context, url) => Container(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  cacheManager: localCacheManager,
+                ));
+                continue;
+              }
+            }
+          }
+
           handledStr = _addToHandledStr(handledStr, subStr);
         }
       }
