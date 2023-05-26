@@ -319,7 +319,6 @@ class _SearchRouter extends CustState<SearchRouter>
         Filter(kinds: searchEventKinds, authors: authors, limit: queryLimit)
             .toJson();
     filterMap!.remove("search");
-    log(jsonEncode(filterMap));
     penddingEvents.clear;
     doQuery();
   }
