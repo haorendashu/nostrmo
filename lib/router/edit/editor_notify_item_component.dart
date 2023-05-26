@@ -49,12 +49,14 @@ class _EditorNotifyItemComponent extends State<EditorNotifyItemComponent> {
       width: 24,
       height: 24,
       child: Checkbox(
-          value: widget.item.selected,
-          onChanged: (value) {
-            setState(() {
-              widget.item.selected = !widget.item.selected;
-            });
-          }),
+        value: widget.item.selected,
+        onChanged: (value) {
+          setState(() {
+            widget.item.selected = !widget.item.selected;
+          });
+        },
+        side: BorderSide(color: textColor!.withOpacity(0.6), width: 2),
+      ),
     ));
 
     return Container(

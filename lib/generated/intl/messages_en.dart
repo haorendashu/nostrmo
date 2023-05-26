@@ -163,6 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),
         "Notices": MessageLookupByLibrary.simpleMessage("Notices"),
+        "Notify": MessageLookupByLibrary.simpleMessage("Notify"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("Number parse error"),
         "Open_Event_from_cache":

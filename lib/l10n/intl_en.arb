@@ -191,5 +191,6 @@
     "Show_web": "Show web",
     "Web_Utils": "Web Utils",
     "Input_Comment": "Input Comment",
-    "Optional": "Optional"
+    "Optional": "Optional",
+    "Notify": "Notify"
 }

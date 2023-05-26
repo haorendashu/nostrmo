@@ -21,6 +21,7 @@ import '../../client/event_kind.dart' as kind;
 import '../../component/cust_state.dart';
 import '../../component/editor/editor_mixin.dart';
 import '../../generated/l10n.dart';
+import '../../util/string_util.dart';
 import 'editor_notify_item_component.dart';
 
 class EditorRouter extends StatefulWidget {
@@ -88,6 +89,8 @@ class EditorRouter extends StatefulWidget {
 class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   List<EditorNotifyItem>? notifyItems;
 
+  List<EditorNotifyItem> editorNotifyItems = [];
+
   @override
   void initState() {
     super.initState();
@@ -114,11 +117,20 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
     List<Widget> list = [];
 
-    if (notifyItems != null && notifyItems!.isNotEmpty) {
+    if ((notifyItems != null && notifyItems!.isNotEmpty) ||
+        (editorNotifyItems.isNotEmpty)) {
       List<Widget> tagPsWidgets = [];
-      tagPsWidgets.add(Text("Notify:"));
+      tagPsWidgets.add(Text("${s.Notify}:"));
       for (var item in notifyItems!) {
         tagPsWidgets.add(EditorNotifyItemComponent(item: item));
+      }
+      for (var editorNotifyItem in editorNotifyItems) {
+        var exist = notifyItems!.any((element) {
+          return element.pubkey == editorNotifyItem.pubkey;
+        });
+        if (!exist) {
+          tagPsWidgets.add(EditorNotifyItemComponent(item: editorNotifyItem));
+        }
       }
       list.add(Container(
         padding:
@@ -258,6 +270,48 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
       editorController.moveCursorToPosition(0);
     }
+
+    editorNotifyItems = [];
+    editorController.addListener(() {
+      bool updated = false;
+      Map<String, int> mentionUserMap = {};
+
+      var delta = editorController.document.toDelta();
+      var operations = delta.toList();
+      for (var operation in operations) {
+        if (operation.key == "insert") {
+          if (operation.data is Map) {
+            var m = operation.data as Map;
+            var value = m["mentionUser"];
+            if (StringUtil.isNotBlank(value)) {
+              mentionUserMap[value] = 1;
+            }
+          }
+        }
+      }
+
+      List<EditorNotifyItem> needDeleds = [];
+      for (var item in editorNotifyItems!) {
+        var exist = mentionUserMap.remove(item.pubkey);
+        if (exist == null) {
+          updated = true;
+          needDeleds.add(item);
+        }
+      }
+      editorNotifyItems!.removeWhere((element) => needDeleds.contains(element));
+
+      if (mentionUserMap.isNotEmpty) {
+        var entries = mentionUserMap.entries;
+        for (var entry in entries) {
+          updated = true;
+          editorNotifyItems.add(EditorNotifyItem(pubkey: entry.key));
+        }
+      }
+
+      if (updated) {
+        setState(() {});
+      }
+    });
   }
 
   Future<void> documentSave() async {
@@ -301,7 +355,8 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
   @override
   List getTagsAddedWhenSend() {
-    if (notifyItems == null || notifyItems!.isEmpty) {
+    if ((notifyItems == null || notifyItems!.isEmpty) &&
+        editorNotifyItems.isEmpty) {
       return widget.tagsAddedWhenSend;
     }
 
@@ -312,6 +367,18 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
         list.add(["p", item.pubkey]);
       }
     }
+
+    for (var editorNotifyItem in editorNotifyItems) {
+      var exist = notifyItems!.any((element) {
+        return element.pubkey == editorNotifyItem.pubkey;
+      });
+      if (!exist) {
+        if (editorNotifyItem.selected) {
+          list.add(["p", editorNotifyItem.pubkey]);
+        }
+      }
+    }
+
     return list;
   }
 }

@@ -427,7 +427,7 @@ mixin EditorMixin {
               result += " ";
             }
             // if (agreement == null) {
-            tags.add(["p", value]);
+            // tags.add(["p", value]);
             //   var index = tags.length - 1;
             //   result += "#[$index] ";
             // } else {

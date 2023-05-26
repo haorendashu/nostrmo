@@ -1979,6 +1979,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Notify`
+  String get Notify {
+    return Intl.message(
+      'Notify',
+      name: 'Notify',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

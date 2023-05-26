@@ -133,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
         "Notice": MessageLookupByLibrary.simpleMessage("提示"),
         "Notices": MessageLookupByLibrary.simpleMessage("通知"),
+        "Notify": MessageLookupByLibrary.simpleMessage("告知"),
         "Number_parse_error": MessageLookupByLibrary.simpleMessage("数字格式化失败"),
         "Open_Event_from_cache":
             MessageLookupByLibrary.simpleMessage("从缓存中查找动态"),
