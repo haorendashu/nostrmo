@@ -446,9 +446,9 @@ class _SearchRouter extends CustState<SearchRouter>
 
     var value = controller.text;
     value = value.trim();
-    if (StringUtil.isBlank(value)) {
-      BotToast.showText(text: S.of(context).Empty_text_may_be_ban_by_relays);
-    }
+    // if (StringUtil.isBlank(value)) {
+    //   BotToast.showText(text: S.of(context).Empty_text_may_be_ban_by_relays);
+    // }
 
     eventMemBox = EventMemBox();
     until = null;
