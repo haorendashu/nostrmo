@@ -44,7 +44,15 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
 
   void _handlePenddingEvents() {
     for (var event in _penddingEvents) {
-      _eventsMap[event.id] = event;
+      var oldEvent = _eventsMap[event.id];
+      if (oldEvent != null) {
+        if (event.sources.isNotEmpty &&
+            !oldEvent.sources.contains(event.sources[0])) {
+          oldEvent.sources.add(event.sources[0]);
+        }
+      } else {
+        _eventsMap[event.id] = event;
+      }
 
       _handingIds.remove(event.id);
     }
