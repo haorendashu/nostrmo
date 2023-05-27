@@ -19,6 +19,7 @@ import 'package:pointycastle/ecc/api.dart';
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../component/cust_state.dart';
+import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
 import '../../generated/l10n.dart';
 import '../../util/string_util.dart';
@@ -159,6 +160,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
         VideoEmbedBuilder(),
         LnbcEmbedBuilder(),
         TagEmbedBuilder(),
+        CustomEmojiEmbedBuilder(),
       ],
       scrollable: true,
       autoFocus: false,
@@ -207,6 +209,9 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     list.add(buildEditorBtns());
     if (emojiShow) {
       list.add(buildEmojiSelector());
+    }
+    if (customEmojiShow) {
+      list.add(buildCustomEmojiSelector());
     }
 
     return Scaffold(

@@ -15,6 +15,7 @@ import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
 import '../event/event_quote_component.dart';
 import '../translate/line_translate_component.dart';
+import 'content_custom_emoji_component.dart';
 import 'content_image_component.dart';
 import 'content_link_component.dart';
 import 'content_link_pre_component.dart';
@@ -402,15 +403,7 @@ class ContentDecoder {
               var imagePath = tagInfos.emojiMap[subStr];
               if (StringUtil.isNotBlank(imagePath)) {
                 handledStr = _closeHandledStr(handledStr, inlines);
-
-                inlines.add(CachedNetworkImage(
-                  width: 30, // it should according to fontSize
-                  imageUrl: imagePath!,
-                  // fit: imageBoxFix,
-                  placeholder: (context, url) => Container(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  cacheManager: localCacheManager,
-                ));
+                inlines.add(ContentCustomEmojiComponent(imagePath: imagePath!));
                 continue;
               }
             }

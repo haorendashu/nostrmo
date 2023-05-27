@@ -14,6 +14,7 @@ import 'package:pointycastle/export.dart' as pointycastle;
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 import '../../client/nip04/nip04.dart';
+import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/lnbc_embed_builder.dart';
 import '../../component/editor/mention_event_embed_builder.dart';
 import '../../component/editor/mention_user_embed_builder.dart';
@@ -151,6 +152,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
                 VideoEmbedBuilder(),
                 LnbcEmbedBuilder(),
                 TagEmbedBuilder(),
+                CustomEmojiEmbedBuilder(),
               ],
               scrollable: true,
               autoFocus: false,
@@ -181,6 +183,9 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     list.add(buildEditorBtns(showShadow: false, height: null));
     if (emojiShow) {
       list.add(buildEmojiSelector());
+    }
+    if (customEmojiShow) {
+      list.add(buildCustomEmojiSelector());
     }
 
     Widget main = Container(

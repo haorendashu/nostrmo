@@ -1,11 +1,15 @@
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
+import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
+import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:pointycastle/ecc/api.dart';
+import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
@@ -13,6 +17,8 @@ import '../../client/nip04/nip04.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/nip19/nip19_tlv.dart';
 import '../../client/upload/uploader.dart';
+import '../../consts/base.dart';
+import '../../data/custom_emoji.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../router/edit/poll_input_component.dart';
@@ -21,6 +27,7 @@ import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
 import 'cust_embed_types.dart';
+import 'custom_emoji_add_dialog.dart';
 import 'gen_lnbc_component.dart';
 import 'search_mention_event_component.dart';
 import 'search_mention_user_component.dart';
@@ -52,8 +59,9 @@ mixin EditorMixin {
 
   void handleFocusInit() {
     focusNode.addListener(() {
-      if (focusNode.hasFocus && emojiShow) {
+      if (focusNode.hasFocus && (emojiShow || customEmojiShow)) {
         emojiShow = false;
+        customEmojiShow = false;
         updateUI();
       }
     });
@@ -95,6 +103,10 @@ mixin EditorMixin {
       quill.QuillIconButton(
         onPressed: _inputLnbc,
         icon: Icon(Icons.bolt),
+      ),
+      quill.QuillIconButton(
+        onPressed: customEmojiSelect,
+        icon: Icon(Icons.add_reaction_outlined),
       ),
       quill.QuillIconButton(
         onPressed: emojiBeginToSelect,
@@ -185,6 +197,7 @@ mixin EditorMixin {
   void emojiBeginToSelect() {
     FocusScope.of(getContext()).unfocus();
     emojiShow = true;
+    customEmojiShow = false;
     updateUI();
   }
 
@@ -369,6 +382,8 @@ mixin EditorMixin {
     // dm pubkey
     var pubkey = getPubkey();
 
+    // customEmoji map
+    Map<String, int> customEmojiMap = {};
     var tags = []..addAll(getTags());
     var tagsAddedWhenSend = []..addAll(getTagsAddedWhenSend());
 
@@ -471,6 +486,17 @@ mixin EditorMixin {
             }
             continue;
           }
+
+          value = m["customEmoji"];
+          if (value != null && value is CustomEmoji) {
+            result += ":${value.name}: ";
+
+            if (customEmojiMap[value.name] == null) {
+              customEmojiMap[value.name!] = 1;
+              tags.add(["emoji", value.name, value.filepath]);
+            }
+            continue;
+          }
         } else {
           result += operation.data.toString();
         }
@@ -551,5 +577,89 @@ mixin EditorMixin {
     pollInputController.clear();
     inputPoll = !inputPoll;
     updateUI();
+  }
+
+  bool customEmojiShow = false;
+
+  void customEmojiSelect() {
+    FocusScope.of(getContext()).unfocus();
+    customEmojiShow = true;
+    emojiShow = false;
+    updateUI();
+  }
+
+  Future<void> addCustomEmoji() async {
+    var emoji = await CustomEmojiAddDialog.show(getContext());
+
+    if (emoji != null) {
+      customEmojiProvider.addEmoji(emoji);
+    }
+  }
+
+  void addEmojiToEditor(CustomEmoji emoji) {
+    final index = editorController.selection.baseOffset;
+    final length = editorController.selection.extentOffset - index;
+
+    editorController.replaceText(index, length,
+        quill.Embeddable(CustEmbedTypes.custom_emoji, emoji), null);
+
+    editorController.moveCursorToPosition(index + 1);
+  }
+
+  Widget buildCustomEmojiSelector() {
+    var themeData = Theme.of(getContext());
+
+    return Container(
+      height: 260,
+      width: double.infinity,
+      child: Selector<CustomEmojiProvider, List<CustomEmoji>>(
+        builder: (context, emojis, child) {
+          List<Widget> list = [];
+          list.add(GestureDetector(
+            onTap: () {
+              addCustomEmoji();
+            },
+            child: Container(
+              width: 80,
+              height: 80,
+              child: Icon(
+                Icons.add,
+                size: 50,
+              ),
+            ),
+          ));
+
+          for (var emoji in emojis) {
+            list.add(GestureDetector(
+              onTap: () {
+                addEmojiToEditor(emoji);
+              },
+              // child: ContentCustomEmojiComponent(imagePath: emoji.filepath!),
+              child: Container(
+                constraints: BoxConstraints(maxWidth: 80, maxHeight: 80),
+                child: CachedNetworkImage(
+                  // width: fontSize! * 2,
+                  imageUrl: emoji.filepath!,
+                  // fit: imageBoxFix,
+                  placeholder: (context, url) => Container(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  cacheManager: localCacheManager,
+                ),
+              ),
+            ));
+          }
+
+          return Wrap(
+            // runAlignment: WrapAlignment.center,
+            children: list,
+            runSpacing: Base.BASE_PADDING_HALF,
+            spacing: Base.BASE_PADDING_HALF,
+          );
+        },
+        selector: (context, _provider) {
+          return _provider.emojis;
+        },
+      ),
+    );
   }
 }

@@ -11,6 +11,7 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nostrmo/client/nostr.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
+import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
@@ -114,6 +115,8 @@ late Map<String, WidgetBuilder> routes;
 
 late WebViewProvider webViewProvider;
 
+late CustomEmojiProvider customEmojiProvider;
+
 Nostr? nostr;
 
 bool firstLogin = false;
@@ -183,6 +186,7 @@ Future<void> main() async {
   localCacheManager = CacheManagerBuilder.build();
   pcRouterFakeProvider = PcRouterFakeProvider();
   webViewProvider = WebViewProvider();
+  customEmojiProvider = CustomEmojiProvider.load();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -315,6 +319,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<WebViewProvider>.value(
           value: webViewProvider,
+        ),
+        ListenableProvider<CustomEmojiProvider>.value(
+          value: customEmojiProvider,
         ),
       ],
       child: HomeComponent(
