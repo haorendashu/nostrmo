@@ -17,7 +17,7 @@ class ContentCustomEmojiComponent extends StatelessWidget {
     if (imagePath.indexOf("http") == 0) {
       // netword image
       return Container(
-        constraints: BoxConstraints(maxWidth: 80),
+        constraints: BoxConstraints(maxWidth: 80, maxHeight: 80),
         child: CachedNetworkImage(
           // width: fontSize! * 2,
           imageUrl: imagePath,
@@ -30,7 +30,7 @@ class ContentCustomEmojiComponent extends StatelessWidget {
     } else {
       // local image
       return Container(
-        constraints: BoxConstraints(maxWidth: 80),
+        constraints: BoxConstraints(maxWidth: 80, maxHeight: 80),
         child: Image.file(
           File(imagePath),
           // fit: BoxFit.fitWidth,
