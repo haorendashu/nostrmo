@@ -57,7 +57,7 @@ class _TextInputDialog extends State<TextInputDialog> {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.2),
       body: FocusScope(
-        // autofocus: true,
+        autofocus: true,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {

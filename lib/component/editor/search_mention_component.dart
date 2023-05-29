@@ -72,6 +72,7 @@ class _SaerchMentionComponent extends State<SaerchMentionComponent>
     }
     list.add(Container(
       child: TextField(
+        autofocus: true,
         controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.search),
