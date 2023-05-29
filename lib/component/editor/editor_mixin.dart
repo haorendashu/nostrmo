@@ -124,11 +124,12 @@ mixin EditorMixin {
         onPressed: _inputTag,
         icon: Icon(Icons.tag),
       ),
-      Expanded(child: Container())
+      // Expanded(child: Container())
     ]);
 
     return Container(
       height: height,
+      width: double.infinity,
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
         boxShadow: showShadow
@@ -142,8 +143,12 @@ mixin EditorMixin {
               ]
             : null,
       ),
-      child: Row(
-        children: inputBtnList,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: inputBtnList,
+        ),
       ),
     );
   }
