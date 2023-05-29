@@ -22,6 +22,8 @@ class EventRelation {
 
   String? subject;
 
+  bool warning = false;
+
   EventRelation.fromEvent(Event event) {
     id = event.id;
     pubkey = event.pubKey;
@@ -64,8 +66,10 @@ class EventRelation {
               replyRelayAddr = tag[2];
             }
           }
-        } else if (tagKey == "subjet") {
+        } else if (tagKey == "subject") {
           subject = value;
+        } else if (tagKey == "content-warning") {
+          warning = true;
         }
       }
     }

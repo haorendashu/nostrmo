@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
@@ -74,6 +77,7 @@ mixin EditorMixin {
     var themeData = Theme.of(getContext());
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var hintColor = themeData.hintColor;
+    var mainColor = themeData.primaryColor;
 
     List<Widget> inputBtnList = [
       quill.QuillIconButton(
@@ -126,6 +130,25 @@ mixin EditorMixin {
       ),
       // Expanded(child: Container())
     ]);
+
+    if (getAgreement() == null) {
+      inputBtnList.addAll([
+        quill.QuillIconButton(
+          onPressed: _addWarning,
+          icon: Icon(Icons.warning, color: showWarning ? Colors.red : null),
+        ),
+        quill.QuillIconButton(
+          onPressed: _addTitle,
+          icon: Icon(Icons.title, color: showTitle ? mainColor : null),
+        ),
+      ]);
+    }
+
+    inputBtnList.add(
+      Container(
+        width: Base.BASE_PADDING,
+      ),
+    );
 
     return Container(
       height: height,
@@ -515,6 +538,16 @@ mixin EditorMixin {
     List<dynamic> allTags = [];
     allTags.addAll(tags);
     allTags.addAll(tagsAddedWhenSend);
+
+    var subject = subjectController.text;
+    if (StringUtil.isNotBlank(subject)) {
+      allTags.add(["subject", subject]);
+    }
+
+    if (showWarning) {
+      allTags.add(["content-warning", ""]);
+    }
+
     Event? event;
     if (agreement != null && StringUtil.isNotBlank(pubkey)) {
       // dm message
@@ -532,8 +565,9 @@ mixin EditorMixin {
       event =
           Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result);
     }
+
     var e = nostr!.sendEvent(event);
-    // log(jsonEncode(event.toJson()));
+    log(jsonEncode(event.toJson()));
 
     return e;
   }
@@ -664,6 +698,56 @@ mixin EditorMixin {
         selector: (context, _provider) {
           return _provider.emojis;
         },
+      ),
+    );
+  }
+
+  bool showWarning = false;
+
+  void _addWarning() {
+    showWarning = !showWarning;
+    updateUI();
+  }
+
+  bool showTitle = false;
+
+  TextEditingController subjectController = TextEditingController();
+
+  void _addTitle() {
+    subjectController.clear();
+    showTitle = !showTitle;
+    updateUI();
+  }
+
+  Widget buildTitleWidget() {
+    var themeData = Theme.of(getContext());
+    var fontSize = themeData.textTheme.bodyLarge!.fontSize;
+    var hintColor = themeData.hintColor;
+    var s = S.of(getContext());
+
+    return Container(
+      // color: Colors.red,
+      padding: const EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+      ),
+      child: AutoSizeTextField(
+        maxLength: 80,
+        controller: subjectController,
+        style: TextStyle(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+        ),
+        decoration: InputDecoration(
+          hintText: s.Please_input_title,
+          border: InputBorder.none,
+          hintStyle: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.normal,
+            color: hintColor.withOpacity(0.8),
+          ),
+          counterText: "",
+        ),
       ),
     );
   }

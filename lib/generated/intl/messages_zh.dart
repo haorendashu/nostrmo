@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("提交"),
         "Content": MessageLookupByLibrary.simpleMessage("内容"),
+        "Content_warning": MessageLookupByLibrary.simpleMessage("内容警告"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("复制原始密钥"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("复制密钥"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("复制动态Id"),
@@ -164,6 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入闪电网络发票"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("请输入搜索内容"),
+        "Please_input_title": MessageLookupByLibrary.simpleMessage("请输入标题"),
         "Please_input_user_pubkey":
             MessageLookupByLibrary.simpleMessage("请输入用户公钥"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -203,6 +205,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("主题类型"),
         "There_should_be_a_universe_here":
             MessageLookupByLibrary.simpleMessage("这里应该有一个宇宙"),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage("该动态包含敏感信息"),
         "Timeline": MessageLookupByLibrary.simpleMessage("时间线"),
         "Topic": MessageLookupByLibrary.simpleMessage("主题"),
         "Topics": MessageLookupByLibrary.simpleMessage("主题"),

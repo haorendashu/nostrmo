@@ -1989,6 +1989,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Content warning`
+  String get Content_warning {
+    return Intl.message(
+      'Content warning',
+      name: 'Content_warning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This note contains sensitive content`
+  String get This_note_contains_sensitive_content {
+    return Intl.message(
+      'This note contains sensitive content',
+      name: 'This_note_contains_sensitive_content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input title`
+  String get Please_input_title {
+    return Intl.message(
+      'Please input title',
+      name: 'Please_input_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

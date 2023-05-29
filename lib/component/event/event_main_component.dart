@@ -86,6 +86,8 @@ class EventMainComponent extends StatefulWidget {
 }
 
 class _EventMainComponent extends State<EventMainComponent> {
+  bool showWarning = false;
+
   late EventRelation eventRelation;
 
   @override
@@ -110,10 +112,13 @@ class _EventMainComponent extends State<EventMainComponent> {
       videoPreview = _settingProvider.videoPreview == OpenStatus.OPEN;
     }
 
+    print("subject ${eventRelation.subject}");
+
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
     var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
+    var mainColor = themeData.primaryColor;
 
     Color? contentCardColor = themeData.cardColor;
     if (contentCardColor == Colors.white) {
@@ -132,225 +137,229 @@ class _EventMainComponent extends State<EventMainComponent> {
     }
 
     List<Widget> list = [];
-    if (widget.event.kind == kind.EventKind.LONG_FORM) {
-      var longFormMargin = EdgeInsets.only(bottom: Base.BASE_PADDING_HALF);
+    if (showWarning || !eventRelation.warning) {
+      if (widget.event.kind == kind.EventKind.LONG_FORM) {
+        var longFormMargin = EdgeInsets.only(bottom: Base.BASE_PADDING_HALF);
 
-      List<Widget> subList = [];
-      var longFormInfo = LongFormInfo.fromEvent(widget.event);
-      if (StringUtil.isNotBlank(longFormInfo.title)) {
-        subList.add(
-          Container(
-            margin: longFormMargin,
-            child: Text(
-              longFormInfo.title!,
-              maxLines: 10,
-              style: TextStyle(
-                fontSize: largeTextSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        );
-      }
-      if (longFormInfo.topics.isNotEmpty) {
-        List<Widget> topicWidgets = [];
-        for (var topic in longFormInfo.topics) {
-          topicWidgets.add(ContentTagComponent(tag: "#$topic"));
-        }
-
-        subList.add(Container(
-          margin: longFormMargin,
-          child: Wrap(
-            children: topicWidgets,
-          ),
-        ));
-      }
-      if (StringUtil.isNotBlank(longFormInfo.summary)) {
-        Widget summaryTextWidget = Text(
-          longFormInfo.summary!,
-          style: TextStyle(
-            color: hintColor,
-          ),
-        );
-        subList.add(
-          Container(
-            width: double.infinity,
-            margin: longFormMargin,
-            child: summaryTextWidget,
-          ),
-        );
-      }
-      if (StringUtil.isNotBlank(longFormInfo.image)) {
-        subList.add(Container(
-          margin: longFormMargin,
-          child: ContentImageComponent(
-            imageUrl: longFormInfo.image!,
-          ),
-        ));
-      }
-
-      list.add(
-        Container(
-          width: double.maxFinite,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: subList,
-          ),
-        ),
-      );
-
-      if (widget.showLongContent) {
-        var markdownWidget = buildMarkdownWidget(themeData);
-
-        list.add(Container(
-          width: double.infinity,
-          child: RepaintBoundary(child: markdownWidget),
-        ));
-      }
-
-      list.add(EventReactionsComponent(
-        screenshotController: widget.screenshotController,
-        event: widget.event,
-        eventRelation: eventRelation,
-        showDetailBtn: widget.showDetailBtn,
-      ));
-    } else if (widget.event.kind == kind.EventKind.REPOST) {
-      list.add(Container(
-        alignment: Alignment.centerLeft,
-        child: Text("${s.Boost}:"),
-      ));
-      if (repostEvent != null) {
-        list.add(EventQuoteComponent(
-          event: repostEvent,
-          showVideo: widget.showVideo,
-        ));
-      } else if (StringUtil.isNotBlank(eventRelation.rootId)) {
-        list.add(EventQuoteComponent(
-          id: eventRelation.rootId,
-          showVideo: widget.showVideo,
-        ));
-      } else {
-        list.add(
-          buildContentWidget(_settingProvider, imagePreview, videoPreview),
-        );
-      }
-    } else {
-      if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
-        var textStyle = TextStyle(
-          color: hintColor,
-          fontSize: smallTextSize,
-        );
-        List<Widget> replyingList = [];
-        var length = eventRelation.tagPList.length;
-        replyingList.add(Text(
-          "${s.Replying}: ",
-          style: textStyle,
-        ));
-        for (var index = 0; index < length; index++) {
-          var p = eventRelation.tagPList[index];
-          var isLast = index < length - 1 ? false : true;
-          replyingList.add(EventReplyingcomponent(pubkey: p));
-          if (!isLast) {
-            replyingList.add(Text(
-              " & ",
-              style: textStyle,
-            ));
-          }
-        }
-        list.add(Container(
-          width: double.maxFinite,
-          padding: const EdgeInsets.only(
-            bottom: Base.BASE_PADDING_HALF,
-          ),
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: replyingList,
-          ),
-        ));
-      } else {
-        // hide the reply note subject!
-        if (widget.showSubject) {
-          if (StringUtil.isNotBlank(eventRelation.subject)) {
-            list.add(Container(
-              width: double.infinity,
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+        List<Widget> subList = [];
+        var longFormInfo = LongFormInfo.fromEvent(widget.event);
+        if (StringUtil.isNotBlank(longFormInfo.title)) {
+          subList.add(
+            Container(
+              margin: longFormMargin,
               child: Text(
-                eventRelation.subject!,
+                longFormInfo.title!,
                 maxLines: 10,
                 style: TextStyle(
                   fontSize: largeTextSize,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ));
-          }
+            ),
+          );
         }
-      }
+        if (longFormInfo.topics.isNotEmpty) {
+          List<Widget> topicWidgets = [];
+          for (var topic in longFormInfo.topics) {
+            topicWidgets.add(ContentTagComponent(tag: "#$topic"));
+          }
 
-      list.add(
-        buildContentWidget(_settingProvider, imagePreview, videoPreview),
-      );
+          subList.add(Container(
+            margin: longFormMargin,
+            child: Wrap(
+              children: topicWidgets,
+            ),
+          ));
+        }
+        if (StringUtil.isNotBlank(longFormInfo.summary)) {
+          Widget summaryTextWidget = Text(
+            longFormInfo.summary!,
+            style: TextStyle(
+              color: hintColor,
+            ),
+          );
+          subList.add(
+            Container(
+              width: double.infinity,
+              margin: longFormMargin,
+              child: summaryTextWidget,
+            ),
+          );
+        }
+        if (StringUtil.isNotBlank(longFormInfo.image)) {
+          subList.add(Container(
+            margin: longFormMargin,
+            child: ContentImageComponent(
+              imageUrl: longFormInfo.image!,
+            ),
+          ));
+        }
 
-      if (widget.event.kind == kind.EventKind.POLL) {
-        list.add(EventPollComponent(
+        list.add(
+          Container(
+            width: double.maxFinite,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: subList,
+            ),
+          ),
+        );
+
+        if (widget.showLongContent) {
+          var markdownWidget = buildMarkdownWidget(themeData);
+
+          list.add(Container(
+            width: double.infinity,
+            child: RepaintBoundary(child: markdownWidget),
+          ));
+        }
+
+        list.add(EventReactionsComponent(
+          screenshotController: widget.screenshotController,
           event: widget.event,
+          eventRelation: eventRelation,
+          showDetailBtn: widget.showDetailBtn,
         ));
-      }
-
-      if (widget.event.kind == kind.EventKind.FILE_HEADER) {
-        String? m;
-        String? url;
-        for (var tag in widget.event.tags) {
-          if (tag.length > 1) {
-            var key = tag[0];
-            var value = tag[1];
-            if (key == "url") {
-              url = value;
-            } else if (key == "m") {
-              m = value;
+      } else if (widget.event.kind == kind.EventKind.REPOST) {
+        list.add(Container(
+          alignment: Alignment.centerLeft,
+          child: Text("${s.Boost}:"),
+        ));
+        if (repostEvent != null) {
+          list.add(EventQuoteComponent(
+            event: repostEvent,
+            showVideo: widget.showVideo,
+          ));
+        } else if (StringUtil.isNotBlank(eventRelation.rootId)) {
+          list.add(EventQuoteComponent(
+            id: eventRelation.rootId,
+            showVideo: widget.showVideo,
+          ));
+        } else {
+          list.add(
+            buildContentWidget(_settingProvider, imagePreview, videoPreview),
+          );
+        }
+      } else {
+        if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
+          var textStyle = TextStyle(
+            color: hintColor,
+            fontSize: smallTextSize,
+          );
+          List<Widget> replyingList = [];
+          var length = eventRelation.tagPList.length;
+          replyingList.add(Text(
+            "${s.Replying}: ",
+            style: textStyle,
+          ));
+          for (var index = 0; index < length; index++) {
+            var p = eventRelation.tagPList[index];
+            var isLast = index < length - 1 ? false : true;
+            replyingList.add(EventReplyingcomponent(pubkey: p));
+            if (!isLast) {
+              replyingList.add(Text(
+                " & ",
+                style: textStyle,
+              ));
+            }
+          }
+          list.add(Container(
+            width: double.maxFinite,
+            padding: const EdgeInsets.only(
+              bottom: Base.BASE_PADDING_HALF,
+            ),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: replyingList,
+            ),
+          ));
+        } else {
+          // hide the reply note subject!
+          if (widget.showSubject) {
+            if (StringUtil.isNotBlank(eventRelation.subject)) {
+              list.add(Container(
+                width: double.infinity,
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+                child: Text(
+                  eventRelation.subject!,
+                  maxLines: 10,
+                  style: TextStyle(
+                    fontSize: largeTextSize,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ));
             }
           }
         }
 
-        if (StringUtil.isNotBlank(url)) {
-          //  show and decode depend m
-          if (StringUtil.isNotBlank(m)) {
-            if (m!.indexOf("image/") == 0) {
-              list.add(ContentImageComponent(imageUrl: url!));
-            } else if (m.indexOf("video/") == 0 &&
-                widget.showVideo &&
-                !PlatformUtil.isPC()) {
-              list.add(ContentVideoComponent(url: url!));
-            } else {
-              list.add(ContentLinkComponent(link: url!));
+        list.add(
+          buildContentWidget(_settingProvider, imagePreview, videoPreview),
+        );
+
+        if (widget.event.kind == kind.EventKind.POLL) {
+          list.add(EventPollComponent(
+            event: widget.event,
+          ));
+        }
+
+        if (widget.event.kind == kind.EventKind.FILE_HEADER) {
+          String? m;
+          String? url;
+          for (var tag in widget.event.tags) {
+            if (tag.length > 1) {
+              var key = tag[0];
+              var value = tag[1];
+              if (key == "url") {
+                url = value;
+              } else if (key == "m") {
+                m = value;
+              }
             }
-          } else {
-            var fileType = ContentDecoder.getPathType(url!);
-            if (fileType == "image") {
-              list.add(ContentImageComponent(imageUrl: url));
-            } else if (fileType == "video" && !PlatformUtil.isPC()) {
-              if (settingProvider.videoPreview != OpenStatus.OPEN &&
-                  (settingProvider.videoPreviewInList == OpenStatus.OPEN ||
-                      widget.showVideo)) {
-                list.add(ContentVideoComponent(url: url));
+          }
+
+          if (StringUtil.isNotBlank(url)) {
+            //  show and decode depend m
+            if (StringUtil.isNotBlank(m)) {
+              if (m!.indexOf("image/") == 0) {
+                list.add(ContentImageComponent(imageUrl: url!));
+              } else if (m.indexOf("video/") == 0 &&
+                  widget.showVideo &&
+                  !PlatformUtil.isPC()) {
+                list.add(ContentVideoComponent(url: url!));
+              } else {
+                list.add(ContentLinkComponent(link: url!));
+              }
+            } else {
+              var fileType = ContentDecoder.getPathType(url!);
+              if (fileType == "image") {
+                list.add(ContentImageComponent(imageUrl: url));
+              } else if (fileType == "video" && !PlatformUtil.isPC()) {
+                if (settingProvider.videoPreview != OpenStatus.OPEN &&
+                    (settingProvider.videoPreviewInList == OpenStatus.OPEN ||
+                        widget.showVideo)) {
+                  list.add(ContentVideoComponent(url: url));
+                } else {
+                  list.add(ContentLinkComponent(link: url));
+                }
               } else {
                 list.add(ContentLinkComponent(link: url));
               }
-            } else {
-              list.add(ContentLinkComponent(link: url));
             }
           }
         }
-      }
 
-      list.add(EventReactionsComponent(
-        screenshotController: widget.screenshotController,
-        event: widget.event,
-        eventRelation: eventRelation,
-        showDetailBtn: widget.showDetailBtn,
-      ));
+        list.add(EventReactionsComponent(
+          screenshotController: widget.screenshotController,
+          event: widget.event,
+          eventRelation: eventRelation,
+          showDetailBtn: widget.showDetailBtn,
+        ));
+      }
+    } else {
+      list.add(buildWarningWidget(largeTextSize!, mainColor));
     }
 
     return Column(
@@ -504,6 +513,58 @@ class _EventMainComponent extends State<EventMainComponent> {
           }
         }
       },
+    );
+  }
+
+  Widget buildWarningWidget(double largeTextSize, Color mainColor) {
+    var s = S.of(context);
+
+    return Container(
+      margin:
+          EdgeInsets.only(bottom: Base.BASE_PADDING, top: Base.BASE_PADDING),
+      width: double.maxFinite,
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.warning),
+              Container(
+                margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+                child: Text(
+                  s.Content_warning,
+                  style: TextStyle(fontSize: largeTextSize),
+                ),
+              )
+            ],
+          ),
+          Text(s.This_note_contains_sensitive_content),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                showWarning = true;
+              });
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
+              padding: const EdgeInsets.only(
+                top: 4,
+                bottom: 4,
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+              ),
+              decoration: BoxDecoration(
+                color: mainColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                s.Show,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -192,5 +192,8 @@
     "Web_Utils": "Web Utils",
     "Input_Comment": "Input Comment",
     "Optional": "Optional",
-    "Notify": "Notify"
+    "Notify": "Notify",
+    "Content_warning": "Content warning",
+    "This_note_contains_sensitive_content": "This note contains sensitive content",
+    "Please_input_title": "Please input title"
 }

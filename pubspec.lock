@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  auto_size_text_field:
+    dependency: "direct main"
+    description:
+      name: auto_size_text_field
+      sha256: "8967129167193fefbb7a8707ade1bb71f9e52b9a5cf6da0132b7f6b7946c5a3f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   bech32:
     dependency: "direct main"
     description:

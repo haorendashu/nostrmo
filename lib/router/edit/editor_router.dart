@@ -147,6 +147,10 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
       ));
     }
 
+    if (showTitle) {
+      list.add(buildTitleWidget());
+    }
+
     Widget quillWidget = quill.QuillEditor(
       placeholder: s.What_s_happening,
       controller: editorController,

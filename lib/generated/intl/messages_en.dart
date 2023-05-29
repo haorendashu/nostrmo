@@ -59,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_at": MessageLookupByLibrary.simpleMessage("Close at"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Comfirm"),
         "Content": MessageLookupByLibrary.simpleMessage("Content"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Content warning"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("Copy Hex Key"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Copy Key"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("Copy Note Id"),
@@ -202,6 +204,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please input lnbc text"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Please input search content"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Please input title"),
         "Please_input_user_pubkey":
             MessageLookupByLibrary.simpleMessage("Please input user pubkey"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -246,6 +250,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Theme Style"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "There should be a universe here"),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "This note contains sensitive content"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
         "Topic": MessageLookupByLibrary.simpleMessage("Topic"),
         "Topics": MessageLookupByLibrary.simpleMessage("Topics"),
