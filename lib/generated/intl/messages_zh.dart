@@ -206,7 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "There_should_be_a_universe_here":
             MessageLookupByLibrary.simpleMessage("这里应该有一个宇宙"),
         "This_note_contains_sensitive_content":
-            MessageLookupByLibrary.simpleMessage("该动态包含敏感信息"),
+            MessageLookupByLibrary.simpleMessage("该动态包含敏感内容"),
         "Timeline": MessageLookupByLibrary.simpleMessage("时间线"),
         "Topic": MessageLookupByLibrary.simpleMessage("主题"),
         "Topics": MessageLookupByLibrary.simpleMessage("主题"),
