@@ -112,8 +112,6 @@ class _EventMainComponent extends State<EventMainComponent> {
       videoPreview = _settingProvider.videoPreview == OpenStatus.OPEN;
     }
 
-    print("subject ${eventRelation.subject}");
-
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
