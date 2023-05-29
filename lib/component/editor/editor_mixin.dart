@@ -734,6 +734,7 @@ mixin EditorMixin {
       child: AutoSizeTextField(
         maxLength: 80,
         controller: subjectController,
+        textInputAction: TextInputAction.next,
         style: TextStyle(
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
