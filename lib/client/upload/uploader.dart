@@ -4,7 +4,7 @@ import 'package:mime/mime.dart';
 import 'package:nostrmo/client/upload/void_cat.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
-// import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import '../../consts/image_services.dart';
 import 'nostr_build_uploader.dart';
@@ -55,15 +55,15 @@ class Uploader {
 
       return null;
     }
-    // var assets = await AssetPicker.pickAssets(
-    //   context,
-    //   pickerConfig: const AssetPickerConfig(maxAssets: 1),
-    // );
+    var assets = await AssetPicker.pickAssets(
+      context,
+      pickerConfig: const AssetPickerConfig(maxAssets: 1),
+    );
 
-    // if (assets != null && assets.isNotEmpty) {
-    //   var file = await assets[0].file;
-    //   return file!.path;
-    // }
+    if (assets != null && assets.isNotEmpty) {
+      var file = await assets[0].file;
+      return file!.path;
+    }
 
     return null;
   }
