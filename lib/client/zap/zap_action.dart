@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/widgets.dart';
 
@@ -55,24 +57,36 @@ class ZapAction {
     // lud16 like: pavol@rusnak.io
     // but some people set lud16 to lud06
     String? lnurl = metadata.lud06;
+    String? lud16Link;
+
     if (StringUtil.isBlank(lnurl)) {
       if (StringUtil.isNotBlank(metadata.lud16)) {
         lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
       }
     }
-
     if (StringUtil.isBlank(lnurl)) {
       BotToast.showText(text: "Lnurl ${s.not_found}");
       return null;
     }
-
     // check if user set wrong
     if (lnurl!.contains("@")) {
       lnurl = Zap.getLnurlFromLud16(metadata.lud16!);
     }
 
+    if (StringUtil.isBlank(lud16Link)) {
+      if (StringUtil.isNotBlank(metadata.lud16)) {
+        lud16Link = Zap.getLud16LinkFromLud16(metadata.lud16!);
+      }
+    }
+    if (StringUtil.isBlank(lud16Link)) {
+      if (StringUtil.isNotBlank(metadata.lud06)) {
+        lud16Link = Zap.decodeLud06Link(metadata.lud06!);
+      }
+    }
+
     return await Zap.getInvoiceCode(
       lnurl: lnurl!,
+      lud16Link: lud16Link!,
       sats: sats,
       recipientPubkey: pubkey,
       targetNostr: nostr!,

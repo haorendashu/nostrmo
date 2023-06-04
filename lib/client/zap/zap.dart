@@ -20,7 +20,7 @@ class Zap {
     return utf8.decode(data);
   }
 
-  static String? getLnurlFromLud16(String lud16) {
+  static String? getLud16LinkFromLud16(String lud16) {
     var strs = lud16.split("@");
     if (strs.length < 2) {
       return null;
@@ -29,8 +29,12 @@ class Zap {
     var username = strs[0];
     var domainname = strs[1];
 
-    var link = "https://$domainname/.well-known/lnurlp/$username";
-    var data = utf8.encode(link);
+    return "https://$domainname/.well-known/lnurlp/$username";
+  }
+
+  static String? getLnurlFromLud16(String lud16) {
+    var link = getLud16LinkFromLud16(lud16);
+    var data = utf8.encode(link!);
     data = Nip19.convertBits(data, 8, 5, true);
 
     var encoder = Bech32Encoder();
@@ -51,6 +55,7 @@ class Zap {
 
   static Future<String?> getInvoiceCode({
     required String lnurl,
+    required String lud16Link,
     required int sats,
     required String recipientPubkey,
     String? eventId,
@@ -59,8 +64,8 @@ class Zap {
     String? pollOption,
     String? comment,
   }) async {
-    var lnurlLink = decodeLud06Link(lnurl);
-    var lnurlResponse = await getLnurlResponse(lnurlLink);
+    // var lnurlLink = decodeLud06Link(lnurl);
+    var lnurlResponse = await getLnurlResponse(lud16Link);
     if (lnurlResponse == null) {
       return null;
     }
