@@ -27,7 +27,7 @@ import '../../component/translate/translate_model_manager.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/image_services.dart';
-import '../../consts/theme_style copy.dart';
+import '../../consts/theme_style.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';

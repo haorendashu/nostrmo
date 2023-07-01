@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../consts/base.dart';
 import '../consts/base_consts.dart';
-import '../consts/theme_style copy.dart';
+import '../consts/theme_style.dart';
 import '../util/string_util.dart';
 import 'data_util.dart';
 
