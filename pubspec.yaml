@@ -96,6 +96,9 @@ dependencies:
   file_saver: ^0.2.4
   youtube_player_flutter: ^8.1.2
   auto_size_text_field: ^2.2.1
+  numberpicker: ^2.1.2
+  table_calendar: ^3.0.9
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

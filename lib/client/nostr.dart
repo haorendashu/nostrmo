@@ -101,12 +101,16 @@ class Nostr {
       // TODO to show Notice
       throw StateError("Private key is missing. Message can't be signed.");
     }
-    event.sign(_privateKey!);
+    signEvent(event);
     var result = _pool.send(["EVENT", event.toJson()]);
     if (result) {
       return event;
     }
     return null;
+  }
+
+  void signEvent(Event event) {
+    event.sign(_privateKey!);
   }
 
   Event broadcase(Event event) {

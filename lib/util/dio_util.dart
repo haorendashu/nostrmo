@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'dart:convert' as convert;
@@ -13,6 +14,15 @@ class DioUtil {
   static Dio getDio() {
     if (_dio == null) {
       _dio = Dio();
+      if (_dio!.httpClientAdapter is IOHttpClientAdapter) {
+        (_dio!.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
+            (client) {
+          client.badCertificateCallback = (cert, host, port) {
+            return true;
+          };
+        };
+      }
+
       // _dio!.options.connectTimeout = Duration(minutes: 1);
       // _dio!.options.receiveTimeout = Duration(minutes: 1);
       _dio!.options.headers["user-agent"] =

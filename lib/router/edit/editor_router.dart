@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:intl/intl.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
@@ -113,6 +114,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     var themeData = Theme.of(context);
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var mainColor = themeData.primaryColor;
+    var hintColor = themeData.hintColor;
     var textColor = themeData.textTheme.bodyMedium!.color;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
@@ -149,6 +151,29 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
     if (showTitle) {
       list.add(buildTitleWidget());
+    }
+
+    if (publishAt != null) {
+      var dateFormate = DateFormat("yyyy-MM-dd HH:mm");
+
+      list.add(GestureDetector(
+        onTap: selectedTime,
+        behavior: HitTestBehavior.translucent,
+        child: Container(
+          margin: EdgeInsets.only(left: 10),
+          child: Row(
+            children: [
+              Icon(Icons.timer_outlined),
+              Container(
+                margin: EdgeInsets.only(left: 4),
+                child: Text(
+                  dateFormate.format(publishAt!),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ));
     }
 
     Widget quillWidget = quill.QuillEditor(

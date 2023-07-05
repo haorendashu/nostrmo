@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
 import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
+import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
+import 'package:nostrmo/sendbox/sendbox.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 
@@ -141,6 +143,11 @@ mixin EditorMixin {
           onPressed: _addTitle,
           icon: Icon(Icons.title, color: showTitle ? mainColor : null),
         ),
+        quill.QuillIconButton(
+          onPressed: selectedTime,
+          icon: Icon(Icons.timer_outlined,
+              color: publishAt != null ? mainColor : null),
+        )
       ]);
     }
 
@@ -553,23 +560,31 @@ mixin EditorMixin {
       // dm message
       result = NIP04.encrypt(result, agreement, pubkey!);
       event = Event(
-          nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result);
+          nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result,
+          publishAt: publishAt);
     } else if (inputPoll) {
       // poll event
       // get poll tag from PollInputComponentn
       var pollTags = pollInputController.getTags();
       allTags.addAll(pollTags);
-      event = Event(nostr!.publicKey, kind.EventKind.POLL, allTags, result);
+      event = Event(nostr!.publicKey, kind.EventKind.POLL, allTags, result,
+          publishAt: publishAt);
     } else {
       // text note
-      event =
-          Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result);
+      event = Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result,
+          publishAt: publishAt);
     }
 
-    var e = nostr!.sendEvent(event);
-    log(jsonEncode(event.toJson()));
+    if (publishAt != null) {
+      nostr!.signEvent(event);
+      await SendBox.submit(event, relayProvider.relayAddrs);
+      return event;
+    } else {
+      var e = nostr!.sendEvent(event);
+      log(jsonEncode(event.toJson()));
 
-    return e;
+      return e;
+    }
   }
 
   String handleInlineValue(String result, String value) {
@@ -751,5 +766,14 @@ mixin EditorMixin {
         ),
       ),
     );
+  }
+
+  DateTime? publishAt;
+
+  Future<void> selectedTime() async {
+    var dt = await DatetimePickerComponent.show(getContext(),
+        dateTime: publishAt != null ? publishAt : DateTime.now());
+    publishAt = dt;
+    updateUI();
   }
 }

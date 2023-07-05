@@ -21,11 +21,16 @@ class Event {
   /// Nostr event `id` and `created_at` fields are calculated automatically.
   ///
   /// An [ArgumentError] is thrown if [pubKey] is invalid.
-  Event(this.pubKey, this.kind, this.tags, this.content) {
+  Event(this.pubKey, this.kind, this.tags, this.content,
+      {DateTime? publishAt}) {
     if (!keyIsValid(pubKey)) {
       throw ArgumentError.value(pubKey, 'pubKey', 'Invalid key');
     }
-    createdAt = _secondsSinceEpoch();
+    if (publishAt != null) {
+      createdAt = publishAt.millisecondsSinceEpoch ~/ 1000;
+    } else {
+      createdAt = _secondsSinceEpoch();
+    }
     id = _getId(pubKey, createdAt, kind, tags, content);
   }
 
