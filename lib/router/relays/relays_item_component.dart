@@ -32,7 +32,7 @@ class RelaysItemComponent extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         var relay = nostr!.getRelay(addr);
-        if (relay != null) {
+        if (relay != null && relay.info != null) {
           RouterUtil.router(context, RouterPath.RELAY_INFO, relay);
         }
       },
