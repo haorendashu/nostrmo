@@ -145,7 +145,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
           itemCount: allEvent.length + 1,
         );
 
-        if (PlatformUtil.isPC()) {
+        if (PlatformUtil.isTableMode()) {
           main = GestureDetector(
             onVerticalDragUpdate: (detail) {
               _controller.jumpTo(_controller.offset - detail.delta.dy);

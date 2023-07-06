@@ -42,7 +42,7 @@ class _LoginRouter extends State<LoginRouter>
     var mainColor = themeData.primaryColor;
     var maxWidth = mediaDataCache.size.width;
     var mainWidth = maxWidth * 0.8;
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       if (mainWidth > 550) {
         mainWidth = 550;
       }

@@ -29,7 +29,7 @@ class WebViewRouter extends StatefulWidget {
   WebViewRouter({super.key, required this.url});
 
   static void open(BuildContext context, String link) {
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       launchUrl(Uri.parse(link));
       return;
     }

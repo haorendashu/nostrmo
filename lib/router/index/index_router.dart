@@ -262,7 +262,7 @@ class _IndexRouter extends CustState<IndexRouter>
       ],
     );
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       var maxWidth = mediaDataCache.size.width;
       double column0Width = maxWidth * 1 / 5;
       double column1Width = maxWidth * 2 / 5;

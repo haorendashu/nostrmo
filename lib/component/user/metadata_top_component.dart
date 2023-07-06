@@ -86,7 +86,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     var largeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
     var bannerHeight = maxWidth / 3;
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       bannerHeight =
           MetadataTopComponent.getPcBannerHeight(mediaDataCache.size.height);
     }
@@ -136,7 +136,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       )
     ];
 
-    if (!PlatformUtil.isPC() && widget.pubkey == nostr!.publicKey) {
+    if (!PlatformUtil.isTableMode() && widget.pubkey == nostr!.publicKey) {
       // is phont and local
       topBtnList.add(wrapBtn(MetadataIconBtn(
         iconData: Icons.qr_code_scanner,

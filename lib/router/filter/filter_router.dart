@@ -34,7 +34,7 @@ class _FilterRouter extends State<FilterRouter>
       color: titleTextColor,
     );
     Color? indicatorColor = titleTextColor;
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       indicatorColor = themeData.primaryColor;
     }
 

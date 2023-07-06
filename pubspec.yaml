@@ -99,6 +99,7 @@ dependencies:
   numberpicker: ^2.1.2
   table_calendar: ^3.0.9
   intl: ^0.18.0
+  device_info_plus: ^9.0.2
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

@@ -63,7 +63,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
       ),
     );
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       return GestureDetector(
         onVerticalDragUpdate: (detail) {
           scrollController.jumpTo(scrollController.offset - detail.delta.dy);

@@ -61,7 +61,7 @@ class _UserContactListComponent extends State<UserContactListComponent> {
       itemCount: list!.length,
     );
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       main = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);

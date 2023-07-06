@@ -180,7 +180,7 @@ class _SearchRouter extends CustState<SearchRouter>
       }
     }
     if (body != null) {
-      if (loadable != null && PlatformUtil.isPC()) {
+      if (loadable != null && PlatformUtil.isTableMode()) {
         body = GestureDetector(
           onVerticalDragUpdate: (detail) {
             if (loadable == true) {

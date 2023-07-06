@@ -34,7 +34,7 @@ class _IndexAppBar extends State<IndexAppBar> {
     var appBarBackgroundColor = themeData.appBarTheme.backgroundColor;
 
     Widget? userPicWidget;
-    if (!PlatformUtil.isPC()) {
+    if (!PlatformUtil.isTableMode()) {
       userPicWidget = GestureDetector(
         onTap: () {
           Scaffold.of(context).openDrawer();

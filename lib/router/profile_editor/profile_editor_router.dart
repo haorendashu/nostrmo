@@ -95,7 +95,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
 
     List<Widget> list = [];
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       list.add(Container(
         height: 30,
       ));

@@ -41,7 +41,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
     }
 
     var relay = relayItf as Relay;
-    var relayInfo = relay.info;
+    var relayInfo = relay.info!;
 
     List<Widget> list = [];
 

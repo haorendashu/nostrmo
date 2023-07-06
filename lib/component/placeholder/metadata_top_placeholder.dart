@@ -20,7 +20,7 @@ class MetadataTopPlaceholder extends StatelessWidget {
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var maxWidth = mediaDataCache.size.width;
     var bannerHeight = maxWidth / 3;
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       bannerHeight =
           MetadataTopComponent.getPcBannerHeight(mediaDataCache.size.height);
     }

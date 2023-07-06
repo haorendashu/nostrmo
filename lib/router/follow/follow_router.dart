@@ -79,7 +79,7 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
       child: main,
     );
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       ri = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);

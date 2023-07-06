@@ -70,7 +70,7 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
       itemCount: pubkeys.length,
     );
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       return GestureDetector(
         onVerticalDragUpdate: (detail) {
           scrollController.jumpTo(scrollController.offset - detail.delta.dy);

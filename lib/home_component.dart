@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/webview_provider.dart';
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
@@ -29,6 +30,7 @@ class HomeComponent extends StatefulWidget {
 class _HomeComponent extends State<HomeComponent> {
   @override
   Widget build(BuildContext context) {
+    PlatformUtil.init(context);
     var _webviewProvider = Provider.of<WebViewProvider>(context);
 
     return MaterialApp(

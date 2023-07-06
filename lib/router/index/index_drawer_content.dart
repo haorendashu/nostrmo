@@ -96,7 +96,7 @@ class _IndexDrawerContnetComponnent
       ),
     ));
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       list.add(IndexDrawerItem(
         iconData: Icons.home,
         name: s.Home,
@@ -206,7 +206,7 @@ class _IndexDrawerContnetComponnent
 
     list.add(Expanded(child: Container()));
 
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isTableMode()) {
       list.add(IndexDrawerItem(
         iconData: Icons.add,
         name: s.Add_a_Note,

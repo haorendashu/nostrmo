@@ -18,7 +18,7 @@ class Relay {
 
   WriteAccess access;
 
-  late RelayInfo info;
+  RelayInfo? info;
 
   Function(Relay, List<dynamic>)? onMessage;
 
@@ -35,7 +35,7 @@ class Relay {
       info = await RelayInfoUtil.get(url);
 
       // Relay must support NIP-15 and NIP-20, but NIP-15 had meger into NIP-01
-      if (info.nips.contains(20)) {
+      if (info!.nips.contains(20)) {
         final wsUrl = Uri.parse(url);
         _wsChannel = WebSocketChannel.connect(wsUrl);
         log("Connect complete!");
