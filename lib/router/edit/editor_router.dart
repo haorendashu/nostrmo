@@ -160,7 +160,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
         onTap: selectedTime,
         behavior: HitTestBehavior.translucent,
         child: Container(
-          margin: EdgeInsets.only(left: 10),
+          margin: EdgeInsets.only(left: 10, bottom: Base.BASE_PADDING_HALF),
           child: Row(
             children: [
               Icon(Icons.timer_outlined),
