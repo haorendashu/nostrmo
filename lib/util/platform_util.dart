@@ -11,14 +11,14 @@ class PlatformUtil {
   static bool _isTable = false;
 
   static Future<void> init(BuildContext context) async {
-    if (deviceInfo != null) {
+    if (deviceInfo == null) {
       var deviceInfoPlus = DeviceInfoPlugin();
       deviceInfo = await deviceInfoPlus.deviceInfo;
     }
 
     var size = MediaQuery.of(context).size;
-    if (Platform.isIOS) {
-      print(deviceInfo.toString());
+    if (Platform.isIOS && deviceInfo != null && deviceInfo!.data["systemName"] == "iPadOS") {
+        _isTable = true;
     } else {
       if (size.shortestSide > 600) {
         _isTable = true;
