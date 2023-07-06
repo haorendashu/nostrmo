@@ -83,6 +83,10 @@ class RelayPool {
     _relays.remove(url);
   }
 
+  Relay? getRelay(String url) {
+    return _relays[url];
+  }
+
   bool relayDoQuery(Relay relay, Subscription subscription) {
     if (relay.access == WriteAccess.writeOnly) {
       return false;

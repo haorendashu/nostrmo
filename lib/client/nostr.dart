@@ -163,4 +163,8 @@ class Nostr {
   List<Relay> activeRelays() {
     return _pool.activeRelays();
   }
+
+  Relay? getRelay(String url) {
+    return _pool.getRelay(url);
+  }
 }

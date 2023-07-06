@@ -19,4 +19,5 @@ class RouterPath {
   static const String SETTING = "/setting";
   static const String QRSCANNER = "/qrScanner";
   static const String WEBUTILS = "/webUtils";
+  static const String RELAY_INFO = "/relayInfo";
 }
