@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("Account Manager"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Add Account"),
+        "Add_Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Add Custom Emoji"),
         "Add_a_Note": MessageLookupByLibrary.simpleMessage("Add a Note"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Add account and login?"),
@@ -116,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Globals": MessageLookupByLibrary.simpleMessage("Globals"),
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "Home": MessageLookupByLibrary.simpleMessage("Home"),
+        "Hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("I accept the"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Image Compress"),
@@ -124,6 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_service": MessageLookupByLibrary.simpleMessage("Image service"),
         "Input": MessageLookupByLibrary.simpleMessage("Input"),
         "Input_Comment": MessageLookupByLibrary.simpleMessage("Input Comment"),
+        "Input_Custom_Emoji_Name":
+            MessageLookupByLibrary.simpleMessage("Input Custom Emoji Name"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Input Sats num"),
         "Input_Sats_num_to_gen_lightning_invoice":
@@ -153,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Metadata_can_not_be_found":
             MessageLookupByLibrary.simpleMessage("Metadata can not be found."),
         "Method": MessageLookupByLibrary.simpleMessage("Method"),
+        "Minute": MessageLookupByLibrary.simpleMessage("Minute"),
         "More": MessageLookupByLibrary.simpleMessage("More"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),
@@ -239,6 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
         "Source": MessageLookupByLibrary.simpleMessage("Source"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("Table Mode"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Text can\'t contain blank space"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(

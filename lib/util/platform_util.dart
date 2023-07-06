@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/main.dart';
 
 class PlatformUtil {
   static BaseDeviceInfo? deviceInfo;
@@ -30,6 +32,15 @@ class PlatformUtil {
   }
 
   static bool isTableMode() {
+    if (settingProvider.tableMode == OpenStatus.OPEN) {
+      return true;
+    } else if (settingProvider.tableMode == OpenStatus.CLOSE) {
+      return false;
+    }
+    return isTableModeWithoutSetting();
+  }
+
+  static bool isTableModeWithoutSetting() {
     if (isPC()) {
       return true;
     }

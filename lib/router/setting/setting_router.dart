@@ -149,6 +149,13 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.webviewAppbarOpen).name,
       onTap: pickWebviewAppbar,
     ));
+    if (!PlatformUtil.isPC()) {
+      list.add(SettingGroupItemComponent(
+        name: s.Table_Mode,
+        value: getOpenMode(settingProvider.tableMode).name,
+        onTap: pickOpenMode,
+      ));
+    }
 
     list.add(
         SettingGroupTitleComponent(iconData: Icons.article, title: s.Notes));
@@ -836,6 +843,28 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.webviewAppbarOpen = resultEnumObj.value;
+    }
+  }
+
+  getOpenMode(int? value) {
+    for (var o in openList!) {
+      if (value == o.value) {
+        return o;
+      }
+    }
+
+    if (PlatformUtil.isTableModeWithoutSetting()) {
+      return openList![0];
+    }
+    return openList![1];
+  }
+
+  pickOpenMode() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.tableMode = resultEnumObj.value;
+      resetTheme();
     }
   }
 }

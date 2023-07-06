@@ -50,7 +50,7 @@ class _CustomEmojiAddDialog extends State<CustomEmojiAddDialog> {
     list.add(Container(
       margin: const EdgeInsets.only(bottom: Base.BASE_PADDING),
       child: Text(
-        "Add Custom Emoji",
+        s.Add_Custom_Emoji,
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: titleFontSize,
@@ -66,7 +66,7 @@ class _CustomEmojiAddDialog extends State<CustomEmojiAddDialog> {
         maxLines: 1,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: "Input Custom Emoji Name",
+          hintText: s.Input_Custom_Emoji_Name,
           border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
         ),
       ),

@@ -2019,6 +2019,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Table Mode`
+  String get Table_Mode {
+    return Intl.message(
+      'Table Mode',
+      name: 'Table_Mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hour`
+  String get Hour {
+    return Intl.message(
+      'Hour',
+      name: 'Hour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minute`
+  String get Minute {
+    return Intl.message(
+      'Minute',
+      name: 'Minute',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Custom Emoji`
+  String get Add_Custom_Emoji {
+    return Intl.message(
+      'Add Custom Emoji',
+      name: 'Add_Custom_Emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input Custom Emoji Name`
+  String get Input_Custom_Emoji_Name {
+    return Intl.message(
+      'Input Custom Emoji Name',
+      name: 'Input_Custom_Emoji_Name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -195,5 +195,10 @@
     "Notify": "Notify",
     "Content_warning": "Content warning",
     "This_note_contains_sensitive_content": "This note contains sensitive content",
-    "Please_input_title": "Please input title"
+    "Please_input_title": "Please input title",
+    "Table_Mode": "Table Mode",
+    "Hour": "Hour",
+    "Minute": "Minute",
+    "Add_Custom_Emoji": "Add Custom Emoji",
+    "Input_Custom_Emoji_Name": "Input Custom Emoji Name"
 }

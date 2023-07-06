@@ -4,6 +4,7 @@ import 'package:numberpicker/numberpicker.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../consts/base.dart';
+import '../generated/l10n.dart';
 import '../util/router_util.dart';
 
 class DatetimePickerComponent extends StatefulWidget {
@@ -71,6 +72,7 @@ class _DatetimePickerComponent extends State<DatetimePickerComponent> {
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var mainColor = themeData.appBarTheme.backgroundColor;
     var bigTextSize = themeData.textTheme.bodyLarge!.fontSize;
+    var s = S.of(context);
 
     var now = DateTime.now();
     var calendarFirstDay = now.add(Duration(days: -3650));
@@ -145,7 +147,7 @@ class _DatetimePickerComponent extends State<DatetimePickerComponent> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          buildNumberPicker("Hour", 0, 23, hour, (value) {
+          buildNumberPicker(s.Hour, 0, 23, hour, (value) {
             setState(() {
               hour = value;
             });
@@ -154,7 +156,7 @@ class _DatetimePickerComponent extends State<DatetimePickerComponent> {
             ":",
             style: timeTitleTextStyle,
           ),
-          buildNumberPicker("Minute", 0, 59, minute, (value) {
+          buildNumberPicker(s.Minute, 0, 59, minute, (value) {
             setState(() {
               minute = value;
             });
@@ -180,7 +182,7 @@ class _DatetimePickerComponent extends State<DatetimePickerComponent> {
         color: mainColor,
         child: Center(
           child: Text(
-            "Comfirm",
+            s.Comfirm,
             style: TextStyle(
               color: Colors.white,
               fontSize: bigTextSize,

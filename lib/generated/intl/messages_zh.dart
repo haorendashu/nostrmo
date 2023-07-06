@@ -194,6 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("签名失败"),
         "Source": MessageLookupByLibrary.simpleMessage("来源"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("平板模式"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("内容不能包含空格"),
         "Text_can_t_contain_new_line":
