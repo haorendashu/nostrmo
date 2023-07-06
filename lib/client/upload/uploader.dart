@@ -8,6 +8,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import '../../consts/image_services.dart';
 import 'nostr_build_uploader.dart';
+import 'nostrfiles_dev_uploader.dart';
 import 'nostrimg_com_uploader.dart';
 import 'pomf2_lain_la.dart';
 
@@ -70,15 +71,17 @@ class Uploader {
 
   static Future<String?> upload(String localPath,
       {String? imageService}) async {
-    if (imageService == ImageServices.NOSTR_BUILD) {
-      return await NostrBuildUploader.upload(localPath);
-    } else if (imageService == ImageServices.NOSTRIMG_COM) {
+    if (imageService == ImageServices.NOSTRIMG_COM) {
       return await NostrimgComUploader.upload(localPath);
     } else if (imageService == ImageServices.POMF2_LAIN_LA) {
       return await Pomf2LainLa.upload(localPath);
     } else if (imageService == ImageServices.VOID_CAT) {
       return await VoidCatUploader.upload(localPath);
+    } else if (imageService == ImageServices.NOSTRFILES_DEV) {
+      return await NostrfilesDevUploader.upload(localPath);
+    } else if (imageService == ImageServices.NOSTR_BUILD) {
+      return await NostrBuildUploader.upload(localPath);
     }
-    return await NostrBuildUploader.upload(localPath);
+    return await NostrimgComUploader.upload(localPath);
   }
 }

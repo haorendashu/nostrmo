@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
-import 'package:mime/mime.dart';
 
 import 'package:nostrmo/client/upload/uploader.dart';
-import 'package:nostrmo/util/store_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import 'nostr_build_uploader.dart';
