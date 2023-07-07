@@ -200,5 +200,6 @@
     "Hour": "Hour",
     "Minute": "Minute",
     "Add_Custom_Emoji": "Add Custom Emoji",
-    "Input_Custom_Emoji_Name": "Input Custom Emoji Name"
+    "Input_Custom_Emoji_Name": "Input Custom Emoji Name",
+    "Custom": "Custom"
 }

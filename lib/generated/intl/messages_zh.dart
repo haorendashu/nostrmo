@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_current_Url": MessageLookupByLibrary.simpleMessage("复制当前链接"),
         "Copy_init_Url": MessageLookupByLibrary.simpleMessage("复制初始链接"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("复制成功"),
+        "Custom": MessageLookupByLibrary.simpleMessage("自定义"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("自定义颜色"),
         "Custom_Font_Family": MessageLookupByLibrary.simpleMessage("自定义字体"),
         "Dark": MessageLookupByLibrary.simpleMessage("深色"),

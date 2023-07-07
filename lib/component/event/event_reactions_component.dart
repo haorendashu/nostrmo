@@ -203,6 +203,16 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                           mainAxisSize: MainAxisSize.min,
                         ),
                       ),
+                      PopupMenuItem(
+                        value: -1,
+                        child: Row(
+                          children: [
+                            Icon(Icons.bolt, color: Colors.orange),
+                            Text(" ${s.Custom}", style: popFontStyle)
+                          ],
+                          mainAxisSize: MainAxisSize.min,
+                        ),
+                      ),
                     ];
                   },
                   onSelected: onZapSelect,
@@ -436,8 +446,12 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   }
 
   Future<void> onZapSelect(int sats) async {
-    await ZapAction.handleZap(context, sats, widget.event.pubKey,
-        eventId: widget.event.id);
+    if (sats < 0) {
+      genZap();
+    } else {
+      await ZapAction.handleZap(context, sats, widget.event.pubKey,
+          eventId: widget.event.id);
+    }
   }
 
   void onShareTap() {

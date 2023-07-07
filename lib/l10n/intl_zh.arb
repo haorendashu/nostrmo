@@ -191,5 +191,6 @@
     "Content_warning": "内容警告",
     "This_note_contains_sensitive_content": "该动态包含敏感内容",
     "Please_input_title": "请输入标题",
-    "Table_Mode": "平板模式"
+    "Table_Mode": "平板模式",
+    "Custom": "自定义"
 }

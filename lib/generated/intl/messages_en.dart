@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copy current Url"),
         "Copy_init_Url": MessageLookupByLibrary.simpleMessage("Copy init Url"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("Copy success!"),
+        "Custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Custom Color"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Custom Font Family"),
