@@ -13,7 +13,10 @@ class ZapGenDialog extends StatefulWidget {
 
   String? eventId;
 
-  ZapGenDialog({required this.pubkey, this.eventId});
+  BuildContext parentContext;
+
+  ZapGenDialog(
+      {required this.pubkey, this.eventId, required this.parentContext});
 
   static Future<void> show(BuildContext context, String pubkey,
       {String? eventId}) async {
@@ -23,6 +26,7 @@ class ZapGenDialog extends StatefulWidget {
         return ZapGenDialog(
           pubkey: pubkey,
           eventId: eventId,
+          parentContext: context,
         );
       },
     );
@@ -173,7 +177,7 @@ class _ZapGenDialog extends State<ZapGenDialog> {
     var comment = commentController.text;
     RouterUtil.back(context);
 
-    await ZapAction.handleZap(context, num, widget.pubkey,
+    await ZapAction.handleZap(widget.parentContext, num, widget.pubkey,
         eventId: widget.eventId, comment: comment);
   }
 }
