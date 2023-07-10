@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
+import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/component/content/content_event_tag_infos.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -313,6 +314,28 @@ class ContentDecoder {
                 showVideo: showVideo,
               );
               list.add(widget);
+            } else {
+              handledStr = _addToHandledStr(handledStr, subStr);
+            }
+          } else if (NIP19Tlv.isNaddr(key)) {
+            var naddr = NIP19Tlv.decodeNaddr(key);
+            if (naddr != null) {
+              if (naddr.kind == EventKind.METADATA) {
+                // inline
+                handledStr = _closeHandledStr(handledStr, inlines);
+                inlines.add(ContentMentionUserComponent(pubkey: naddr.author));
+              } else if (naddr.kind == EventKind.TEXT_NOTE) {
+                // block
+                handledStr = _closeHandledStr(handledStr, inlines);
+                _closeInlines(inlines, list, textOnTap: textOnTap);
+                var widget = EventQuoteComponent(
+                  id: naddr.id,
+                  showVideo: showVideo,
+                );
+                list.add(widget);
+              } else {
+                handledStr = _addToHandledStr(handledStr, subStr);
+              }
             } else {
               handledStr = _addToHandledStr(handledStr, subStr);
             }
