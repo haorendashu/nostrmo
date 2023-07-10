@@ -12,23 +12,28 @@ class NostrfilesDevUploader {
         await MultipartFile.fromFile(filePath, filename: fileName);
 
     var formData = FormData.fromMap({"file": multipartFile});
-    var response = await dio.post<String>(
+    var response = await dio.post(
       UPLOAD_ACTION,
       data: formData,
-      options: Options(
-        followRedirects: false,
-        validateStatus: (status) {
-          if (status == HttpStatus.movedTemporarily) {
-            return true;
-          }
-          return false;
-        },
-      ),
+      // options: Options(
+      //   followRedirects: false,
+      //   validateStatus: (status) {
+      //     if (status == HttpStatus.movedTemporarily) {
+      //       return true;
+      //     }
+      //     return false;
+      //   },
+      // ),
     );
 
-    if (response.statusCode == HttpStatus.movedTemporarily) {
-      return response.headers.value("Location");
+    var body = response.data;
+    if (body is Map<String, dynamic>) {
+      return body["url"] as String;
     }
+
+    // if (response.statusCode == HttpStatus.movedTemporarily) {
+    //   return response.headers.value("Location");
+    // }
 
     return null;
   }
