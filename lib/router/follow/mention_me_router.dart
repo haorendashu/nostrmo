@@ -7,6 +7,7 @@ import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
 import 'package:nostrmo/util/load_more_event.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -60,7 +61,8 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       controller: _controller,
       itemBuilder: (BuildContext context, int index) {
         var event = events[index];
-        if (event.kind == kind.EventKind.ZAP) {
+        if (event.kind == kind.EventKind.ZAP &&
+            StringUtil.isBlank(event.content)) {
           return ZapEventListComponent(event: event);
         } else {
           return EventListComponent(

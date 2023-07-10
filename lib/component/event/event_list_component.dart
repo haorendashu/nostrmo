@@ -52,7 +52,7 @@ class _EventListComponent extends State<EventListComponent> {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
 
-    var main = Screenshot(
+    Widget main = Screenshot(
       controller: screenshotController,
       child: Container(
         color: cardColor,
@@ -73,6 +73,23 @@ class _EventListComponent extends State<EventListComponent> {
         ),
       ),
     );
+
+    if (widget.event.kind == kind.EventKind.ZAP) {
+      main = Stack(
+        children: [
+          main,
+          Positioned(
+            top: -35,
+            right: -10,
+            child: Icon(
+              Icons.currency_bitcoin,
+              color: Colors.amber[600]!.withOpacity(0.5),
+              size: 110,
+            ),
+          ),
+        ],
+      );
+    }
 
     if (widget.jumpable) {
       return GestureDetector(

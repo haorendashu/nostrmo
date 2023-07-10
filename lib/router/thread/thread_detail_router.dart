@@ -13,10 +13,8 @@ import '../../component/event_reply_callback.dart';
 import '../../component/simple_name_component.dart';
 import '../../consts/base.dart';
 import '../../data/event_mem_box.dart';
-import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../provider/metadata_provider.dart';
 import '../../util/peddingevents_later_function.dart';
 import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
@@ -282,6 +280,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         kind.EventKind.TEXT_NOTE,
         kind.EventKind.FILE_HEADER,
         kind.EventKind.POLL,
+        kind.EventKind.ZAP,
       ]);
       nostr!.query([filter.toJson()], onEvent);
     }
@@ -300,6 +299,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   // }
 
   void onEvent(Event event) {
+    if (event.kind == kind.EventKind.ZAP && StringUtil.isBlank(event.content)) {
+      return;
+    }
+
     later(event, (list) {
       box.addList(list);
       listToTree();

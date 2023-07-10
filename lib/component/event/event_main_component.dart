@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -349,12 +348,18 @@ class _EventMainComponent extends State<EventMainComponent> {
           }
         }
 
-        list.add(EventReactionsComponent(
-          screenshotController: widget.screenshotController,
-          event: widget.event,
-          eventRelation: eventRelation,
-          showDetailBtn: widget.showDetailBtn,
-        ));
+        if (widget.event.kind != kind.EventKind.ZAP) {
+          list.add(EventReactionsComponent(
+            screenshotController: widget.screenshotController,
+            event: widget.event,
+            eventRelation: eventRelation,
+            showDetailBtn: widget.showDetailBtn,
+          ));
+        } else {
+          list.add(Container(
+            height: Base.BASE_PADDING,
+          ));
+        }
       }
     } else {
       list.add(buildWarningWidget(largeTextSize!, mainColor));

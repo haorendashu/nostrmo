@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
@@ -39,12 +42,27 @@ class _EventTopComponent extends State<EventTopComponent> {
     var themeData = Theme.of(context);
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
+    var pubkey = widget.event.pubKey;
+    // if this is the zap event, change the pubkey from the zap tag info
+    if (widget.event.kind == EventKind.ZAP) {
+      for (var tag in widget.event.tags) {
+        if (tag[0] == "description" && widget.event.tags.length > 1) {
+          var description = tag[1];
+          var jsonMap = jsonDecode(description);
+          var sourceEvent = Event.fromJson(jsonMap);
+          if (StringUtil.isNotBlank(sourceEvent.pubKey)) {
+            pubkey = sourceEvent.pubKey;
+          }
+        }
+      }
+    }
+
     return Selector<MetadataProvider, Metadata?>(
       shouldRebuild: (previous, next) {
         return previous != next;
       },
       selector: (context, _metadataProvider) {
-        return _metadataProvider.getMetadata(widget.event.pubKey);
+        return _metadataProvider.getMetadata(pubkey);
       },
       builder: (context, metadata, child) {
         var themeData = Theme.of(context);

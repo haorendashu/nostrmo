@@ -1,3 +1,5 @@
+import 'package:nostrmo/util/string_util.dart';
+
 import '../../client/event_kind.dart' as kind;
 import '../client/event.dart';
 import '../client/zap/zap_num_util.dart';
@@ -95,6 +97,11 @@ class EventReactions implements FindEventInterface {
       } else if (event.kind == kind.EventKind.ZAP) {
         zapNum += ZapNumUtil.getNumFromZapEvent(event);
         zaps.add(event);
+
+        if (StringUtil.isNotBlank(event.content)) {
+          replyNum++;
+          replies.add(event);
+        }
       }
 
       return true;
