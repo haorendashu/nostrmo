@@ -2079,6 +2079,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Followed Tags`
+  String get Followed_Tags {
+    return Intl.message(
+      'Followed Tags',
+      name: 'Followed_Tags',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

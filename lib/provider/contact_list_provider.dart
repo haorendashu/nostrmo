@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/router/tag/topic_map.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../client/event.dart';
@@ -160,5 +161,42 @@ class ContactListProvider extends ChangeNotifier {
     clearCurrentContactList();
 
     notifyListeners();
+  }
+
+  bool containTag(String tag) {
+    var list = TopicMap.getList(tag);
+    if (list != null) {
+      for (var t in list) {
+        var exist = _contactList!.containsTag(t);
+        if (exist) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return _contactList!.containsTag(tag);
+    }
+  }
+
+  void addTag(String tag) {
+    _contactList!.addTag(tag);
+    _event = nostr!.sendContactList(_contactList!);
+
+    _saveAndNotify();
+  }
+
+  void removeTag(String tag) {
+    _contactList!.removeTag(tag);
+    _event = nostr!.sendContactList(_contactList!);
+
+    _saveAndNotify();
+  }
+
+  int totalFollowedTags() {
+    return _contactList!.totalFollowedTags();
+  }
+
+  Iterable<String> tagList() {
+    return _contactList!.tagList();
   }
 }

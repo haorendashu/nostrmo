@@ -7,6 +7,7 @@ import '../../client/event.dart';
 import '../../client/filter.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
+import '../../component/tag_info_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../data/event_mem_box.dart';
@@ -77,7 +78,6 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     }
 
     var themeData = Theme.of(context);
-    var cardColor = themeData.cardColor;
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
 
     Widget? appBarTitle;
@@ -97,18 +97,9 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
         controller: _controller,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return Container(
+            return TagInfoComponent(
+              tag: tag!,
               height: tagHeight,
-              color: cardColor,
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-              child: Text(
-                tag!,
-                style: TextStyle(
-                  fontSize: bodyLargeFontSize,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
             );
           }
 

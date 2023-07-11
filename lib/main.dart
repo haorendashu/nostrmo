@@ -15,6 +15,7 @@ import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/router/relays/relay_info_router.dart';
+import 'package:nostrmo/router/user/followed_tags_list_router.dart';
 import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
 import 'package:nostrmo/router/web_utils/web_utils_router.dart';
@@ -264,6 +265,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.QRSCANNER: (context) => QRScannerRouter(),
       RouterPath.WEBUTILS: (context) => WebUtilsRouter(),
       RouterPath.RELAY_INFO: (context) => RelayInfoRouter(),
+      RouterPath.FOLLOWED_TAGS_LIST: (context) => FollowedTagsListRouter(),
     };
 
     return MultiProvider(

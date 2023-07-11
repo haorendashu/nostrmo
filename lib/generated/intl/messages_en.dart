@@ -105,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Find clouded relay list, do you want to download it?"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("Fingerprint"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("Follow System"),
+        "Followed_Tags": MessageLookupByLibrary.simpleMessage("Followed Tags"),
         "Following": MessageLookupByLibrary.simpleMessage("Following"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Font Family"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("Font Size"),

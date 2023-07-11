@@ -86,6 +86,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("找到云端中继列表，你要下载吗？"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("指纹识别"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("跟随系统"),
+        "Followed_Tags": MessageLookupByLibrary.simpleMessage("关注的主题"),
         "Following": MessageLookupByLibrary.simpleMessage("跟随中"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("字体"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("字体大小"),

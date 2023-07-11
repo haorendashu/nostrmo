@@ -11,6 +11,7 @@ import '../client/filter.dart';
 import '../client/nostr.dart';
 import '../data/event_mem_box.dart';
 import '../main.dart';
+import '../router/tag/topic_map.dart';
 import '../util/find_event_interface.dart';
 import '../util/peddingevents_later_function.dart';
 import '../util/string_util.dart';
@@ -83,6 +84,7 @@ class FollowEventProvider extends ChangeNotifier
       limit: 20,
     );
     targetNostr ??= nostr!;
+    bool queriedTags = false;
 
     doUnscribe(targetNostr);
 
@@ -103,15 +105,20 @@ class FollowEventProvider extends ChangeNotifier
       if (ids.length > maxQueryIdsNum) {
         filter.authors = ids;
         var subscribeId = _doQueryFunc(targetNostr, filter,
-            initQuery: initQuery, forceUserLimit: forceUserLimit);
+            initQuery: initQuery,
+            forceUserLimit: forceUserLimit,
+            queriyTags: !queriedTags);
         subscribeIds.add(subscribeId);
         ids = [];
+        queriedTags = true;
       }
     }
     if (ids.isNotEmpty) {
       filter.authors = ids;
       var subscribeId = _doQueryFunc(targetNostr, filter,
-          initQuery: initQuery, forceUserLimit: forceUserLimit);
+          initQuery: initQuery,
+          forceUserLimit: forceUserLimit,
+          queriyTags: !queriedTags);
       subscribeIds.add(subscribeId);
     }
 
@@ -132,10 +139,14 @@ class FollowEventProvider extends ChangeNotifier
   }
 
   String _doQueryFunc(Nostr targetNostr, Filter filter,
-      {bool initQuery = false, bool forceUserLimit = false}) {
+      {bool initQuery = false,
+      bool forceUserLimit = false,
+      bool queriyTags = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
-      targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
+      targetNostr.addInitQuery(
+          addTagFilter([filter.toJson()], queriyTags), onEvent,
+          id: subscribeId);
     } else {
       if (!eventBox.isEmpty()) {
         var activeRelays = targetNostr.activeRelays();
@@ -157,16 +168,40 @@ class FollowEventProvider extends ChangeNotifier
                 filter.since = oldestCreatedAt - 60 * 60 * 24;
               }
             }
-            filtersMap[relay.url] = [filter.toJson()];
+            filtersMap[relay.url] = addTagFilter([filter.toJson()], queriyTags);
           }
         }
         targetNostr.queryByFilters(filtersMap, onEvent, id: subscribeId);
       } else {
         // this maybe refresh
-        targetNostr.query([filter.toJson()], onEvent, id: subscribeId);
+        targetNostr.query(addTagFilter([filter.toJson()], queriyTags), onEvent,
+            id: subscribeId);
       }
     }
     return subscribeId;
+  }
+
+  static List<Map<String, dynamic>> addTagFilter(
+      List<Map<String, dynamic>> filters, bool queriyTags) {
+    if (queriyTags && filters.isNotEmpty) {
+      var filter = filters[0];
+      var tagFilter = Map<String, dynamic>.from(filter);
+      tagFilter.remove("authors");
+      // handle tag with TopicMap
+      var tagList = contactListProvider.tagList().toList();
+      List<String> queryTagList = [];
+      for (var tag in tagList) {
+        var list = TopicMap.getList(tag);
+        if (list != null) {
+          queryTagList.addAll(list);
+        } else {
+          queryTagList.add(tag);
+        }
+      }
+      tagFilter["#t"] = queryTagList;
+      filters.add(tagFilter);
+    }
+    return filters;
   }
 
   // check if is posts (no tag e and not Mentions, TODO handle NIP27)

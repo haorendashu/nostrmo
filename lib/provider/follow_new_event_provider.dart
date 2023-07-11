@@ -34,6 +34,7 @@ class FollowNewEventProvider extends ChangeNotifier
   void queryNew() {
     doUnscribe();
 
+    bool queriedTags = false;
     _localSince =
         _localSince == null || followEventProvider.lastTime() > _localSince!
             ? followEventProvider.lastTime()
@@ -48,23 +49,26 @@ class FollowNewEventProvider extends ChangeNotifier
       ids.add(contact.publicKey);
       if (ids.length > 100) {
         filter.authors = ids;
-        var subscribeId = _doQueryFunc(filter);
+        var subscribeId = _doQueryFunc(filter, queriyTags: queriedTags);
         subscribeIds.add(subscribeId);
         ids = [];
+        queriedTags = true;
       }
     }
     if (ids.isNotEmpty) {
       filter.authors = ids;
-      var subscribeId = _doQueryFunc(filter);
+      var subscribeId = _doQueryFunc(filter, queriyTags: queriedTags);
       subscribeIds.add(subscribeId);
     }
 
     _subscribeIds = subscribeIds;
   }
 
-  String _doQueryFunc(Filter filter) {
+  String _doQueryFunc(Filter filter, {bool queriyTags = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
-    nostr!.query([filter.toJson()], (event) {
+    nostr!
+        .query(FollowEventProvider.addTagFilter([filter.toJson()], queriyTags),
+            (event) {
       later(event, handleEvents, null);
     }, id: subscribeId);
     return subscribeId;

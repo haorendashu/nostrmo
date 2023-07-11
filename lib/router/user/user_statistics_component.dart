@@ -48,6 +48,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   int length = 0;
   int relaysNum = 0;
+  int followedTagsLength = 0;
   int? zapNum;
 
   bool isLocal = false;
@@ -118,6 +119,27 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       onTap: onZapTap,
       formatNum: true,
     ));
+
+    if (isLocal) {
+      list.add(
+          Selector<ContactListProvider, int>(builder: (context, num, child) {
+        return UserStatisticsItemComponent(
+          num: num,
+          name: s.Followed_Tags,
+          onTap: onFollowedTagsTap,
+        );
+      }, selector: (context, _provider) {
+        return _provider.totalFollowedTags();
+      }));
+    } else {
+      if (contactList != null) {
+        followedTagsLength = contactList!.tagList().length;
+      }
+      list.add(UserStatisticsItemComponent(
+          num: followedTagsLength,
+          name: s.Followed_Tags,
+          onTap: onFollowedTagsTap));
+    }
 
     return Container(
       // color: Colors.red,
@@ -233,6 +255,17 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       var cl = contactListProvider.contactList;
       if (cl != null) {
         RouterUtil.router(context, RouterPath.USER_CONTACT_LIST, cl);
+      }
+    }
+  }
+
+  onFollowedTagsTap() {
+    if (contactList != null) {
+      RouterUtil.router(context, RouterPath.FOLLOWED_TAGS_LIST, contactList);
+    } else if (isLocal) {
+      var cl = contactListProvider.contactList;
+      if (cl != null) {
+        RouterUtil.router(context, RouterPath.FOLLOWED_TAGS_LIST, cl);
       }
     }
   }
