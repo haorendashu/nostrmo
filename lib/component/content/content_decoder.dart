@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -320,11 +321,8 @@ class ContentDecoder {
           } else if (NIP19Tlv.isNaddr(key)) {
             var naddr = NIP19Tlv.decodeNaddr(key);
             if (naddr != null) {
-              if (naddr.kind == EventKind.METADATA) {
-                // inline
-                handledStr = _closeHandledStr(handledStr, inlines);
-                inlines.add(ContentMentionUserComponent(pubkey: naddr.author));
-              } else if (naddr.kind == EventKind.TEXT_NOTE) {
+              if (StringUtil.isNotBlank(naddr.id) ||
+                  naddr.kind == EventKind.TEXT_NOTE) {
                 // block
                 handledStr = _closeHandledStr(handledStr, inlines);
                 _closeInlines(inlines, list, textOnTap: textOnTap);
@@ -333,6 +331,11 @@ class ContentDecoder {
                   showVideo: showVideo,
                 );
                 list.add(widget);
+              } else if (StringUtil.isNotBlank(naddr.author) ||
+                  naddr.kind == EventKind.METADATA) {
+                // inline
+                handledStr = _closeHandledStr(handledStr, inlines);
+                inlines.add(ContentMentionUserComponent(pubkey: naddr.author));
               } else {
                 handledStr = _addToHandledStr(handledStr, subStr);
               }
