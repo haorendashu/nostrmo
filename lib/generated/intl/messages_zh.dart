@@ -93,6 +93,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Forbid": MessageLookupByLibrary.simpleMessage("禁止"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("禁止图片"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("禁止视频"),
+        "From": MessageLookupByLibrary.simpleMessage("来自"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("生成一个新的密钥"),
         "Global": MessageLookupByLibrary.simpleMessage("全球"),

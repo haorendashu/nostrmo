@@ -50,6 +50,7 @@ import 'provider/notice_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'provider/webview_provider.dart';
+import 'router/community/community_detail_router.dart';
 import 'router/dm/dm_detail_router.dart';
 import 'router/donate/donate_router.dart';
 import 'router/event_detail/event_detail_router.dart';
@@ -266,6 +267,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.WEBUTILS: (context) => WebUtilsRouter(),
       RouterPath.RELAY_INFO: (context) => RelayInfoRouter(),
       RouterPath.FOLLOWED_TAGS_LIST: (context) => FollowedTagsListRouter(),
+      RouterPath.COMMUNITY_DETAIL: (context) => CommunityDetailRouter(),
     };
 
     return MultiProvider(

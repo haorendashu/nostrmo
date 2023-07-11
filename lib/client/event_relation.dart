@@ -2,6 +2,7 @@ import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 
 import 'event.dart';
+import 'nip172/community_id.dart';
 
 class EventRelation {
   late String id;
@@ -23,6 +24,8 @@ class EventRelation {
   String? subject;
 
   bool warning = false;
+
+  CommunityId? communityId;
 
   EventRelation.fromEvent(Event event) {
     id = event.id;
@@ -70,6 +73,8 @@ class EventRelation {
           subject = value;
         } else if (tagKey == "content-warning") {
           warning = true;
+        } else if (tagKey == "a") {
+          communityId = CommunityId.fromString(value);
         }
       }
     }

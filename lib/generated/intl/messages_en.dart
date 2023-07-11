@@ -112,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Forbid": MessageLookupByLibrary.simpleMessage("Forbid"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Forbid image"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Forbid video"),
+        "From": MessageLookupByLibrary.simpleMessage("From"),
         "Gen_invoice_code_error":
             MessageLookupByLibrary.simpleMessage("Gen invoice code error."),
         "Generate_a_new_private_key":

@@ -64,6 +64,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool showSubject;
 
+  bool showCommunity;
+
   EventMainComponent({
     super.key,
     required this.screenshotController,
@@ -76,6 +78,7 @@ class EventMainComponent extends StatefulWidget {
     this.showDetailBtn = true,
     this.showLongContent = false,
     this.showSubject = true,
+    this.showCommunity = true,
   });
 
   @override
@@ -365,25 +368,75 @@ class _EventMainComponent extends State<EventMainComponent> {
       list.add(buildWarningWidget(largeTextSize!, mainColor));
     }
 
+    List<Widget> eventAllList = [];
+
+    if (eventRelation.communityId != null && widget.showCommunity) {
+      var communityTitle = Row(
+        children: [
+          Icon(
+            Icons.groups,
+            size: largeTextSize,
+            color: hintColor,
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              left: Base.BASE_PADDING_HALF,
+              right: 3,
+            ),
+            child: Text(
+              s.From,
+              style: TextStyle(
+                color: hintColor,
+                fontSize: smallTextSize,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              RouterUtil.router(context, RouterPath.COMMUNITY_DETAIL,
+                  eventRelation.communityId);
+            },
+            child: Text(
+              "${eventRelation.communityId!.title}",
+              style: TextStyle(
+                fontSize: smallTextSize,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      );
+
+      eventAllList.add(Container(
+        padding: const EdgeInsets.only(
+          left: Base.BASE_PADDING + 4,
+          right: Base.BASE_PADDING + 4,
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        child: communityTitle,
+      ));
+    }
+
+    eventAllList.add(EventTopComponent(
+      event: widget.event,
+      pagePubkey: widget.pagePubkey,
+    ));
+
+    eventAllList.add(Container(
+      width: double.maxFinite,
+      padding: const EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: list,
+      ),
+    ));
+
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        EventTopComponent(
-          event: widget.event,
-          pagePubkey: widget.pagePubkey,
-        ),
-        Container(
-          width: double.maxFinite,
-          padding: const EdgeInsets.only(
-            left: Base.BASE_PADDING,
-            right: Base.BASE_PADDING,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: list,
-          ),
-        ),
-      ],
+      children: eventAllList,
     );
   }
 

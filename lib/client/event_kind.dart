@@ -34,4 +34,6 @@ class EventKind {
   static const int BADGE_DEFINITION = 30009;
 
   static const int LONG_FORM = 30023;
+
+  static const int COMMUNITY_DEFINITION = 34550;
 }
