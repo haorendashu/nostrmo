@@ -93,7 +93,7 @@ class FollowEventProvider extends ChangeNotifier
     var contactListLength = contactList.length;
     List<String> ids = [];
     // timeline pull my events too.
-    int maxQueryIdsNum = 500;
+    int maxQueryIdsNum = 400;
     if (contactListLength > maxQueryIdsNum) {
       var times = (contactListLength / maxQueryIdsNum).ceil();
       maxQueryIdsNum = (contactListLength / times).ceil();
@@ -144,9 +144,11 @@ class FollowEventProvider extends ChangeNotifier
       bool queriyTags = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
-      targetNostr.addInitQuery(
-          addTagFilter([filter.toJson()], queriyTags), onEvent,
-          id: subscribeId);
+      // tags query can't query by size! if will make timeline xxxx
+      // targetNostr.addInitQuery(
+      //     addTagFilter([filter.toJson()], queriyTags), onEvent,
+      //     id: subscribeId);
+      targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
     } else {
       if (!eventBox.isEmpty()) {
         var activeRelays = targetNostr.activeRelays();
