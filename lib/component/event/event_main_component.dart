@@ -66,6 +66,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool showCommunity;
 
+  EventRelation? eventRelation;
+
   EventMainComponent({
     super.key,
     required this.screenshotController,
@@ -79,6 +81,7 @@ class EventMainComponent extends StatefulWidget {
     this.showLongContent = false,
     this.showSubject = true,
     this.showCommunity = true,
+    this.eventRelation,
   });
 
   @override
@@ -95,7 +98,11 @@ class _EventMainComponent extends State<EventMainComponent> {
   @override
   void initState() {
     super.initState();
-    eventRelation = EventRelation.fromEvent(widget.event);
+    if (widget.eventRelation == null) {
+      eventRelation = EventRelation.fromEvent(widget.event);
+    } else {
+      eventRelation = widget.eventRelation!;
+    }
   }
 
   @override

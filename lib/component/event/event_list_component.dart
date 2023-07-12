@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/provider/community_approved_provider.dart';
 import 'package:nostrmo/util/string_util.dart';
+import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -55,6 +57,7 @@ class _EventListComponent extends State<EventListComponent> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
+    var eventRelation = EventRelation.fromEvent(widget.event);
 
     Widget main = Screenshot(
       controller: screenshotController,
@@ -75,6 +78,7 @@ class _EventListComponent extends State<EventListComponent> {
           showDetailBtn: widget.showDetailBtn,
           showLongContent: widget.showLongContent,
           showCommunity: widget.showCommunity,
+          eventRelation: eventRelation,
         ),
       ),
     );
@@ -92,13 +96,25 @@ class _EventListComponent extends State<EventListComponent> {
       );
     }
 
+    Widget approvedWrap = Selector<CommunityApprovedProvider, bool>(
+        builder: (context, approved, child) {
+      if (approved) {
+        return main;
+      }
+
+      return Container();
+    }, selector: (context, _provider) {
+      return _provider.check(widget.event.pubKey, widget.event.id,
+          communityId: eventRelation.communityId);
+    });
+
     if (widget.jumpable) {
       return GestureDetector(
         onTap: jumpToThread,
-        child: main,
+        child: approvedWrap,
       );
     } else {
-      return main;
+      return approvedWrap;
     }
   }
 

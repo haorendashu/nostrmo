@@ -35,6 +35,7 @@ import 'consts/theme_style.dart';
 import 'data/db.dart';
 import 'generated/l10n.dart';
 import 'home_component.dart';
+import 'provider/community_approved_provider.dart';
 import 'provider/contact_list_provider.dart';
 import 'provider/data_util.dart';
 import 'provider/dm_provider.dart';
@@ -122,6 +123,8 @@ late WebViewProvider webViewProvider;
 
 late CustomEmojiProvider customEmojiProvider;
 
+late CommunityApprovedProvider communityApprovedProvider;
+
 Nostr? nostr;
 
 bool firstLogin = false;
@@ -192,6 +195,7 @@ Future<void> main() async {
   pcRouterFakeProvider = PcRouterFakeProvider();
   webViewProvider = WebViewProvider();
   customEmojiProvider = CustomEmojiProvider.load();
+  communityApprovedProvider = CommunityApprovedProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -332,6 +336,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<CustomEmojiProvider>.value(
           value: customEmojiProvider,
+        ),
+        ListenableProvider<CommunityApprovedProvider>.value(
+          value: communityApprovedProvider,
         ),
       ],
       child: HomeComponent(

@@ -17,9 +17,11 @@ class EventKind {
 
   static const int BADGE_AWARD = 8;
 
-  static const int POLL = 6969;
-
   static const int FILE_HEADER = 1063;
+
+  static const int COMMUNITY_APPROVED = 4550;
+
+  static const int POLL = 6969;
 
   static const int ZAP_REQUEST = 9734;
 
