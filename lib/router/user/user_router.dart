@@ -165,8 +165,11 @@ class _UserRouter extends CustState<UserRouter>
                 ),
               ),
               SliverToBoxAdapter(
-                child: UserStatisticsComponent(
-                  pubkey: pubkey!,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: UserStatisticsComponent(
+                    pubkey: pubkey!,
+                  ),
                 ),
               ),
             ];
