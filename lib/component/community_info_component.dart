@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/util/string_util.dart';
+import 'package:provider/provider.dart';
 
 import '../client/nip172/community_info.dart';
 import '../main.dart';
@@ -39,11 +41,44 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
       );
     }
 
+    Widget followBtn =
+        Selector<ContactListProvider, bool>(builder: (context, exist, child) {
+      IconData iconData = Icons.star_border;
+      Color? color;
+      if (exist) {
+        iconData = Icons.star;
+        color = Colors.yellow;
+      }
+
+      return GestureDetector(
+        onTap: () {
+          if (exist) {
+            contactListProvider
+                .removeCommunity(widget.info.communityId.toAString());
+          } else {
+            contactListProvider
+                .addCommunity(widget.info.communityId.toAString());
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.only(
+            left: Base.BASE_PADDING_HALF,
+            right: Base.BASE_PADDING_HALF,
+          ),
+          child: Icon(
+            iconData,
+            color: color,
+          ),
+        ),
+      );
+    }, selector: (context, _provider) {
+      return _provider.containCommunity(widget.info.communityId.toAString());
+    });
+
     List<Widget> list = [
       Container(
         margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               alignment: Alignment.center,
@@ -62,14 +97,7 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
               ),
               child: Text(widget.info.communityId.title),
             ),
-            // Expanded(child: Container()),
-            Container(
-              margin: EdgeInsets.only(
-                left: Base.BASE_PADDING_HALF,
-                right: Base.BASE_PADDING_HALF,
-              ),
-              child: Icon(Icons.star_border),
-            ),
+            followBtn,
           ],
         ),
       ),
@@ -82,6 +110,7 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
       padding: EdgeInsets.all(Base.BASE_PADDING),
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: list,
       ),
     );

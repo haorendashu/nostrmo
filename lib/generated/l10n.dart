@@ -2099,6 +2099,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Followed Communities`
+  String get Followed_Communities {
+    return Intl.message(
+      'Followed Communities',
+      name: 'Followed_Communities',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

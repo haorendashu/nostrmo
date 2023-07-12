@@ -47,7 +47,7 @@ class _FollowedTagsListRouter extends State<FollowedTagsListRouter> {
           ),
         ),
         title: Text(
-          s.Following,
+          s.Followed_Tags,
           style: TextStyle(
             fontSize: titleFontSize,
             fontWeight: FontWeight.bold,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../client/event.dart';
@@ -66,9 +64,9 @@ class FollowNewEventProvider extends ChangeNotifier
 
   String _doQueryFunc(Filter filter, {bool queriyTags = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
-    nostr!
-        .query(FollowEventProvider.addTagFilter([filter.toJson()], queriyTags),
-            (event) {
+    nostr!.query(
+        FollowEventProvider.addTagCommunityFilter(
+            [filter.toJson()], queriyTags), (event) {
       later(event, handleEvents, null);
     }, id: subscribeId);
     return subscribeId;

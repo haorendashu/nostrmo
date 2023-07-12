@@ -199,4 +199,30 @@ class ContactListProvider extends ChangeNotifier {
   Iterable<String> tagList() {
     return _contactList!.tagList();
   }
+
+  bool containCommunity(String id) {
+    return _contactList!.containsCommunity(id);
+  }
+
+  void addCommunity(String tag) {
+    _contactList!.addCommunity(tag);
+    _event = nostr!.sendContactList(_contactList!);
+
+    _saveAndNotify();
+  }
+
+  void removeCommunity(String tag) {
+    _contactList!.removeCommunity(tag);
+    _event = nostr!.sendContactList(_contactList!);
+
+    _saveAndNotify();
+  }
+
+  int totalfollowedCommunities() {
+    return _contactList!.totalFollowedCommunities();
+  }
+
+  Iterable<String> followedCommunitiesList() {
+    return _contactList!.followedCommunitiesList();
+  }
 }

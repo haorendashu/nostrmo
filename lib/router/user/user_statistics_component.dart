@@ -49,6 +49,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   int length = 0;
   int relaysNum = 0;
   int followedTagsLength = 0;
+  int followedCommunitiesLength = 0;
   int? zapNum;
 
   bool isLocal = false;
@@ -139,6 +140,28 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
           num: followedTagsLength,
           name: s.Followed_Tags,
           onTap: onFollowedTagsTap));
+    }
+
+    if (isLocal) {
+      list.add(
+          Selector<ContactListProvider, int>(builder: (context, num, child) {
+        return UserStatisticsItemComponent(
+          num: num,
+          name: s.Followed_Communities,
+          onTap: onFollowedCommunitiesTap,
+        );
+      }, selector: (context, _provider) {
+        return _provider.totalfollowedCommunities();
+      }));
+    } else {
+      if (contactList != null) {
+        followedCommunitiesLength =
+            contactList!.followedCommunitiesList().length;
+      }
+      list.add(UserStatisticsItemComponent(
+          num: followedCommunitiesLength,
+          name: s.Followed_Communities,
+          onTap: onFollowedCommunitiesTap));
     }
 
     return Container(
@@ -330,6 +353,17 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   }
 
   bool _disposed = false;
+
+  onFollowedCommunitiesTap() {
+    if (contactList != null) {
+      RouterUtil.router(context, RouterPath.FOLLOWED_COMMUNITIES, contactList);
+    } else if (isLocal) {
+      var cl = contactListProvider.contactList;
+      if (cl != null) {
+        RouterUtil.router(context, RouterPath.FOLLOWED_COMMUNITIES, cl);
+      }
+    }
+  }
 }
 
 class UserStatisticsItemComponent extends StatelessWidget {

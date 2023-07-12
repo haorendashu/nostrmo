@@ -64,6 +64,7 @@ import 'router/relays/relays_router.dart';
 import 'router/setting/setting_router.dart';
 import 'router/tag/tag_detail_router.dart';
 import 'router/thread/thread_detail_router.dart';
+import 'router/user/followed_communities_router.dart';
 import 'router/user/user_contact_list_router.dart';
 import 'router/user/user_relays_router.dart';
 import 'router/user/user_router.dart';
@@ -268,6 +269,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.RELAY_INFO: (context) => RelayInfoRouter(),
       RouterPath.FOLLOWED_TAGS_LIST: (context) => FollowedTagsListRouter(),
       RouterPath.COMMUNITY_DETAIL: (context) => CommunityDetailRouter(),
+      RouterPath.FOLLOWED_COMMUNITIES: (context) => FollowedCommunitiesRouter(),
     };
 
     return MultiProvider(

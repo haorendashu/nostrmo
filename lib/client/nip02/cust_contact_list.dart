@@ -5,13 +5,17 @@ class CustContactList {
 
   final Map<String, int> _followedTags;
 
+  final Map<String, int> _followedCommunitys;
+
   CustContactList()
       : _contacts = {},
-        _followedTags = {};
+        _followedTags = {},
+        _followedCommunitys = {};
 
   factory CustContactList.fromJson(List<dynamic> tags) {
     Map<String, Contact> _contacts = {};
     Map<String, int> _followedTags = {};
+    Map<String, int> _followedCommunitys = {};
     for (List<dynamic> tag in tags) {
       var length = tag.length;
       if (length == 0) {
@@ -33,12 +37,16 @@ class CustContactList {
       } else if (t == "t" && length > 1) {
         var tagName = tag[1];
         _followedTags[tagName] = 1;
+      } else if (t == "a" && length > 1) {
+        var id = tag[1];
+        _followedCommunitys[id] = 1;
       }
     }
-    return CustContactList._(_contacts, _followedTags);
+    return CustContactList._(_contacts, _followedTags, _followedCommunitys);
   }
 
-  CustContactList._(this._contacts, this._followedTags);
+  CustContactList._(
+      this._contacts, this._followedTags, this._followedCommunitys);
 
   List<dynamic> toJson() {
     List<dynamic> result = [];
@@ -47,6 +55,9 @@ class CustContactList {
     }
     for (var followedTag in _followedTags.keys) {
       result.add(["t", followedTag]);
+    }
+    for (var id in _followedCommunitys.keys) {
+      result.add(["a", id]);
     }
     return result;
   }
@@ -97,5 +108,25 @@ class CustContactList {
 
   Iterable<String> tagList() {
     return _followedTags.keys;
+  }
+
+  bool containsCommunity(String id) {
+    return _followedCommunitys.containsKey(id);
+  }
+
+  void addCommunity(String id) {
+    _followedCommunitys[id] = 1;
+  }
+
+  void removeCommunity(String id) {
+    _followedCommunitys.remove(id);
+  }
+
+  int totalFollowedCommunities() {
+    return _followedCommunitys.length;
+  }
+
+  Iterable<String> followedCommunitiesList() {
+    return _followedCommunitys.keys;
   }
 }

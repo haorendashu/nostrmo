@@ -170,38 +170,52 @@ class FollowEventProvider extends ChangeNotifier
                 filter.since = oldestCreatedAt - 60 * 60 * 24;
               }
             }
-            filtersMap[relay.url] = addTagFilter([filter.toJson()], queriyTags);
+            filtersMap[relay.url] =
+                addTagCommunityFilter([filter.toJson()], queriyTags);
           }
         }
         targetNostr.queryByFilters(filtersMap, onEvent, id: subscribeId);
       } else {
         // this maybe refresh
-        targetNostr.query(addTagFilter([filter.toJson()], queriyTags), onEvent,
+        targetNostr.query(
+            addTagCommunityFilter([filter.toJson()], queriyTags), onEvent,
             id: subscribeId);
       }
     }
     return subscribeId;
   }
 
-  static List<Map<String, dynamic>> addTagFilter(
+  static List<Map<String, dynamic>> addTagCommunityFilter(
       List<Map<String, dynamic>> filters, bool queriyTags) {
     if (queriyTags && filters.isNotEmpty) {
       var filter = filters[0];
-      var tagFilter = Map<String, dynamic>.from(filter);
-      tagFilter.remove("authors");
-      // handle tag with TopicMap
-      var tagList = contactListProvider.tagList().toList();
-      List<String> queryTagList = [];
-      for (var tag in tagList) {
-        var list = TopicMap.getList(tag);
-        if (list != null) {
-          queryTagList.addAll(list);
-        } else {
-          queryTagList.add(tag);
+      // tags filter
+      {
+        var tagFilter = Map<String, dynamic>.from(filter);
+        tagFilter.remove("authors");
+        // handle tag with TopicMap
+        var tagList = contactListProvider.tagList().toList();
+        List<String> queryTagList = [];
+        for (var tag in tagList) {
+          var list = TopicMap.getList(tag);
+          if (list != null) {
+            queryTagList.addAll(list);
+          } else {
+            queryTagList.add(tag);
+          }
         }
+        tagFilter["#t"] = queryTagList;
+        filters.add(tagFilter);
       }
-      tagFilter["#t"] = queryTagList;
-      filters.add(tagFilter);
+      // community filter
+      {
+        var communityFilter = Map<String, dynamic>.from(filter);
+        communityFilter.remove("authors");
+        var communityList =
+            contactListProvider.followedCommunitiesList().toList();
+        communityFilter["#a"] = communityList;
+        filters.add(communityFilter);
+      }
     }
     return filters;
   }
