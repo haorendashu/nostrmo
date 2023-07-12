@@ -63,7 +63,10 @@ class _FollowedTagsListRouter extends State<FollowedTagsListRouter> {
         itemBuilder: (context, index) {
           var tag = tagList[index];
 
-          return TagInfoComponent(tag: tag);
+          return TagInfoComponent(
+            tag: tag,
+            jumpable: true,
+          );
         },
         itemCount: tagList.length,
       ),

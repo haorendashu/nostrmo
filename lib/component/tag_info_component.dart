@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../consts/base.dart';
@@ -10,9 +12,12 @@ class TagInfoComponent extends StatefulWidget {
 
   final double height;
 
+  bool jumpable;
+
   TagInfoComponent({
     required this.tag,
     this.height = 80,
+    this.jumpable = false,
   });
 
   @override
@@ -28,7 +33,7 @@ class _TagInfoComponent extends State<TagInfoComponent> {
     var cardColor = themeData.cardColor;
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
 
-    return Container(
+    var main = Container(
       height: widget.height,
       color: cardColor,
       alignment: Alignment.center,
@@ -72,5 +77,17 @@ class _TagInfoComponent extends State<TagInfoComponent> {
         ],
       ),
     );
+
+    if (widget.jumpable) {
+      return GestureDetector(
+        onTap: () {
+          RouterUtil.router(context, RouterPath.TAG_DETAIL, widget.tag);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: main,
+      );
+    } else {
+      return main;
+    }
   }
 }
