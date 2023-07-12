@@ -46,11 +46,14 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   EventMemBox? zapEventBox;
 
+  EventMemBox? followedEventBox;
+
   int length = 0;
   int relaysNum = 0;
   int followedTagsLength = 0;
   int followedCommunitiesLength = 0;
   int? zapNum;
+  int? followedNum;
 
   bool isLocal = false;
 
@@ -113,6 +116,13 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       list.add(UserStatisticsItemComponent(
           num: relaysNum, name: s.Relays, onTap: onRelaysTap));
     }
+
+    list.add(UserStatisticsItemComponent(
+      num: followedNum,
+      name: s.Followed,
+      onTap: onFollowedTap,
+      formatNum: true,
+    ));
 
     list.add(UserStatisticsItemComponent(
       num: zapNum,
@@ -293,8 +303,38 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     }
   }
 
+  String followedSubscribeId = "";
+
   onFollowedTap() {
-    print("onFollowedTap");
+    if (followedEventBox == null) {
+      // load data
+      followedEventBox = EventMemBox(sortAfterAdd: false);
+      // pull zap event
+      Map<String, dynamic> filter = {};
+      filter["kinds"] = [kind.EventKind.CONTACT_LIST];
+      filter["#p"] = [widget.pubkey];
+      print(filter);
+      followedSubscribeId = StringUtil.rndNameStr(12);
+      nostr!.query([filter], (e) {
+        print(e);
+        var addResult = followedEventBox!.add(e);
+        if (addResult) {
+          setState(() {
+            followedNum = followedEventBox!.length();
+          });
+        }
+      }, id: followedSubscribeId);
+
+      followedNum = 0;
+    } else {
+      // jump to see
+      List<String> pubkeys = [];
+      var events = followedEventBox!.all();
+      for (var event in events) {
+        pubkeys.add(event.pubKey);
+      }
+      RouterUtil.router(context, RouterPath.FOLLOWED, pubkeys);
+    }
   }
 
   onRelaysTap() {

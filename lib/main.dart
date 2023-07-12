@@ -15,6 +15,7 @@ import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/router/relays/relay_info_router.dart';
+import 'package:nostrmo/router/user/followed_router.dart';
 import 'package:nostrmo/router/user/followed_tags_list_router.dart';
 import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
@@ -270,6 +271,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.FOLLOWED_TAGS_LIST: (context) => FollowedTagsListRouter(),
       RouterPath.COMMUNITY_DETAIL: (context) => CommunityDetailRouter(),
       RouterPath.FOLLOWED_COMMUNITIES: (context) => FollowedCommunitiesRouter(),
+      RouterPath.FOLLOWED: (context) => FollowedRouter(),
     };
 
     return MultiProvider(

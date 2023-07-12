@@ -2109,6 +2109,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Followed`
+  String get Followed {
+    return Intl.message(
+      'Followed',
+      name: 'Followed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
