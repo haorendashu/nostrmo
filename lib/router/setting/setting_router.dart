@@ -700,6 +700,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         ], kinds: [
           kind.EventKind.TEXT_NOTE,
           kind.EventKind.REPOST,
+          kind.EventKind.GENERIC_REPOST,
         ]);
         nostr!.query([filter.toJson()], onDeletedEventReceive);
       } catch (e) {

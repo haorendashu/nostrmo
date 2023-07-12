@@ -133,7 +133,8 @@ class _EventMainComponent extends State<EventMainComponent> {
     }
 
     Event? repostEvent;
-    if (widget.event.kind == kind.EventKind.REPOST &&
+    if ((widget.event.kind == kind.EventKind.REPOST ||
+            widget.event.kind == kind.EventKind.GENERIC_REPOST) &&
         widget.event.content.contains("\"pubkey\"")) {
       try {
         var jsonMap = jsonDecode(widget.event.content);

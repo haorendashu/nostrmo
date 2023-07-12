@@ -67,6 +67,7 @@ class FollowEventProvider extends ChangeNotifier
     return [
       kind.EventKind.TEXT_NOTE,
       kind.EventKind.REPOST,
+      kind.EventKind.GENERIC_REPOST,
       kind.EventKind.LONG_FORM,
       kind.EventKind.FILE_HEADER,
       kind.EventKind.POLL,

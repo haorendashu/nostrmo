@@ -80,7 +80,8 @@ class EventReactions implements FindEventInterface {
       if (event.kind == kind.EventKind.TEXT_NOTE) {
         replyNum++;
         replies.add(event);
-      } else if (event.kind == kind.EventKind.REPOST) {
+      } else if (event.kind == kind.EventKind.REPOST ||
+          event.kind == kind.EventKind.GENERIC_REPOST) {
         repostNum++;
         reposts.add(event);
       } else if (event.kind == kind.EventKind.REACTION) {

@@ -17,6 +17,8 @@ class EventKind {
 
   static const int BADGE_AWARD = 8;
 
+  static const int GENERIC_REPOST = 16;
+
   static const int FILE_HEADER = 1063;
 
   static const int COMMUNITY_APPROVED = 4550;
