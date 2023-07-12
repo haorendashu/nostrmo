@@ -498,7 +498,7 @@ class ContentDecoder {
         n == ".gif" ||
         n == ".webp") {
       return "image";
-    } else if (n == ".mp4" || n == ".mov" || n == ".wmv") {
+    } else if (n == ".mp4" || n == ".mov" || n == ".wmv" || n == ".m3u8") {
       return "video";
     } else {
       if (path.contains("void.cat/d/")) {
