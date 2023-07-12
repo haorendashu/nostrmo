@@ -416,7 +416,9 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       if (widget.event.sources.isNotEmpty) {
         relayAddr = widget.event.sources[0];
       }
-      nostr!.sendRepost(widget.event.id, relayAddr);
+      var content = jsonEncode(widget.event.toJson());
+      nostr!
+          .sendRepost(widget.event.id, relayAddr: relayAddr, content: content);
       eventReactionsProvider.addRepost(widget.event.id);
 
       if (settingProvider.broadcaseWhenBoost == OpenStatus.OPEN) {
