@@ -28,9 +28,17 @@ class ZapEventMainComponent extends StatefulWidget {
 class _ZapEventMainComponent extends State<ZapEventMainComponent> {
   String? senderPubkey;
 
+  late String eventId;
+
   @override
   void initState() {
     super.initState();
+
+    eventId = widget.event.id;
+    parseSenderPubkey();
+  }
+
+  void parseSenderPubkey() {
     String? zapRequestEventStr;
     for (var tag in widget.event.tags) {
       if (tag is List<dynamic> && tag.length > 1) {
@@ -58,6 +66,10 @@ class _ZapEventMainComponent extends State<ZapEventMainComponent> {
   Widget build(BuildContext context) {
     if (StringUtil.isBlank(senderPubkey)) {
       return Container();
+    }
+
+    if (eventId != widget.event.id) {
+      parseSenderPubkey();
     }
 
     var zapNum = ZapNumUtil.getNumFromZapEvent(widget.event);
