@@ -139,6 +139,15 @@ class _EventMainComponent extends State<EventMainComponent> {
       try {
         var jsonMap = jsonDecode(widget.event.content);
         repostEvent = Event.fromJson(jsonMap);
+
+        // set source to repost event
+        if (repostEvent.id == eventRelation.rootId &&
+            StringUtil.isNotBlank(eventRelation.rootRelayAddr)) {
+          repostEvent.sources.add(eventRelation.rootRelayAddr!);
+        } else if (repostEvent.id == eventRelation.replyId &&
+            StringUtil.isNotBlank(eventRelation.replyRelayAddr)) {
+          repostEvent.sources.add(eventRelation.replyRelayAddr!);
+        }
       } catch (e) {
         print(e);
       }
@@ -229,7 +238,8 @@ class _EventMainComponent extends State<EventMainComponent> {
           eventRelation: eventRelation,
           showDetailBtn: widget.showDetailBtn,
         ));
-      } else if (widget.event.kind == kind.EventKind.REPOST) {
+      } else if (widget.event.kind == kind.EventKind.REPOST ||
+          widget.event.kind == kind.EventKind.GENERIC_REPOST) {
         list.add(Container(
           alignment: Alignment.centerLeft,
           child: Text("${s.Boost}:"),
