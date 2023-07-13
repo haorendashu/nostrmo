@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/data/metadata.dart';
 
 import '../client/nip19/nip19.dart';
@@ -45,7 +46,7 @@ class _NameComponnet extends State<NameComponnet> {
       hintColor = widget.fontColor!;
     }
 
-    bool hasNip05 = false;
+    int nip05Status = -1;
     if (metadata != null) {
       if (StringUtil.isNotBlank(metadata.displayName)) {
         displayName = metadata.displayName!;
@@ -57,7 +58,10 @@ class _NameComponnet extends State<NameComponnet> {
       }
 
       if (StringUtil.isNotBlank(metadata.nip05)) {
-        hasNip05 = true;
+        nip05Status = 1;
+      }
+      if (metadata.valid != null && metadata.valid! > 0) {
+        nip05Status = 2;
       }
     }
 
@@ -89,21 +93,21 @@ class _NameComponnet extends State<NameComponnet> {
       ));
     }
 
-    if (hasNip05 && widget.showNip05) {
-      nameList.add(WidgetSpan(
-        child: Container(
-          margin: EdgeInsets.only(left: 3),
-          child: Icon(
-            Icons.check_circle,
-            color: mainColor,
-            size: smallTextSize,
-          ),
-        ),
-      ));
+    Widget nip05Widget = Container();
+    if (widget.showNip05) {
+      nip05Widget = Container(
+        margin: const EdgeInsets.only(left: 3),
+        child: Nip05ValidComponent(pubkey: widget.pubkey),
+      );
     }
 
-    return Text.rich(
-      TextSpan(children: nameList),
+    return Row(
+      children: [
+        Text.rich(
+          TextSpan(children: nameList),
+        ),
+        nip05Widget,
+      ],
     );
   }
 }

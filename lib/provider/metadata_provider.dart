@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip05/nip05_validor.dart';
+import 'package:nostrmo/consts/nip05status.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
@@ -24,6 +27,9 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
       var list = await MetadataDB.all();
       for (var md in list) {
+        if (md.valid == Nip05Status.NIP05_NOT_VALIDED) {
+          md.valid = null;
+        }
         _metadataProvider!._metadataCache[md.pubKey!] = md;
       }
       // lazyTimeMS begin bigger and request less
@@ -84,6 +90,34 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     later(_laterCallback, null);
 
     return null;
+  }
+
+  int getNip05Status(String pubkey) {
+    var metadata = getMetadata(pubkey);
+    if (metadata == null) {
+      return Nip05Status.METADATA_NOT_FOUND;
+    } else if (StringUtil.isBlank(metadata.nip05)) {
+      return Nip05Status.NIP05_NOT_FOUND;
+    } else if (metadata.valid == null) {
+      Nip05Validor.valid(metadata.nip05!, pubkey).then((valid) async {
+        if (valid != null) {
+          if (valid) {
+            metadata.valid = Nip05Status.NIP05_VALIDED;
+            await MetadataDB.update(metadata);
+          } else {
+            // only update cache, next open app vill valid again
+            metadata.valid = Nip05Status.NIP05_NOT_VALIDED;
+          }
+          notifyListeners();
+        }
+      });
+
+      return Nip05Status.NIP05_NOT_VALIDED;
+    } else if (metadata.valid! == Nip05Status.NIP05_VALIDED) {
+      return Nip05Status.NIP05_VALIDED;
+    }
+
+    return Nip05Status.NIP05_NOT_FOUND;
   }
 
   List<Event> _penddingEvents = [];

@@ -4,6 +4,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/component/zap_gen_dialog.dart';
@@ -329,9 +330,8 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ));
       if (StringUtil.isNotBlank(widget.metadata!.nip05)) {
         topList.add(MetadataIconDataComp(
-          iconData: Icons.check_circle,
           text: widget.metadata!.nip05!,
-          iconColor: mainColor,
+          leftWidget: Nip05ValidComponent(pubkey: widget.pubkey),
         ));
       }
       if (widget.metadata != null) {
@@ -578,7 +578,7 @@ class MetadataTextBtn extends StatelessWidget {
 class MetadataIconDataComp extends StatelessWidget {
   String text;
 
-  IconData iconData;
+  IconData? iconData;
 
   Color? iconColor;
 
@@ -586,9 +586,12 @@ class MetadataIconDataComp extends StatelessWidget {
 
   Function? onTap;
 
+  Widget? leftWidget;
+
   MetadataIconDataComp({
     required this.text,
-    required this.iconData,
+    this.iconData,
+    this.leftWidget,
     this.iconColor,
     this.textBG = false,
     this.onTap,
@@ -601,6 +604,8 @@ class MetadataIconDataComp extends StatelessWidget {
     if (cardColor == Colors.white) {
       cardColor = Colors.grey[300];
     }
+
+    iconData ??= Icons.circle;
 
     return Container(
       padding: const EdgeInsets.only(
@@ -618,14 +623,15 @@ class MetadataIconDataComp extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 right: Base.BASE_PADDING_HALF,
               ),
-              child: Icon(
-                iconData,
-                color: iconColor,
-                size: 16,
-              ),
+              child: leftWidget ??
+                  Icon(
+                    iconData,
+                    color: iconColor,
+                    size: 16,
+                  ),
             ),
             Expanded(
               child: Container(

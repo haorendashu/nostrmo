@@ -92,10 +92,15 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
               child: imageWidget,
             ),
             Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 left: Base.BASE_PADDING,
               ),
-              child: Text(widget.info.communityId.title),
+              child: Text(
+                widget.info.communityId.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             followBtn,
           ],
