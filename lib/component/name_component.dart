@@ -101,13 +101,11 @@ class _NameComponnet extends State<NameComponnet> {
       );
     }
 
-    return Row(
-      children: [
-        Text.rich(
-          TextSpan(children: nameList),
-        ),
-        nip05Widget,
-      ],
+    nameList.add(WidgetSpan(child: nip05Widget));
+
+    return Text.rich(
+      TextSpan(children: nameList),
+      maxLines: 3,
     );
   }
 }
