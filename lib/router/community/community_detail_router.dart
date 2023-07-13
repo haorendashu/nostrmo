@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/community_info_component.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
@@ -18,6 +19,7 @@ import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../util/string_util.dart';
+import '../edit/editor_router.dart';
 
 class CommunityDetailRouter extends StatefulWidget {
   @override
@@ -125,7 +127,21 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
             color: themeData.appBarTheme.titleTextStyle!.color,
           ),
         ),
-        actions: [],
+        actions: [
+          GestureDetector(
+            onTap: addToCommunity,
+            child: Container(
+              margin: const EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+              ),
+              child: Icon(
+                Icons.add,
+                color: themeData.appBarTheme.titleTextStyle!.color,
+              ),
+            ),
+          )
+        ],
         title: appBarTitle,
       ),
       body: main,
@@ -160,18 +176,20 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
           }
         }, id: infoSubscribeId);
       }
-      {
-        var filter = Filter(kinds: [
-          kind.EventKind.TEXT_NOTE,
-          kind.EventKind.LONG_FORM,
-          kind.EventKind.FILE_HEADER,
-          kind.EventKind.POLL,
-        ], limit: 100);
-        var queryArg = filter.toJson();
-        queryArg["#a"] = [communityId!.toAString()];
-        nostr!.query([queryArg], onEvent, id: subscribeId);
-      }
+      queryEvents();
     }
+  }
+
+  void queryEvents() {
+    var filter = Filter(kinds: [
+      kind.EventKind.TEXT_NOTE,
+      kind.EventKind.LONG_FORM,
+      kind.EventKind.FILE_HEADER,
+      kind.EventKind.POLL,
+    ], limit: 100);
+    var queryArg = filter.toJson();
+    queryArg["#a"] = [communityId!.toAString()];
+    nostr!.query([queryArg], onEvent, id: subscribeId);
   }
 
   void onEvent(Event event) {
@@ -194,5 +212,19 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
   onDeleteCallback(Event event) {
     box.delete(event.id);
     setState(() {});
+  }
+
+  Future<void> addToCommunity() async {
+    if (communityId != null) {
+      List<String> aTag = ["a", communityId!.toAString()];
+      if (relayProvider.relayAddrs.isNotEmpty) {
+        aTag.add(relayProvider.relayAddrs[0]);
+      }
+
+      var event = await EditorRouter.open(context, tags: [aTag]);
+      if (event != null) {
+        queryEvents();
+      }
+    }
   }
 }

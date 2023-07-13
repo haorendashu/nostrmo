@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:intl/intl.dart';
+import 'package:nostrmo/client/nip172/community_id.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
@@ -117,8 +118,51 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     var hintColor = themeData.hintColor;
     var textColor = themeData.textTheme.bodyMedium!.color;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
+    var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
 
     List<Widget> list = [];
+
+    if (widget.tags.isNotEmpty) {
+      for (var tag in widget.tags) {
+        if (tag.length > 1) {
+          var tagName = tag[0];
+          var tagValue = tag[1];
+
+          if (tagName == "a") {
+            // this note is add to community
+            var aid = CommunityId.fromString(tagValue);
+            if (aid != null) {
+              list.add(Container(
+                padding: const EdgeInsets.only(
+                  left: Base.BASE_PADDING,
+                  right: Base.BASE_PADDING,
+                ),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: Base.BASE_PADDING),
+                      child: Icon(
+                        Icons.groups,
+                        size: largeTextSize,
+                        color: hintColor,
+                      ),
+                    ),
+                    Text(
+                      aid.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ));
+            }
+          }
+        }
+      }
+    }
 
     if ((notifyItems != null && notifyItems!.isNotEmpty) ||
         (editorNotifyItems.isNotEmpty)) {
