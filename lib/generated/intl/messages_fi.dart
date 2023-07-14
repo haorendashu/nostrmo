@@ -49,12 +49,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("raja-arvo"),
         "Blocks": MessageLookupByLibrary.simpleMessage("raja-arvo"),
         "Boost": MessageLookupByLibrary.simpleMessage("edistää"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("lähetys"),
+        "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Lähetys myynninedistämisen aikana"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Tarjoa kuppi kahvia!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("peruuta"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Pysähdy"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Lähetä"),
         "Content": MessageLookupByLibrary.simpleMessage("sisältö"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Sisältövaroitus"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Kopioi alkuperäinen avain"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Kopioi avain"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kopioi alkulinkki"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Kopiointi onnistui"),
+        "Custom": MessageLookupByLibrary.simpleMessage("custom"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Omat värit"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Mukautettu kirjasin"),
@@ -101,12 +107,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("sormenjälkitunnistus"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Seurantajärjestelmä"),
+        "Followed": MessageLookupByLibrary.simpleMessage("seuraa"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Seurattava yhteisö"),
+        "Followed_Tags":
+            MessageLookupByLibrary.simpleMessage("Seuraavia aiheita"),
         "Following": MessageLookupByLibrary.simpleMessage("Seuraavat"),
-        "Font_Family": MessageLookupByLibrary.simpleMessage("tyyppi"),
+        "Font_Family": MessageLookupByLibrary.simpleMessage("fontti"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("kirjasinkoko"),
         "Forbid": MessageLookupByLibrary.simpleMessage("kieltää"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Kiellä kuvat"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Kiellä videot"),
+        "From": MessageLookupByLibrary.simpleMessage("alkaen"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Luo uusi avain"),
         "Global": MessageLookupByLibrary.simpleMessage("Maailmanlaajuinen"),
@@ -116,13 +128,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Hyväksyn"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Kuvan pakkaaminen"),
+        "Image_save_success": MessageLookupByLibrary.simpleMessage(
+            "Kuva tallennettiin onnistuneesti"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Kuvapalvelut"),
         "Input": MessageLookupByLibrary.simpleMessage("syöte"),
+        "Input_Comment": MessageLookupByLibrary.simpleMessage("Anna kommentit"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Syöttösätöjen määrä"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Anna salaman verkkolaskujen tuottamiseen käytettävien satelliittien määrä"),
+                "Anna Sats määrä luodaksesi Lightning Network -laskun"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Lisää tiliavain"),
         "Input_can_not_be_null":
@@ -136,14 +151,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Key_Backup":
             MessageLookupByLibrary.simpleMessage("Avainten varmuuskopiointi"),
         "Language": MessageLookupByLibrary.simpleMessage("kieli"),
-        "Light": MessageLookupByLibrary.simpleMessage("vaalea väri"),
+        "Light": MessageLookupByLibrary.simpleMessage("Vaalea väri"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Salamalaiku"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Linkin esikatselu"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurlia ja Lud16:ta ei löydy."),
-        "Login": MessageLookupByLibrary.simpleMessage("Kirjaudu sisään"),
+        "Login": MessageLookupByLibrary.simpleMessage("Kirjautuminen"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("maininta"),
         "Method": MessageLookupByLibrary.simpleMessage("menetelmä"),
@@ -158,8 +173,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dynaaminen kuormitus"),
         "Notes": MessageLookupByLibrary.simpleMessage("dynaaminen"),
-        "Notice": MessageLookupByLibrary.simpleMessage("Vinkit"),
+        "Notice": MessageLookupByLibrary.simpleMessage("kehotte"),
         "Notices": MessageLookupByLibrary.simpleMessage("ilmoitus"),
+        "Notify": MessageLookupByLibrary.simpleMessage("tiedottaa"),
         "Number_parse_error": MessageLookupByLibrary.simpleMessage(
             "Numeron muotoilu epäonnistui"),
         "Open_Event_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -170,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Avaa käyttäjäsivu"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Avaa selaimessa"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Vapaaehtoinen"),
         "Password": MessageLookupByLibrary.simpleMessage("salasana"),
         "Pay": MessageLookupByLibrary.simpleMessage("Palkka"),
         "Picture": MessageLookupByLibrary.simpleMessage("kuva"),
@@ -187,17 +204,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tarkistakaa muistutus."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Älä paljasta tai jaa avainta kenellekään."),
+                "Älä paljasta tai jaa salaisuutta kenellekään."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Ole hyvä ja syötä"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Anna teeman sisältö"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Anna tapahtuman tunnus"),
-        "Please_input_lnbc_text":
-            MessageLookupByLibrary.simpleMessage("Anna salamaverkon lasku"),
+        "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
+            "Anna Lightning Network -lasku"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Anna hakusisältö"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Anna otsikko"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Anna käyttäjän julkinen avain"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -217,15 +236,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("haku"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
             "Etsi käyttäjiä välimuistista"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("Etsi dynaamista sisältöä"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Etsi Pubkeyn tapahtumia"),
-        "Send": MessageLookupByLibrary.simpleMessage("Lähetä ulos"),
+        "Send": MessageLookupByLibrary.simpleMessage("Lähetä"),
+        "Send_fail":
+            MessageLookupByLibrary.simpleMessage("epäonnistui lähetyksessä"),
         "Setting": MessageLookupByLibrary.simpleMessage("perustaa"),
         "Share": MessageLookupByLibrary.simpleMessage("osuus"),
         "Show": MessageLookupByLibrary.simpleMessage("näyttö"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Avaa verkkosivu"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Allekirjoitus epäonnistui"),
+        "Source": MessageLookupByLibrary.simpleMessage("lähde"),
         "Submit": MessageLookupByLibrary.simpleMessage("Lähetä"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablettitila"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Sisältö ei voi sisältää välilyöntejä"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -237,6 +263,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Aiheen tyyppi"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Täällä pitäisi olla universumi."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "Tämä dynamiikka sisältää arkaluonteista sisältöä"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Aikajana"),
         "Topic": MessageLookupByLibrary.simpleMessage("teema"),
         "Topics": MessageLookupByLibrary.simpleMessage("teema"),
@@ -249,7 +278,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lähetys epäonnistui"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skannaa ja lähetä satelliitteja Lightning Walletin avulla"),
+                "Skannaa ja lähetä satelliitteja Lightning Network Walletin avulla"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Käyttäjän Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("ihmiset"),
         "Verify_error":
@@ -258,6 +287,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tarkastus epäonnistui"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Luettelon videon esikatselu"),
+        "Web_Appbar":
+            MessageLookupByLibrary.simpleMessage("Verkkonavigointipalkki"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Verkkotyökalut"),
         "Website": MessageLookupByLibrary.simpleMessage("verkkosivusto"),
         "What_s_happening": MessageLookupByLibrary.simpleMessage(
             "Onko mitään mielenkiintoista?"),

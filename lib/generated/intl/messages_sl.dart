@@ -49,12 +49,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("meja"),
         "Blocks": MessageLookupByLibrary.simpleMessage("meja"),
         "Boost": MessageLookupByLibrary.simpleMessage("spodbujanje"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("oddaja"),
+        "Broadcast_When_Boost":
+            MessageLookupByLibrary.simpleMessage("Oddajanje med promocijo"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Kupi mi skodelico kave!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("prekliči"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop at"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Pošlji"),
         "Content": MessageLookupByLibrary.simpleMessage("vsebina"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Opozorilo o vsebini"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Kopiraj izvirni ključ"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Kopiraj ključ"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kopiraj začetno povezavo"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Uspešno kopirano"),
+        "Custom": MessageLookupByLibrary.simpleMessage("po meri"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Barve po meri"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Pisava po meri"),
@@ -100,13 +106,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "identifikacija prstnih odtisov"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Sistem sledenja"),
+        "Followed": MessageLookupByLibrary.simpleMessage("sledi"),
+        "Followed_Communities": MessageLookupByLibrary.simpleMessage(
+            "Skupnost, ki jo je treba spremljati"),
+        "Followed_Tags": MessageLookupByLibrary.simpleMessage(
+            "Teme, ki jih je treba slediti"),
         "Following": MessageLookupByLibrary.simpleMessage("Naslednje"),
-        "Font_Family": MessageLookupByLibrary.simpleMessage("tipka"),
+        "Font_Family": MessageLookupByLibrary.simpleMessage("pisava"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("velikost pisave"),
         "Forbid": MessageLookupByLibrary.simpleMessage("prepovedati"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Prepovej slike"),
         "Forbid_video":
             MessageLookupByLibrary.simpleMessage("Prepovej videoposnetke"),
+        "From": MessageLookupByLibrary.simpleMessage("od"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Ustvari nov ključ"),
         "Global": MessageLookupByLibrary.simpleMessage("Globalno"),
@@ -116,13 +128,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Sprejmem"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Stiskanje slike"),
+        "Image_save_success":
+            MessageLookupByLibrary.simpleMessage("Slika je uspešno shranjena"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Storitve slik"),
         "Input": MessageLookupByLibrary.simpleMessage("vnos"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("Vnesite komentarje"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Količina vhodnih satelitov"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Vnesite število Sat za ustvarjanje računov strele omrežja"),
+                "Vnesite količino Sats za ustvarjanje računa Lightning Network"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Dodaj ključ računa"),
         "Input_can_not_be_null":
@@ -136,14 +152,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Key_Backup":
             MessageLookupByLibrary.simpleMessage("Varnostna kopija ključa"),
         "Language": MessageLookupByLibrary.simpleMessage("jezik"),
-        "Light": MessageLookupByLibrary.simpleMessage("barva svetlobe"),
+        "Light": MessageLookupByLibrary.simpleMessage("Svetla barva"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Račun o streli"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Predogled povezave"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurla in Lud16 ni mogoče najti."),
-        "Login": MessageLookupByLibrary.simpleMessage("Vpišite se"),
+        "Login": MessageLookupByLibrary.simpleMessage("Prijava"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("omeniti"),
         "Method": MessageLookupByLibrary.simpleMessage("metoda"),
@@ -158,8 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dinamično obremenitev"),
         "Notes": MessageLookupByLibrary.simpleMessage("dinamično"),
-        "Notice": MessageLookupByLibrary.simpleMessage("Nasveti"),
+        "Notice": MessageLookupByLibrary.simpleMessage("poziv"),
         "Notices": MessageLookupByLibrary.simpleMessage("obvestilo"),
+        "Notify": MessageLookupByLibrary.simpleMessage("obvesti"),
         "Number_parse_error": MessageLookupByLibrary.simpleMessage(
             "Oblikovanje številk ni uspelo"),
         "Open_Event_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -170,6 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Odpri uporabniško stran"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Odpri v brskalniku"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Neobvezno"),
         "Password": MessageLookupByLibrary.simpleMessage("geslo"),
         "Pay": MessageLookupByLibrary.simpleMessage("Plačaj"),
         "Picture": MessageLookupByLibrary.simpleMessage("slika"),
@@ -187,16 +205,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Prosim preverite opomnik."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Prosimo, ne razkrivajte ali delite ključa z nikomer."),
+                "Prosimo, ne razkrivajte ali delite skrivnosti nikomur."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Prosim vnesite"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Prosim vnesite vsebino teme"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Prosim vnesite ID dogodka"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Prosim vnesite račun strele omrežja"),
+            "Prosim vnesite račun Lightning Network"),
         "Please_input_search_content": MessageLookupByLibrary.simpleMessage(
             "Prosim vnesite vsebino iskanja"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Prosim vnesite naslov"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Prosim vnesite uporabnikov javni ključ"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -217,14 +237,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("iskanje"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
             "Poišči uporabnike iz predpomnilnika"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("Iskanje dinamične vsebine"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Iskanje dogodkov Pubkey"),
-        "Send": MessageLookupByLibrary.simpleMessage("pošlji ven"),
+        "Send": MessageLookupByLibrary.simpleMessage("pošlji"),
+        "Send_fail":
+            MessageLookupByLibrary.simpleMessage("ni uspelo pošiljati"),
         "Setting": MessageLookupByLibrary.simpleMessage("nastavitev"),
         "Share": MessageLookupByLibrary.simpleMessage("delež"),
         "Show": MessageLookupByLibrary.simpleMessage("prikaz"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Odpri spletno stran"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Podpis ni uspel"),
+        "Source": MessageLookupByLibrary.simpleMessage("vir"),
         "Submit": MessageLookupByLibrary.simpleMessage("Pošlji"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage(
+            "Način tabličnega računalnika"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Vsebina ne more vsebovati presledkov"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -236,6 +264,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Vrsta teme"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Tukaj bi moralo biti vesolje."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "Ta dinamika vsebuje občutljivo vsebino"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Časovnica"),
         "Topic": MessageLookupByLibrary.simpleMessage("tema"),
         "Topics": MessageLookupByLibrary.simpleMessage("tema"),
@@ -247,7 +278,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Prenos ni uspel"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skeniranje in pošiljanje Sat z Lightning Wallet"),
+                "Skeniranje in pošiljanje satelitskih omrežij z Lightning Network Wallet"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Uporabniški Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("ljudje"),
@@ -257,6 +288,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Preverjanje ni uspelo"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Predogled videa seznama"),
+        "Web_Appbar": MessageLookupByLibrary.simpleMessage(
+            "Vrstica za spletno krmarjenje"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Spletna orodja"),
         "Website": MessageLookupByLibrary.simpleMessage("spletna stran"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("Je kaj zanimivega?"),

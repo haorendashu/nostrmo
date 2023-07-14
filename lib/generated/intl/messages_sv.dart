@@ -49,12 +49,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("gräns"),
         "Blocks": MessageLookupByLibrary.simpleMessage("gräns"),
         "Boost": MessageLookupByLibrary.simpleMessage("främja"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("sändning"),
+        "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Sändning under marknadsföring"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Bjud mig på en kopp kaffe!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("avbryt"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stanna vid"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Skicka in"),
         "Content": MessageLookupByLibrary.simpleMessage("innehåll"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Innehållsvarning"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Kopiera originalnyckel"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Kopiera nyckel"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kopiera inledande länk"),
         "Copy_success": MessageLookupByLibrary.simpleMessage(
             "Kopierad med lyckat resultat"),
+        "Custom": MessageLookupByLibrary.simpleMessage("anpassad"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Anpassade färger"),
         "Custom_Font_Family":
@@ -100,12 +106,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Fingerprint": MessageLookupByLibrary.simpleMessage(
             "Identifiering av fingeravtryck"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("Följ systemet"),
+        "Followed": MessageLookupByLibrary.simpleMessage("följa"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Gemenskapen att följa"),
+        "Followed_Tags":
+            MessageLookupByLibrary.simpleMessage("Ämnen att följa"),
         "Following": MessageLookupByLibrary.simpleMessage("Följande"),
-        "Font_Family": MessageLookupByLibrary.simpleMessage("typsnitt"),
+        "Font_Family": MessageLookupByLibrary.simpleMessage("teckensnitt"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("teckenstorlek"),
         "Forbid": MessageLookupByLibrary.simpleMessage("förbjuda"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Förbjud bilder"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Förbjud videor"),
+        "From": MessageLookupByLibrary.simpleMessage("från"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Skapa en ny nyckel"),
         "Global": MessageLookupByLibrary.simpleMessage("Globalt"),
@@ -115,13 +127,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Jag accepterar"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Bildkomprimering"),
+        "Image_save_success": MessageLookupByLibrary.simpleMessage(
+            "Bild sparad med lyckat resultat"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Bildtjänster"),
         "Input": MessageLookupByLibrary.simpleMessage("inmatning"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("Skriv in kommentarer"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Inputsats kvantitet"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Ange antalet satelliter för att generera blixtnätsfakturor"),
+                "Ange antal satelliter för att generera Lightning Network-faktura"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Lägg till kontonyckel"),
         "Input_can_not_be_null":
@@ -135,14 +151,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Key_Backup": MessageLookupByLibrary.simpleMessage(
             "Säkerhetskopiering av nycklar"),
         "Language": MessageLookupByLibrary.simpleMessage("språk"),
-        "Light": MessageLookupByLibrary.simpleMessage("ljusfärg"),
+        "Light": MessageLookupByLibrary.simpleMessage("Ljus färg"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Lightning faktura"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Förhandsgranskning av länk"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl och Lud16 kan inte hittas."),
-        "Login": MessageLookupByLibrary.simpleMessage("Logga in"),
+        "Login": MessageLookupByLibrary.simpleMessage("Inloggning"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("omnämnande"),
         "Method": MessageLookupByLibrary.simpleMessage("metod"),
@@ -157,8 +173,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dynamisk belastning"),
         "Notes": MessageLookupByLibrary.simpleMessage("dynamisk"),
-        "Notice": MessageLookupByLibrary.simpleMessage("Tips"),
+        "Notice": MessageLookupByLibrary.simpleMessage("prompt"),
         "Notices": MessageLookupByLibrary.simpleMessage("Meddelande"),
+        "Notify": MessageLookupByLibrary.simpleMessage("informera"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("Talformatering misslyckades"),
         "Open_Event_from_cache":
@@ -169,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Öppna användarsida"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Öppna i webbläsare"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Valfritt"),
         "Password": MessageLookupByLibrary.simpleMessage("lösenord"),
         "Pay": MessageLookupByLibrary.simpleMessage("Betalning"),
         "Picture": MessageLookupByLibrary.simpleMessage("bild"),
@@ -186,16 +204,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kolla påminnelsen."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Vänligen lämna inte ut eller dela nyckeln med någon."),
+                "Vänligen avslöja inte eller dela hemlighet för någon."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Skriv in"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Ange temats innehåll"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Ange händelsens ID"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Ange fakturan för blixtnätverket"),
+            "Ange Lightning Network-faktura"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Ange sökinnehåll"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Ange en rubrik"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Ange användarens allmänna nyckel"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -215,15 +235,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("söka"),
         "Search_User_from_cache":
             MessageLookupByLibrary.simpleMessage("Hitta användare från cache"),
+        "Search_note_content": MessageLookupByLibrary.simpleMessage(
+            "Sök efter dynamiskt innehåll"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Sök efter Pubbeys händelser"),
-        "Send": MessageLookupByLibrary.simpleMessage("skicka ut"),
+        "Send": MessageLookupByLibrary.simpleMessage("skicka"),
+        "Send_fail":
+            MessageLookupByLibrary.simpleMessage("misslyckas med sändning"),
         "Setting": MessageLookupByLibrary.simpleMessage("inrätta"),
         "Share": MessageLookupByLibrary.simpleMessage("andel"),
         "Show": MessageLookupByLibrary.simpleMessage("visa"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Öppna webbsida"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Underskrift misslyckades"),
+        "Source": MessageLookupByLibrary.simpleMessage("Källa"),
         "Submit": MessageLookupByLibrary.simpleMessage("Skicka in"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablettläge"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Innehållet kan inte innehålla mellanslag"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -235,6 +262,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Ämnestyp"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Det borde finnas ett universum här."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "Den här dynamiken innehåller känsligt innehåll"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Tidslinje"),
         "Topic": MessageLookupByLibrary.simpleMessage("tema"),
         "Topics": MessageLookupByLibrary.simpleMessage("tema"),
@@ -247,7 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Överföring misslyckades"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skanna och skicka satelliter med Lightning Wallet"),
+                "Skanna och skicka satelliter med Lightning Network Wallet"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("User Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("människor"),
         "Verify_error":
@@ -256,6 +286,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verifiering misslyckades"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
             "Förhandsgranskning av listvideo"),
+        "Web_Appbar":
+            MessageLookupByLibrary.simpleMessage("Webbnavigeringsrad"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Webbverktyg"),
         "Website": MessageLookupByLibrary.simpleMessage("webbplats"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("Finns det nåt intressant?"),

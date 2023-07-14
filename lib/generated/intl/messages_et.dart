@@ -48,12 +48,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("piirmäär"),
         "Blocks": MessageLookupByLibrary.simpleMessage("piirmäär"),
         "Boost": MessageLookupByLibrary.simpleMessage("edendada"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("ülekanne"),
+        "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Edastamine reklaamimise ajal"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Osta mulle tass kohvi!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("tühista"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Peatu"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Esita"),
         "Content": MessageLookupByLibrary.simpleMessage("sisu"),
+        "Content_warning": MessageLookupByLibrary.simpleMessage("Sisu hoiatus"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Originaalvõti kopeerimine"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Kopeeri võti"),
@@ -69,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Esialgse lingi kopeerimine"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Õnnestunud kopeerimine"),
+        "Custom": MessageLookupByLibrary.simpleMessage("kohandatud"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Kohandatud värvid"),
         "Custom_Font_Family":
@@ -101,13 +106,19 @@ class MessageLookup extends MessageLookupByLibrary {
             "sõrmejälgede identifitseerimine"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Järgimissüsteem"),
+        "Followed": MessageLookupByLibrary.simpleMessage("järgne"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Järgnev ühendus"),
+        "Followed_Tags":
+            MessageLookupByLibrary.simpleMessage("Järgnevad teemad"),
         "Following": MessageLookupByLibrary.simpleMessage("Järgnevalt"),
-        "Font_Family": MessageLookupByLibrary.simpleMessage("tüüp"),
+        "Font_Family": MessageLookupByLibrary.simpleMessage("font"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("fondi suurus"),
         "Forbid": MessageLookupByLibrary.simpleMessage("keelata"),
         "Forbid_image":
             MessageLookupByLibrary.simpleMessage("Piltide keelamine"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Keelata videod"),
+        "From": MessageLookupByLibrary.simpleMessage("alates"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Loo uus võti"),
         "Global": MessageLookupByLibrary.simpleMessage("Globaalne"),
@@ -117,13 +128,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ma nõustun"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Pildi tihendamine"),
+        "Image_save_success":
+            MessageLookupByLibrary.simpleMessage("Pilt salvestati edukalt"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Pilditeenused"),
         "Input": MessageLookupByLibrary.simpleMessage("sisend"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("Kommentaaride sisestamine"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Sisendsatelliitide kogus"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Sisesta välguvõrguarvete genereerimiseks vajalike satelliitide arv"),
+                "Sisesta satelliidi kogus Lightning Network arve genereerimiseks"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Lisa konto võti"),
         "Input_can_not_be_null":
@@ -136,13 +151,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Palun sisestage edastuse aadress."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Võtme varundamine"),
         "Language": MessageLookupByLibrary.simpleMessage("keel"),
-        "Light": MessageLookupByLibrary.simpleMessage("hele värv"),
+        "Light": MessageLookupByLibrary.simpleMessage("Hele värv"),
         "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("Välkearve"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Lingi eelvaatlus"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurli ja Lud16 ei leita."),
-        "Login": MessageLookupByLibrary.simpleMessage("Logi sisse"),
+        "Login": MessageLookupByLibrary.simpleMessage("Sisselogimine"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("mainida"),
         "Method": MessageLookupByLibrary.simpleMessage("meetod"),
@@ -157,8 +172,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dünaamiline koormus"),
         "Notes": MessageLookupByLibrary.simpleMessage("dünaamiline"),
-        "Notice": MessageLookupByLibrary.simpleMessage("Näpunäited"),
+        "Notice": MessageLookupByLibrary.simpleMessage("viip"),
         "Notices": MessageLookupByLibrary.simpleMessage("teade"),
+        "Notify": MessageLookupByLibrary.simpleMessage("teavitada"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("Arvu vormindamine nurjus"),
         "Open_Event_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -169,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ava kasutaja lehekülg"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Ava brauseris"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Vabatahtlik"),
         "Password": MessageLookupByLibrary.simpleMessage("parool"),
         "Pay": MessageLookupByLibrary.simpleMessage("Tasu"),
         "Picture": MessageLookupByLibrary.simpleMessage("pilt"),
@@ -186,16 +203,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Palun kontrollige meeldetuletust."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Palun ärge avalikustage ega jagage võtit kellegagi."),
+                "Palun ärge avaldage ega jagage saladust kellelegi."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Palun sisesta"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Palun sisesta teema sisu"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Palun sisesta sündmuse ID"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Palun sisesta välguvõrgu arve"),
+            "Palun sisesta Lightning Network arve"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Palun sisesta otsingu sisu"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Palun sisesta pealkiri"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Palun sisesta kasutaja avalik võti"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -216,14 +235,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("otsing"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
             "Kasutajate otsimine vahemälust"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("Dünaamilise sisu otsimine"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Pubkey sündmuste otsimine"),
-        "Send": MessageLookupByLibrary.simpleMessage("Saada välja"),
+        "Send": MessageLookupByLibrary.simpleMessage("saata"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("saatmine nurjus"),
         "Setting": MessageLookupByLibrary.simpleMessage("seadistada"),
         "Share": MessageLookupByLibrary.simpleMessage("osa"),
         "Show": MessageLookupByLibrary.simpleMessage("ekraan"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Ava veebileht"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Allkiri nurjus"),
+        "Source": MessageLookupByLibrary.simpleMessage("allikas"),
         "Submit": MessageLookupByLibrary.simpleMessage("Esita"),
+        "Table_Mode":
+            MessageLookupByLibrary.simpleMessage("Tahvelarvuti režiim"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Sisu ei saa sisaldada tühikuid"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -235,6 +261,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Teema tüüp"),
         "There_should_be_a_universe_here":
             MessageLookupByLibrary.simpleMessage("Siin peaks olema universum."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "See dünaamika sisaldab tundlikku sisu"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Ajajoon"),
         "Topic": MessageLookupByLibrary.simpleMessage("teema"),
         "Topics": MessageLookupByLibrary.simpleMessage("teema"),
@@ -247,7 +276,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Üleslaadimine nurjus"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skaneerimine ja satelliidide saatmine Lightning Wallet abil"),
+                "Satelliitide skannimine ja saatmine Lightning Network Wallet abil"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Kasutaja Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("inimesed"),
         "Verify_error":
@@ -256,6 +285,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kontrollimine nurjus"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Loendivideo eelvaatlus"),
+        "Web_Appbar":
+            MessageLookupByLibrary.simpleMessage("Veebinavigatsiooniriba"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Veebitööriistad"),
         "Website": MessageLookupByLibrary.simpleMessage("veebileht"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("Kas on midagi huvitavat?"),

@@ -49,12 +49,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("határérték"),
         "Blocks": MessageLookupByLibrary.simpleMessage("határérték"),
         "Boost": MessageLookupByLibrary.simpleMessage("előmozdítani"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("sugárzás"),
+        "Broadcast_When_Boost":
+            MessageLookupByLibrary.simpleMessage("Közvetítés a promóció során"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Hívj meg egy csésze kávéra!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("törlés"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Állj meg"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Küldés"),
         "Content": MessageLookupByLibrary.simpleMessage("tartalom"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Tartalom figyelmeztetés"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Az eredeti kulcs másolása"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Kulcs másolása"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kezdeti hivatkozás másolása"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Sikeresen másolt"),
+        "Custom": MessageLookupByLibrary.simpleMessage("egyéni"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Egyéni színek"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Egyéni betűtípus"),
@@ -103,12 +109,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ujjlenyomat azonosító"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Követési rendszer"),
+        "Followed": MessageLookupByLibrary.simpleMessage("követés"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Követni kell a Közösséget"),
+        "Followed_Tags":
+            MessageLookupByLibrary.simpleMessage("Követendő témák"),
         "Following": MessageLookupByLibrary.simpleMessage("Következő"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("betűtípus"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("betűméret"),
         "Forbid": MessageLookupByLibrary.simpleMessage("tiltsa meg"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("A képek tiltása"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Videók tiltása"),
+        "From": MessageLookupByLibrary.simpleMessage("a"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Új kulcs létrehozása"),
         "Global": MessageLookupByLibrary.simpleMessage("Globális"),
@@ -117,14 +129,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Home": MessageLookupByLibrary.simpleMessage("honlap"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Elfogadom"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("Képtömörítés"),
+        "Image_save_success":
+            MessageLookupByLibrary.simpleMessage("Sikeresen mentett kép"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Képszolgáltatások"),
         "Input": MessageLookupByLibrary.simpleMessage("bemenet"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("Megjegyzések megadása"),
         "Input_Sats_num": MessageLookupByLibrary.simpleMessage(
             "Bemeneti műholdak mennyisége"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Adja meg a villámhálózati számlák generálásához szükséges Sats számát"),
+                "Adja meg a Sats mennyiségét a Lightning Network számla létrehozásához"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Fiókkulcs hozzáadása"),
         "Input_can_not_be_null":
@@ -137,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Kérem, adja meg a továbbító címet."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Kulcs mentés"),
         "Language": MessageLookupByLibrary.simpleMessage("nyelv"),
-        "Light": MessageLookupByLibrary.simpleMessage("világos szín"),
+        "Light": MessageLookupByLibrary.simpleMessage("Világos szín"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Villámszámla"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link előnézet"),
@@ -158,8 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dinamikus terhelés"),
         "Notes": MessageLookupByLibrary.simpleMessage("dinamikus"),
-        "Notice": MessageLookupByLibrary.simpleMessage("Tippek"),
+        "Notice": MessageLookupByLibrary.simpleMessage("prompt"),
         "Notices": MessageLookupByLibrary.simpleMessage("értesítés"),
+        "Notify": MessageLookupByLibrary.simpleMessage("tájékoztatni"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("A számformázás sikertelen"),
         "Open_Event_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -170,6 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Felhasználói oldal megnyitása"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Megnyitás böngészőben"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Választható"),
         "Password": MessageLookupByLibrary.simpleMessage("jelszó"),
         "Pay": MessageLookupByLibrary.simpleMessage("Fizetés"),
         "Picture": MessageLookupByLibrary.simpleMessage("kép"),
@@ -187,16 +205,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Kérem, nézze meg az emlékeztetőt."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Kérjük, ne ossza meg a kulcsot senkivel."),
+                "Kérjük, ne fedje fel vagy ossza meg senkinek a titkot."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Kérem, írja be"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Adja meg a téma tartalmát"),
         "Please_input_event_id": MessageLookupByLibrary.simpleMessage(
             "Kérjük, adja meg az esemény azonosítóját"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Kérjük, adja meg a villámhálózat számláját"),
+            "Adja meg a Lightning Network számlát"),
         "Please_input_search_content": MessageLookupByLibrary.simpleMessage(
             "Kérjük, adja meg a keresési tartalmat"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Adjon meg egy címet"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Adja meg a felhasználó nyilvános kulcsát"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -217,14 +237,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("keresés"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
             "Felhasználók keresése a gyorsítótárból"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("Dinamikus tartalom keresése"),
         "Search_pubkey_event": MessageLookupByLibrary.simpleMessage(
             "Pubbey eseményeinek keresése"),
-        "Send": MessageLookupByLibrary.simpleMessage("küldje ki"),
+        "Send": MessageLookupByLibrary.simpleMessage("küldés"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("sikertelen küldés"),
         "Setting": MessageLookupByLibrary.simpleMessage("felállítás"),
         "Share": MessageLookupByLibrary.simpleMessage("részesedés"),
         "Show": MessageLookupByLibrary.simpleMessage("kijelző"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Weboldal megnyitása"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Aláírás sikertelen"),
+        "Source": MessageLookupByLibrary.simpleMessage("forrás"),
         "Submit": MessageLookupByLibrary.simpleMessage("Küldés"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("Tabletta üzemmód"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "A tartalom nem tartalmazhat szóközt"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -236,6 +262,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Téma típusa"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Itt kellene lennie egy univerzumnak."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "Ez a dinamika érzékeny tartalmat tartalmaz"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Idővonal"),
         "Topic": MessageLookupByLibrary.simpleMessage("téma"),
         "Topics": MessageLookupByLibrary.simpleMessage("téma"),
@@ -248,7 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Feltöltés sikertelen"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Szatellitek beolvasása és küldése Lightning Wallet segítségével"),
+                "Szatellitek beolvasása és küldése a Lightning Network Wallet segítségével"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Felhasználó Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("emberek"),
@@ -258,6 +287,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Az ellenőrzés nem sikerült"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Lista videó előnézete"),
+        "Web_Appbar":
+            MessageLookupByLibrary.simpleMessage("Webes navigációs sáv"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Webeszközök"),
         "Website": MessageLookupByLibrary.simpleMessage("honlap"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("Van valami érdekes?"),

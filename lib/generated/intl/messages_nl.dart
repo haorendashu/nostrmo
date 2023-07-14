@@ -49,12 +49,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("limiet"),
         "Blocks": MessageLookupByLibrary.simpleMessage("limiet"),
         "Boost": MessageLookupByLibrary.simpleMessage("bevorderen"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("uitzending"),
+        "Broadcast_When_Boost":
+            MessageLookupByLibrary.simpleMessage("Uitzending tijdens promotie"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Koop me een kop koffie!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("annuleren"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop bij"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Verzenden"),
         "Content": MessageLookupByLibrary.simpleMessage("inhoud"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Inhoud waarschuwing"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Originele sleutel kopiëren"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Sleutel kopiëren"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Eerste koppeling kopiëren"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Succesvol gekopieerd"),
+        "Custom": MessageLookupByLibrary.simpleMessage("op maat"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Aangepaste kleuren"),
         "Custom_Font_Family":
@@ -103,6 +109,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Fingerprint": MessageLookupByLibrary.simpleMessage(
             "identificatie van vingerafdrukken"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("Volg systeem"),
+        "Followed": MessageLookupByLibrary.simpleMessage("volgen"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Gemeenschap te volgen"),
+        "Followed_Tags":
+            MessageLookupByLibrary.simpleMessage("Onderwerpen die volgen"),
         "Following": MessageLookupByLibrary.simpleMessage("Volgende"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("lettertype"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("lettergrootte"),
@@ -111,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Afbeeldingen verbieden"),
         "Forbid_video":
             MessageLookupByLibrary.simpleMessage("Video\'s verbieden"),
+        "From": MessageLookupByLibrary.simpleMessage("van"),
         "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
             "Een nieuwe sleutel genereren"),
         "Global": MessageLookupByLibrary.simpleMessage("Globaal"),
@@ -120,13 +132,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ik accepteer"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Beeldcompressie"),
+        "Image_save_success": MessageLookupByLibrary.simpleMessage(
+            "Afbeelding succesvol opgeslagen"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Beelddiensten"),
         "Input": MessageLookupByLibrary.simpleMessage("invoer"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("Opmerkingen invoeren"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Invoersat-hoeveelheid"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Voer het aantal satellieten in om facturen voor het bliksemnetwerk te genereren"),
+                "Voer Sats hoeveelheid in om Lightning Network factuur te genereren"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Accountsleutel toevoegen"),
         "Input_can_not_be_null":
@@ -139,7 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Voer het adres in."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Sleutelback-up"),
         "Language": MessageLookupByLibrary.simpleMessage("taal"),
-        "Light": MessageLookupByLibrary.simpleMessage("lichtkleur"),
+        "Light": MessageLookupByLibrary.simpleMessage("Lichtkleur"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Lightning factuur"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Koppelvoorbeeld"),
@@ -160,8 +176,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dynamische lading"),
         "Notes": MessageLookupByLibrary.simpleMessage("dynamisch"),
-        "Notice": MessageLookupByLibrary.simpleMessage("Tips"),
+        "Notice": MessageLookupByLibrary.simpleMessage("prompt"),
         "Notices": MessageLookupByLibrary.simpleMessage("aankondiging"),
+        "Notify": MessageLookupByLibrary.simpleMessage("informeren"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("Nummeropmaak mislukt"),
         "Open_Event_from_cache":
@@ -172,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gebruikerspagina openen"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Openen in browser"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Facultatief"),
         "Password": MessageLookupByLibrary.simpleMessage("wachtwoord"),
         "Pay": MessageLookupByLibrary.simpleMessage("Betaal"),
         "Picture": MessageLookupByLibrary.simpleMessage("foto"),
@@ -189,7 +207,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Controleer de herinnering."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Gelieve de sleutel niet openbaar te maken of te delen met niemand."),
+                "Gelieve niet openbaar te maken of gedeeld geheim aan niemand."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Gelieve in te voeren"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -197,9 +215,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Voer de event ID in"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Voer de factuur van het lightning network in"),
+            "Voer de Lightning Network factuur in"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Voer zoekinhoud in"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Voer een titel in"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Voer de publieke sleutel van de gebruiker in"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -221,15 +241,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("zoeken"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
             "Gebruikers zoeken vanuit cache"),
+        "Search_note_content": MessageLookupByLibrary.simpleMessage(
+            "Zoeken naar dynamische inhoud"),
         "Search_pubkey_event": MessageLookupByLibrary.simpleMessage(
             "Zoeken naar Pubkey\'s evenementen"),
         "Send": MessageLookupByLibrary.simpleMessage("verzenden"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("verzenden mislukt"),
         "Setting": MessageLookupByLibrary.simpleMessage("ingesteld"),
         "Share": MessageLookupByLibrary.simpleMessage("share"),
         "Show": MessageLookupByLibrary.simpleMessage("display"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Webpagina openen"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Handtekening mislukt"),
+        "Source": MessageLookupByLibrary.simpleMessage("bron"),
         "Submit": MessageLookupByLibrary.simpleMessage("Verzenden"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablet-modus"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Inhoud kan geen spaties bevatten"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -241,6 +267,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Soort onderwerp"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Er zou hier een universum moeten zijn."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "Deze dynamiek bevat gevoelige inhoud"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Tijdlijn"),
         "Topic": MessageLookupByLibrary.simpleMessage("thema"),
         "Topics": MessageLookupByLibrary.simpleMessage("thema"),
@@ -252,7 +281,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload mislukt"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Sat scannen en verzenden met Lightning Wallet"),
+                "Scannen en verzenden van satellieten met Lightning Network Wallet"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Gebruiker Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("mensen"),
         "Verify_error": MessageLookupByLibrary.simpleMessage(
@@ -261,6 +290,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verificatie mislukt"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Lijst videovoorbeeld"),
+        "Web_Appbar": MessageLookupByLibrary.simpleMessage("Webnavigatiebalk"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Webhulpmiddelen"),
         "Website": MessageLookupByLibrary.simpleMessage("website"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("Is er iets interessants?"),

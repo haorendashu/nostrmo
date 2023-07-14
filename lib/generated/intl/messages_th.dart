@@ -48,12 +48,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("ข้อ จำกัด"),
         "Blocks": MessageLookupByLibrary.simpleMessage("ข้อ จำกัด"),
         "Boost": MessageLookupByLibrary.simpleMessage("โปรโมชั่น"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("ออกอากาศ"),
+        "Broadcast_When_Boost":
+            MessageLookupByLibrary.simpleMessage("ออกอากาศเมื่ออำนวยความสะดวก"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("ซื้อกาแฟให้ฉัน!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("การยกเลิก"),
         "Close_at": MessageLookupByLibrary.simpleMessage("หยุดใน"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("ส่ง"),
         "Content": MessageLookupByLibrary.simpleMessage("เนื้อหา"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("คำเตือนเนื้อหา"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("คัดลอกคีย์ต้นฉบับ"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("คัดลอกคีย์"),
@@ -68,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("คัดลอกลิงก์เริ่มต้น"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("คัดลอกสำเร็จ"),
+        "Custom": MessageLookupByLibrary.simpleMessage("การปรับแต่ง"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("สีที่กำหนดเอง"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("แบบอักษรที่กำหนดเอง"),
@@ -97,12 +103,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Fingerprint":
             MessageLookupByLibrary.simpleMessage("การจดจำลายนิ้วมือ"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("ติดตามระบบ"),
+        "Followed": MessageLookupByLibrary.simpleMessage("ความสนใจ"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("ชุมชนที่กังวล"),
+        "Followed_Tags": MessageLookupByLibrary.simpleMessage("หัวข้อที่กังวล"),
         "Following": MessageLookupByLibrary.simpleMessage("ติดตาม"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("แบบอักษร"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("ขนาดตัวอักษร"),
         "Forbid": MessageLookupByLibrary.simpleMessage("ข้อห้าม"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("รูปภาพต้องห้าม"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("วิดีโอต้องห้าม"),
+        "From": MessageLookupByLibrary.simpleMessage("จาก"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("สร้างกุญแจใหม่"),
         "Global": MessageLookupByLibrary.simpleMessage("ทั่วโลก"),
@@ -111,8 +122,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Home": MessageLookupByLibrary.simpleMessage("หน้าหลัก"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("ฉันยอมรับ"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("การบีบอัดภาพ"),
+        "Image_save_success":
+            MessageLookupByLibrary.simpleMessage("บันทึกรูปภาพสำเร็จ"),
         "Image_service": MessageLookupByLibrary.simpleMessage("บริการรูปภาพ"),
         "Input": MessageLookupByLibrary.simpleMessage("ป้อนข้อมูล"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("ป้อนความคิดเห็น"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("ป้อนจำนวน Sats"),
         "Input_Sats_num_to_gen_lightning_invoice":
@@ -154,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Notes": MessageLookupByLibrary.simpleMessage("ไดนามิก"),
         "Notice": MessageLookupByLibrary.simpleMessage("เคล็ดลับ"),
         "Notices": MessageLookupByLibrary.simpleMessage("ประกาศ"),
+        "Notify": MessageLookupByLibrary.simpleMessage("แจ้ง"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("การจัดรูปแบบดิจิตอลล้มเหลว"),
         "Open_Event_from_cache":
@@ -164,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("เปิดหน้าผู้ใช้"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("เปิดในเบราว์เซอร์"),
+        "Optional": MessageLookupByLibrary.simpleMessage("ไม่จำเป็น"),
         "Password": MessageLookupByLibrary.simpleMessage("รหัสผ่าน"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("รูปภาพ"),
@@ -191,6 +208,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "กรุณากรอกใบแจ้งหนี้ Lightning Network"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("โปรดป้อนการค้นหา"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("กรุณาใส่หัวเรื่อง"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "โปรดป้อนกุญแจสาธารณะของผู้ใช้"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -211,14 +230,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("ค้นหา"),
         "Search_User_from_cache":
             MessageLookupByLibrary.simpleMessage("ค้นหาผู้ใช้จากแคช"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("ค้นหาเนื้อหาแบบไดนามิก"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("ค้นหากิจกรรมสำหรับ Pubkey"),
         "Send": MessageLookupByLibrary.simpleMessage("ส่ง"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("ส่งล้มเหลว"),
         "Setting": MessageLookupByLibrary.simpleMessage("การตั้งค่า"),
         "Share": MessageLookupByLibrary.simpleMessage("แบ่งปัน"),
         "Show": MessageLookupByLibrary.simpleMessage("แสดง"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("เปิดหน้าเว็บ"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("ลายเซ็นล้มเหลว"),
+        "Source": MessageLookupByLibrary.simpleMessage("แหล่งที่มา"),
         "Submit": MessageLookupByLibrary.simpleMessage("ส่ง"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("โหมดแท็บเล็ต"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("เนื้อหาต้องไม่มีช่องว่าง"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -230,6 +255,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("ประเภทหัวข้อ"),
         "There_should_be_a_universe_here":
             MessageLookupByLibrary.simpleMessage("มันควรจะมีจักรวาลที่นี่"),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "พลวัตนี้มีเนื้อหาที่ละเอียดอ่อน"),
         "Timeline": MessageLookupByLibrary.simpleMessage("ไทม์ไลน์"),
         "Topic": MessageLookupByLibrary.simpleMessage("หัวข้อ"),
         "Topics": MessageLookupByLibrary.simpleMessage("หัวข้อ"),
@@ -250,6 +278,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("การตรวจสอบล้มเหลว"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("รายการวิดีโอตัวอย่าง"),
+        "Web_Appbar": MessageLookupByLibrary.simpleMessage("แถบนำทางเว็บ"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("เครื่องมือหน้าเว็บ"),
         "Website": MessageLookupByLibrary.simpleMessage("เว็บไซต์"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("มีอะไรน่าสนใจบ้าง"),

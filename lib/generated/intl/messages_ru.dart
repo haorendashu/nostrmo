@@ -49,12 +49,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("Ограничения"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Ограничения"),
         "Boost": MessageLookupByLibrary.simpleMessage("Содействие"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("Радио"),
+        "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Содействие временному вещанию"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Купи мне кофе!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Отменить"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Остановиться на"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Представлено"),
         "Content": MessageLookupByLibrary.simpleMessage("Содержание"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Содержание предупреждений"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Копировать исходный ключ"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Копировать ключ"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Копировать исходную ссылку"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Копировать успешно"),
+        "Custom": MessageLookupByLibrary.simpleMessage("Настройка"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Настройка цвета"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Настройка шрифтов"),
@@ -104,6 +110,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Отпечатки пальцев"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Следующая система"),
+        "Followed": MessageLookupByLibrary.simpleMessage("Внимание"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Заинтересованные общины"),
+        "Followed_Tags": MessageLookupByLibrary.simpleMessage(
+            "Темы, вызывающие озабоченность"),
         "Following": MessageLookupByLibrary.simpleMessage("Следовать"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("Шрифт"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("Размер шрифта"),
@@ -111,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Forbid_image":
             MessageLookupByLibrary.simpleMessage("Запретить фотографии"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Запретить видео"),
+        "From": MessageLookupByLibrary.simpleMessage("Из"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Создать новый ключ"),
         "Global": MessageLookupByLibrary.simpleMessage("Глобальный уровень"),
@@ -120,8 +132,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Я согласен."),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Сжатие изображений"),
+        "Image_save_success": MessageLookupByLibrary.simpleMessage(
+            "Фотографии успешно сохранены"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Фотослужба"),
         "Input": MessageLookupByLibrary.simpleMessage("Ввод"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("Введите комментарий"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Введите количество Sats"),
         "Input_Sats_num_to_gen_lightning_invoice":
@@ -164,6 +180,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Notes": MessageLookupByLibrary.simpleMessage("Динамика"),
         "Notice": MessageLookupByLibrary.simpleMessage("Подсказка"),
         "Notices": MessageLookupByLibrary.simpleMessage("Уведомление"),
+        "Notify": MessageLookupByLibrary.simpleMessage("Уведомление"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("Ошибка форматирования цифр"),
         "Open_Event_from_cache":
@@ -174,6 +191,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Открыть страницу пользователя"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Открыть в браузере"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Необязательно"),
         "Password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "Pay": MessageLookupByLibrary.simpleMessage("Пэй."),
         "Picture": MessageLookupByLibrary.simpleMessage("Фотографии"),
@@ -201,6 +219,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Введите счет - фактуру Lightning Network."),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Введите содержимое поиска"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Введите заголовок"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Введите открытый ключ пользователя"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -221,14 +241,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("Поиск"),
         "Search_User_from_cache":
             MessageLookupByLibrary.simpleMessage("Поиск пользователей из кэша"),
+        "Search_note_content": MessageLookupByLibrary.simpleMessage(
+            "Поиск динамического содержимого"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Поиск событий Pubkey"),
         "Send": MessageLookupByLibrary.simpleMessage("Отправить"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("Ошибка отправки"),
         "Setting": MessageLookupByLibrary.simpleMessage("Настройка"),
         "Share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "Show": MessageLookupByLibrary.simpleMessage("Показать"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Открыть страницу"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Ошибка подписи"),
+        "Source": MessageLookupByLibrary.simpleMessage("Источник"),
         "Submit": MessageLookupByLibrary.simpleMessage("Представлено"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("Планшетный режим"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Содержание не может содержать пробелов"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -240,6 +266,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Тип темы"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Здесь должна быть вселенная."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "Эта динамика содержит чувствительный контент."),
         "Timeline": MessageLookupByLibrary.simpleMessage("Линия времени"),
         "Topic": MessageLookupByLibrary.simpleMessage("Тема"),
         "Topics": MessageLookupByLibrary.simpleMessage("Тема"),
@@ -261,6 +290,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ошибка проверки"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
             "Предварительный просмотр видео"),
+        "Web_Appbar":
+            MessageLookupByLibrary.simpleMessage("Панель веб - навигации"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Веб - инструменты"),
         "Website": MessageLookupByLibrary.simpleMessage("Веб - сайт"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("Что интересного?"),

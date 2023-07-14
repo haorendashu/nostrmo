@@ -48,12 +48,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("limită"),
         "Blocks": MessageLookupByLibrary.simpleMessage("limită"),
         "Boost": MessageLookupByLibrary.simpleMessage("promovare"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("difuzare"),
+        "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Transmisie în timpul promovării"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Cumpără-mi o ceaşcă de cafea!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("anulează"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Opreşte-te la"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Trimite"),
         "Content": MessageLookupByLibrary.simpleMessage("conținut"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("Avertizare conținut"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("Copiază cheia originală"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Copiază cheia"),
@@ -69,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copiază legătura inițială"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Copiat cu succes"),
+        "Custom": MessageLookupByLibrary.simpleMessage("personalizat"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Culori personalizate"),
         "Custom_Font_Family":
@@ -104,8 +110,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "identificarea amprentelor digitale"),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Sistem de urmărire"),
+        "Followed": MessageLookupByLibrary.simpleMessage("urmează"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Comunitatea urmează"),
+        "Followed_Tags":
+            MessageLookupByLibrary.simpleMessage("Subiecte de urmat"),
         "Following": MessageLookupByLibrary.simpleMessage("Următoarea"),
-        "Font_Family": MessageLookupByLibrary.simpleMessage("tip"),
+        "Font_Family": MessageLookupByLibrary.simpleMessage("font"),
         "Font_Size":
             MessageLookupByLibrary.simpleMessage("dimensiunea fontului"),
         "Forbid": MessageLookupByLibrary.simpleMessage("interzice"),
@@ -113,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Interzice imaginile"),
         "Forbid_video":
             MessageLookupByLibrary.simpleMessage("Interzice videoclipurile"),
+        "From": MessageLookupByLibrary.simpleMessage("de la"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Generați o cheie nouă"),
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
@@ -122,14 +134,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Accept"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Comprimare imagine"),
+        "Image_save_success":
+            MessageLookupByLibrary.simpleMessage("Imagine salvată cu succes"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Servicii de imagine"),
         "Input": MessageLookupByLibrary.simpleMessage("intrare"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("Introduceți comentarii"),
         "Input_Sats_num":
             MessageLookupByLibrary.simpleMessage("Cantitatea Sats de intrare"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Introduceți numărul de sateliți pentru a genera facturi de rețea Lightning"),
+                "Introduceți cantitatea Sats pentru a genera factura Lightning Network"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Adaugă cheia contului"),
         "Input_can_not_be_null":
@@ -142,14 +158,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Introduceţi adresa releului."),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Backup cheie"),
         "Language": MessageLookupByLibrary.simpleMessage("limba"),
-        "Light": MessageLookupByLibrary.simpleMessage("culoarea luminii"),
+        "Light": MessageLookupByLibrary.simpleMessage("Culoare deschisă"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Factură Lightning"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Previzualizare legături"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl şi Lud16 nu pot fi găsite."),
-        "Login": MessageLookupByLibrary.simpleMessage("Autentifică-te"),
+        "Login": MessageLookupByLibrary.simpleMessage("Autentificare"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("mențiune"),
         "Method": MessageLookupByLibrary.simpleMessage("metoda"),
@@ -164,8 +180,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Încărcare dinamică"),
         "Notes": MessageLookupByLibrary.simpleMessage("dinamic"),
-        "Notice": MessageLookupByLibrary.simpleMessage("Sfaturi"),
+        "Notice": MessageLookupByLibrary.simpleMessage("prompt"),
         "Notices": MessageLookupByLibrary.simpleMessage("notificare"),
+        "Notify": MessageLookupByLibrary.simpleMessage("informează"),
         "Number_parse_error": MessageLookupByLibrary.simpleMessage(
             "Formatarea numerelor a eșuat"),
         "Open_Event_from_cache":
@@ -176,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Deschide pagina utilizatorului"),
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Deschide în browser"),
+        "Optional": MessageLookupByLibrary.simpleMessage("Opțional"),
         "Password": MessageLookupByLibrary.simpleMessage("parolă"),
         "Pay": MessageLookupByLibrary.simpleMessage("Plăteşte"),
         "Picture": MessageLookupByLibrary.simpleMessage("imagine"),
@@ -193,7 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vă rugăm să verificați memento."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Vă rugăm să nu dezvăluiți sau să împărtășiți cheia cu nimeni."),
+                "Vă rugăm să nu dezvăluiți sau partajați secretul nimănui."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Vă rugăm să introduceți"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -201,9 +219,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_input_event_id": MessageLookupByLibrary.simpleMessage(
             "Introduceți ID-ul evenimentului"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Vă rugăm să introduceți factura rețelei Lightning"),
+            "Introduceți factura Lightning Network"),
         "Please_input_search_content": MessageLookupByLibrary.simpleMessage(
             "Introduceți conținutul căutării"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("Introduceți un titlu"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Introduceți cheia publică a utilizatorului"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -225,14 +245,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("căutare"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
             "Găsește utilizatori din cache"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("Caută conținut dinamic"),
         "Search_pubkey_event": MessageLookupByLibrary.simpleMessage(
             "Caută evenimentele lui Pubbey"),
-        "Send": MessageLookupByLibrary.simpleMessage("trimite afară"),
+        "Send": MessageLookupByLibrary.simpleMessage("trimite"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("eșec în trimitere"),
         "Setting": MessageLookupByLibrary.simpleMessage("înființat"),
         "Share": MessageLookupByLibrary.simpleMessage("share"),
         "Show": MessageLookupByLibrary.simpleMessage("afișare"),
+        "Show_web": MessageLookupByLibrary.simpleMessage("Deschide pagina web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Semnătură eșuată"),
+        "Source": MessageLookupByLibrary.simpleMessage("sursă"),
         "Submit": MessageLookupByLibrary.simpleMessage("Trimite"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("Mod comprimat"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Conținutul nu poate conține spații"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -245,6 +271,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tipul subiectului"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Ar trebui să fie un univers aici."),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "Această dinamică conține conținut sensibil"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Cronologie"),
         "Topic": MessageLookupByLibrary.simpleMessage("tema"),
         "Topics": MessageLookupByLibrary.simpleMessage("tema"),
@@ -256,7 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Încărcare eșuată"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Scanați și trimiteți sateliți utilizând Lightning Wallet"),
+                "Scanați și trimiteți sateliți cu portofelul Lightning Network"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Utilizator Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("oameni"),
@@ -266,6 +295,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verificare eșuată"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Previzualizare video listă"),
+        "Web_Appbar":
+            MessageLookupByLibrary.simpleMessage("Bara de navigare web"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("Instrumente web"),
         "Website": MessageLookupByLibrary.simpleMessage("site-ul web"),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("E ceva interesant?"),

@@ -47,12 +47,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Block": MessageLookupByLibrary.simpleMessage("تقييد"),
         "Blocks": MessageLookupByLibrary.simpleMessage("تقييد"),
         "Boost": MessageLookupByLibrary.simpleMessage("الترويج"),
+        "Broadcast": MessageLookupByLibrary.simpleMessage("البث"),
+        "Broadcast_When_Boost":
+            MessageLookupByLibrary.simpleMessage("تعزيز البث"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("إشتري لي فنجان قهوة"),
         "Cancel": MessageLookupByLibrary.simpleMessage("ألغى"),
         "Close_at": MessageLookupByLibrary.simpleMessage("توقف"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("قدم"),
         "Content": MessageLookupByLibrary.simpleMessage("المحتويات"),
+        "Content_warning":
+            MessageLookupByLibrary.simpleMessage("تحذير المحتوى"),
         "Copy_Hex_Key":
             MessageLookupByLibrary.simpleMessage("نسخ المفتاح الأصلي"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("نسخ المفتاح"),
@@ -67,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("نسخ الرابط الأولي"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("نسخة ناجحة"),
+        "Custom": MessageLookupByLibrary.simpleMessage("عرف"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("لون مخصص"),
         "Custom_Font_Family": MessageLookupByLibrary.simpleMessage("خط مخصص"),
         "Dark": MessageLookupByLibrary.simpleMessage("غامق"),
@@ -98,12 +104,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Fingerprint":
             MessageLookupByLibrary.simpleMessage("التعرف على بصمات الأصابع"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("متابعة النظام"),
+        "Followed": MessageLookupByLibrary.simpleMessage("قلق"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("اهتمام المجتمع"),
+        "Followed_Tags": MessageLookupByLibrary.simpleMessage("موضوع الاهتمام"),
         "Following": MessageLookupByLibrary.simpleMessage("اتبع"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("فونت"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("حجم الخط"),
         "Forbid": MessageLookupByLibrary.simpleMessage("حظر"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("حظر الصور"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("حظر الفيديو"),
+        "From": MessageLookupByLibrary.simpleMessage("من"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("توليد مفتاح جديد"),
         "Global": MessageLookupByLibrary.simpleMessage("العالمية"),
@@ -112,8 +123,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("أنا أقبل"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("ضغط الصور"),
+        "Image_save_success":
+            MessageLookupByLibrary.simpleMessage("حفظ الصورة بنجاح"),
         "Image_service": MessageLookupByLibrary.simpleMessage("خدمات الصور"),
         "Input": MessageLookupByLibrary.simpleMessage("المدخلات"),
+        "Input_Comment":
+            MessageLookupByLibrary.simpleMessage("إدخال التعليقات"),
         "Input_Sats_num": MessageLookupByLibrary.simpleMessage("أدخل عدد ساتس"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
@@ -154,6 +169,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Notes": MessageLookupByLibrary.simpleMessage("دينامية"),
         "Notice": MessageLookupByLibrary.simpleMessage("جديلة"),
         "Notices": MessageLookupByLibrary.simpleMessage("إخطار"),
+        "Notify": MessageLookupByLibrary.simpleMessage("أبلغ"),
         "Number_parse_error":
             MessageLookupByLibrary.simpleMessage("الشكل الرقمي فشل"),
         "Open_Event_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -163,6 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("فتح صفحة المستخدم"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("فتح المتصفح"),
+        "Optional": MessageLookupByLibrary.simpleMessage("اختياري"),
         "Password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "Pay": MessageLookupByLibrary.simpleMessage("باي"),
         "Picture": MessageLookupByLibrary.simpleMessage("صور"),
@@ -190,6 +207,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "من فضلك أدخل فاتورة شبكة البرق"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("الرجاء إدخال محتوى البحث"),
+        "Please_input_title":
+            MessageLookupByLibrary.simpleMessage("أدخل العنوان"),
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "الرجاء إدخال المستخدم المفتاح العام"),
         "Please_keep_the_key_properly_for_account_recovery":
@@ -209,14 +228,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search": MessageLookupByLibrary.simpleMessage("بحث ."),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
             "البحث عن المستخدمين من ذاكرة التخزين المؤقت"),
+        "Search_note_content":
+            MessageLookupByLibrary.simpleMessage("البحث عن المحتوى الديناميكي"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("البحث عن الأحداث في مجلات"),
         "Send": MessageLookupByLibrary.simpleMessage("أرسل"),
+        "Send_fail": MessageLookupByLibrary.simpleMessage("فشل إرسال"),
         "Setting": MessageLookupByLibrary.simpleMessage("ضبط"),
         "Share": MessageLookupByLibrary.simpleMessage("شارك"),
         "Show": MessageLookupByLibrary.simpleMessage("عرض ."),
+        "Show_web": MessageLookupByLibrary.simpleMessage("فتح صفحة ويب"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("فشل التوقيع"),
+        "Source": MessageLookupByLibrary.simpleMessage("المصدر"),
         "Submit": MessageLookupByLibrary.simpleMessage("قدم"),
+        "Table_Mode": MessageLookupByLibrary.simpleMessage("وضع لوحة"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "المحتوى لا يمكن أن تحتوي على مسافات"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -228,6 +253,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Style": MessageLookupByLibrary.simpleMessage("نوع الموضوع"),
         "There_should_be_a_universe_here":
             MessageLookupByLibrary.simpleMessage("يجب أن يكون هناك عالم"),
+        "This_note_contains_sensitive_content":
+            MessageLookupByLibrary.simpleMessage(
+                "دينامية تحتوي على محتوى حساس"),
         "Timeline": MessageLookupByLibrary.simpleMessage("خط الزمن"),
         "Topic": MessageLookupByLibrary.simpleMessage("موضوع ."),
         "Topics": MessageLookupByLibrary.simpleMessage("موضوع ."),
@@ -247,6 +275,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_failure": MessageLookupByLibrary.simpleMessage("فشل التحقق"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("قائمة معاينة الفيديو"),
+        "Web_Appbar": MessageLookupByLibrary.simpleMessage(
+            "شريط التنقل على شبكة الإنترنت"),
+        "Web_Utils": MessageLookupByLibrary.simpleMessage("أدوات ويب"),
         "Website": MessageLookupByLibrary.simpleMessage("موقع ."),
         "What_s_happening":
             MessageLookupByLibrary.simpleMessage("هل هناك أي شيء للاهتمام ؟"),
