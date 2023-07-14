@@ -26,7 +26,8 @@ class _Nip05ValidComponent extends State<Nip05ValidComponent> {
         builder: (context, nip05Status, child) {
       var iconData = Icons.check_circle;
       if (nip05Status == Nip05Status.NIP05_NOT_FOUND) {
-        iconData = Icons.error;
+        // iconData = Icons.error;
+        return Container(width: 0,height: 0,);
       }
 
       Color iconColor = Colors.red;
