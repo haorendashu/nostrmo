@@ -25,7 +25,7 @@ class _Nip05ValidComponent extends State<Nip05ValidComponent> {
     return Selector<MetadataProvider, int>(
         builder: (context, nip05Status, child) {
       var iconData = Icons.check_circle;
-      if (nip05Status == Nip05Status.NIP05_NOT_FOUND) {
+      if (nip05Status == Nip05Status.NIP05_NOT_FOUND || nip05Status == Nip05Status.METADATA_NOT_FOUND) {
         // iconData = Icons.error;
         return Container(width: 0,height: 0,);
       }
