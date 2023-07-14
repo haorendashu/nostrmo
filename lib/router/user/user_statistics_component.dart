@@ -46,7 +46,8 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   EventMemBox? zapEventBox;
 
-  EventMemBox? followedEventBox;
+  // followedMap
+  Map<String, Event>? followedMap;
 
   int length = 0;
   int relaysNum = 0;
@@ -306,33 +307,31 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   String followedSubscribeId = "";
 
   onFollowedTap() {
-    if (followedEventBox == null) {
+    if (followedMap == null) {
       // load data
-      followedEventBox = EventMemBox(sortAfterAdd: false);
+      followedMap = {};
       // pull zap event
       Map<String, dynamic> filter = {};
       filter["kinds"] = [kind.EventKind.CONTACT_LIST];
       filter["#p"] = [widget.pubkey];
-      print(filter);
       followedSubscribeId = StringUtil.rndNameStr(12);
       nostr!.query([filter], (e) {
-        print(e);
-        var addResult = followedEventBox!.add(e);
-        if (addResult) {
+        var oldEvent = followedMap![e.pubKey];
+        if (oldEvent == null || e.createdAt > oldEvent.createdAt) {
+          followedMap![e.pubKey] = e;
+
           setState(() {
-            followedNum = followedEventBox!.length();
+            followedNum = followedMap!.length;
           });
         }
+
+          
       }, id: followedSubscribeId);
 
       followedNum = 0;
     } else {
       // jump to see
-      List<String> pubkeys = [];
-      var events = followedEventBox!.all();
-      for (var event in events) {
-        pubkeys.add(event.pubKey);
-      }
+      var pubkeys = followedMap!.keys.toList();
       RouterUtil.router(context, RouterPath.FOLLOWED, pubkeys);
     }
   }
