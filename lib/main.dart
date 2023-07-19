@@ -11,6 +11,7 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nostrmo/client/nostr.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
+import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
@@ -125,6 +126,8 @@ late CustomEmojiProvider customEmojiProvider;
 
 late CommunityApprovedProvider communityApprovedProvider;
 
+late CommunityInfoProvider communityInfoProvider;
+
 Nostr? nostr;
 
 bool firstLogin = false;
@@ -196,6 +199,7 @@ Future<void> main() async {
   webViewProvider = WebViewProvider();
   customEmojiProvider = CustomEmojiProvider.load();
   communityApprovedProvider = CommunityApprovedProvider();
+  communityInfoProvider = CommunityInfoProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -339,6 +343,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<CommunityApprovedProvider>.value(
           value: communityApprovedProvider,
+        ),
+        ListenableProvider<CommunityInfoProvider>.value(
+          value: communityInfoProvider,
         ),
       ],
       child: HomeComponent(

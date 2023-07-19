@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/community_info_component.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
@@ -89,16 +90,21 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
         controller: _controller,
         itemBuilder: (context, index) {
           if (index == 0) {
-            if (communityInfo != null) {
+            return Selector<CommunityInfoProvider, CommunityInfo?>(
+                builder: (context, info, child) {
+              if (info == null) {
+                return Container();
+              }
+
               return WidgetSize(
                 onChange: (s) {
                   infoHeight = s.height;
                 },
-                child: CommunityInfoComponent(info: communityInfo!),
+                child: CommunityInfoComponent(info: info!),
               );
-            } else {
-              return Container();
-            }
+            }, selector: (context, _provider) {
+              return _provider.getCommunity(communityId!.toAString());
+            });
           }
 
           var event = box.get(index - 1);
@@ -152,30 +158,30 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
 
   var subscribeId = StringUtil.rndNameStr(16);
 
-  CommunityInfo? communityInfo;
+  // CommunityInfo? communityInfo;
 
   @override
   Future<void> onReady(BuildContext context) async {
     if (communityId != null) {
-      {
-        var filter = Filter(kinds: [
-          kind.EventKind.COMMUNITY_DEFINITION,
-        ], authors: [
-          communityId!.pubkey
-        ], limit: 1);
-        var queryArg = filter.toJson();
-        queryArg["#d"] = [communityId!.title];
-        nostr!.query([queryArg], (e) {
-          if (communityInfo == null || communityInfo!.createdAt < e.createdAt) {
-            var ci = CommunityInfo.fromEvent(e);
-            if (ci != null) {
-              setState(() {
-                communityInfo = ci;
-              });
-            }
-          }
-        }, id: infoSubscribeId);
-      }
+      // {
+      //   var filter = Filter(kinds: [
+      //     kind.EventKind.COMMUNITY_DEFINITION,
+      //   ], authors: [
+      //     communityId!.pubkey
+      //   ], limit: 1);
+      //   var queryArg = filter.toJson();
+      //   queryArg["#d"] = [communityId!.title];
+      //   nostr!.query([queryArg], (e) {
+      //     if (communityInfo == null || communityInfo!.createdAt < e.createdAt) {
+      //       var ci = CommunityInfo.fromEvent(e);
+      //       if (ci != null) {
+      //         setState(() {
+      //           communityInfo = ci;
+      //         });
+      //       }
+      //     }
+      //   }, id: infoSubscribeId);
+      // }
       queryEvents();
     }
   }
