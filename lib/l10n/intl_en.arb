@@ -205,5 +205,6 @@
     "Followed_Tags": "Followed Tags",
     "From": "From",
     "Followed_Communities": "Followed Communities",
-    "Followed": "Followed"
+    "Followed": "Followed",
+    "Auto_Open_Sensitive_Content": "Auto Open Sensitive Content"
 }

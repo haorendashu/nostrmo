@@ -2119,6 +2119,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Auto Open Sensitive Content`
+  String get Auto_Open_Sensitive_Content {
+    return Intl.message(
+      'Auto Open Sensitive Content',
+      name: 'Auto_Open_Sensitive_Content',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

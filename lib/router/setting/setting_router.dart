@@ -228,6 +228,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.broadcaseWhenBoost).name,
       onTap: pickBroadcaseWhenBoost,
     ));
+    list.add(SettingGroupItemComponent(
+      name: s.Auto_Open_Sensitive_Content,
+      value: getOpenListDefault(settingProvider.autoOpenSensitive).name,
+      onTap: pickAutoOpenSensitive,
+    ));
 
     list.add(SettingGroupTitleComponent(iconData: Icons.source, title: s.Data));
     list.add(SettingGroupItemComponent(
@@ -292,6 +297,16 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     }
 
     return openList![0];
+  }
+
+  EnumObj getOpenListDefault(int? value) {
+    for (var o in openList!) {
+      if (value == o.value) {
+        return o;
+      }
+    }
+
+    return openList![1];
   }
 
   List<EnumObj>? i18nList;
@@ -838,6 +853,24 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.broadcaseWhenBoost = resultEnumObj.value;
+    }
+  }
+
+  EnumObj getAutoOpenSensitive(int? value) {
+    for (var o in openList!) {
+      if (value == o.value) {
+        return o;
+      }
+    }
+
+    return openList![1];
+  }
+
+  pickAutoOpenSensitive() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.autoOpenSensitive = resultEnumObj.value;
     }
   }
 

@@ -243,6 +243,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get tableMode => _settingData!.tableMode;
 
+  int? get autoOpenSensitive => _settingData!.autoOpenSensitive;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -375,6 +377,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set autoOpenSensitive(int? o) {
+    _settingData!.autoOpenSensitive = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -446,6 +453,8 @@ class SettingData {
 
   int? tableMode;
 
+  int? autoOpenSensitive;
+
   /// updated time
   late int updatedTime;
 
@@ -474,6 +483,7 @@ class SettingData {
     this.fontSize,
     this.webviewAppbarOpen = OpenStatus.OPEN,
     this.tableMode,
+    this.autoOpenSensitive,
     this.updatedTime = 0,
   });
 
@@ -516,6 +526,7 @@ class SettingData {
         ? json['webviewAppbarOpen']
         : OpenStatus.OPEN;
     tableMode = json['tableMode'];
+    autoOpenSensitive = json['autoOpenSensitive'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -550,6 +561,7 @@ class SettingData {
     data['fontSize'] = this.fontSize;
     data['webviewAppbarOpen'] = this.webviewAppbarOpen;
     data['tableMode'] = this.tableMode;
+    data['autoOpenSensitive'] = this.autoOpenSensitive;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

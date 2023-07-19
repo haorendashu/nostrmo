@@ -153,6 +153,10 @@ class _EventMainComponent extends State<EventMainComponent> {
       }
     }
 
+    if (_settingProvider.autoOpenSensitive == OpenStatus.OPEN) {
+      showWarning = true;
+    }
+
     List<Widget> list = [];
     if (showWarning || !eventRelation.warning) {
       if (widget.event.kind == kind.EventKind.LONG_FORM) {

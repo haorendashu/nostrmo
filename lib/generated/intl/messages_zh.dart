@@ -36,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("地址不能为空。"),
         "Any": MessageLookupByLibrary.simpleMessage("任意"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("需要身份验证"),
+        "Auto_Open_Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("自动打开敏感内容"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
         "Banner": MessageLookupByLibrary.simpleMessage("横幅"),

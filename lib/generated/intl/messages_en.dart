@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("Any"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Authenticat need"),
+        "Auto_Open_Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Auto Open Sensitive Content"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("Backup and Safety tips"),
         "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
