@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -321,7 +322,7 @@ class ContentDecoder {
           } else if (NIP19Tlv.isNaddr(key)) {
             var naddr = NIP19Tlv.decodeNaddr(key);
             if (naddr != null) {
-              if (StringUtil.isNotBlank(naddr.id) ||
+              if (StringUtil.isNotBlank(naddr.id) &&
                   naddr.kind == EventKind.TEXT_NOTE) {
                 // block
                 handledStr = _closeHandledStr(handledStr, inlines);
@@ -331,7 +332,7 @@ class ContentDecoder {
                   showVideo: showVideo,
                 );
                 list.add(widget);
-              } else if (StringUtil.isNotBlank(naddr.author) ||
+              } else if (StringUtil.isNotBlank(naddr.author) &&
                   naddr.kind == EventKind.METADATA) {
                 // inline
                 handledStr = _closeHandledStr(handledStr, inlines);
