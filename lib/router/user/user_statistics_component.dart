@@ -70,10 +70,14 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       relaysEvent = null;
       relaysTags = null;
       zapEventBox = null;
+      followedMap = null;
 
       length = 0;
       relaysNum = 0;
-      zapNum;
+      followedTagsLength = 0;
+      followedCommunitiesLength = 0;
+      zapNum = null;
+      followedNum = null;
       doQuery();
     }
     pubkey = widget.pubkey;
@@ -324,8 +328,6 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
             followedNum = followedMap!.length;
           });
         }
-
-          
       }, id: followedSubscribeId);
 
       followedNum = 0;
