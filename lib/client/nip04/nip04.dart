@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:convert/convert.dart';
-import 'package:encrypt/encrypt.dart';
 import 'package:pointycastle/export.dart';
 
 class NIP04 {

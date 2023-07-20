@@ -8,9 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/hash_util.dart';
 
-class RetryHttpFileServcie extends FileService {
-  static const String BASE64_PRE = "data:image/jpeg;base64,";
+import '../../consts/base64.dart';
 
+class RetryHttpFileServcie extends FileService {
   final http.Client _httpClient;
 
   RetryHttpFileServcie({http.Client? httpClient})
@@ -22,10 +22,8 @@ class RetryHttpFileServcie extends FileService {
     url = url.trim();
     // log("begin to load image from ${url}");
     try {
-      if (url.indexOf(BASE64_PRE) == 0) {
-        var imageData =
-            Base64Decoder().convert(url.replaceFirst(BASE64_PRE, ""));
-        return Baes64FileResponse(imageData);
+      if (BASE64.check(url)) {
+        return Baes64FileResponse(BASE64.toData(url));
       }
 
       final req = http.Request('GET', Uri.parse(url));

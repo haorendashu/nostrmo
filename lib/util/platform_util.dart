@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/main.dart';
 
@@ -17,8 +18,11 @@ class PlatformUtil {
     }
 
     var size = MediaQuery.of(context).size;
-    if (Platform.isIOS && deviceInfo != null && deviceInfo!.data["systemName"] == "iPadOS") {
-        _isTable = true;
+    if (!isWeb() &&
+        Platform.isIOS &&
+        deviceInfo != null &&
+        deviceInfo!.data["systemName"] == "iPadOS") {
+      _isTable = true;
     } else {
       if (size.shortestSide > 600) {
         _isTable = true;
@@ -40,6 +44,18 @@ class PlatformUtil {
     return isTableModeWithoutSetting();
   }
 
+  static bool isIOS() {
+    if (isWeb()) {
+      return false;
+    }
+
+    return Platform.isIOS;
+  }
+
+  static bool isWeb() {
+    return kIsWeb;
+  }
+
   static bool isTableModeWithoutSetting() {
     if (isPC()) {
       return true;
@@ -48,7 +64,17 @@ class PlatformUtil {
     return _isTable;
   }
 
+  static bool isWindowsOrLinux() {
+    if (isWeb()) {
+      return false;
+    }
+    return Platform.isWindows || Platform.isLinux;
+  }
+
   static bool isPC() {
+    if (isWeb()) {
+      return false;
+    }
     return Platform.isWindows || Platform.isMacOS || Platform.isLinux;
   }
 }

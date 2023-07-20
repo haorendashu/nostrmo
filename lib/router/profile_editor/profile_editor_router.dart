@@ -252,6 +252,11 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
   }
 
   Future<String?> pickImageAndUpload() async {
+    if (PlatformUtil.isWeb()) {
+      // TODO ban image update at web temp
+      return null;
+    }
+
     var filepath = await Uploader.pick(context);
     if (StringUtil.isNotBlank(filepath)) {
       return await Uploader.upload(

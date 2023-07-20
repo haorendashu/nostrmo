@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 class LightningUtil {
   static Future<void> goToPay(BuildContext context, String invoiceCode) async {
     var link = 'lightning:' + invoiceCode;
-    if (PlatformUtil.isPC()) {
+    if (PlatformUtil.isPC() || PlatformUtil.isWeb()) {
       await LightningQrcodeDialog.show(context, link);
     } else {
       if (Platform.isAndroid) {

@@ -8,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
@@ -81,13 +82,14 @@ mixin EditorMixin {
     var hintColor = themeData.hintColor;
     var mainColor = themeData.primaryColor;
 
-    List<Widget> inputBtnList = [
-      quill.QuillIconButton(
+    List<Widget> inputBtnList = [];
+    if (!PlatformUtil.isWeb()) {
+      inputBtnList.add(quill.QuillIconButton(
         onPressed: pickImage,
         icon: Icon(Icons.image),
-      ),
-    ];
-    if (!PlatformUtil.isPC()) {
+      ));
+    }
+    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       inputBtnList.add(quill.QuillIconButton(
         onPressed: takeAPhoto,
         icon: Icon(Icons.camera),
@@ -198,7 +200,7 @@ mixin EditorMixin {
         //     textEditionController, // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
         config: Config(
           columns: 10,
-          emojiSizeMax: 20 * (Platform.isIOS ? 1.30 : 1.0),
+          emojiSizeMax: 20 * (PlatformUtil.isIOS() ? 1.30 : 1.0),
           verticalSpacing: 0,
           horizontalSpacing: 0,
           gridPadding: EdgeInsets.zero,
@@ -211,8 +213,11 @@ mixin EditorMixin {
           skinToneDialogBgColor: Colors.white,
           skinToneIndicatorColor: Colors.grey,
           enableSkinTones: true,
-          showRecentsTab: true,
+          // showRecentsTab: true,
+          recentTabBehavior: RecentTabBehavior.RECENT,
           recentsLimit: 30,
+          emojiTextStyle:
+              PlatformUtil.isWeb() ? GoogleFonts.notoColorEmoji() : null,
           noRecents: Text(
             'No Recents',
             style: TextStyle(fontSize: 14, color: Colors.black26),

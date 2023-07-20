@@ -161,7 +161,7 @@ class _IndexDrawerContnetComponnent
       },
     ));
 
-    if (!PlatformUtil.isPC()) {
+    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       list.add(IndexDrawerItem(
         iconData: Icons.coffee_outlined,
         name: s.Donate,

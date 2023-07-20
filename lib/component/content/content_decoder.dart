@@ -13,6 +13,7 @@ import '../../client/event.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
+import '../../consts/base64.dart';
 import '../../main.dart';
 import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
@@ -483,6 +484,10 @@ class ContentDecoder {
   static const double CONTENT_IMAGE_LIST_HEIGHT = 90;
 
   static String? getPathType(String path) {
+    if (path.indexOf(BASE64.PREFIX) == 0) {
+      return "image";
+    }
+
     var strs = path.split("?");
     var index = strs[0].lastIndexOf(".");
     if (index == -1) {

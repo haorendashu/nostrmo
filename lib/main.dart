@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'consts/base.dart';
@@ -135,7 +134,7 @@ bool firstLogin = false;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (PlatformUtil.isPC()) {
+  if (!PlatformUtil.isWeb() && PlatformUtil.isPC()) {
     await windowManager.ensureInitialized();
 
     WindowOptions windowOptions = WindowOptions(
@@ -152,7 +151,9 @@ Future<void> main() async {
     });
   }
 
-  if (Platform.isWindows || Platform.isLinux) {
+  if (PlatformUtil.isWeb()) {
+    databaseFactory = databaseFactoryFfiWeb;
+  } else if (PlatformUtil.isWindowsOrLinux()) {
     // Initialize FFI
     sqfliteFfiInit();
     // Change the default factory

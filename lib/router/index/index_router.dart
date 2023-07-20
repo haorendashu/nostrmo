@@ -75,7 +75,7 @@ class _IndexRouter extends CustState<IndexRouter>
         TabController(initialIndex: globalsInitTab, length: 3, vsync: this);
     dmTabController = TabController(length: 2, vsync: this);
 
-    if (!PlatformUtil.isPC()) {
+    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       try {
         asyncInitState();
       } catch (e) {
@@ -393,7 +393,7 @@ class _IndexRouter extends CustState<IndexRouter>
   @override
   void dispose() async {
     super.dispose();
-    if (!PlatformUtil.isPC()) {
+    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       if (_purchaseUpdatedSubscription != null) {
         _purchaseUpdatedSubscription!.cancel();
         _purchaseUpdatedSubscription = null;

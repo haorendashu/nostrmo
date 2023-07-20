@@ -49,6 +49,9 @@ dependencies:
   string_validator: ^1.0.0
   http: ^1.0.0
   sqflite: ^2.2.8+4
+  sqflite_common_ffi: ^2.2.5
+  sqflite_common: ^2.4.5
+  sqflite_common_ffi_web: ^0.3.6
   get_time_ago: ^1.2.2
   cached_network_image: ^3.2.3
   # flutter_launcher_icons: ^0.12.0
@@ -60,7 +63,7 @@ dependencies:
   file_picker: ^5.3.1
   dio: ^5.1.2
   dio_cookie_manager: ^3.0.0
-  emoji_picker_flutter: ^1.5.4
+  emoji_picker_flutter: ^1.6.1
   widget_size: ^1.0.0
   webview_flutter: ^4.2.1
   screenshot: ^2.1.0
@@ -86,8 +89,6 @@ dependencies:
   google_mlkit_translation: ^0.5.0
   google_mlkit_language_id: ^0.5.0
   flutter_markdown: ^0.6.14
-  sqflite_common_ffi: ^2.2.5
-  sqflite_common: ^2.4.5
   window_manager: ^0.3.4
   qr_code_scanner: ^1.0.1
   web_socket_channel: ^2.4.0

@@ -1,3 +1,4 @@
+import 'package:nostrmo/util/platform_util.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -9,9 +10,12 @@ class DB {
   static Database? _database;
 
   static init() async {
-    var databasesPath = await getDatabasesPath();
+    String path = _dbName;
 
-    String path = join(databasesPath, _dbName);
+    if (!PlatformUtil.isWeb()) {
+      var databasesPath = await getDatabasesPath();
+      path = join(databasesPath, _dbName);
+    }
 
     _database = await openDatabase(path, version: _VERSION,
         onCreate: (Database db, int version) async {
