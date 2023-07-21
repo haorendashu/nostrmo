@@ -48,6 +48,10 @@ class ContentDecoder {
 
   static const LNBC_NUM_END = "1p";
 
+  static const int NPUB_LENGTH = 63;
+
+  static const int NOTEID_LENGTH = 63;
+
   static String _addToHandledStr(String handledStr, String subStr) {
     if (StringUtil.isBlank(handledStr)) {
       return subStr;
@@ -271,14 +275,25 @@ class ContentDecoder {
             subStr.indexOf(NOTE_REFERENCES_AT) == 0) {
           var key = subStr.replaceFirst(NOTE_REFERENCES_AT, "");
           key = key.replaceFirst(NOTE_REFERENCES, "");
+
+          String? otherStr;
+
           if (Nip19.isPubkey(key)) {
             // inline
             // mention user
+            if (key.length > NPUB_LENGTH) {
+              otherStr = key.substring(NPUB_LENGTH);
+              key = key.substring(0, NPUB_LENGTH);
+            }
             key = Nip19.decode(key);
             handledStr = _closeHandledStr(handledStr, inlines);
             inlines.add(ContentMentionUserComponent(pubkey: key));
           } else if (Nip19.isNoteId(key)) {
             // block
+            if (key.length > NOTEID_LENGTH) {
+              otherStr = key.substring(NOTEID_LENGTH);
+              key = key.substring(0, NOTEID_LENGTH);
+            }
             key = Nip19.decode(key);
             handledStr = _closeHandledStr(handledStr, inlines);
             _closeInlines(inlines, list, textOnTap: textOnTap);
@@ -346,6 +361,10 @@ class ContentDecoder {
             }
           } else {
             handledStr = _addToHandledStr(handledStr, subStr);
+          }
+
+          if (StringUtil.isNotBlank(otherStr)) {
+            handledStr = _addToHandledStr(handledStr, otherStr!);
           }
         } else if (subStr.indexOf(MENTION_USER) == 0) {
           var key = subStr.replaceFirst("@", "");
