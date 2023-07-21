@@ -216,10 +216,13 @@ class _UserRouter extends CustState<UserRouter>
   @override
   Future<void> onReady(BuildContext context) async {
     doQuery();
-    var controller = globalKey.currentState!.innerController;
-    controller.addListener(() {
-      loadMoreScrollCallback(controller);
-    });
+
+    if (globalKey.currentState != null) {
+      var controller = globalKey.currentState!.innerController;
+      controller.addListener(() {
+        loadMoreScrollCallback(controller);
+      });
+    }
 
     metadataProvider.update(pubkey!);
   }
