@@ -84,17 +84,17 @@ mixin EditorMixin {
 
     List<Widget> inputBtnList = [];
     if (!PlatformUtil.isWeb()) {
-      inputBtnList.add(quill.QuillIconButton(
+      inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: pickImage,
         icon: Icon(Icons.image),
       ));
     }
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
-      inputBtnList.add(quill.QuillIconButton(
+      inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: takeAPhoto,
         icon: Icon(Icons.camera),
       ));
-      inputBtnList.add(quill.QuillIconButton(
+      inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: tackAVideo,
         icon: Icon(Icons.video_call),
       ));
@@ -102,33 +102,33 @@ mixin EditorMixin {
     if (getAgreement() == null &&
         getTags().isEmpty &&
         getTagsAddedWhenSend().isEmpty) {
-      inputBtnList.add(quill.QuillIconButton(
+      inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: _inputPoll,
         icon: Icon(Icons.poll),
       ));
     }
     inputBtnList.addAll([
-      quill.QuillIconButton(
+      quill.QuillToolbarIconButton(
         onPressed: _inputLnbc,
         icon: Icon(Icons.bolt),
       ),
-      quill.QuillIconButton(
+      quill.QuillToolbarIconButton(
         onPressed: customEmojiSelect,
         icon: Icon(Icons.add_reaction_outlined),
       ),
-      quill.QuillIconButton(
+      quill.QuillToolbarIconButton(
         onPressed: emojiBeginToSelect,
         icon: Icon(Icons.tag_faces),
       ),
-      quill.QuillIconButton(
+      quill.QuillToolbarIconButton(
         onPressed: _inputMentionUser,
         icon: Icon(Icons.alternate_email_sharp),
       ),
-      quill.QuillIconButton(
+      quill.QuillToolbarIconButton(
         onPressed: _inputMentionEvent,
         icon: Icon(Icons.format_quote),
       ),
-      quill.QuillIconButton(
+      quill.QuillToolbarIconButton(
         onPressed: _inputTag,
         icon: Icon(Icons.tag),
       ),
@@ -137,15 +137,15 @@ mixin EditorMixin {
 
     if (getAgreement() == null) {
       inputBtnList.addAll([
-        quill.QuillIconButton(
+        quill.QuillToolbarIconButton(
           onPressed: _addWarning,
           icon: Icon(Icons.warning, color: showWarning ? Colors.red : null),
         ),
-        quill.QuillIconButton(
+        quill.QuillToolbarIconButton(
           onPressed: _addTitle,
           icon: Icon(Icons.title, color: showTitle ? mainColor : null),
         ),
-        quill.QuillIconButton(
+        quill.QuillToolbarIconButton(
           onPressed: selectedTime,
           icon: Icon(Icons.timer_outlined,
               color: publishAt != null ? mainColor : null),

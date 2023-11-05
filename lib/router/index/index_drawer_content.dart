@@ -96,8 +96,9 @@ class _IndexDrawerContnetComponnent
       ),
     ));
 
+    List<Widget> centerList = [];
     if (PlatformUtil.isTableMode()) {
-      list.add(IndexDrawerItem(
+      centerList.add(IndexDrawerItem(
         iconData: Icons.home,
         name: s.Home,
         color: _indexProvider.currentTap == 0 ? mainColor : null,
@@ -108,7 +109,7 @@ class _IndexDrawerContnetComponnent
           indexProvider.followScrollToTop();
         },
       ));
-      list.add(IndexDrawerItem(
+      centerList.add(IndexDrawerItem(
         iconData: Icons.public,
         name: s.Globals,
         color: _indexProvider.currentTap == 1 ? mainColor : null,
@@ -119,7 +120,7 @@ class _IndexDrawerContnetComponnent
           indexProvider.globalScrollToTop();
         },
       ));
-      list.add(IndexDrawerItem(
+      centerList.add(IndexDrawerItem(
         iconData: Icons.search,
         name: s.Search,
         color: _indexProvider.currentTap == 2 ? mainColor : null,
@@ -127,7 +128,7 @@ class _IndexDrawerContnetComponnent
           indexProvider.setCurrentTap(2);
         },
       ));
-      list.add(IndexDrawerItem(
+      centerList.add(IndexDrawerItem(
         iconData: Icons.mail,
         name: "DMs",
         color: _indexProvider.currentTap == 3 ? mainColor : null,
@@ -137,7 +138,7 @@ class _IndexDrawerContnetComponnent
       ));
     }
 
-    list.add(IndexDrawerItem(
+    centerList.add(IndexDrawerItem(
       iconData: Icons.block,
       name: s.Filter,
       onTap: () {
@@ -145,7 +146,7 @@ class _IndexDrawerContnetComponnent
       },
     ));
 
-    list.add(IndexDrawerItem(
+    centerList.add(IndexDrawerItem(
       iconData: Icons.cloud,
       name: s.Relays,
       onTap: () {
@@ -153,7 +154,7 @@ class _IndexDrawerContnetComponnent
       },
     ));
 
-    list.add(IndexDrawerItem(
+    centerList.add(IndexDrawerItem(
       iconData: Icons.key,
       name: s.Key_Backup,
       onTap: () {
@@ -162,7 +163,7 @@ class _IndexDrawerContnetComponnent
     ));
 
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
-      list.add(IndexDrawerItem(
+      centerList.add(IndexDrawerItem(
         iconData: Icons.coffee_outlined,
         name: s.Donate,
         onTap: () {
@@ -171,7 +172,7 @@ class _IndexDrawerContnetComponnent
       ));
     }
 
-    list.add(IndexDrawerItem(
+    centerList.add(IndexDrawerItem(
       iconData: Icons.settings,
       name: s.Setting,
       onTap: () {
@@ -180,7 +181,7 @@ class _IndexDrawerContnetComponnent
     ));
 
     if (!PlatformUtil.isPC()) {
-      list.add(
+      centerList.add(
           Selector<WebViewProvider, String?>(builder: (context, url, child) {
         if (StringUtil.isBlank(url)) {
           return IndexDrawerItem(
@@ -204,7 +205,14 @@ class _IndexDrawerContnetComponnent
       }));
     }
 
-    list.add(Expanded(child: Container()));
+    list.add(Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: centerList,
+        ),
+      ),
+    ));
 
     if (PlatformUtil.isTableMode()) {
       list.add(IndexDrawerItem(

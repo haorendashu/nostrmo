@@ -43,7 +43,7 @@ dependencies:
   provider: ^6.0.5
   shared_preferences: ^2.1.1
   bot_toast: ^4.0.4
-  flutter_quill: ^7.2.0
+  flutter_quill: 8.1.1
   # nostr_dart: ^0.6.5
   bip340: ^0.1.0
   string_validator: ^1.0.0
@@ -80,7 +80,7 @@ dependencies:
   google_fonts: ^4.0.5
   flutter_font_picker: ^1.2.0
   local_auth: ^2.1.6
-  flutter_socks_proxy: ^0.0.2
+  flutter_socks_proxy: ^0.0.3
   crypto: ^3.0.3
   mime: ^1.0.4
   pretty_dio_logger: ^1.3.1
@@ -116,7 +116,7 @@ dev_dependencies:
 
 dependency_overrides:
   http: ^1.0.0
-  extended_image: ^8.0.1
+  extended_image: ^8.1.1
   markdown: ^7.1.0
   intl: ^0.18.1
   win32: ^4.1.4

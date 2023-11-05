@@ -139,30 +139,36 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
       child: Row(
         children: [
           Expanded(
-            child: quill.QuillEditor(
-              placeholder: s.What_s_happening,
-              controller: editorController,
-              scrollController: ScrollController(),
-              focusNode: focusNode,
-              readOnly: false,
-              embedBuilders: [
-                MentionUserEmbedBuilder(),
-                MentionEventEmbedBuilder(),
-                PicEmbedBuilder(),
-                VideoEmbedBuilder(),
-                LnbcEmbedBuilder(),
-                TagEmbedBuilder(),
-                CustomEmojiEmbedBuilder(),
-              ],
-              scrollable: true,
-              autoFocus: false,
-              expands: false,
-              // padding: EdgeInsets.zero,
-              padding: EdgeInsets.only(
-                left: Base.BASE_PADDING,
-                right: Base.BASE_PADDING,
+            child: quill.QuillProvider(
+              configurations: quill.QuillConfigurations(
+                controller: editorController,
               ),
-              maxHeight: 300,
+              child: quill.QuillEditor(
+                configurations: quill.QuillEditorConfigurations(
+                  placeholder: s.What_s_happening,
+                  readOnly: false,
+                  embedBuilders: [
+                    MentionUserEmbedBuilder(),
+                    MentionEventEmbedBuilder(),
+                    PicEmbedBuilder(),
+                    VideoEmbedBuilder(),
+                    LnbcEmbedBuilder(),
+                    TagEmbedBuilder(),
+                    CustomEmojiEmbedBuilder(),
+                  ],
+                  scrollable: true,
+                  autoFocus: false,
+                  expands: false,
+                  // padding: EdgeInsets.zero,
+                  padding: EdgeInsets.only(
+                    left: Base.BASE_PADDING,
+                    right: Base.BASE_PADDING,
+                  ),
+                  maxHeight: 300,
+                ),
+                scrollController: ScrollController(),
+                focusNode: focusNode,
+              ),
             ),
           ),
           TextButton(
