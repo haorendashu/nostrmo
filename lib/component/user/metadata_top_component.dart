@@ -261,26 +261,23 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ));
     }
 
-    List<Widget> nameList = [];
     if (StringUtil.isBlank(displayName)) {
       displayName = nip19Name;
     }
-    nameList.add(Text(
-      displayName,
+    List<TextSpan> nameSpans = [];
+    nameSpans.add(TextSpan(
+      text: displayName,
       style: TextStyle(
         fontSize: largeFontSize,
         fontWeight: FontWeight.bold,
       ),
     ));
     if (StringUtil.isNotBlank(name)) {
-      nameList.add(Container(
-        margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
-        child: Text(
-          name != null ? "@$name" : "",
-          style: TextStyle(
-            fontSize: fontSize,
-            color: hintColor,
-          ),
+      nameSpans.add(TextSpan(
+        text: name != null ? "@$name" : "",
+        style: TextStyle(
+          fontSize: fontSize,
+          color: hintColor,
         ),
       ));
     }
@@ -295,8 +292,12 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         bottom: Base.BASE_PADDING_HALF,
       ),
       // color: Colors.green,
-      child: Row(
-        children: nameList,
+      child: Text.rich(
+        TextSpan(
+          children: nameSpans,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
     if (widget.jumpable) {
