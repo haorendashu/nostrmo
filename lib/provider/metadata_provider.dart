@@ -97,7 +97,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     var metadata = getMetadata(pubkey);
 
     if (PlatformUtil.isWeb()) {
-      // web 平台因为跨域无法检验 NIP05
+      // web can't valid NIP05 due to cors
       if (metadata != null) {
         if (metadata.nip05 != null) {
           return Nip05Status.NIP05_VALIDED;
