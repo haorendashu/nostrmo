@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip05/nip05_validor.dart';
 import 'package:nostrmo/consts/nip05status.dart';
+import 'package:nostrmo/util/platform_util.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
@@ -94,6 +95,20 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
   int getNip05Status(String pubkey) {
     var metadata = getMetadata(pubkey);
+
+    if (PlatformUtil.isWeb()) {
+      // web 平台因为跨域无法检验 NIP05
+      if (metadata != null) {
+        if (metadata.nip05 != null) {
+          return Nip05Status.NIP05_VALIDED;
+        }
+
+        return Nip05Status.NIP05_NOT_VALIDED;
+      }
+
+      return Nip05Status.NIP05_NOT_FOUND;
+    }
+
     if (metadata == null) {
       return Nip05Status.METADATA_NOT_FOUND;
     } else if (StringUtil.isBlank(metadata.nip05)) {
