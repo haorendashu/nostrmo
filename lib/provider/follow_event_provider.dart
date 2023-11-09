@@ -205,8 +205,10 @@ class FollowEventProvider extends ChangeNotifier
             queryTagList.add(tag);
           }
         }
-        tagFilter["#t"] = queryTagList;
-        filters.add(tagFilter);
+        if (queryTagList.isNotEmpty) {
+          tagFilter["#t"] = queryTagList;
+          filters.add(tagFilter);
+        }
       }
       // community filter
       {
@@ -214,8 +216,10 @@ class FollowEventProvider extends ChangeNotifier
         communityFilter.remove("authors");
         var communityList =
             contactListProvider.followedCommunitiesList().toList();
-        communityFilter["#a"] = communityList;
-        filters.add(communityFilter);
+        if (communityFilter.isNotEmpty) {
+          communityFilter["#a"] = communityList;
+          filters.add(communityFilter);
+        }
       }
     }
     return filters;
