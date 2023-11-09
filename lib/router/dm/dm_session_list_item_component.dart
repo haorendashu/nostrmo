@@ -110,21 +110,23 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
                     children: [
                       Row(
                         children: [
-                          NameComponnet(
-                            pubkey: dmSession.pubkey,
-                            metadata: metadata,
-                          ),
                           Expanded(
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                GetTimeAgo.parse(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                        lastEvent.createdAt * 1000)),
-                                style: TextStyle(
-                                  fontSize: smallTextSize,
-                                  color: themeData.hintColor,
-                                ),
+                            child: NameComponnet(
+                              pubkey: dmSession.pubkey,
+                              metadata: metadata,
+                              maxLines: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              GetTimeAgo.parse(
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                      lastEvent.createdAt * 1000)),
+                              style: TextStyle(
+                                fontSize: smallTextSize,
+                                color: themeData.hintColor,
                               ),
                             ),
                           ),

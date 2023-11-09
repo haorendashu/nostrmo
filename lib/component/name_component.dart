@@ -16,12 +16,18 @@ class NameComponnet extends StatefulWidget {
 
   Color? fontColor;
 
+  TextOverflow? textOverflow;
+
+  int? maxLines;
+
   NameComponnet({
     required this.pubkey,
     this.metadata,
     this.showNip05 = true,
     this.fontSize,
     this.fontColor,
+    this.textOverflow,
+    this.maxLines = 3,
   });
 
   @override
@@ -105,7 +111,8 @@ class _NameComponnet extends State<NameComponnet> {
 
     return Text.rich(
       TextSpan(children: nameList),
-      maxLines: 3,
+      maxLines: widget.maxLines,
+      overflow: widget.textOverflow,
     );
   }
 }
