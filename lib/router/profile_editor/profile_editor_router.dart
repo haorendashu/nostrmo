@@ -289,8 +289,13 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
     metadataMap["lud16"] = lud16Controller.text;
     metadataMap["lud06"] = lud06Controller.text;
 
-    var updateEvent = Event(
-        nostr!.publicKey, kind.EventKind.METADATA, [], jsonEncode(metadataMap));
+    List<dynamic> tags = [];
+    if (profileEvent != null) {
+      tags = profileEvent!.tags;
+    }
+
+    var updateEvent = Event(nostr!.publicKey, kind.EventKind.METADATA, tags,
+        jsonEncode(metadataMap));
     nostr!.sendEvent(updateEvent);
 
     RouterUtil.back(context);
