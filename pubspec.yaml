@@ -45,7 +45,7 @@ dependencies:
   bot_toast: ^4.0.4
   flutter_quill: 8.1.1
   # nostr_dart: ^0.6.5
-  bip340: ^0.1.0
+  bip340: ^0.2.0
   string_validator: ^1.0.0
   http: ^1.0.0
   sqflite: ^2.2.8+4
