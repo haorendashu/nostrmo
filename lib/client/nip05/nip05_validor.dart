@@ -12,7 +12,7 @@ class Nip05Validor {
 
     try {
       _checking[nip05Address] = 1;
-      return _doValid(nip05Address, pubkey);
+      return await _doValid(nip05Address, pubkey);
     } finally {
       _checking.remove(nip05Address);
     }
@@ -28,14 +28,18 @@ class Nip05Validor {
     }
 
     var url = "https://$address/.well-known/nostr.json?name=$name";
-    var response = await dio.get(url);
-    if (response.data != null &&
-        response.data is Map &&
-        response.data["names"] != null) {
-      var dataPubkey = response.data["names"][name];
-      if (dataPubkey != null && dataPubkey == pubkey) {
-        return true;
+    try {
+      var response = await dio.get(url);
+      if (response.data != null &&
+          response.data is Map &&
+          response.data["names"] != null) {
+        var dataPubkey = response.data["names"][name];
+        if (dataPubkey != null && dataPubkey == pubkey) {
+          return true;
+        }
       }
+    } catch (e) {
+      print(e);
     }
 
     return false;
