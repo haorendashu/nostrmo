@@ -32,34 +32,35 @@ class Relay {
   Future<bool> connect() async {
     try {
       relayStatus.connected = ClientConneccted.CONNECTING;
-      info = await RelayInfoUtil.get(url);
+      getRelayInfo(url);
 
-      // Relay must support NIP-15 and NIP-20, but NIP-15 had meger into NIP-01
-      if (info!.nips.contains(20)) {
-        final wsUrl = Uri.parse(url);
-        _wsChannel = WebSocketChannel.connect(wsUrl);
-        log("Connect complete!");
-        _wsChannel!.stream.listen((message) {
-          if (onMessage != null) {
-            final List<dynamic> json = jsonDecode(message);
-            onMessage!(this, json);
-          }
-        }, onError: (error) async {
-          print(error);
-          _onError("Websocket error $url", reconnect: true);
-        }, onDone: () {
-          _onError("Websocket stream closed by remote:  $url", reconnect: true);
-        });
-        relayStatus.connected = ClientConneccted.CONNECTED;
-        if (relayStatusCallback != null) {
-          relayStatusCallback!();
+      final wsUrl = Uri.parse(url);
+      _wsChannel = WebSocketChannel.connect(wsUrl);
+      log("Connect complete!");
+      _wsChannel!.stream.listen((message) {
+        if (onMessage != null) {
+          final List<dynamic> json = jsonDecode(message);
+          onMessage!(this, json);
         }
-        return true;
+      }, onError: (error) async {
+        print(error);
+        _onError("Websocket error $url", reconnect: true);
+      }, onDone: () {
+        _onError("Websocket stream closed by remote:  $url", reconnect: true);
+      });
+      relayStatus.connected = ClientConneccted.CONNECTED;
+      if (relayStatusCallback != null) {
+        relayStatusCallback!();
       }
+      return true;
     } catch (e) {
       _onError(e.toString(), reconnect: true);
     }
     return false;
+  }
+
+  Future<void> getRelayInfo(url) async {
+    info = await RelayInfoUtil.get(url);
   }
 
   bool send(List<dynamic> message) {
