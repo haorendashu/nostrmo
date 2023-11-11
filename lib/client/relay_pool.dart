@@ -52,6 +52,8 @@ class RelayPool {
       }
 
       return true;
+    } else {
+      print("relay connect fail! ${relay.url}");
     }
 
     relay.relayStatus.error++;
@@ -73,6 +75,7 @@ class RelayPool {
     var keys = _relays.keys;
     for (var url in keys) {
       _relays[url]?.disconnect();
+      _relays[url]?.dispose();
     }
     _relays.clear();
   }
@@ -80,6 +83,7 @@ class RelayPool {
   void remove(String url) {
     log('Removing $url');
     _relays[url]?.disconnect();
+    _relays[url]?.dispose();
     _relays.remove(url);
   }
 

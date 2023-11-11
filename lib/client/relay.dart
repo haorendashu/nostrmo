@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:nostrmo/client/relay_info_util.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../consts/client_connected.dart';
@@ -11,7 +12,7 @@ import 'subscription.dart';
 
 enum WriteAccess { readOnly, writeOnly, readWrite }
 
-class Relay {
+abstract class Relay {
   final String url;
 
   RelayStatus relayStatus;
@@ -27,65 +28,17 @@ class Relay {
 
   Relay(this.url, this.relayStatus, {this.access = WriteAccess.readWrite}) {}
 
-  WebSocketChannel? _wsChannel;
-
-  Future<bool> connect() async {
-    try {
-      relayStatus.connected = ClientConneccted.CONNECTING;
-      getRelayInfo(url);
-
-      final wsUrl = Uri.parse(url);
-      _wsChannel = WebSocketChannel.connect(wsUrl);
-      log("Connect complete!");
-      _wsChannel!.stream.listen((message) {
-        if (onMessage != null) {
-          final List<dynamic> json = jsonDecode(message);
-          onMessage!(this, json);
-        }
-      }, onError: (error) async {
-        print(error);
-        _onError("Websocket error $url", reconnect: true);
-      }, onDone: () {
-        _onError("Websocket stream closed by remote:  $url", reconnect: true);
-      });
-      relayStatus.connected = ClientConneccted.CONNECTED;
-      if (relayStatusCallback != null) {
-        relayStatusCallback!();
-      }
-      return true;
-    } catch (e) {
-      _onError(e.toString(), reconnect: true);
-    }
-    return false;
-  }
+  Future<bool> connect();
 
   Future<void> getRelayInfo(url) async {
     info = await RelayInfoUtil.get(url);
   }
 
-  bool send(List<dynamic> message) {
-    if (_wsChannel != null &&
-        relayStatus.connected == ClientConneccted.CONNECTED) {
-      try {
-        final encoded = jsonEncode(message);
-        _wsChannel!.sink.add(encoded);
-        return true;
-      } catch (e) {
-        _onError(e.toString(), reconnect: true);
-      }
-    }
-    return false;
-  }
+  bool send(List<dynamic> message);
 
-  Future<void> disconnect() async {
-    try {
-      final oldWsChannel = _wsChannel;
-      _wsChannel = null;
-      await oldWsChannel!.sink.close();
-    } catch (e) {}
-  }
+  Future<void> disconnect();
 
-  void _onError(String errMsg, {bool reconnect = false}) {
+  void onError(String errMsg, {bool reconnect = false}) {
     log("relay error $errMsg");
     relayStatus.error++;
     relayStatus.connected = ClientConneccted.UN_CONNECT;
@@ -93,10 +46,13 @@ class Relay {
       relayStatusCallback!();
     }
     disconnect();
+    print("$url 2");
 
     if (reconnect) {
+      print("$url 3");
       Future.delayed(Duration(seconds: 30), () {
         connect();
+        print("$url 4");
       });
     }
   }
@@ -124,4 +80,6 @@ class Relay {
   }
 
   Function? relayStatusCallback;
+
+  void dispose() {}
 }

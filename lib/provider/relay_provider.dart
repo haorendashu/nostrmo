@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/relay_isolate.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
 import '../client/nostr.dart';
 import '../client/relay.dart';
+import '../client/relay_base.dart';
 import '../consts/client_connected.dart';
 import '../data/relay_status.dart';
 import '../main.dart';
@@ -158,7 +160,7 @@ class RelayProvider extends ChangeNotifier {
       relayStatusMap[relayAddr] = relayStatus;
     }
 
-    return Relay(
+    return RelayIsolate(
       relayAddr,
       relayStatus,
       access: WriteAccess.readWrite,
