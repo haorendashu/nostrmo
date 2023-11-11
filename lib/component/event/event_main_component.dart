@@ -5,6 +5,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
+import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -670,20 +672,8 @@ class _EventReplyingcomponent extends State<EventReplyingcomponent> {
           var themeData = Theme.of(context);
           var hintColor = themeData.hintColor;
           var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
-          String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
-          String displayName = "";
-
-          if (metadata != null) {
-            if (StringUtil.isNotBlank(metadata.displayName)) {
-              displayName = metadata.displayName!;
-            } else if (StringUtil.isNotBlank(metadata.name)) {
-              displayName = metadata.name!;
-            }
-          }
-
-          if (StringUtil.isBlank(displayName)) {
-            displayName = nip19Name;
-          }
+          var displayName =
+              SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
 
           return Text(
             displayName,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -123,28 +124,25 @@ class _UserRouter extends CustState<UserRouter>
       builder: (context, metadata, child) {
         Color? appbarBackgroundColor = Colors.transparent;
         if (showAppbarBG) {
-          appbarBackgroundColor = Colors.white.withOpacity(0.5);
+          appbarBackgroundColor = Colors.white.withOpacity(0.6);
         }
         Widget? appbarTitle;
         if (showTitle) {
-          String nip19Name = Nip19.encodeSimplePubKey(pubkey!);
-          String displayName = nip19Name;
-          if (metadata != null) {
-            if (StringUtil.isNotBlank(metadata.displayName)) {
-              displayName = metadata.displayName!;
-            }
+          String displayName =
+              SimpleNameComponent.getSimpleName(pubkey!, metadata);
 
-            appbarTitle = Container(
-              alignment: Alignment.center,
-              child: Text(
-                displayName,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+          appbarTitle = Container(
+            alignment: Alignment.center,
+            child: Text(
+              displayName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: themeData.textTheme.bodyLarge!.fontSize,
               ),
-            );
-          }
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          );
         }
         var appBar = Appbar4Stack(
           backgroundColor: appbarBackgroundColor,
