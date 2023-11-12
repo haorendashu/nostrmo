@@ -197,5 +197,6 @@
     "From": "来自",
     "Followed_Communities": "关注的社区",
     "Followed": "关注",
-    "Auto_Open_Sensitive_Content": "自动打开敏感内容"
+    "Auto_Open_Sensitive_Content": "自动打开敏感内容",
+    "Goal_Amount_In_Sats": "目标"
 }

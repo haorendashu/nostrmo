@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
+import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/sendbox/sendbox.dart';
 import 'package:pointycastle/ecc/api.dart';
@@ -27,7 +28,6 @@ import '../../consts/base.dart';
 import '../../data/custom_emoji.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../router/edit/poll_input_component.dart';
 import '../../router/index/index_app_bar.dart';
 import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
@@ -35,6 +35,7 @@ import '../content/content_decoder.dart';
 import 'cust_embed_types.dart';
 import 'custom_emoji_add_dialog.dart';
 import 'gen_lnbc_component.dart';
+import 'poll_input_component.dart';
 import 'search_mention_event_component.dart';
 import 'search_mention_user_component.dart';
 import 'text_input_and_search_dialog.dart';
@@ -45,9 +46,13 @@ mixin EditorMixin {
 
   PollInputController pollInputController = PollInputController();
 
+  ZapGoalInputController zapGoalInputController = ZapGoalInputController();
+
   var focusNode = FocusNode();
 
   bool inputPoll = false;
+
+  bool inputZapGoal = false;
 
   // dm arg
   ECDHBasicAgreement? getAgreement();
@@ -99,14 +104,6 @@ mixin EditorMixin {
         icon: Icon(Icons.video_call),
       ));
     }
-    if (getAgreement() == null &&
-        getTags().isEmpty &&
-        getTagsAddedWhenSend().isEmpty) {
-      inputBtnList.add(quill.QuillToolbarIconButton(
-        onPressed: _inputPoll,
-        icon: Icon(Icons.poll),
-      ));
-    }
     inputBtnList.addAll([
       quill.QuillToolbarIconButton(
         onPressed: _inputLnbc,
@@ -151,6 +148,22 @@ mixin EditorMixin {
               color: publishAt != null ? mainColor : null),
         )
       ]);
+    }
+    if (getAgreement() == null &&
+        getTags().isEmpty &&
+        getTagsAddedWhenSend().isEmpty) {
+      // isn't dm and reply
+
+      inputBtnList.add(quill.QuillToolbarIconButton(
+        onPressed: _inputPoll,
+        icon: Icon(Icons.poll),
+        fillColor: inputPoll ? mainColor.withOpacity(0.5) : null,
+      ));
+      inputBtnList.add(quill.QuillToolbarIconButton(
+        onPressed: _inputGoal,
+        icon: Icon(Icons.trending_up),
+        fillColor: inputZapGoal ? mainColor.withOpacity(0.5) : null,
+      ));
     }
 
     inputBtnList.add(
@@ -433,6 +446,12 @@ mixin EditorMixin {
         return null;
       }
     }
+    if (inputZapGoal) {
+      var checkResult = zapGoalInputController.checkInput(context);
+      if (!checkResult) {
+        return null;
+      }
+    }
 
     var delta = editorController.document.toDelta();
     var operations = delta.toList();
@@ -574,6 +593,12 @@ mixin EditorMixin {
       allTags.addAll(pollTags);
       event = Event(nostr!.publicKey, kind.EventKind.POLL, allTags, result,
           publishAt: publishAt);
+    } else if (inputZapGoal) {
+      // zap goal event
+      var extralTags = zapGoalInputController.getTags();
+      allTags.addAll(extralTags);
+      event = Event(nostr!.publicKey, kind.EventKind.ZAP_GOALS, allTags, result,
+          publishAt: publishAt);
     } else {
       // text note
       event = Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result,
@@ -633,9 +658,25 @@ mixin EditorMixin {
   }
 
   void _inputPoll() {
-    pollInputController.clear();
-    inputPoll = !inputPoll;
+    var targetValue = !inputPoll;
+    _resetOthersInput();
+    inputPoll = targetValue;
     updateUI();
+  }
+
+  void _inputGoal() {
+    var targetValue = !inputZapGoal;
+    _resetOthersInput();
+    inputZapGoal = targetValue;
+    updateUI();
+  }
+
+  void _resetOthersInput() {
+    pollInputController.clear();
+    zapGoalInputController.clear();
+
+    inputPoll = false;
+    inputZapGoal = false;
   }
 
   bool customEmojiShow = false;

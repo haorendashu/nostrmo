@@ -102,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("生成一个新的密钥"),
         "Global": MessageLookupByLibrary.simpleMessage("全球"),
         "Globals": MessageLookupByLibrary.simpleMessage("广场"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("目标"),
         "Hide": MessageLookupByLibrary.simpleMessage("隐藏"),
         "Home": MessageLookupByLibrary.simpleMessage("首页"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),

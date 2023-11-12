@@ -11,9 +11,9 @@ import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
 import 'package:nostrmo/component/editor/pic_embed_builder.dart';
 import 'package:nostrmo/component/editor/tag_embed_builder.dart';
 import 'package:nostrmo/component/editor/video_embed_builder.dart';
+import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/router/edit/poll_input_component.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/ecc/api.dart';
@@ -23,6 +23,7 @@ import '../../client/event_kind.dart' as kind;
 import '../../component/cust_state.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
+import '../../component/editor/poll_input_component.dart';
 import '../../generated/l10n.dart';
 import '../../util/string_util.dart';
 import 'editor_notify_item_component.dart';
@@ -258,6 +259,11 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     if (inputPoll) {
       editorList.add(PollInputComponent(
         pollInputController: pollInputController,
+      ));
+    }
+    if (inputZapGoal) {
+      editorList.add(ZapGoalInputComponent(
+        zapGoalInputController: zapGoalInputController,
       ));
     }
 

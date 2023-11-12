@@ -160,7 +160,7 @@ class RelayProvider extends ChangeNotifier {
       relayStatusMap[relayAddr] = relayStatus;
     }
 
-    return RelayIsolate(
+    return RelayBase(
       relayAddr,
       relayStatus,
       access: WriteAccess.readWrite,

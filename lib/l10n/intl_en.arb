@@ -206,5 +206,6 @@
     "From": "From",
     "Followed_Communities": "Followed Communities",
     "Followed": "Followed",
-    "Auto_Open_Sensitive_Content": "Auto Open Sensitive Content"
+    "Auto_Open_Sensitive_Content": "Auto Open Sensitive Content",
+    "Goal_Amount_In_Sats": "Goal Amount In Sats"
 }

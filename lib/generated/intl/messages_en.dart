@@ -124,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Generate a new private key"),
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
         "Globals": MessageLookupByLibrary.simpleMessage("Globals"),
+        "Goal_Amount_In_Sats":
+            MessageLookupByLibrary.simpleMessage("Goal Amount In Sats"),
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "Home": MessageLookupByLibrary.simpleMessage("Home"),
         "Hour": MessageLookupByLibrary.simpleMessage("Hour"),

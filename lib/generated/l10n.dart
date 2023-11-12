@@ -2129,6 +2129,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Goal Amount In Sats`
+  String get Goal_Amount_In_Sats {
+    return Intl.message(
+      'Goal Amount In Sats',
+      name: 'Goal_Amount_In_Sats',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
