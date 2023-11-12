@@ -155,12 +155,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
   void doQuery() {
     // tag query
     // https://github.com/nostr-protocol/nips/blob/master/12.md
-    var filter = Filter(kinds: [
-      kind.EventKind.TEXT_NOTE,
-      kind.EventKind.LONG_FORM,
-      kind.EventKind.FILE_HEADER,
-      kind.EventKind.POLL,
-    ], limit: 100);
+    var filter = Filter(kinds: kind.EventKind.SUPPORTED_EVENTS, limit: 100);
     var queryArg = filter.toJson();
     var plainTag = tag!.replaceFirst("#", "");
     // this place set #t not #r ???

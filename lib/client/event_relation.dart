@@ -4,6 +4,7 @@ import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'event.dart';
 import 'nip172/community_id.dart';
 
+/// This class is designed for get the relation from event, but it seam to used for get tagInfo from event before event_main display.
 class EventRelation {
   late String id;
 
@@ -26,6 +27,8 @@ class EventRelation {
   bool warning = false;
 
   CommunityId? communityId;
+
+  String? zapraiser;
 
   EventRelation.fromEvent(Event event) {
     id = event.id;
@@ -75,6 +78,8 @@ class EventRelation {
           warning = true;
         } else if (tagKey == "a") {
           communityId = CommunityId.fromString(value);
+        } else if (tagKey == "zapraiser") {
+          zapraiser = value;
         }
       }
     }

@@ -187,12 +187,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
   }
 
   void queryEvents() {
-    var filter = Filter(kinds: [
-      kind.EventKind.TEXT_NOTE,
-      kind.EventKind.LONG_FORM,
-      kind.EventKind.FILE_HEADER,
-      kind.EventKind.POLL,
-    ], limit: 100);
+    var filter = Filter(kinds: kind.EventKind.SUPPORTED_EVENTS, limit: 100);
     var queryArg = filter.toJson();
     queryArg["#a"] = [communityId!.toAString()];
     nostr!.query([queryArg], onEvent, id: subscribeId);

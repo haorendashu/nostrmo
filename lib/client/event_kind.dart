@@ -25,6 +25,8 @@ class EventKind {
 
   static const int POLL = 6969;
 
+  static const int ZAP_GOALS = 9041;
+
   static const int ZAP_REQUEST = 9734;
 
   static const int ZAP = 9735;
@@ -40,4 +42,14 @@ class EventKind {
   static const int LONG_FORM = 30023;
 
   static const int COMMUNITY_DEFINITION = 34550;
+
+  static List<int> SUPPORTED_EVENTS = [
+    EventKind.TEXT_NOTE,
+    EventKind.REPOST,
+    EventKind.GENERIC_REPOST,
+    EventKind.LONG_FORM,
+    EventKind.FILE_HEADER,
+    EventKind.POLL,
+    EventKind.ZAP_GOALS,
+  ];
 }

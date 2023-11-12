@@ -5,6 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
+import 'package:nostrmo/component/event/event_zap_goals_component.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/simple_name_component.dart';
 import 'package:nostrmo/util/platform_util.dart';
@@ -325,6 +326,11 @@ class _EventMainComponent extends State<EventMainComponent> {
 
         if (widget.event.kind == kind.EventKind.POLL) {
           list.add(EventPollComponent(
+            event: widget.event,
+          ));
+        } else if (widget.event.kind == kind.EventKind.ZAP_GOALS ||
+            StringUtil.isNotBlank(eventRelation.zapraiser)) {
+          list.add(EventZapGoalsComponent(
             event: widget.event,
           ));
         }

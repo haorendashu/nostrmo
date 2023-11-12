@@ -274,14 +274,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       // }
 
       // query sub events
-      var filter = Filter(e: [
-        rootId!
-      ], kinds: [
-        kind.EventKind.TEXT_NOTE,
-        kind.EventKind.FILE_HEADER,
-        kind.EventKind.POLL,
-        kind.EventKind.ZAP,
-      ]);
+      var filter = Filter(e: [rootId!], kinds: kind.EventKind.SUPPORTED_EVENTS);
       nostr!.query([filter.toJson()], onEvent);
     }
   }
