@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/relay_isolate.dart';
+import 'package:nostrmo/util/platform_util.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
@@ -160,11 +161,20 @@ class RelayProvider extends ChangeNotifier {
       relayStatusMap[relayAddr] = relayStatus;
     }
 
-    return RelayBase(
-      relayAddr,
-      relayStatus,
-      access: WriteAccess.readWrite,
-    )..relayStatusCallback = onRelayStatusChange;
+    if (PlatformUtil.isWeb()) {
+      // dart:isolate is not supported on dart4web
+      return RelayBase(
+        relayAddr,
+        relayStatus,
+        access: WriteAccess.readWrite,
+      )..relayStatusCallback = onRelayStatusChange;
+    } else {
+      return RelayIsolate(
+        relayAddr,
+        relayStatus,
+        access: WriteAccess.readWrite,
+      )..relayStatusCallback = onRelayStatusChange;
+    }
   }
 
   void setRelayListAndUpdate(List<String> addrs) {
