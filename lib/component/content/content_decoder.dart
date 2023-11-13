@@ -439,8 +439,29 @@ class ContentDecoder {
             subStr.substring(1) != "#") {
           // inline
           // tag
+          var extralStr = "";
+          var length = subStr.length;
+          if (tagInfos != null) {
+            for (var hashtagInfo in tagInfos.tagEntryInfos) {
+              var hashtag = hashtagInfo.key;
+              var hashtagLength = hashtagInfo.value;
+              if (subStr.indexOf(hashtag) == 1) {
+                // dua to tagEntryInfos is sorted, so this is the match hashtag
+                if (hashtagLength > 0 && length > hashtagLength) {
+                  // this str's length is more then hastagLength, maybe there are some extralStr.
+                  extralStr = subStr.substring(hashtagLength + 1);
+                  subStr = "#$hashtag";
+                }
+                break;
+              }
+            }
+          }
+
           handledStr = _closeHandledStr(handledStr, inlines);
           inlines.add(ContentTagComponent(tag: subStr));
+          if (StringUtil.isNotBlank(extralStr)) {
+            handledStr = _addToHandledStr(handledStr, extralStr);
+          }
         } else {
           var length = subStr.length;
           if (length > 2) {
