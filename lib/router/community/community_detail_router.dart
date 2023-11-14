@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/component/community_info_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
@@ -7,7 +8,6 @@ import 'package:widget_size/widget_size.dart';
 
 import '../../client/event.dart';
 import '../../client/filter.dart';
-import '../../client/nip172/community_id.dart';
 import '../../client/nip172/community_info.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
@@ -33,7 +33,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
     with PenddingEventsLaterFunction {
   EventMemBox box = EventMemBox();
 
-  CommunityId? communityId;
+  AId? aId;
 
   ScrollController _controller = ScrollController();
 
@@ -59,13 +59,13 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
 
   @override
   Widget doBuild(BuildContext context) {
-    if (communityId == null) {
+    if (aId == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null) {
-        communityId = arg as CommunityId;
+        aId = arg as AId;
       }
     }
-    if (communityId == null) {
+    if (aId == null) {
       RouterUtil.back(context);
       return Container();
     }
@@ -76,7 +76,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
     Widget? appBarTitle;
     if (showTitle) {
       appBarTitle = Text(
-        communityId!.title,
+        aId!.title,
         style: TextStyle(
           fontSize: bodyLargeFontSize,
           overflow: TextOverflow.ellipsis,
@@ -103,7 +103,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
                 child: CommunityInfoComponent(info: info!),
               );
             }, selector: (context, _provider) {
-              return _provider.getCommunity(communityId!.toAString());
+              return _provider.getCommunity(aId!.toAString());
             });
           }
 
@@ -162,15 +162,15 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
 
   @override
   Future<void> onReady(BuildContext context) async {
-    if (communityId != null) {
+    if (aId != null) {
       // {
       //   var filter = Filter(kinds: [
       //     kind.EventKind.COMMUNITY_DEFINITION,
       //   ], authors: [
-      //     communityId!.pubkey
+      //     aId!.pubkey
       //   ], limit: 1);
       //   var queryArg = filter.toJson();
-      //   queryArg["#d"] = [communityId!.title];
+      //   queryArg["#d"] = [aId!.title];
       //   nostr!.query([queryArg], (e) {
       //     if (communityInfo == null || communityInfo!.createdAt < e.createdAt) {
       //       var ci = CommunityInfo.fromEvent(e);
@@ -189,7 +189,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
   void queryEvents() {
     var filter = Filter(kinds: kind.EventKind.SUPPORTED_EVENTS, limit: 100);
     var queryArg = filter.toJson();
-    queryArg["#a"] = [communityId!.toAString()];
+    queryArg["#a"] = [aId!.toAString()];
     nostr!.query([queryArg], onEvent, id: subscribeId);
   }
 
@@ -216,8 +216,8 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
   }
 
   Future<void> addToCommunity() async {
-    if (communityId != null) {
-      List<String> aTag = ["a", communityId!.toAString()];
+    if (aId != null) {
+      List<String> aTag = ["a", aId!.toAString()];
       if (relayProvider.relayAddrs.isNotEmpty) {
         aTag.add(relayProvider.relayAddrs[0]);
       }

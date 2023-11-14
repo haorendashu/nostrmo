@@ -1,8 +1,9 @@
+import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostrmo/client/event_kind.dart' as kind;
 
 import 'event.dart';
-import 'nip172/community_id.dart';
 
 /// This class is designed for get the relation from event, but it seam to used for get tagInfo from event before event_main display.
 class EventRelation {
@@ -26,7 +27,7 @@ class EventRelation {
 
   bool warning = false;
 
-  CommunityId? communityId;
+  AId? aId;
 
   String? zapraiser;
 
@@ -77,7 +78,7 @@ class EventRelation {
         } else if (tagKey == "content-warning") {
           warning = true;
         } else if (tagKey == "a") {
-          communityId = CommunityId.fromString(value);
+          aId = AId.fromString(value);
         } else if (tagKey == "zapraiser") {
           zapraiser = value;
         }

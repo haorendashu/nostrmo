@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip172/community_id.dart';
+import 'package:nostrmo/client/aid.dart';
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
 import 'package:nostrmo/client/nip172/community_info.dart';
@@ -46,16 +46,15 @@ class CommunityInfoProvider extends ChangeNotifier with LaterFunction {
   void _laterSearch() {
     List<Map<String, dynamic>> filters = [];
     for (var idStr in _needPullIds) {
-      var communityId = CommunityId.fromString(idStr);
-      if (communityId == null) {
+      var aId = AId.fromString(idStr);
+      if (aId == null) {
         continue;
       }
 
       var filter = Filter(
-          kinds: [kind.EventKind.COMMUNITY_DEFINITION],
-          authors: [communityId.pubkey]);
+          kinds: [kind.EventKind.COMMUNITY_DEFINITION], authors: [aId.pubkey]);
       var queryArg = filter.toJson();
-      queryArg["#d"] = [communityId.title];
+      queryArg["#d"] = [aId.title];
       filters.add(queryArg);
     }
     var subscriptId = StringUtil.rndNameStr(16);
@@ -78,7 +77,7 @@ class CommunityInfoProvider extends ChangeNotifier with LaterFunction {
     for (var event in _penddingEvents) {
       var communityInfo = CommunityInfo.fromEvent(event);
       if (communityInfo != null) {
-        var aid = communityInfo.communityId.toAString();
+        var aid = communityInfo.aId.toAString();
         var oldInfo = _cache[aid];
         if (oldInfo == null || oldInfo.createdAt < communityInfo.createdAt) {
           _cache[aid] = communityInfo;

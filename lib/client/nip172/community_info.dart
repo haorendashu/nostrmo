@@ -1,13 +1,13 @@
+import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/util/string_util.dart';
 
-import 'community_id.dart';
 import '../../client/event_kind.dart' as kind;
 
 class CommunityInfo {
   int createdAt;
 
-  CommunityId communityId;
+  AId aId;
 
   String? description;
 
@@ -15,7 +15,7 @@ class CommunityInfo {
 
   CommunityInfo({
     required this.createdAt,
-    required this.communityId,
+    required this.aId,
     this.description,
     this.image,
   });
@@ -41,10 +41,13 @@ class CommunityInfo {
       }
 
       if (StringUtil.isNotBlank(title)) {
-        var id = CommunityId(pubkey: event.pubKey, title: title);
+        var id = AId(
+            kind: kind.EventKind.COMMUNITY_DEFINITION,
+            pubkey: event.pubKey,
+            title: title);
         return CommunityInfo(
           createdAt: event.createdAt,
-          communityId: id,
+          aId: id,
           description: description,
           image: image,
         );

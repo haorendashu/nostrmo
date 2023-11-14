@@ -105,7 +105,7 @@ class _EventListComponent extends State<EventListComponent> {
       return Container();
     }, selector: (context, _provider) {
       return _provider.check(widget.event.pubKey, widget.event.id,
-          communityId: eventRelation.communityId);
+          aId: eventRelation.aId);
     });
 
     if (widget.jumpable) {

@@ -53,11 +53,9 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
       return GestureDetector(
         onTap: () {
           if (exist) {
-            contactListProvider
-                .removeCommunity(widget.info.communityId.toAString());
+            contactListProvider.removeCommunity(widget.info.aId.toAString());
           } else {
-            contactListProvider
-                .addCommunity(widget.info.communityId.toAString());
+            contactListProvider.addCommunity(widget.info.aId.toAString());
           }
         },
         child: Container(
@@ -72,7 +70,7 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
         ),
       );
     }, selector: (context, _provider) {
-      return _provider.containCommunity(widget.info.communityId.toAString());
+      return _provider.containCommunity(widget.info.aId.toAString());
     });
 
     List<Widget> list = [
@@ -96,7 +94,7 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
                 left: Base.BASE_PADDING,
               ),
               child: Text(
-                widget.info.communityId.title,
+                widget.info.aId.title,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),

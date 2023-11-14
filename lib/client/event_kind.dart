@@ -41,6 +41,8 @@ class EventKind {
 
   static const int LONG_FORM = 30023;
 
+  static const int LONG_FORM_LINKED = 30024;
+
   static const int COMMUNITY_DEFINITION = 34550;
 
   static List<int> SUPPORTED_EVENTS = [

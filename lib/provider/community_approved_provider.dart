@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/nip172/community_id.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/later_function.dart';
 import '../client/event_kind.dart' as kind;
@@ -12,8 +12,8 @@ class CommunityApprovedProvider extends ChangeNotifier with LaterFunction {
 
   List<Event> penddingEvents = [];
 
-  bool check(String pubkey, String eid, {CommunityId? communityId}) {
-    if (_approvedMap[eid] != null || communityId == null) {
+  bool check(String pubkey, String eid, {AId? aId}) {
+    if (_approvedMap[eid] != null || aId == null) {
       return true;
     }
 

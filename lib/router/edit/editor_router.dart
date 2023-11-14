@@ -4,7 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:intl/intl.dart';
-import 'package:nostrmo/client/nip172/community_id.dart';
+import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
@@ -131,8 +131,9 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
           if (tagName == "a") {
             // this note is add to community
-            var aid = CommunityId.fromString(tagValue);
-            if (aid != null) {
+            var aid = AId.fromString(tagValue);
+            if (aid != null &&
+                aid.kind == kind.EventKind.COMMUNITY_DEFINITION) {
               list.add(Container(
                 padding: const EdgeInsets.only(
                   left: Base.BASE_PADDING,

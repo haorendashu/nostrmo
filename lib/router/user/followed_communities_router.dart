@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip172/community_id.dart';
+import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +42,7 @@ class _FollowedCommunitiesRouter extends State<FollowedCommunitiesRouter> {
 
     var main = ListView.builder(
       itemBuilder: (context, index) {
-        var id = CommunityId.fromString(communitiesList[index]);
+        var id = AId.fromString(communitiesList[index]);
         if (id == null) {
           return Container();
         }

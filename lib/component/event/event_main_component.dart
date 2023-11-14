@@ -324,6 +324,12 @@ class _EventMainComponent extends State<EventMainComponent> {
           buildContentWidget(_settingProvider, imagePreview, videoPreview),
         );
 
+        // if (StringUtil.isNotBlank(eventRelation.linkedArticleId)) {
+        //   list.add(EventQuoteComponent(
+        //     id: eventRelation.linkedArticleId,
+        //   ));
+        // }
+
         if (widget.event.kind == kind.EventKind.POLL) {
           list.add(EventPollComponent(
             event: widget.event,
@@ -400,7 +406,9 @@ class _EventMainComponent extends State<EventMainComponent> {
 
     List<Widget> eventAllList = [];
 
-    if (eventRelation.communityId != null && widget.showCommunity) {
+    if (eventRelation.aId != null &&
+        eventRelation.aId!.kind == kind.EventKind.COMMUNITY_DEFINITION &&
+        widget.showCommunity) {
       var communityTitle = Row(
         children: [
           Icon(
@@ -423,11 +431,11 @@ class _EventMainComponent extends State<EventMainComponent> {
           ),
           GestureDetector(
             onTap: () {
-              RouterUtil.router(context, RouterPath.COMMUNITY_DETAIL,
-                  eventRelation.communityId);
+              RouterUtil.router(
+                  context, RouterPath.COMMUNITY_DETAIL, eventRelation.aId);
             },
             child: Text(
-              "${eventRelation.communityId!.title}",
+              eventRelation.aId!.title,
               style: TextStyle(
                 fontSize: smallTextSize,
                 fontWeight: FontWeight.bold,
