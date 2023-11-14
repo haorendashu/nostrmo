@@ -207,5 +207,9 @@
     "Followed_Communities": "Followed Communities",
     "Followed": "Followed",
     "Auto_Open_Sensitive_Content": "Auto Open Sensitive Content",
-    "Goal_Amount_In_Sats": "Goal Amount In Sats"
+    "Goal_Amount_In_Sats": "Goal Amount In Sats",
+    "Relay_Mode": "Relay Mode",
+    "Event_Sign_Check": "Event Sign Check",
+    "Fast_Mode": "Fast Mode",
+    "Base_Mode": "Base Mode"
 }

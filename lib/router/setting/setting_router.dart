@@ -27,6 +27,7 @@ import '../../component/translate/translate_model_manager.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/image_services.dart';
+import '../../consts/relay_mode.dart';
 import '../../consts/theme_style.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
@@ -233,6 +234,21 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenListDefault(settingProvider.autoOpenSensitive).name,
       onTap: pickAutoOpenSensitive,
     ));
+
+    if (!PlatformUtil.isWeb()) {
+      list.add(SettingGroupItemComponent(
+        name: s.Relay_Mode,
+        value: getRelayMode(settingProvider.relayMode).name,
+        onTap: pickRelayModes,
+      ));
+      if (settingProvider.relayMode != RelayMode.FAST_MODE) {
+        list.add(SettingGroupItemComponent(
+          name: s.Event_Sign_Check,
+          value: getOpenListDefault(settingProvider.eventSignCheck).name,
+          onTap: pickEventSignCheck,
+        ));
+      }
+    }
 
     list.add(SettingGroupTitleComponent(iconData: Icons.source, title: s.Data));
     list.add(SettingGroupItemComponent(
@@ -901,6 +917,45 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     if (resultEnumObj != null) {
       settingProvider.tableMode = resultEnumObj.value;
       resetTheme();
+    }
+  }
+
+  List<EnumObj>? relayModes;
+
+  List<EnumObj> getRelayModes() {
+    var s = S.of(context);
+    if (relayModes == null) {
+      relayModes = [];
+      relayModes!.add(EnumObj(RelayMode.FAST_MODE, s.Fast_Mode));
+      relayModes!.add(EnumObj(RelayMode.BASE_MODE, s.Base_Mode));
+    }
+    return relayModes!;
+  }
+
+  EnumObj getRelayMode(int? o) {
+    var list = getRelayModes();
+    for (var item in list) {
+      if (item.value == o) {
+        return item;
+      }
+    }
+
+    return list[0];
+  }
+
+  pickRelayModes() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, getRelayModes());
+    if (resultEnumObj != null) {
+      settingProvider.relayMode = resultEnumObj.value;
+    }
+  }
+
+  pickEventSignCheck() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.eventSignCheck = resultEnumObj.value;
     }
   }
 }

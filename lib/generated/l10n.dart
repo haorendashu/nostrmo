@@ -2139,6 +2139,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Relay Mode`
+  String get Relay_Mode {
+    return Intl.message(
+      'Relay Mode',
+      name: 'Relay_Mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event Sign Check`
+  String get Event_Sign_Check {
+    return Intl.message(
+      'Event Sign Check',
+      name: 'Event_Sign_Check',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fast Mode`
+  String get Fast_Mode {
+    return Intl.message(
+      'Fast Mode',
+      name: 'Fast_Mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Base Mode`
+  String get Base_Mode {
+    return Intl.message(
+      'Base Mode',
+      name: 'Base_Mode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -41,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
         "Banner": MessageLookupByLibrary.simpleMessage("横幅"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("基本模式"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage("开始下载翻译模型"),
         "Block": MessageLookupByLibrary.simpleMessage("限制"),
@@ -82,7 +83,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("不压缩"),
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("输入空白可能会被中继禁止。"),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("Event签名校验"),
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("快速模式"),
         "Filter": MessageLookupByLibrary.simpleMessage("过滤"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage("找到云端中继列表，你要下载吗？"),
@@ -184,6 +187,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("密钥不能为空"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("中继类型"),
         "Relays": MessageLookupByLibrary.simpleMessage("中继"),
         "Replying": MessageLookupByLibrary.simpleMessage("正在回复"),
         "Request": MessageLookupByLibrary.simpleMessage("请求"),

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../consts/base.dart';
 import '../consts/base_consts.dart';
+import '../consts/relay_mode.dart';
 import '../consts/theme_style.dart';
 import '../util/string_util.dart';
 import 'data_util.dart';
@@ -245,6 +246,10 @@ class SettingProvider extends ChangeNotifier {
 
   int? get autoOpenSensitive => _settingData!.autoOpenSensitive;
 
+  int? get relayMode => _settingData!.relayMode;
+
+  int? get eventSignCheck => _settingData!.eventSignCheck;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -382,6 +387,16 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set relayMode(int? o) {
+    _settingData!.relayMode = o;
+    saveAndNotifyListeners();
+  }
+
+  set eventSignCheck(int? o) {
+    _settingData!.eventSignCheck = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -455,6 +470,10 @@ class SettingData {
 
   int? autoOpenSensitive;
 
+  int? relayMode;
+
+  int? eventSignCheck;
+
   /// updated time
   late int updatedTime;
 
@@ -484,6 +503,8 @@ class SettingData {
     this.webviewAppbarOpen = OpenStatus.OPEN,
     this.tableMode,
     this.autoOpenSensitive,
+    this.relayMode,
+    this.eventSignCheck,
     this.updatedTime = 0,
   });
 
@@ -527,6 +548,8 @@ class SettingData {
         : OpenStatus.OPEN;
     tableMode = json['tableMode'];
     autoOpenSensitive = json['autoOpenSensitive'];
+    relayMode = json['relayMode'];
+    eventSignCheck = json['eventSignCheck'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -562,6 +585,8 @@ class SettingData {
     data['webviewAppbarOpen'] = this.webviewAppbarOpen;
     data['tableMode'] = this.tableMode;
     data['autoOpenSensitive'] = this.autoOpenSensitive;
+    data['relayMode'] = this.relayMode;
+    data['eventSignCheck'] = this.eventSignCheck;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

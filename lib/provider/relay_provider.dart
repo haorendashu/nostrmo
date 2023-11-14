@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/relay_isolate.dart';
+import 'package:nostrmo/consts/relay_mode.dart';
 import 'package:nostrmo/util/platform_util.dart';
 
 import '../client/event.dart';
@@ -169,11 +170,19 @@ class RelayProvider extends ChangeNotifier {
         access: WriteAccess.readWrite,
       )..relayStatusCallback = onRelayStatusChange;
     } else {
-      return RelayIsolate(
-        relayAddr,
-        relayStatus,
-        access: WriteAccess.readWrite,
-      )..relayStatusCallback = onRelayStatusChange;
+      if (settingProvider.relayMode == RelayMode.BASE_MODE) {
+        return RelayBase(
+          relayAddr,
+          relayStatus,
+          access: WriteAccess.readWrite,
+        )..relayStatusCallback = onRelayStatusChange;
+      } else {
+        return RelayIsolate(
+          relayAddr,
+          relayStatus,
+          access: WriteAccess.readWrite,
+        )..relayStatusCallback = onRelayStatusChange;
+      }
     }
   }
 

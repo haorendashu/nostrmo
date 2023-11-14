@@ -198,5 +198,9 @@
     "Followed_Communities": "关注的社区",
     "Followed": "关注",
     "Auto_Open_Sensitive_Content": "自动打开敏感内容",
-    "Goal_Amount_In_Sats": "目标"
+    "Goal_Amount_In_Sats": "目标",
+    "Relay_Mode": "中继类型",
+    "Event_Sign_Check": "Event签名校验",
+    "Fast_Mode": "快速模式",
+    "Base_Mode": "基本模式"
 }

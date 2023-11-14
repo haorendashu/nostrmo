@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("Backup and Safety tips"),
         "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Base Mode"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Begin to download translate model"),
@@ -100,7 +101,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don\'t Compress"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Empty text may be ban by relays."),
+        "Event_Sign_Check":
+            MessageLookupByLibrary.simpleMessage("Event Sign Check"),
         "Face": MessageLookupByLibrary.simpleMessage("Face"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Fast Mode"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -236,6 +240,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
         "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relay Mode"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relays"),
         "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
         "Request": MessageLookupByLibrary.simpleMessage("Request"),

@@ -5,6 +5,8 @@ import 'dart:isolate';
 
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/relay_isolate_worker.dart';
+import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/main.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../consts/client_connected.dart';
@@ -38,11 +40,13 @@ class RelayIsolate extends Relay {
 
       relayConnectResultComplete = Completer();
       isolate = await Isolate.spawn(
-          RelayIsolateWorker.runRelayIsolate,
-          RelayIsolateConfig(
-              url: url,
-              subToMainSendPort: subToMainReceivePort!.sendPort,
-              eventCheck: false));
+        RelayIsolateWorker.runRelayIsolate,
+        RelayIsolateConfig(
+          url: url,
+          subToMainSendPort: subToMainReceivePort!.sendPort,
+          eventCheck: settingProvider.eventSignCheck == OpenStatus.OPEN,
+        ),
+      );
       // isolate has run and return a completer.future, wait for subToMain msg to complete this completer.
       return relayConnectResultComplete!.future;
     } else {
