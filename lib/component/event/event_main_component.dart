@@ -25,6 +25,7 @@ import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
+import '../../provider/replaceable_event_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
@@ -324,12 +325,6 @@ class _EventMainComponent extends State<EventMainComponent> {
           buildContentWidget(_settingProvider, imagePreview, videoPreview),
         );
 
-        // if (StringUtil.isNotBlank(eventRelation.linkedArticleId)) {
-        //   list.add(EventQuoteComponent(
-        //     id: eventRelation.linkedArticleId,
-        //   ));
-        // }
-
         if (widget.event.kind == kind.EventKind.POLL) {
           list.add(EventPollComponent(
             event: widget.event,
@@ -385,6 +380,13 @@ class _EventMainComponent extends State<EventMainComponent> {
               }
             }
           }
+        }
+
+        if (eventRelation.aId != null &&
+            eventRelation.aId!.kind == kind.EventKind.LONG_FORM) {
+          list.add(EventQuoteComponent(
+            aId: eventRelation.aId!,
+          ));
         }
 
         if (widget.event.kind != kind.EventKind.ZAP) {

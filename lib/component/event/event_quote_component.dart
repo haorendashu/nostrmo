@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/aid.dart';
+import 'package:nostrmo/provider/replaceable_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -16,11 +20,14 @@ class EventQuoteComponent extends StatefulWidget {
 
   String? id;
 
+  AId? aId;
+
   bool showVideo;
 
   EventQuoteComponent({
     this.event,
     this.id,
+    this.aId,
     this.showVideo = false,
   });
 
@@ -51,6 +58,21 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
 
     if (widget.event != null) {
       return buildEventWidget(widget.event!, cardColor, boxDecoration);
+    }
+
+    if (widget.aId != null) {
+      return Selector<ReplaceableEventProvider, Event?>(
+        builder: (context, event, child) {
+          if (event == null) {
+            return buildBlankWidget(boxDecoration);
+          }
+
+          return buildEventWidget(event, cardColor, boxDecoration);
+        },
+        selector: (context, _provider) {
+          return _provider.getEvent(widget.aId!);
+        },
+      );
     }
 
     return Selector<SingleEventProvider, Event?>(

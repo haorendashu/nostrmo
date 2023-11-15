@@ -49,6 +49,7 @@ import 'provider/metadata_provider.dart';
 import 'provider/pc_router_fake_provider.dart';
 import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
+import 'provider/replaceable_event_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'provider/webview_provider.dart';
@@ -127,6 +128,8 @@ late CommunityApprovedProvider communityApprovedProvider;
 
 late CommunityInfoProvider communityInfoProvider;
 
+late ReplaceableEventProvider replaceableEventProvider;
+
 Nostr? nostr;
 
 bool firstLogin = false;
@@ -201,6 +204,7 @@ Future<void> main() async {
   customEmojiProvider = CustomEmojiProvider.load();
   communityApprovedProvider = CommunityApprovedProvider();
   communityInfoProvider = CommunityInfoProvider();
+  replaceableEventProvider = ReplaceableEventProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -347,6 +351,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<CommunityInfoProvider>.value(
           value: communityInfoProvider,
+        ),
+        ListenableProvider<ReplaceableEventProvider>.value(
+          value: replaceableEventProvider,
         ),
       ],
       child: HomeComponent(
