@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/provider/replaceable_event_provider.dart';
 import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
+import '../../client/aid.dart';
 import '../../client/event.dart';
 import '../../client/event_relation.dart';
 import '../../client/filter.dart';
@@ -95,10 +97,25 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     // do some init oper
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
     rootId = eventRelation.rootId;
+    aId = eventRelation.aId;
     if (rootId == null) {
-      // source event is root event
-      rootId = sourceEvent!.id;
-      rootEvent = sourceEvent!;
+      if (aId == null) {
+        // source event is root event
+        rootId = sourceEvent!.id;
+        rootEvent = sourceEvent!;
+      } else {
+        // aid linked root event
+        rootEvent = replaceableEventProvider.getEvent(aId!);
+        if (rootEvent != null) {
+          rootId = rootEvent!.id;
+        }
+      }
+    }
+    if (rootEvent != null && StringUtil.isNotBlank(eventRelation.dTag)) {
+      aId = AId(
+          kind: rootEvent!.kind,
+          pubkey: rootEvent!.pubKey,
+          title: eventRelation.dTag!);
     }
 
     // load sourceEvent replies and avoid blank page
@@ -155,22 +172,51 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
     Widget? rootEventWidget;
     if (rootEvent == null) {
-      rootEventWidget = Selector<SingleEventProvider, Event?>(
-          builder: (context, event, child) {
-        if (event == null) {
-          return EventLoadListComponent();
-        }
+      if (StringUtil.isNotBlank(rootId)) {
+        rootEventWidget = Selector<SingleEventProvider, Event?>(
+            builder: (context, event, child) {
+          if (event == null) {
+            return EventLoadListComponent();
+          }
 
-        return EventListComponent(
-          event: event,
-          jumpable: false,
-          showVideo: true,
-          imageListMode: false,
-          showLongContent: true,
-        );
-      }, selector: (context, provider) {
-        return provider.getEvent(rootId!);
-      });
+          return EventListComponent(
+            event: event,
+            jumpable: false,
+            showVideo: true,
+            imageListMode: false,
+            showLongContent: true,
+          );
+        }, selector: (context, provider) {
+          return provider.getEvent(rootId!);
+        });
+      } else if (aId != null) {
+        rootEventWidget = Selector<ReplaceableEventProvider, Event?>(
+            builder: (context, event, child) {
+          if (event == null) {
+            return EventLoadListComponent();
+          }
+
+          if (rootId != null) {
+            // find the root event now! try to load data again!
+            rootId = event.id;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              doQuery();
+            });
+          }
+
+          return EventListComponent(
+            event: event,
+            jumpable: false,
+            showVideo: true,
+            imageListMode: false,
+            showLongContent: true,
+          );
+        }, selector: (context, provider) {
+          return provider.getEvent(aId!);
+        });
+      } else {
+        rootEventWidget = Container();
+      }
     } else {
       rootEventWidget = EventListComponent(
         event: rootEvent!,
@@ -191,6 +237,11 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     ));
 
     for (var item in rootSubList!) {
+      // if (item.event.kind == kind.EventKind.ZAP &&
+      //     StringUtil.isBlank(item.event.content)) {
+      //   continue;
+      // }
+
       var totalLevelNum = item.totalLevelNum;
       var needWidth = (totalLevelNum - 1) *
               (Base.BASE_PADDING +
@@ -273,16 +324,27 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       //   nostr!.query([filter.toJson()], onRootEvent);
       // }
 
+      List<int> replyKinds = [...kind.EventKind.SUPPORTED_EVENTS]
+        ..remove(kind.EventKind.REPOST);
+
       // query sub events
-      var filter = Filter(
-          e: [rootId!],
-          kinds: []
-            ..addAll(kind.EventKind.SUPPORTED_EVENTS)
-            ..remove(kind.EventKind.REPOST)
-            ..remove(kind.EventKind.ZAP));
-      nostr!.query([filter.toJson()], onEvent);
+      var filter = Filter(e: [rootId!], kinds: replyKinds);
+
+      var filters = [filter.toJson()];
+      if (aId != null) {
+        var f = Filter(kinds: replyKinds);
+        var m = f.toJson();
+        m["#a"] = [aId!.toAString()];
+        filters.add(m);
+      }
+
+      print(filters);
+
+      nostr!.query(filters, onEvent);
     }
   }
+
+  AId? aId;
 
   String? rootId;
 
@@ -297,6 +359,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   // }
 
   void onEvent(Event event) {
+    print(event.toJson());
     if (event.kind == kind.EventKind.ZAP && StringUtil.isBlank(event.content)) {
       return;
     }

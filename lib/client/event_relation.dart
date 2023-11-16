@@ -31,6 +31,8 @@ class EventRelation {
 
   String? zapraiser;
 
+  String? dTag;
+
   EventRelation.fromEvent(Event event) {
     id = event.id;
     pubkey = event.pubKey;
@@ -81,6 +83,8 @@ class EventRelation {
           aId = AId.fromString(value);
         } else if (tagKey == "zapraiser") {
           zapraiser = value;
+        } else if (tagKey == "d") {
+          dTag = value;
         }
       }
     }

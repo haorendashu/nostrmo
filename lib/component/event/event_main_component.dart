@@ -72,6 +72,8 @@ class EventMainComponent extends StatefulWidget {
 
   EventRelation? eventRelation;
 
+  bool showLinkedLongForm;
+
   EventMainComponent({
     super.key,
     required this.screenshotController,
@@ -86,6 +88,7 @@ class EventMainComponent extends StatefulWidget {
     this.showSubject = true,
     this.showCommunity = true,
     this.eventRelation,
+    this.showLinkedLongForm = true,
   });
 
   @override
@@ -383,7 +386,8 @@ class _EventMainComponent extends State<EventMainComponent> {
         }
 
         if (eventRelation.aId != null &&
-            eventRelation.aId!.kind == kind.EventKind.LONG_FORM) {
+            eventRelation.aId!.kind == kind.EventKind.LONG_FORM &&
+            widget.showLinkedLongForm) {
           list.add(EventQuoteComponent(
             aId: eventRelation.aId!,
           ));
