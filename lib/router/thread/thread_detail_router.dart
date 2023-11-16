@@ -338,7 +338,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         filters.add(m);
       }
 
-      print(filters);
+      // print(filters);
 
       nostr!.query(filters, onEvent);
     }
@@ -359,7 +359,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   // }
 
   void onEvent(Event event) {
-    print(event.toJson());
+    // print(event.toJson());
     if (event.kind == kind.EventKind.ZAP && StringUtil.isBlank(event.content)) {
       return;
     }
