@@ -211,5 +211,6 @@
     "Relay_Mode": "Relay Mode",
     "Event_Sign_Check": "Event Sign Check",
     "Fast_Mode": "Fast Mode",
-    "Base_Mode": "Base Mode"
+    "Base_Mode": "Base Mode",
+    "WebRTC_Permission": "WebRTC Permission"
 }

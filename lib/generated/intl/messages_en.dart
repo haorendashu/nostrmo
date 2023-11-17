@@ -294,6 +294,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verify failure"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("WebRTC Permission"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("Web Appbar"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Web Utils"),
         "Website": MessageLookupByLibrary.simpleMessage("Website"),

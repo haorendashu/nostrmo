@@ -236,6 +236,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_error": MessageLookupByLibrary.simpleMessage("验证异常"),
         "Verify_failure": MessageLookupByLibrary.simpleMessage("验证失败"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage("列表视频预览"),
+        "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("WebRTC权限"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("网页导航栏"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("网页工具"),
         "Website": MessageLookupByLibrary.simpleMessage("网站"),

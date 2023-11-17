@@ -65,7 +65,8 @@ dependencies:
   dio_cookie_manager: ^3.0.0
   emoji_picker_flutter: ^1.6.3
   widget_size: ^1.0.0
-  webview_flutter: ^4.4.2
+  # webview_flutter: ^4.4.2
+  flutter_inappwebview: 6.0.0-beta.28
   screenshot: ^2.1.0
   share_plus: ^7.2.1
   video_player: ^2.6.1
@@ -95,7 +96,7 @@ dependencies:
   image_gallery_saver: ^1.7.1
   permission_handler: ^10.2.0
   file_saver: ^0.2.9
-  youtube_player_flutter: ^8.1.2
+  # youtube_player_flutter: ^8.1.2
   auto_size_text_field: ^2.2.1
   numberpicker: ^2.1.2
   table_calendar: ^3.0.9

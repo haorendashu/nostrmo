@@ -202,5 +202,6 @@
     "Relay_Mode": "中继类型",
     "Event_Sign_Check": "Event签名校验",
     "Fast_Mode": "快速模式",
-    "Base_Mode": "基本模式"
+    "Base_Mode": "基本模式",
+    "WebRTC_Permission": "WebRTC权限"
 }

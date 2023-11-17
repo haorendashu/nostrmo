@@ -2179,6 +2179,16 @@ class S {
       args: [],
     );
   }
+
+  /// `WebRTC Permission`
+  String get WebRTC_Permission {
+    return Intl.message(
+      'WebRTC Permission',
+      name: 'WebRTC_Permission',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
