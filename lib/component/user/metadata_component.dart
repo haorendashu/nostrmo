@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event.dart';
+import 'package:nostrmo/component/content/content_component.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -66,16 +68,21 @@ class _MetadataComponent extends State<MetadataComponent> {
           // child: Text(widget.metadata!.about!),
           child: Container(
             width: double.maxFinite,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: ContentDecoder.decode(
-                context,
-                widget.metadata!.about!,
-                null,
-                showLinkPreview: false,
-              ),
+            child: ContentComponent(
+              content: widget.metadata!.about,
+              // TODO this should add source event
+              showLinkPreview: false,
             ),
+            // child: Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   mainAxisSize: MainAxisSize.min,
+            //   children: ContentDecoder.decode(
+            //     context,
+            //     widget.metadata!.about!,
+            //     null,
+            //     showLinkPreview: false,
+            //   ),
+            // ),
           ),
         ),
       );

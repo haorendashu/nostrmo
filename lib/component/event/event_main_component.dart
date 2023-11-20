@@ -30,6 +30,7 @@ import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import '../comfirm_dialog.dart';
+import '../content/content_component.dart';
 import '../content/content_decoder.dart';
 import '../content/content_image_component.dart';
 import '../content/content_link_component.dart';
@@ -492,20 +493,29 @@ class _EventMainComponent extends State<EventMainComponent> {
       SettingProvider _settingProvider, bool imagePreview, bool videoPreview) {
     var main = Container(
       width: double.maxFinite,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: ContentDecoder.decode(
-          context,
-          null,
-          widget.event,
-          textOnTap: widget.textOnTap,
-          showImage: imagePreview,
-          showVideo: videoPreview,
-          showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
-          imageListMode: widget.imageListMode,
-        ),
+      child: ContentComponent(
+        content: widget.event.content,
+        event: widget.event,
+        textOnTap: widget.textOnTap,
+        showImage: imagePreview,
+        showVideo: videoPreview,
+        showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
+        imageListMode: widget.imageListMode,
       ),
+      // child: Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   mainAxisSize: MainAxisSize.min,
+      //   children: ContentDecoder.decode(
+      //     context,
+      //     null,
+      //     widget.event,
+      //     textOnTap: widget.textOnTap,
+      //     showImage: imagePreview,
+      //     showVideo: videoPreview,
+      //     showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
+      //     imageListMode: widget.imageListMode,
+      //   ),
+      // ),
     );
 
     return main;

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:nostrmo/client/event.dart';
 
 class ContentEventTagInfos {
@@ -13,7 +11,8 @@ class ContentEventTagInfos {
         var key = tag[0];
         var value = tag[1];
         if (key == "emoji" && tag.length > 2) {
-          emojiMap[":${tag[1]}:"] = tag[2];
+          // emojiMap[":${tag[1]}:"] = tag[2];
+          emojiMap[tag[1]] = tag[2];
         } else if (key == "t") {
           tagMap[value] = value.length;
         }

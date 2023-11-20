@@ -13,11 +13,14 @@ class CommunityInfo {
 
   String? image;
 
+  Event? event;
+
   CommunityInfo({
     required this.createdAt,
     required this.aId,
     this.description,
     this.image,
+    this.event,
   });
 
   static CommunityInfo? fromEvent(Event event) {
@@ -50,6 +53,7 @@ class CommunityInfo {
           aId: id,
           description: description,
           image: image,
+          event: event,
         );
       }
     }

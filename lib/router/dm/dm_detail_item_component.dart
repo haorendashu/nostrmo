@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
+import 'package:nostrmo/component/content/content_component.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
@@ -96,13 +97,22 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
                   ? CrossAxisAlignment.end
                   : CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              children: ContentDecoder.decode(
-                context,
-                content,
-                widget.event,
-                showLinkPreview:
-                    _settingProvider.linkPreview == OpenStatus.OPEN,
-              ),
+              children: [
+                ContentComponent(
+                  content: content,
+                  event: widget.event,
+                  showLinkPreview:
+                      _settingProvider.linkPreview == OpenStatus.OPEN,
+                  smallest: true,
+                ),
+              ],
+              // children: ContentDecoder.decode(
+              //   context,
+              //   content,
+              //   widget.event,
+              //   showLinkPreview:
+              //       _settingProvider.linkPreview == OpenStatus.OPEN,
+              // ),
             ),
           ),
         ],

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../client/nip172/community_info.dart';
 import '../main.dart';
+import 'content/content_component.dart';
 
 class CommunityInfoComponent extends StatefulWidget {
   CommunityInfo info;
@@ -106,7 +107,10 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
       ),
     ];
 
-    list.addAll(ContentDecoder.decode(context, widget.info.description, null));
+    list.add(ContentComponent(
+      content: widget.info.description,
+      event: widget.info.event,
+    ));
 
     return Container(
       decoration: BoxDecoration(color: cardColor),

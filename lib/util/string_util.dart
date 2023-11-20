@@ -162,4 +162,20 @@ class StringUtil {
     }
     return str;
   }
+
+  static List<int> findAllIndex(String text, String match) {
+    var matchLength = match.length;
+    var textLength = match.length;
+    var indexStart = 0;
+
+    List<int> indexs = [];
+
+    var index = text.indexOf(match, indexStart);
+    while (index > -1 || indexStart >= textLength) {
+      indexs.add(index);
+      indexStart += matchLength;
+    }
+
+    return indexs;
+  }
 }

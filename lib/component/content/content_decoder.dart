@@ -135,6 +135,8 @@ class ContentDecoder {
     return info;
   }
 
+  @Deprecated(
+      "This method had bean Deprecated, it should insteaded by ContentComponent")
   static List<Widget> decode(
     BuildContext context,
     String? content,
@@ -468,7 +470,9 @@ class ContentDecoder {
             if (subStr.substring(0, 1) == ":" &&
                 subStr.substring(length - 1) == ":" &&
                 tagInfos != null) {
-              var imagePath = tagInfos.emojiMap[subStr];
+              var emojiKey = subStr.substring(1, length - 1);
+              var imagePath = tagInfos.emojiMap[emojiKey];
+              // var imagePath = tagInfos.emojiMap[subStr];
               if (StringUtil.isNotBlank(imagePath)) {
                 handledStr = _closeHandledStr(handledStr, inlines);
                 inlines.add(ContentCustomEmojiComponent(imagePath: imagePath!));

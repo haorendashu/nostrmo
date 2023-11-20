@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/content/content_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
@@ -142,12 +143,16 @@ class _EventPollComponent extends State<EventPollComponent> {
                   padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
                   width: double.maxFinite,
                   child: AbsorbPointer(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: ContentDecoder.decode(
-                          context, pollOption[1], widget.event),
+                    child: ContentComponent(
+                      content: pollOption[1],
+                      event: widget.event,
                     ),
+                    // child: Column(
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: ContentDecoder.decode(
+                    //       context, pollOption[1], widget.event),
+                    // ),
                   ),
                 ),
                 Positioned.fill(
