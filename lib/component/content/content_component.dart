@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
@@ -115,11 +113,14 @@ class _ContentComponent extends State<ContentComponent> {
 
   TextStyle? highlightStyle;
 
+  late StringBuffer counter;
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
+    var fontSize = themeData.textTheme.bodyLarge!.fontSize!;
     mdh1Style = TextStyle(
-      fontSize: themeData.textTheme.bodyLarge!.fontSize,
+      fontSize: fontSize + 1,
       fontWeight: FontWeight.bold,
     );
     mdh2Style = TextStyle(
@@ -131,7 +132,39 @@ class _ContentComponent extends State<ContentComponent> {
       decoration: TextDecoration.none,
     );
 
-    return decodeContent();
+    if (StringUtil.isBlank(widget.content)) {
+      return Container();
+    }
+
+    counter = StringBuffer(widget.content!);
+
+    var main = decodeContent();
+    return main;
+    // return LayoutBuilder(builder: (context, constraints) {
+    //   TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
+    //   textPainter.text = TextSpan(
+    //       text: counter.toString(), style: TextStyle(fontSize: fontSize));
+    //   textPainter.layout(maxWidth: constraints.maxWidth);
+    //   var lineHeight = textPainter.preferredLineHeight;
+    //   var lineNum = textPainter.height / lineHeight;
+
+    //   if (lineNum > 15) {
+    //     return Container(
+    //       decoration: BoxDecoration(),
+    //       height: lineHeight * 12,
+    //       clipBehavior: Clip.hardEdge,
+    //       child: ScrollConfiguration(
+    //         behavior: MaterialScrollBehavior().copyWith(
+    //           scrollbars: false,
+    //           overscroll: false,
+    //         ),
+    //         child: main,
+    //       ),
+    //     );
+    //   }
+
+    //   return main;
+    // });
   }
 
   static const double CONTENT_IMAGE_LIST_HEIGHT = 90;
@@ -301,6 +334,7 @@ class _ContentComponent extends State<ContentComponent> {
 
             bufferToList(buffer, allList, removeLastSpan: true);
             allList.add(WidgetSpan(child: imageWidget));
+            counterAddLines(fake_image_counter);
           }
         }
         return null;
@@ -310,6 +344,7 @@ class _ContentComponent extends State<ContentComponent> {
           bufferToList(buffer, allList, removeLastSpan: true);
           var vComponent = ContentVideoComponent(url: str);
           allList.add(WidgetSpan(child: vComponent));
+          counterAddLines(fake_video_counter);
         } else {
           // inline
           bufferToList(buffer, allList);
@@ -327,6 +362,7 @@ class _ContentComponent extends State<ContentComponent> {
             link: str,
           );
           allList.add(WidgetSpan(child: w));
+          counterAddLines(fake_link_pre_counter);
         }
         return null;
       }
@@ -367,6 +403,7 @@ class _ContentComponent extends State<ContentComponent> {
           showVideo: widget.showVideo,
         );
         allList.add(WidgetSpan(child: w));
+        counterAddLines(fake_event_counter);
 
         return otherStr;
       } else if (NIP19Tlv.isNprofile(key)) {
@@ -403,6 +440,7 @@ class _ContentComponent extends State<ContentComponent> {
             showVideo: widget.showVideo,
           );
           allList.add(WidgetSpan(child: w));
+          counterAddLines(fake_event_counter);
 
           return null;
         } else {
@@ -420,6 +458,7 @@ class _ContentComponent extends State<ContentComponent> {
               showVideo: widget.showVideo,
             );
             allList.add(WidgetSpan(child: w));
+            counterAddLines(fake_event_counter);
 
             return null;
           } else if (StringUtil.isNotBlank(naddr.author) &&
@@ -469,6 +508,7 @@ class _ContentComponent extends State<ContentComponent> {
       bufferToList(buffer, allList, removeLastSpan: true);
       var w = ContentLnbcComponent(lnbc: str);
       allList.add(WidgetSpan(child: w));
+      counterAddLines(fake_zap_counter);
 
       return null;
     } else if (widget.event != null &&
@@ -491,6 +531,7 @@ class _ContentComponent extends State<ContentComponent> {
               showVideo: widget.showVideo,
             );
             allList.add(WidgetSpan(child: w));
+            counterAddLines(fake_event_counter);
 
             return null;
           } else if (tagType == "p") {
@@ -600,5 +641,21 @@ class _ContentComponent extends State<ContentComponent> {
     }
 
     return info;
+  }
+
+  int fake_event_counter = 8;
+
+  int fake_image_counter = 10;
+
+  int fake_video_counter = 10;
+
+  int fake_link_pre_counter = 6;
+
+  int fake_zap_counter = 4;
+
+  void counterAddLines(int lineNum) {
+    for (var i = 0; i < lineNum; i++) {
+      counter.write(NL);
+    }
   }
 }
