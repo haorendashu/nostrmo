@@ -75,6 +75,9 @@ class _ContentComponent extends State<ContentComponent> {
   // markdown h2
   static const String MD_H2 = "##";
 
+  // markdown h3
+  static const String MD_H3 = "###";
+
   // http pre
   static const String HTTP_PRE = "http://";
 
@@ -111,6 +114,8 @@ class _ContentComponent extends State<ContentComponent> {
 
   TextStyle? mdh2Style;
 
+  TextStyle? mdh3Style;
+
   TextStyle? highlightStyle;
 
   late StringBuffer counter;
@@ -120,11 +125,15 @@ class _ContentComponent extends State<ContentComponent> {
     var themeData = Theme.of(context);
     var fontSize = themeData.textTheme.bodyLarge!.fontSize!;
     mdh1Style = TextStyle(
-      fontSize: fontSize + 1,
+      fontSize: fontSize + 2,
       fontWeight: FontWeight.bold,
     );
     mdh2Style = TextStyle(
-      fontSize: themeData.textTheme.bodyMedium!.fontSize,
+      fontSize: fontSize + 1,
+      fontWeight: FontWeight.bold,
+    );
+    mdh3Style = TextStyle(
+      fontSize: fontSize,
       fontWeight: FontWeight.bold,
     );
     highlightStyle = TextStyle(
@@ -221,9 +230,15 @@ class _ContentComponent extends State<ContentComponent> {
           if (str == MD_H1) {
             bufferToList(buffer, allList);
             currentTextStyle = mdh1Style;
+            continue;
           } else if (str == MD_H2) {
             bufferToList(buffer, allList);
             currentTextStyle = mdh2Style;
+            continue;
+          } else if (str == MD_H3) {
+            bufferToList(buffer, allList);
+            currentTextStyle = mdh3Style;
+            continue;
           } else {
             currentTextStyle = null;
           }
