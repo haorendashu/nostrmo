@@ -114,8 +114,6 @@ class _ContentComponent extends State<ContentComponent> {
 
   TextStyle? mdh2Style;
 
-  TextStyle? mdh3Style;
-
   TextStyle? highlightStyle;
 
   late StringBuffer counter;
@@ -125,14 +123,10 @@ class _ContentComponent extends State<ContentComponent> {
     var themeData = Theme.of(context);
     var fontSize = themeData.textTheme.bodyLarge!.fontSize!;
     mdh1Style = TextStyle(
-      fontSize: fontSize + 2,
-      fontWeight: FontWeight.bold,
-    );
-    mdh2Style = TextStyle(
       fontSize: fontSize + 1,
       fontWeight: FontWeight.bold,
     );
-    mdh3Style = TextStyle(
+    mdh2Style = TextStyle(
       fontSize: fontSize,
       fontWeight: FontWeight.bold,
     );
@@ -235,11 +229,10 @@ class _ContentComponent extends State<ContentComponent> {
             bufferToList(buffer, allList);
             currentTextStyle = mdh2Style;
             continue;
-          } else if (str == MD_H3) {
-            bufferToList(buffer, allList);
-            currentTextStyle = mdh3Style;
-            continue;
           } else {
+            if (currentTextStyle != null) {
+              bufferToList(buffer, allList);
+            }
             currentTextStyle = null;
           }
         }
