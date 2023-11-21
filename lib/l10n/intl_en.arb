@@ -217,5 +217,7 @@
     "NIP07_signEvent": "Sign Event",
     "NIP07_getRelays": "Get Relays",
     "NIP07_encrypt": "Encrypt",
-    "NIP07_decrypt": "Decrypt"
+    "NIP07_decrypt": "Decrypt",
+    "Show_more": "Show more",
+    "Limit_Note_Height": "Limit Note Height"
 }

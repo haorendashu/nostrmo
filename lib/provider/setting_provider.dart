@@ -250,6 +250,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get eventSignCheck => _settingData!.eventSignCheck;
 
+  int? get limitNoteHeight => _settingData!.limitNoteHeight;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -397,6 +399,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set limitNoteHeight(int? o) {
+    _settingData!.limitNoteHeight = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -474,6 +481,8 @@ class SettingData {
 
   int? eventSignCheck;
 
+  int? limitNoteHeight;
+
   /// updated time
   late int updatedTime;
 
@@ -505,6 +514,7 @@ class SettingData {
     this.autoOpenSensitive,
     this.relayMode,
     this.eventSignCheck,
+    this.limitNoteHeight,
     this.updatedTime = 0,
   });
 
@@ -550,6 +560,7 @@ class SettingData {
     autoOpenSensitive = json['autoOpenSensitive'];
     relayMode = json['relayMode'];
     eventSignCheck = json['eventSignCheck'];
+    limitNoteHeight = json['limitNoteHeight'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -587,6 +598,7 @@ class SettingData {
     data['autoOpenSensitive'] = this.autoOpenSensitive;
     data['relayMode'] = this.relayMode;
     data['eventSignCheck'] = this.eventSignCheck;
+    data['limitNoteHeight'] = this.limitNoteHeight;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

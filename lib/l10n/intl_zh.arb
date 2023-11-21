@@ -208,5 +208,7 @@
     "NIP07_signEvent": "签名",
     "NIP07_getRelays": "获取中继列表",
     "NIP07_encrypt": "加密",
-    "NIP07_decrypt": "解密"
+    "NIP07_decrypt": "解密",
+    "Show_more": "查看更多",
+    "Limit_Note_Height": "限制动态高度"
 }

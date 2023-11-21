@@ -196,6 +196,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickImageServcie,
     ));
     list.add(SettingGroupItemComponent(
+      name: s.Limit_Note_Height,
+      value: getOpenList(settingProvider.limitNoteHeight).name,
+      onTap: pickLimitNoteHeight,
+    ));
+    list.add(SettingGroupItemComponent(
       name: s.Forbid_image,
       value: getOpenList(settingProvider.imagePreview).name,
       onTap: pickImagePreview,
@@ -683,6 +688,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, imageServcieList!);
     if (resultEnumObj != null) {
       settingProvider.imageService = resultEnumObj.value;
+    }
+  }
+
+  pickLimitNoteHeight() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.limitNoteHeight = resultEnumObj.value;
     }
   }
 

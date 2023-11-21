@@ -163,6 +163,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Lightning Invoice"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Limit Note Height"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link preview"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl and Lud16 can\'t found."),
@@ -262,6 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "Share": MessageLookupByLibrary.simpleMessage("Share"),
         "Show": MessageLookupByLibrary.simpleMessage("Show"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Show more"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Show web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
         "Source": MessageLookupByLibrary.simpleMessage("Source"),

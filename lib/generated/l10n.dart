@@ -2239,6 +2239,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Show more`
+  String get Show_more {
+    return Intl.message(
+      'Show more',
+      name: 'Show_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Limit Note Height`
+  String get Limit_Note_Height {
+    return Intl.message(
+      'Limit Note Height',
+      name: 'Limit_Note_Height',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

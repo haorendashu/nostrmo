@@ -127,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
         "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("闪电发票"),
+        "Limit_Note_Height": MessageLookupByLibrary.simpleMessage("限制动态高度"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl 和 Lud16 无法找到。"),
@@ -207,6 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("设置"),
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
         "Show": MessageLookupByLibrary.simpleMessage("显示"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("查看更多"),
         "Show_web": MessageLookupByLibrary.simpleMessage("打开网页"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("签名失败"),
         "Source": MessageLookupByLibrary.simpleMessage("来源"),

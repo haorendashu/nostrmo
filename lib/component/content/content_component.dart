@@ -1,13 +1,17 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
+import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/string_util.dart';
+import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 import '../../util/platform_util.dart';
 import '../event/event_quote_component.dart';
 import '../webview_router.dart';
@@ -110,6 +114,10 @@ class _ContentComponent extends State<ContentComponent> {
 
   static const LNBC_NUM_END = "1p";
 
+  static const MAX_SHOW_LINE_NUM = 19;
+
+  static const MAX_SHOW_LINE_NUM_REACH = 23;
+
   TextStyle? mdh1Style;
 
   TextStyle? mdh2Style;
@@ -120,8 +128,10 @@ class _ContentComponent extends State<ContentComponent> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
     var themeData = Theme.of(context);
     var fontSize = themeData.textTheme.bodyLarge!.fontSize!;
+    var settingProvider = Provider.of<SettingProvider>(context);
     mdh1Style = TextStyle(
       fontSize: fontSize + 1,
       fontWeight: FontWeight.bold,
@@ -142,32 +152,56 @@ class _ContentComponent extends State<ContentComponent> {
     counter = StringBuffer(widget.content!);
 
     var main = decodeContent();
-    return main;
-    // return LayoutBuilder(builder: (context, constraints) {
-    //   TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
-    //   textPainter.text = TextSpan(
-    //       text: counter.toString(), style: TextStyle(fontSize: fontSize));
-    //   textPainter.layout(maxWidth: constraints.maxWidth);
-    //   var lineHeight = textPainter.preferredLineHeight;
-    //   var lineNum = textPainter.height / lineHeight;
 
-    //   if (lineNum > 15) {
-    //     return Container(
-    //       decoration: BoxDecoration(),
-    //       height: lineHeight * 12,
-    //       clipBehavior: Clip.hardEdge,
-    //       child: ScrollConfiguration(
-    //         behavior: MaterialScrollBehavior().copyWith(
-    //           scrollbars: false,
-    //           overscroll: false,
-    //         ),
-    //         child: main,
-    //       ),
-    //     );
-    //   }
+    if (widget.imageListMode &&
+        settingProvider.limitNoteHeight != OpenStatus.CLOSE) {
+      // imageListMode is true, means this content is in list, should limit height
+      return LayoutBuilder(builder: (context, constraints) {
+        TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
+        textPainter.text = TextSpan(
+            text: counter.toString(), style: TextStyle(fontSize: fontSize));
+        textPainter.layout(maxWidth: constraints.maxWidth);
+        var lineHeight = textPainter.preferredLineHeight;
+        var lineNum = textPainter.height / lineHeight;
 
-    //   return main;
-    // });
+        if (lineNum > MAX_SHOW_LINE_NUM_REACH) {
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(),
+                clipBehavior: Clip.hardEdge,
+                height: lineHeight * MAX_SHOW_LINE_NUM,
+                child: Wrap(
+                  children: [main],
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  padding: EdgeInsets.only(right: Base.BASE_PADDING),
+                  height: 30,
+                  color: themeData.cardColor.withOpacity(0.85),
+                  child: Text(
+                    s.Show_more,
+                    style: TextStyle(
+                      color: themeData.primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+
+        return main;
+      });
+    } else {
+      return main;
+    }
   }
 
   static const double CONTENT_IMAGE_LIST_HEIGHT = 90;
@@ -255,6 +289,8 @@ class _ContentComponent extends State<ContentComponent> {
 
     var main = Container(
       width: !widget.smallest ? double.infinity : null,
+      // padding: EdgeInsets.only(bottom: 20),
+      // color: Colors.red,
       child: SelectableText.rich(
         TextSpan(
           children: allList,
