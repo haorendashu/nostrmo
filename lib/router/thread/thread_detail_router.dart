@@ -118,11 +118,21 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           title: eventRelation.dTag!);
     }
 
-    // load sourceEvent replies and avoid blank page
-    var eventReactions = eventReactionsProvider.get(sourceEvent!.id);
-    if (eventReactions != null && eventReactions.replies.isNotEmpty) {
-      box.addList(eventReactions.replies);
-    } else if (rootEvent == null) {
+    // load replies from cache and avoid blank page
+    {
+      var eventReactions =
+          eventReactionsProvider.get(sourceEvent!.id, avoidPull: true);
+      if (eventReactions != null && eventReactions.replies.isNotEmpty) {
+        box.addList(eventReactions.replies);
+      }
+    }
+    if (rootId != null && rootId != sourceEvent!.id) {
+      var eventReactions = eventReactionsProvider.get(rootId!, avoidPull: true);
+      if (eventReactions != null && eventReactions.replies.isNotEmpty) {
+        box.addList(eventReactions.replies);
+      }
+    }
+    if (rootEvent == null) {
       box.add(sourceEvent!);
     }
     listToTree(refresh: false);
