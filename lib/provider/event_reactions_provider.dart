@@ -63,9 +63,13 @@ class EventReactionsProvider extends ChangeNotifier
   //   whenStop(laterFunc);
   // }
 
-  EventReactions? get(String id) {
+  EventReactions? get(String id, {bool avoidPull = false}) {
     var er = _eventReactionsMap[id];
     if (er == null) {
+      if (avoidPull) {
+        return null;
+      }
+
       // plan to pull
       _penddingIds[id] = 1;
       // later(laterFunc, null);
