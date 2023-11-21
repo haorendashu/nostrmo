@@ -212,5 +212,10 @@
     "Event_Sign_Check": "Event Sign Check",
     "Fast_Mode": "Fast Mode",
     "Base_Mode": "Base Mode",
-    "WebRTC_Permission": "WebRTC Permission"
+    "WebRTC_Permission": "WebRTC Permission",
+    "NIP07_getPublicKey": "Get Public Key",
+    "NIP07_signEvent": "Sign Event",
+    "NIP07_getRelays": "Get Relays",
+    "NIP07_encrypt": "Encrypt",
+    "NIP07_decrypt": "Decrypt"
 }

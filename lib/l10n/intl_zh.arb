@@ -203,5 +203,10 @@
     "Event_Sign_Check": "Event签名校验",
     "Fast_Mode": "快速模式",
     "Base_Mode": "基本模式",
-    "WebRTC_Permission": "WebRTC权限"
+    "WebRTC_Permission": "WebRTC权限",
+    "NIP07_getPublicKey": "获取公钥",
+    "NIP07_signEvent": "签名",
+    "NIP07_getRelays": "获取中继列表",
+    "NIP07_encrypt": "加密",
+    "NIP07_decrypt": "解密"
 }

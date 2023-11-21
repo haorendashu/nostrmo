@@ -174,6 +174,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Method": MessageLookupByLibrary.simpleMessage("Method"),
         "Minute": MessageLookupByLibrary.simpleMessage("Minute"),
         "More": MessageLookupByLibrary.simpleMessage("More"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Decrypt"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Encrypt"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Get Public Key"),
+        "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("Get Relays"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Sign Event"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),

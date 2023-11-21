@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip07/kind_descriptions.dart';
+import 'package:nostrmo/client/nip07/nip07_methods.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/string_util.dart';
 
@@ -65,6 +69,33 @@ class _NIP07Dialog extends State<NIP07Dialog> {
         children: [
           Text("${s.Method}:  "),
           Text(widget.method),
+        ],
+      ),
+    ));
+
+    String methodDesc = s.NIP07_getPublicKey;
+    if (widget.method == NIP07Methods.getRelays) {
+      methodDesc = s.NIP07_getPublicKey;
+    } else if (widget.method == NIP07Methods.nip04_encrypt) {
+      methodDesc = s.NIP07_encrypt;
+    } else if (widget.method == NIP07Methods.nip04_decrypt) {
+      methodDesc = s.NIP07_decrypt;
+    } else if (widget.method == NIP07Methods.signEvent) {
+      methodDesc = s.NIP07_signEvent;
+      try {
+        if (StringUtil.isNotBlank(widget.content)) {
+          var jsonObj = jsonDecode(widget.content!);
+          var eventKind = jsonObj["kind"];
+          var kindDesc = KindDescriptions.getDes(eventKind);
+          methodDesc += ": $kindDesc";
+        }
+      } catch (e) {}
+    }
+    list.add(Container(
+      margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+      child: Row(
+        children: [
+          Text(methodDesc),
         ],
       ),
     ));

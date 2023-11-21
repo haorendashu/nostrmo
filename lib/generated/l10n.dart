@@ -2189,6 +2189,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Get Public Key`
+  String get NIP07_getPublicKey {
+    return Intl.message(
+      'Get Public Key',
+      name: 'NIP07_getPublicKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Event`
+  String get NIP07_signEvent {
+    return Intl.message(
+      'Sign Event',
+      name: 'NIP07_signEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Relays`
+  String get NIP07_getRelays {
+    return Intl.message(
+      'Get Relays',
+      name: 'NIP07_getRelays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Encrypt`
+  String get NIP07_encrypt {
+    return Intl.message(
+      'Encrypt',
+      name: 'NIP07_encrypt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Decrypt`
+  String get NIP07_decrypt {
+    return Intl.message(
+      'Decrypt',
+      name: 'NIP07_decrypt',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
