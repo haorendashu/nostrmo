@@ -75,7 +75,7 @@ class _NIP07Dialog extends State<NIP07Dialog> {
 
     String methodDesc = s.NIP07_getPublicKey;
     if (widget.method == NIP07Methods.getRelays) {
-      methodDesc = s.NIP07_getPublicKey;
+      methodDesc = s.NIP07_getRelays;
     } else if (widget.method == NIP07Methods.nip04_encrypt) {
       methodDesc = s.NIP07_encrypt;
     } else if (widget.method == NIP07Methods.nip04_decrypt) {
