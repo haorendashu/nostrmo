@@ -90,7 +90,7 @@ class EventRelation {
     }
 
     var tagELength = tagEList.length;
-    if (tagELength == 1 && rootId == null) {
+    if (tagELength == 1 && rootId == null && replyId == null) {
       rootId = tagEList[0];
     } else if (tagELength > 1) {
       if (rootId == null && replyId == null) {

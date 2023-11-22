@@ -100,9 +100,13 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     aId = eventRelation.aId;
     if (rootId == null) {
       if (aId == null) {
-        // source event is root event
-        rootId = sourceEvent!.id;
-        rootEvent = sourceEvent!;
+        if (eventRelation.replyId != null) {
+          rootId = eventRelation.replyId;
+        } else {
+          // source event is root event
+          rootId = sourceEvent!.id;
+          rootEvent = sourceEvent!;
+        }
       } else {
         // aid linked root event
         rootEvent = replaceableEventProvider.getEvent(aId!);
@@ -187,6 +191,23 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             builder: (context, event, child) {
           if (event == null) {
             return EventLoadListComponent();
+          }
+
+          {
+            // check if the rootEvent isn't rootEvent
+            var newRelation = EventRelation.fromEvent(event);
+            String? newRootId;
+            if (newRelation.rootId != null) {
+              newRootId = newRelation.rootId;
+            } else if (newRelation.replyId != null) {
+              newRootId = newRelation.replyId;
+            }
+
+            if (StringUtil.isNotBlank(newRootId)) {
+              rootId = newRootId;
+              doQuery();
+              singleEventProvider.getEvent(newRootId!);
+            }
           }
 
           return EventListComponent(
