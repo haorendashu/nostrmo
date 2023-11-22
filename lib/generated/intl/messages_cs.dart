@@ -39,9 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("libovolně"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Požadovat autentizaci"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Automaticky otevřít citlivý obsah"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Tipy na zálohování a zabezpečení"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Základní režim"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Spustit stahování překladového modelu"),
@@ -97,7 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Nekomprimované"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Vstupní polotovary mohou být relé zakázány."),
+        "Event_Sign_Check":
+            MessageLookupByLibrary.simpleMessage("Ověření podpisu události"),
         "Face": MessageLookupByLibrary.simpleMessage("detekce obličeje"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Rychlý režim"),
         "Filter": MessageLookupByLibrary.simpleMessage("filtr"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -122,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vytvořit nový klíč"),
         "Global": MessageLookupByLibrary.simpleMessage("Globální"),
         "Globals": MessageLookupByLibrary.simpleMessage("čtverec"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("cíl"),
         "Hide": MessageLookupByLibrary.simpleMessage("skrýt"),
         "Home": MessageLookupByLibrary.simpleMessage("domovská stránka"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Přijímám"),
@@ -138,7 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Množství vstupních sat"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Zadejte Sats množství pro generování faktury Lightning Network"),
+                "Zadejte počet satelitů pro generování faktur bleskové sítě"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Přidat klíč účtu"),
         "Input_can_not_be_null":
@@ -154,6 +161,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Světlá barva"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Faktura blesku"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Omezení dynamické výšky"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Náhled odkazu"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl a Lud16 nelze najít."),
@@ -162,6 +171,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("zmínka"),
         "Method": MessageLookupByLibrary.simpleMessage("metoda"),
         "More": MessageLookupByLibrary.simpleMessage("více"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Dešifrování"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("šifrování"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Získat veřejný klíč"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Získat seznam přenosů"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autogram"),
         "Name": MessageLookupByLibrary.simpleMessage("jméno"),
         "Network": MessageLookupByLibrary.simpleMessage("síť"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -203,14 +219,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Prosím, zkontrolujte připomínku."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Prosím, nikomu nezveřejňujte ani nesdílejte tajemství."),
+                "Prosím, nezveřejňujte ani nesdílejte klíč s nikým."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Prosím, zadejte"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Zadejte prosím obsah tématu"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Zadejte prosím ID události"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Zadejte prosím fakturu Lightning Network"),
+            "Zadejte prosím fakturu za bleskovou síť"),
         "Please_input_search_content": MessageLookupByLibrary.simpleMessage(
             "Zadejte prosím obsah hledání"),
         "Please_input_title":
@@ -228,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Klíč nemůže být prázdný"),
         "Quote": MessageLookupByLibrary.simpleMessage("citace"),
         "Read": MessageLookupByLibrary.simpleMessage("číst"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Typ relé"),
         "Relays": MessageLookupByLibrary.simpleMessage("relé"),
         "Replying": MessageLookupByLibrary.simpleMessage("Odpověď probíhá"),
         "Request": MessageLookupByLibrary.simpleMessage("žádost"),
@@ -243,6 +260,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("nastavit"),
         "Share": MessageLookupByLibrary.simpleMessage("sdílet"),
         "Show": MessageLookupByLibrary.simpleMessage("displej"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Zobrazit více"),
         "Show_web":
             MessageLookupByLibrary.simpleMessage("Otevřít webovou stránku"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Podpis selhal"),
@@ -275,7 +293,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nahrávání selhalo"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skenování a odesílání satelitů s Lightning Network Wallet"),
+                "Skenování a odesílání satelitů pomocí Lightning Wallet"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Uživatelský Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("lidé"),
@@ -284,6 +302,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ověření selhalo"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Náhled videa seznamu"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("Oprávnění WebRTC"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Web navigační panel"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Webové nástroje"),

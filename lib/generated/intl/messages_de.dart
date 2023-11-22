@@ -40,9 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("willkürlich"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage(
             "Authentifizierung erforderlich"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Sensible Inhalte automatisch öffnen"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Backup- und Sicherheitstipps"),
         "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Grundmodus"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Download des Übersetzungsmodells starten"),
@@ -99,7 +102,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Unkomprimiert"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Die Eingabe von Leerzeichen kann durch das Relais verboten werden."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
+            "Überprüfung der Ereignissignatur"),
         "Face": MessageLookupByLibrary.simpleMessage("Gesichtserkennung"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Schnellmodus"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -125,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Einen neuen Schlüssel generieren"),
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
         "Globals": MessageLookupByLibrary.simpleMessage("Quadrat"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("Ziel"),
         "Hide": MessageLookupByLibrary.simpleMessage("Ausblenden"),
         "Home": MessageLookupByLibrary.simpleMessage("Startseite"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ich akzeptiere"),
@@ -140,7 +147,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Eingangssatzmenge"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Geben Sie Sats Menge ein, um Lightning Network Rechnung zu generieren"),
+                "Geben Sie die Anzahl der Satelliten ein, um Lightning Network Rechnungen zu generieren"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Kontoschlüssel hinzufügen"),
         "Input_can_not_be_null": MessageLookupByLibrary.simpleMessage(
@@ -157,6 +164,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Helle Farbe"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Blitzrechnung"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Dynamische Höhe begrenzen"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link-Vorschau"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl und Lud16 können nicht gefunden werden."),
@@ -165,6 +174,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("Erwähnung"),
         "Method": MessageLookupByLibrary.simpleMessage("Methode"),
         "More": MessageLookupByLibrary.simpleMessage("mehr"),
+        "NIP07_decrypt":
+            MessageLookupByLibrary.simpleMessage("Entschlüsselung"),
+        "NIP07_encrypt":
+            MessageLookupByLibrary.simpleMessage("Verschlüsselung"),
+        "NIP07_getPublicKey": MessageLookupByLibrary.simpleMessage(
+            "Öffentlichen Schlüssel abrufen"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Relay-Liste abrufen"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Autogramm"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Netzwerk"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -206,7 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bitte überprüfen Sie die Erinnerung."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Bitte offenbaren Sie niemandem oder teilen Sie ihr Geheimnis mit."),
+                "Bitte teilen Sie den Schlüssel mit niemandem."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Bitte geben Sie ein"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -214,7 +232,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_input_event_id": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie die Event-ID ein"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Bitte geben Sie Lightning Network Rechnung ein"),
+            "Bitte geben Sie die Lightning Network Rechnung ein"),
         "Please_input_search_content": MessageLookupByLibrary.simpleMessage(
             "Bitte geben Sie Suchinhalte ein"),
         "Please_input_title": MessageLookupByLibrary.simpleMessage(
@@ -233,6 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Schlüssel kann nicht leer sein"),
         "Quote": MessageLookupByLibrary.simpleMessage("Zitat"),
         "Read": MessageLookupByLibrary.simpleMessage("lesen"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relaistyp"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relais"),
         "Replying":
             MessageLookupByLibrary.simpleMessage("Antwort in Bearbeitung"),
@@ -249,6 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("einrichten"),
         "Share": MessageLookupByLibrary.simpleMessage("Teilen"),
         "Show": MessageLookupByLibrary.simpleMessage("Anzeige"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Mehr anzeigen"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Webseite öffnen"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Unterschrift fehlgeschlagen"),
@@ -281,7 +301,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hochladen fehlgeschlagen"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Scannen und Senden von Satellitendaten mit Lightning Network Wallet"),
+                "Scannen und Senden von Sats mit Lightning Wallet"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Benutzer-Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("Menschen"),
         "Verify_error":
@@ -290,6 +310,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Überprüfung fehlgeschlagen"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Liste Videovorschau"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("WebRTC-Berechtigungen"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Web-Navigationsleiste"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Web Tools"),

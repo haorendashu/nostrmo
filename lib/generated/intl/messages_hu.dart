@@ -40,9 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("önkényesen"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Hitelesítés szükségessége"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Az érzékeny tartalom automatikus megnyitása"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Biztonsági mentés és biztonsági tippek"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Alapmód"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "A fordítási modell letöltésének megkezdése"),
@@ -100,7 +103,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Tömörítetlen"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "A bemeneti üres lövedékeket a relé tilthatja."),
+        "Event_Sign_Check":
+            MessageLookupByLibrary.simpleMessage("Eseményaláírás ellenőrzése"),
         "Face": MessageLookupByLibrary.simpleMessage("arcfelismerés"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Gyorsmód"),
         "Filter": MessageLookupByLibrary.simpleMessage("szűrő"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -125,6 +131,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Új kulcs létrehozása"),
         "Global": MessageLookupByLibrary.simpleMessage("Globális"),
         "Globals": MessageLookupByLibrary.simpleMessage("négyzet"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("célpont"),
         "Hide": MessageLookupByLibrary.simpleMessage("rejtsd el"),
         "Home": MessageLookupByLibrary.simpleMessage("honlap"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Elfogadom"),
@@ -156,6 +163,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Világos szín"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Villámszámla"),
+        "Limit_Note_Height": MessageLookupByLibrary.simpleMessage(
+            "Dinamikus magasság korlátozása"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link előnézet"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl és Lud16 nem található."),
@@ -164,6 +173,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("említés"),
         "Method": MessageLookupByLibrary.simpleMessage("módszer"),
         "More": MessageLookupByLibrary.simpleMessage("több"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Dekódolás"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("titkosítás"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Nyilvános kulcs beszerzése"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Továbbítási lista lekérése"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autogram"),
         "Name": MessageLookupByLibrary.simpleMessage("név"),
         "Network": MessageLookupByLibrary.simpleMessage("hálózat"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -230,6 +246,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("A kulcs nem lehet üres"),
         "Quote": MessageLookupByLibrary.simpleMessage("idézet"),
         "Read": MessageLookupByLibrary.simpleMessage("olvasás"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relé típusa"),
         "Relays": MessageLookupByLibrary.simpleMessage("relé"),
         "Replying":
             MessageLookupByLibrary.simpleMessage("Folyamatban lévő válasz"),
@@ -246,6 +263,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("felállítás"),
         "Share": MessageLookupByLibrary.simpleMessage("részesedés"),
         "Show": MessageLookupByLibrary.simpleMessage("kijelző"),
+        "Show_more":
+            MessageLookupByLibrary.simpleMessage("További megtekintése"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Weboldal megnyitása"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Aláírás sikertelen"),
         "Source": MessageLookupByLibrary.simpleMessage("forrás"),
@@ -277,7 +296,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Feltöltés sikertelen"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Szatellitek beolvasása és küldése a Lightning Network Wallet segítségével"),
+                "Szatellitek beolvasása és küldése Lightning Wallet segítségével"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Felhasználó Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("emberek"),
@@ -287,6 +306,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Az ellenőrzés nem sikerült"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Lista videó előnézete"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("WebRTC engedélyek"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Webes navigációs sáv"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Webeszközök"),

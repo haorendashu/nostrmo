@@ -39,9 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("بشكل تعسفي"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("يتطلب التوثيق"),
+        "Auto_Open_Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("تلقائيا فتح المحتوى الحساس"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "النسخ الاحتياطي والأمن نصائح"),
         "Banner": MessageLookupByLibrary.simpleMessage("لافتات"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("النمط الأساسي"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage("بدء تحميل نموذج الترجمة"),
         "Block": MessageLookupByLibrary.simpleMessage("تقييد"),
@@ -96,7 +99,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("لا ضغط"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "مدخلات فارغة قد يكون معطوبا من قبل التتابع ."),
+        "Event_Sign_Check":
+            MessageLookupByLibrary.simpleMessage("حدث التحقق من التوقيع"),
         "Face": MessageLookupByLibrary.simpleMessage("التعرف على الوجه"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("طريقة سريعة"),
         "Filter": MessageLookupByLibrary.simpleMessage("تصفية"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -119,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("توليد مفتاح جديد"),
         "Global": MessageLookupByLibrary.simpleMessage("العالمية"),
         "Globals": MessageLookupByLibrary.simpleMessage("ساحة"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("الهدف"),
         "Hide": MessageLookupByLibrary.simpleMessage("أخفى"),
         "Home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("أنا أقبل"),
@@ -149,6 +156,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("لون فاتح"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("فاتورة البرق"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("الحد من الارتفاع الديناميكي"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("رابط معاينة"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "lnurl و lud16 لا يمكن العثور عليها ."),
@@ -157,6 +166,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("ذكر"),
         "Method": MessageLookupByLibrary.simpleMessage("طريقة ."),
         "More": MessageLookupByLibrary.simpleMessage("أكثر ."),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("فك التشفير"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("مشفرة"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("الحصول على المفتاح العام"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("الحصول على قائمة ترحيل"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("توقيع"),
         "Name": MessageLookupByLibrary.simpleMessage("الإسم"),
         "Network": MessageLookupByLibrary.simpleMessage("شبكة"),
         "Nip05": MessageLookupByLibrary.simpleMessage("نيب05"),
@@ -222,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "المفتاح لا يمكن أن تكون فارغة"),
         "Quote": MessageLookupByLibrary.simpleMessage("استشهد"),
         "Read": MessageLookupByLibrary.simpleMessage("قرأ"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("تتابع نوع"),
         "Relays": MessageLookupByLibrary.simpleMessage("تتابع"),
         "Replying": MessageLookupByLibrary.simpleMessage("الرد"),
         "Request": MessageLookupByLibrary.simpleMessage("طلب"),
@@ -237,6 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("ضبط"),
         "Share": MessageLookupByLibrary.simpleMessage("شارك"),
         "Show": MessageLookupByLibrary.simpleMessage("عرض ."),
+        "Show_more": MessageLookupByLibrary.simpleMessage("شاهد المزيد"),
         "Show_web": MessageLookupByLibrary.simpleMessage("فتح صفحة ويب"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("فشل التوقيع"),
         "Source": MessageLookupByLibrary.simpleMessage("المصدر"),
@@ -275,6 +293,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_failure": MessageLookupByLibrary.simpleMessage("فشل التحقق"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("قائمة معاينة الفيديو"),
+        "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("webtc إذن"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage(
             "شريط التنقل على شبكة الإنترنت"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("أدوات ويب"),

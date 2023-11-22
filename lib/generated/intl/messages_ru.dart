@@ -40,9 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("Произвольный"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Требуется аутентификация."),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Автоматически открывать чувствительный контент"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Резервное копирование и советы по безопасности"),
         "Banner": MessageLookupByLibrary.simpleMessage("Баннер"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Базовая модель"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Начать загрузку модели перевода"),
@@ -101,7 +104,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Без сжатия"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Ввод пробелов может быть запрещен ретрансляцией."),
+        "Event_Sign_Check":
+            MessageLookupByLibrary.simpleMessage("Проверка подписи Event"),
         "Face": MessageLookupByLibrary.simpleMessage("Распознавание лиц"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Быстрый режим"),
         "Filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -127,6 +133,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Создать новый ключ"),
         "Global": MessageLookupByLibrary.simpleMessage("Глобальный уровень"),
         "Globals": MessageLookupByLibrary.simpleMessage("Площадь"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("Цель"),
         "Hide": MessageLookupByLibrary.simpleMessage("Скрыть"),
         "Home": MessageLookupByLibrary.simpleMessage("Главная страница"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Я согласен."),
@@ -159,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Светлый"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Счет - фактура Молния"),
+        "Limit_Note_Height": MessageLookupByLibrary.simpleMessage(
+            "Ограничение динамической высоты"),
         "Link_preview": MessageLookupByLibrary.simpleMessage(
             "Предварительный просмотр ссылок"),
         "Lnurl_and_Lud16_can_t_found":
@@ -168,6 +177,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("Упоминание"),
         "Method": MessageLookupByLibrary.simpleMessage("Методы"),
         "More": MessageLookupByLibrary.simpleMessage("Больше."),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Расшифровка"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Шифрование"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Получение открытого ключа"),
+        "NIP07_getRelays": MessageLookupByLibrary.simpleMessage(
+            "Получение списка ретрансляторов"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Подпись"),
         "Name": MessageLookupByLibrary.simpleMessage("Имя"),
         "Network": MessageLookupByLibrary.simpleMessage("Сеть"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Нип05"),
@@ -235,6 +251,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ключ не может быть пустым"),
         "Quote": MessageLookupByLibrary.simpleMessage("Ссылки"),
         "Read": MessageLookupByLibrary.simpleMessage("Читать"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Тип ретрансляции"),
         "Relays": MessageLookupByLibrary.simpleMessage("Трансляция"),
         "Replying": MessageLookupByLibrary.simpleMessage("Отвечаю."),
         "Request": MessageLookupByLibrary.simpleMessage("Просьбы"),
@@ -250,6 +267,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Настройка"),
         "Share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "Show": MessageLookupByLibrary.simpleMessage("Показать"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Узнать больше"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Открыть страницу"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Ошибка подписи"),
         "Source": MessageLookupByLibrary.simpleMessage("Источник"),
@@ -290,6 +308,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ошибка проверки"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
             "Предварительный просмотр видео"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("Права WebRTC"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Панель веб - навигации"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Веб - инструменты"),

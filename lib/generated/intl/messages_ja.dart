@@ -36,9 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("アドレスを空にすることはできません。"),
         "Any": MessageLookupByLibrary.simpleMessage("任意"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("認証が必要"),
+        "Auto_Open_Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("機密コンテンツを自動的に開く"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("バックアップとセキュリティのヒント"),
         "Banner": MessageLookupByLibrary.simpleMessage("バナー"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("基本モード"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage("翻訳モデルのダウンロード開始"),
         "Block": MessageLookupByLibrary.simpleMessage("制限＃セイゲン＃"),
@@ -82,7 +85,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("圧縮しない"),
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("入力空白は中継禁止になる可能性があります。"),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("Event署名検証"),
         "Face": MessageLookupByLibrary.simpleMessage("顔認識"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("高速モード"),
         "Filter": MessageLookupByLibrary.simpleMessage("フィルタリング"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage("クラウド中継リストを見つけて、ダウンロードしますか。"),
@@ -103,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("新しい鍵を生成する"),
         "Global": MessageLookupByLibrary.simpleMessage("グローバル"),
         "Globals": MessageLookupByLibrary.simpleMessage("広場"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("ターゲット"),
         "Hide": MessageLookupByLibrary.simpleMessage("非表示"),
         "Home": MessageLookupByLibrary.simpleMessage("トップページ"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("私は受け入れる"),
@@ -130,6 +136,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Language": MessageLookupByLibrary.simpleMessage("言語"),
         "Light": MessageLookupByLibrary.simpleMessage("薄い色"),
         "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("電光インボイス"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("ダイナミック高さの制限"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("リンクプレビュー"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("LnurlとLud 16は見つかりませんでした。"),
@@ -138,6 +146,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("に言及"),
         "Method": MessageLookupByLibrary.simpleMessage("方法＃ホウホウ＃"),
         "More": MessageLookupByLibrary.simpleMessage("詳細"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("復号化"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("暗号化"),
+        "NIP07_getPublicKey": MessageLookupByLibrary.simpleMessage("公開鍵の取得"),
+        "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("中継リストの取得"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("署名する"),
         "Name": MessageLookupByLibrary.simpleMessage("の名前をあげる"),
         "Network": MessageLookupByLibrary.simpleMessage("ネットワーク"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -195,6 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("鍵を空にすることはできません"),
         "Quote": MessageLookupByLibrary.simpleMessage("参照＃サンショウ＃"),
         "Read": MessageLookupByLibrary.simpleMessage("読み取り"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("中継タイプ"),
         "Relays": MessageLookupByLibrary.simpleMessage("ちゅうけい"),
         "Replying": MessageLookupByLibrary.simpleMessage("返信中"),
         "Request": MessageLookupByLibrary.simpleMessage("リクエスト"),
@@ -210,6 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("設定＃セッテイ＃"),
         "Share": MessageLookupByLibrary.simpleMessage("分かち合う"),
         "Show": MessageLookupByLibrary.simpleMessage("表示"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("詳細を表示"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Webページを開く"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("署名に失敗しました"),
         "Source": MessageLookupByLibrary.simpleMessage("ソース"),
@@ -246,6 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_failure": MessageLookupByLibrary.simpleMessage("検証に失敗しました"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("リストビデオプレビュー"),
+        "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("WebRTC権限"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("Webナビゲーションバー"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Webツール"),
         "Website": MessageLookupByLibrary.simpleMessage("Webサイト"),

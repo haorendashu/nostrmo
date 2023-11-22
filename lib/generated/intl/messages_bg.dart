@@ -41,9 +41,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("произволно"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Изискване на удостоверяване"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Автоматично отваряне на чувствително съдържание"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Съвети за архивиране и сигурност"),
         "Banner": MessageLookupByLibrary.simpleMessage("банер"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Основен режим"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Стартиране на изтеглянето на модела за превод"),
@@ -104,13 +107,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Некомпресиран"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Входните заготовки могат да бъдат забранени от релето."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
+            "Проверка на подписа на събитието"),
         "Face": MessageLookupByLibrary.simpleMessage("откриване на лицето"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Бърз режим"),
         "Filter": MessageLookupByLibrary.simpleMessage("филтър"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
                 "Намерих списъка за предаване на облака, искаш ли да го свалиш?"),
-        "Fingerprint": MessageLookupByLibrary.simpleMessage(
-            "идентификация на пръстови отпечатъци"),
+        "Fingerprint": MessageLookupByLibrary.simpleMessage(""),
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Система за проследяване"),
         "Followed": MessageLookupByLibrary.simpleMessage("Следвай"),
@@ -131,8 +136,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Генериране на нов ключ"),
         "Global": MessageLookupByLibrary.simpleMessage("Глобален"),
         "Globals": MessageLookupByLibrary.simpleMessage("квадрат"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("цел"),
         "Hide": MessageLookupByLibrary.simpleMessage("скрий"),
-        "Home": MessageLookupByLibrary.simpleMessage("начална страница"),
+        "Home": MessageLookupByLibrary.simpleMessage(""),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Приемам"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage(
             "Компресиране на изображението"),
@@ -147,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Количество на входящите сателити"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Въведете количество Сатс за генериране на фактура Мрежа Светкавица"),
+                "Въведете броя на сателитите за генериране на мълния мрежови фактури"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Добавяне на ключ за сметка"),
         "Input_can_not_be_null": MessageLookupByLibrary.simpleMessage(
@@ -164,6 +170,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Светъл цвят"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Фактура за мълния"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Гранична динамична височина"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Преглед на връзката"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
@@ -173,6 +181,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("споменаване"),
         "Method": MessageLookupByLibrary.simpleMessage("метод"),
         "More": MessageLookupByLibrary.simpleMessage("повече"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Дешифриране"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("криптиране"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Получаване на публичен ключ"),
+        "NIP07_getRelays": MessageLookupByLibrary.simpleMessage(
+            "Получаване на списък с релетата"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("автограф"),
         "Name": MessageLookupByLibrary.simpleMessage("име"),
         "Network": MessageLookupByLibrary.simpleMessage("мрежа"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Нип05"),
@@ -201,8 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Password": MessageLookupByLibrary.simpleMessage("парола"),
         "Pay": MessageLookupByLibrary.simpleMessage("Плащане"),
         "Picture": MessageLookupByLibrary.simpleMessage("картина"),
-        "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
-            "Моля, приемете потребителското споразумение."),
+        "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(""),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
                 "Моля, потвърдете самоличността си, за да затворите ключалката за поверителност"),
@@ -215,14 +229,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Моля проверете напомнянето."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Моля, не разкривайте или споделяйте тайна на никого."),
+                "Моля, не разкривайте или споделяйте ключа с никого."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Моля въведете"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
             "Моля въведете съдържанието на темата"),
         "Please_input_event_id": MessageLookupByLibrary.simpleMessage(
             "Моля въведете идентификационния номер на събитието"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Моля въведете фактурата на Мрежата на Светкавицата"),
+            "Моля въведете фактурата за мълнията мрежа"),
         "Please_input_search_content": MessageLookupByLibrary.simpleMessage(
             "Моля въведете съдържанието на търсенето"),
         "Please_input_title":
@@ -230,8 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_input_user_pubkey": MessageLookupByLibrary.simpleMessage(
             "Моля въведете публичния ключ на потребителя"),
         "Please_keep_the_key_properly_for_account_recovery":
-            MessageLookupByLibrary.simpleMessage(
-                "Моля пазете ключа за възстановяване на сметката."),
+            MessageLookupByLibrary.simpleMessage(""),
         "Posts": MessageLookupByLibrary.simpleMessage("динамично"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Динамичен отговор"),
@@ -241,6 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ключът не може да бъде празен"),
         "Quote": MessageLookupByLibrary.simpleMessage("цитат"),
         "Read": MessageLookupByLibrary.simpleMessage("прочетено"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Тип реле"),
         "Relays": MessageLookupByLibrary.simpleMessage("реле"),
         "Replying": MessageLookupByLibrary.simpleMessage("Отговор в ход"),
         "Request": MessageLookupByLibrary.simpleMessage("искане"),
@@ -257,6 +271,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("настройване"),
         "Share": MessageLookupByLibrary.simpleMessage("дял"),
         "Show": MessageLookupByLibrary.simpleMessage("дисплей"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Виж повече"),
         "Show_web":
             MessageLookupByLibrary.simpleMessage("Отваряне на уеб страница"),
         "Sign_fail":
@@ -291,7 +306,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Грешка при качване"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Сканиране и изпращане на сателитни устройства с мрежов портфейл"),
+                "Сканиране и изпращане на сателитни данни с помощта на светкавичен портфейл"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Потребителски клавиш"),
         "Users": MessageLookupByLibrary.simpleMessage("хора"),
@@ -301,6 +316,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Проверката е неуспешна"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Преглед на видео от списък"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("Разрешения за WebRTC"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Уеб навигационна лента"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Уеб инструменти"),

@@ -40,9 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("godtyckligt"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Kräv autentisering"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Öppna känsligt innehåll automatiskt"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Säkerhetstips och säkerhetstips"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Grundläge"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Börja ladda ner översättningsmodell"),
@@ -98,7 +101,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Okomprimerad"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Inmatningsluckor kan förbjudas av reläet."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
+            "Verifiering av händelsesignatur"),
         "Face": MessageLookupByLibrary.simpleMessage("ansiktsdetektering"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Snabbläge"),
         "Filter": MessageLookupByLibrary.simpleMessage("filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -122,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Skapa en ny nyckel"),
         "Global": MessageLookupByLibrary.simpleMessage("Globalt"),
         "Globals": MessageLookupByLibrary.simpleMessage("kvadrat"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("Mål"),
         "Hide": MessageLookupByLibrary.simpleMessage("dölj"),
         "Home": MessageLookupByLibrary.simpleMessage("startsida"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Jag accepterar"),
@@ -137,7 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Inputsats kvantitet"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Ange antal satelliter för att generera Lightning Network-faktura"),
+                "Ange antalet satelliter för att generera blixtnätsfakturor"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Lägg till kontonyckel"),
         "Input_can_not_be_null":
@@ -154,6 +161,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Ljus färg"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Lightning faktura"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Begränsa dynamisk höjd"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Förhandsgranskning av länk"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
@@ -163,6 +172,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("omnämnande"),
         "Method": MessageLookupByLibrary.simpleMessage("metod"),
         "More": MessageLookupByLibrary.simpleMessage("mer"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Dekryptering"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("kryptering"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Hämta offentlig nyckel"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Hämta relälista"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autograf"),
         "Name": MessageLookupByLibrary.simpleMessage("namn"),
         "Network": MessageLookupByLibrary.simpleMessage("nätverk"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -204,14 +220,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kolla påminnelsen."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Vänligen avslöja inte eller dela hemlighet för någon."),
+                "Vänligen lämna inte ut eller dela nyckeln med någon."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Skriv in"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Ange temats innehåll"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Ange händelsens ID"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Ange Lightning Network-faktura"),
+            "Ange fakturan för blixtnätverket"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Ange sökinnehåll"),
         "Please_input_title":
@@ -229,6 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nyckeln kan inte vara tom"),
         "Quote": MessageLookupByLibrary.simpleMessage("citat"),
         "Read": MessageLookupByLibrary.simpleMessage("läs"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relätyp"),
         "Relays": MessageLookupByLibrary.simpleMessage("relä"),
         "Replying": MessageLookupByLibrary.simpleMessage("Svaret pågår"),
         "Request": MessageLookupByLibrary.simpleMessage("begäran"),
@@ -245,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("inrätta"),
         "Share": MessageLookupByLibrary.simpleMessage("andel"),
         "Show": MessageLookupByLibrary.simpleMessage("visa"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Visa mer"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Öppna webbsida"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Underskrift misslyckades"),
@@ -277,7 +295,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Överföring misslyckades"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skanna och skicka satelliter med Lightning Network Wallet"),
+                "Skanna och skicka satelliter med Lightning Wallet"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("User Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("människor"),
         "Verify_error":
@@ -286,6 +304,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verifiering misslyckades"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
             "Förhandsgranskning av listvideo"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("WebRTC- behörigheter"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Webbnavigeringsrad"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Webbverktyg"),

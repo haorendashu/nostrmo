@@ -40,9 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("mielivaltaisesti"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Vaati todentamista"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Avaa arkaluontoinen sisältö automaattisesti"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Varmuuskopiointi- ja tietoturvavinkit"),
         "Banner": MessageLookupByLibrary.simpleMessage("banneri"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Perustila"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Aloita käännösmallin lataaminen"),
@@ -98,7 +101,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Pakkaamaton"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Rele voi kieltää syöttöaukot."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
+            "Tapahtuman allekirjoituksen todentaminen"),
         "Face": MessageLookupByLibrary.simpleMessage("kasvojen tunnistus"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Pikatila"),
         "Filter": MessageLookupByLibrary.simpleMessage("suodatin"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -123,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Luo uusi avain"),
         "Global": MessageLookupByLibrary.simpleMessage("Maailmanlaajuinen"),
         "Globals": MessageLookupByLibrary.simpleMessage("neliö"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("tavoite"),
         "Hide": MessageLookupByLibrary.simpleMessage("piilota"),
         "Home": MessageLookupByLibrary.simpleMessage("Kotisivu"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Hyväksyn"),
@@ -137,7 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Syöttösätöjen määrä"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Anna Sats määrä luodaksesi Lightning Network -laskun"),
+                "Anna salaman verkkolaskujen tuottamiseen käytettävien satelliittien määrä"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Lisää tiliavain"),
         "Input_can_not_be_null":
@@ -154,6 +161,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Vaalea väri"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Salamalaiku"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Dynaamisen korkeuden raja"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Linkin esikatselu"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
@@ -163,6 +172,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("maininta"),
         "Method": MessageLookupByLibrary.simpleMessage("menetelmä"),
         "More": MessageLookupByLibrary.simpleMessage("lisää"),
+        "NIP07_decrypt":
+            MessageLookupByLibrary.simpleMessage("Salauksen purku"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("salaus"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Hanki julkinen avain"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Hae releluettelo"),
+        "NIP07_signEvent":
+            MessageLookupByLibrary.simpleMessage("nimikirjoitus"),
         "Name": MessageLookupByLibrary.simpleMessage("nimi"),
         "Network": MessageLookupByLibrary.simpleMessage("verkko"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -204,15 +222,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tarkistakaa muistutus."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Älä paljasta tai jaa salaisuutta kenellekään."),
+                "Älä paljasta tai jaa avainta kenellekään."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Ole hyvä ja syötä"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Anna teeman sisältö"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Anna tapahtuman tunnus"),
-        "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Anna Lightning Network -lasku"),
+        "Please_input_lnbc_text":
+            MessageLookupByLibrary.simpleMessage("Anna salamaverkon lasku"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Anna hakusisältö"),
         "Please_input_title":
@@ -230,6 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Avainta ei voi olla tyhjä"),
         "Quote": MessageLookupByLibrary.simpleMessage("lainaus"),
         "Read": MessageLookupByLibrary.simpleMessage("lue"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Reletyyppi"),
         "Relays": MessageLookupByLibrary.simpleMessage("rele"),
         "Replying": MessageLookupByLibrary.simpleMessage("Vastaus kesken"),
         "Request": MessageLookupByLibrary.simpleMessage("pyyntö"),
@@ -246,6 +265,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("perustaa"),
         "Share": MessageLookupByLibrary.simpleMessage("osuus"),
         "Show": MessageLookupByLibrary.simpleMessage("näyttö"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Katso lisää"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Avaa verkkosivu"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Allekirjoitus epäonnistui"),
@@ -278,7 +298,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lähetys epäonnistui"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skannaa ja lähetä satelliitteja Lightning Network Walletin avulla"),
+                "Skannaa ja lähetä satelliitteja Lightning Walletin avulla"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Käyttäjän Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("ihmiset"),
         "Verify_error":
@@ -287,6 +307,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tarkastus epäonnistui"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Luettelon videon esikatselu"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("WebRTC- oikeudet"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Verkkonavigointipalkki"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Verkkotyökalut"),

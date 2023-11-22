@@ -39,9 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("Bất kỳ"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Yêu cầu xác thực"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Tự động mở nội dung nhạy cảm"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Lời khuyên sao lưu và bảo mật"),
         "Banner": MessageLookupByLibrary.simpleMessage("Biểu ngữ"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Chế độ cơ bản"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Bắt đầu tải xuống mô hình dịch"),
@@ -97,7 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Không nén"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Nhập khoảng trắng có thể bị cấm chuyển tiếp."),
+        "Event_Sign_Check":
+            MessageLookupByLibrary.simpleMessage("Sự kiện Signature Check"),
         "Face": MessageLookupByLibrary.simpleMessage("Nhận diện khuôn mặt"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Chế độ nhanh"),
         "Filter": MessageLookupByLibrary.simpleMessage("Bộ lọc"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -122,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tạo một key mới"),
         "Global": MessageLookupByLibrary.simpleMessage("Toàn cầu"),
         "Globals": MessageLookupByLibrary.simpleMessage("Quảng trường"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("Mục tiêu"),
         "Hide": MessageLookupByLibrary.simpleMessage("Ẩn"),
         "Home": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Tôi chấp nhận"),
@@ -152,6 +159,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Màu sáng"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Hóa đơn Lightning"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Giới hạn chiều cao động"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Xem thử liên kết"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
@@ -161,6 +170,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("Đề cập"),
         "Method": MessageLookupByLibrary.simpleMessage("Phương pháp"),
         "More": MessageLookupByLibrary.simpleMessage("Thêm"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Giải mã"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Mã hóa"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Nhận public key"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Lấy danh sách chuyển tiếp"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Chữ ký"),
         "Name": MessageLookupByLibrary.simpleMessage("Tên"),
         "Network": MessageLookupByLibrary.simpleMessage("Mạng lưới"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -226,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Key không thể để trống"),
         "Quote": MessageLookupByLibrary.simpleMessage("Trích dẫn"),
         "Read": MessageLookupByLibrary.simpleMessage("Đọc"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Loại Relay"),
         "Relays": MessageLookupByLibrary.simpleMessage("Chuyển tiếp"),
         "Replying": MessageLookupByLibrary.simpleMessage("Trả lời"),
         "Request": MessageLookupByLibrary.simpleMessage("Yêu cầu"),
@@ -241,6 +258,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Thiết lập"),
         "Share": MessageLookupByLibrary.simpleMessage("Chia sẻ"),
         "Show": MessageLookupByLibrary.simpleMessage("Hiển thị"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Xem thêm"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Mở trang web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Chữ ký thất bại"),
         "Source": MessageLookupByLibrary.simpleMessage("Nguồn"),
@@ -282,6 +300,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Xác minh thất bại"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Xem trước video danh sách"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("Quyền WebRTC"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Thanh điều hướng trang web"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Công cụ Web"),

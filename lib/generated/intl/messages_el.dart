@@ -41,9 +41,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("αυθαίρετα"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Απαιτείται ταυτοποίηση"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Αυτόματο άνοιγμα ευαίσθητου περιεχομένου"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Συμβουλές ασφαλείας και ασφαλείας"),
         "Banner": MessageLookupByLibrary.simpleMessage("πανό"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Βασική λειτουργία"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Έναρξη λήψης μεταφραστικού μοντέλου"),
@@ -103,7 +106,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Μη συμπιεσμένα"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Τα κενά εισόδου μπορούν να απαγορεύονται από το ρελέ."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
+            "Επαλήθευση υπογραφής συμβάντος"),
         "Face": MessageLookupByLibrary.simpleMessage("ανίχνευση προσώπου"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Γρήγορη λειτουργία"),
         "Filter": MessageLookupByLibrary.simpleMessage("φίλτρο"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -131,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Δημιουργία νέου κλειδιού"),
         "Global": MessageLookupByLibrary.simpleMessage("Παγκόσμια"),
         "Globals": MessageLookupByLibrary.simpleMessage("τετράγωνο"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("στόχος"),
         "Hide": MessageLookupByLibrary.simpleMessage("Απόκρυψη"),
         "Home": MessageLookupByLibrary.simpleMessage("Αρχική σελίδα"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Δέχομαι"),
@@ -147,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ποσότητα Sats εισόδου"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Εισάγετε την ποσότητα Sats για να δημιουργήσετε τιμολόγιο δικτύου αστραπής"),
+                "Εισάγετε τον αριθμό των δορυφόρων για να δημιουργήσετε τιμολόγια δικτύου κεραυνού"),
         "Input_account_private_key": MessageLookupByLibrary.simpleMessage(
             "Προσθήκη κλειδιού λογαριασμού"),
         "Input_can_not_be_null": MessageLookupByLibrary.simpleMessage(
@@ -164,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Ελαφρύ χρώμα"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Τιμολόγιο αστραπής"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("Ορισμός δυναμικού ύψους"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Προεπισκόπηση σύνδεσης"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
@@ -173,6 +182,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("αναφορά"),
         "Method": MessageLookupByLibrary.simpleMessage("μέθοδος"),
         "More": MessageLookupByLibrary.simpleMessage("περισσότερα"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Κρυπτογράφηση"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("κρυπτογράφηση"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Λήψη δημόσιου κλειδιού"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Λήψη λίστας αναμετάδοσης"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("αυτόγραφο"),
         "Name": MessageLookupByLibrary.simpleMessage("όνομα"),
         "Network": MessageLookupByLibrary.simpleMessage("δίκτυο"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -215,7 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Παρακαλώ ελέγξτε την υπενθύμιση."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Παρακαλώ μην αποκαλύψετε ή μοιραστείτε μυστικό σε κανέναν."),
+                "Παρακαλώ μην αποκαλύψετε ή μοιραστείτε το κλειδί με κανέναν."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Παρακαλώ εισάγετε"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -223,7 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_input_event_id": MessageLookupByLibrary.simpleMessage(
             "Παρακαλώ εισάγετε το αναγνωριστικό εκδήλωσης"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Παρακαλώ εισάγετε τιμολόγιο δικτύου αστραπής"),
+            "Παρακαλώ εισάγετε το τιμολόγιο δικτύου κεραυνού"),
         "Please_input_search_content": MessageLookupByLibrary.simpleMessage(
             "Παρακαλώ εισάγετε περιεχόμενο αναζήτησης"),
         "Please_input_title": MessageLookupByLibrary.simpleMessage(
@@ -242,6 +258,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Το κλειδί δεν μπορεί να είναι άδειο"),
         "Quote": MessageLookupByLibrary.simpleMessage("απόσπασμα"),
         "Read": MessageLookupByLibrary.simpleMessage("ανάγνωση"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Τύπος ρελέ"),
         "Relays": MessageLookupByLibrary.simpleMessage("ρελέ"),
         "Replying": MessageLookupByLibrary.simpleMessage("Απάντηση σε εξέλιξη"),
         "Request": MessageLookupByLibrary.simpleMessage("αίτημα"),
@@ -257,6 +274,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("ρύθμιση"),
         "Share": MessageLookupByLibrary.simpleMessage("μερίδιο"),
         "Show": MessageLookupByLibrary.simpleMessage("οθόνη"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Δείτε περισσότερα"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Άνοιγμα ιστοσελίδας"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Αποτυχία υπογραφής"),
         "Source": MessageLookupByLibrary.simpleMessage("πηγή"),
@@ -289,7 +307,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Αποτυχία αποστολής"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Σάρωση και αποστολή δορυφόρων με το πορτοφόλι δικτύου"),
+                "Σάρωση και αποστολή δορυφόρων χρησιμοποιώντας το πορτοφόλι αστραπής"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Pubkey χρήστη"),
         "Users": MessageLookupByLibrary.simpleMessage("άνθρωποι"),
         "Verify_error":
@@ -298,6 +316,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Αποτυχία επαλήθευσης"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Προεπισκόπηση βίντεο λίστας"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("Δικαιώματα WebRTC"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Γραμμή πλοήγησης ιστού"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Εργαλεία ιστού"),

@@ -36,9 +36,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("주소는 비워둘 수 없습니다."),
         "Any": MessageLookupByLibrary.simpleMessage("임의"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("인증 필요"),
+        "Auto_Open_Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("민감한 컨텐츠 자동 열기"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("백업 및 보안 팁"),
         "Banner": MessageLookupByLibrary.simpleMessage("배너"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("기본 모드"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage("번역 모델 다운로드 시작"),
         "Block": MessageLookupByLibrary.simpleMessage("제한 사항"),
@@ -80,7 +83,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("비압축"),
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("공백을 입력하면 트렁크에서 사용할 수 없습니다."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("이벤트 서명 확인"),
         "Face": MessageLookupByLibrary.simpleMessage("얼굴 인식"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("빠른 모드"),
         "Filter": MessageLookupByLibrary.simpleMessage("필터링"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -101,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("새 키 생성"),
         "Global": MessageLookupByLibrary.simpleMessage("글로벌"),
         "Globals": MessageLookupByLibrary.simpleMessage("광장"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("목표"),
         "Hide": MessageLookupByLibrary.simpleMessage("숨기기"),
         "Home": MessageLookupByLibrary.simpleMessage("첫 페이지"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("받아들일게요"),
@@ -126,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Language": MessageLookupByLibrary.simpleMessage("언어"),
         "Light": MessageLookupByLibrary.simpleMessage("연한 색"),
         "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("번개 송장"),
+        "Limit_Note_Height": MessageLookupByLibrary.simpleMessage("동적 높이 제한"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("링크 미리 보기"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl 및 Lud16을 찾을 수 없습니다."),
@@ -134,6 +141,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("언급"),
         "Method": MessageLookupByLibrary.simpleMessage("방법"),
         "More": MessageLookupByLibrary.simpleMessage("추가"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("복호화"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("암호화"),
+        "NIP07_getPublicKey": MessageLookupByLibrary.simpleMessage("공개 키 가져오기"),
+        "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("트렁크 목록 가져오기"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("서명"),
         "Name": MessageLookupByLibrary.simpleMessage("이름"),
         "Network": MessageLookupByLibrary.simpleMessage("인터넷"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -190,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("키는 비워둘 수 없습니다."),
         "Quote": MessageLookupByLibrary.simpleMessage("참조"),
         "Read": MessageLookupByLibrary.simpleMessage("읽다"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("트렁크 유형"),
         "Relays": MessageLookupByLibrary.simpleMessage("중계"),
         "Replying": MessageLookupByLibrary.simpleMessage("응답 중"),
         "Request": MessageLookupByLibrary.simpleMessage("요청"),
@@ -204,6 +217,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("설치"),
         "Share": MessageLookupByLibrary.simpleMessage("공유"),
         "Show": MessageLookupByLibrary.simpleMessage("표시"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("자세히 보기"),
         "Show_web": MessageLookupByLibrary.simpleMessage("웹 페이지 열기"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("서명 실패"),
         "Source": MessageLookupByLibrary.simpleMessage("출처"),
@@ -239,6 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_failure": MessageLookupByLibrary.simpleMessage("인증 실패"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("목록 비디오 미리 보기"),
+        "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("WebRTC 권한"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("웹 탐색 모음"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("웹 도구"),
         "Website": MessageLookupByLibrary.simpleMessage("사이트"),

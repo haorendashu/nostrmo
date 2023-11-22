@@ -39,9 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("meelevaldselt"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Autentimise nõudmine"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Tundliku sisu automaatne avamine"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Varundamis- ja turvanõuanded"),
         "Banner": MessageLookupByLibrary.simpleMessage("bander"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Põhirežiim"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Alusta tõlkemudeli allalaadimist"),
@@ -97,7 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Pakkimata"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Relee võib keelata sisendtühikud."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
+            "Sündmuse allkirja kontrollimine"),
         "Face": MessageLookupByLibrary.simpleMessage("näotuvastus"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Kiirrežiim"),
         "Filter": MessageLookupByLibrary.simpleMessage("filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -123,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Loo uus võti"),
         "Global": MessageLookupByLibrary.simpleMessage("Globaalne"),
         "Globals": MessageLookupByLibrary.simpleMessage("ruut"),
+        "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("sihtmärk"),
         "Hide": MessageLookupByLibrary.simpleMessage("peita"),
         "Home": MessageLookupByLibrary.simpleMessage("Avaleht"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ma nõustun"),
@@ -138,7 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sisendsatelliitide kogus"),
         "Input_Sats_num_to_gen_lightning_invoice":
             MessageLookupByLibrary.simpleMessage(
-                "Sisesta satelliidi kogus Lightning Network arve genereerimiseks"),
+                "Sisesta välguvõrguarvete genereerimiseks vajalike satelliitide arv"),
         "Input_account_private_key":
             MessageLookupByLibrary.simpleMessage("Lisa konto võti"),
         "Input_can_not_be_null":
@@ -153,6 +160,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Language": MessageLookupByLibrary.simpleMessage("keel"),
         "Light": MessageLookupByLibrary.simpleMessage("Hele värv"),
         "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("Välkearve"),
+        "Limit_Note_Height": MessageLookupByLibrary.simpleMessage(
+            "Dünaamilise kõrguse piirmäär"),
         "Link_preview":
             MessageLookupByLibrary.simpleMessage("Lingi eelvaatlus"),
         "Lnurl_and_Lud16_can_t_found":
@@ -162,6 +171,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("mainida"),
         "Method": MessageLookupByLibrary.simpleMessage("meetod"),
         "More": MessageLookupByLibrary.simpleMessage("rohkem"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Dekrüptimine"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("krüpteerimine"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Avaliku võtme hankimine"),
+        "NIP07_getRelays": MessageLookupByLibrary.simpleMessage(""),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autogramm"),
         "Name": MessageLookupByLibrary.simpleMessage("nimi"),
         "Network": MessageLookupByLibrary.simpleMessage("võrk"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -203,14 +218,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Palun kontrollige meeldetuletust."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Palun ärge avaldage ega jagage saladust kellelegi."),
+                "Palun ärge avalikustage ega jagage võtit kellegagi."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Palun sisesta"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Palun sisesta teema sisu"),
         "Please_input_event_id":
             MessageLookupByLibrary.simpleMessage("Palun sisesta sündmuse ID"),
         "Please_input_lnbc_text": MessageLookupByLibrary.simpleMessage(
-            "Palun sisesta Lightning Network arve"),
+            "Palun sisesta välguvõrgu arve"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Palun sisesta otsingu sisu"),
         "Please_input_title":
@@ -229,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Võti ei saa olla tühi"),
         "Quote": MessageLookupByLibrary.simpleMessage("tsitaat"),
         "Read": MessageLookupByLibrary.simpleMessage("lugeda"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relee tüüp"),
         "Relays": MessageLookupByLibrary.simpleMessage("relee"),
         "Replying": MessageLookupByLibrary.simpleMessage("Vastus pooleli"),
         "Request": MessageLookupByLibrary.simpleMessage("taotlus"),
@@ -244,6 +260,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("seadistada"),
         "Share": MessageLookupByLibrary.simpleMessage("osa"),
         "Show": MessageLookupByLibrary.simpleMessage("ekraan"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Vaata rohkem"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Ava veebileht"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Allkiri nurjus"),
         "Source": MessageLookupByLibrary.simpleMessage("allikas"),
@@ -285,6 +302,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kontrollimine nurjus"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Loendivideo eelvaatlus"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("WebRTC luba"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Veebinavigatsiooniriba"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Veebitööriistad"),

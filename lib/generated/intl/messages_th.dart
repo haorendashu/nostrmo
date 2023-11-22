@@ -40,9 +40,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("ใด ๆ"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("จำเป็นต้องมีการยืนยันตัวตน"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "เปิดเนื้อหาที่สำคัญโดยอัตโนมัติ"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "เคล็ดลับการสำรองข้อมูลและความปลอดภัย"),
         "Banner": MessageLookupByLibrary.simpleMessage("แบนเนอร์"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("โหมดพื้นฐาน"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage("เริ่มดาวน์โหลดรูปแบบการแปล"),
         "Block": MessageLookupByLibrary.simpleMessage("ข้อ จำกัด"),
@@ -95,7 +98,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("ไม่มีการบีบอัด"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "การป้อนข้อมูลว่างอาจถูกห้ามโดยการถ่ายทอด"),
+        "Event_Sign_Check":
+            MessageLookupByLibrary.simpleMessage("การตรวจสอบลายเซ็น Event"),
         "Face": MessageLookupByLibrary.simpleMessage("การจดจำใบหน้า"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("โหมดด่วน"),
         "Filter": MessageLookupByLibrary.simpleMessage("การกรอง"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -118,6 +124,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("สร้างกุญแจใหม่"),
         "Global": MessageLookupByLibrary.simpleMessage("ทั่วโลก"),
         "Globals": MessageLookupByLibrary.simpleMessage("สแควร์"),
+        "Goal_Amount_In_Sats":
+            MessageLookupByLibrary.simpleMessage("วัตถุประสงค์"),
         "Hide": MessageLookupByLibrary.simpleMessage("ซ่อนไว้"),
         "Home": MessageLookupByLibrary.simpleMessage("หน้าหลัก"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("ฉันยอมรับ"),
@@ -149,6 +157,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("สีอ่อน"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("ใบแจ้งหนี้ Lightning"),
+        "Limit_Note_Height":
+            MessageLookupByLibrary.simpleMessage("จำกัด ความสูงแบบไดนามิก"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("ตัวอย่างลิงค์"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl และ Lud16 ไม่พบ"),
@@ -157,6 +167,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("กล่าวถึง"),
         "Method": MessageLookupByLibrary.simpleMessage("วิธีการ"),
         "More": MessageLookupByLibrary.simpleMessage("มากกว่า"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("ถอดรหัส"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("การเข้ารหัส"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("รับกุญแจสาธารณะ"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("รับรายการรีเลย์"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("ลายเซ็น"),
         "Name": MessageLookupByLibrary.simpleMessage("ชื่อ"),
         "Network": MessageLookupByLibrary.simpleMessage("เครือข่าย"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -224,6 +241,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("กุญแจต้องไม่ว่างเปล่า"),
         "Quote": MessageLookupByLibrary.simpleMessage("การอ้างอิง"),
         "Read": MessageLookupByLibrary.simpleMessage("อ่าน"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("ประเภทรีเลย์"),
         "Relays": MessageLookupByLibrary.simpleMessage("รีเลย์"),
         "Replying": MessageLookupByLibrary.simpleMessage("กำลังตอบกลับ"),
         "Request": MessageLookupByLibrary.simpleMessage("คำขอ"),
@@ -239,6 +257,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("การตั้งค่า"),
         "Share": MessageLookupByLibrary.simpleMessage("แบ่งปัน"),
         "Show": MessageLookupByLibrary.simpleMessage("แสดง"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("ดูเพิ่มเติม"),
         "Show_web": MessageLookupByLibrary.simpleMessage("เปิดหน้าเว็บ"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("ลายเซ็นล้มเหลว"),
         "Source": MessageLookupByLibrary.simpleMessage("แหล่งที่มา"),
@@ -278,6 +297,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("การตรวจสอบล้มเหลว"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("รายการวิดีโอตัวอย่าง"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("สิทธิ์ของ WebRTC"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("แถบนำทางเว็บ"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("เครื่องมือหน้าเว็บ"),
         "Website": MessageLookupByLibrary.simpleMessage("เว็บไซต์"),

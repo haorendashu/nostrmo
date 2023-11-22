@@ -41,9 +41,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Any": MessageLookupByLibrary.simpleMessage("Arbitraire"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Authentification requise"),
+        "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
+            "Ouverture automatique des contenus sensibles"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Conseils de sauvegarde et de sécurité"),
         "Banner": MessageLookupByLibrary.simpleMessage("Bannières"),
+        "Base_Mode": MessageLookupByLibrary.simpleMessage("Mode de base"),
         "Begin_to_download_translate_model":
             MessageLookupByLibrary.simpleMessage(
                 "Commencez à télécharger le modèle de traduction"),
@@ -103,8 +106,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sans compression"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Les blancs d\'entrée peuvent être interdits par le relais."),
+        "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
+            "Vérification de signature Event"),
         "Face":
             MessageLookupByLibrary.simpleMessage("Reconnaissance du visage"),
+        "Fast_Mode": MessageLookupByLibrary.simpleMessage("Mode rapide"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filtration"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -132,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Générer une nouvelle clé"),
         "Global": MessageLookupByLibrary.simpleMessage("Dans le monde entier"),
         "Globals": MessageLookupByLibrary.simpleMessage("La place"),
+        "Goal_Amount_In_Sats":
+            MessageLookupByLibrary.simpleMessage("Objectifs"),
         "Hide": MessageLookupByLibrary.simpleMessage("Cacher"),
         "Home": MessageLookupByLibrary.simpleMessage("Accueil"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("J\'accepte"),
@@ -165,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light": MessageLookupByLibrary.simpleMessage("Couleur claire"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Facture Lightning"),
+        "Limit_Note_Height": MessageLookupByLibrary.simpleMessage(
+            "Limiter la hauteur dynamique"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("Aperçu du lien"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl et lud16 n\'ont pas pu être trouvés."),
@@ -173,6 +183,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("Mention"),
         "Method": MessageLookupByLibrary.simpleMessage("La méthode"),
         "More": MessageLookupByLibrary.simpleMessage("Plus"),
+        "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Décrypter"),
+        "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Cryptage"),
+        "NIP07_getPublicKey":
+            MessageLookupByLibrary.simpleMessage("Obtenir la clé publique"),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Obtenir une liste de relais"),
+        "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Signature"),
         "Name": MessageLookupByLibrary.simpleMessage("Le nom"),
         "Network": MessageLookupByLibrary.simpleMessage("Réseau"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Le nip05"),
@@ -240,6 +257,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "La clé ne peut pas être vide"),
         "Quote": MessageLookupByLibrary.simpleMessage("Citations"),
         "Read": MessageLookupByLibrary.simpleMessage("Lire"),
+        "Relay_Mode": MessageLookupByLibrary.simpleMessage("Type de relais"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relais"),
         "Replying": MessageLookupByLibrary.simpleMessage("Répondre"),
         "Request": MessageLookupByLibrary.simpleMessage("Demande"),
@@ -255,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Paramètres"),
         "Share": MessageLookupByLibrary.simpleMessage("Partager"),
         "Show": MessageLookupByLibrary.simpleMessage("Afficher"),
+        "Show_more": MessageLookupByLibrary.simpleMessage("Voir plus"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Ouvrir une page Web"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("La signature a échoué"),
@@ -297,6 +316,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("La vérification a échoué"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Liste aperçu vidéo"),
+        "WebRTC_Permission":
+            MessageLookupByLibrary.simpleMessage("Autorisations webrtc"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Barre de navigation Web"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Outils Web"),
