@@ -246,7 +246,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         value: getRelayMode(settingProvider.relayMode).name,
         onTap: pickRelayModes,
       ));
-      if (settingProvider.relayMode != RelayMode.FAST_MODE) {
+      if (settingProvider.relayMode != RelayMode.BASE_MODE) {
         list.add(SettingGroupItemComponent(
           name: s.Event_Sign_Check,
           value: getOpenListDefault(settingProvider.eventSignCheck).name,
