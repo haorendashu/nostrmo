@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
@@ -12,6 +14,7 @@ import '../../client/nip19/nip19.dart';
 import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
+import '../../main.dart';
 import '../../util/platform_util.dart';
 import '../event/event_quote_component.dart';
 import '../webview_router.dart';
@@ -126,11 +129,25 @@ class _ContentComponent extends State<ContentComponent> {
 
   late StringBuffer counter;
 
+  /// this list use to hold the real text, exclude the the text had bean decoded to embed.
+  List<String> textList = [];
+
+  double smallTextSize = 13;
+
+  double iconWidgetWidth = 14;
+
+  Color? hintColor;
+
+  TextSpan? translateTips;
+
   @override
   Widget build(BuildContext context) {
     var s = S.of(context);
     var themeData = Theme.of(context);
+    smallTextSize = themeData.textTheme.bodySmall!.fontSize!;
     var fontSize = themeData.textTheme.bodyLarge!.fontSize!;
+    iconWidgetWidth = fontSize + 4;
+    hintColor = themeData.hintColor;
     var settingProvider = Provider.of<SettingProvider>(context);
     mdh1Style = TextStyle(
       fontSize: fontSize + 1,
@@ -150,8 +167,23 @@ class _ContentComponent extends State<ContentComponent> {
     }
 
     counter = StringBuffer(widget.content!);
+    textList.clear();
+
+    if (targetTextMap.isNotEmpty) {
+      translateTips = TextSpan(
+        text: " <- ${targetLanguage!.bcpCode} | ${sourceLanguage!.bcpCode} -> ",
+        style: TextStyle(
+          color: hintColor,
+        ),
+      );
+    }
 
     var main = decodeContent();
+
+    // decode complete, begin to checkAndTranslate
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkAndTranslate();
+    });
 
     if (widget.imageListMode &&
         settingProvider.limitNoteHeight != OpenStatus.CLOSE) {
@@ -241,6 +273,40 @@ class _ContentComponent extends State<ContentComponent> {
     List<String> images = [];
     var buffer = StringBuffer();
     contentDecoderInfo = decodeTest(widget.content!);
+
+    if (targetTextMap.isNotEmpty) {
+      // has bean translate
+      var iconBtn = WidgetSpan(
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              showSource = !showSource;
+              if (!showSource) {
+                translateTips = null;
+              }
+            });
+          },
+          child: Container(
+            margin: const EdgeInsets.only(
+              left: MARGIN,
+              right: MARGIN,
+            ),
+            height: iconWidgetWidth,
+            width: iconWidgetWidth,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1, color: hintColor!),
+              borderRadius: BorderRadius.circular(iconWidgetWidth / 2),
+            ),
+            child: Icon(
+              Icons.translate,
+              size: smallTextSize,
+              color: hintColor,
+            ),
+          ),
+        ),
+      );
+      allList.add(iconBtn);
+    }
 
     var lineStrs = contentDecoderInfo!.strs;
     var lineLength = lineStrs.length;
@@ -640,14 +706,28 @@ class _ContentComponent extends State<ContentComponent> {
       }
     }
 
-    allList.add(TextSpan(text: text, style: currentTextStyle));
+    _addTextToList(text, allList);
   }
 
   void _onlyBufferToList(StringBuffer buffer, List<InlineSpan> allList) {
-    var t = buffer.toString();
-    if (StringUtil.isNotBlank(t)) {
-      allList.add(TextSpan(text: t, style: currentTextStyle));
-      buffer.clear();
+    var text = buffer.toString();
+    buffer.clear();
+    if (StringUtil.isNotBlank(text)) {
+      _addTextToList(text, allList);
+    }
+  }
+
+  void _addTextToList(String text, List<InlineSpan> allList) {
+    textList.add(text);
+    var targetText = targetTextMap[text];
+    if (targetText == null) {
+      allList.add(TextSpan(text: text, style: currentTextStyle));
+    } else {
+      allList.add(TextSpan(text: targetText, style: currentTextStyle));
+      if (showSource && translateTips != null) {
+        allList.add(translateTips!);
+        allList.add(TextSpan(text: text, style: currentTextStyle));
+      }
     }
   }
 
@@ -700,6 +780,106 @@ class _ContentComponent extends State<ContentComponent> {
   void counterAddLines(int lineNum) {
     for (var i = 0; i < lineNum; i++) {
       counter.write(NL);
+    }
+  }
+
+  static const double MARGIN = 4;
+
+  Map<String, String> targetTextMap = {};
+
+  String sourceText = "";
+
+  TranslateLanguage? sourceLanguage;
+
+  TranslateLanguage? targetLanguage;
+
+  bool showSource = false;
+
+  Future<void> checkAndTranslate() async {
+    var newSourceText = "";
+    newSourceText = textList.join();
+
+    if (newSourceText.length > 1000) {
+      return;
+    }
+
+    if (settingProvider.openTranslate != OpenStatus.OPEN) {
+      // is close
+      if (targetTextMap.isNotEmpty) {
+        // set targetTextMap to null
+        setState(() {
+          targetTextMap.clear();
+        });
+      }
+      return;
+    } else {
+      // is open
+      // check targetTextMap
+      if (targetTextMap.isNotEmpty) {
+        // targetText had bean translated
+        if (targetLanguage != null &&
+            targetLanguage!.bcpCode == settingProvider.translateTarget &&
+            newSourceText == sourceText) {
+          // and currentTargetLanguage = settingTranslate
+          return;
+        }
+      }
+    }
+
+    var translateTarget = settingProvider.translateTarget;
+    if (StringUtil.isBlank(translateTarget)) {
+      return;
+    }
+    targetLanguage = BCP47Code.fromRawValue(translateTarget!);
+    if (targetLanguage == null) {
+      return;
+    }
+
+    LanguageIdentifier? languageIdentifier;
+    OnDeviceTranslator? onDeviceTranslator;
+
+    sourceText = newSourceText;
+
+    try {
+      languageIdentifier = LanguageIdentifier(confidenceThreshold: 0.5);
+      final List<IdentifiedLanguage> possibleLanguages =
+          await languageIdentifier.identifyPossibleLanguages(newSourceText);
+
+      if (possibleLanguages.isNotEmpty) {
+        var pl = possibleLanguages[0];
+        if (!settingProvider.translateSourceArgsCheck(pl.languageTag)) {
+          if (targetTextMap.isNotEmpty) {
+            // set targetText to null
+            setState(() {
+              targetTextMap.clear();
+            });
+          }
+          return;
+        }
+
+        sourceLanguage = BCP47Code.fromRawValue(pl.languageTag);
+      }
+
+      if (sourceLanguage != null) {
+        onDeviceTranslator = OnDeviceTranslator(
+            sourceLanguage: sourceLanguage!, targetLanguage: targetLanguage!);
+
+        for (var text in textList) {
+          var result = await onDeviceTranslator.translateText(text);
+          if (StringUtil.isNotBlank(result)) {
+            targetTextMap[text] = result;
+          }
+        }
+
+        setState(() {});
+      }
+    } finally {
+      if (languageIdentifier != null) {
+        languageIdentifier.close();
+      }
+      if (onDeviceTranslator != null) {
+        onDeviceTranslator.close();
+      }
     }
   }
 }

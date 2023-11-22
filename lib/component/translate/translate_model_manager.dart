@@ -24,7 +24,7 @@ class TranslateModelManager {
       var bcpCode = lan.bcpCode;
       if (!await modelManager!.isModelDownloaded(bcpCode)) {
         log("begin to download model $bcpCode");
-        await modelManager!.downloadModel(bcpCode);
+        await modelManager!.downloadModel(bcpCode, isWifiRequired: false);
       } else {
         log("model $bcpCode had bean downloaded");
       }
@@ -35,7 +35,7 @@ class TranslateModelManager {
     for (var bcpCode in bcpCodes) {
       if (!await modelManager!.isModelDownloaded(bcpCode)) {
         log("begin to download model $bcpCode");
-        await modelManager!.downloadModel(bcpCode);
+        await modelManager!.downloadModel(bcpCode, isWifiRequired: false);
       } else {
         log("model $bcpCode had bean downloaded");
       }
