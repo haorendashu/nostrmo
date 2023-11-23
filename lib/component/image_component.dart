@@ -34,6 +34,9 @@ class ImageComponent extends StatelessWidget {
       } else if (imageUrl.startsWith("https://nostr.build/i/")) {
         imageUrl = imageUrl.replaceFirst(
             "https://nostr.build/i/", "https://image.nostr.build/");
+      } else if (imageUrl.startsWith("https://cdn.nostr.build/i/")) {
+        imageUrl = imageUrl.replaceFirst(
+            "https://cdn.nostr.build/i/", "https://image.nostr.build/");
       }
     }
 
