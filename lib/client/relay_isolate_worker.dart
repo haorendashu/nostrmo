@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:isolate';
 
+import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:nostrmo/client/event.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'relay_isolate.dart';
@@ -16,6 +18,13 @@ class RelayIsolateWorker {
   });
 
   void run() {
+    if (StringUtil.isNotBlank(config.network)) {
+      // handle isolate network
+      var network = config.network;
+      network = network!.trim();
+      SocksProxy.initProxy(proxy: network);
+    }
+
     ReceivePort mainToSubReceivePort = ReceivePort();
     var mainToSubSendPort = mainToSubReceivePort.sendPort;
     config.subToMainSendPort.send(mainToSubSendPort);

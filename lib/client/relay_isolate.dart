@@ -45,6 +45,7 @@ class RelayIsolate extends Relay {
           url: url,
           subToMainSendPort: subToMainReceivePort!.sendPort,
           eventCheck: settingProvider.eventSignCheck == OpenStatus.OPEN,
+          network: settingProvider.network,
         ),
       );
       // isolate has run and return a completer.future, wait for subToMain msg to complete this completer.
@@ -136,11 +137,13 @@ class RelayIsolateConfig {
   final String url;
   final SendPort subToMainSendPort;
   final bool eventCheck;
+  String? network;
 
   RelayIsolateConfig({
     required this.url,
     required this.subToMainSendPort,
     required this.eventCheck,
+    this.network,
   });
 }
 
