@@ -410,10 +410,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_inapp_purchase
-      sha256: "64d3a028d4b68c366c04c545262367a6c0c03704fa28bf9c547cb2dd4fe80c50"
+      sha256: eb814114bd7d84dd2fb8b09d30574844b3cf10e9831fdffcfc2195508e3dec1a
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.1"
+    version: "5.6.0"
   flutter_inappwebview:
     dependency: "direct main"
     description:
