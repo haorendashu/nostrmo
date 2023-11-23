@@ -9,6 +9,7 @@ import '../../main.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import '../../util/when_stop_function.dart';
+import '../image_component.dart';
 import 'search_mention_component.dart';
 
 class SearchMentionUserComponent extends StatefulWidget {
@@ -97,14 +98,12 @@ class SearchMentionUserItemComponent extends StatelessWidget {
 
     Widget? imageWidget;
     if (StringUtil.isNotBlank(metadata.picture)) {
-      imageWidget = CachedNetworkImage(
+      imageWidget = ImageComponent(
         imageUrl: metadata.picture!,
         width: IMAGE_WIDTH,
         height: IMAGE_WIDTH,
         fit: BoxFit.cover,
         placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-        cacheManager: localCacheManager,
       );
     }
 

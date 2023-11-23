@@ -16,6 +16,7 @@ import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
+import '../image_component.dart';
 
 class EventTopComponent extends StatefulWidget {
   Event event;
@@ -70,14 +71,12 @@ class _EventTopComponent extends State<EventTopComponent> {
         Widget? imageWidget;
         if (metadata != null) {
           if (StringUtil.isNotBlank(metadata.picture)) {
-            imageWidget = CachedNetworkImage(
+            imageWidget = ImageComponent(
               imageUrl: metadata.picture!,
               width: IMAGE_WIDTH,
               height: IMAGE_WIDTH,
               fit: BoxFit.cover,
               placeholder: (context, url) => const CircularProgressIndicator(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              cacheManager: localCacheManager,
             );
           }
         }

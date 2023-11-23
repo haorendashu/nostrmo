@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import '../../client/client_utils/keys.dart';
 import '../../client/nip19/nip19.dart';
 import '../../component/comfirm_dialog.dart';
+import '../../component/image_component.dart';
 import '../../consts/base.dart';
 import '../../data/dm_session_info_db.dart';
 import '../../data/event_db.dart';
@@ -280,14 +281,12 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
       Widget? imageWidget;
       if (metadata != null) {
         if (StringUtil.isNotBlank(metadata.picture)) {
-          imageWidget = CachedNetworkImage(
+          imageWidget = ImageComponent(
             imageUrl: metadata.picture!,
             width: IMAGE_WIDTH,
             height: IMAGE_WIDTH,
             fit: BoxFit.cover,
             placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            cacheManager: localCacheManager,
           );
         }
       }

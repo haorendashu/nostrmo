@@ -32,6 +32,7 @@ import '../../router/index/index_app_bar.dart';
 import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
+import '../image_component.dart';
 import 'cust_embed_types.dart';
 import 'custom_emoji_add_dialog.dart';
 import 'gen_lnbc_component.dart';
@@ -737,13 +738,11 @@ mixin EditorMixin {
               // child: ContentCustomEmojiComponent(imagePath: emoji.filepath!),
               child: Container(
                 constraints: BoxConstraints(maxWidth: 80, maxHeight: 80),
-                child: CachedNetworkImage(
+                child: ImageComponent(
                   // width: fontSize! * 2,
                   imageUrl: emoji.filepath!,
                   // fit: imageBoxFix,
                   placeholder: (context, url) => Container(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  cacheManager: localCacheManager,
                 ),
               ),
             ));

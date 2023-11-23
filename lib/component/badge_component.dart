@@ -6,6 +6,7 @@ import '../client/nip58/badge_definition.dart';
 import '../main.dart';
 import '../provider/badge_definition_provider.dart';
 import '../util/string_util.dart';
+import 'image_component.dart';
 
 class BedgeComponent extends StatelessWidget {
   static const double IMAGE_WIDTH = 28;
@@ -25,14 +26,12 @@ class BedgeComponent extends StatelessWidget {
 
     Widget? imageWidget;
     if (StringUtil.isNotBlank(imagePath)) {
-      imageWidget = CachedNetworkImage(
+      imageWidget = ImageComponent(
         imageUrl: imagePath!,
         width: IMAGE_WIDTH,
         height: IMAGE_WIDTH,
         fit: BoxFit.cover,
         placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-        cacheManager: localCacheManager,
       );
     }
 

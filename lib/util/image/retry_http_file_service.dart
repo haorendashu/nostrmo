@@ -7,8 +7,10 @@ import 'package:flutter_cache_manager/src/web/file_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/hash_util.dart';
+import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base64.dart';
+import '../platform_util.dart';
 
 class RetryHttpFileServcie extends FileService {
   final http.Client _httpClient;
@@ -26,11 +28,22 @@ class RetryHttpFileServcie extends FileService {
         return Baes64FileResponse(BASE64.toData(url));
       }
 
-      final req = http.Request('GET', Uri.parse(url));
+      var req = http.Request('GET', Uri.parse(url));
       if (headers != null) {
         req.headers.addAll(headers);
       }
-      final httpResponse = await _httpClient.send(req);
+      var httpResponse = await _httpClient.send(req);
+      if (PlatformUtil.isWeb() && httpResponse.statusCode == 301) {
+        var location = httpResponse.headers["Location"];
+        if (StringUtil.isNotBlank(location)) {
+          url = location!;
+          var req = http.Request('GET', Uri.parse(url));
+          if (headers != null) {
+            req.headers.addAll(headers);
+          }
+          httpResponse = await _httpClient.send(req);
+        }
+      }
 
       var response = HttpGetResponse(httpResponse);
       if (response.statusCode > 299) {

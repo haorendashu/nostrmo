@@ -20,6 +20,7 @@ import '../provider/metadata_provider.dart';
 import '../util/router_util.dart';
 import '../util/store_util.dart';
 import '../util/string_util.dart';
+import 'image_component.dart';
 
 class QrcodeDialog extends StatefulWidget {
   String pubkey;
@@ -60,14 +61,12 @@ class _QrcodeDialog extends State<QrcodeDialog> {
       builder: (context, metadata, child) {
         Widget? imageWidget;
         if (metadata != null && StringUtil.isNotBlank(metadata.picture)) {
-          imageWidget = CachedNetworkImage(
+          imageWidget = ImageComponent(
             imageUrl: metadata.picture!,
             width: IMAGE_WIDTH,
             height: IMAGE_WIDTH,
             fit: BoxFit.cover,
             placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-            cacheManager: localCacheManager,
           );
         }
 

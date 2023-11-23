@@ -23,6 +23,7 @@ import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../util/string_util.dart';
 import '../comfirm_dialog.dart';
+import '../image_component.dart';
 import '../image_preview_dialog.dart';
 import 'metadata_component.dart';
 
@@ -109,25 +110,22 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     Widget? imageWidget;
     if (widget.metadata != null &&
         StringUtil.isNotBlank(widget.metadata!.picture)) {
-      imageWidget = CachedNetworkImage(
+      imageWidget = ImageComponent(
         imageUrl: widget.metadata!.picture!,
         width: IMAGE_WIDTH,
         height: IMAGE_WIDTH,
         fit: BoxFit.cover,
         placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-        cacheManager: localCacheManager,
       );
     }
     Widget? bannerImage;
     if (widget.metadata != null &&
         StringUtil.isNotBlank(widget.metadata!.banner)) {
-      bannerImage = CachedNetworkImage(
+      bannerImage = ImageComponent(
         imageUrl: widget.metadata!.banner!,
         width: maxWidth,
         height: bannerHeight,
         fit: BoxFit.cover,
-        cacheManager: localCacheManager,
       );
     }
 

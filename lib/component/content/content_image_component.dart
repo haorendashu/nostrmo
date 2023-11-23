@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/main.dart';
 
 import '../../consts/base.dart';
+import '../image_component.dart';
 import '../image_preview_dialog.dart';
 
 class ContentImageComponent extends StatelessWidget {
@@ -42,15 +43,13 @@ class ContentImageComponent extends StatelessWidget {
           previewImages(context);
         },
         child: Center(
-          child: CachedNetworkImage(
+          child: ImageComponent(
             imageUrl: imageUrl,
             fit: imageBoxFix,
             width: width,
             height: height,
             // placeholder: (context, url) => CircularProgressIndicator(),
             placeholder: (context, url) => Container(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-            cacheManager: localCacheManager,
           ),
         ),
       ),

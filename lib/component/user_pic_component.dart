@@ -6,6 +6,7 @@ import '../data/metadata.dart';
 import '../main.dart';
 import '../provider/metadata_provider.dart';
 import '../util/string_util.dart';
+import 'image_component.dart';
 
 class UserPicComponent extends StatefulWidget {
   String pubkey;
@@ -31,14 +32,12 @@ class _UserPicComponent extends State<UserPicComponent> {
         Widget? imageWidget;
         if (metadata != null) {
           if (StringUtil.isNotBlank(metadata.picture)) {
-            imageWidget = CachedNetworkImage(
+            imageWidget = ImageComponent(
               imageUrl: metadata.picture!,
               width: widget.width,
               height: widget.width,
               fit: BoxFit.cover,
               placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              cacheManager: localCacheManager,
             );
           }
         }

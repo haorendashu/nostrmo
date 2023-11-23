@@ -12,6 +12,7 @@ import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
+import '../../component/image_component.dart';
 import '../../component/webview_router.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
@@ -79,14 +80,12 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
 
           Widget? imageWidget;
           if (metadata != null) {
-            imageWidget = CachedNetworkImage(
+            imageWidget = ImageComponent(
               imageUrl: metadata.picture!,
               width: IMAGE_WIDTH,
               height: IMAGE_WIDTH,
               fit: BoxFit.cover,
               placeholder: (context, url) => CircularProgressIndicator(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-              cacheManager: localCacheManager,
             );
           }
           list.add(Container(

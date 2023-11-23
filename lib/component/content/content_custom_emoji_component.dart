@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import '../image_component.dart';
 
 class ContentCustomEmojiComponent extends StatelessWidget {
   final String imagePath;
@@ -18,13 +19,11 @@ class ContentCustomEmojiComponent extends StatelessWidget {
       // netword image
       return Container(
         constraints: BoxConstraints(maxWidth: 80, maxHeight: 80),
-        child: CachedNetworkImage(
+        child: ImageComponent(
           // width: fontSize! * 2,
           imageUrl: imagePath,
           // fit: imageBoxFix,
           placeholder: (context, url) => Container(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-          cacheManager: localCacheManager,
         ),
       );
     } else {

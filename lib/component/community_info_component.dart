@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../client/nip172/community_info.dart';
 import '../main.dart';
 import 'content/content_component.dart';
+import 'image_component.dart';
 
 class CommunityInfoComponent extends StatefulWidget {
   CommunityInfo info;
@@ -31,14 +32,12 @@ class _CommunityInfoComponent extends State<CommunityInfoComponent> {
 
     Widget? imageWidget;
     if (StringUtil.isNotBlank(widget.info.image)) {
-      imageWidget = CachedNetworkImage(
+      imageWidget = ImageComponent(
         imageUrl: widget.info!.image!,
         width: IMAGE_WIDTH,
         height: IMAGE_WIDTH,
         fit: BoxFit.cover,
         placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-        cacheManager: localCacheManager,
       );
     }
 

@@ -8,6 +8,7 @@ import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/string_util.dart';
+import '../image_component.dart';
 import '../simple_name_component.dart';
 
 class ReactionEventMetadataComponent extends StatefulWidget {
@@ -38,14 +39,12 @@ class _ReactionEventMetadataComponent
       Widget? imageWidget;
       if (metadata != null) {
         if (StringUtil.isNotBlank(metadata.picture)) {
-          imageWidget = CachedNetworkImage(
+          imageWidget = ImageComponent(
             imageUrl: metadata.picture!,
             width: IMAGE_WIDTH,
             height: IMAGE_WIDTH,
             fit: BoxFit.cover,
             placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            cacheManager: localCacheManager,
           );
         }
       }
