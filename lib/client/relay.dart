@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:nostrmo/client/relay_info_util.dart';
-import 'package:nostrmo/util/string_util.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../consts/client_connected.dart';
 import '../data/relay_status.dart';
@@ -39,20 +36,17 @@ abstract class Relay {
   Future<void> disconnect();
 
   void onError(String errMsg, {bool reconnect = false}) {
-    log("relay error $errMsg");
+    print("relay error $errMsg");
     relayStatus.error++;
     relayStatus.connected = ClientConneccted.UN_CONNECT;
     if (relayStatusCallback != null) {
       relayStatusCallback!();
     }
     disconnect();
-    print("$url 2");
 
     if (reconnect) {
-      print("$url 3");
       Future.delayed(Duration(seconds: 30), () {
         connect();
-        print("$url 4");
       });
     }
   }

@@ -311,4 +311,10 @@ class RelayPool {
 
     return hadSubmitSend;
   }
+
+  void reconnect() {
+    for (var relay in _relays.values) {
+      relay.connect();
+    }
+  }
 }

@@ -25,8 +25,10 @@ class RelaysItemComponent extends StatelessWidget {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     Color borderLeftColor = Colors.green;
-    if (relayStatus.connected != ClientConneccted.CONNECTED) {
+    if (relayStatus.connected == ClientConneccted.UN_CONNECT) {
       borderLeftColor = Colors.red;
+    } else if (relayStatus.connected == ClientConneccted.CONNECTING) {
+      borderLeftColor = Colors.yellow;
     }
 
     return GestureDetector(

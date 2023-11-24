@@ -16,12 +16,17 @@ class RelayBase extends Relay {
 
   @override
   Future<bool> connect() async {
+    if (_wsChannel != null && _wsChannel!.closeCode == null) {
+      return true;
+    }
+
     try {
       relayStatus.connected = ClientConneccted.CONNECTING;
       getRelayInfo(url);
 
       final wsUrl = Uri.parse(url);
       _wsChannel = WebSocketChannel.connect(wsUrl);
+      await _wsChannel!.ready;
       log("Connect complete!");
       _wsChannel!.stream.listen((message) {
         if (onMessage != null) {

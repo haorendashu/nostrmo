@@ -44,7 +44,7 @@ class IndexRouter extends StatefulWidget {
 }
 
 class _IndexRouter extends CustState<IndexRouter>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   static double PC_MAX_COLUMN_0 = 200;
 
   static double PC_MAX_COLUMN_1 = 550;
@@ -60,6 +60,8 @@ class _IndexRouter extends CustState<IndexRouter>
     super.initState();
     int followInitTab = 0;
     int globalsInitTab = 0;
+
+    WidgetsBinding.instance.addObserver(this);
 
     if (settingProvider.defaultTab != null) {
       if (settingProvider.defaultIndex == 1) {
@@ -81,6 +83,29 @@ class _IndexRouter extends CustState<IndexRouter>
       } catch (e) {
         print(e);
       }
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        print("AppLifecycleState.resumed");
+        nostr!.reconnect();
+        break;
+      case AppLifecycleState.inactive:
+        print("AppLifecycleState.inactive");
+        break;
+      case AppLifecycleState.detached:
+        print("AppLifecycleState.detached");
+        break;
+      case AppLifecycleState.paused:
+        print("AppLifecycleState.paused");
+        break;
+      case AppLifecycleState.hidden:
+        print("AppLifecycleState.hidden");
+        break;
     }
   }
 
@@ -393,6 +418,7 @@ class _IndexRouter extends CustState<IndexRouter>
   @override
   void dispose() async {
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       if (_purchaseUpdatedSubscription != null) {
         _purchaseUpdatedSubscription!.cancel();

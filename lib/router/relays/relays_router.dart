@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/comfirm_dialog.dart';
@@ -31,7 +33,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
     var s = S.of(context);
     var _relayProvider = Provider.of<RelayProvider>(context);
     var relayAddrs = _relayProvider.relayAddrs;
-    var relayStatusMap = relayProvider.relayStatusMap;
+    var relayStatusMap = _relayProvider.relayStatusMap;
     var themeData = Theme.of(context);
     var color = themeData.textTheme.bodyLarge!.color;
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
@@ -58,7 +60,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
       body: Column(children: [
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               top: Base.BASE_PADDING,
             ),
             child: ListView.builder(

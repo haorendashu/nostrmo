@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:isolate';
 
-import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/relay_isolate_worker.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/main.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../consts/client_connected.dart';
 import '../data/relay_status.dart';
@@ -53,7 +51,8 @@ class RelayIsolate extends Relay {
     } else {
       // the isolate had bean run
       if (relayStatus.connected == ClientConneccted.CONNECTED) {
-        // relay has bean connected, return true
+        // relay has bean connected, return true, but also send a connect message.
+        mainToSubSendPort!.send(RelayIsolateMsgs.CONNECT);
         return true;
       } else {
         // haven't connected
@@ -62,6 +61,7 @@ class RelayIsolate extends Relay {
         } else {
           // this maybe relay had disconnect after connected, try to connected again.
           if (mainToSubSendPort != null) {
+            relayStatus.connected = ClientConneccted.CONNECTING;
             // send connect msg
             mainToSubSendPort!.send(RelayIsolateMsgs.CONNECT);
             // wait connected msg.
@@ -104,18 +104,13 @@ class RelayIsolate extends Relay {
         // this is const msg.
         // print("msg is $message $url");
         if (message == RelayIsolateMsgs.CONNECTED) {
+          // print("$url receive connected status!");
           relayStatus.connected = ClientConneccted.CONNECTED;
           relayStatusCallback!();
-          if (relayConnectResultComplete != null) {
-            relayConnectResultComplete!.complete(true);
-            relayConnectResultComplete = null;
-          }
+          _relayConnectComplete(true);
         } else if (message == RelayIsolateMsgs.DIS_CONNECTED) {
           onError("Websocket error $url", reconnect: true);
-          if (relayConnectResultComplete != null) {
-            relayConnectResultComplete!.complete(false);
-            relayConnectResultComplete = null;
-          }
+          _relayConnectComplete(false);
         }
       } else if (message is List && onMessage != null) {
         onMessage!(this, message);
@@ -123,6 +118,13 @@ class RelayIsolate extends Relay {
         mainToSubSendPort = message;
       }
     });
+  }
+
+  void _relayConnectComplete(bool result) {
+    if (relayConnectResultComplete != null) {
+      relayConnectResultComplete!.complete(result);
+      relayConnectResultComplete = null;
+    }
   }
 
   @override

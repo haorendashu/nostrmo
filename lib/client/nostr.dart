@@ -167,4 +167,9 @@ class Nostr {
   Relay? getRelay(String url) {
     return _pool.getRelay(url);
   }
+
+  void reconnect() {
+    print("nostr reconnect");
+    _pool.reconnect();
+  }
 }

@@ -17,7 +17,7 @@ class RelayIsolateWorker {
     required this.config,
   });
 
-  void run() {
+  Future<void> run() async {
     if (StringUtil.isNotBlank(config.network)) {
       // handle isolate network
       var network = config.network;
@@ -29,7 +29,7 @@ class RelayIsolateWorker {
     var mainToSubSendPort = mainToSubReceivePort.sendPort;
     config.subToMainSendPort.send(mainToSubSendPort);
 
-    mainToSubReceivePort.listen((message) {
+    mainToSubReceivePort.listen((message) async {
       if (message is String) {
         // this is the msg need to sended.
         if (wsChannel != null) {
@@ -38,22 +38,27 @@ class RelayIsolateWorker {
       } else if (message is int) {
         // this is const msg.
         // print("msg is $message ${config.url}");
-        if (message == RelayIsolateMsgs.CONNECT &&
-            (wsChannel == null || wsChannel!.closeCode != null)) {
-          _closeWS(wsChannel);
-          // print("!!!!");
-          wsChannel = handleWS();
-          config.subToMainSendPort.send(RelayIsolateMsgs.CONNECTED);
-        } else if (message == RelayIsolateMsgs.DIS_CONNECT) {
-          var result = _closeWS(wsChannel);
-          if (result) {
-            config.subToMainSendPort.send(RelayIsolateMsgs.DIS_CONNECTED);
+        if (message == RelayIsolateMsgs.CONNECT) {
+          // print("${config.url} worker receive connect command");
+          // receive the connect command!
+          if (wsChannel == null || wsChannel!.closeCode != null) {
+            // the websocket is close, close again and try to connect.
+            _closeWS(wsChannel);
+            // print("${config.url} worker connect again");
+            wsChannel = await handleWS();
+          } else {
+            // print("${config.url} worker send ping");
+            // wsChannel!.sink.add("ping");
+            // TODO the websocket is connected, try to check or reconnect.
           }
+        } else if (message == RelayIsolateMsgs.DIS_CONNECT) {
+          _closeWS(wsChannel);
+          config.subToMainSendPort.send(RelayIsolateMsgs.DIS_CONNECTED);
         }
       }
     });
 
-    wsChannel = handleWS();
+    wsChannel = await handleWS();
   }
 
   static void runRelayIsolate(RelayIsolateConfig config) {
@@ -61,7 +66,7 @@ class RelayIsolateWorker {
     worker.run();
   }
 
-  WebSocketChannel? handleWS() {
+  Future<WebSocketChannel?> handleWS() async {
     String url = config.url;
     SendPort subToMainSendPort = config.subToMainSendPort;
 
@@ -69,6 +74,7 @@ class RelayIsolateWorker {
     try {
       print("Begin to connect ${config.url}");
       wsChannel = WebSocketChannel.connect(wsUrl);
+      await wsChannel!.ready;
       print("Connect complete! ${config.url}");
       wsChannel!.stream.listen((message) {
         List<dynamic> json = jsonDecode(message);
