@@ -97,7 +97,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     // do some init oper
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
     rootId = eventRelation.rootId;
-    aId = eventRelation.aId;
+    if (eventRelation.aId != null &&
+        eventRelation.aId!.kind == kind.EventKind.LONG_FORM) {
+      aId = eventRelation.aId;
+    }
     if (rootId == null) {
       if (aId == null) {
         if (eventRelation.replyId != null) {
