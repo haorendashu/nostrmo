@@ -348,7 +348,9 @@ class _ContentComponent extends State<ContentComponent> {
       }
 
       if (i < lineLength - 1) {
+        bufferToList(buffer, allList);
         buffer.write(NL);
+        bufferToList(buffer, allList);
       }
     }
     bufferToList(buffer, allList);
@@ -659,12 +661,36 @@ class _ContentComponent extends State<ContentComponent> {
     return str;
   }
 
+  void _removeEndBlank(List<InlineSpan> allList) {
+    var length = allList.length;
+    for (var i = length - 1; i >= 0; i--) {
+      var span = allList[i];
+      if (span is TextSpan) {
+        var text = span.text;
+        if (StringUtil.isNotBlank(text)) {
+          text = text!.trimRight();
+          if (StringUtil.isBlank(text)) {
+            allList.removeLast();
+          } else {
+            allList[i] = TextSpan(text: text);
+            return;
+          }
+        } else {
+          allList.removeLast();
+        }
+      }
+    }
+  }
+
   void bufferToList(StringBuffer buffer, List<InlineSpan> allList,
       {bool removeLastSpan = false}) {
     var text = buffer.toString();
-    if (removeLastSpan && text.isNotEmpty) {
+    if (removeLastSpan) {
       // sometimes if the pre text's last chat is NL, need to remove it.
       text = text.trimRight();
+      if (StringUtil.isBlank(text)) {
+        _removeEndBlank(allList);
+      }
     }
     buffer.clear();
     if (StringUtil.isBlank(text)) {
@@ -865,6 +891,9 @@ class _ContentComponent extends State<ContentComponent> {
             sourceLanguage: sourceLanguage!, targetLanguage: targetLanguage!);
 
         for (var text in textList) {
+          if (text == NL || StringUtil.isBlank(text)) {
+            continue;
+          }
           var result = await onDeviceTranslator.translateText(text);
           if (StringUtil.isNotBlank(result)) {
             targetTextMap[text] = result;
