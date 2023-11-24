@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:nostrmo/util/string_util.dart';
 
-import '../consts/client_connected.dart';
-import '../main.dart';
-import 'event.dart';
-import 'event_kind.dart';
-import 'nostr.dart';
+import '../../consts/client_connected.dart';
+import '../../main.dart';
+import '../event.dart';
+import '../event_kind.dart';
+import '../nostr.dart';
+import '../subscription.dart';
 import 'relay.dart';
-import 'subscription.dart';
 
 class RelayPool {
   Nostr localNostr;

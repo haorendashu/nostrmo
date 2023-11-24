@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:isolate';
 
-import 'package:nostrmo/client/relay_isolate_worker.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/main.dart';
 
-import '../consts/client_connected.dart';
-import '../data/relay_status.dart';
+import '../../consts/client_connected.dart';
+import '../../data/relay_status.dart';
 import 'relay.dart';
+import 'relay_isolate_worker.dart';
 
 // The real relay, whick is run in other isolate.
 // It can move jsonDecode and event id check and sign check from main Isolate

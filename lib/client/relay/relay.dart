@@ -1,11 +1,10 @@
 import 'dart:developer';
 
-import 'package:nostrmo/client/relay_info_util.dart';
-
-import '../consts/client_connected.dart';
-import '../data/relay_status.dart';
+import '../../consts/client_connected.dart';
+import '../../data/relay_status.dart';
+import '../subscription.dart';
 import 'relay_info.dart';
-import 'subscription.dart';
+import 'relay_info_util.dart';
 
 enum WriteAccess { readOnly, writeOnly, readWrite }
 

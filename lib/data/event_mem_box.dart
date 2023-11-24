@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import '../client/event.dart';
-import '../client/relay.dart';
+import '../client/relay/relay.dart';
 import '../util/find_event_interface.dart';
 
 /// a memory event box

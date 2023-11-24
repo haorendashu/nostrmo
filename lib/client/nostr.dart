@@ -1,11 +1,11 @@
-import 'package:nostrmo/client/relay_pool.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import 'client_utils/keys.dart';
 import 'event.dart';
 import 'event_kind.dart';
 import 'nip02/cust_contact_list.dart';
-import 'relay.dart';
+import 'relay/relay.dart';
+import 'relay/relay_pool.dart';
 
 class Nostr {
   String? _privateKey;

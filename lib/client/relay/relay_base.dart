@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import '../consts/client_connected.dart';
-import '../data/relay_status.dart';
+import '../../consts/client_connected.dart';
+import '../../data/relay_status.dart';
 import 'relay.dart';
 
 class RelayBase extends Relay {

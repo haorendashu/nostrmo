@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/relay.dart';
-import 'package:nostrmo/client/relay_info.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
@@ -12,6 +10,7 @@ import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
+import '../../client/relay/relay.dart';
 import '../../component/image_component.dart';
 import '../../component/webview_router.dart';
 import '../../generated/l10n.dart';

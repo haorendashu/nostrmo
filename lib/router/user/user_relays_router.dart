@@ -4,7 +4,7 @@ import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/relay_metadata.dart';
+import '../../client/relay/relay_metadata.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';

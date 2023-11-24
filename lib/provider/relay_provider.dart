@@ -1,15 +1,15 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/relay_isolate.dart';
 import 'package:nostrmo/consts/relay_mode.dart';
 import 'package:nostrmo/util/platform_util.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
 import '../client/nostr.dart';
-import '../client/relay.dart';
-import '../client/relay_base.dart';
+import '../client/relay/relay.dart';
+import '../client/relay/relay_base.dart';
+import '../client/relay/relay_isolate.dart';
 import '../consts/client_connected.dart';
 import '../data/relay_status.dart';
 import '../main.dart';
