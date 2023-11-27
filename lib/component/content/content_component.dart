@@ -678,6 +678,8 @@ class _ContentComponent extends State<ContentComponent> {
         } else {
           allList.removeLast();
         }
+      } else {
+        return;
       }
     }
   }
