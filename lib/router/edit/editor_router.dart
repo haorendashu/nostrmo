@@ -296,7 +296,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
       list.add(buildEmojiSelector());
     }
     if (customEmojiShow) {
-      list.add(buildCustomEmojiSelector());
+      list.add(buildEmojiListsWidget());
     }
 
     return Scaffold(

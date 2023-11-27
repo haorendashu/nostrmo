@@ -13,7 +13,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
+import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
+import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/sendbox/sendbox.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
@@ -691,9 +693,8 @@ mixin EditorMixin {
 
   Future<void> addCustomEmoji() async {
     var emoji = await CustomEmojiAddDialog.show(getContext());
-
     if (emoji != null) {
-      customEmojiProvider.addEmoji(emoji);
+      listProvider.addCustomEmoji(emoji);
     }
   }
 
@@ -701,64 +702,154 @@ mixin EditorMixin {
     final index = editorController.selection.baseOffset;
     final length = editorController.selection.extentOffset - index;
 
-    editorController.replaceText(index, length,
-        quill.Embeddable(CustEmbedTypes.custom_emoji, emoji), null);
-
-    editorController.moveCursorToPosition(index + 1);
+    editorController.replaceText(
+        index,
+        length,
+        quill.Embeddable(CustEmbedTypes.custom_emoji, emoji),
+        TextSelection.collapsed(offset: index + 2),
+        ignoreFocus: true);
+    updateUI();
   }
 
-  Widget buildCustomEmojiSelector() {
-    var themeData = Theme.of(getContext());
+  double emojiBtnWidth = 60;
+
+  double customEmojiWidgetTabbarHeight = 46;
+
+  Widget buildEmojiListsWidget() {
+    var context = getContext();
+    var s = S.of(context);
+    var themeData = Theme.of(context);
+    var mainColor = themeData.primaryColor;
+    var labelUnSelectColor = themeData.dividerColor;
 
     return Container(
       height: 260,
+      padding: const EdgeInsets.only(left: Base.BASE_PADDING_HALF),
       width: double.infinity,
-      child: Selector<CustomEmojiProvider, List<CustomEmoji>>(
-        builder: (context, emojis, child) {
-          List<Widget> list = [];
-          list.add(GestureDetector(
-            onTap: () {
-              addCustomEmoji();
-            },
-            child: Container(
-              width: 80,
-              height: 80,
-              child: Icon(
-                Icons.add,
-                size: 50,
-              ),
-            ),
-          ));
+      child: Selector<ListProvider, Event?>(
+        builder: (context, emojiEvent, child) {
+          var emojiLists = listProvider.emojis(s, emojiEvent);
 
-          for (var emoji in emojis) {
-            list.add(GestureDetector(
-              onTap: () {
-                addEmojiToEditor(emoji);
-              },
-              // child: ContentCustomEmojiComponent(imagePath: emoji.filepath!),
-              child: Container(
-                constraints: BoxConstraints(maxWidth: 80, maxHeight: 80),
-                child: ImageComponent(
-                  // width: fontSize! * 2,
-                  imageUrl: emoji.filepath!,
-                  // fit: imageBoxFix,
-                  placeholder: (context, url) => Container(),
-                ),
-              ),
+          List<Widget> tabBarList = [];
+          List<Widget> tabBarViewList = [];
+
+          var length = emojiLists.length;
+          for (var index = 0; index < length; index++) {
+            var emojiList = emojiLists[index];
+            var isCustomEmoji = index == 0;
+
+            tabBarList.add(Text(
+              emojiList.key,
+              overflow: TextOverflow.ellipsis,
+            ));
+            tabBarViewList.add(buildEmojiListWidget(
+              emojiList.value,
+              isCustomEmoji: isCustomEmoji,
             ));
           }
 
-          return Wrap(
-            // runAlignment: WrapAlignment.center,
-            children: list,
-            runSpacing: Base.BASE_PADDING_HALF,
-            spacing: Base.BASE_PADDING_HALF,
+          var findMoreBtn = GestureDetector(
+            onTap: () {
+              WebViewRouter.open(context, "https://emojis-iota.vercel.app/");
+            },
+            child: Container(
+              width: 40,
+              child: Icon(Icons.search),
+            ),
           );
+
+          return DefaultTabController(
+              length: tabBarList.length,
+              child: Container(
+                child: Column(
+                  children: [
+                    Container(
+                      height: customEmojiWidgetTabbarHeight,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: customEmojiWidgetTabbarHeight,
+                              child: TabBar(
+                                tabs: tabBarList,
+                                indicatorColor: mainColor,
+                                labelColor: mainColor,
+                                unselectedLabelColor: labelUnSelectColor,
+                                isScrollable: true,
+                              ),
+                            ),
+                          ),
+                          findMoreBtn,
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(children: tabBarViewList),
+                    ),
+                  ],
+                ),
+              ));
         },
         selector: (context, _provider) {
-          return _provider.emojis;
+          return _provider.getEmojiEvent();
         },
       ),
+    );
+  }
+
+  Widget buildEmojiListWidget(List<CustomEmoji> emojis,
+      {bool isCustomEmoji = false}) {
+    List<Widget> list = [];
+
+    if (isCustomEmoji) {
+      list.add(GestureDetector(
+        onTap: () {
+          addCustomEmoji();
+        },
+        child: Container(
+          width: emojiBtnWidth,
+          height: emojiBtnWidth,
+          child: const Icon(
+            Icons.add,
+            size: 50,
+          ),
+        ),
+      ));
+    }
+
+    for (var emoji in emojis) {
+      list.add(GestureDetector(
+        onTap: () {
+          addEmojiToEditor(emoji);
+        },
+        child: Container(
+          // constraints:
+          //     BoxConstraints(maxWidth: emojiBtnWidth, maxHeight: emojiBtnWidth),
+          width: emojiBtnWidth,
+          height: emojiBtnWidth,
+          alignment: Alignment.center,
+          child: ImageComponent(
+            imageUrl: emoji.filepath!,
+            placeholder: (context, url) => Container(),
+          ),
+        ),
+      ));
+    }
+
+    var main = SingleChildScrollView(
+      child: Wrap(
+        // runAlignment: WrapAlignment.center,
+        children: list,
+        runSpacing: Base.BASE_PADDING_HALF,
+        spacing: Base.BASE_PADDING_HALF,
+      ),
+    );
+
+    return Container(
+      height: 260,
+      padding: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+      width: double.infinity,
+      child: main,
     );
   }
 

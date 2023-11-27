@@ -89,6 +89,11 @@ class RelayProvider extends ChangeNotifier {
     dmInitFuture.then((_) {
       dmProvider.query(targetNostr: _nostr, initQuery: true);
     });
+    Future.delayed(Duration(seconds: 5), () {
+      listProvider.load(_nostr.publicKey,
+          [kind.EventKind.BOOKMARKS_LIST, kind.EventKind.EMOJIS_LIST],
+          targetNostr: _nostr);
+    });
 
     for (var relayAddr in relayAddrs) {
       log("begin to init $relayAddr");

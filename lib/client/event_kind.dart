@@ -33,6 +33,10 @@ class EventKind {
 
   static const int RELAY_LIST_METADATA = 10002;
 
+  static const int BOOKMARKS_LIST = 10003;
+
+  static const int EMOJIS_LIST = 10030;
+
   static const int AUTHENTICATION = 22242;
 
   static const int BADGE_ACCEPT = 30008;

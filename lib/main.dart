@@ -44,6 +44,8 @@ import 'provider/filter_provider.dart';
 import 'provider/follow_event_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/link_preview_data_provider.dart';
+import 'provider/list_provider.dart';
+import 'provider/list_set_provider.dart';
 import 'provider/mention_me_provider.dart';
 import 'provider/metadata_provider.dart';
 import 'provider/pc_router_fake_provider.dart';
@@ -122,13 +124,17 @@ late Map<String, WidgetBuilder> routes;
 
 late WebViewProvider webViewProvider;
 
-late CustomEmojiProvider customEmojiProvider;
+// late CustomEmojiProvider customEmojiProvider;
 
 late CommunityApprovedProvider communityApprovedProvider;
 
 late CommunityInfoProvider communityInfoProvider;
 
 late ReplaceableEventProvider replaceableEventProvider;
+
+late ListProvider listProvider;
+
+late ListSetProvider listSetProvider;
 
 Nostr? nostr;
 
@@ -201,10 +207,12 @@ Future<void> main() async {
   localCacheManager = CacheManagerBuilder.build();
   pcRouterFakeProvider = PcRouterFakeProvider();
   webViewProvider = WebViewProvider();
-  customEmojiProvider = CustomEmojiProvider.load();
+  // customEmojiProvider = CustomEmojiProvider.load();
   communityApprovedProvider = CommunityApprovedProvider();
   communityInfoProvider = CommunityInfoProvider();
   replaceableEventProvider = ReplaceableEventProvider();
+  listProvider = ListProvider();
+  listSetProvider = ListSetProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -343,9 +351,9 @@ class _MyApp extends State<MyApp> {
         ListenableProvider<WebViewProvider>.value(
           value: webViewProvider,
         ),
-        ListenableProvider<CustomEmojiProvider>.value(
-          value: customEmojiProvider,
-        ),
+        // ListenableProvider<CustomEmojiProvider>.value(
+        //   value: customEmojiProvider,
+        // ),
         ListenableProvider<CommunityApprovedProvider>.value(
           value: communityApprovedProvider,
         ),
@@ -354,6 +362,12 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<ReplaceableEventProvider>.value(
           value: replaceableEventProvider,
+        ),
+        ListenableProvider<ListProvider>.value(
+          value: listProvider,
+        ),
+        ListenableProvider<ListSetProvider>.value(
+          value: listSetProvider,
         ),
       ],
       child: HomeComponent(

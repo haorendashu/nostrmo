@@ -191,7 +191,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
       list.add(buildEmojiSelector());
     }
     if (customEmojiShow) {
-      list.add(buildCustomEmojiSelector());
+      list.add(buildEmojiListsWidget());
     }
 
     Widget main = Container(
