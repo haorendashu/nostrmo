@@ -166,7 +166,7 @@ class _ContentComponent extends State<ContentComponent> {
       return Container();
     }
 
-    counter = StringBuffer(widget.content!);
+    counter = StringBuffer();
     textList.clear();
 
     if (targetTextMap.isNotEmpty) {
@@ -746,6 +746,8 @@ class _ContentComponent extends State<ContentComponent> {
   }
 
   void _addTextToList(String text, List<InlineSpan> allList) {
+    counter.write(text);
+
     textList.add(text);
     var targetText = targetTextMap[text];
     if (targetText == null) {
@@ -795,15 +797,15 @@ class _ContentComponent extends State<ContentComponent> {
     return info;
   }
 
-  int fake_event_counter = 8;
+  int fake_event_counter = 10;
 
-  int fake_image_counter = 10;
+  int fake_image_counter = 11;
 
-  int fake_video_counter = 10;
+  int fake_video_counter = 11;
 
-  int fake_link_pre_counter = 6;
+  int fake_link_pre_counter = 7;
 
-  int fake_zap_counter = 4;
+  int fake_zap_counter = 6;
 
   void counterAddLines(int lineNum) {
     for (var i = 0; i < lineNum; i++) {
