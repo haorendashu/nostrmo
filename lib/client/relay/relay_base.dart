@@ -15,8 +15,9 @@ class RelayBase extends Relay {
   WebSocketChannel? _wsChannel;
 
   @override
-  Future<bool> connect() async {
+  Future<bool> doConnect() async {
     if (_wsChannel != null && _wsChannel!.closeCode == null) {
+      print("connect break: $url");
       return true;
     }
 
@@ -25,9 +26,10 @@ class RelayBase extends Relay {
       getRelayInfo(url);
 
       final wsUrl = Uri.parse(url);
+      log("Connect begin: $url");
       _wsChannel = WebSocketChannel.connect(wsUrl);
-      await _wsChannel!.ready;
-      log("Connect complete!");
+      // await _wsChannel!.ready;
+      log("Connect complete: $url");
       _wsChannel!.stream.listen((message) {
         if (onMessage != null) {
           final List<dynamic> json = jsonDecode(message);
@@ -37,7 +39,7 @@ class RelayBase extends Relay {
         print(error);
         onError("Websocket error $url", reconnect: true);
       }, onDone: () {
-        onError("Websocket stream closed by remote:  $url", reconnect: true);
+        onError("Websocket stream closed by remote: $url", reconnect: true);
       });
       relayStatus.connected = ClientConneccted.CONNECTED;
       if (relayStatusCallback != null) {
@@ -68,9 +70,10 @@ class RelayBase extends Relay {
   @override
   Future<void> disconnect() async {
     try {
-      final oldWsChannel = _wsChannel;
+      relayStatus.connected = ClientConneccted.UN_CONNECT;
+      await _wsChannel!.sink.close();
+    } finally {
       _wsChannel = null;
-      await oldWsChannel!.sink.close();
-    } catch (e) {}
+    }
   }
 }

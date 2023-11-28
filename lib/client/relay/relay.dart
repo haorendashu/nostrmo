@@ -24,15 +24,27 @@ abstract class Relay {
 
   Relay(this.url, this.relayStatus, {this.access = WriteAccess.readWrite}) {}
 
-  Future<bool> connect();
+  Future<bool> connect() async {
+    try {
+      return await doConnect();
+    } catch (e) {
+      print("connect fail");
+      disconnect();
+      return false;
+    }
+  }
+
+  Future<bool> doConnect();
 
   Future<void> getRelayInfo(url) async {
-    info = await RelayInfoUtil.get(url);
+    info ??= await RelayInfoUtil.get(url);
   }
 
   bool send(List<dynamic> message);
 
   Future<void> disconnect();
+
+  bool _waitingReconnect = false;
 
   void onError(String errMsg, {bool reconnect = false}) {
     print("relay error $errMsg");
@@ -43,8 +55,10 @@ abstract class Relay {
     }
     disconnect();
 
-    if (reconnect) {
-      Future.delayed(Duration(seconds: 30), () {
+    if (reconnect && !_waitingReconnect) {
+      _waitingReconnect = true;
+      Future.delayed(const Duration(seconds: 30), () {
+        _waitingReconnect = false;
         connect();
       });
     }

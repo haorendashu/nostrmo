@@ -27,7 +27,7 @@ class RelayIsolate extends Relay {
   Completer<bool>? relayConnectResultComplete;
 
   @override
-  Future<bool> connect() async {
+  Future<bool> doConnect() async {
     if (subToMainReceivePort == null) {
       relayStatus.connected = ClientConneccted.CONNECTING;
       getRelayInfo(url);

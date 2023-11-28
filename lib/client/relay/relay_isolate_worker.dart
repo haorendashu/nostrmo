@@ -74,8 +74,6 @@ class RelayIsolateWorker {
     try {
       print("Begin to connect ${config.url}");
       wsChannel = WebSocketChannel.connect(wsUrl);
-      await wsChannel!.ready;
-      print("Connect complete! ${config.url}");
       wsChannel!.stream.listen((message) {
         List<dynamic> json = jsonDecode(message);
         if (json.length > 2) {
@@ -101,6 +99,8 @@ class RelayIsolateWorker {
         _closeWS(wsChannel);
         subToMainSendPort.send(RelayIsolateMsgs.DIS_CONNECTED);
       });
+      await wsChannel!.ready;
+      print("Connect complete! ${config.url}");
       subToMainSendPort.send(RelayIsolateMsgs.CONNECTED);
 
       return wsChannel;
