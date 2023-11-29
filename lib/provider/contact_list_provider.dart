@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/router/tag/topic_map.dart';
@@ -17,6 +18,8 @@ class ContactListProvider extends ChangeNotifier {
   static ContactListProvider? _contactListProvider;
 
   Event? _event;
+
+  String content = "";
 
   CustContactList? _contactList;
 
@@ -53,6 +56,7 @@ class ContactListProvider extends ChangeNotifier {
           _contactListProvider!._event = Event.fromJson(eventMap);
           _contactListProvider!._contactList =
               CustContactList.fromJson(_contactListProvider!._event!.tags);
+          _contactListProvider!.content = _contactListProvider!._event!.content;
 
           return;
         }
@@ -93,12 +97,15 @@ class ContactListProvider extends ChangeNotifier {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
         _contactList = CustContactList.fromJson(e.tags);
+        content = e.content;
         _saveAndNotify();
+
+        relayProvider.relayUpdateByContactListEvent(e);
       }
     }
   }
 
-  void _saveAndNotify() {
+  void _saveAndNotify({bool notify = true}) {
     var eventJsonMap = _event!.toJson();
     var eventJsonStr = jsonEncode(eventJsonMap);
 
@@ -115,9 +122,11 @@ class ContactListProvider extends ChangeNotifier {
     var jsonStr = jsonEncode(allJsonMap);
 
     sharedPreferences.setString(DataKey.CONTACT_LISTS, jsonStr);
-    notifyListeners();
 
-    followEventProvider.metadataUpdatedCallback(_contactList);
+    if (notify) {
+      notifyListeners();
+      followEventProvider.metadataUpdatedCallback(_contactList);
+    }
   }
 
   int total() {
@@ -126,21 +135,21 @@ class ContactListProvider extends ChangeNotifier {
 
   void addContact(Contact contact) {
     _contactList!.add(contact);
-    _event = nostr!.sendContactList(_contactList!);
+    _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
   void removeContact(String pubKey) {
     _contactList!.remove(pubKey);
-    _event = nostr!.sendContactList(_contactList!);
+    _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
   void updateContacts(CustContactList contactList) {
     _contactList = contactList;
-    _event = nostr!.sendContactList(contactList);
+    _event = nostr!.sendContactList(contactList, content);
 
     _saveAndNotify();
   }
@@ -180,14 +189,14 @@ class ContactListProvider extends ChangeNotifier {
 
   void addTag(String tag) {
     _contactList!.addTag(tag);
-    _event = nostr!.sendContactList(_contactList!);
+    _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
   void removeTag(String tag) {
     _contactList!.removeTag(tag);
-    _event = nostr!.sendContactList(_contactList!);
+    _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
@@ -206,14 +215,14 @@ class ContactListProvider extends ChangeNotifier {
 
   void addCommunity(String tag) {
     _contactList!.addCommunity(tag);
-    _event = nostr!.sendContactList(_contactList!);
+    _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
   void removeCommunity(String tag) {
     _contactList!.removeCommunity(tag);
-    _event = nostr!.sendContactList(_contactList!);
+    _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
@@ -224,5 +233,12 @@ class ContactListProvider extends ChangeNotifier {
 
   Iterable<String> followedCommunitiesList() {
     return _contactList!.followedCommunitiesList();
+  }
+
+  void updateRelaysContent(String relaysContent) {
+    content = relaysContent;
+    _event = nostr!.sendContactList(_contactList!, content);
+
+    _saveAndNotify(notify: false);
   }
 }

@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/consts/relay_mode.dart';
 import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/string_util.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
@@ -25,34 +27,41 @@ class RelayProvider extends ChangeNotifier {
   static RelayProvider getInstance() {
     if (_relayProvider == null) {
       _relayProvider = RelayProvider();
-      _relayProvider!._load();
+      // _relayProvider!._load();
     }
     return _relayProvider!;
   }
 
-  List<String>? _load() {
-    relayAddrs.clear();
-    var list = sharedPreferences.getStringList(DataKey.RELAY_LIST);
-    if (list != null) {
-      relayAddrs.addAll(list);
-    }
-
-    if (relayAddrs.isEmpty) {
-      // init relays
-      relayAddrs = [
+  void loadRelayAddrs(String? content) {
+    var relays = parseRelayAddrs(content);
+    if (relays.isEmpty) {
+      relays = [
         "wss://nos.lol",
         "wss://nostr.wine",
         "wss://atlas.nostr.land",
         "wss://relay.orangepill.dev",
-        "wss://relay.damus.io",
-        // "wss://relay.nostr.bg/",
-        // "wss://universe.nostrich.land/",
-        // "wss://relay.snort.social/",
-        // "wss://universe.nostrich.land",
-        // "wss://filter.nostr.wine",
-        // "wss://nostr.vpn1.codingmerc.com",
+        "wss://relay.damus.io"
       ];
     }
+
+    relayAddrs = relays;
+  }
+
+  List<String> parseRelayAddrs(String? content) {
+    List<String> relays = [];
+    if (StringUtil.isBlank(content)) {
+      return relays;
+    }
+
+    var jsonObj = jsonDecode(content!);
+    Map<dynamic, dynamic> jsonMap =
+        jsonObj.map((key, value) => MapEntry(key, true));
+
+    for (var entry in jsonMap.entries) {
+      relays.add(entry.key.toString());
+    }
+
+    return relays;
   }
 
   RelayStatus? getRelayStatus(String addr) {
@@ -89,6 +98,8 @@ class RelayProvider extends ChangeNotifier {
     dmInitFuture.then((_) {
       dmProvider.query(targetNostr: _nostr, initQuery: true);
     });
+
+    loadRelayAddrs(contactListProvider.content);
     Future.delayed(Duration(seconds: 5), () {
       listProvider.load(_nostr.publicKey,
           [kind.EventKind.BOOKMARKS_LIST, kind.EventKind.EMOJIS_LIST],
@@ -116,7 +127,7 @@ class RelayProvider extends ChangeNotifier {
     if (!relayAddrs.contains(relayAddr)) {
       relayAddrs.add(relayAddr);
       _doAddRelay(relayAddr);
-      _updateRelayToData();
+      _updateRelayToContactList();
     }
   }
 
@@ -131,7 +142,7 @@ class RelayProvider extends ChangeNotifier {
       relayAddrs.remove(relayAddr);
       nostr!.removeRelay(relayAddr);
 
-      _updateRelayToData();
+      _updateRelayToContactList();
     }
   }
 
@@ -139,25 +150,18 @@ class RelayProvider extends ChangeNotifier {
     return relayAddrs.contains(relayAddr);
   }
 
-  int? updatedTime() {
-    return sharedPreferences.getInt(DataKey.RELAY_UPDATED_TIME);
-  }
-
-  void _updateRelayToData({bool upload = true}) {
-    sharedPreferences.setStringList(DataKey.RELAY_LIST, relayAddrs);
-    sharedPreferences.setInt(DataKey.RELAY_UPDATED_TIME,
-        DateTime.now().millisecondsSinceEpoch ~/ 1000);
-
-    // update to relay
-    if (upload) {
-      List<dynamic> tags = [];
-      for (var addr in relayAddrs) {
-        tags.add(["r", addr, ""]);
-      }
-      var event =
-          Event(nostr!.publicKey, kind.EventKind.RELAY_LIST_METADATA, tags, "");
-      nostr!.sendEvent(event);
+  void _updateRelayToContactList() {
+    Map<String, dynamic> relaysContentMap = {};
+    for (var addr in relayAddrs) {
+      relaysContentMap[addr] = {
+        "read": true,
+        "write": true,
+      };
     }
+    var relaysContent = jsonEncode(relaysContentMap);
+    contactListProvider.updateRelaysContent(relaysContent);
+
+    notifyListeners();
   }
 
   Relay genRelay(String relayAddr) {
@@ -191,23 +195,27 @@ class RelayProvider extends ChangeNotifier {
     }
   }
 
-  void setRelayListAndUpdate(List<String> addrs) {
-    relayStatusMap.clear();
+  void relayUpdateByContactListEvent(Event event) {
+    loadRelayAddrs(event.content);
+    _updateRelays(relayAddrs);
+  }
 
-    relayAddrs.clear();
-    relayAddrs.addAll(addrs);
-    _updateRelayToData(upload: false);
+  void _updateRelays(List<String> relays) {
+    var entries = relayStatusMap.entries;
 
-    nostr!.close();
-    nostr = Nostr(privateKey: nostr!.privateKey);
+    for (var relayStatusEntry in entries) {
+      var relayAddr = relayStatusEntry.key;
+      if (!relays.contains(relayAddr)) {
+        // new relay don't contain this relay, need to close
+        relayStatusMap.remove(relayAddr);
+        nostr!.removeRelay(relayAddr);
+      }
+    }
 
-    // reconnect all client
-    for (var relayAddr in relayAddrs) {
-      var custRelay = genRelay(relayAddr);
-      try {
-        nostr!.addRelay(custRelay, autoSubscribe: true);
-      } catch (e) {
-        log("relay $relayAddr add to pool error ${e.toString()}");
+    for (var relayAddr in relays) {
+      if (!relayStatusMap.containsKey(relayAddr)) {
+        // local map don't contain relay, add a new one
+        _doAddRelay(relayAddr);
       }
     }
   }
@@ -215,6 +223,6 @@ class RelayProvider extends ChangeNotifier {
   void clear() {
     // sharedPreferences.remove(DataKey.RELAY_LIST);
     relayStatusMap.clear();
-    _load();
+    loadRelayAddrs(null);
   }
 }

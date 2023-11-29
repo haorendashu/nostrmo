@@ -90,9 +90,9 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event? sendContactList(CustContactList contacts) {
+  Event? sendContactList(CustContactList contacts, String content) {
     final tags = contacts.toJson();
-    final event = Event(_publicKey, EventKind.CONTACT_LIST, tags, "");
+    final event = Event(_publicKey, EventKind.CONTACT_LIST, tags, content);
     return sendEvent(event);
   }
 

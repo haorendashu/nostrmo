@@ -737,7 +737,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
         // use a blank contact list to update it
         var blankContactList = CustContactList();
-        nostr!.sendContactList(blankContactList);
+        nostr!.sendContactList(blankContactList, "");
 
         var filter = Filter(authors: [
           nostr!.publicKey

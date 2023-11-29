@@ -71,7 +71,9 @@ class RelayBase extends Relay {
   Future<void> disconnect() async {
     try {
       relayStatus.connected = ClientConneccted.UN_CONNECT;
-      await _wsChannel!.sink.close();
+      if (_wsChannel != null) {
+        await _wsChannel!.sink.close();
+      }
     } finally {
       _wsChannel = null;
     }
