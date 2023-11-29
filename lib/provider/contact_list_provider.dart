@@ -167,6 +167,7 @@ class ContactListProvider extends ChangeNotifier {
   void clear() {
     _event = null;
     _contactList!.clear();
+    content = "";
     clearCurrentContactList();
 
     notifyListeners();

@@ -204,7 +204,9 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
 
   static void clearCurrentMemInfo() {
     mentionMeProvider.clear();
+    mentionMeNewProvider.clear();
     followEventProvider.clear();
+    followNewEventProvider.clear();
     dmProvider.clear();
     noticeProvider.clear();
     contactListProvider.clear();
@@ -212,6 +214,7 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
     eventReactionsProvider.clear();
     linkPreviewDataProvider.clear();
     relayProvider.clear();
+    listProvider.clear();
   }
 
   static void clearLocalData(int index) {

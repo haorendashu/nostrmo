@@ -183,4 +183,8 @@ class ListProvider extends ChangeNotifier {
       cancelFunc.call();
     }
   }
+
+  void clear() {
+    _holder.clear();
+  }
 }
