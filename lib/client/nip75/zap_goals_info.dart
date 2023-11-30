@@ -25,6 +25,9 @@ class ZapGoalsInfo {
         var value = tag[1] as String;
         if (key == "amount") {
           amount = int.tryParse(value);
+          if (amount != null) {
+            amount = (amount! / 1000).toInt();
+          }
         } else if (key == "zapraiser") {
           amount = int.tryParse(value);
         } else if (key == "closed_at") {
