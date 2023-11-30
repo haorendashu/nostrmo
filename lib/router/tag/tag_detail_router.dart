@@ -163,7 +163,17 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     if (list != null) {
       queryArg["#t"] = list;
     } else {
-      queryArg["#t"] = [plainTag];
+      // can't find from topicMap, change to query the source, upperCase and lowerCase
+      var upperCase = plainTag.toUpperCase();
+      var lowerCase = plainTag.toLowerCase();
+      list = [upperCase];
+      if (upperCase != lowerCase) {
+        list.add(lowerCase);
+      }
+      if (upperCase != plainTag && lowerCase != plainTag) {
+        list.add(plainTag);
+      }
+      queryArg["#t"] = list;
     }
     nostr!.query([queryArg], onEvent, id: subscribeId);
   }
