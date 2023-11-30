@@ -146,13 +146,15 @@ class _IndexDrawerContnetComponnent
       },
     ));
 
-    centerList.add(IndexDrawerItem(
-      iconData: Icons.cloud,
-      name: s.Relays,
-      onTap: () {
-        RouterUtil.router(context, RouterPath.RELAYS);
-      },
-    ));
+    if (!PlatformUtil.isTableMode()) {
+      centerList.add(IndexDrawerItem(
+        iconData: Icons.cloud,
+        name: s.Relays,
+        onTap: () {
+          RouterUtil.router(context, RouterPath.RELAYS);
+        },
+      ));
+    }
 
     centerList.add(IndexDrawerItem(
       iconData: Icons.key,
