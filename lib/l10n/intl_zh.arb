@@ -210,5 +210,12 @@
     "NIP07_encrypt": "加密",
     "NIP07_decrypt": "解密",
     "Show_more": "查看更多",
-    "Limit_Note_Height": "限制动态高度"
+    "Limit_Note_Height": "限制动态高度",
+    "Add_to_private_bookmark": "添加到私人书签",
+    "Add_to_public_bookmark": "添加到公开书签",
+    "Remove_from_private_bookmark": "移除私人书签",
+    "Remove_from_public_bookmark": "移除公开书签",
+    "Bookmark": "书签",
+    "Private": "私有",
+    "Public": "公开"
 }

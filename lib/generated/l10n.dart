@@ -2259,6 +2259,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Add to private bookmark`
+  String get Add_to_private_bookmark {
+    return Intl.message(
+      'Add to private bookmark',
+      name: 'Add_to_private_bookmark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to public bookmark`
+  String get Add_to_public_bookmark {
+    return Intl.message(
+      'Add to public bookmark',
+      name: 'Add_to_public_bookmark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove from private bookmark`
+  String get Remove_from_private_bookmark {
+    return Intl.message(
+      'Remove from private bookmark',
+      name: 'Remove_from_private_bookmark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove from public bookmark`
+  String get Remove_from_public_bookmark {
+    return Intl.message(
+      'Remove from public bookmark',
+      name: 'Remove_from_public_bookmark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bookmark`
+  String get Bookmark {
+    return Intl.message(
+      'Bookmark',
+      name: 'Bookmark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Private`
+  String get Private {
+    return Intl.message(
+      'Private',
+      name: 'Private',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Public`
+  String get Public {
+    return Intl.message(
+      'Public',
+      name: 'Public',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

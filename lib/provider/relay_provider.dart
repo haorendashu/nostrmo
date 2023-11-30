@@ -100,11 +100,9 @@ class RelayProvider extends ChangeNotifier {
     });
 
     loadRelayAddrs(contactListProvider.content);
-    Future.delayed(Duration(seconds: 5), () {
-      listProvider.load(_nostr.publicKey,
-          [kind.EventKind.BOOKMARKS_LIST, kind.EventKind.EMOJIS_LIST],
-          targetNostr: _nostr);
-    });
+    listProvider.load(_nostr.publicKey,
+        [kind.EventKind.BOOKMARKS_LIST, kind.EventKind.EMOJIS_LIST],
+        targetNostr: _nostr, initQuery: true);
 
     for (var relayAddr in relayAddrs) {
       log("begin to init $relayAddr");

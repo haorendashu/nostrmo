@@ -6,8 +6,11 @@ import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/util/string_util.dart';
 
 import '../client/event_kind.dart';
+import '../client/nip04/nip04.dart';
+import '../client/nip51/bookmarks.dart';
 import '../client/nostr.dart';
 import '../data/custom_emoji.dart';
 import '../generated/l10n.dart';
@@ -74,6 +77,9 @@ class ListProvider extends ChangeNotifier {
           }
         }
       }
+    } else if (event.kind == EventKind.BOOKMARKS_LIST) {
+      // due to bookmarks info will use many times, so it should parse when it was receive.
+      _bookmarks = parseBookmarks();
     }
     notifyListeners();
   }
@@ -182,6 +188,140 @@ class ListProvider extends ChangeNotifier {
     } finally {
       cancelFunc.call();
     }
+  }
+
+  Bookmarks _bookmarks = Bookmarks();
+
+  Bookmarks getBookmarks() {
+    return _bookmarks;
+  }
+
+  String get bookmarksKey {
+    return "${EventKind.BOOKMARKS_LIST}:${nostr!.publicKey}";
+  }
+
+  Event? getBookmarksEvent() {
+    return _holder[bookmarksKey];
+  }
+
+  Bookmarks parseBookmarks() {
+    var bookmarks = Bookmarks();
+    var bookmarksEvent = getBookmarksEvent();
+    if (bookmarksEvent == null) {
+      return bookmarks;
+    }
+
+    var content = bookmarksEvent.content;
+    if (StringUtil.isNotBlank(content)) {
+      var agreement = NIP04.getAgreement(nostr!.privateKey!);
+      var plainContent = NIP04.decrypt(content, agreement, nostr!.publicKey);
+
+      var jsonObj = jsonDecode(plainContent);
+      if (jsonObj is List) {
+        List<BookmarkItem> privateItems = [];
+        for (var jsonObjItem in jsonObj) {
+          if (jsonObjItem is List && jsonObjItem.length > 1) {
+            var key = jsonObjItem[0];
+            var value = jsonObjItem[1];
+            if (key is String && value is String) {
+              privateItems.add(BookmarkItem(key: key, value: value));
+            }
+          }
+        }
+
+        bookmarks.privateItems = privateItems;
+      }
+    }
+
+    List<BookmarkItem> publicItems = [];
+    for (var jsonObjItem in bookmarksEvent.tags) {
+      if (jsonObjItem is List && jsonObjItem.length > 1) {
+        var key = jsonObjItem[0];
+        var value = jsonObjItem[1];
+        if (key is String && value is String) {
+          publicItems.add(BookmarkItem(key: key, value: value));
+        }
+      }
+    }
+    bookmarks.publicItems = publicItems;
+
+    return bookmarks;
+  }
+
+  void addPrivateBookmark(BookmarkItem bookmarkItem) {
+    var bookmarks = getBookmarks();
+    bookmarks.privateItems.add(bookmarkItem);
+    saveBookmarks(bookmarks);
+  }
+
+  void addPublicBookmark(BookmarkItem bookmarkItem) {
+    var bookmarks = getBookmarks();
+    bookmarks.publicItems.add(bookmarkItem);
+    saveBookmarks(bookmarks);
+  }
+
+  void removePrivateBookmark(String value) {
+    var bookmarks = getBookmarks();
+    bookmarks.privateItems.removeWhere((items) {
+      return items.value == value;
+    });
+    saveBookmarks(bookmarks);
+  }
+
+  void removePublicBookmark(String value) {
+    var bookmarks = getBookmarks();
+    bookmarks.publicItems.removeWhere((items) {
+      return items.value == value;
+    });
+    saveBookmarks(bookmarks);
+  }
+
+  void saveBookmarks(Bookmarks bookmarks) {
+    var content = "";
+    if (bookmarks.privateItems.isNotEmpty) {
+      List<List> list = [];
+      for (var item in bookmarks.privateItems) {
+        list.add(item.toJson());
+      }
+
+      var agreement = NIP04.getAgreement(nostr!.privateKey!);
+      var jsonText = jsonEncode(list);
+      content = NIP04.encrypt(jsonText, agreement, nostr!.publicKey);
+    }
+
+    List tags = [];
+    for (var item in bookmarks.publicItems) {
+      tags.add(item.toJson());
+    }
+
+    var event =
+        Event(nostr!.publicKey, EventKind.BOOKMARKS_LIST, tags, content);
+    var resultEvent = nostr!.sendEvent(event);
+    if (resultEvent != null) {
+      _holder[bookmarksKey] = resultEvent;
+    }
+
+    notifyListeners();
+  }
+
+  bool checkPublicBookmark(BookmarkItem item) {
+    for (var bi in _bookmarks.publicItems) {
+      if (bi.value == item.value) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool checkPrivateBookmark(BookmarkItem item) {
+    for (var bi in _bookmarks.privateItems) {
+      if (bi.value == item.value) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   void clear() {

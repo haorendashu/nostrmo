@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:nostrmo/client/nip51/bookmarks.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/component/zap_gen_dialog.dart';
 import 'package:provider/provider.dart';
@@ -230,6 +231,9 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 child: PopupMenuButton<String>(
                   tooltip: s.More,
                   itemBuilder: (context) {
+                    var bookmarkItem = BookmarkItem.getFromEventReactions(
+                        widget.eventRelation);
+
                     List<PopupMenuEntry<String>> list = [
                       PopupMenuItem(
                         value: "copyEvent",
@@ -257,6 +261,33 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                       value: "share",
                       child: Text(s.Share, style: popFontStyle),
                     ));
+                    list.add(PopupMenuDivider());
+                    if (listProvider.checkPrivateBookmark(bookmarkItem)) {
+                      list.add(PopupMenuItem(
+                        value: "removeFromPrivateBookmark",
+                        child: Text(s.Remove_from_private_bookmark,
+                            style: popFontStyle),
+                      ));
+                    } else {
+                      list.add(PopupMenuItem(
+                        value: "addToPrivateBookmark",
+                        child: Text(s.Add_to_private_bookmark,
+                            style: popFontStyle),
+                      ));
+                    }
+                    if (listProvider.checkPublicBookmark(bookmarkItem)) {
+                      list.add(PopupMenuItem(
+                        value: "removeFromPublicBookmark",
+                        child: Text(s.Remove_from_public_bookmark,
+                            style: popFontStyle),
+                      ));
+                    } else {
+                      list.add(PopupMenuItem(
+                        value: "addToPublicBookmark",
+                        child:
+                            Text(s.Add_to_public_bookmark, style: popFontStyle),
+                      ));
+                    }
                     list.add(PopupMenuDivider());
                     list.add(PopupMenuItem(
                       value: "source",
@@ -332,8 +363,18 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       RouterUtil.router(context, RouterPath.EVENT_DETAIL, widget.event);
     } else if (value == "share") {
       onShareTap();
-    } else if (value == "star") {
-      // TODO star event
+    } else if (value == "addToPrivateBookmark") {
+      var item = BookmarkItem.getFromEventReactions(widget.eventRelation);
+      listProvider.addPrivateBookmark(item);
+    } else if (value == "addToPublicBookmark") {
+      var item = BookmarkItem.getFromEventReactions(widget.eventRelation);
+      listProvider.addPublicBookmark(item);
+    } else if (value == "removeFromPrivateBookmark") {
+      var item = BookmarkItem.getFromEventReactions(widget.eventRelation);
+      listProvider.removePrivateBookmark(item.value);
+    } else if (value == "removeFromPublicBookmark") {
+      var item = BookmarkItem.getFromEventReactions(widget.eventRelation);
+      listProvider.removePublicBookmark(item.value);
     } else if (value == "broadcase") {
       nostr!.broadcase(widget.event);
     } else if (value == "source") {

@@ -32,6 +32,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_this_relay_to_local":
             MessageLookupByLibrary.simpleMessage("添加该中继到本地？"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("添加到已知列表"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("添加到私人书签"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("添加到公开书签"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("地址不能为空。"),
         "Any": MessageLookupByLibrary.simpleMessage("任意"),
@@ -46,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("开始下载翻译模型"),
         "Block": MessageLookupByLibrary.simpleMessage("限制"),
         "Blocks": MessageLookupByLibrary.simpleMessage("限制"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("书签"),
         "Boost": MessageLookupByLibrary.simpleMessage("促进"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("广播"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
@@ -190,11 +195,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts": MessageLookupByLibrary.simpleMessage("动态"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("动态 & 回复"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隐私锁"),
+        "Private": MessageLookupByLibrary.simpleMessage("私有"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("密钥不能为空"),
+        "Public": MessageLookupByLibrary.simpleMessage("公开"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("中继类型"),
         "Relays": MessageLookupByLibrary.simpleMessage("中继"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("移除私人书签"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("移除公开书签"),
         "Replying": MessageLookupByLibrary.simpleMessage("正在回复"),
         "Request": MessageLookupByLibrary.simpleMessage("请求"),
         "Search": MessageLookupByLibrary.simpleMessage("搜索"),

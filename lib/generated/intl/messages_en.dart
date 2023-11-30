@@ -36,6 +36,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add this relay to local?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Add to known list"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Add to private bookmark"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Add to public bookmark"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Address can\'t be null."),
         "Any": MessageLookupByLibrary.simpleMessage("Any"),
@@ -54,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Begin to load Contact History"),
         "Block": MessageLookupByLibrary.simpleMessage("Block"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Blocks"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("Bookmark"),
         "Boost": MessageLookupByLibrary.simpleMessage("Boost"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("Broadcast"),
         "Broadcast_When_Boost":
@@ -243,13 +248,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Posts & Replies"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Privacy Lock"),
+        "Private": MessageLookupByLibrary.simpleMessage("Private"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Private key is null."),
+        "Public": MessageLookupByLibrary.simpleMessage("Public"),
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
         "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relay Mode"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relays"),
+        "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Remove from private bookmark"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Remove from public bookmark"),
         "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
         "Request": MessageLookupByLibrary.simpleMessage("Request"),
         "Search": MessageLookupByLibrary.simpleMessage("Search"),

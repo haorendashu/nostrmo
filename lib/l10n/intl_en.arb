@@ -219,5 +219,12 @@
     "NIP07_encrypt": "Encrypt",
     "NIP07_decrypt": "Decrypt",
     "Show_more": "Show more",
-    "Limit_Note_Height": "Limit Note Height"
+    "Limit_Note_Height": "Limit Note Height",
+    "Add_to_private_bookmark": "Add to private bookmark",
+    "Add_to_public_bookmark": "Add to public bookmark",
+    "Remove_from_private_bookmark": "Remove from private bookmark",
+    "Remove_from_public_bookmark": "Remove from public bookmark",
+    "Bookmark": "Bookmark",
+    "Private": "Private",
+    "Public": "Public"
 }

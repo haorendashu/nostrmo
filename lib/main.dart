@@ -55,6 +55,7 @@ import 'provider/replaceable_event_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'provider/webview_provider.dart';
+import 'router/bookmark/bookmark_router.dart';
 import 'router/community/community_detail_router.dart';
 import 'router/dm/dm_detail_router.dart';
 import 'router/donate/donate_router.dart';
@@ -293,6 +294,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.COMMUNITY_DETAIL: (context) => CommunityDetailRouter(),
       RouterPath.FOLLOWED_COMMUNITIES: (context) => FollowedCommunitiesRouter(),
       RouterPath.FOLLOWED: (context) => FollowedRouter(),
+      RouterPath.BOOKMARK: (context) => BookmarkRouter(),
     };
 
     return MultiProvider(

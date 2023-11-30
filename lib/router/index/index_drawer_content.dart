@@ -162,6 +162,14 @@ class _IndexDrawerContnetComponnent
       },
     ));
 
+    centerList.add(IndexDrawerItem(
+      iconData: Icons.bookmarks,
+      name: s.Bookmark,
+      onTap: () {
+        RouterUtil.router(context, RouterPath.BOOKMARK);
+      },
+    ));
+
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       centerList.add(IndexDrawerItem(
         iconData: Icons.coffee_outlined,

@@ -713,8 +713,6 @@ mixin EditorMixin {
 
   double emojiBtnWidth = 60;
 
-  double customEmojiWidgetTabbarHeight = 46;
-
   Widget buildEmojiListsWidget() {
     var context = getContext();
     var s = S.of(context);
@@ -764,12 +762,12 @@ mixin EditorMixin {
                 child: Column(
                   children: [
                     Container(
-                      height: customEmojiWidgetTabbarHeight,
+                      height: Base.TABBAR_HEIGHT,
                       child: Row(
                         children: [
                           Expanded(
                             child: Container(
-                              height: customEmojiWidgetTabbarHeight,
+                              height: Base.TABBAR_HEIGHT,
                               child: TabBar(
                                 tabs: tabBarList,
                                 indicatorColor: mainColor,
