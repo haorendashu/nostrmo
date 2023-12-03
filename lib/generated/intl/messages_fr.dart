@@ -36,6 +36,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ajouter ce relais local?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Ajouter à la liste connue"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Ajouter à un signet privé"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Ajouter au signet public"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "L\'adresse ne peut pas être vide."),
         "Any": MessageLookupByLibrary.simpleMessage("Arbitraire"),
@@ -52,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Commencez à télécharger le modèle de traduction"),
         "Block": MessageLookupByLibrary.simpleMessage("Restrictions"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Restrictions"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("Signets"),
         "Boost": MessageLookupByLibrary.simpleMessage("Promotion"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("Diffusion"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
@@ -60,7 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Achète - moi un café!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Annulation"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Arrêter à"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Soumettre"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("Confirmation"),
         "Content": MessageLookupByLibrary.simpleMessage("Contenu"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Avertissement de contenu"),
@@ -189,6 +194,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Obtenir la clé publique"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("Obtenir une liste de relais"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Paiement Lightning"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Signature"),
         "Name": MessageLookupByLibrary.simpleMessage("Le nom"),
         "Network": MessageLookupByLibrary.simpleMessage("Réseau"),
@@ -253,12 +260,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dynamique & réponses"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Serrure de confidentialité"),
+        "Private": MessageLookupByLibrary.simpleMessage("Privé"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "La clé ne peut pas être vide"),
+        "Public": MessageLookupByLibrary.simpleMessage("Publiquement"),
         "Quote": MessageLookupByLibrary.simpleMessage("Citations"),
         "Read": MessageLookupByLibrary.simpleMessage("Lire"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Type de relais"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relais"),
+        "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Supprimer les signets privés"),
+        "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Supprimer les signets publics"),
         "Replying": MessageLookupByLibrary.simpleMessage("Répondre"),
         "Request": MessageLookupByLibrary.simpleMessage("Demande"),
         "Search": MessageLookupByLibrary.simpleMessage("Rechercher"),

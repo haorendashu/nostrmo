@@ -25,21 +25,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("om"),
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("kontoforvaltning"),
-        "Add_Account": MessageLookupByLibrary.simpleMessage("Tilføj en konto"),
+        "Add_Account": MessageLookupByLibrary.simpleMessage("Tilføj konto"),
         "Add_a_Note":
-            MessageLookupByLibrary.simpleMessage("Indlæg opdateringer"),
+            MessageLookupByLibrary.simpleMessage("Udgiv opdateringer"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Tilføj og log ind?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Tilføj nu"),
         "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
-            "Tilføje dette relæ til lokale?"),
+            "Tilføje dette relæ til lokalområdet?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Tilføj til kendt liste"),
+        "Add_to_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Tilføj til private bogmærker"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Føj til offentlige bogmærker"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Adressen må ikke være tom."),
         "Any": MessageLookupByLibrary.simpleMessage("vilkårligt"),
         "Authenticat_need":
-            MessageLookupByLibrary.simpleMessage("Kræv godkendelse"),
+            MessageLookupByLibrary.simpleMessage("Godkendelse påkrævet"),
         "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
             "Åbn automatisk følsomt indhold"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -52,15 +56,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Begynd at downloade oversættelsesmodel"),
         "Block": MessageLookupByLibrary.simpleMessage("grænse"),
         "Blocks": MessageLookupByLibrary.simpleMessage("grænse"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("bogmærke"),
         "Boost": MessageLookupByLibrary.simpleMessage("fremme"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("broadcast"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Udsendelse under promovering"),
+            "Fremme af radio- og tv-spredning under salgsfremmende foranstaltninger"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Køb mig en kop kaffe!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("annullér"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop ved"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Indsend"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("bekræft"),
         "Content": MessageLookupByLibrary.simpleMessage("indhold"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Indholdsadvarsel"),
@@ -78,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Kopiér oprindeligt link"),
         "Copy_success":
-            MessageLookupByLibrary.simpleMessage("Kopieret med succes"),
+            MessageLookupByLibrary.simpleMessage("Kopiér vellykket"),
         "Custom": MessageLookupByLibrary.simpleMessage("brugerdefineret"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Brugerdefinerede farver"),
@@ -94,7 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Delete": MessageLookupByLibrary.simpleMessage("slet"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Slet konto"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
-            "Vi forsøger at slette dine kontooplysninger. Hvis du fortsætter med at logge ind med denne nøgle næste gang, mister du dine oplysninger."),
+            "Vi forsøger at slette dine kontooplysninger. Hvis du fortsætter med at bruge denne nøgle til at logge på næste gang, mister du dine oplysninger."),
         "Detail": MessageLookupByLibrary.simpleMessage("detaljer"),
         "Dirtywords": MessageLookupByLibrary.simpleMessage("Filtrér ord"),
         "Display_Name": MessageLookupByLibrary.simpleMessage("kaldenavn"),
@@ -102,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Ikke komprimeret"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
-            "Indgangsrum kan være forbudt af relæet."),
+            "Indgangshuller kan blokeres af relæet."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Bekræftelse af begivenhedssignatur"),
         "Face": MessageLookupByLibrary.simpleMessage("ansigtsdetektion"),
@@ -117,9 +122,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Følgningssystem"),
         "Followed": MessageLookupByLibrary.simpleMessage("følg"),
         "Followed_Communities":
-            MessageLookupByLibrary.simpleMessage("Fællesskabet skal følge"),
+            MessageLookupByLibrary.simpleMessage("Fællesskabet fulgt"),
         "Followed_Tags":
-            MessageLookupByLibrary.simpleMessage("Emner, der skal følges"),
+            MessageLookupByLibrary.simpleMessage("Fokus på temaer"),
         "Following": MessageLookupByLibrary.simpleMessage("Følgende"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("skrifttype"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("skriftstørrelse"),
@@ -153,8 +158,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tilføj kontonøgle"),
         "Input_can_not_be_null":
             MessageLookupByLibrary.simpleMessage("Input kan ikke være tom"),
-        "Input_dirtyword": MessageLookupByLibrary.simpleMessage(
-            "Indtast filtreringsbetingelser"),
+        "Input_dirtyword":
+            MessageLookupByLibrary.simpleMessage("Indtast filtreringsord"),
         "Input_parse_error":
             MessageLookupByLibrary.simpleMessage("Inputtolkning mislykkedes"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
@@ -177,16 +182,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Decryptering"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("kryptering"),
         "NIP07_getPublicKey":
-            MessageLookupByLibrary.simpleMessage("Hent offentlig nøgle"),
+            MessageLookupByLibrary.simpleMessage("Indhent offentlig nøgle"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("Hent relæliste"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Flash-betaling"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autograf"),
         "Name": MessageLookupByLibrary.simpleMessage("navn"),
         "Network": MessageLookupByLibrary.simpleMessage("netværk"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Nostromo udviklere vil aldrig bede om en nøgle fra dig."),
+                "Nostromo udviklere vil aldrig bede om nøgler fra dig."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Dynamisk id"),
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dynamisk belastning"),
@@ -212,17 +219,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Accepter venligst brugeraftalen."),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Bekræft venligst din identitet for at lukke privatlivslåsen"),
+                "Bekræft venligst din identitet for at slå låsen til beskyttelse af personlige oplysninger fra"),
         "Please_authenticate_to_turn_on_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Bekræft venligst din identitet for at åbne privatlivslåsen"),
+                "Bekræft venligst din identitet for at låse låsen for beskyttelse af personlige oplysninger"),
         "Please_authenticate_to_use_app": MessageLookupByLibrary.simpleMessage(
             "Bekræft venligst din identitet for at bruge appen"),
         "Please_check_the_tips":
             MessageLookupByLibrary.simpleMessage("Tjek venligst påmindelsen."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Du må ikke videregive eller dele nøglen med nogen."),
+                "Du må ikke videregive eller dele nøgler med nogen."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Indtast venligst"),
         "Please_input_Topic_text":
@@ -244,13 +251,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynamisk & svar"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Privatlivslås"),
+        "Private": MessageLookupByLibrary.simpleMessage("privat"),
         "Private_key_is_null":
-            MessageLookupByLibrary.simpleMessage("Nøgle kan ikke være tom"),
+            MessageLookupByLibrary.simpleMessage("Nøglen kan ikke være tom"),
+        "Public": MessageLookupByLibrary.simpleMessage("åben"),
         "Quote": MessageLookupByLibrary.simpleMessage("citat"),
         "Read": MessageLookupByLibrary.simpleMessage("læse"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relætype"),
         "Relays": MessageLookupByLibrary.simpleMessage("relæ"),
-        "Replying": MessageLookupByLibrary.simpleMessage("Svar i gang"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Fjern private bogmærker"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Fjern offentlige bogmærker"),
+        "Replying": MessageLookupByLibrary.simpleMessage("Svar"),
         "Request": MessageLookupByLibrary.simpleMessage("anmodning"),
         "Search": MessageLookupByLibrary.simpleMessage("søg"),
         "Search_User_from_cache":
@@ -278,9 +291,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Indhold kan ikke indeholde linjeskift"),
         "The_key_is_a_random_string_that_resembles_":
             MessageLookupByLibrary.simpleMessage(
-                "Nøglen er en tilfældig streng, der ligner din kontoadgangskode. Enhver med denne nøgle kan få adgang til og kontrollere din konto."),
+                "Nøglen er en tilfældig streng, der ligner din kontoadgangskode. Enhver, der ejer denne nøgle, kan få adgang til og kontrollere din konto."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Temafarver"),
-        "Theme_Style": MessageLookupByLibrary.simpleMessage("Emnetype"),
+        "Theme_Style": MessageLookupByLibrary.simpleMessage("Tematype"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Der burde være et univers her"),
         "This_note_contains_sensitive_content":
@@ -293,12 +306,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Source_Language":
             MessageLookupByLibrary.simpleMessage("Oversættelseskildesprog"),
         "Translate_Target_Language":
-            MessageLookupByLibrary.simpleMessage("Målsprog for oversættelse"),
+            MessageLookupByLibrary.simpleMessage("Oversæt målsprog"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Upload mislykkedes"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Scan og send satellitter ved hjælp af Lightning Wallet"),
+                "Scan og send satellitter ved hjælp af Lightning Network Wallet"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Bruger Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("mennesker"),
         "Verify_error":
@@ -325,9 +338,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("De har allerede stemt"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
-            "Zap-mængden kan ikke være større end"),
+            "Antallet af Zaps kan ikke være større end"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
-            "Zap-mængden kan ikke være mindre end"),
+            "Antallet af Zaps kan ikke være mindre end"),
         "add_poll_option":
             MessageLookupByLibrary.simpleMessage("Tilføj stemmeindstillinger"),
         "auto": MessageLookupByLibrary.simpleMessage("automatisk"),
@@ -339,7 +352,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Indlæser"),
         "max_zap_num":
             MessageLookupByLibrary.simpleMessage("Maksimalt antal Zaps"),
-        "min_zap_num": MessageLookupByLibrary.simpleMessage("Min Zap- mængde"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("Minimumsantal Zaps"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Netværket træder i kraft næste gang appen startes"),
         "notes_updated":
@@ -347,7 +361,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "open": MessageLookupByLibrary.simpleMessage("åben"),
         "or": MessageLookupByLibrary.simpleMessage("måske"),
         "poll_option_info": MessageLookupByLibrary.simpleMessage(
-            "Oplysninger om afstemningsmuligheder"),
+            "Oplysninger om valgmuligheder"),
         "replied": MessageLookupByLibrary.simpleMessage("svar"),
         "terms_of_user": MessageLookupByLibrary.simpleMessage("Brugeraftale")
       };

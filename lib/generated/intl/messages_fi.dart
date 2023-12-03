@@ -32,14 +32,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lisää ja kirjaudu sisään?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Lisää nyt"),
         "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
-            "Lisää tämä rele paikalliseen?"),
+            "Lisää tämä rele paikalliseen alueeseen?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Lisää tunnettuun luetteloon"),
+        "Add_to_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Lisää yksityisiin kirjanmerkkeihin"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Lisää julkisiin kirjanmerkkeihin"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Osoite ei voi olla tyhjä."),
         "Any": MessageLookupByLibrary.simpleMessage("mielivaltaisesti"),
         "Authenticat_need":
-            MessageLookupByLibrary.simpleMessage("Vaati todentamista"),
+            MessageLookupByLibrary.simpleMessage("Todistus vaaditaan"),
         "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
             "Avaa arkaluontoinen sisältö automaattisesti"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -51,15 +55,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Aloita käännösmallin lataaminen"),
         "Block": MessageLookupByLibrary.simpleMessage("raja-arvo"),
         "Blocks": MessageLookupByLibrary.simpleMessage("raja-arvo"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("kirjanmerkki"),
         "Boost": MessageLookupByLibrary.simpleMessage("edistää"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("lähetys"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Lähetys myynninedistämisen aikana"),
+            "Edistetään yleisradiotoimintaa myynninedistämisen aikana"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Tarjoa kuppi kahvia!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("peruuta"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Pysähdy"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Lähetä"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("Vahvista"),
         "Content": MessageLookupByLibrary.simpleMessage("sisältö"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Sisältövaroitus"),
@@ -92,15 +97,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Delete": MessageLookupByLibrary.simpleMessage("Poista"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Poista tili"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
-            "Yritämme poistaa tilisi tiedot. Jos jatkat kirjautumista tällä avaimella seuraavan kerran, menetät tietosi."),
+            "Yritämme poistaa tilisi tiedot. Jos jatkat tämän avaimen käyttöä kirjautumiseen seuraavan kerran, menetät tietosi."),
         "Detail":
             MessageLookupByLibrary.simpleMessage("yksityiskohtaiset tiedot"),
         "Dirtywords": MessageLookupByLibrary.simpleMessage("Suodata sanat"),
         "Display_Name": MessageLookupByLibrary.simpleMessage("lempinimi"),
         "Donate": MessageLookupByLibrary.simpleMessage("lahjoitus"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Pakkaamaton"),
-        "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
-            "Rele voi kieltää syöttöaukot."),
+        "Empty_text_may_be_ban_by_relays":
+            MessageLookupByLibrary.simpleMessage("Rele voi estää tuloaukot."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Tapahtuman allekirjoituksen todentaminen"),
         "Face": MessageLookupByLibrary.simpleMessage("kasvojen tunnistus"),
@@ -115,9 +120,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Seurantajärjestelmä"),
         "Followed": MessageLookupByLibrary.simpleMessage("seuraa"),
         "Followed_Communities":
-            MessageLookupByLibrary.simpleMessage("Seurattava yhteisö"),
+            MessageLookupByLibrary.simpleMessage("Seurattu yhteisö"),
         "Followed_Tags":
-            MessageLookupByLibrary.simpleMessage("Seuraavia aiheita"),
+            MessageLookupByLibrary.simpleMessage("Keskity teemoihin"),
         "Following": MessageLookupByLibrary.simpleMessage("Seuraavat"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("fontti"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("kirjasinkoko"),
@@ -150,7 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Input_can_not_be_null":
             MessageLookupByLibrary.simpleMessage("Syötettä ei voi olla tyhjä"),
         "Input_dirtyword":
-            MessageLookupByLibrary.simpleMessage("Anna suodatuksen ehdot"),
+            MessageLookupByLibrary.simpleMessage("Syötä suodatetut sanat"),
         "Input_parse_error": MessageLookupByLibrary.simpleMessage(
             "Syötteen jäsentäminen epäonnistui"),
         "Input_relay_address":
@@ -176,9 +181,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Salauksen purku"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("salaus"),
         "NIP07_getPublicKey":
-            MessageLookupByLibrary.simpleMessage("Hanki julkinen avain"),
+            MessageLookupByLibrary.simpleMessage("Hae julkinen avain"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("Hae releluettelo"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("Pikamaksu"),
         "NIP07_signEvent":
             MessageLookupByLibrary.simpleMessage("nimikirjoitus"),
         "Name": MessageLookupByLibrary.simpleMessage("nimi"),
@@ -186,7 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Nostromon kehittäjät eivät koskaan pyydä avainta sinulta."),
+                "Nostromo kehittäjät eivät koskaan pyydä avaimia sinulta."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Dynaaminen tunniste"),
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dynaaminen kuormitus"),
@@ -212,17 +218,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hyväksy käyttäjäsopimus."),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Vahvista henkilöllisyytesi sulkeaksesi tietosuojalukon"),
+                "Varmista henkilöllisyytesi poistaaksesi yksityisyyslukon käytöstä"),
         "Please_authenticate_to_turn_on_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Vahvista henkilöllisyytesi avataksesi tietosuojalukon"),
+                "Vahvista henkilöllisyytesi avataksesi tietosuojalukituksen"),
         "Please_authenticate_to_use_app": MessageLookupByLibrary.simpleMessage(
             "Vahvista henkilöllisyytesi käyttääksesi sovellusta"),
         "Please_check_the_tips":
             MessageLookupByLibrary.simpleMessage("Tarkistakaa muistutus."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Älä paljasta tai jaa avainta kenellekään."),
+                "Älä paljasta tai jaa avaimia kenenkään kanssa."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Ole hyvä ja syötä"),
         "Please_input_Topic_text":
@@ -244,13 +250,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynaaminen & vastaus"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Tietosuojalukko"),
+        "Private": MessageLookupByLibrary.simpleMessage("yksityinen"),
         "Private_key_is_null":
-            MessageLookupByLibrary.simpleMessage("Avainta ei voi olla tyhjä"),
+            MessageLookupByLibrary.simpleMessage("Avain ei voi olla tyhjä"),
+        "Public": MessageLookupByLibrary.simpleMessage("avoin"),
         "Quote": MessageLookupByLibrary.simpleMessage("lainaus"),
         "Read": MessageLookupByLibrary.simpleMessage("lue"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Reletyyppi"),
         "Relays": MessageLookupByLibrary.simpleMessage("rele"),
-        "Replying": MessageLookupByLibrary.simpleMessage("Vastaus kesken"),
+        "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Poista yksityiset kirjanmerkit"),
+        "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Poista julkiset kirjanmerkit"),
+        "Replying": MessageLookupByLibrary.simpleMessage("Vastaus"),
         "Request": MessageLookupByLibrary.simpleMessage("pyyntö"),
         "Search": MessageLookupByLibrary.simpleMessage("haku"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -278,9 +290,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sisältö ei voi sisältää rivinvaihtoja"),
         "The_key_is_a_random_string_that_resembles_":
             MessageLookupByLibrary.simpleMessage(
-                "Avain on satunnainen merkkijono, joka muistuttaa tilisi salasanaa. Kuka tahansa, jolla on tämä avain, voi käyttää tiliäsi ja hallita sitä."),
+                "Avain on satunnainen merkkijono, joka muistuttaa tilisi salasanaa. Kuka tahansa, joka omistaa tämän avaimen, voi käyttää tiliäsi ja hallita sitä."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Teeman värit"),
-        "Theme_Style": MessageLookupByLibrary.simpleMessage("Aiheen tyyppi"),
+        "Theme_Style": MessageLookupByLibrary.simpleMessage("Teeman tyyppi"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Täällä pitäisi olla universumi."),
         "This_note_contains_sensitive_content":
@@ -293,12 +305,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Source_Language":
             MessageLookupByLibrary.simpleMessage("Käännöksen lähdekieli"),
         "Translate_Target_Language":
-            MessageLookupByLibrary.simpleMessage("Käännöksen kohdekieli"),
+            MessageLookupByLibrary.simpleMessage("Käännä kohdekieli"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Lähetys epäonnistui"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skannaa ja lähetä satelliitteja Lightning Walletin avulla"),
+                "Skannaa ja lähetä satelliitteja Lightning Network Walletin avulla"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Käyttäjän Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("ihmiset"),
         "Verify_error":
@@ -325,9 +337,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Olette jo äänestäneet"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
-            "Zap-määrä ei voi olla suurempi kuin"),
+            "Zappien määrä ei voi olla suurempi kuin"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
-            "Zap-määrä ei voi olla pienempi kuin"),
+            "Zappien määrä ei voi olla pienempi kuin"),
         "add_poll_option":
             MessageLookupByLibrary.simpleMessage("Lisää äänestysvaihtoehtoja"),
         "auto": MessageLookupByLibrary.simpleMessage("automaattinen"),
@@ -339,7 +351,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Ladataan"),
         "max_zap_num":
             MessageLookupByLibrary.simpleMessage("Zappien enimmäismäärä"),
-        "min_zap_num": MessageLookupByLibrary.simpleMessage("Pienin Zap-määrä"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("Zappien vähimmäismäärä"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Verkko tulee voimaan seuraavan kerran, kun sovellus käynnistetään"),
         "notes_updated":

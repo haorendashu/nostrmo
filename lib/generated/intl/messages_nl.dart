@@ -26,20 +26,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("accountbeheer"),
         "Add_Account":
-            MessageLookupByLibrary.simpleMessage("Een account toevoegen"),
-        "Add_a_Note": MessageLookupByLibrary.simpleMessage("Updates posten"),
+            MessageLookupByLibrary.simpleMessage("Account toevoegen"),
+        "Add_a_Note":
+            MessageLookupByLibrary.simpleMessage("Updates publiceren"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Toevoegen en inloggen?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Nu toevoegen"),
         "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
-            "Voeg dit relais toe aan lokaal?"),
+            "Voeg dit relais toe aan de omgeving?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Toevoegen aan bekende lijst"),
+        "Add_to_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Aan privébladwijzers toevoegen"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Aan openbare bladwijzers toevoegen"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "Het adres kan niet leeg zijn."),
         "Any": MessageLookupByLibrary.simpleMessage("willekeurig"),
         "Authenticat_need":
-            MessageLookupByLibrary.simpleMessage("Authenticatie vereisen"),
+            MessageLookupByLibrary.simpleMessage("Authenticatie vereist"),
         "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
             "Gevoelige inhoud automatisch openen"),
         "Backup_and_Safety_tips":
@@ -51,15 +56,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Download vertaalmodel starten"),
         "Block": MessageLookupByLibrary.simpleMessage("limiet"),
         "Blocks": MessageLookupByLibrary.simpleMessage("limiet"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("bladwijzer"),
         "Boost": MessageLookupByLibrary.simpleMessage("bevorderen"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("uitzending"),
-        "Broadcast_When_Boost":
-            MessageLookupByLibrary.simpleMessage("Uitzending tijdens promotie"),
+        "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
+            "Promotie van uitzendingen tijdens promotie"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Koop me een kop koffie!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("annuleren"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop bij"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Verzenden"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("bevestigen"),
         "Content": MessageLookupByLibrary.simpleMessage("inhoud"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Inhoud waarschuwing"),
@@ -69,7 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_Note_Id":
             MessageLookupByLibrary.simpleMessage("Dynamisch id kopiëren"),
         "Copy_Note_Json":
-            MessageLookupByLibrary.simpleMessage("Dynamische Json kopiëren"),
+            MessageLookupByLibrary.simpleMessage("Dynamisch Json kopiëren"),
         "Copy_Note_Pubkey":
             MessageLookupByLibrary.simpleMessage("Dynamische auteur kopiëren"),
         "Copy_current_Url":
@@ -77,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Eerste koppeling kopiëren"),
         "Copy_success":
-            MessageLookupByLibrary.simpleMessage("Succesvol gekopieerd"),
+            MessageLookupByLibrary.simpleMessage("Kopiëren succesvol"),
         "Custom": MessageLookupByLibrary.simpleMessage("op maat"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Aangepaste kleuren"),
@@ -95,7 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Delete_Account":
             MessageLookupByLibrary.simpleMessage("Account verwijderen"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
-            "We proberen uw accountgegevens te verwijderen. Als u de volgende keer met deze sleutel blijft inloggen, verliest u uw gegevens."),
+            "We proberen uw accountgegevens te verwijderen. Als u deze sleutel blijft gebruiken om de volgende keer in te loggen, verliest u uw gegevens."),
         "Detail": MessageLookupByLibrary.simpleMessage("details"),
         "Dirtywords": MessageLookupByLibrary.simpleMessage("Woorden filteren"),
         "Display_Name": MessageLookupByLibrary.simpleMessage("bijnaam"),
@@ -103,7 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Niet gecomprimeerd"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
-            "Input blanco\'s kunnen door het relais worden verboden."),
+            "Input blanco\'s kunnen worden geblokkeerd door het relais."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Verificatie van gebeurtenishandtekening"),
         "Face": MessageLookupByLibrary.simpleMessage("gezichtsdetectie"),
@@ -117,9 +123,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Follow_System": MessageLookupByLibrary.simpleMessage("Volg systeem"),
         "Followed": MessageLookupByLibrary.simpleMessage("volgen"),
         "Followed_Communities":
-            MessageLookupByLibrary.simpleMessage("Gemeenschap te volgen"),
+            MessageLookupByLibrary.simpleMessage("Gemeenschap gevolgd"),
         "Followed_Tags":
-            MessageLookupByLibrary.simpleMessage("Onderwerpen die volgen"),
+            MessageLookupByLibrary.simpleMessage("Focus op thema\'s"),
         "Following": MessageLookupByLibrary.simpleMessage("Volgende"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("lettertype"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("lettergrootte"),
@@ -155,7 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Input_can_not_be_null":
             MessageLookupByLibrary.simpleMessage("Invoer kan niet leeg zijn"),
         "Input_dirtyword":
-            MessageLookupByLibrary.simpleMessage("Voer filtertermen in"),
+            MessageLookupByLibrary.simpleMessage("Voer filterwoorden in"),
         "Input_parse_error":
             MessageLookupByLibrary.simpleMessage("Invoerparsing mislukt"),
         "Input_relay_address":
@@ -180,14 +186,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_getPublicKey":
             MessageLookupByLibrary.simpleMessage("Publieke sleutel verkrijgen"),
         "NIP07_getRelays":
-            MessageLookupByLibrary.simpleMessage("Relaylijst ophalen"),
+            MessageLookupByLibrary.simpleMessage("Relaislijst ophalen"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Flash-betaling"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("handtekening"),
         "Name": MessageLookupByLibrary.simpleMessage("naam"),
         "Network": MessageLookupByLibrary.simpleMessage("netwerk"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Nostromo ontwikkelaars zullen nooit om een sleutel van u vragen."),
+                "Nostromo ontwikkelaars zullen nooit vragen om sleutels van u."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Dynamisch id"),
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dynamische lading"),
@@ -213,17 +221,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Gelieve de gebruikersovereenkomst te accepteren."),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Controleer uw identiteit om het privacyslot te sluiten"),
+                "Controleer uw identiteit om het privacyslot uit te schakelen"),
         "Please_authenticate_to_turn_on_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Controleer uw identiteit om het privacyslot te openen"),
+                "Controleer uw identiteit om het privacyslot te ontgrendelen"),
         "Please_authenticate_to_use_app": MessageLookupByLibrary.simpleMessage(
             "Controleer uw identiteit om de app te gebruiken"),
         "Please_check_the_tips":
             MessageLookupByLibrary.simpleMessage("Controleer de herinnering."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Gelieve de sleutel niet openbaar te maken of te delen met niemand."),
+                "Gelieve sleutels met niemand openbaar te maken of te delen."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Gelieve in te voeren"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -246,14 +254,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dynamic&Reply"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Privacy vergrendeling"),
-        "Private_key_is_null":
-            MessageLookupByLibrary.simpleMessage("Sleutel kan niet leeg zijn"),
+        "Private": MessageLookupByLibrary.simpleMessage("privé"),
+        "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
+            "De sleutel kan niet leeg zijn"),
+        "Public": MessageLookupByLibrary.simpleMessage("open"),
         "Quote": MessageLookupByLibrary.simpleMessage("citaat"),
         "Read": MessageLookupByLibrary.simpleMessage("lezen"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relaistype"),
         "Relays": MessageLookupByLibrary.simpleMessage("relais"),
-        "Replying":
-            MessageLookupByLibrary.simpleMessage("Antwoord in behandeling"),
+        "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Privébladwijzers verwijderen"),
+        "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Openbare bladwijzers verwijderen"),
+        "Replying": MessageLookupByLibrary.simpleMessage("Antwoord"),
         "Request": MessageLookupByLibrary.simpleMessage("verzoek"),
         "Search": MessageLookupByLibrary.simpleMessage("zoeken"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -280,9 +293,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Inhoud kan geen regeleinden bevatten"),
         "The_key_is_a_random_string_that_resembles_":
             MessageLookupByLibrary.simpleMessage(
-                "De sleutel is een willekeurige tekenreeks, vergelijkbaar met uw accountwachtwoord. Iedereen met deze sleutel heeft toegang tot en controle over uw account."),
+                "De sleutel is een willekeurige tekenreeks, vergelijkbaar met uw accountwachtwoord. Iedereen die eigenaar is van deze sleutel heeft toegang tot en controle over uw account."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Themakleuren"),
-        "Theme_Style": MessageLookupByLibrary.simpleMessage("Soort onderwerp"),
+        "Theme_Style": MessageLookupByLibrary.simpleMessage("Thematype"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Er zou hier een universum moeten zijn."),
         "This_note_contains_sensitive_content":
@@ -293,13 +306,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Topics": MessageLookupByLibrary.simpleMessage("thema"),
         "Translate": MessageLookupByLibrary.simpleMessage("vertalen"),
         "Translate_Source_Language":
-            MessageLookupByLibrary.simpleMessage("Vertaalbrontaal"),
+            MessageLookupByLibrary.simpleMessage("Brontaal van vertaling"),
         "Translate_Target_Language":
-            MessageLookupByLibrary.simpleMessage("Doeltaal voor vertaling"),
+            MessageLookupByLibrary.simpleMessage("Doeltaal vertalen"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload mislukt"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Sat scannen en verzenden met Lightning Wallet"),
+                "Sat scannen en verzenden met Lightning Network Wallet"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Gebruiker Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("mensen"),
         "Verify_error": MessageLookupByLibrary.simpleMessage(
@@ -325,9 +338,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("U hebt al gestemd"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
-            "Zap hoeveelheid kan niet groter zijn dan"),
+            "Het aantal Zaps kan niet groter zijn dan"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
-            "Zap hoeveelheid mag niet kleiner zijn dan"),
+            "Het aantal Zaps mag niet kleiner zijn dan"),
         "add_poll_option":
             MessageLookupByLibrary.simpleMessage("Stemmingsopties toevoegen"),
         "auto": MessageLookupByLibrary.simpleMessage("automatisch"),
@@ -340,7 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "max_zap_num":
             MessageLookupByLibrary.simpleMessage("Maximum aantal Zaps"),
         "min_zap_num":
-            MessageLookupByLibrary.simpleMessage("Min. Zap-hoeveelheid"),
+            MessageLookupByLibrary.simpleMessage("Minimumaantal Zaps"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Het netwerk wordt van kracht wanneer de app de volgende keer wordt gestart"),
         "notes_updated":

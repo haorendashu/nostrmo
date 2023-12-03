@@ -26,19 +26,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("zarządzanie rachunkami"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Dodaj konto"),
-        "Add_a_Note": MessageLookupByLibrary.simpleMessage("Aktualizacje"),
+        "Add_a_Note":
+            MessageLookupByLibrary.simpleMessage("Publikuj aktualizacje"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Dodawać i zalogować się?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Dodaj teraz"),
         "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
-            "Dodać ten przekaźnik do lokalnego?"),
+            "Dodać ten przekaźnik do okolicy?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Dodaj do znanej listy"),
+        "Add_to_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Dodaj do prywatnych zakładek"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Dodaj do publicznych zakładek"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Adres nie może być pusty."),
         "Any": MessageLookupByLibrary.simpleMessage("dowolnie"),
         "Authenticat_need":
-            MessageLookupByLibrary.simpleMessage("Wymaganie uwierzytelniania"),
+            MessageLookupByLibrary.simpleMessage("Wymagane uwierzytelnianie"),
         "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
             "Automatyczne otwieranie wrażliwych treści"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -50,15 +55,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Rozpocznij pobieranie modelu tłumaczenia"),
         "Block": MessageLookupByLibrary.simpleMessage("limit"),
         "Blocks": MessageLookupByLibrary.simpleMessage("limit"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("zakładka"),
         "Boost": MessageLookupByLibrary.simpleMessage("promować"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("transmisja"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Nadawanie w trakcie promocji"),
+            "Promowanie nadawania w trakcie promocji"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Postaw mi filiżankę kawy!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("anuluj"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Zatrzymaj się na"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Przesłać"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("potwierdź"),
         "Content": MessageLookupByLibrary.simpleMessage("treść"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Ostrzeżenie o treści"),
@@ -76,12 +82,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Kopiuj początkowe łącze"),
         "Copy_success":
-            MessageLookupByLibrary.simpleMessage("Pomyślnie skopiowano"),
+            MessageLookupByLibrary.simpleMessage("Kopiowanie pomyślne"),
         "Custom": MessageLookupByLibrary.simpleMessage("niestandardowe"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Kolory niestandardowe"),
         "Custom_Font_Family":
-            MessageLookupByLibrary.simpleMessage("Niestandardowa czcionka"),
+            MessageLookupByLibrary.simpleMessage("Czcionka niestandardowa"),
         "Dark": MessageLookupByLibrary.simpleMessage("Ciemny kolor"),
         "Data": MessageLookupByLibrary.simpleMessage("dane"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Domyślny kolor"),
@@ -94,7 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Delete": MessageLookupByLibrary.simpleMessage("usunąć"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Usuń konto"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
-            "Staramy się usunąć informacje o Twoim koncie. Jeśli będziesz kontynuował logowanie się za pomocą tego klucza następnym razem, stracisz swoje dane."),
+            "Staramy się usunąć informacje o Twoim koncie. Jeśli będziesz nadal używał tego klucza do logowania się następnym razem, utracisz swoje dane."),
         "Detail": MessageLookupByLibrary.simpleMessage("szczegóły"),
         "Dirtywords": MessageLookupByLibrary.simpleMessage("Filtruj słowa"),
         "Display_Name": MessageLookupByLibrary.simpleMessage("pseudonim"),
@@ -102,7 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Niekompresowane"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
-            "Przekaźnik może zabronić wprowadzania pustych śladów wejściowych."),
+            "Puste wejścia mogą być blokowane przez przekaźnik."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Weryfikacja podpisu zdarzenia"),
         "Face": MessageLookupByLibrary.simpleMessage("wykrywanie twarzy"),
@@ -117,9 +123,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("System śledzenia"),
         "Followed": MessageLookupByLibrary.simpleMessage("następuj"),
         "Followed_Communities":
-            MessageLookupByLibrary.simpleMessage("Wspólnota do naśladowania"),
-        "Followed_Tags": MessageLookupByLibrary.simpleMessage(
-            "Tematy, które należy następować"),
+            MessageLookupByLibrary.simpleMessage("Wspólnota następuje"),
+        "Followed_Tags":
+            MessageLookupByLibrary.simpleMessage("Skup się na tematach"),
         "Following": MessageLookupByLibrary.simpleMessage("Następujące"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("czcionka"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("rozmiar czcionki"),
@@ -139,8 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kompresja obrazu"),
         "Image_save_success":
             MessageLookupByLibrary.simpleMessage("Obraz zapisany pomyślnie"),
-        "Image_service":
-            MessageLookupByLibrary.simpleMessage("Usługi obrazowe"),
+        "Image_service": MessageLookupByLibrary.simpleMessage("Usługi obrazu"),
         "Input": MessageLookupByLibrary.simpleMessage("wejście"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Wpisz komentarze"),
@@ -154,7 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Input_can_not_be_null":
             MessageLookupByLibrary.simpleMessage("Wejście nie może być puste"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage(
-            "Proszę wprowadzić warunki filtrowania"),
+            "Proszę wprowadzić słowa filtrujące"),
         "Input_parse_error": MessageLookupByLibrary.simpleMessage(
             "Parsowanie wejść nie powiodło się"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
@@ -181,13 +186,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Uzyskaj klucz publiczny"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("Pobierz listę przekaźników"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Płatność flash"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autograf"),
         "Name": MessageLookupByLibrary.simpleMessage("nazwa"),
         "Network": MessageLookupByLibrary.simpleMessage("sieć"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Programiści Nostromo nigdy nie poproszą Cię o klucz."),
+                "Programiści Nostromo nigdy nie poproszą Cię o klucze."),
         "Note_Id":
             MessageLookupByLibrary.simpleMessage("Identyfikator dynamiczny"),
         "Note_loading":
@@ -214,17 +221,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Proszę zaakceptować zgodę użytkownika."),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Proszę zweryfikować swoją tożsamość, aby zamknąć blokadę prywatności"),
+                "Proszę zweryfikować swoją tożsamość, aby wyłączyć blokadę prywatności"),
         "Please_authenticate_to_turn_on_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Proszę zweryfikować swoją tożsamość, aby otworzyć blokadę prywatności"),
+                "Proszę zweryfikować swoją tożsamość, aby odblokować blokadę prywatności"),
         "Please_authenticate_to_use_app": MessageLookupByLibrary.simpleMessage(
             "Proszę zweryfikować swoją tożsamość, aby korzystać z aplikacji"),
         "Please_check_the_tips": MessageLookupByLibrary.simpleMessage(
             "Proszę sprawdzić przypomnienie."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Proszę nie ujawniać ani udostępniać klucza nikomu."),
+                "Proszę nie ujawniać ani udostępniać kluczy nikomu."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Proszę wprowadzić"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -247,13 +254,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dynamic&Reply"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Blokada prywatności"),
+        "Private": MessageLookupByLibrary.simpleMessage("prywatne"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Klucz nie może być pusty"),
+        "Public": MessageLookupByLibrary.simpleMessage("otwarty"),
         "Quote": MessageLookupByLibrary.simpleMessage("cytat"),
         "Read": MessageLookupByLibrary.simpleMessage("odczyt"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Typ przekaźnika"),
         "Relays": MessageLookupByLibrary.simpleMessage("przekaźnik"),
-        "Replying": MessageLookupByLibrary.simpleMessage("Odpowiedź w toku"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Usuń zakładki prywatne"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Usuń publiczne zakładki"),
+        "Replying": MessageLookupByLibrary.simpleMessage("Odpowiedź"),
         "Request": MessageLookupByLibrary.simpleMessage("żądanie"),
         "Search": MessageLookupByLibrary.simpleMessage("wyszukiwanie"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -282,9 +295,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Zawartość nie może zawierać podziałów wierszy"),
         "The_key_is_a_random_string_that_resembles_":
             MessageLookupByLibrary.simpleMessage(
-                "Klucz to losowy ciąg, podobny do hasła konta. Każdy z tym kluczem może uzyskać dostęp i kontrolować Twoje konto."),
+                "Klucz to losowy ciąg, podobny do hasła konta. Każdy, kto jest właścicielem tego klucza, może uzyskać dostęp do Twojego konta i kontrolować go."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Kolory motywu"),
-        "Theme_Style": MessageLookupByLibrary.simpleMessage("Typ tematu"),
+        "Theme_Style": MessageLookupByLibrary.simpleMessage("Typ motywu"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Powinien tu być wszechświat."),
         "This_note_contains_sensitive_content":
@@ -297,12 +310,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Source_Language":
             MessageLookupByLibrary.simpleMessage("Język źródłowy tłumaczenia"),
         "Translate_Target_Language":
-            MessageLookupByLibrary.simpleMessage("Język docelowy tłumaczenia"),
+            MessageLookupByLibrary.simpleMessage("Przetłumacz język docelowy"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage(
             "Przesyłanie nie powiodło się"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Skanowanie i wysyłanie sat za pomocą Lightning Wallet"),
+                "Skanowanie i wysyłanie sat za pomocą Lightning Network Wallet"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Klucz pubny użytkownika"),
         "Users": MessageLookupByLibrary.simpleMessage("ludzie"),
@@ -331,9 +344,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Już głosowałeś"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
-            "Ilość Zap nie może być większa niż"),
+            "Liczba Zapów nie może być większa niż"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
-            "Ilość Zap nie może być mniejsza niż"),
+            "Liczba Zapów nie może być mniejsza niż"),
         "add_poll_option":
             MessageLookupByLibrary.simpleMessage("Dodaj opcje głosowania"),
         "auto": MessageLookupByLibrary.simpleMessage("automatyczny"),
@@ -346,7 +359,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "max_zap_num":
             MessageLookupByLibrary.simpleMessage("Maksymalna liczba Zapów"),
         "min_zap_num":
-            MessageLookupByLibrary.simpleMessage("Minimalna ilość Zap"),
+            MessageLookupByLibrary.simpleMessage("Minimalna liczba Zapów"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Sieć wejdzie w życie po następnym uruchomieniu aplikacji"),
         "notes_updated":

@@ -35,6 +35,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("เพิ่มรีเลย์ไปยังท้องถิ่น?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("เพิ่มไปยังรายการที่รู้จัก"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("เพิ่มในบุ๊กมาร์กส่วนตัว"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("เพิ่มลงในบุ๊กมาร์กสาธารณะ"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("ที่อยู่ไม่สามารถว่างได้"),
         "Any": MessageLookupByLibrary.simpleMessage("ใด ๆ"),
@@ -50,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("เริ่มดาวน์โหลดรูปแบบการแปล"),
         "Block": MessageLookupByLibrary.simpleMessage("ข้อ จำกัด"),
         "Blocks": MessageLookupByLibrary.simpleMessage("ข้อ จำกัด"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("บุ๊คมาร์ค"),
         "Boost": MessageLookupByLibrary.simpleMessage("โปรโมชั่น"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("ออกอากาศ"),
         "Broadcast_When_Boost":
@@ -58,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ซื้อกาแฟให้ฉัน!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("การยกเลิก"),
         "Close_at": MessageLookupByLibrary.simpleMessage("หยุดใน"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("ส่ง"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("ยืนยัน"),
         "Content": MessageLookupByLibrary.simpleMessage("เนื้อหา"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("คำเตือนเนื้อหา"),
@@ -173,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("รับกุญแจสาธารณะ"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("รับรายการรีเลย์"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("สายฟ้า Pay"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("ลายเซ็น"),
         "Name": MessageLookupByLibrary.simpleMessage("ชื่อ"),
         "Network": MessageLookupByLibrary.simpleMessage("เครือข่าย"),
@@ -237,12 +243,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("แบบไดนามิกและการตอบกลับ"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("ล็อคความเป็นส่วนตัว"),
+        "Private": MessageLookupByLibrary.simpleMessage("ส่วนตัว"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("กุญแจต้องไม่ว่างเปล่า"),
+        "Public": MessageLookupByLibrary.simpleMessage("สาธารณะ"),
         "Quote": MessageLookupByLibrary.simpleMessage("การอ้างอิง"),
         "Read": MessageLookupByLibrary.simpleMessage("อ่าน"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("ประเภทรีเลย์"),
         "Relays": MessageLookupByLibrary.simpleMessage("รีเลย์"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("ลบบุ๊กมาร์กส่วนตัว"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("ลบที่คั่นหน้าสาธารณะ"),
         "Replying": MessageLookupByLibrary.simpleMessage("กำลังตอบกลับ"),
         "Request": MessageLookupByLibrary.simpleMessage("คำขอ"),
         "Search": MessageLookupByLibrary.simpleMessage("ค้นหา"),

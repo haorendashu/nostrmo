@@ -14,6 +14,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/provider/webview_provider.dart';
+import 'package:nostrmo/util/lightning_util.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -162,25 +163,33 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
           },
           shouldOverrideUrlLoading: (controller, navigationAction) async {
             var uri = navigationAction.request.url!;
-
-            if (![
-              "http",
-              "https",
-              "file",
-              "chrome",
-              "data",
-              "javascript",
-              "about"
-            ].contains(uri.scheme)) {
-              if (await canLaunchUrl(uri)) {
-                // Launch the App
-                await launchUrl(
-                  uri,
-                );
-                // and cancel the request
-                return NavigationActionPolicy.CANCEL;
+            if (uri.scheme == "lightning" && StringUtil.isNotBlank(uri.path)) {
+              var result =
+                  await NIP07Dialog.show(context, NIP07Methods.lightning);
+              if (result == true) {
+                await LightningUtil.goToPay(context, uri.path);
               }
+              return NavigationActionPolicy.CANCEL;
             }
+
+            // if (![
+            //   "http",
+            //   "https",
+            //   "file",
+            //   "chrome",
+            //   "data",
+            //   "javascript",
+            //   "about"
+            // ].contains(uri.scheme)) {
+            //   if (await canLaunchUrl(uri)) {
+            //     // Launch the App
+            //     await launchUrl(
+            //       uri,
+            //     );
+            //     // and cancel the request
+            //     return NavigationActionPolicy.CANCEL;
+            //   }
+            // }
 
             return NavigationActionPolicy.ALLOW;
           },

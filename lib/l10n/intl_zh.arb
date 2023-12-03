@@ -1,5 +1,5 @@
 {
-    "Comfirm": "提交",
+    "Comfirm": "确认",
     "Cancel": "取消",
     "open": "打开",
     "close": "关闭",
@@ -209,6 +209,7 @@
     "NIP07_getRelays": "获取中继列表",
     "NIP07_encrypt": "加密",
     "NIP07_decrypt": "解密",
+    "NIP07_lightning": "闪电支付",
     "Show_more": "查看更多",
     "Limit_Note_Height": "限制动态高度",
     "Add_to_private_bookmark": "添加到私人书签",

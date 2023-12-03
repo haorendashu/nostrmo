@@ -35,6 +35,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Добавить эту ретрансляцию локально?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Добавить в список известных"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Добавить в личную закладку"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Добавить в открытую закладку"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Адрес не может быть пустым."),
         "Any": MessageLookupByLibrary.simpleMessage("Произвольный"),
@@ -51,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Начать загрузку модели перевода"),
         "Block": MessageLookupByLibrary.simpleMessage("Ограничения"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Ограничения"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("Закладки"),
         "Boost": MessageLookupByLibrary.simpleMessage("Содействие"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("Радио"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
@@ -59,7 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Купи мне кофе!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Отменить"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Остановиться на"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Представлено"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("Подтверждение"),
         "Content": MessageLookupByLibrary.simpleMessage("Содержание"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Содержание предупреждений"),
@@ -183,6 +188,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Получение открытого ключа"),
         "NIP07_getRelays": MessageLookupByLibrary.simpleMessage(
             "Получение списка ретрансляторов"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Молния платит"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Подпись"),
         "Name": MessageLookupByLibrary.simpleMessage("Имя"),
         "Network": MessageLookupByLibrary.simpleMessage("Сеть"),
@@ -247,12 +254,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Динамический & ответ"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Блок конфиденциальности"),
+        "Private":
+            MessageLookupByLibrary.simpleMessage("Частная собственность"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Ключ не может быть пустым"),
+        "Public": MessageLookupByLibrary.simpleMessage("Открыто"),
         "Quote": MessageLookupByLibrary.simpleMessage("Ссылки"),
         "Read": MessageLookupByLibrary.simpleMessage("Читать"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Тип ретрансляции"),
         "Relays": MessageLookupByLibrary.simpleMessage("Трансляция"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Удалить личную закладку"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Удалить открытую закладку"),
         "Replying": MessageLookupByLibrary.simpleMessage("Отвечаю."),
         "Request": MessageLookupByLibrary.simpleMessage("Просьбы"),
         "Search": MessageLookupByLibrary.simpleMessage("Поиск"),

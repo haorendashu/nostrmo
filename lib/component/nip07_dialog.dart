@@ -90,6 +90,8 @@ class _NIP07Dialog extends State<NIP07Dialog> {
           methodDesc += ": $kindDesc";
         }
       } catch (e) {}
+    } else if (widget.method == NIP07Methods.lightning) {
+      methodDesc = s.NIP07_lightning;
     }
     list.add(Container(
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),

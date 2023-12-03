@@ -34,6 +34,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Thêm chuyển tiếp đó đến địa phương?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Thêm vào danh sách đã biết"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Thêm vào dấu trang riêng"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Thêm vào bookmark công khai"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "Địa chỉ không được để trống."),
         "Any": MessageLookupByLibrary.simpleMessage("Bất kỳ"),
@@ -50,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Bắt đầu tải xuống mô hình dịch"),
         "Block": MessageLookupByLibrary.simpleMessage("Giới hạn"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Giới hạn"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("Đánh dấu"),
         "Boost": MessageLookupByLibrary.simpleMessage("Khuyến mãi"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("Phát sóng"),
         "Broadcast_When_Boost":
@@ -58,7 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mua cho tôi một tách cà phê!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Dừng lại ở"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Giới thiệu"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
         "Content": MessageLookupByLibrary.simpleMessage("Nội dung"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Cảnh báo nội dung"),
@@ -176,6 +181,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Nhận public key"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("Lấy danh sách chuyển tiếp"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Thanh toán Lightning"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Chữ ký"),
         "Name": MessageLookupByLibrary.simpleMessage("Tên"),
         "Network": MessageLookupByLibrary.simpleMessage("Mạng lưới"),
@@ -238,12 +245,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Động&Trả lời"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Khóa riêng tư"),
+        "Private": MessageLookupByLibrary.simpleMessage("Riêng tư"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Key không thể để trống"),
+        "Public": MessageLookupByLibrary.simpleMessage("Công cộng"),
         "Quote": MessageLookupByLibrary.simpleMessage("Trích dẫn"),
         "Read": MessageLookupByLibrary.simpleMessage("Đọc"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Loại Relay"),
         "Relays": MessageLookupByLibrary.simpleMessage("Chuyển tiếp"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Xóa dấu trang riêng tư"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Xóa dấu trang công khai"),
         "Replying": MessageLookupByLibrary.simpleMessage("Trả lời"),
         "Request": MessageLookupByLibrary.simpleMessage("Yêu cầu"),
         "Search": MessageLookupByLibrary.simpleMessage("Tìm kiếm"),

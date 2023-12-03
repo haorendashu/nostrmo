@@ -32,6 +32,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_this_relay_to_local":
             MessageLookupByLibrary.simpleMessage("添加該中繼到本地？"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("添加到已知清單"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("添加到私人書簽"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("添加到公開書簽"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("地址不能為空。"),
         "Any": MessageLookupByLibrary.simpleMessage("任意"),
@@ -46,13 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("開始下載翻譯模型"),
         "Block": MessageLookupByLibrary.simpleMessage("限制"),
         "Blocks": MessageLookupByLibrary.simpleMessage("限制"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("書簽"),
         "Boost": MessageLookupByLibrary.simpleMessage("促進"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("廣播"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("促進時廣播"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("給我買一杯咖啡！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止於"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("提交"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("確認"),
         "Content": MessageLookupByLibrary.simpleMessage("內容"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("內容警告"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("複製原始金鑰"),
@@ -140,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("加密"),
         "NIP07_getPublicKey": MessageLookupByLibrary.simpleMessage("獲取公開金鑰"),
         "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("獲取中繼清單"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("閃電支付"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("簽名"),
         "Name": MessageLookupByLibrary.simpleMessage("名稱"),
         "Network": MessageLookupByLibrary.simpleMessage("網絡"),
@@ -190,11 +196,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts": MessageLookupByLibrary.simpleMessage("動態"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("動態&回復"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隱私鎖"),
+        "Private": MessageLookupByLibrary.simpleMessage("私有"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("金鑰不能為空"),
+        "Public": MessageLookupByLibrary.simpleMessage("公開"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("讀"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("中繼類型"),
         "Relays": MessageLookupByLibrary.simpleMessage("中繼"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("移除私人書簽"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("移除公開書簽"),
         "Replying": MessageLookupByLibrary.simpleMessage("正在回復"),
         "Request": MessageLookupByLibrary.simpleMessage("請求"),
         "Search": MessageLookupByLibrary.simpleMessage("蒐索"),

@@ -12,16 +12,16 @@ class LightningUtil {
     if (PlatformUtil.isPC() || PlatformUtil.isWeb()) {
       await LightningQrcodeDialog.show(context, link);
     } else {
-      if (Platform.isAndroid) {
-        AndroidIntent intent = AndroidIntent(
-          action: 'action_view',
-          data: link,
-        );
-        await intent.launch();
-      } else {
-        var url = Uri.parse(link);
-        launchUrl(url);
-      }
+      // if (Platform.isAndroid) {
+      //   AndroidIntent intent = AndroidIntent(
+      //     action: 'action_view',
+      //     data: link,
+      //   );
+      //   await intent.launch();
+      // } else {
+      var url = Uri.parse(link);
+      launchUrl(url);
+      // }
     }
   }
 }

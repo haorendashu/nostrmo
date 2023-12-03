@@ -25,20 +25,25 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("despre"),
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("gestionarea conturilor"),
-        "Add_Account": MessageLookupByLibrary.simpleMessage("Adaugă un cont"),
-        "Add_a_Note": MessageLookupByLibrary.simpleMessage("Post actualizări"),
+        "Add_Account": MessageLookupByLibrary.simpleMessage("Adaugă cont"),
+        "Add_a_Note":
+            MessageLookupByLibrary.simpleMessage("Publicați actualizări"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Adaugă şi autentifică-te?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Adaugă acum"),
         "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
-            "Adaugă acest releu la local?"),
+            "Adaugă acest releu în zona locală?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Adaugă la lista cunoscută"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Adaugă la marcajele private"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Adaugă la marcajele publice"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Adresa nu poate fi goală."),
         "Any": MessageLookupByLibrary.simpleMessage("arbitrar"),
         "Authenticat_need":
-            MessageLookupByLibrary.simpleMessage("Necesită autentificare"),
+            MessageLookupByLibrary.simpleMessage("Autentificare necesară"),
         "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
             "Deschide automat conținutul sensibil"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -50,15 +55,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Începe descărcarea modelului de traducere"),
         "Block": MessageLookupByLibrary.simpleMessage("limită"),
         "Blocks": MessageLookupByLibrary.simpleMessage("limită"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("marcaj"),
         "Boost": MessageLookupByLibrary.simpleMessage("promovare"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("difuzare"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Transmisie în timpul promovării"),
+            "Promovarea difuzării în timpul promovării"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Cumpără-mi o ceaşcă de cafea!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("anulează"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Opreşte-te la"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Trimite"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("confirma"),
         "Content": MessageLookupByLibrary.simpleMessage("conținut"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Avertizare conținut"),
@@ -75,8 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copiază legătura curentă"),
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Copiază legătura inițială"),
-        "Copy_success":
-            MessageLookupByLibrary.simpleMessage("Copiat cu succes"),
+        "Copy_success": MessageLookupByLibrary.simpleMessage("Copiare reușită"),
         "Custom": MessageLookupByLibrary.simpleMessage("personalizat"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Culori personalizate"),
@@ -95,7 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Delete": MessageLookupByLibrary.simpleMessage("șterge"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Șterge contul"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
-            "Încercăm să ștergem informațiile despre contul dvs. Dacă continuați să vă conectați cu această cheie data viitoare, veți pierde informațiile."),
+            "Încercăm să ștergem informațiile despre contul dvs. Dacă continuați să utilizați această cheie pentru a vă conecta data viitoare, veți pierde informațiile."),
         "Detail": MessageLookupByLibrary.simpleMessage("detalii"),
         "Dirtywords":
             MessageLookupByLibrary.simpleMessage("Filtrează cuvintele"),
@@ -103,7 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("donație"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Necomprimat"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
-            "Elementele libere de intrare pot fi interzise de releu."),
+            "Inputurile libere pot fi blocate de releu."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Verificarea semnăturii de eveniment"),
         "Face": MessageLookupByLibrary.simpleMessage("detectarea feței"),
@@ -118,9 +123,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sistem de urmărire"),
         "Followed": MessageLookupByLibrary.simpleMessage("urmează"),
         "Followed_Communities":
-            MessageLookupByLibrary.simpleMessage("Comunitatea urmează"),
+            MessageLookupByLibrary.simpleMessage("Comunitatea urmată"),
         "Followed_Tags":
-            MessageLookupByLibrary.simpleMessage("Subiecte de urmat"),
+            MessageLookupByLibrary.simpleMessage("Concentrează-te pe teme"),
         "Following": MessageLookupByLibrary.simpleMessage("Următoarea"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("font"),
         "Font_Size":
@@ -158,7 +163,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Input_can_not_be_null":
             MessageLookupByLibrary.simpleMessage("Intrarea nu poate fi goală"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage(
-            "Introduceți termenii de filtrare"),
+            "Introduceți cuvintele de filtrare"),
         "Input_parse_error":
             MessageLookupByLibrary.simpleMessage("Analizarea intrării a eșuat"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
@@ -182,16 +187,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Decriptare"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("criptare"),
         "NIP07_getPublicKey":
-            MessageLookupByLibrary.simpleMessage("Obține cheia publică"),
+            MessageLookupByLibrary.simpleMessage("Obțineți cheia publică"),
         "NIP07_getRelays":
-            MessageLookupByLibrary.simpleMessage("Obține lista de releu"),
+            MessageLookupByLibrary.simpleMessage("Obține lista releului"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("Plata rapidă"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autograf"),
         "Name": MessageLookupByLibrary.simpleMessage("denumire"),
         "Network": MessageLookupByLibrary.simpleMessage("rețea"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Dezvoltatorii Nostromo nu vor cere niciodată o cheie de la tine."),
+                "Dezvoltatorii Nostromo nu vor cere niciodată chei de la tine."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Id dinamic"),
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Încărcare dinamică"),
@@ -217,17 +223,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Vă rugăm să acceptați acordul de utilizare."),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Vă rugăm să verificați identitatea pentru a închide blocarea de confidențialitate"),
+                "Vă rugăm să verificați identitatea pentru a dezactiva blocarea de confidențialitate"),
         "Please_authenticate_to_turn_on_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Vă rugăm să verificați identitatea pentru a deschide blocarea de confidențialitate"),
+                "Vă rugăm să verificați identitatea pentru a debloca blocarea de confidențialitate"),
         "Please_authenticate_to_use_app": MessageLookupByLibrary.simpleMessage(
             "Vă rugăm să verificați identitatea pentru a utiliza aplicația"),
         "Please_check_the_tips": MessageLookupByLibrary.simpleMessage(
             "Vă rugăm să verificați memento."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Vă rugăm să nu dezvăluiți sau să împărtășiți cheia cu nimeni."),
+                "Vă rugăm să nu dezvăluiți sau să partajați cheile cu nimeni."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Vă rugăm să introduceți"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -250,14 +256,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("& Răspuns dinamic"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage(
             "Blocare de confidențialitate"),
+        "Private": MessageLookupByLibrary.simpleMessage("privat"),
         "Private_key_is_null":
-            MessageLookupByLibrary.simpleMessage("Cheia nu poate fi goală"),
+            MessageLookupByLibrary.simpleMessage("Cheia nu poate fi goală."),
+        "Public": MessageLookupByLibrary.simpleMessage("deschis"),
         "Quote": MessageLookupByLibrary.simpleMessage("citat"),
         "Read": MessageLookupByLibrary.simpleMessage("citit"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Tip releu"),
         "Relays": MessageLookupByLibrary.simpleMessage("releu"),
-        "Replying": MessageLookupByLibrary.simpleMessage(
-            "Răspuns în curs de desfășurare"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("Elimină marcajele private"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("Elimină marcajele publice"),
+        "Replying": MessageLookupByLibrary.simpleMessage("Răspuns"),
         "Request": MessageLookupByLibrary.simpleMessage("cerere"),
         "Search": MessageLookupByLibrary.simpleMessage("căutare"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -283,10 +294,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Conținutul nu poate conține întreruperi de linie"),
         "The_key_is_a_random_string_that_resembles_":
             MessageLookupByLibrary.simpleMessage(
-                "Cheia este un șir aleatoriu, similar cu parola contului. Oricine are această cheie poate accesa și controla contul tău."),
+                "Cheia este un șir aleatoriu, similar cu parola contului. Oricine deține această cheie poate accesa și controla contul dvs."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Culori tematice"),
-        "Theme_Style":
-            MessageLookupByLibrary.simpleMessage("Tipul subiectului"),
+        "Theme_Style": MessageLookupByLibrary.simpleMessage("Tip temă"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
             "Ar trebui să fie un univers aici."),
         "This_note_contains_sensitive_content":
@@ -297,13 +307,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Topics": MessageLookupByLibrary.simpleMessage("tema"),
         "Translate": MessageLookupByLibrary.simpleMessage("traduce"),
         "Translate_Source_Language":
-            MessageLookupByLibrary.simpleMessage("Limba sursă traducere"),
+            MessageLookupByLibrary.simpleMessage("Limba sursă de traducere"),
         "Translate_Target_Language":
-            MessageLookupByLibrary.simpleMessage("Limba țintă de traducere"),
+            MessageLookupByLibrary.simpleMessage("Tradu limba țintă"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Încărcare eșuată"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Scanați și trimiteți sateliți utilizând Lightning Wallet"),
+                "Scanați și trimiteți sateliți utilizând Lightning Network Wallet"),
         "User_Pubkey":
             MessageLookupByLibrary.simpleMessage("Utilizator Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("oameni"),
@@ -331,9 +341,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Aţi votat deja."),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
-            "Cantitatea Zap nu poate fi mai mare decât"),
+            "Numărul de Zaps nu poate fi mai mare decât"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
-            "Cantitatea Zap nu poate fi mai mică decât"),
+            "Numărul de Zaps nu poate fi mai mic de"),
         "add_poll_option":
             MessageLookupByLibrary.simpleMessage("Adaugă opțiuni de vot"),
         "auto": MessageLookupByLibrary.simpleMessage("automată"),
@@ -346,7 +356,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "max_zap_num":
             MessageLookupByLibrary.simpleMessage("Numărul maxim de Zaps"),
         "min_zap_num":
-            MessageLookupByLibrary.simpleMessage("Cantitate min Zap"),
+            MessageLookupByLibrary.simpleMessage("Numărul minim de Zaps"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Rețeaua va intra în vigoare data viitoare când aplicația este lansată"),
         "notes_updated":

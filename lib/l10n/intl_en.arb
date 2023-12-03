@@ -218,6 +218,7 @@
     "NIP07_getRelays": "Get Relays",
     "NIP07_encrypt": "Encrypt",
     "NIP07_decrypt": "Decrypt",
+    "NIP07_lightning": "Lightning payment",
     "Show_more": "Show more",
     "Limit_Note_Height": "Limit Note Height",
     "Add_to_private_bookmark": "Add to private bookmark",

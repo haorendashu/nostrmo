@@ -186,6 +186,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_getPublicKey":
             MessageLookupByLibrary.simpleMessage("Get Public Key"),
         "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("Get Relays"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Lightning payment"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Sign Event"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),

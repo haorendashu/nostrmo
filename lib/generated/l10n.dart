@@ -2240,6 +2240,16 @@ class S {
     );
   }
 
+  /// `Lightning payment`
+  String get NIP07_lightning {
+    return Intl.message(
+      'Lightning payment',
+      name: 'NIP07_lightning',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Show more`
   String get Show_more {
     return Intl.message(

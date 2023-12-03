@@ -35,6 +35,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿¿ agregar este relé a local?"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Añadir a la lista conocida"),
+        "Add_to_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Añadir a marcadores privados"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Añadir a los marcadores públicos"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "La Dirección no puede estar vacía."),
         "Any": MessageLookupByLibrary.simpleMessage("Arbitrario"),
@@ -51,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Comienza a descargar el modelo de traducción"),
         "Block": MessageLookupByLibrary.simpleMessage("Restricciones"),
         "Blocks": MessageLookupByLibrary.simpleMessage("Restricciones"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("Marcadores"),
         "Boost": MessageLookupByLibrary.simpleMessage("Promover"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("Radio"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
@@ -59,7 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "¡¡ Cómprame una taza de café!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancelación"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Detener en"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Presentación"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("Confirmación"),
         "Content": MessageLookupByLibrary.simpleMessage("Contenido"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Advertencia de contenido"),
@@ -185,6 +190,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Obtener la clave pública"),
         "NIP07_getRelays": MessageLookupByLibrary.simpleMessage(
             "Obtener la lista de retransmisiones"),
+        "NIP07_lightning":
+            MessageLookupByLibrary.simpleMessage("Pago por rayo"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Firma"),
         "Name": MessageLookupByLibrary.simpleMessage("Nombre"),
         "Network": MessageLookupByLibrary.simpleMessage("Red"),
@@ -250,13 +257,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dinámica & respuesta"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Cerradura de privacidad"),
+        "Private": MessageLookupByLibrary.simpleMessage("Privado"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "La clave no puede estar vacía"),
+        "Public": MessageLookupByLibrary.simpleMessage("Abierto"),
         "Quote": MessageLookupByLibrary.simpleMessage("Cita"),
         "Read": MessageLookupByLibrary.simpleMessage("Leer"),
         "Relay_Mode":
             MessageLookupByLibrary.simpleMessage("Tipo de retransmisión"),
         "Relays": MessageLookupByLibrary.simpleMessage("Retransmisión"),
+        "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Eliminar marcadores privados"),
+        "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Eliminar marcadores públicos"),
         "Replying": MessageLookupByLibrary.simpleMessage("Respuesta en curso"),
         "Request": MessageLookupByLibrary.simpleMessage("Solicitud"),
         "Search": MessageLookupByLibrary.simpleMessage("Buscar"),

@@ -32,6 +32,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_this_relay_to_local":
             MessageLookupByLibrary.simpleMessage("이 트렁크를 로컬에 추가하시겠습니까?"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("알려진 목록에 추가"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("개인 책갈피에 추가"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("공개 책갈피에 추가"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("주소는 비워둘 수 없습니다."),
         "Any": MessageLookupByLibrary.simpleMessage("임의"),
@@ -46,13 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("번역 모델 다운로드 시작"),
         "Block": MessageLookupByLibrary.simpleMessage("제한 사항"),
         "Blocks": MessageLookupByLibrary.simpleMessage("제한 사항"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("책갈피"),
         "Boost": MessageLookupByLibrary.simpleMessage("촉진"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("방송"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("촉진 시 방송"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("커피 한 잔 사줘!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("취소"),
         "Close_at": MessageLookupByLibrary.simpleMessage("중지"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("제출"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("확인"),
         "Content": MessageLookupByLibrary.simpleMessage("내용"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("컨텐츠 경고"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("원래 키 복사"),
@@ -145,6 +150,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("암호화"),
         "NIP07_getPublicKey": MessageLookupByLibrary.simpleMessage("공개 키 가져오기"),
         "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("트렁크 목록 가져오기"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("번개 지불"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("서명"),
         "Name": MessageLookupByLibrary.simpleMessage("이름"),
         "Network": MessageLookupByLibrary.simpleMessage("인터넷"),
@@ -198,12 +204,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts": MessageLookupByLibrary.simpleMessage("동적"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("동적 & 응답"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("개인 정보 보호 잠금 장치"),
+        "Private": MessageLookupByLibrary.simpleMessage("개인"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("키는 비워둘 수 없습니다."),
+        "Public": MessageLookupByLibrary.simpleMessage("공개"),
         "Quote": MessageLookupByLibrary.simpleMessage("참조"),
         "Read": MessageLookupByLibrary.simpleMessage("읽다"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("트렁크 유형"),
         "Relays": MessageLookupByLibrary.simpleMessage("중계"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("개인 책갈피 제거"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("공개 책갈피 제거"),
         "Replying": MessageLookupByLibrary.simpleMessage("응답 중"),
         "Request": MessageLookupByLibrary.simpleMessage("요청"),
         "Search": MessageLookupByLibrary.simpleMessage("검색"),

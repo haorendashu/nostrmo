@@ -28,14 +28,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_Account":
             MessageLookupByLibrary.simpleMessage("Προσθήκη λογαριασμού"),
         "Add_a_Note":
-            MessageLookupByLibrary.simpleMessage("Δημοσιεύσεις ενημερώσεων"),
+            MessageLookupByLibrary.simpleMessage("Δημοσίευση ενημερώσεων"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Προσθήκη και σύνδεση;"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Προσθήκη τώρα"),
         "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
-            "Να προσθέσουμε αυτό το ρελέ στην τοπική;"),
+            "Να προσθέσουμε αυτό το ρελέ στην περιοχή;"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("Προσθήκη στη γνωστή λίστα"),
+        "Add_to_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Προσθήκη σε ιδιωτικούς σελιδοδείκτες"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Προσθήκη σε δημόσιους σελιδοδείκτες"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "Η διεύθυνση δεν μπορεί να είναι άδεια."),
         "Any": MessageLookupByLibrary.simpleMessage("αυθαίρετα"),
@@ -52,15 +56,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Έναρξη λήψης μεταφραστικού μοντέλου"),
         "Block": MessageLookupByLibrary.simpleMessage("όριο"),
         "Blocks": MessageLookupByLibrary.simpleMessage("όριο"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("σελιδοδείκτη"),
         "Boost": MessageLookupByLibrary.simpleMessage("προώθηση"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("εκπομπή"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Εκπομπή κατά τη διάρκεια της προώθησης"),
+            "Προώθηση της εκπομπής κατά τη διάρκεια της προώθησης"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Αγόρασε μου ένα φλιτζάνι καφέ!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("ακύρωση"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Σταματήστε στο"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Υποβολή"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("επιβεβαίωση"),
         "Content": MessageLookupByLibrary.simpleMessage("περιεχόμενο"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Προειδοποίηση περιεχομένου"),
@@ -78,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Αντιγραφή αρχικού συνδέσμου"),
         "Copy_success":
-            MessageLookupByLibrary.simpleMessage("Αντιγραφή επιτυχώς"),
+            MessageLookupByLibrary.simpleMessage("Αντιγραφή επιτυχής"),
         "Custom": MessageLookupByLibrary.simpleMessage("προσαρμοσμένο"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Προσαρμοσμένα χρώματα"),
@@ -98,14 +103,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Delete_Account":
             MessageLookupByLibrary.simpleMessage("Διαγραφή λογαριασμού"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
-            "Προσπαθούμε να διαγράψουμε τα στοιχεία του λογαριασμού σας. Εάν συνεχίσετε να συνδεθείτε με αυτό το κλειδί την επόμενη φορά, θα χάσετε τις πληροφορίες σας."),
+            "Προσπαθούμε να διαγράψουμε τα στοιχεία του λογαριασμού σας. Εάν συνεχίσετε να χρησιμοποιείτε αυτό το κλειδί για να συνδεθείτε την επόμενη φορά, θα χάσετε τις πληροφορίες σας."),
         "Detail": MessageLookupByLibrary.simpleMessage("λεπτομέρειες"),
         "Dirtywords": MessageLookupByLibrary.simpleMessage("Φίλτρο λέξεων"),
         "Display_Name": MessageLookupByLibrary.simpleMessage("ψευδώνυμο"),
         "Donate": MessageLookupByLibrary.simpleMessage("δωρεά"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Μη συμπιεσμένα"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
-            "Τα κενά εισόδου μπορούν να απαγορεύονται από το ρελέ."),
+            "Τα κενά εισόδου ενδέχεται να μπλοκάρονται από το ρελέ."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Επαλήθευση υπογραφής συμβάντος"),
         "Face": MessageLookupByLibrary.simpleMessage("ανίχνευση προσώπου"),
@@ -119,10 +124,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Follow_System":
             MessageLookupByLibrary.simpleMessage("Σύστημα παρακολούθησης"),
         "Followed": MessageLookupByLibrary.simpleMessage("ακολουθήστε"),
-        "Followed_Communities": MessageLookupByLibrary.simpleMessage(
-            "Κοινότητα που θα ακολουθήσει"),
+        "Followed_Communities":
+            MessageLookupByLibrary.simpleMessage("Ακολούθησε η Κοινότητα"),
         "Followed_Tags":
-            MessageLookupByLibrary.simpleMessage("Θέματα που θα ακολουθήσουν"),
+            MessageLookupByLibrary.simpleMessage("Εστίαση σε θέματα"),
         "Following": MessageLookupByLibrary.simpleMessage("Ακολουθεί"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("γραμματοσειρά"),
         "Font_Size":
@@ -160,7 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Input_can_not_be_null": MessageLookupByLibrary.simpleMessage(
             "Η είσοδος δεν μπορεί να είναι κενή"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage(
-            "Παρακαλώ εισάγετε όρους φιλτραρίσματος"),
+            "Παρακαλώ εισάγετε λέξεις φίλτρου"),
         "Input_parse_error":
             MessageLookupByLibrary.simpleMessage("Αποτυχία ανάλυσης εισόδου"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
@@ -188,13 +193,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Λήψη δημόσιου κλειδιού"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("Λήψη λίστας αναμετάδοσης"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("Πληρωμή φλας"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("αυτόγραφο"),
         "Name": MessageLookupByLibrary.simpleMessage("όνομα"),
         "Network": MessageLookupByLibrary.simpleMessage("δίκτυο"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Οι προγραμματιστές δεν θα ζητήσουν ποτέ ένα κλειδί από εσάς."),
+                "Οι προγραμματιστές δεν θα ζητήσουν ποτέ κλειδιά από εσάς."),
         "Note_Id":
             MessageLookupByLibrary.simpleMessage("Δυναμικό αναγνωριστικό"),
         "Note_loading":
@@ -221,17 +227,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Παρακαλώ αποδεχτείτε τη συμφωνία χρήσης."),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Παρακαλώ επαληθεύστε την ταυτότητά σας για να κλείσετε την κλειδαριά απορρήτου"),
+                "Παρακαλώ επαληθεύστε την ταυτότητά σας για να απενεργοποιήσετε την κλειδαριά απορρήτου"),
         "Please_authenticate_to_turn_on_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Παρακαλώ επαληθεύστε την ταυτότητά σας για να ανοίξετε την κλειδαριά απορρήτου"),
+                "Παρακαλώ επαληθεύστε την ταυτότητά σας για να ξεκλειδώσετε την κλειδαριά απορρήτου"),
         "Please_authenticate_to_use_app": MessageLookupByLibrary.simpleMessage(
             "Παρακαλώ επαληθεύστε την ταυτότητά σας για να χρησιμοποιήσετε την εφαρμογή"),
         "Please_check_the_tips": MessageLookupByLibrary.simpleMessage(
             "Παρακαλώ ελέγξτε την υπενθύμιση."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Παρακαλώ μην αποκαλύψετε ή μοιραστείτε το κλειδί με κανέναν."),
+                "Παρακαλώ μην αποκαλύψετε ή μοιραστείτε κλειδιά με κανέναν."),
         "Please_input":
             MessageLookupByLibrary.simpleMessage("Παρακαλώ εισάγετε"),
         "Please_input_Topic_text": MessageLookupByLibrary.simpleMessage(
@@ -254,13 +260,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Δυναμική και απάντηση"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Κλείδωμα ιδιωτικής ζωής"),
+        "Private": MessageLookupByLibrary.simpleMessage("ιδιωτικό"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "Το κλειδί δεν μπορεί να είναι άδειο"),
+        "Public": MessageLookupByLibrary.simpleMessage("ανοικτό"),
         "Quote": MessageLookupByLibrary.simpleMessage("απόσπασμα"),
         "Read": MessageLookupByLibrary.simpleMessage("ανάγνωση"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Τύπος ρελέ"),
         "Relays": MessageLookupByLibrary.simpleMessage("ρελέ"),
-        "Replying": MessageLookupByLibrary.simpleMessage("Απάντηση σε εξέλιξη"),
+        "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Αφαίρεση προσωπικών σελιδοδεικτών"),
+        "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Αφαίρεση δημόσιων σελιδοδεικτών"),
+        "Replying": MessageLookupByLibrary.simpleMessage("Απάντηση"),
         "Request": MessageLookupByLibrary.simpleMessage("αίτημα"),
         "Search": MessageLookupByLibrary.simpleMessage("αναζήτηση"),
         "Search_User_from_cache":
@@ -287,7 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Το περιεχόμενο δεν μπορεί να περιέχει αλλαγές γραμμών"),
         "The_key_is_a_random_string_that_resembles_":
             MessageLookupByLibrary.simpleMessage(
-                "Το κλειδί είναι μια τυχαία συμβολοσειρά, παρόμοια με τον κωδικό πρόσβασης του λογαριασμού σας. Οποιοσδήποτε έχει αυτό το κλειδί μπορεί να έχει πρόσβαση και να ελέγξει το λογαριασμό σας."),
+                "Το κλειδί είναι μια τυχαία συμβολοσειρά, παρόμοια με τον κωδικό πρόσβασης του λογαριασμού σας. Οποιοσδήποτε κατέχει αυτό το κλειδί μπορεί να έχει πρόσβαση και να ελέγχει το λογαριασμό σας."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Χρώματα θέματος"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Τύπος θέματος"),
         "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
@@ -302,12 +314,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Source_Language":
             MessageLookupByLibrary.simpleMessage("Γλώσσα πηγής μετάφρασης"),
         "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
-            "Γλώσσα προορισμού μετάφρασης"),
+            "Μετάφραση γλώσσας προορισμού"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Αποτυχία αποστολής"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Σάρωση και αποστολή δορυφόρων χρησιμοποιώντας το πορτοφόλι αστραπής"),
+                "Σάρωση και αποστολή δορυφόρων χρησιμοποιώντας το πορτοφόλι δικτύου Αστραπής"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Pubkey χρήστη"),
         "Users": MessageLookupByLibrary.simpleMessage("άνθρωποι"),
         "Verify_error":
@@ -334,9 +346,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Έχετε ήδη ψηφίσει"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
-            "Η ποσότητα Zap δεν μπορεί να είναι μεγαλύτερη από"),
+            "Ο αριθμός των Zaps δεν μπορεί να είναι μεγαλύτερος από"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
-            "Η ποσότητα Zap δεν μπορεί να είναι μικρότερη από"),
+            "Ο αριθμός των Zaps δεν μπορεί να είναι μικρότερος από"),
         "add_poll_option": MessageLookupByLibrary.simpleMessage(
             "Προσθήκη επιλογών ψηφοφορίας"),
         "auto": MessageLookupByLibrary.simpleMessage("αυτόματο"),
@@ -349,7 +361,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "max_zap_num":
             MessageLookupByLibrary.simpleMessage("Μέγιστος αριθμός Zaps"),
         "min_zap_num":
-            MessageLookupByLibrary.simpleMessage("Ελάχιστη ποσότητα Zap"),
+            MessageLookupByLibrary.simpleMessage("Ελάχιστος αριθμός Zaps"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Το δίκτυο θα τεθεί σε ισχύ την επόμενη φορά που θα ξεκινήσει η εφαρμογή"),
         "notes_updated":

@@ -32,6 +32,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_this_relay_to_local":
             MessageLookupByLibrary.simpleMessage("ローカルに中継を追加しますか？"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage("既知のリストに追加"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("プライベートブックマークに追加"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("公開ブックマークに追加"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("アドレスを空にすることはできません。"),
         "Any": MessageLookupByLibrary.simpleMessage("任意"),
@@ -46,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("翻訳モデルのダウンロード開始"),
         "Block": MessageLookupByLibrary.simpleMessage("制限＃セイゲン＃"),
         "Blocks": MessageLookupByLibrary.simpleMessage("制限＃セイゲン＃"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("ブックマーク"),
         "Boost": MessageLookupByLibrary.simpleMessage("促進"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("ブロードキャスト"),
         "Broadcast_When_Boost":
@@ -53,7 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("コーヒーを買ってくれ！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止中"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("送信"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("確認"),
         "Content": MessageLookupByLibrary.simpleMessage("内容"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("コンテンツの警告"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("元の鍵をコピー"),
@@ -150,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("暗号化"),
         "NIP07_getPublicKey": MessageLookupByLibrary.simpleMessage("公開鍵の取得"),
         "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("中継リストの取得"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("フラッシュ支払い"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("署名する"),
         "Name": MessageLookupByLibrary.simpleMessage("の名前をあげる"),
         "Network": MessageLookupByLibrary.simpleMessage("ネットワーク"),
@@ -204,12 +210,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts": MessageLookupByLibrary.simpleMessage("動的＃ドウテキ＃"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("動的&返信"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("プライバシーロック"),
+        "Private": MessageLookupByLibrary.simpleMessage("プライベート＃プライベート＃"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("鍵を空にすることはできません"),
+        "Public": MessageLookupByLibrary.simpleMessage("公開"),
         "Quote": MessageLookupByLibrary.simpleMessage("参照＃サンショウ＃"),
         "Read": MessageLookupByLibrary.simpleMessage("読み取り"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("中継タイプ"),
         "Relays": MessageLookupByLibrary.simpleMessage("ちゅうけい"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("プライベートブックマークの削除"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("公開ブックマークの削除"),
         "Replying": MessageLookupByLibrary.simpleMessage("返信中"),
         "Request": MessageLookupByLibrary.simpleMessage("リクエスト"),
         "Search": MessageLookupByLibrary.simpleMessage("検索けんさく"),

@@ -34,6 +34,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("إضافة إلى ترحيل المحلية ؟"),
         "Add_to_known_list":
             MessageLookupByLibrary.simpleMessage("إضافة إلى قائمة معروفة"),
+        "Add_to_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("إضافة إلى العناوين الخاصة"),
+        "Add_to_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("إضافة إلى العناوين العامة"),
         "Address_can_t_be_null": MessageLookupByLibrary.simpleMessage(
             "العنوان لا يمكن أن تكون فارغة ."),
         "Any": MessageLookupByLibrary.simpleMessage("بشكل تعسفي"),
@@ -49,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بدء تحميل نموذج الترجمة"),
         "Block": MessageLookupByLibrary.simpleMessage("تقييد"),
         "Blocks": MessageLookupByLibrary.simpleMessage("تقييد"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("ارتباطك"),
         "Boost": MessageLookupByLibrary.simpleMessage("الترويج"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("البث"),
         "Broadcast_When_Boost":
@@ -57,7 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("إشتري لي فنجان قهوة"),
         "Cancel": MessageLookupByLibrary.simpleMessage("ألغى"),
         "Close_at": MessageLookupByLibrary.simpleMessage("توقف"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("قدم"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("أكّد"),
         "Content": MessageLookupByLibrary.simpleMessage("المحتويات"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("تحذير المحتوى"),
@@ -172,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الحصول على المفتاح العام"),
         "NIP07_getRelays":
             MessageLookupByLibrary.simpleMessage("الحصول على قائمة ترحيل"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("البرق الدفع"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("توقيع"),
         "Name": MessageLookupByLibrary.simpleMessage("الإسم"),
         "Network": MessageLookupByLibrary.simpleMessage("شبكة"),
@@ -234,12 +240,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("دينامية الانتعاش"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("قفل الخصوصية"),
+        "Private": MessageLookupByLibrary.simpleMessage("خاص"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "المفتاح لا يمكن أن تكون فارغة"),
+        "Public": MessageLookupByLibrary.simpleMessage("علانية"),
         "Quote": MessageLookupByLibrary.simpleMessage("استشهد"),
         "Read": MessageLookupByLibrary.simpleMessage("قرأ"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("تتابع نوع"),
         "Relays": MessageLookupByLibrary.simpleMessage("تتابع"),
+        "Remove_from_private_bookmark":
+            MessageLookupByLibrary.simpleMessage("إزالة العناوين الخاصة"),
+        "Remove_from_public_bookmark":
+            MessageLookupByLibrary.simpleMessage("إزالة علامة عامة"),
         "Replying": MessageLookupByLibrary.simpleMessage("الرد"),
         "Request": MessageLookupByLibrary.simpleMessage("طلب"),
         "Search": MessageLookupByLibrary.simpleMessage("بحث ."),

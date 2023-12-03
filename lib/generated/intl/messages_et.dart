@@ -25,20 +25,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("umbes"),
         "Account_Manager": MessageLookupByLibrary.simpleMessage("kontohaldus"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Lisa konto"),
-        "Add_a_Note":
-            MessageLookupByLibrary.simpleMessage("Uuenduste postitamine"),
+        "Add_a_Note": MessageLookupByLibrary.simpleMessage("Avalda uuendused"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Lisada ja sisse logida?"),
         "Add_now": MessageLookupByLibrary.simpleMessage("Lisa kohe"),
-        "Add_this_relay_to_local":
-            MessageLookupByLibrary.simpleMessage("Lisa see relee kohalikule?"),
+        "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
+            "Lisa see relee kohalikku piirkonda?"),
         "Add_to_known_list": MessageLookupByLibrary.simpleMessage(
             "Lisa teadaolevasse nimekirja"),
+        "Add_to_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Lisa privaatsetesse järjehoidjatesse"),
+        "Add_to_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Lisa avalikele järjehoidjatele"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Aadress ei tohi olla tühi."),
         "Any": MessageLookupByLibrary.simpleMessage("meelevaldselt"),
         "Authenticat_need":
-            MessageLookupByLibrary.simpleMessage("Autentimise nõudmine"),
+            MessageLookupByLibrary.simpleMessage("Autentimine nõutakse"),
         "Auto_Open_Sensitive_Content": MessageLookupByLibrary.simpleMessage(
             "Tundliku sisu automaatne avamine"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
@@ -50,15 +53,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Alusta tõlkemudeli allalaadimist"),
         "Block": MessageLookupByLibrary.simpleMessage("piirmäär"),
         "Blocks": MessageLookupByLibrary.simpleMessage("piirmäär"),
+        "Bookmark": MessageLookupByLibrary.simpleMessage("järjehoidja"),
         "Boost": MessageLookupByLibrary.simpleMessage("edendada"),
         "Broadcast": MessageLookupByLibrary.simpleMessage("ülekanne"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage(
-            "Edastamine reklaamimise ajal"),
+            "Edendada ringhäälingut edendamise ajal"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Osta mulle tass kohvi!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("tühista"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Peatu"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Esita"),
+        "Comfirm": MessageLookupByLibrary.simpleMessage("kinnita"),
         "Content": MessageLookupByLibrary.simpleMessage("sisu"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("Sisu hoiatus"),
         "Copy_Hex_Key":
@@ -71,11 +75,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_Note_Pubkey":
             MessageLookupByLibrary.simpleMessage("Kopeeri dünaamiline autor"),
         "Copy_current_Url":
-            MessageLookupByLibrary.simpleMessage("Kopeeri aktiivne link"),
+            MessageLookupByLibrary.simpleMessage("Aktiivse lingi kopeerimine"),
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Esialgse lingi kopeerimine"),
         "Copy_success":
-            MessageLookupByLibrary.simpleMessage("Õnnestunud kopeerimine"),
+            MessageLookupByLibrary.simpleMessage("Kopeerimine edukas"),
         "Custom": MessageLookupByLibrary.simpleMessage("kohandatud"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Kohandatud värvid"),
@@ -92,14 +96,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Delete": MessageLookupByLibrary.simpleMessage("kustuta"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Kustuta konto"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
-            "Me üritame kustutada teie konto andmed. Kui jätkate selle võtmega sisselogimist järgmisel korral, kaotate oma andmed."),
+            "Me üritame kustutada teie konto andmed. Kui jätkate selle võtme kasutamist järgmisel korral sisse logimiseks, kaotate oma andmed."),
         "Detail": MessageLookupByLibrary.simpleMessage("üksikasjad"),
         "Dirtywords": MessageLookupByLibrary.simpleMessage("Filtreeri sõnad"),
         "Display_Name": MessageLookupByLibrary.simpleMessage("hüüdnimi"),
         "Donate": MessageLookupByLibrary.simpleMessage("annetus"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Pakkimata"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
-            "Relee võib keelata sisendtühikud."),
+            "Relee võib blokeerida sisendtühikud."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Sündmuse allkirja kontrollimine"),
         "Face": MessageLookupByLibrary.simpleMessage("näotuvastus"),
@@ -114,9 +118,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Järgimissüsteem"),
         "Followed": MessageLookupByLibrary.simpleMessage("järgne"),
         "Followed_Communities":
-            MessageLookupByLibrary.simpleMessage("Järgnev ühendus"),
+            MessageLookupByLibrary.simpleMessage("Järgitud ühendus"),
         "Followed_Tags":
-            MessageLookupByLibrary.simpleMessage("Järgnevad teemad"),
+            MessageLookupByLibrary.simpleMessage("Keskendu teemadele"),
         "Following": MessageLookupByLibrary.simpleMessage("Järgnevalt"),
         "Font_Family": MessageLookupByLibrary.simpleMessage("font"),
         "Font_Size": MessageLookupByLibrary.simpleMessage("fondi suurus"),
@@ -151,7 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Input_can_not_be_null":
             MessageLookupByLibrary.simpleMessage("Sisend ei saa olla tühi"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage(
-            "Palun sisesta filtreerimistingimused"),
+            "Palun sisesta filtreerivad sõnad"),
         "Input_parse_error":
             MessageLookupByLibrary.simpleMessage("Sisendi parsimine nurjus"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage(
@@ -175,14 +179,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("krüpteerimine"),
         "NIP07_getPublicKey":
             MessageLookupByLibrary.simpleMessage("Avaliku võtme hankimine"),
-        "NIP07_getRelays": MessageLookupByLibrary.simpleMessage(""),
+        "NIP07_getRelays":
+            MessageLookupByLibrary.simpleMessage("Hangi relee nimekiri"),
+        "NIP07_lightning": MessageLookupByLibrary.simpleMessage("Kiirmakse"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("autogramm"),
         "Name": MessageLookupByLibrary.simpleMessage("nimi"),
         "Network": MessageLookupByLibrary.simpleMessage("võrk"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
-                "Nostromo arendajad ei küsi kunagi sinult võtit."),
+                "Nostromo arendajad ei küsi kunagi võtmeid sinult."),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Dünaamiline ID"),
         "Note_loading":
             MessageLookupByLibrary.simpleMessage("Dünaamiline koormus"),
@@ -208,7 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Palun aktsepteeri kasutajalepingut."),
         "Please_authenticate_to_turn_off_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
-                "Palun kontrollige oma isikut privaatsusluku sulgemiseks"),
+                "Palun kontrollige oma identiteeti privaatsusluku väljalülitamiseks"),
         "Please_authenticate_to_turn_on_the_privacy_lock":
             MessageLookupByLibrary.simpleMessage(
                 "Palun kontrollige oma identiteeti privaatsusluku avamiseks"),
@@ -218,7 +224,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Palun kontrollige meeldetuletust."),
         "Please_do_not_disclose_or_share_the_key_to_anyone":
             MessageLookupByLibrary.simpleMessage(
-                "Palun ärge avalikustage ega jagage võtit kellegagi."),
+                "Palun ärge avalikustage ega jagage võtmeid kellegagi."),
         "Please_input": MessageLookupByLibrary.simpleMessage("Palun sisesta"),
         "Please_input_Topic_text":
             MessageLookupByLibrary.simpleMessage("Palun sisesta teema sisu"),
@@ -240,13 +246,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dünaamiline & Vastamine"),
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Privaatsuse lukustus"),
+        "Private": MessageLookupByLibrary.simpleMessage("privaatne"),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Võti ei saa olla tühi"),
+        "Public": MessageLookupByLibrary.simpleMessage("avatud"),
         "Quote": MessageLookupByLibrary.simpleMessage("tsitaat"),
         "Read": MessageLookupByLibrary.simpleMessage("lugeda"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relee tüüp"),
         "Relays": MessageLookupByLibrary.simpleMessage("relee"),
-        "Replying": MessageLookupByLibrary.simpleMessage("Vastus pooleli"),
+        "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Privaatsete järjehoidjate eemaldamine"),
+        "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
+            "Eemalda avalikud järjehoidjad"),
+        "Replying": MessageLookupByLibrary.simpleMessage("Vastamine"),
         "Request": MessageLookupByLibrary.simpleMessage("taotlus"),
         "Search": MessageLookupByLibrary.simpleMessage("otsing"),
         "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -273,7 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sisu ei saa sisaldada reamurdeid"),
         "The_key_is_a_random_string_that_resembles_":
             MessageLookupByLibrary.simpleMessage(
-                "Võti on juhuslik string, mis sarnaneb teie konto parooliga. Kõik, kellel on see võti, saavad teie kontole ligi pääseda ja seda kontrollida."),
+                "Võti on juhuslik string, mis sarnaneb teie konto parooliga. Kõik, kellele see võti kuulub, saavad teie kontole ligi pääseda ja seda kontrollida."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Teema värvid"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Teema tüüp"),
         "There_should_be_a_universe_here":
@@ -288,12 +300,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Source_Language":
             MessageLookupByLibrary.simpleMessage("Tõlke lähtekeel"),
         "Translate_Target_Language":
-            MessageLookupByLibrary.simpleMessage("Tõlke sihtkeel"),
+            MessageLookupByLibrary.simpleMessage("Sihtkeele tõlkimine"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Üleslaadimine nurjus"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
-                "Satelliitide skannimine ja saatmine Lightning Network Wallet abil"),
+                "Satelliitide skannimine ja saatmine Lightning Network Wallet\'i abil"),
         "User_Pubkey": MessageLookupByLibrary.simpleMessage("Kasutaja Pubkey"),
         "Users": MessageLookupByLibrary.simpleMessage("inimesed"),
         "Verify_error":
@@ -303,7 +315,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Loendivideo eelvaatlus"),
         "WebRTC_Permission":
-            MessageLookupByLibrary.simpleMessage("WebRTC luba"),
+            MessageLookupByLibrary.simpleMessage("WebRTC õigused"),
         "Web_Appbar":
             MessageLookupByLibrary.simpleMessage("Veebinavigatsiooniriba"),
         "Web_Utils": MessageLookupByLibrary.simpleMessage("Veebitööriistad"),
@@ -320,9 +332,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Te olete juba hääletanud."),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
-            "Zap kogus ei tohi olla suurem kui"),
+            "Zappide arv ei tohi olla suurem kui"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
-            "Zap kogus ei tohi olla väiksem kui"),
+            "Zappide arv ei saa olla väiksem kui"),
         "add_poll_option":
             MessageLookupByLibrary.simpleMessage("Lisa hääletamisvõimalused"),
         "auto": MessageLookupByLibrary.simpleMessage("automaatne"),
@@ -334,7 +346,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loading": MessageLookupByLibrary.simpleMessage("Laadimine"),
         "max_zap_num":
             MessageLookupByLibrary.simpleMessage("Zappide maksimaalne arv"),
-        "min_zap_num": MessageLookupByLibrary.simpleMessage("Min Zap kogus"),
+        "min_zap_num":
+            MessageLookupByLibrary.simpleMessage("Zappide miinimumarv"),
         "network_take_effect_tip": MessageLookupByLibrary.simpleMessage(
             "Võrk jõustub järgmisel korral, kui rakendus käivitatakse"),
         "notes_updated":
@@ -342,7 +355,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "open": MessageLookupByLibrary.simpleMessage("avatud"),
         "or": MessageLookupByLibrary.simpleMessage("võib-olla"),
         "poll_option_info":
-            MessageLookupByLibrary.simpleMessage("Hääletamisvõimaluse teave"),
+            MessageLookupByLibrary.simpleMessage("Hääletamisvõimaluste teave"),
         "replied": MessageLookupByLibrary.simpleMessage("vastus"),
         "terms_of_user": MessageLookupByLibrary.simpleMessage("Kasutaja leping")
       };
