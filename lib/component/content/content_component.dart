@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
+import 'package:nostrmo/client/cashu/cashu_tokens.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
@@ -18,6 +19,7 @@ import '../../main.dart';
 import '../../util/platform_util.dart';
 import '../event/event_quote_component.dart';
 import '../webview_router.dart';
+import 'content_cashu_component.dart';
 import 'content_custom_emoji_component.dart';
 import 'content_event_tag_infos.dart';
 import 'content_image_component.dart';
@@ -112,6 +114,10 @@ class _ContentComponent extends State<ContentComponent> {
   static const LIGHTNING = "lightning:";
 
   static const LNBC = "lnbc";
+
+  static const PRE_CASHU_LINK = "cashu:";
+
+  static const PRE_CASHU = "cashu";
 
   static List<String> LNBC_LIST = [LNBC, LIGHTNING, OTHER_LIGHTNING];
 
@@ -623,6 +629,20 @@ class _ContentComponent extends State<ContentComponent> {
       counterAddLines(fake_zap_counter);
 
       return null;
+    } else if (str.length > 20 && str.indexOf(PRE_CASHU) == 0) {
+      var cashuStr = str.replaceFirst(PRE_CASHU_LINK, str);
+      var cashuTokens = Tokens.load(cashuStr);
+      if (cashuTokens != null) {
+        // decode success
+        bufferToList(buffer, allList, removeLastSpan: true);
+        var w = ContentCashuComponent(
+          tokens: cashuTokens,
+          cashuStr: cashuStr,
+        );
+        allList.add(WidgetSpan(child: w));
+        counterAddLines(fake_zap_counter);
+        return null;
+      }
     } else if (widget.event != null &&
         str.length > 3 &&
         str.indexOf("#[") == 0) {

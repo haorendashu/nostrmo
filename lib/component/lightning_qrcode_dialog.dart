@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../consts/base.dart';
@@ -8,18 +9,24 @@ import '../generated/l10n.dart';
 import '../util/router_util.dart';
 
 class LightningQrcodeDialog extends StatefulWidget {
+  String? title;
+
   String text;
 
   LightningQrcodeDialog({
+    this.title,
     required this.text,
   });
 
   static Future<bool?> show(BuildContext context, String text,
-      {String? content}) async {
+      {String? content, String? title}) async {
     return await showDialog<bool>(
       context: context,
       builder: (_context) {
-        return LightningQrcodeDialog(text: text);
+        return LightningQrcodeDialog(
+          text: text,
+          title: title,
+        );
       },
     );
   }
@@ -42,9 +49,17 @@ class _LightningQrcodeDialog extends State<LightningQrcodeDialog> {
     var hintColor = themeData.hintColor;
 
     List<Widget> list = [];
-    list.add(Container(
-      child: Text(s.Use_lightning_wallet_scan_and_send_sats),
-    ));
+    if (widget.title == null) {
+      list.add(Container(
+        child: Text(s.Use_lightning_wallet_scan_and_send_sats),
+      ));
+    } else {
+      if (StringUtil.isNotBlank(widget.title)) {
+        list.add(Container(
+          child: Text(s.Use_lightning_wallet_scan_and_send_sats),
+        ));
+      }
+    }
     list.add(Container(
       margin: const EdgeInsets.only(
         top: Base.BASE_PADDING,
