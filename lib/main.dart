@@ -35,6 +35,7 @@ import 'consts/theme_style.dart';
 import 'data/db.dart';
 import 'generated/l10n.dart';
 import 'home_component.dart';
+import 'provider/badge_provider.dart';
 import 'provider/community_approved_provider.dart';
 import 'provider/contact_list_provider.dart';
 import 'provider/data_util.dart';
@@ -137,6 +138,8 @@ late ListProvider listProvider;
 
 late ListSetProvider listSetProvider;
 
+late BadgeProvider badgeProvider;
+
 Nostr? nostr;
 
 bool firstLogin = false;
@@ -214,6 +217,7 @@ Future<void> main() async {
   replaceableEventProvider = ReplaceableEventProvider();
   listProvider = ListProvider();
   listSetProvider = ListSetProvider();
+  badgeProvider = BadgeProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -370,6 +374,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<ListSetProvider>.value(
           value: listSetProvider,
+        ),
+        ListenableProvider<BadgeProvider>.value(
+          value: badgeProvider,
         ),
       ],
       child: HomeComponent(

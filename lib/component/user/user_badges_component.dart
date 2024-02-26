@@ -11,6 +11,7 @@ import '../../provider/badge_definition_provider.dart';
 import '../../util/later_function.dart';
 import '../../util/string_util.dart';
 import '../badge_component.dart';
+import '../badge_detail_dialog.dart';
 import '../cust_state.dart';
 
 class UserBadgesComponent extends StatefulWidget {
@@ -54,10 +55,15 @@ class _UserBadgesComponent extends CustState<UserBadgesComponent>
               }
               existMap[badgeId] = 1;
 
-              return Container(
-                margin: EdgeInsets.only(right: Base.BASE_PADDING_HALF),
-                child: BedgeComponent(
-                  badgeDefinition: badgeDefinition,
+              return GestureDetector(
+                onTap: () {
+                  BadgeDetailDialog.show(context, badgeDefinition);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: Base.BASE_PADDING_HALF),
+                  child: BedgeComponent(
+                    badgeDefinition: badgeDefinition,
+                  ),
                 ),
               );
             }, selector: (context, _provider) {

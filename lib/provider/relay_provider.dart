@@ -103,6 +103,7 @@ class RelayProvider extends ChangeNotifier {
     listProvider.load(_nostr.publicKey,
         [kind.EventKind.BOOKMARKS_LIST, kind.EventKind.EMOJIS_LIST],
         targetNostr: _nostr, initQuery: true);
+    badgeProvider.reload(targetNostr: _nostr, initQuery: true);
 
     for (var relayAddr in relayAddrs) {
       log("begin to init $relayAddr");

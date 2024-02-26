@@ -3,6 +3,8 @@ import '../event.dart';
 import '../event_kind.dart' as kind;
 
 class BadgeDefinition {
+  final String pubkey;
+
   final String d;
 
   final String? name;
@@ -15,10 +17,11 @@ class BadgeDefinition {
 
   final int updatedAt;
 
-  BadgeDefinition(this.d, this.updatedAt,
+  BadgeDefinition(this.pubkey, this.d, this.updatedAt,
       {this.name, this.description, this.image, this.thumb});
 
   static BadgeDefinition? loadFromEvent(Event event) {
+    String pubkey = event.pubKey;
     String? d;
     String? name;
     String? description;
@@ -45,7 +48,7 @@ class BadgeDefinition {
       }
 
       if (StringUtil.isNotBlank(d)) {
-        return BadgeDefinition(d!, event.createdAt,
+        return BadgeDefinition(pubkey, d!, event.createdAt,
             name: name, description: description, image: image, thumb: thumb);
       }
     }

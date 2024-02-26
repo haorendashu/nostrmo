@@ -227,5 +227,7 @@
     "Remove_from_public_bookmark": "Remove from public bookmark",
     "Bookmark": "Bookmark",
     "Private": "Private",
-    "Public": "Public"
+    "Public": "Public",
+    "Creator": "Creator",
+    "Wear": "Wear"
 }

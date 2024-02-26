@@ -45,6 +45,7 @@ class MentionMeProvider extends ChangeNotifier
     return [
       kind.EventKind.TEXT_NOTE,
       kind.EventKind.REPOST,
+      kind.EventKind.BADGE_AWARD,
       kind.EventKind.GENERIC_REPOST,
       kind.EventKind.ZAP,
       kind.EventKind.LONG_FORM,

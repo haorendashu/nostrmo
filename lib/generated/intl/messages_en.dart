@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copy current Url"),
         "Copy_init_Url": MessageLookupByLibrary.simpleMessage("Copy init Url"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("Copy success!"),
+        "Creator": MessageLookupByLibrary.simpleMessage("Creator"),
         "Custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Custom Color"),
         "Custom_Font_Family":
@@ -316,6 +317,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verify failure"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Wear"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("WebRTC Permission"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("Web Appbar"),

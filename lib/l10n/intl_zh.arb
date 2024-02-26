@@ -218,5 +218,7 @@
     "Remove_from_public_bookmark": "移除公开书签",
     "Bookmark": "书签",
     "Private": "私有",
-    "Public": "公开"
+    "Public": "公开",
+    "Creator": "创建者",
+    "Wear": "穿戴"
 }

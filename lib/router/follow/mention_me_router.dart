@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
+import '../../component/badge_award_component.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../component/new_notes_updated_component.dart';
@@ -64,6 +65,8 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
         if (event.kind == kind.EventKind.ZAP &&
             StringUtil.isBlank(event.content)) {
           return ZapEventListComponent(event: event);
+        } else if (event.kind == kind.EventKind.BADGE_AWARD) {
+          return BadgeAwardComponent(event: event);
         } else {
           return EventListComponent(
             event: event,

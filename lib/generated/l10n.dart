@@ -2339,6 +2339,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Creator`
+  String get Creator {
+    return Intl.message(
+      'Creator',
+      name: 'Creator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wear`
+  String get Wear {
+    return Intl.message(
+      'Wear',
+      name: 'Wear',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
