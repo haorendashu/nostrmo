@@ -38,7 +38,9 @@ class Metadata {
     nip05 = json['nip05'];
     lud16 = json['lud16'];
     lud06 = json['lud06'];
-    updated_at = json['updated_at'];
+    if (json['updated_at'] != null && json['updated_at'] is int) {
+      updated_at = json['updated_at'];
+    }
     valid = json['valid'];
   }
 
