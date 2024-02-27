@@ -533,6 +533,7 @@ class ContentDecoder {
     }
 
     var strs = path.split("?");
+    strs = strs[0].split("#");
     var index = strs[0].lastIndexOf(".");
     if (index == -1) {
       return null;
