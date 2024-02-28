@@ -74,7 +74,7 @@ class _TextInputAndSearchDialog extends State<TextInputAndSearchDialog>
     var cardColro = themeData.cardColor;
     var mainColor = themeData.primaryColor;
 
-    double mainHeight = 235;
+    double mainHeight = 266;
     if (PlatformUtil.isTableMode()) {
       mainHeight = mediaDataCache.size.height / 2;
     }

@@ -614,7 +614,10 @@ class _ContentComponent extends State<ContentComponent> {
       }
 
       bufferToList(buffer, allList);
-      allList.add(WidgetSpan(child: ContentTagComponent(tag: str)));
+      allList.add(WidgetSpan(
+        alignment: PlaceholderAlignment.bottom,
+        child: ContentTagComponent(tag: str),
+      ));
       if (StringUtil.isNotBlank(extralStr)) {
         return extralStr;
       }

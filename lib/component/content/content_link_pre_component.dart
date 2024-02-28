@@ -33,7 +33,7 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
             color: cardColor,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: themeData.shadowColor,
                 offset: const Offset(0, 0),
                 blurRadius: 10,
                 spreadRadius: 0,
@@ -41,6 +41,10 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
             ],
           ),
           child: LinkPreview(
+            linkStyle: TextStyle(
+              color: Colors.blue,
+              decorationColor: Colors.blue,
+            ),
             enableAnimation: true,
             onPreviewDataFetched: (data) {
               // Save preview data

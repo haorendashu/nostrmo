@@ -34,7 +34,7 @@ class Zap {
 
   static String? getLnurlFromLud16(String lud16) {
     var link = getLud16LinkFromLud16(lud16);
-    var data = utf8.encode(link!);
+    List<int> data = utf8.encode(link!);
     data = Nip19.convertBits(data, 8, 5, true);
 
     var encoder = Bech32Encoder();

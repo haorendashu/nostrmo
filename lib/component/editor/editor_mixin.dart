@@ -95,42 +95,60 @@ mixin EditorMixin {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: pickImage,
         icon: Icon(Icons.image),
+        isSelected: false,
+        iconTheme: null,
       ));
     }
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: takeAPhoto,
         icon: Icon(Icons.camera),
+        isSelected: false,
+        iconTheme: null,
       ));
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: tackAVideo,
         icon: Icon(Icons.video_call),
+        isSelected: false,
+        iconTheme: null,
       ));
     }
     inputBtnList.addAll([
       quill.QuillToolbarIconButton(
         onPressed: _inputLnbc,
         icon: Icon(Icons.bolt),
+        isSelected: false,
+        iconTheme: null,
       ),
       quill.QuillToolbarIconButton(
         onPressed: customEmojiSelect,
         icon: Icon(Icons.add_reaction_outlined),
+        isSelected: false,
+        iconTheme: null,
       ),
       quill.QuillToolbarIconButton(
         onPressed: emojiBeginToSelect,
         icon: Icon(Icons.tag_faces),
+        isSelected: false,
+        iconTheme: null,
       ),
       quill.QuillToolbarIconButton(
         onPressed: _inputMentionUser,
         icon: Icon(Icons.alternate_email_sharp),
+        isSelected: false,
+        iconTheme: null,
       ),
       quill.QuillToolbarIconButton(
         onPressed: _inputMentionEvent,
         icon: Icon(Icons.format_quote),
+        isSelected: false,
+        iconTheme: null,
       ),
       quill.QuillToolbarIconButton(
         onPressed: _inputTag,
         icon: Icon(Icons.tag),
+        isSelected: false,
+        iconTheme: null,
       ),
       // Expanded(child: Container())
     ]);
@@ -140,15 +158,21 @@ mixin EditorMixin {
         quill.QuillToolbarIconButton(
           onPressed: _addWarning,
           icon: Icon(Icons.warning, color: showWarning ? Colors.red : null),
+          isSelected: false,
+          iconTheme: null,
         ),
         quill.QuillToolbarIconButton(
           onPressed: _addTitle,
           icon: Icon(Icons.title, color: showTitle ? mainColor : null),
+          isSelected: false,
+          iconTheme: null,
         ),
         quill.QuillToolbarIconButton(
           onPressed: selectedTime,
           icon: Icon(Icons.timer_outlined,
               color: publishAt != null ? mainColor : null),
+          isSelected: false,
+          iconTheme: null,
         )
       ]);
     }
@@ -159,13 +183,17 @@ mixin EditorMixin {
 
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: _inputPoll,
-        icon: Icon(Icons.poll),
-        fillColor: inputPoll ? mainColor.withOpacity(0.5) : null,
+        icon: Icon(Icons.poll, color: inputPoll ? mainColor : null),
+        isSelected: false,
+        iconTheme: null,
+        // fillColor: inputPoll ? mainColor.withOpacity(0.5) : null,
       ));
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: _inputGoal,
-        icon: Icon(Icons.trending_up),
-        fillColor: inputZapGoal ? mainColor.withOpacity(0.5) : null,
+        icon: Icon(Icons.trending_up, color: inputZapGoal ? mainColor : null),
+        isSelected: false,
+        iconTheme: null,
+        // fillColor: inputZapGoal ? mainColor.withOpacity(0.5) : null,
       ));
     }
 
@@ -204,6 +232,7 @@ mixin EditorMixin {
   Widget buildEmojiSelector() {
     var themeData = Theme.of(getContext());
     var mainColor = themeData.primaryColor;
+    var bgColor = themeData.scaffoldBackgroundColor;
 
     return Container(
       height: 260,
@@ -221,7 +250,7 @@ mixin EditorMixin {
           horizontalSpacing: 0,
           gridPadding: EdgeInsets.zero,
           initCategory: Category.RECENT,
-          bgColor: Color(0xFFF2F2F2),
+          bgColor: bgColor,
           indicatorColor: mainColor,
           iconColor: Colors.grey,
           iconColorSelected: mainColor,

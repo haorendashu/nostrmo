@@ -174,7 +174,6 @@ Future<void> main() async {
   }
 
   try {
-    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   } catch (e) {
@@ -247,6 +246,11 @@ class _MyApp extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // Color mainColor = _getMainColor();
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: mainColor,
+    // ));
+
     Locale? _locale;
     if (StringUtil.isNotBlank(settingProvider.i18n)) {
       for (var item in S.delegate.supportedLocales) {
@@ -418,11 +422,7 @@ class _MyApp extends State<MyApp> {
   }
 
   ThemeData getLightTheme() {
-    Color color500 = const Color(0xff519495);
-    if (settingProvider.themeColor != null) {
-      color500 = Color(settingProvider.themeColor!);
-    }
-
+    Color color500 = _getMainColor();
     MaterialColor themeColor = ColorList.getThemeColor(color500.value);
 
     Color? mainTextColor;
@@ -448,9 +448,12 @@ class _MyApp extends State<MyApp> {
     }
 
     return ThemeData(
-      brightness: Brightness.light,
       platform: TargetPlatform.iOS,
       primarySwatch: themeColor,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: themeColor[500]!,
+        brightness: Brightness.light,
+      ),
       // scaffoldBackgroundColor: Base.SCAFFOLD_BACKGROUND_COLOR,
       // scaffoldBackgroundColor: Colors.grey[100],
       scaffoldBackgroundColor: scaffoldBackgroundColor,
@@ -461,6 +464,7 @@ class _MyApp extends State<MyApp> {
             PlatformUtil.isPC() ? scaffoldBackgroundColor : themeColor[500],
         titleTextStyle: titleTextStyle,
         elevation: 0,
+        scrolledUnderElevation: 0,
       ),
       dividerColor: Colors.grey,
       cardColor: Colors.white,
@@ -469,15 +473,19 @@ class _MyApp extends State<MyApp> {
       textTheme: textTheme,
       hintColor: hintColor,
       buttonTheme: ButtonThemeData(),
+      shadowColor: Colors.black.withOpacity(0.1),
+      tabBarTheme: TabBarTheme(
+        indicatorColor: Colors.white,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerHeight: 0,
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey[200],
+      ),
     );
   }
 
   ThemeData getDarkTheme() {
-    Color color500 = const Color(0xff519495);
-    if (settingProvider.themeColor != null) {
-      color500 = Color(settingProvider.themeColor!);
-    }
-
+    Color color500 = _getMainColor();
     MaterialColor themeColor = ColorList.getThemeColor(color500.value);
 
     Color? mainTextColor;
@@ -504,9 +512,12 @@ class _MyApp extends State<MyApp> {
     }
 
     return ThemeData(
-      brightness: Brightness.dark,
       platform: TargetPlatform.iOS,
       primarySwatch: themeColor,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: themeColor[500]!,
+        brightness: Brightness.dark,
+      ),
       // scaffoldBackgroundColor: Base.SCAFFOLD_BACKGROUND_COLOR,
       scaffoldBackgroundColor: ColorsUtil.hexToColor("#212121"),
       primaryColor: themeColor[500],
@@ -515,12 +526,21 @@ class _MyApp extends State<MyApp> {
         backgroundColor: Colors.grey[800],
         titleTextStyle: titleTextStyle,
         elevation: 0,
+        scrolledUnderElevation: 0,
       ),
       dividerColor: Colors.grey[200],
       cardColor: Colors.grey[800],
       // indicatorColor: ColorsUtil.hexToColor("#818181"),
       textTheme: textTheme,
       hintColor: hintColor,
+      shadowColor: Colors.black.withOpacity(0.1),
+      tabBarTheme: TabBarTheme(
+        indicatorColor: Colors.white,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerHeight: 0,
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey[200],
+      ),
     );
   }
 
@@ -538,6 +558,14 @@ class _MyApp extends State<MyApp> {
       }
     }
   }
+}
+
+Color _getMainColor() {
+  Color color500 = const Color(0xff519495);
+  if (settingProvider.themeColor != null) {
+    color500 = Color(settingProvider.themeColor!);
+  }
+  return color500;
 }
 
 final Map<String, int> GetTimeAgoSupportLocale = {

@@ -141,6 +141,7 @@ class _IndexRouter extends CustState<IndexRouter>
     _indexProvider.setFollowTabController(followTabController);
     _indexProvider.setGlobalTabController(globalsTabController);
     var themeData = Theme.of(context);
+    var mainColor = themeData.primaryColor;
     var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
     var titleTextStyle = TextStyle(
       fontWeight: FontWeight.bold,
@@ -156,6 +157,8 @@ class _IndexRouter extends CustState<IndexRouter>
       appBarCenter = TabBar(
         indicatorColor: indicatorColor,
         indicatorWeight: 3,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerHeight: 0,
         tabs: [
           Container(
             height: IndexAppBar.height,
@@ -189,6 +192,8 @@ class _IndexRouter extends CustState<IndexRouter>
       appBarCenter = TabBar(
         indicatorColor: indicatorColor,
         indicatorWeight: 3,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerHeight: 0,
         tabs: [
           Container(
             height: IndexAppBar.height,
@@ -228,6 +233,8 @@ class _IndexRouter extends CustState<IndexRouter>
       appBarCenter = TabBar(
         indicatorColor: indicatorColor,
         indicatorWeight: 3,
+        indicatorSize: TabBarIndicatorSize.tab,
+        dividerHeight: 0,
         tabs: [
           Container(
             height: IndexAppBar.height,
@@ -251,10 +258,15 @@ class _IndexRouter extends CustState<IndexRouter>
     }
 
     var addBtn = FloatingActionButton(
-      child: Icon(Icons.add),
       onPressed: () {
         EditorRouter.open(context);
       },
+      backgroundColor: mainColor,
+      shape: const CircleBorder(),
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
     );
 
     var mainCenterWidget = MediaQuery.removePadding(
@@ -369,7 +381,8 @@ class _IndexRouter extends CustState<IndexRouter>
       return Scaffold(
         body: mainIndex,
         floatingActionButton: addBtn,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
         drawer: Drawer(
           child: IndexDrawerContnetComponnent(),
         ),

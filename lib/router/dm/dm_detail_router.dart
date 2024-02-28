@@ -139,36 +139,31 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
       child: Row(
         children: [
           Expanded(
-            child: quill.QuillProvider(
-              configurations: quill.QuillConfigurations(
-                controller: editorController,
-              ),
-              child: quill.QuillEditor(
-                configurations: quill.QuillEditorConfigurations(
-                  placeholder: s.What_s_happening,
-                  readOnly: false,
-                  embedBuilders: [
-                    MentionUserEmbedBuilder(),
-                    MentionEventEmbedBuilder(),
-                    PicEmbedBuilder(),
-                    VideoEmbedBuilder(),
-                    LnbcEmbedBuilder(),
-                    TagEmbedBuilder(),
-                    CustomEmojiEmbedBuilder(),
-                  ],
-                  scrollable: true,
-                  autoFocus: false,
-                  expands: false,
-                  // padding: EdgeInsets.zero,
-                  padding: EdgeInsets.only(
-                    left: Base.BASE_PADDING,
-                    right: Base.BASE_PADDING,
-                  ),
-                  maxHeight: 300,
+            child: quill.QuillEditor(
+              configurations: quill.QuillEditorConfigurations(
+                placeholder: s.What_s_happening,
+                readOnly: false,
+                embedBuilders: [
+                  MentionUserEmbedBuilder(),
+                  MentionEventEmbedBuilder(),
+                  PicEmbedBuilder(),
+                  VideoEmbedBuilder(),
+                  LnbcEmbedBuilder(),
+                  TagEmbedBuilder(),
+                  CustomEmojiEmbedBuilder(),
+                ],
+                scrollable: true,
+                autoFocus: false,
+                expands: false,
+                // padding: EdgeInsets.zero,
+                padding: EdgeInsets.only(
+                  left: Base.BASE_PADDING,
+                  right: Base.BASE_PADDING,
                 ),
-                scrollController: ScrollController(),
-                focusNode: focusNode,
+                maxHeight: 300, controller: editorController,
               ),
+              scrollController: ScrollController(),
+              focusNode: focusNode,
             ),
           ),
           TextButton(

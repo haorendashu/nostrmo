@@ -19,6 +19,7 @@ class IndexBottomBar extends StatefulWidget {
 class _IndexBottomBar extends State<IndexBottomBar> {
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     var _indexProvider = Provider.of<IndexProvider>(context);
     var currentTap = _indexProvider.currentTap;
 
@@ -71,13 +72,28 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     //     children: list,
     //   ),
     // );
-    return BottomAppBar(
-      shape: CircularNotchedRectangle(),
-      child: Container(
-        color: Colors.transparent,
-        width: double.infinity,
-        child: Row(
-          children: list,
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          offset: Offset(-6, 0),
+          color: themeData.shadowColor,
+          spreadRadius: 2,
+          blurRadius: 8,
+        )
+      ]),
+      child: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        color: themeData.cardColor,
+        surfaceTintColor: themeData.cardColor,
+        shadowColor: themeData.shadowColor,
+        height: IndexBottomBar.HEIGHT,
+        padding: EdgeInsets.zero,
+        child: Container(
+          color: Colors.transparent,
+          width: double.infinity,
+          child: Row(
+            children: list,
+          ),
         ),
       ),
     );

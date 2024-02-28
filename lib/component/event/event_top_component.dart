@@ -88,10 +88,12 @@ class _EventTopComponent extends State<EventTopComponent> {
             bottom: Base.BASE_PADDING_HALF,
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               jumpWrap(Container(
                 width: IMAGE_WIDTH,
                 height: IMAGE_WIDTH,
+                margin: EdgeInsets.only(top: 4),
                 clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
@@ -107,7 +109,7 @@ class _EventTopComponent extends State<EventTopComponent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(bottom: 2),
+                        // margin: const EdgeInsets.only(bottom: 2),
                         child: jumpWrap(
                           NameComponnet(
                             pubkey: widget.event.pubKey,

@@ -83,7 +83,12 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
           ),
           Container(
             margin: const EdgeInsets.only(top: 4),
-            padding: const EdgeInsets.all(Base.BASE_PADDING_HALF),
+            padding: const EdgeInsets.only(
+              top: Base.BASE_PADDING_HALF - 1,
+              right: Base.BASE_PADDING_HALF,
+              bottom: Base.BASE_PADDING_HALF,
+              left: Base.BASE_PADDING_HALF + 1,
+            ),
             // constraints:
             //     BoxConstraints(maxWidth: (maxWidth - IMAGE_WIDTH) * 0.85),
             decoration: BoxDecoration(

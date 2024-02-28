@@ -50,6 +50,7 @@ class _MetadataComponent extends State<MetadataComponent> {
 
     if (widget.showBadges) {
       mainList.add(UserBadgesComponent(
+        key: Key("ubc_${widget.pubKey}"),
         pubkey: widget.pubKey,
       ));
     }

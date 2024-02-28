@@ -9,25 +9,34 @@ class ContentStrLinkComponent extends StatelessWidget {
   Function onTap;
 
   ContentStrLinkComponent(
-      {required this.str, required this.onTap, this.showUnderline = true});
+      {super.key,
+      required this.str,
+      required this.onTap,
+      this.showUnderline = true});
 
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
+    var fontSize = themeData.textTheme.bodyMedium!.fontSize;
+
     return GestureDetector(
       onTap: () {
-        this.onTap();
+        onTap();
       },
-      child: Container(
-        margin: const EdgeInsets.only(right: 3),
-        child: Text(
-          StringUtil.breakWord(str),
-          style: TextStyle(
-            color: mainColor,
-            decoration:
-                showUnderline ? TextDecoration.underline : TextDecoration.none,
-          ),
+      child: Text(
+        StringUtil.breakWord(str),
+        style: TextStyle(
+          color: mainColor,
+          decoration:
+              showUnderline ? TextDecoration.underline : TextDecoration.none,
+          decorationColor: mainColor,
+          fontSize: fontSize,
+        ),
+        // fix when flutter upgrade, text not vertical align by bottom
+        strutStyle: StrutStyle(
+          forceStrutHeight: true,
+          fontSize: fontSize! + 2,
         ),
       ),
     );

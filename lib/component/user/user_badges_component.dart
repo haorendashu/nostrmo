@@ -17,7 +17,7 @@ import '../cust_state.dart';
 class UserBadgesComponent extends StatefulWidget {
   String pubkey;
 
-  UserBadgesComponent({required this.pubkey});
+  UserBadgesComponent({super.key, required this.pubkey});
 
   @override
   State<StatefulWidget> createState() {
