@@ -196,6 +196,8 @@ class _EventMainComponent extends State<EventMainComponent> {
           subList.add(Container(
             margin: longFormMargin,
             child: Wrap(
+              spacing: Base.BASE_PADDING_HALF,
+              runSpacing: Base.BASE_PADDING_HALF / 2,
               children: topicWidgets,
             ),
           ));
