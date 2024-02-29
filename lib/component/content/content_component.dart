@@ -131,6 +131,8 @@ class _ContentComponent extends State<ContentComponent> {
 
   TextStyle? mdh2Style;
 
+  TextStyle? mdh3Style;
+
   TextStyle? highlightStyle;
 
   late StringBuffer counter;
@@ -162,6 +164,10 @@ class _ContentComponent extends State<ContentComponent> {
     mdh2Style = TextStyle(
       fontSize: fontSize,
       fontWeight: FontWeight.bold,
+    );
+    mdh3Style = TextStyle(
+      fontSize: fontSize,
+      fontWeight: FontWeight.w600,
     );
     highlightStyle = TextStyle(
       color: themeData.primaryColor,
@@ -334,6 +340,10 @@ class _ContentComponent extends State<ContentComponent> {
           } else if (str == MD_H2) {
             bufferToList(buffer, allList);
             currentTextStyle = mdh2Style;
+            continue;
+          } else if (str == MD_H3) {
+            bufferToList(buffer, allList);
+            currentTextStyle = mdh3Style;
             continue;
           } else {
             if (currentTextStyle != null) {
