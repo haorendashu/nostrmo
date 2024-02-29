@@ -114,6 +114,8 @@ class _EventTopComponent extends State<EventTopComponent> {
                           NameComponnet(
                             pubkey: widget.event.pubKey,
                             metadata: metadata,
+                            maxLines: 1,
+                            textOverflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ),
