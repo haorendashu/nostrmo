@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/nip58/badge_definition.dart';
@@ -10,7 +8,6 @@ import 'package:nostrmo/provider/badge_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../generated/l10n.dart';
-import 'badge_component.dart';
 import 'badge_detail_component.dart';
 
 class BadgeAwardComponent extends StatefulWidget {
@@ -102,7 +99,12 @@ class _BadgeAwardComponent extends State<BadgeAwardComponent> {
     list.add(wearComp);
 
     return Container(
-      padding: const EdgeInsets.all(Base.BASE_PADDING),
+      padding: const EdgeInsets.only(
+        top: Base.BASE_PADDING_HALF,
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+        bottom: Base.BASE_PADDING,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: list,
