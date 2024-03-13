@@ -198,6 +198,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("动态 & 回复"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隐私锁"),
         "Private": MessageLookupByLibrary.simpleMessage("私有"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "隐私私信是一种新的消息类型，一些客户端还没有对这种消息提供支持。"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("密钥不能为空"),
         "Public": MessageLookupByLibrary.simpleMessage("公开"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),

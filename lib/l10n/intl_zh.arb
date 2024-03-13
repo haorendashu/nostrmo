@@ -220,5 +220,6 @@
     "Private": "私有",
     "Public": "公开",
     "Creator": "创建者",
-    "Wear": "穿戴"
+    "Wear": "穿戴",
+    "Private_DM_Notice": "隐私私信是一种新的消息类型，一些客户端还没有对这种消息提供支持。"
 }

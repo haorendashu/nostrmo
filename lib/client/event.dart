@@ -44,7 +44,7 @@ class Event {
     final kind = data['kind'] as int;
     final tags = data['tags'];
     final content = data['content'] as String;
-    final sig = data['sig'] as String;
+    final sig = data['sig'] == null ? "" : data['sig'] as String;
 
     return Event._(id, pubKey, createdAt, kind, tags, content, sig);
   }

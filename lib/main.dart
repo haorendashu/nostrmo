@@ -12,6 +12,7 @@ import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
+import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/router/relays/relay_info_router.dart';
 import 'package:nostrmo/router/user/followed_router.dart';
@@ -140,6 +141,8 @@ late ListSetProvider listSetProvider;
 
 late BadgeProvider badgeProvider;
 
+late GiftWrapProvider giftWrapProvider;
+
 Nostr? nostr;
 
 bool firstLogin = false;
@@ -217,6 +220,7 @@ Future<void> main() async {
   listProvider = ListProvider();
   listSetProvider = ListSetProvider();
   badgeProvider = BadgeProvider();
+  giftWrapProvider = GiftWrapProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;

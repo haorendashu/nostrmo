@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/component/content/content_component.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
@@ -61,8 +62,41 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
     String timeStr = GetTimeAgo.parse(
         DateTime.fromMillisecondsSinceEpoch(widget.event.createdAt * 1000));
 
-    var content = NIP04.decrypt(
-        widget.event.content, widget.agreement, widget.sessionPubkey);
+    var content = widget.event.content;
+    if (widget.event.kind == EventKind.DIRECT_MESSAGE) {
+      content = NIP04.decrypt(
+          widget.event.content, widget.agreement, widget.sessionPubkey);
+    }
+
+    var timeWidget = Text(
+      timeStr,
+      style: TextStyle(
+        color: hintColor,
+        fontSize: smallTextSize,
+      ),
+    );
+    Widget enhancedIcon = Container();
+    if (widget.event.kind == EventKind.PRIVATE_DIRECT_MESSAGE) {
+      enhancedIcon = Container(
+        margin: const EdgeInsets.only(
+          left: Base.BASE_PADDING_HALF,
+          right: Base.BASE_PADDING_HALF,
+        ),
+        child: Icon(
+          Icons.enhanced_encryption,
+          size: smallTextSize! + 2,
+          color: hintColor,
+        ),
+      );
+    }
+    List<Widget> topList = [];
+    if (widget.isLocal) {
+      topList.add(enhancedIcon);
+      topList.add(timeWidget);
+    } else {
+      topList.add(timeWidget);
+      topList.add(enhancedIcon);
+    }
 
     var contentWidget = Container(
       margin: const EdgeInsets.only(
@@ -74,12 +108,9 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
             !widget.isLocal ? CrossAxisAlignment.start : CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            timeStr,
-            style: TextStyle(
-              color: hintColor,
-              fontSize: smallTextSize,
-            ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: topList,
           ),
           Container(
             margin: const EdgeInsets.only(top: 4),

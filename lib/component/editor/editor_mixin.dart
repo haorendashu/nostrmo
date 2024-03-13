@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/date_symbols.dart';
+import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
 import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
@@ -57,6 +59,8 @@ mixin EditorMixin {
 
   bool inputZapGoal = false;
 
+  bool openPrivateDM = false;
+
   // dm arg
   ECDHBasicAgreement? getAgreement();
 
@@ -91,6 +95,15 @@ mixin EditorMixin {
     var mainColor = themeData.primaryColor;
 
     List<Widget> inputBtnList = [];
+    if (getAgreement() != null) {
+      inputBtnList.add(quill.QuillToolbarIconButton(
+        onPressed: changePrivateDM,
+        icon: Icon(Icons.enhanced_encryption,
+            color: openPrivateDM ? mainColor : null),
+        isSelected: false,
+        iconTheme: null,
+      ));
+    }
     if (!PlatformUtil.isWeb()) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: pickImage,
@@ -292,6 +305,11 @@ mixin EditorMixin {
     editorController.replaceText(
         index, length, emoji.emoji, TextSelection.collapsed(offset: index + 2),
         ignoreFocus: true);
+    updateUI();
+  }
+
+  void changePrivateDM() {
+    openPrivateDM = !openPrivateDM;
     updateUI();
   }
 
@@ -612,12 +630,36 @@ mixin EditorMixin {
     }
 
     Event? event;
+    List<Event> extralEvents = [];
     if (agreement != null && StringUtil.isNotBlank(pubkey)) {
-      // dm message
-      result = NIP04.encrypt(result, agreement, pubkey!);
-      event = Event(
-          nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result,
-          publishAt: publishAt);
+      if (openPrivateDM) {
+        // Private dm message
+        var rumorEvent = Event(nostr!.publicKey,
+            kind.EventKind.PRIVATE_DIRECT_MESSAGE, allTags, result,
+            publishAt: publishAt);
+        // this is the event send to sender, should return after send and set into giftWrapProvider and dmProvider
+        event = await GiftWrapUtil.getGiftWrapEvent(
+            rumorEvent, nostr!, nostr!.publicKey);
+
+        // private dm need to send message to all receiver. (sender and other receivers)
+        for (var tags in allTags) {
+          if (tags is List && tags.length > 1) {
+            if (tags[0] == "p") {
+              var extralEvent = await GiftWrapUtil.getGiftWrapEvent(
+                  rumorEvent, nostr!, tags[1]);
+              if (extralEvent != null) {
+                extralEvents.add(extralEvent);
+              }
+            }
+          }
+        }
+      } else {
+        // dm message
+        result = NIP04.encrypt(result, agreement, pubkey!);
+        event = Event(
+            nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result,
+            publishAt: publishAt);
+      }
     } else if (inputPoll) {
       // poll event
       // get poll tag from PollInputComponentn
@@ -637,15 +679,40 @@ mixin EditorMixin {
           publishAt: publishAt);
     }
 
-    if (publishAt != null) {
-      nostr!.signEvent(event);
-      await SendBox.submit(event, relayProvider.relayAddrs);
-      return event;
-    } else {
-      var e = nostr!.sendEvent(event);
-      log(jsonEncode(event.toJson()));
+    if (event == null) {
+      return null;
+    }
 
-      return e;
+    log(jsonEncode(event.toJson()));
+    if (publishAt != null) {
+      for (var extralEvent in extralEvents) {
+        _handleSendingSendBoxEvent(extralEvent);
+      }
+
+      return _handleSendingSendBoxEvent(event);
+    } else {
+      for (var extralEvent in extralEvents) {
+        _handleSendingEvent(extralEvent);
+      }
+
+      return _handleSendingEvent(event);
+    }
+  }
+
+  Future<Event?> _handleSendingSendBoxEvent(Event e) async {
+    if (StringUtil.isNotBlank(e.sig)) {
+      nostr!.signEvent(e);
+    }
+    await SendBox.submit(e, relayProvider.relayAddrs);
+
+    return e;
+  }
+
+  Event? _handleSendingEvent(Event e) {
+    if (StringUtil.isNotBlank(e.sig)) {
+      return nostr!.broadcase(e);
+    } else {
+      return nostr!.sendEvent(e);
     }
   }
 

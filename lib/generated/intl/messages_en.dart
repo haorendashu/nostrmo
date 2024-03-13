@@ -252,6 +252,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Posts & Replies"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Privacy Lock"),
         "Private": MessageLookupByLibrary.simpleMessage("Private"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Private Direct Message is a new message type that some clients do not yet support."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Private key is null."),
         "Public": MessageLookupByLibrary.simpleMessage("Public"),

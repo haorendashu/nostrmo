@@ -8,15 +8,21 @@ import '../util/string_util.dart';
 import 'db.dart';
 
 class EventDB {
-  static Future<List<Event>> list(int keyIndex, int kind, int skip, limit,
+  static Future<List<Event>> list(
+      int keyIndex, List<int> kinds, int skip, limit,
       {DatabaseExecutor? db, String? pubkey}) async {
     db = await DB.getDB(db);
     List<Event> l = [];
     List<dynamic> args = [];
 
-    var sql = "select * from event where key_index = ? and kind = ? ";
+    var sql = "select * from event where key_index = ? and kind in(";
     args.add(keyIndex);
-    args.add(kind);
+    for (var kind in kinds) {
+      sql += "?,";
+      args.add(kind);
+    }
+    sql = sql.substring(0, sql.length - 1);
+    sql += ")";
     if (StringUtil.isNotBlank(pubkey)) {
       sql += " and pubkey = ? ";
       args.add(pubkey);

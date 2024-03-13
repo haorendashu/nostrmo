@@ -229,5 +229,6 @@
     "Private": "Private",
     "Public": "Public",
     "Creator": "Creator",
-    "Wear": "Wear"
+    "Wear": "Wear",
+    "Private_DM_Notice": "Private Direct Message is a new message type that some clients do not yet support."
 }

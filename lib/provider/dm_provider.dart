@@ -99,7 +99,10 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     this.localPubkey = localPubkey;
     var keyIndex = settingProvider.privateKeyIndex!;
     var events = await EventDB.list(
-        keyIndex, kind.EventKind.DIRECT_MESSAGE, 0, 10000000);
+        keyIndex,
+        [kind.EventKind.DIRECT_MESSAGE, kind.EventKind.PRIVATE_DIRECT_MESSAGE],
+        0,
+        10000000);
     if (events.isNotEmpty) {
       // find the newest event, subscribe behind the new newest event
       _initSince = events.first.createdAt;

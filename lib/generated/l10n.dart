@@ -2359,6 +2359,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Private Direct Message is a new message type that some clients do not yet support.`
+  String get Private_DM_Notice {
+    return Intl.message(
+      'Private Direct Message is a new message type that some clients do not yet support.',
+      name: 'Private_DM_Notice',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip04/dm_session.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
 import 'package:nostrmo/component/name_component.dart';
@@ -50,8 +51,11 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
 
         var dmSession = widget.detail.dmSession;
 
-        var content = NIP04.decrypt(
-            dmSession.newestEvent!.content, widget.agreement, dmSession.pubkey);
+        var content = dmSession.newestEvent!.content;
+        if (dmSession.newestEvent!.kind == EventKind.DIRECT_MESSAGE) {
+          content = NIP04.decrypt(dmSession.newestEvent!.content,
+              widget.agreement, dmSession.pubkey);
+        }
         content = content.replaceAll("\r", " ");
         content = content.replaceAll("\n", " ");
 

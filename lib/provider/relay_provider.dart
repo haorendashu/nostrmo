@@ -91,12 +91,16 @@ class RelayProvider extends ChangeNotifier {
 
     // add initQuery
     var dmInitFuture = dmProvider.initDMSessions(_nostr.publicKey);
+    var giftWrapFuture = giftWrapProvider.init();
     contactListProvider.reload(targetNostr: _nostr);
     contactListProvider.query(targetNostr: _nostr);
     followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
     mentionMeProvider.doQuery(targetNostr: _nostr, initQuery: true);
     dmInitFuture.then((_) {
       dmProvider.query(targetNostr: _nostr, initQuery: true);
+    });
+    giftWrapFuture.then((_) {
+      giftWrapProvider.query();
     });
 
     loadRelayAddrs(contactListProvider.content);

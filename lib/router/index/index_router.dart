@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostrmo/client/cashu/cashu_tokens.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/pc_router_fake.dart';
 import 'package:nostrmo/consts/base_consts.dart';

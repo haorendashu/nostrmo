@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip04/dm_session.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/editor/editor_mixin.dart';
@@ -255,7 +256,12 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
         BotToast.showText(text: S.of(context).Send_fail);
         return;
       }
-      dmProvider.addEventAndUpdateReadedTime(detail!, event);
+      if (event.kind == EventKind.DIRECT_MESSAGE) {
+        dmProvider.addEventAndUpdateReadedTime(detail!, event);
+      } else if (event.kind == EventKind.GIFT_WRAP) {
+        giftWrapProvider.onEvent(event);
+      }
+
       editorController.clear();
       setState(() {});
     } finally {

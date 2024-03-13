@@ -17,7 +17,13 @@ class EventKind {
 
   static const int BADGE_AWARD = 8;
 
+  static const int SEAL_EVENT_KIND = 13;
+
+  static const int PRIVATE_DIRECT_MESSAGE = 14;
+
   static const int GENERIC_REPOST = 16;
+
+  static const int GIFT_WRAP = 1059;
 
   static const int FILE_HEADER = 1063;
 

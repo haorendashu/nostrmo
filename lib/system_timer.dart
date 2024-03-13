@@ -33,6 +33,7 @@ class SystemTimer {
     } else {
       if (counter > 4) {
         followNewEventProvider.queryNew();
+        giftWrapProvider.query();
       }
     }
   }
