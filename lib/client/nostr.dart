@@ -113,9 +113,12 @@ class Nostr {
     event.sign(_privateKey!);
   }
 
-  Event broadcase(Event event) {
-    _pool.send(["EVENT", event.toJson()]);
-    return event;
+  Event? broadcase(Event event) {
+    var result = _pool.send(["EVENT", event.toJson()]);
+    if (result) {
+      return event;
+    }
+    return null;
   }
 
   void close() {
