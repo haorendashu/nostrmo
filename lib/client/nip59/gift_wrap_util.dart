@@ -57,7 +57,8 @@ class GiftWrapUtil {
           ["p", receiverPublicKey]
         ],
         giftWrapEventContent,
-        publishAt: DateTime.fromMillisecondsSinceEpoch(giftEventCreatedAt));
+        publishAt:
+            DateTime.fromMillisecondsSinceEpoch(giftEventCreatedAt * 1000));
     giftWrapEvent.sign(randomPrivateKey);
 
     return giftWrapEvent;
