@@ -6,12 +6,11 @@ list(APPEND FLUTTER_PLUGIN_LIST
   emoji_picker_flutter
   file_saver
   file_selector_windows
-  irondash_engine_context
   local_auth_windows
+  pasteboard
   permission_handler_windows
   screen_retriever
   share_plus
-  super_native_extensions
   url_launcher_windows
   window_manager
 )

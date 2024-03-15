@@ -144,31 +144,36 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
       child: Row(
         children: [
           Expanded(
-            child: quill.QuillEditor(
-              configurations: quill.QuillEditorConfigurations(
-                placeholder: s.What_s_happening,
-                readOnly: false,
-                embedBuilders: [
-                  MentionUserEmbedBuilder(),
-                  MentionEventEmbedBuilder(),
-                  PicEmbedBuilder(),
-                  VideoEmbedBuilder(),
-                  LnbcEmbedBuilder(),
-                  TagEmbedBuilder(),
-                  CustomEmojiEmbedBuilder(),
-                ],
-                scrollable: true,
-                autoFocus: false,
-                expands: false,
-                // padding: EdgeInsets.zero,
-                padding: EdgeInsets.only(
-                  left: Base.BASE_PADDING,
-                  right: Base.BASE_PADDING,
-                ),
-                maxHeight: 300, controller: editorController,
+            child: quill.QuillProvider(
+              configurations: quill.QuillConfigurations(
+                controller: editorController,
               ),
-              scrollController: ScrollController(),
-              focusNode: focusNode,
+              child: quill.QuillEditor(
+                configurations: quill.QuillEditorConfigurations(
+                  placeholder: s.What_s_happening,
+                  readOnly: false,
+                  embedBuilders: [
+                    MentionUserEmbedBuilder(),
+                    MentionEventEmbedBuilder(),
+                    PicEmbedBuilder(),
+                    VideoEmbedBuilder(),
+                    LnbcEmbedBuilder(),
+                    TagEmbedBuilder(),
+                    CustomEmojiEmbedBuilder(),
+                  ],
+                  scrollable: true,
+                  autoFocus: false,
+                  expands: false,
+                  // padding: EdgeInsets.zero,
+                  padding: EdgeInsets.only(
+                    left: Base.BASE_PADDING,
+                    right: Base.BASE_PADDING,
+                  ),
+                  maxHeight: 300,
+                ),
+                scrollController: ScrollController(),
+                focusNode: focusNode,
+              ),
             ),
           ),
           TextButton(
