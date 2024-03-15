@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip04/dm_session.dart';
 import 'package:nostrmo/component/cust_state.dart';
@@ -91,6 +92,9 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
         if (session == null) {
           return Container();
         }
+
+        var newestEvent = session.newestEvent;
+        handleDefaultPrivateDMSetting(newestEvent);
 
         return ListView.builder(
           itemBuilder: (context, index) {
@@ -246,6 +250,21 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
       ),
       body: main,
     );
+  }
+
+  bool _handledDefaultPrivateDM = false;
+
+  void handleDefaultPrivateDMSetting(Event? e) {
+    if (!_handledDefaultPrivateDM &&
+        e != null &&
+        e.kind == EventKind.PRIVATE_DIRECT_MESSAGE) {
+      openPrivateDM = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        updateUI();
+      });
+    }
+
+    _handledDefaultPrivateDM = true;
   }
 
   Future<void> send() async {

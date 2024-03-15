@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbols.dart';
 import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
+import 'package:nostrmo/component/comfirm_dialog.dart';
 import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
@@ -308,7 +309,16 @@ mixin EditorMixin {
     updateUI();
   }
 
-  void changePrivateDM() {
+  Future<void> changePrivateDM() async {
+    if (!openPrivateDM) {
+      var context = getContext();
+      var result = await ComfirmDialog.show(
+          getContext(), S.of(context).Private_DM_Notice);
+      if (result == false || result == null) {
+        return;
+      }
+    }
+
     openPrivateDM = !openPrivateDM;
     updateUI();
   }
