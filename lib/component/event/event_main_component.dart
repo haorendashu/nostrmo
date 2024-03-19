@@ -35,7 +35,7 @@ import '../content/content_decoder.dart';
 import '../content/content_image_component.dart';
 import '../content/content_link_component.dart';
 import '../content/content_tag_component.dart';
-import '../content/markdown/markdown_mention_event_Inline_syntax.dart';
+import '../content/markdown/markdown_mention_event_inline_syntax.dart';
 import '../content/markdown/markdown_mention_user_element_builder.dart';
 import '../content/markdown/markdown_mention_user_inline_syntax.dart';
 import '../content/markdown/markdown_nevent_inline_syntax.dart';
