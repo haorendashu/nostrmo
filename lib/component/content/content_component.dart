@@ -330,6 +330,7 @@ class _ContentComponent extends State<ContentComponent> {
       var strsLength = strs.length;
       for (var j = 0; j < strsLength; j++) {
         var str = strs[j];
+        str = str.trim();
 
         if (j == 0) {
           // the first str, check simple markdown support
