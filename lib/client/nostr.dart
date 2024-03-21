@@ -17,7 +17,6 @@ class Nostr {
   Nostr({
     String? privateKey,
     String? publicKey,
-    bool eventVerification = false,
   }) {
     if (StringUtil.isNotBlank(privateKey)) {
       _privateKey = privateKey!;
@@ -28,7 +27,7 @@ class Nostr {
       _privateKey = privateKey;
       _publicKey = publicKey!;
     }
-    _pool = RelayPool(this, eventVerification);
+    _pool = RelayPool(this);
   }
 
   String? get privateKey => _privateKey;

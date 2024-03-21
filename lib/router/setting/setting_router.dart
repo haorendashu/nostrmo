@@ -172,24 +172,6 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         onTap: pickVideoPreviewInList,
       ));
     }
-    String? networkHintText = settingProvider.network;
-    if (StringUtil.isBlank(networkHintText)) {
-      networkHintText = s.Please_input + " " + s.Network;
-    }
-    Widget networkWidget = Text(
-      networkHintText!,
-      style: TextStyle(
-        color: hintColor,
-        overflow: TextOverflow.ellipsis,
-        fontWeight: FontWeight.bold,
-        fontSize: 16,
-      ),
-    );
-    list.add(SettingGroupItemComponent(
-      name: s.Network,
-      onTap: inputNetwork,
-      child: networkWidget,
-    ));
     list.add(SettingGroupItemComponent(
       name: s.Image_service,
       value: getImageServcie(settingProvider.imageService).name,
@@ -240,7 +222,32 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickAutoOpenSensitive,
     ));
 
+    list.add(
+        SettingGroupTitleComponent(iconData: Icons.cloud, title: s.Network));
+    String? networkHintText = settingProvider.network;
+    if (StringUtil.isBlank(networkHintText)) {
+      networkHintText = s.Please_input + " " + s.Network;
+    }
+    Widget networkWidget = Text(
+      networkHintText!,
+      style: TextStyle(
+        color: hintColor,
+        overflow: TextOverflow.ellipsis,
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
+    );
+    list.add(SettingGroupItemComponent(
+      name: s.Network,
+      onTap: inputNetwork,
+      child: networkWidget,
+    ));
     if (!PlatformUtil.isWeb()) {
+      list.add(SettingGroupItemComponent(
+        name: s.LocalRelay,
+        value: getOpenList(settingProvider.relayLocal).name,
+        onTap: pickRelayLocal,
+      ));
       list.add(SettingGroupItemComponent(
         name: s.Relay_Mode,
         value: getRelayMode(settingProvider.relayMode).name,
@@ -954,6 +961,15 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     }
 
     return list[0];
+  }
+
+  pickRelayLocal() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.relayLocal = resultEnumObj.value;
+      resetTheme();
+    }
   }
 
   pickRelayModes() async {

@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/relay_local/relay_local.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/relay_mode.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -23,6 +25,8 @@ class RelayProvider extends ChangeNotifier {
   List<String> relayAddrs = [];
 
   Map<String, RelayStatus> relayStatusMap = {};
+
+  RelayStatus? relayStatusLocal;
 
   static RelayProvider getInstance() {
     if (_relayProvider == null) {
@@ -108,6 +112,16 @@ class RelayProvider extends ChangeNotifier {
         [kind.EventKind.BOOKMARKS_LIST, kind.EventKind.EMOJIS_LIST],
         targetNostr: _nostr, initQuery: true);
     badgeProvider.reload(targetNostr: _nostr, initQuery: true);
+
+    // add local relay
+    if (relayLocalDB != null &&
+        settingProvider.relayLocal != OpenStatus.CLOSE) {
+      relayStatusLocal = RelayStatus(RelayLocal.URL);
+      var relayLocal =
+          RelayLocal(RelayLocal.URL, relayStatusLocal!, relayLocalDB!)
+            ..relayStatusCallback = onRelayStatusChange;
+      _nostr.addRelay(relayLocal, init: true);
+    }
 
     for (var relayAddr in relayAddrs) {
       log("begin to init $relayAddr");

@@ -9,6 +9,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nostrmo/client/nostr.dart';
+import 'package:nostrmo/client/relay_local/relay_local_db.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
@@ -144,6 +145,8 @@ late BadgeProvider badgeProvider;
 
 late GiftWrapProvider giftWrapProvider;
 
+RelayLocalDB? relayLocalDB;
+
 Nostr? nostr;
 
 bool firstLogin = false;
@@ -186,7 +189,10 @@ Future<void> main() async {
 
   var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
-  var dataFutureResultList = await Future.wait([dbInitTask, dataUtilTask]);
+  var relayLocalDBTask = RelayLocalDB.init();
+  var dataFutureResultList =
+      await Future.wait([dbInitTask, dataUtilTask, relayLocalDBTask]);
+  relayLocalDB = dataFutureResultList[2] as RelayLocalDB?;
   sharedPreferences = dataFutureResultList[1] as SharedPreferences;
 
   var settingTask = SettingProvider.getInstance();

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:nostrmo/client/relay_local/relay_local.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/client_connected.dart';
@@ -15,8 +16,6 @@ class RelayPool {
 
   final Map<String, Relay> _relays = {};
 
-  final bool eventVerification;
-
   // subscription
   final Map<String, Subscription> _subscriptions = {};
 
@@ -25,7 +24,9 @@ class RelayPool {
 
   final Map<String, Function> _queryCompleteCallbacks = {};
 
-  RelayPool(this.localNostr, this.eventVerification);
+  RelayLocal? relayLocal;
+
+  RelayPool(this.localNostr);
 
   Future<bool> add(
     Relay relay, {
@@ -38,6 +39,10 @@ class RelayPool {
     relay.onMessage = _onEvent;
     // add to pool first and will reconnect by pool
     _relays[relay.url] = relay;
+
+    if (relay is RelayLocal) {
+      relayLocal = relay;
+    }
 
     if (await relay.connect()) {
       if (autoSubscribe) {
@@ -112,30 +117,35 @@ class RelayPool {
     final messageType = json[0];
     if (messageType == 'EVENT') {
       try {
+        if (relayLocal != null && relay is! RelayLocal) {
+          relayLocal!.broadcaseToLocal(json[2]);
+        }
+
         final event = Event.fromJson(json[2]);
-        if (!eventVerification || (event.isValid && event.isSigned)) {
-          // add some statistics
-          relay.relayStatus.noteReceived++;
 
-          // check block pubkey
-          if (filterProvider.checkBlock(event.pubKey)) {
-            return;
-          }
-          // check dirtyword
-          if (filterProvider.checkDirtyword(event.content)) {
-            return;
-          }
+        // add some statistics
+        relay.relayStatus.noteReceived++;
 
+        // check block pubkey
+        if (filterProvider.checkBlock(event.pubKey)) {
+          return;
+        }
+        // check dirtyword
+        if (filterProvider.checkDirtyword(event.content)) {
+          return;
+        }
+
+        if (relay is! RelayLocal) {
           event.sources.add(relay.url);
-          final subId = json[1] as String;
-          var subscription = _subscriptions[subId];
+        }
+        final subId = json[1] as String;
+        var subscription = _subscriptions[subId];
 
-          if (subscription != null) {
-            subscription.onEvent(event);
-          } else {
-            subscription = relay.getRequestSubscription(subId);
-            subscription?.onEvent(event);
-          }
+        if (subscription != null) {
+          subscription.onEvent(event);
+        } else {
+          subscription = relay.getRequestSubscription(subId);
+          subscription?.onEvent(event);
         }
       } catch (err) {
         log(err.toString());

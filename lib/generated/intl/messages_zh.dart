@@ -137,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl 和 Lud16 无法找到。"),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("本地中继"),
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),

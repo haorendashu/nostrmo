@@ -33,10 +33,16 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
     var s = S.of(context);
     var _relayProvider = Provider.of<RelayProvider>(context);
     var relayAddrs = _relayProvider.relayAddrs;
+    var relayStatusLocal = _relayProvider.relayStatusLocal;
     var relayStatusMap = _relayProvider.relayStatusMap;
     var themeData = Theme.of(context);
     var color = themeData.textTheme.bodyLarge!.color;
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
+
+    var extral = 0;
+    if (relayStatusLocal != null) {
+      extral = 1;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +71,16 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
             ),
             child: ListView.builder(
               itemBuilder: (context, index) {
-                var addr = relayAddrs[index];
+                if (relayStatusLocal != null) {
+                  if (index == 0) {
+                    return RelaysItemComponent(
+                      addr: relayStatusLocal.addr,
+                      relayStatus: relayStatusLocal,
+                    );
+                  }
+                }
+
+                var addr = relayAddrs[index - extral];
                 var relayStatus = relayStatusMap[addr];
                 relayStatus ??= RelayStatus(addr);
 
@@ -74,7 +89,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
                   relayStatus: relayStatus,
                 );
               },
-              itemCount: relayAddrs.length,
+              itemCount: relayAddrs.length + extral,
             ),
           ),
         ),

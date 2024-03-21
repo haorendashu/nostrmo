@@ -174,6 +174,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Link_preview": MessageLookupByLibrary.simpleMessage("Link preview"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl and Lud16 can\'t found."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("Local Relay"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),

@@ -246,6 +246,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get autoOpenSensitive => _settingData!.autoOpenSensitive;
 
+  int? get relayLocal => _settingData!.relayLocal;
+
   int? get relayMode => _settingData!.relayMode;
 
   int? get eventSignCheck => _settingData!.eventSignCheck;
@@ -389,6 +391,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set relayLocal(int? o) {
+    _settingData!.relayLocal = o;
+    saveAndNotifyListeners();
+  }
+
   set relayMode(int? o) {
     _settingData!.relayMode = o;
     saveAndNotifyListeners();
@@ -477,6 +484,8 @@ class SettingData {
 
   int? autoOpenSensitive;
 
+  int? relayLocal;
+
   int? relayMode;
 
   int? eventSignCheck;
@@ -512,6 +521,7 @@ class SettingData {
     this.webviewAppbarOpen = OpenStatus.OPEN,
     this.tableMode,
     this.autoOpenSensitive,
+    this.relayLocal,
     this.relayMode,
     this.eventSignCheck,
     this.limitNoteHeight,
@@ -558,6 +568,7 @@ class SettingData {
         : OpenStatus.OPEN;
     tableMode = json['tableMode'];
     autoOpenSensitive = json['autoOpenSensitive'];
+    relayLocal = json['relayLocal'];
     relayMode = json['relayMode'];
     eventSignCheck = json['eventSignCheck'];
     limitNoteHeight = json['limitNoteHeight'];
@@ -596,6 +607,7 @@ class SettingData {
     data['webviewAppbarOpen'] = this.webviewAppbarOpen;
     data['tableMode'] = this.tableMode;
     data['autoOpenSensitive'] = this.autoOpenSensitive;
+    data['relayLocal'] = this.relayLocal;
     data['relayMode'] = this.relayMode;
     data['eventSignCheck'] = this.eventSignCheck;
     data['limitNoteHeight'] = this.limitNoteHeight;

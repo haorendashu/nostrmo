@@ -2369,6 +2369,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Local Relay`
+  String get LocalRelay {
+    return Intl.message(
+      'Local Relay',
+      name: 'LocalRelay',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
