@@ -100,6 +100,23 @@ class MentionMeProvider extends ChangeNotifier
   }
 
   void onEvent(Event event) {
+    // filter the zap send by myself.
+    if (event.kind == kind.EventKind.ZAP) {
+      for (var tag in event.tags) {
+        if (tag is List && tag.length > 1) {
+          var k = tag[0];
+          var v = tag[1];
+
+          if (k == "p" && v != nostr!.publicKey) {
+            return;
+          }
+          if (k == "P" && v == nostr!.publicKey) {
+            return;
+          }
+        }
+      }
+    }
+
     later(event, (list) {
       var result = eventBox.addList(list);
       if (result) {
