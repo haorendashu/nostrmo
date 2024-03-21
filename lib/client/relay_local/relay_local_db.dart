@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:nostrmo/client/filter.dart';
 import 'package:sqflite/sqflite.dart';
@@ -175,7 +176,9 @@ class RelayLocalDB {
       var v = entry.value;
 
       if (k != "limit") {
-        tagQuery.addAll(v);
+        for (var vItem in v) {
+          tagQuery.add("\"${k.replaceFirst("#", "")}\",\"${vItem}");
+        }
       }
     }
     // here, only check the tag values and ignore the tag names
@@ -204,6 +207,9 @@ class RelayLocalDB {
       query =
           " SELECT id, pubkey, created_at, kind, tags, content, sig FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";
     }
+
+    // log("sql ${query}");
+    // log("params ${jsonEncode(params)}");
 
     return query;
   }
