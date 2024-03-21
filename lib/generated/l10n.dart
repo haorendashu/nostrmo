@@ -2379,6 +2379,26 @@ class S {
       args: [],
     );
   }
+
+  /// `My Relays`
+  String get MyRelays {
+    return Intl.message(
+      'My Relays',
+      name: 'MyRelays',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Temp Relays`
+  String get TempRelays {
+    return Intl.message(
+      'Temp Relays',
+      name: 'TempRelays',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

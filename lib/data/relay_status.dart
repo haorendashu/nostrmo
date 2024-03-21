@@ -3,7 +3,11 @@ import '../consts/client_connected.dart';
 class RelayStatus {
   String addr;
 
-  RelayStatus(this.addr);
+  bool writeAccess;
+
+  bool readAccess;
+
+  RelayStatus(this.addr, {this.writeAccess = true, this.readAccess = true});
 
   int connected = ClientConneccted.UN_CONNECT;
 

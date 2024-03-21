@@ -222,5 +222,7 @@
     "Creator": "创建者",
     "Wear": "穿戴",
     "Private_DM_Notice": "隐私私信是一种新的消息类型，一些客户端还没有对这种消息提供支持。",
-    "LocalRelay": "本地中继"
+    "LocalRelay": "本地中继",
+    "MyRelays": "我的中继",
+    "TempRelays": "临时中继"
 }

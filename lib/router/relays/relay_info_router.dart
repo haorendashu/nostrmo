@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/relay_local/relay_local.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
@@ -60,8 +61,12 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
     ));
 
     list.add(Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: Base.BASE_PADDING,
+      ),
+      padding: const EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
       ),
       child: Text(relayInfo.description),
     ));
@@ -149,6 +154,36 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
         runSpacing: Base.BASE_PADDING,
       ),
     ));
+
+    if (relay is! RelayLocal) {
+      list.add(Container(
+        child: CheckboxListTile(
+          title: Text(s.Write),
+          value: relay.relayStatus.writeAccess,
+          onChanged: (bool? value) {
+            if (value != null) {
+              relay.relayStatus.writeAccess = value;
+              setState(() {});
+              relayProvider.saveRelay();
+            }
+          },
+        ),
+      ));
+
+      list.add(Container(
+        child: CheckboxListTile(
+          title: Text(s.Read),
+          value: relay.relayStatus.readAccess,
+          onChanged: (bool? value) {
+            if (value != null) {
+              relay.relayStatus.readAccess = value;
+              setState(() {});
+              relayProvider.saveRelay();
+            }
+          },
+        ),
+      ));
+    }
 
     return Scaffold(
       appBar: AppBar(

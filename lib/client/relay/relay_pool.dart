@@ -97,7 +97,7 @@ class RelayPool {
   }
 
   bool relayDoQuery(Relay relay, Subscription subscription) {
-    if (relay.access == WriteAccess.writeOnly) {
+    if (!relay.relayStatus.readAccess) {
       return false;
     }
 
@@ -299,12 +299,12 @@ class RelayPool {
 
     for (Relay relay in _relays.values) {
       if (message[0] == "EVENT") {
-        if (relay.access == WriteAccess.readOnly) {
+        if (!relay.relayStatus.writeAccess) {
           continue;
         }
       }
       if (message[0] == "REQ" || message[0] == "CLOSE") {
-        if (relay.access == WriteAccess.writeOnly) {
+        if (!relay.relayStatus.readAccess) {
           continue;
         }
       }

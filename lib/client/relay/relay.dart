@@ -6,14 +6,12 @@ import '../subscription.dart';
 import 'relay_info.dart';
 import 'relay_info_util.dart';
 
-enum WriteAccess { readOnly, writeOnly, readWrite }
+enum WriteAccess { readOnly, writeOnly, readWrite, nothing }
 
 abstract class Relay {
   final String url;
 
   RelayStatus relayStatus;
-
-  WriteAccess access;
 
   RelayInfo? info;
 
@@ -22,7 +20,7 @@ abstract class Relay {
   // quries
   final Map<String, Subscription> _queries = {};
 
-  Relay(this.url, this.relayStatus, {this.access = WriteAccess.readWrite}) {}
+  Relay(this.url, this.relayStatus) {}
 
   Future<bool> connect() async {
     try {

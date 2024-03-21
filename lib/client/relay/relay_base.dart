@@ -8,9 +8,7 @@ import '../../data/relay_status.dart';
 import 'relay.dart';
 
 class RelayBase extends Relay {
-  RelayBase(String url, RelayStatus relayStatus,
-      {WriteAccess access = WriteAccess.readWrite})
-      : super(url, relayStatus, access: access);
+  RelayBase(String url, RelayStatus relayStatus) : super(url, relayStatus);
 
   WebSocketChannel? _wsChannel;
 

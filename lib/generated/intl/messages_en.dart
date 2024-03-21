@@ -183,6 +183,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Method": MessageLookupByLibrary.simpleMessage("Method"),
         "Minute": MessageLookupByLibrary.simpleMessage("Minute"),
         "More": MessageLookupByLibrary.simpleMessage("More"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("My Relays"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Decrypt"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Encrypt"),
         "NIP07_getPublicKey":
@@ -287,6 +288,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Source": MessageLookupByLibrary.simpleMessage("Source"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Table Mode"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("Temp Relays"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Text can\'t contain blank space"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(

@@ -14,9 +14,7 @@ import 'relay_isolate_worker.dart';
 // The real relay, whick is run in other isolate.
 // It can move jsonDecode and event id check and sign check from main Isolate
 class RelayIsolate extends Relay {
-  RelayIsolate(String url, RelayStatus relayStatus,
-      {WriteAccess access = WriteAccess.readWrite})
-      : super(url, relayStatus, access: access);
+  RelayIsolate(String url, RelayStatus relayStatus) : super(url, relayStatus);
 
   Isolate? isolate;
 

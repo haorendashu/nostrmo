@@ -143,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
         "Method": MessageLookupByLibrary.simpleMessage("方法"),
         "More": MessageLookupByLibrary.simpleMessage("更多"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("我的中继"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("解密"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("加密"),
         "NIP07_getPublicKey": MessageLookupByLibrary.simpleMessage("获取公钥"),
@@ -230,6 +231,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Source": MessageLookupByLibrary.simpleMessage("来源"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("平板模式"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("临时中继"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("内容不能包含空格"),
         "Text_can_t_contain_new_line":

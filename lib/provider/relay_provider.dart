@@ -62,7 +62,21 @@ class RelayProvider extends ChangeNotifier {
         jsonObj.map((key, value) => MapEntry(key, true));
 
     for (var entry in jsonMap.entries) {
-      relays.add(entry.key.toString());
+      var key = entry.key.toString();
+      relays.add(key);
+
+      var value = jsonObj[key];
+
+      var readAcccess = value["read"] == true;
+      var writeAcccess = value["write"] == true;
+
+      var relayStatus = relayStatusMap[key];
+      if (relayStatus == null) {
+        relayStatus = RelayStatus(key);
+        relayStatus.readAccess = readAcccess;
+        relayStatus.writeAccess = writeAcccess;
+        relayStatusMap[key] = relayStatus;
+      }
     }
 
     return relays;
@@ -144,7 +158,7 @@ class RelayProvider extends ChangeNotifier {
     if (!relayAddrs.contains(relayAddr)) {
       relayAddrs.add(relayAddr);
       _doAddRelay(relayAddr);
-      _updateRelayToContactList();
+      saveRelay();
     }
   }
 
@@ -157,9 +171,10 @@ class RelayProvider extends ChangeNotifier {
   void removeRelay(String relayAddr) {
     if (relayAddrs.contains(relayAddr)) {
       relayAddrs.remove(relayAddr);
+      relayStatusMap.remove(relayAddr);
       nostr!.removeRelay(relayAddr);
 
-      _updateRelayToContactList();
+      saveRelay();
     }
   }
 
@@ -167,12 +182,53 @@ class RelayProvider extends ChangeNotifier {
     return relayAddrs.contains(relayAddr);
   }
 
+  void saveRelay() {
+    _updateRelayToContactList();
+
+    // save to NIP-65
+    List tags = [];
+    for (var addr in relayAddrs) {
+      var readAccess = true;
+      var writeAccess = true;
+
+      var relayStatus = relayStatusMap[addr];
+      if (relayStatus != null) {
+        readAccess = relayStatus.readAccess;
+        writeAccess = relayStatus.writeAccess;
+      }
+
+      List<String> tag = ["r", addr];
+      if (readAccess != true || writeAccess != true) {
+        if (readAccess) {
+          tag.add("read");
+        }
+        if (writeAccess) {
+          tag.add("write");
+        }
+      }
+      tags.add(tag);
+    }
+
+    var e =
+        Event(nostr!.publicKey, kind.EventKind.RELAY_LIST_METADATA, tags, "");
+    nostr!.sendEvent(e);
+  }
+
   void _updateRelayToContactList() {
     Map<String, dynamic> relaysContentMap = {};
     for (var addr in relayAddrs) {
+      var readAccess = true;
+      var writeAccess = true;
+
+      var relayStatus = relayStatusMap[addr];
+      if (relayStatus != null) {
+        readAccess = relayStatus.readAccess;
+        writeAccess = relayStatus.writeAccess;
+      }
+
       relaysContentMap[addr] = {
-        "read": true,
-        "write": true,
+        "read": readAccess,
+        "write": writeAccess,
       };
     }
     var relaysContent = jsonEncode(relaysContentMap);
@@ -193,47 +249,50 @@ class RelayProvider extends ChangeNotifier {
       return RelayBase(
         relayAddr,
         relayStatus,
-        access: WriteAccess.readWrite,
       )..relayStatusCallback = onRelayStatusChange;
     } else {
       if (settingProvider.relayMode == RelayMode.BASE_MODE) {
         return RelayBase(
           relayAddr,
           relayStatus,
-          access: WriteAccess.readWrite,
         )..relayStatusCallback = onRelayStatusChange;
       } else {
         return RelayIsolate(
           relayAddr,
           relayStatus,
-          access: WriteAccess.readWrite,
         )..relayStatusCallback = onRelayStatusChange;
       }
     }
   }
 
   void relayUpdateByContactListEvent(Event event) {
+    List<String> oldRelays = []..addAll(relayAddrs);
     loadRelayAddrs(event.content);
-    _updateRelays(relayAddrs);
+    _updateRelays(oldRelays);
   }
 
-  void _updateRelays(List<String> relays) {
-    var entries = relayStatusMap.entries;
-
-    for (var relayStatusEntry in entries) {
-      var relayAddr = relayStatusEntry.key;
-      if (!relays.contains(relayAddr)) {
-        // new relay don't contain this relay, need to close
-        relayStatusMap.remove(relayAddr);
-        nostr!.removeRelay(relayAddr);
+  void _updateRelays(List<String> oldRelays) {
+    List<String> needToRemove = [];
+    List<String> needToAdd = [];
+    for (var oldRelay in oldRelays) {
+      if (!relayAddrs.contains(oldRelay)) {
+        // new addrs don't contain old relay, need to remove
+        needToRemove.add(oldRelay);
+      }
+    }
+    for (var relayAddr in relayAddrs) {
+      if (!oldRelays.contains(relayAddr)) {
+        // old addrs don't contain new relay, need to add
+        needToAdd.add(relayAddr);
       }
     }
 
-    for (var relayAddr in relays) {
-      if (!relayStatusMap.containsKey(relayAddr)) {
-        // local map don't contain relay, add a new one
-        _doAddRelay(relayAddr);
-      }
+    for (var relayAddr in needToRemove) {
+      relayStatusMap.remove(relayAddr);
+      nostr!.removeRelay(relayAddr);
+    }
+    for (var relayAddr in needToAdd) {
+      _doAddRelay(relayAddr);
     }
   }
 

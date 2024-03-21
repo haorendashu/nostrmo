@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/relay/relay.dart';
 import 'package:nostrmo/component/comfirm_dialog.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
@@ -39,9 +40,46 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
     var color = themeData.textTheme.bodyLarge!.color;
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
 
-    var extral = 0;
+    List<Widget> list = [];
+
     if (relayStatusLocal != null) {
-      extral = 1;
+      list.add(RelaysItemComponent(
+        addr: relayStatusLocal.addr,
+        relayStatus: relayStatusLocal,
+        editable: false,
+      ));
+    }
+
+    list.add(Container(
+      padding: EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        bottom: Base.BASE_PADDING_HALF,
+      ),
+      child: Text(
+        s.MyRelays,
+        style: TextStyle(
+          fontSize: titleFontSize,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ));
+    for (var i = 0; i < relayAddrs.length; i++) {
+      var addr = relayAddrs[i];
+      var relayStatus = relayStatusMap[addr];
+      relayStatus ??= RelayStatus(addr);
+
+      var rwText = "W R";
+      if (relayStatus.readAccess && !relayStatus.writeAccess) {
+        rwText = "R";
+      } else if (!relayStatus.readAccess && relayStatus.writeAccess) {
+        rwText = "W";
+      }
+
+      list.add(RelaysItemComponent(
+        addr: addr,
+        relayStatus: relayStatus,
+        rwText: rwText,
+      ));
     }
 
     return Scaffold(
@@ -69,27 +107,8 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
             margin: const EdgeInsets.only(
               top: Base.BASE_PADDING,
             ),
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                if (relayStatusLocal != null) {
-                  if (index == 0) {
-                    return RelaysItemComponent(
-                      addr: relayStatusLocal.addr,
-                      relayStatus: relayStatusLocal,
-                    );
-                  }
-                }
-
-                var addr = relayAddrs[index - extral];
-                var relayStatus = relayStatusMap[addr];
-                relayStatus ??= RelayStatus(addr);
-
-                return RelaysItemComponent(
-                  addr: addr,
-                  relayStatus: relayStatus,
-                );
-              },
-              itemCount: relayAddrs.length + extral,
+            child: ListView(
+              children: list,
             ),
           ),
         ),
