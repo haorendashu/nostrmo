@@ -64,6 +64,7 @@ class RelayLocalDB {
       return 0;
     }
 
+    event = Map.from(event);
     var tags = event["tags"];
     if (tags != null) {
       var tagsStr = jsonEncode(tags);
