@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:nostrmo/client/relay_local/relay_local.dart';
@@ -5,14 +6,19 @@ import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/client_connected.dart';
 import '../../main.dart';
+import '../../util/platform_util.dart';
 import '../event.dart';
 import '../event_kind.dart';
 import '../nostr.dart';
 import '../subscription.dart';
 import 'relay.dart';
+import 'relay_base.dart';
+import 'relay_isolate.dart';
 
 class RelayPool {
   Nostr localNostr;
+
+  final Map<String, Relay> _tempRelays = {};
 
   final Map<String, Relay> _relays = {};
 
@@ -61,7 +67,7 @@ class RelayPool {
       print("relay connect fail! ${relay.url}");
     }
 
-    relay.relayStatus.error++;
+    relay.relayStatus.onError();
     return false;
   }
 
@@ -97,7 +103,8 @@ class RelayPool {
   }
 
   bool relayDoQuery(Relay relay, Subscription subscription) {
-    if (!relay.relayStatus.readAccess) {
+    if (relay.relayStatus.connected != ClientConneccted.CONNECTED ||
+        !relay.relayStatus.readAccess) {
       return false;
     }
 
@@ -107,7 +114,7 @@ class RelayPool {
       return relay.send(subscription.toJson());
     } catch (err) {
       log(err.toString());
-      relay.relayStatus.error++;
+      relay.relayStatus.onError();
     }
 
     return false;
@@ -124,7 +131,7 @@ class RelayPool {
         final event = Event.fromJson(json[2]);
 
         // add some statistics
-        relay.relayStatus.noteReceived++;
+        relay.relayStatus.noteReceive();
 
         // check block pubkey
         if (filterProvider.checkBlock(event.pubKey)) {
@@ -163,9 +170,10 @@ class RelayPool {
         var callback = _queryCompleteCallbacks[subId];
         if (callback != null) {
           // need to callback, check if all relay complete query
-          var it = _relays.values;
+          List<Relay> list = [..._relays.values];
+          list.addAll(_tempRelays.values);
           bool completeQuery = true;
-          for (var r in it) {
+          for (var r in list) {
             if (r.checkQuery(subId)) {
               // this relay hadn't compltete query
               completeQuery = false;
@@ -279,8 +287,13 @@ class RelayPool {
   /// query should be a one time filter search.
   /// like: query metadata, query old event.
   /// query info will hold in relay and close in relay when EOSE message be received.
+  /// if onlyTempRelays is true and tempRelays is not empty, it will only query throw tempRelays.
+  /// if onlyTempRelays is false and tempRelays is not empty, it will query bath myRelays and tempRelays.
   String query(List<Map<String, dynamic>> filters, Function(Event) onEvent,
-      {String? id, Function? onComplete}) {
+      {String? id,
+      Function? onComplete,
+      List<String>? tempRelays,
+      bool onlyTempRelays = true}) {
     if (filters.isEmpty) {
       throw ArgumentError("No filters given", "filters");
     }
@@ -288,13 +301,32 @@ class RelayPool {
     if (onComplete != null) {
       _queryCompleteCallbacks[subscription.id] = onComplete;
     }
-    for (Relay relay in _relays.values) {
-      relayDoQuery(relay, subscription);
+
+    // send throw tempRelay
+    if (tempRelays != null) {
+      for (var tempRelayAddr in tempRelays) {
+        var tempRelay = checkAndGenTempRelay(tempRelayAddr);
+        tempRelay.saveQuery(subscription);
+        if (tempRelay.relayStatus.connected == ClientConneccted.CONNECTED) {
+          tempRelay.send(subscription.toJson());
+        } else {
+          tempRelay.pendingMessages.add(subscription.toJson());
+        }
+      }
+    }
+
+    if (!(tempRelays != null && tempRelays.isNotEmpty && onlyTempRelays)) {
+      // send throw my relay
+      for (Relay relay in _relays.values) {
+        relayDoQuery(relay, subscription);
+      }
     }
     return subscription.id;
   }
 
-  bool send(List<dynamic> message) {
+  /// send message to relay
+  /// there are tempRelays, it also send to tempRelays too.
+  bool send(List<dynamic> message, {List<String>? tempRelays}) {
     bool hadSubmitSend = false;
 
     for (Relay relay in _relays.values) {
@@ -303,11 +335,7 @@ class RelayPool {
           continue;
         }
       }
-      if (message[0] == "REQ" || message[0] == "CLOSE") {
-        if (!relay.relayStatus.readAccess) {
-          continue;
-        }
-      }
+
       try {
         var result = relay.send(message);
         if (result) {
@@ -315,7 +343,18 @@ class RelayPool {
         }
       } catch (err) {
         log(err.toString());
-        relay.relayStatus.error++;
+        relay.relayStatus.onError();
+      }
+    }
+
+    if (tempRelays != null) {
+      for (var tempRelayAddr in tempRelays) {
+        var tempRelay = checkAndGenTempRelay(tempRelayAddr);
+        if (tempRelay.relayStatus.connected == ClientConneccted.CONNECTED) {
+          tempRelay.send(message);
+        } else {
+          tempRelay.pendingMessages.add(message);
+        }
       }
     }
 
@@ -326,5 +365,15 @@ class RelayPool {
     for (var relay in _relays.values) {
       relay.connect();
     }
+  }
+
+  Relay checkAndGenTempRelay(String addr) {
+    var tempRelay = _tempRelays[addr];
+    if (tempRelay == null) {
+      tempRelay = relayProvider.genTempRelay(addr);
+      _tempRelays[addr] = tempRelay;
+    }
+
+    return tempRelay;
   }
 }

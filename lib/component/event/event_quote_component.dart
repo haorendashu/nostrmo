@@ -22,12 +22,16 @@ class EventQuoteComponent extends StatefulWidget {
 
   AId? aId;
 
+  String? eventRelayAddr;
+
   bool showVideo;
 
   EventQuoteComponent({
     this.event,
     this.id,
     this.aId,
+    // TODO need to set this value.
+    this.eventRelayAddr,
     this.showVideo = false,
   });
 
@@ -84,7 +88,8 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
         return buildEventWidget(event, cardColor, boxDecoration);
       },
       selector: (context, _provider) {
-        return _provider.getEvent(widget.id!);
+        return _provider.getEvent(widget.id!,
+            eventRelayAddr: widget.eventRelayAddr);
       },
     );
   }

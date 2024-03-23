@@ -97,6 +97,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     // do some init oper
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
     rootId = eventRelation.rootId;
+    rootEventRelayAddr = eventRelation.rootRelayAddr;
     if (eventRelation.aId != null &&
         eventRelation.aId!.kind == kind.EventKind.LONG_FORM) {
       aId = eventRelation.aId;
@@ -200,16 +201,21 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             // check if the rootEvent isn't rootEvent
             var newRelation = EventRelation.fromEvent(event);
             String? newRootId;
+            String? newRootEventRelayAddr;
             if (newRelation.rootId != null) {
               newRootId = newRelation.rootId;
+              newRootEventRelayAddr = newRelation.rootRelayAddr;
             } else if (newRelation.replyId != null) {
               newRootId = newRelation.replyId;
+              newRootEventRelayAddr = newRelation.replyRelayAddr;
             }
 
             if (StringUtil.isNotBlank(newRootId)) {
               rootId = newRootId;
+              rootEventRelayAddr = newRootEventRelayAddr;
               doQuery();
-              singleEventProvider.getEvent(newRootId!);
+              singleEventProvider.getEvent(newRootId!,
+                  eventRelayAddr: newRootEventRelayAddr);
             }
           }
 
@@ -221,7 +227,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             showLongContent: true,
           );
         }, selector: (context, provider) {
-          return provider.getEvent(rootId!);
+          return provider.getEvent(rootId!, eventRelayAddr: rootEventRelayAddr);
         });
       } else if (aId != null) {
         rootEventWidget = Selector<ReplaceableEventProvider, Event?>(
@@ -381,6 +387,8 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   AId? aId;
 
   String? rootId;
+
+  String? rootEventRelayAddr;
 
   Event? rootEvent;
 

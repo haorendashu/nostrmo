@@ -16,7 +16,33 @@ class RelayStatus {
   // bool profileAble = true;
   // bool globalAble = true;
 
-  int noteReceived = 0;
+  int _noteReceived = 0;
 
-  int error = 0;
+  int get noteReceived => _noteReceived;
+
+  void noteReceive({DateTime? dt}) {
+    _noteReceived++;
+    if (dt != null) {
+      lastNoteTime = dt;
+    } else {
+      lastNoteTime = DateTime.now();
+    }
+  }
+
+  int _error = 0;
+
+  int get error => _error;
+
+  void onError({DateTime? dt}) {
+    _error++;
+    if (dt != null) {
+      lastErrorTime = dt;
+    } else {
+      lastErrorTime = DateTime.now();
+    }
+  }
+
+  DateTime? lastNoteTime;
+
+  DateTime? lastErrorTime;
 }

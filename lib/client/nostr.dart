@@ -95,13 +95,13 @@ class Nostr {
     return sendEvent(event);
   }
 
-  Event? sendEvent(Event event) {
+  Event? sendEvent(Event event, {List<String>? tempRelays}) {
     if (StringUtil.isBlank(_privateKey)) {
       // TODO to show Notice
       throw StateError("Private key is missing. Message can't be signed.");
     }
     signEvent(event);
-    var result = _pool.send(["EVENT", event.toJson()]);
+    var result = _pool.send(["EVENT", event.toJson()], tempRelays: tempRelays);
     if (result) {
       return event;
     }
@@ -112,8 +112,8 @@ class Nostr {
     event.sign(_privateKey!);
   }
 
-  Event? broadcase(Event event) {
-    var result = _pool.send(["EVENT", event.toJson()]);
+  Event? broadcase(Event event, {List<String>? tempRelays}) {
+    var result = _pool.send(["EVENT", event.toJson()], tempRelays: tempRelays);
     if (result) {
       return event;
     }
@@ -139,8 +139,15 @@ class Nostr {
   }
 
   String query(List<Map<String, dynamic>> filters, Function(Event) onEvent,
-      {String? id, Function? onComplete}) {
-    return _pool.query(filters, onEvent, id: id, onComplete: onComplete);
+      {String? id,
+      Function? onComplete,
+      List<String>? tempRelays,
+      bool onlyTempRelays = true}) {
+    return _pool.query(filters, onEvent,
+        id: id,
+        onComplete: onComplete,
+        tempRelays: tempRelays,
+        onlyTempRelays: onlyTempRelays);
   }
 
   String queryByFilters(Map<String, List<Map<String, dynamic>>> filtersMap,

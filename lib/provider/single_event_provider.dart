@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../client/event.dart';
-import '../client/event_kind.dart' as kind;
 import '../client/filter.dart';
 import '../main.dart';
 import '../util/later_function.dart';
@@ -12,20 +9,21 @@ import '../util/string_util.dart';
 class SingleEventProvider extends ChangeNotifier with LaterFunction {
   Map<String, Event> _eventsMap = {};
 
-  List<String> _needUpdateIds = [];
+  Map<String, String> _needUpdateIds = {};
 
-  Map<String, int> _handingIds = {};
+  Map<String, String> _handingIds = {};
 
   List<Event> _penddingEvents = [];
 
-  Event? getEvent(String id) {
+  Event? getEvent(String id, {String? eventRelayAddr}) {
     var event = _eventsMap[id];
     if (event != null) {
       return event;
     }
 
-    if (!_needUpdateIds.contains(id) && _handingIds[id] == null) {
-      _needUpdateIds.add(id);
+    if (_needUpdateIds[id] == null) {
+      eventRelayAddr ??= "";
+      _needUpdateIds[id] = eventRelayAddr;
     }
     later(_laterCallback, null);
 
@@ -66,24 +64,31 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
   }
 
   void _laterSearch() {
-    if (_needUpdateIds.isEmpty) {
-      return;
-    }
+    if (_needUpdateIds.isNotEmpty) {
+      List<String> tempIds = [..._needUpdateIds.keys];
+      var filter = Filter(ids: tempIds);
+      var subscriptId = StringUtil.rndNameStr(12);
+      // print("query filter ${jsonEncode(filter.toJson())}");
+      nostr!.query([filter.toJson()], _onEvent, id: subscriptId,
+          onComplete: () {
+        // log("singleEventProvider onComplete $tempIds");
+        for (var id in tempIds) {
+          var eventRelayAddr = _handingIds.remove(id);
+          if (StringUtil.isNotBlank(eventRelayAddr) && _eventsMap[id] == null) {
+            // eventRelayAddr exist and event not found, send a single query again.
+            print(
+                "single event ${id} not found! begin to query again from ${eventRelayAddr}.");
+            var filter = Filter(ids: tempIds);
+            nostr!.query([filter.toJson()], _onEvent,
+                tempRelays: [eventRelayAddr!]);
+          }
+        }
+      });
 
-    var filter = Filter(ids: _needUpdateIds);
-    var subscriptId = StringUtil.rndNameStr(16);
-    List<String> tempIds = [];
-    tempIds.addAll(_needUpdateIds);
-    nostr!.query([filter.toJson()], _onEvent, id: subscriptId, onComplete: () {
-      // log("singleEventProvider onComplete $tempIds");
-      for (var id in tempIds) {
-        _handingIds.remove(id);
+      for (var entry in _needUpdateIds.entries) {
+        _handingIds[entry.key] = entry.value;
       }
-    });
-
-    for (var id in _needUpdateIds) {
-      _handingIds[id] = 1;
+      _needUpdateIds.clear();
     }
-    _needUpdateIds.clear();
   }
 }

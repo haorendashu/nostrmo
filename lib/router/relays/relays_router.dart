@@ -82,6 +82,41 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
       ));
     }
 
+    var tempRelayStatus = _relayProvider.tempRelayStatus();
+    if (tempRelayStatus.isNotEmpty) {
+      list.add(Container(
+        padding: EdgeInsets.only(
+          left: Base.BASE_PADDING,
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        child: Text(
+          "Temp Relays",
+          style: TextStyle(
+            fontSize: titleFontSize,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ));
+      for (var i = 0; i < relayAddrs.length; i++) {
+        var addr = relayAddrs[i];
+        var relayStatus = relayStatusMap[addr];
+        relayStatus ??= RelayStatus(addr);
+
+        var rwText = "W R";
+        if (relayStatus.readAccess && !relayStatus.writeAccess) {
+          rwText = "R";
+        } else if (!relayStatus.readAccess && relayStatus.writeAccess) {
+          rwText = "W";
+        }
+
+        list.add(RelaysItemComponent(
+          addr: addr,
+          relayStatus: relayStatus,
+          rwText: rwText,
+        ));
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(

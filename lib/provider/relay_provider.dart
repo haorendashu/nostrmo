@@ -28,6 +28,8 @@ class RelayProvider extends ChangeNotifier {
 
   RelayStatus? relayStatusLocal;
 
+  Map<String, RelayStatus> _tempRelayStatusMap = {};
+
   static RelayProvider getInstance() {
     if (_relayProvider == null) {
       _relayProvider = RelayProvider();
@@ -244,6 +246,12 @@ class RelayProvider extends ChangeNotifier {
       relayStatusMap[relayAddr] = relayStatus;
     }
 
+    return _doGenRelay(relayStatus);
+  }
+
+  Relay _doGenRelay(RelayStatus relayStatus) {
+    var relayAddr = relayStatus.addr;
+
     if (PlatformUtil.isWeb()) {
       // dart:isolate is not supported on dart4web
       return RelayBase(
@@ -300,5 +308,21 @@ class RelayProvider extends ChangeNotifier {
     // sharedPreferences.remove(DataKey.RELAY_LIST);
     relayStatusMap.clear();
     loadRelayAddrs(null);
+    _tempRelayStatusMap.clear();
+  }
+
+  List<RelayStatus> tempRelayStatus() {
+    List<RelayStatus> list = []..addAll(_tempRelayStatusMap.values);
+    return list;
+  }
+
+  Relay genTempRelay(String addr) {
+    var rs = _tempRelayStatusMap[addr];
+    if (rs == null) {
+      rs = RelayStatus(addr);
+      _tempRelayStatusMap[addr] = rs;
+    }
+
+    return _doGenRelay(rs);
   }
 }

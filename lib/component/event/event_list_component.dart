@@ -134,7 +134,8 @@ class _EventListComponent extends State<EventListComponent> {
 
       var eventRelation = EventRelation.fromEvent(widget.event);
       if (StringUtil.isNotBlank(eventRelation.rootId)) {
-        var event = singleEventProvider.getEvent(eventRelation.rootId!);
+        var event = singleEventProvider.getEvent(eventRelation.rootId!,
+            eventRelayAddr: eventRelation.rootRelayAddr);
         if (event != null) {
           RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
           return;

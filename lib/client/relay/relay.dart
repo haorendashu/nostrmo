@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../../consts/client_connected.dart';
 import '../../data/relay_status.dart';
 import '../subscription.dart';
@@ -15,6 +13,9 @@ abstract class Relay {
 
   RelayInfo? info;
 
+  // to hold the message when the ws havn't connected and should be send after connected.
+  List<List<dynamic>> pendingMessages = [];
+
   Function(Relay, List<dynamic>)? onMessage;
 
   // quries
@@ -22,9 +23,19 @@ abstract class Relay {
 
   Relay(this.url, this.relayStatus) {}
 
+  /// The method to call connect function by framework.
   Future<bool> connect() async {
     try {
-      return await doConnect();
+      var result = await doConnect();
+      if (result) {
+        try {
+          onConnected();
+        } catch (e) {
+          print("onConnected exception.");
+          print(e);
+        }
+      }
+      return result;
     } catch (e) {
       print("connect fail");
       disconnect();
@@ -32,7 +43,21 @@ abstract class Relay {
     }
   }
 
+  /// The method implement by different relays to do some real when it connecting.
   Future<bool> doConnect();
+
+  /// The medhod called after relay connect success.
+  Future onConnected() async {
+    for (var message in pendingMessages) {
+      // TODO To check result? and how to handle if send fail?
+      var result = send(message);
+      if (result) {
+        print("message send fail onConnected");
+      }
+    }
+
+    pendingMessages.clear();
+  }
 
   Future<void> getRelayInfo(url) async {
     info ??= await RelayInfoUtil.get(url);
@@ -46,7 +71,7 @@ abstract class Relay {
 
   void onError(String errMsg, {bool reconnect = false}) {
     print("relay error $errMsg");
-    relayStatus.error++;
+    relayStatus.onError();
     relayStatus.connected = ClientConneccted.UN_CONNECT;
     if (relayStatusCallback != null) {
       relayStatusCallback!();
