@@ -125,7 +125,9 @@ class RelayPool {
     if (messageType == 'EVENT') {
       try {
         if (relayLocal != null && relay is! RelayLocal) {
-          relayLocal!.broadcaseToLocal(json[2]);
+          var event = Map<String, dynamic>.from(json[2]);
+          event["sources"] = [relay.url];
+          relayLocal!.broadcaseToLocal(event);
         }
 
         final event = Event.fromJson(json[2]);
@@ -142,7 +144,13 @@ class RelayPool {
           return;
         }
 
-        if (relay is! RelayLocal) {
+        if (relay is RelayLocal) {
+          // local message read source from json
+          var sources = json[2]["sources"];
+          for (var source in sources) {
+            event.sources.add(source);
+          }
+        } else {
           event.sources.add(relay.url);
         }
         final subId = json[1] as String;

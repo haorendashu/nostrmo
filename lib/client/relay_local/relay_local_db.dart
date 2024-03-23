@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
-import 'package:nostrmo/client/filter.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite_common/sqflite.dart';
 import 'package:path/path.dart';
 
 import '../../util/platform_util.dart';
@@ -40,7 +38,7 @@ class RelayLocalDB {
   static Future<void> _onCreate(Database db, int version) async {
     // init db
     db.execute(
-        "CREATE TABLE IF NOT EXISTS event (id text NOT NULL, pubkey text NOT NULL, created_at integer NOT NULL, kind integer NOT NULL, tags jsonb NOT NULL, content text NOT NULL, sig text NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS event (id text NOT NULL, pubkey text NOT NULL, created_at integer NOT NULL, kind integer NOT NULL, tags jsonb NOT NULL, content text NOT NULL, sig text NOT NULL, sources text);");
     db.execute("CREATE UNIQUE INDEX IF NOT EXISTS ididx ON event(id)");
     db.execute("CREATE INDEX IF NOT EXISTS pubkeyprefix ON event(pubkey)");
     db.execute("CREATE INDEX IF NOT EXISTS timeidx ON event(created_at DESC)");
@@ -66,15 +64,20 @@ class RelayLocalDB {
       return 0;
     }
 
-    event = Map<String, dynamic>.from(event);
     var tags = event["tags"];
     if (tags != null) {
       var tagsStr = jsonEncode(tags);
       event["tags"] = tagsStr;
     }
+    var sources = event["sources"];
+    if (sources != null) {
+      var sourcesStr = jsonEncode(sources);
+      event["sources"] = sourcesStr;
+    }
     try {
       return await _database.insert("event", event);
     } catch (e) {
+      // print(e);
       return 0;
     }
   }
@@ -98,6 +101,10 @@ class RelayLocalDB {
       var tagsStr = rawEvent["tags"];
       if (tagsStr is String) {
         event["tags"] = jsonDecode(tagsStr);
+      }
+      var sourcesStr = rawEvent["sources"];
+      if (sourcesStr != null) {
+        event["sources"] = jsonDecode(sourcesStr as String);
       }
 
       events.add(event);
@@ -205,7 +212,7 @@ class RelayLocalDB {
           " SELECT COUNT(*) FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";
     } else {
       query =
-          " SELECT id, pubkey, created_at, kind, tags, content, sig FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";
+          " SELECT id, pubkey, created_at, kind, tags, content, sig, sources FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";
     }
 
     // log("sql ${query}");

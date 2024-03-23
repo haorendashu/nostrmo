@@ -78,6 +78,7 @@ class RelayLocal extends Relay {
         }
       }
     } else {
+      // maybe it shouldn't insert here, due to it doesn't had a source.
       relayLocalDB.addEvent(event);
     }
 
