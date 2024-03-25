@@ -45,7 +45,7 @@ class RelayIsolate extends Relay {
         ),
       );
       // isolate has run and return a completer.future, wait for subToMain msg to complete this completer.
-      return relayConnectResultComplete!.future;
+      return await relayConnectResultComplete!.future;
     } else {
       // the isolate had bean run
       if (relayStatus.connected == ClientConneccted.CONNECTED) {
@@ -64,7 +64,7 @@ class RelayIsolate extends Relay {
             mainToSubSendPort!.send(RelayIsolateMsgs.CONNECT);
             // wait connected msg.
             relayConnectResultComplete = Completer();
-            return relayConnectResultComplete!.future;
+            return await relayConnectResultComplete!.future;
           }
         }
       }

@@ -4,13 +4,11 @@ import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
-import '../../client/nip19/nip19.dart';
 import '../../component/appbar4stack.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base_consts.dart';
-import '../../consts/router_path.dart';
 import '../../data/event_mem_box.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
@@ -18,7 +16,6 @@ import '../../provider/metadata_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
 import 'user_statistics_component.dart';
@@ -245,6 +242,7 @@ class _UserRouter extends CustState<UserRouter>
   }
 
   void unSubscribe() {
+    box.clear();
     nostr!.unsubscribe(subscribeId!);
     subscribeId = null;
   }
@@ -265,7 +263,7 @@ class _UserRouter extends CustState<UserRouter>
     );
     subscribeId = StringUtil.rndNameStr(16);
 
-    if (!box.isEmpty()) {
+    if (!box.isEmpty() && readyComplete) {
       var activeRelays = nostr!.activeRelays();
       var oldestCreatedAts = box.oldestCreatedAtByRelay(
         activeRelays,
@@ -278,7 +276,23 @@ class _UserRouter extends CustState<UserRouter>
       }
       nostr!.queryByFilters(filtersMap, onEvent, id: subscribeId);
     } else {
-      nostr!.query([filter.toJson()], onEvent, id: subscribeId);
+      // try to query from user's write relay.
+      List<String>? tempRelays;
+      var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey!);
+      if (relayListMetadata != null) {
+        var writeAbleRelays = relayListMetadata.writeAbleRelays;
+        tempRelays = nostr!.getExtralReadableRelays(writeAbleRelays);
+
+        // only query from 2 temp relay
+        if (tempRelays.length > 2) {
+          tempRelays = []
+            ..add(tempRelays[0])
+            ..add(tempRelays[1]);
+        }
+      }
+
+      nostr!.query([filter.toJson()], onEvent,
+          id: subscribeId, tempRelays: tempRelays, onlyTempRelays: false);
     }
   }
 

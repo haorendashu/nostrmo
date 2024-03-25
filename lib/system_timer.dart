@@ -36,6 +36,14 @@ class SystemTimer {
         giftWrapProvider.query();
       }
     }
+
+    if (counter % 10 == 0) {
+      try {
+        relayProvider.cleanTempRelays();
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 
   static void stopTask() {

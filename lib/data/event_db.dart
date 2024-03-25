@@ -64,6 +64,12 @@ class EventDB {
     db.execute("delete from event where key_index = ?", [keyIndex]);
   }
 
+  static Future update(int keyIndex, Event o, {DatabaseExecutor? db}) async {
+    db = await DB.getDB(db);
+    await db.update("event", o.toJson(),
+        where: "key_index = ? and id = ?", whereArgs: [keyIndex, o.id]);
+  }
+
   static Event loadFromJson(Map<String, dynamic> data) {
     Map<String, dynamic> m = {};
     m.addAll(data);

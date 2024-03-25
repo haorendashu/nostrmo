@@ -325,4 +325,24 @@ class RelayProvider extends ChangeNotifier {
 
     return _doGenRelay(rs);
   }
+
+  void cleanTempRelays() {
+    List<String> needRemoveList = [];
+    var now = DateTime.now().millisecondsSinceEpoch;
+    for (var entry in _tempRelayStatusMap.entries) {
+      var addr = entry.key;
+      var status = entry.value;
+
+      if (status.lastNoteTime == null ||
+          ((now - status.lastNoteTime!.millisecondsSinceEpoch) >
+              1000 * 60 * 10)) {
+        needRemoveList.add(addr);
+      }
+    }
+
+    for (var addr in needRemoveList) {
+      _tempRelayStatusMap.remove(addr);
+      nostr!.removeTempRelay(addr);
+    }
+  }
 }

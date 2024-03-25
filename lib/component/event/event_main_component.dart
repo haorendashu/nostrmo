@@ -266,6 +266,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         } else if (StringUtil.isNotBlank(eventRelation.rootId)) {
           list.add(EventQuoteComponent(
             id: eventRelation.rootId,
+            eventRelayAddr: eventRelation.rootRelayAddr,
             showVideo: widget.showVideo,
           ));
         } else {

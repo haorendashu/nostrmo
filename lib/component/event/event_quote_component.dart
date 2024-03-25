@@ -30,7 +30,6 @@ class EventQuoteComponent extends StatefulWidget {
     this.event,
     this.id,
     this.aId,
-    // TODO need to set this value.
     this.eventRelayAddr,
     this.showVideo = false,
   });

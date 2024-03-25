@@ -1,6 +1,8 @@
+import 'package:nostrmo/data/event_db.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../client/nip65/relay_list_metadata.dart';
 import 'db.dart';
 
 class MetadataDB {

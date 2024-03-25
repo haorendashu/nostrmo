@@ -97,10 +97,8 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
           ),
         ),
       ));
-      for (var i = 0; i < relayAddrs.length; i++) {
-        var addr = relayAddrs[i];
-        var relayStatus = relayStatusMap[addr];
-        relayStatus ??= RelayStatus(addr);
+      for (var i = 0; i < tempRelayStatus.length; i++) {
+        var relayStatus = tempRelayStatus[i];
 
         var rwText = "W R";
         if (relayStatus.readAccess && !relayStatus.writeAccess) {
@@ -110,7 +108,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
         }
 
         list.add(RelaysItemComponent(
-          addr: addr,
+          addr: relayStatus.addr,
           relayStatus: relayStatus,
           rwText: rwText,
         ));

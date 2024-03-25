@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 abstract class CustState<T extends StatefulWidget> extends State<T> {
   bool isInited = false;
 
+  bool readyComplete = false;
+
   @override
   Widget build(BuildContext context) {
     Widget w = doBuild(context);
@@ -13,6 +15,7 @@ abstract class CustState<T extends StatefulWidget> extends State<T> {
       isInited = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         this.onReady(context);
+        readyComplete = true;
       });
     }
 

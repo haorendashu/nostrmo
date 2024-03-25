@@ -331,6 +331,10 @@ class ContentDecoder {
               _closeInlines(inlines, list, textOnTap: textOnTap);
               var widget = EventQuoteComponent(
                 id: nevent.id,
+                eventRelayAddr:
+                    nevent.relays != null && nevent.relays!.isNotEmpty
+                        ? nevent.relays![0]
+                        : null,
                 showVideo: showVideo,
               );
               list.add(widget);
@@ -347,6 +351,10 @@ class ContentDecoder {
                 _closeInlines(inlines, list, textOnTap: textOnTap);
                 var widget = EventQuoteComponent(
                   id: naddr.id,
+                  eventRelayAddr:
+                      naddr.relays != null && naddr.relays!.isNotEmpty
+                          ? naddr.relays![0]
+                          : null,
                   showVideo: showVideo,
                 );
                 list.add(widget);
@@ -415,6 +423,10 @@ class ContentDecoder {
             var tag = event.tags[index];
             if (tag.length > 1) {
               var tagType = tag[0];
+              String? relayAddr;
+              if (tag.length > 2) {
+                relayAddr = tag[2];
+              }
               if (tagType == "e") {
                 // block
                 // mention event
@@ -422,6 +434,7 @@ class ContentDecoder {
                 _closeInlines(inlines, list, textOnTap: textOnTap);
                 var widget = EventQuoteComponent(
                   id: tag[1],
+                  eventRelayAddr: relayAddr,
                   showVideo: showVideo,
                 );
                 list.add(widget);

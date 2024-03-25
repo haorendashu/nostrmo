@@ -18,26 +18,32 @@ class MarkdownMentionEventElementBuilder implements MarkdownElementBuilder {
     var nip19Text = pureText.replaceFirst("nostr:", "");
 
     String? key;
+    String? relayAddr;
 
     if (Nip19.isNoteId(nip19Text)) {
       key = Nip19.decode(nip19Text);
     } else if (NIP19Tlv.isNevent(nip19Text)) {
       var nevent = NIP19Tlv.decodeNevent(nip19Text);
       if (nevent != null) {
-        print(nevent.relays);
         key = nevent.id;
+        if (nevent.relays != null && nevent.relays!.isNotEmpty) {
+          relayAddr = nevent.relays![0];
+        }
       }
     } else if (NIP19Tlv.isNaddr(nip19Text)) {
       var naddr = NIP19Tlv.decodeNaddr(nip19Text);
       if (naddr != null) {
-        print(naddr.relays);
         key = naddr.id;
+        if (naddr.relays != null && naddr.relays!.isNotEmpty) {
+          relayAddr = naddr.relays![0];
+        }
       }
     }
 
     if (key != null) {
       return EventQuoteComponent(
         id: key,
+        eventRelayAddr: relayAddr,
       );
     }
   }

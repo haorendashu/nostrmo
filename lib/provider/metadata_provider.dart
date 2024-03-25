@@ -1,14 +1,16 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip05/nip05_validor.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/nip05status.dart';
+import 'package:nostrmo/data/event_db.dart';
 import 'package:nostrmo/util/platform_util.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart' as kind;
 import '../client/filter.dart';
+import '../client/nip65/relay_list_metadata.dart';
 import '../data/metadata.dart';
 import '../data/metadata_db.dart';
 import '../main.dart';
@@ -16,6 +18,8 @@ import '../util/later_function.dart';
 import '../util/string_util.dart';
 
 class MetadataProvider extends ChangeNotifier with LaterFunction {
+  Map<String, RelayListMetadata> _relayListMetadataCache = {};
+
   Map<String, Metadata> _metadataCache = {};
 
   Map<String, int> _handingPubkeys = {};
@@ -33,6 +37,19 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         }
         _metadataProvider!._metadataCache[md.pubKey!] = md;
       }
+
+      var relayListMetadataEvents = await EventDB.list(
+          Base.RELAY_LIST_METADATA_KEY_INDEX,
+          [kind.EventKind.RELAY_LIST_METADATA],
+          0,
+          1000000);
+      for (var relayListMetadataEvent in relayListMetadataEvents) {
+        var relayListMetadata =
+            RelayListMetadata.fromEvent(relayListMetadataEvent);
+        _metadataProvider!._relayListMetadataCache[relayListMetadata.pubkey] =
+            relayListMetadata;
+      }
+
       // lazyTimeMS begin bigger and request less
       _metadataProvider!.laterTimeMS = 2000;
     }
@@ -172,8 +189,22 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   }
 
   void _onEvent(Event event) {
-    _penddingEvents.add(event);
-    later(_laterCallback, null);
+    if (event.kind == kind.EventKind.METADATA) {
+      _penddingEvents.add(event);
+      later(_laterCallback, null);
+    } else if (event.kind == kind.EventKind.RELAY_LIST_METADATA) {
+      // this is relayInfoMetadata, only set to cache, not update UI
+      var oldRelayListMetadata = _relayListMetadataCache[event.pubKey];
+      if (oldRelayListMetadata == null) {
+        // insert
+        EventDB.insert(Base.RELAY_LIST_METADATA_KEY_INDEX, event);
+        _eventToRelayListCache(event);
+      } else if (event.createdAt > oldRelayListMetadata.createdAt) {
+        // update
+        EventDB.update(Base.RELAY_LIST_METADATA_KEY_INDEX, event);
+        _eventToRelayListCache(event);
+      }
+    }
   }
 
   void _laterSearch() {
@@ -183,8 +214,9 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
     List<Map<String, dynamic>> filters = [];
     for (var pubkey in _needUpdatePubKeys) {
-      var filter =
-          Filter(kinds: [kind.EventKind.METADATA], authors: [pubkey], limit: 1);
+      var filter = Filter(
+          kinds: [kind.EventKind.METADATA, kind.EventKind.RELAY_LIST_METADATA],
+          authors: [pubkey]);
       filters.add(filter.toJson());
       if (filters.length > 11) {
         nostr!.query(filters, _onEvent);
@@ -204,5 +236,14 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   void clear() {
     _metadataCache.clear();
     MetadataDB.deleteAll();
+  }
+
+  RelayListMetadata? getRelayListMetadata(String pubkey) {
+    return _relayListMetadataCache[pubkey];
+  }
+
+  void _eventToRelayListCache(Event event) {
+    RelayListMetadata rlm = RelayListMetadata.fromEvent(event);
+    _relayListMetadataCache[rlm.pubkey] = rlm;
   }
 }

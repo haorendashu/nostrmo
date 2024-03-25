@@ -566,6 +566,9 @@ class _ContentComponent extends State<ContentComponent> {
           bufferToList(buffer, allList, removeLastSpan: true);
           var w = EventQuoteComponent(
             id: nevent.id,
+            eventRelayAddr: nevent.relays != null && nevent.relays!.isNotEmpty
+                ? nevent.relays![0]
+                : null,
             showVideo: widget.showVideo,
           );
           allList.add(WidgetSpan(child: w));
@@ -584,6 +587,9 @@ class _ContentComponent extends State<ContentComponent> {
             bufferToList(buffer, allList, removeLastSpan: true);
             var w = EventQuoteComponent(
               id: naddr.id,
+              eventRelayAddr: naddr.relays != null && naddr.relays!.isNotEmpty
+                  ? naddr.relays![0]
+                  : null,
               showVideo: widget.showVideo,
             );
             allList.add(WidgetSpan(child: w));
@@ -668,12 +674,17 @@ class _ContentComponent extends State<ContentComponent> {
         var tag = widget.event!.tags[index];
         if (tag.length > 1) {
           var tagType = tag[0];
+          String? relayAddr;
+          if (tag.length > 2) {
+            relayAddr = tag[2];
+          }
           if (tagType == "e") {
             // block
             // mention event
             bufferToList(buffer, allList, removeLastSpan: true);
             var w = EventQuoteComponent(
               id: tag[1],
+              eventRelayAddr: relayAddr,
               showVideo: widget.showVideo,
             );
             allList.add(WidgetSpan(child: w));

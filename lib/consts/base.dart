@@ -39,4 +39,6 @@ class Base {
   static double BASE_FONT_SIZE_PC = 15;
 
   static double TABBAR_HEIGHT = 46;
+
+  static int RELAY_LIST_METADATA_KEY_INDEX = 0;
 }

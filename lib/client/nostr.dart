@@ -181,4 +181,12 @@ class Nostr {
     print("nostr reconnect");
     _pool.reconnect();
   }
+
+  List<String> getExtralReadableRelays(List<String> extralRelays) {
+    return _pool.getExtralReadableRelays(extralRelays);
+  }
+
+  void removeTempRelay(String addr) {
+    _pool.removeTempRelay(addr);
+  }
 }

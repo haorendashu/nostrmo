@@ -313,6 +313,10 @@ class RelayPool {
     // send throw tempRelay
     if (tempRelays != null) {
       for (var tempRelayAddr in tempRelays) {
+        if (_relays[tempRelayAddr] != null) {
+          continue;
+        }
+
         var tempRelay = checkAndGenTempRelay(tempRelayAddr);
         tempRelay.saveQuery(subscription);
         if (tempRelay.relayStatus.connected == ClientConneccted.CONNECTED) {
@@ -379,9 +383,32 @@ class RelayPool {
     var tempRelay = _tempRelays[addr];
     if (tempRelay == null) {
       tempRelay = relayProvider.genTempRelay(addr);
+      tempRelay.onMessage = _onEvent;
+      tempRelay.connect();
       _tempRelays[addr] = tempRelay;
     }
 
     return tempRelay;
+  }
+
+  List<String> getExtralReadableRelays(List<String> extralRelays) {
+    List<String> list = [];
+
+    for (var extralRelay in extralRelays) {
+      var relay = _relays[extralRelay];
+      if (relay == null || !relay.relayStatus.readAccess) {
+        // not contains or can't readable
+        list.add(extralRelay);
+      }
+    }
+
+    return list;
+  }
+
+  void removeTempRelay(String addr) {
+    var relay = _tempRelays.remove(addr);
+    if (relay != null) {
+      relay.disconnect();
+    }
   }
 }
