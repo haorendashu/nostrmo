@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip58/badge_definition.dart';
+import 'package:nostrmo/main.dart';
+import 'package:nostrmo/util/platform_util.dart';
 
 import '../consts/base.dart';
 import '../util/router_util.dart';
@@ -33,6 +35,16 @@ class BadgeDetailDialog extends StatefulWidget {
 class _BadgeDetailDialog extends State<BadgeDetailDialog> {
   @override
   Widget build(BuildContext context) {
+    Widget main = BadgeDetailComponent(
+      badgeDefinition: widget.badgeDefinition,
+    );
+    if (PlatformUtil.isPC() || PlatformUtil.isTableMode()) {
+      main = Container(
+        width: mediaDataCache.size.width / 2,
+        child: main,
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.2),
       body: FocusScope(
@@ -52,9 +64,7 @@ class _BadgeDetailDialog extends State<BadgeDetailDialog> {
             alignment: Alignment.center,
             child: GestureDetector(
               onTap: () {},
-              child: BadgeDetailComponent(
-                badgeDefinition: widget.badgeDefinition,
-              ),
+              child: main,
             ),
           ),
         ),
