@@ -47,7 +47,7 @@ dependencies:
   # nostr_dart: ^0.6.5
   bip340: ^0.2.0
   string_validator: ^1.0.2
-  http: ^1.2.0
+  # http: ^1.2.0
   sqflite: ^2.2.8+4
   sqflite_common_ffi: ^2.2.5
   sqflite_common: ^2.4.5
@@ -75,7 +75,7 @@ dependencies:
   pretty_qr_code: ^2.0.3
   flutter_link_previewer: ^3.2.2
   easy_image_viewer: ^1.4.1
-  android_intent_plus: ^4.0.1
+  # android_intent_plus: ^4.0.1
   url_launcher: ^6.2.1
   flutter_placeholder_textlines: ^1.2.0
   google_fonts: 5.1.0
@@ -120,7 +120,6 @@ dev_dependencies:
 
 dependency_overrides:
   extended_image: ^8.2.0
-  intl: ^0.19.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

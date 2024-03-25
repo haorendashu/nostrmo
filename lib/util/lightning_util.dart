@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/lightning_qrcode_dialog.dart';
 import 'package:nostrmo/util/platform_util.dart';
