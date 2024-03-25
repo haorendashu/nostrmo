@@ -411,4 +411,8 @@ class RelayPool {
       relay.disconnect();
     }
   }
+
+  Relay? getTempRelay(String url) {
+    return _tempRelays[url];
+  }
 }

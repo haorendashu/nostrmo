@@ -111,6 +111,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
           addr: relayStatus.addr,
           relayStatus: relayStatus,
           rwText: rwText,
+          editable: false,
         ));
       }
     }

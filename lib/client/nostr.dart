@@ -183,6 +183,10 @@ class Nostr {
     return _pool.getRelay(url);
   }
 
+  Relay? getTempRelay(String url) {
+    return _pool.getTempRelay(url);
+  }
+
   void reconnect() {
     print("nostr reconnect");
     _pool.reconnect();

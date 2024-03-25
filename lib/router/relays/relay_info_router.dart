@@ -43,6 +43,10 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
 
     var relay = relayItf as Relay;
     var relayInfo = relay.info!;
+    bool isMyRelay = false;
+    if (nostr!.getRelay(relay.relayStatus.addr) != null) {
+      isMyRelay = true;
+    }
 
     List<Widget> list = [];
 
@@ -155,7 +159,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
       ),
     ));
 
-    if (relay is! RelayLocal) {
+    if (relay is! RelayLocal && isMyRelay) {
       list.add(Container(
         child: CheckboxListTile(
           title: Text(s.Write),
