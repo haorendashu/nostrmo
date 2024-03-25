@@ -66,7 +66,12 @@ class EventDB {
 
   static Future update(int keyIndex, Event o, {DatabaseExecutor? db}) async {
     db = await DB.getDB(db);
-    await db.update("event", o.toJson(),
+    var jsonObj = o.toJson();
+    var tags = jsonEncode(o.tags);
+    jsonObj["tags"] = tags;
+    jsonObj.remove("sig");
+    jsonObj["key_index"] = keyIndex;
+    await db.update("event", jsonObj,
         where: "key_index = ? and id = ?", whereArgs: [keyIndex, o.id]);
   }
 
