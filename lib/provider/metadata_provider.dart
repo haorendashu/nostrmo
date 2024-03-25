@@ -246,4 +246,26 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     RelayListMetadata rlm = RelayListMetadata.fromEvent(event);
     _relayListMetadataCache[rlm.pubkey] = rlm;
   }
+
+  List<String> getExtralRelays(String pubkey, bool isWrite) {
+    List<String> tempRelays = [];
+    var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
+    if (relayListMetadata != null) {
+      late List<String> relays;
+      if (isWrite) {
+        relays = relayListMetadata.writeAbleRelays;
+      } else {
+        relays = relayListMetadata.readAbleRelays;
+      }
+      tempRelays = nostr!.getExtralReadableRelays(relays);
+
+      // only query from 2 temp relay
+      if (tempRelays.length > 2) {
+        tempRelays = []
+          ..add(tempRelays[0])
+          ..add(tempRelays[1]);
+      }
+    }
+    return tempRelays;
+  }
 }

@@ -470,6 +470,8 @@ mixin EditorMixin {
     var tags = []..addAll(getTags());
     var tagsAddedWhenSend = []..addAll(getTagsAddedWhenSend());
 
+    List<String> extralRelays = [];
+
     if (inputPoll) {
       var checkResult = pollInputController.checkInput(context);
       if (!checkResult) {
@@ -530,13 +532,10 @@ mixin EditorMixin {
             if (!_lastIsSpace(result) && !_lastIsLineEnd(result)) {
               result += " ";
             }
-            // if (agreement == null) {
-            // tags.add(["p", value]);
-            //   var index = tags.length - 1;
-            //   result += "#[$index] ";
-            // } else {
             result += "nostr:${Nip19.encodePubKey(value)} ";
-            // }
+
+            // add user's read relays
+            extralRelays.addAll(metadataProvider.getExtralRelays(value, false));
             continue;
           }
 
@@ -666,33 +665,59 @@ mixin EditorMixin {
     log(jsonEncode(event.toJson()));
     if (publishAt != null) {
       for (var extralEvent in extralEvents) {
-        _handleSendingSendBoxEvent(extralEvent);
+        _handleSendingSendBoxEvent(extralEvent, extralRelays);
       }
 
-      return _handleSendingSendBoxEvent(event);
+      return _handleSendingSendBoxEvent(event, extralRelays);
     } else {
       for (var extralEvent in extralEvents) {
-        _handleSendingEvent(extralEvent);
+        _handleSendingEvent(extralEvent, extralRelays);
       }
 
-      return _handleSendingEvent(event);
+      return _handleSendingEvent(event, extralRelays);
     }
   }
 
-  Future<Event?> _handleSendingSendBoxEvent(Event e) async {
+  Future<Event?> _handleSendingSendBoxEvent(
+      Event e, List<String> extralRelays) async {
     if (StringUtil.isNotBlank(e.sig)) {
       nostr!.signEvent(e);
     }
-    await SendBox.submit(e, relayProvider.relayAddrs);
+
+    List<String> list = [...relayProvider.relayAddrs, ...extralRelays];
+    for (var tag in e.tags) {
+      if (tag is List && tag.length > 1) {
+        var k = tag[0];
+        var p = tag[1];
+        if (k == "p") {
+          list.addAll(metadataProvider.getExtralRelays(p, false));
+        }
+      }
+    }
+    list = list.toSet().toList();
+
+    await SendBox.submit(e, list);
 
     return e;
   }
 
-  Event? _handleSendingEvent(Event e) {
+  Event? _handleSendingEvent(Event e, List<String> extralRelays) {
+    List<String> list = [...extralRelays];
+    for (var tag in e.tags) {
+      if (tag is List && tag.length > 1) {
+        var k = tag[0];
+        var p = tag[1];
+        if (k == "p") {
+          list.addAll(metadataProvider.getExtralRelays(p, false));
+        }
+      }
+    }
+    list = list.toSet().toList();
+
     if (StringUtil.isNotBlank(e.sig)) {
-      return nostr!.broadcase(e);
+      return nostr!.broadcase(e, tempRelays: list);
     } else {
-      return nostr!.sendEvent(e);
+      return nostr!.sendEvent(e, tempRelays: list);
     }
   }
 

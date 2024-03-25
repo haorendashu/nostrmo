@@ -277,20 +277,8 @@ class _UserRouter extends CustState<UserRouter>
       nostr!.queryByFilters(filtersMap, onEvent, id: subscribeId);
     } else {
       // try to query from user's write relay.
-      List<String>? tempRelays;
-      var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey!);
-      if (relayListMetadata != null) {
-        var writeAbleRelays = relayListMetadata.writeAbleRelays;
-        tempRelays = nostr!.getExtralReadableRelays(writeAbleRelays);
-
-        // only query from 2 temp relay
-        if (tempRelays.length > 2) {
-          tempRelays = []
-            ..add(tempRelays[0])
-            ..add(tempRelays[1]);
-        }
-      }
-
+      List<String>? tempRelays =
+          metadataProvider.getExtralRelays(pubkey!, true);
       nostr!.query([filter.toJson()], onEvent,
           id: subscribeId, tempRelays: tempRelays, onlyTempRelays: false);
     }
