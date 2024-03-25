@@ -282,6 +282,8 @@ class _UserRouter extends CustState<UserRouter>
       nostr!.query([filter.toJson()], onEvent,
           id: subscribeId, tempRelays: tempRelays, onlyTempRelays: false);
     }
+
+    readyComplete = true;
   }
 
   @override
