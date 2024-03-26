@@ -242,7 +242,6 @@ class _UserRouter extends CustState<UserRouter>
   }
 
   void unSubscribe() {
-    box.clear();
     nostr!.unsubscribe(subscribeId!);
     subscribeId = null;
   }
@@ -264,6 +263,7 @@ class _UserRouter extends CustState<UserRouter>
     subscribeId = StringUtil.rndNameStr(16);
 
     if (!box.isEmpty() && readyComplete) {
+      // query after init
       var activeRelays = nostr!.activeRelays();
       var oldestCreatedAts = box.oldestCreatedAtByRelay(
         activeRelays,
@@ -276,6 +276,7 @@ class _UserRouter extends CustState<UserRouter>
       }
       nostr!.queryByFilters(filtersMap, onEvent, id: subscribeId);
     } else {
+      // this is init query
       // try to query from user's write relay.
       List<String>? tempRelays =
           metadataProvider.getExtralRelays(pubkey!, true);
