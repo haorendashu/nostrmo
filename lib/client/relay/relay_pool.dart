@@ -147,8 +147,10 @@ class RelayPool {
         if (relay is RelayLocal) {
           // local message read source from json
           var sources = json[2]["sources"];
-          for (var source in sources) {
-            event.sources.add(source);
+          if (sources != null && sources is List) {
+            for (var source in sources) {
+              event.sources.add(source);
+            }
           }
         } else {
           event.sources.add(relay.url);
