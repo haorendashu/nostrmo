@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("ακύρωση"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Σταματήστε στο"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("επιβεβαίωση"),
+        "Contact": MessageLookupByLibrary.simpleMessage("επαφές"),
         "Content": MessageLookupByLibrary.simpleMessage("περιεχόμενο"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Προειδοποίηση περιεχομένου"),
@@ -84,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Αντιγραφή αρχικού συνδέσμου"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Αντιγραφή επιτυχής"),
+        "Creator": MessageLookupByLibrary.simpleMessage("δημιουργός"),
         "Custom": MessageLookupByLibrary.simpleMessage("προσαρμοσμένο"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Προσαρμοσμένα χρώματα"),
@@ -182,11 +184,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Προεπισκόπηση σύνδεσης"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Ο Νουρλ και ο Λούντ16 δεν μπορούν να βρεθούν."),
+        "LocalRelay":
+            MessageLookupByLibrary.simpleMessage("Τοπικός αναμεταδότης"),
         "Login": MessageLookupByLibrary.simpleMessage("Σύνδεση"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("αναφορά"),
         "Method": MessageLookupByLibrary.simpleMessage("μέθοδος"),
         "More": MessageLookupByLibrary.simpleMessage("περισσότερα"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Το ρελέ μου."),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Κρυπτογράφηση"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("κρυπτογράφηση"),
         "NIP07_getPublicKey":
@@ -220,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser": MessageLookupByLibrary.simpleMessage(
             "Άνοιγμα στο πρόγραμμα περιήγησης"),
         "Optional": MessageLookupByLibrary.simpleMessage("Προαιρετικό"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Ιδιοκτήτης"),
         "Password": MessageLookupByLibrary.simpleMessage("κωδικός πρόσβασης"),
         "Pay": MessageLookupByLibrary.simpleMessage("Πληρωμή"),
         "Picture": MessageLookupByLibrary.simpleMessage("εικόνα"),
@@ -261,11 +267,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Κλείδωμα ιδιωτικής ζωής"),
         "Private": MessageLookupByLibrary.simpleMessage("ιδιωτικό"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Τα ιδιωτικά μηνύματα είναι ένας νέος τύπος μηνύματος για τον οποίο ορισμένοι πελάτες δεν έχουν παράσχει ακόμα υποστήριξη."),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "Το κλειδί δεν μπορεί να είναι άδειο"),
         "Public": MessageLookupByLibrary.simpleMessage("ανοικτό"),
         "Quote": MessageLookupByLibrary.simpleMessage("απόσπασμα"),
         "Read": MessageLookupByLibrary.simpleMessage("ανάγνωση"),
+        "Relay_Info":
+            MessageLookupByLibrary.simpleMessage("Πληροφορίες αναμετάδοσης"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Τύπος ρελέ"),
         "Relays": MessageLookupByLibrary.simpleMessage("ρελέ"),
         "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
@@ -289,10 +299,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("Δείτε περισσότερα"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Άνοιγμα ιστοσελίδας"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Αποτυχία υπογραφής"),
+        "Soft": MessageLookupByLibrary.simpleMessage("εφαρμογή"),
         "Source": MessageLookupByLibrary.simpleMessage("πηγή"),
         "Submit": MessageLookupByLibrary.simpleMessage("Υποβολή"),
         "Table_Mode":
             MessageLookupByLibrary.simpleMessage("Λειτουργία δισκίου"),
+        "TempRelays":
+            MessageLookupByLibrary.simpleMessage("Προσωρινός ηλεκτρονόμος"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Το περιεχόμενο δεν μπορεί να περιέχει κενά"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -317,6 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Μετάφραση γλώσσας προορισμού"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Αποτυχία αποστολής"),
+        "Url": MessageLookupByLibrary.simpleMessage("σύνδεση"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Σάρωση και αποστολή δορυφόρων χρησιμοποιώντας το πορτοφόλι δικτύου Αστραπής"),
@@ -326,8 +340,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Εξαίρεση επαλήθευσης"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Αποτυχία επαλήθευσης"),
+        "Version": MessageLookupByLibrary.simpleMessage("έκδοση"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Προεπισκόπηση βίντεο λίστας"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Φορώντας"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Δικαιώματα WebRTC"),
         "Web_Appbar":

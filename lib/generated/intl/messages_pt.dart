@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("cancelar"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Pare em"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("confirmar"),
+        "Contact": MessageLookupByLibrary.simpleMessage("contactos"),
         "Content": MessageLookupByLibrary.simpleMessage("conteúdo"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Aviso de Conteúdo"),
@@ -83,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copiar a ligação inicial"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("A cópia foi bem sucedida"),
+        "Creator": MessageLookupByLibrary.simpleMessage("criador"),
         "Custom": MessageLookupByLibrary.simpleMessage("personalizado"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Cores Personalizadas"),
@@ -179,11 +181,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Antevisão da Ligação"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl e Lud16 não podem ser encontrados."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("Relé local"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("mencionar"),
         "Method": MessageLookupByLibrary.simpleMessage("método"),
         "More": MessageLookupByLibrary.simpleMessage("mais"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("O meu relé"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Descriptação"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("encriptação"),
         "NIP07_getPublicKey":
@@ -216,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Abrir no navegador"),
         "Optional": MessageLookupByLibrary.simpleMessage("Facultativo"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Proprietário"),
         "Password": MessageLookupByLibrary.simpleMessage("senha"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pagar"),
         "Picture": MessageLookupByLibrary.simpleMessage("imagem"),
@@ -257,11 +262,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Bloqueio de privacidade"),
         "Private": MessageLookupByLibrary.simpleMessage("privado"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Mensagens privadas são um novo tipo de mensagem para a qual alguns clientes ainda não forneceram suporte."),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "A chave não pode estar vazia"),
         "Public": MessageLookupByLibrary.simpleMessage("abrir"),
         "Quote": MessageLookupByLibrary.simpleMessage("citação"),
         "Read": MessageLookupByLibrary.simpleMessage("ler"),
+        "Relay_Info":
+            MessageLookupByLibrary.simpleMessage("Informação do relé"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Tipo de relé"),
         "Relays": MessageLookupByLibrary.simpleMessage("relé"),
         "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
@@ -286,9 +295,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_web": MessageLookupByLibrary.simpleMessage("Abrir a página Web"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("A assinatura falhou"),
+        "Soft": MessageLookupByLibrary.simpleMessage("aplicação"),
         "Source": MessageLookupByLibrary.simpleMessage("fonte"),
         "Submit": MessageLookupByLibrary.simpleMessage("Enviar"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Modo Tablet"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("Relé temporário"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "O conteúdo não pode conter espaços"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -312,6 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
             "Traduzir a língua de destino"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("O envio falhou"),
+        "Url": MessageLookupByLibrary.simpleMessage("link"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Digitalizar e enviar Sats usando Lightning Network Wallet"),
@@ -322,8 +334,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Excepção de verificação"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("A verificação falhou"),
+        "Version": MessageLookupByLibrary.simpleMessage("versão"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Antevisão do Vídeo da Lista"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Vestir"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Permissões WebRTC"),
         "Web_Appbar":

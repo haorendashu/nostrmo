@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Close at"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Comfirm"),
+        "Contact": MessageLookupByLibrary.simpleMessage("Contact"),
         "Content": MessageLookupByLibrary.simpleMessage("Content"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Content warning"),
@@ -215,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "Optional": MessageLookupByLibrary.simpleMessage("Optional"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Owner"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("Picture"),
@@ -262,6 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
         "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
+        "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay Info"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relay Mode"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relays"),
         "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
@@ -285,6 +288,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("Show more"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Show web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
+        "Soft": MessageLookupByLibrary.simpleMessage("Soft"),
         "Source": MessageLookupByLibrary.simpleMessage("Source"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Table Mode"),
@@ -312,6 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Translate Target Language"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload fail."),
+        "Url": MessageLookupByLibrary.simpleMessage("Url"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Use lightning wallet scan and send sats."),
@@ -320,6 +325,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_error": MessageLookupByLibrary.simpleMessage("Verify error"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Verify failure"),
+        "Version": MessageLookupByLibrary.simpleMessage("Version"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
         "Wear": MessageLookupByLibrary.simpleMessage("Wear"),

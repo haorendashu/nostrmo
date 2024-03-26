@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("Hủy bỏ"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Dừng lại ở"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
+        "Contact": MessageLookupByLibrary.simpleMessage("Liên hệ"),
         "Content": MessageLookupByLibrary.simpleMessage("Nội dung"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Cảnh báo nội dung"),
@@ -82,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sao chép liên kết ban đầu"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Sao chép thành công"),
+        "Creator": MessageLookupByLibrary.simpleMessage("Trang chủ"),
         "Custom": MessageLookupByLibrary.simpleMessage("Tùy chỉnh"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Màu tùy chỉnh"),
         "Custom_Font_Family":
@@ -170,11 +172,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Xem thử liên kết"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl và Lud16 không thể được tìm thấy."),
+        "LocalRelay":
+            MessageLookupByLibrary.simpleMessage("Chuyển tiếp cục bộ"),
         "Login": MessageLookupByLibrary.simpleMessage("Đăng nhập"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Đề cập"),
         "Method": MessageLookupByLibrary.simpleMessage("Phương pháp"),
         "More": MessageLookupByLibrary.simpleMessage("Thêm"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Relay của tôi"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Giải mã"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Mã hóa"),
         "NIP07_getPublicKey":
@@ -207,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Mở trong trình duyệt"),
         "Optional": MessageLookupByLibrary.simpleMessage("Tùy chọn"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Chủ sở hữu"),
         "Password": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("Hình ảnh"),
@@ -246,11 +252,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Động&Trả lời"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Khóa riêng tư"),
         "Private": MessageLookupByLibrary.simpleMessage("Riêng tư"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Private letter là một loại tin nhắn mới mà một số khách hàng chưa cung cấp hỗ trợ."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Key không thể để trống"),
         "Public": MessageLookupByLibrary.simpleMessage("Công cộng"),
         "Quote": MessageLookupByLibrary.simpleMessage("Trích dẫn"),
         "Read": MessageLookupByLibrary.simpleMessage("Đọc"),
+        "Relay_Info":
+            MessageLookupByLibrary.simpleMessage("Thông tin chuyển tiếp"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Loại Relay"),
         "Relays": MessageLookupByLibrary.simpleMessage("Chuyển tiếp"),
         "Remove_from_private_bookmark":
@@ -274,9 +284,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("Xem thêm"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Mở trang web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Chữ ký thất bại"),
+        "Soft": MessageLookupByLibrary.simpleMessage("Ứng dụng"),
         "Source": MessageLookupByLibrary.simpleMessage("Nguồn"),
         "Submit": MessageLookupByLibrary.simpleMessage("Giới thiệu"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Chế độ phẳng"),
+        "TempRelays":
+            MessageLookupByLibrary.simpleMessage("Chuyển tiếp tạm thời"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Nội dung không thể chứa khoảng trắng"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -301,6 +314,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dịch ngôn ngữ đích"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Tải lên không thành công"),
+        "Url": MessageLookupByLibrary.simpleMessage("Liên kết"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Quét và gửi Sats với ví Lightning Web"),
@@ -311,8 +325,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kiểm tra ngoại lệ"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Xác minh thất bại"),
+        "Version": MessageLookupByLibrary.simpleMessage("Phiên bản"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Xem trước video danh sách"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Mặc"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Quyền WebRTC"),
         "Web_Appbar":

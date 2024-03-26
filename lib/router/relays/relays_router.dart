@@ -90,7 +90,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
           bottom: Base.BASE_PADDING_HALF,
         ),
         child: Text(
-          "Temp Relays",
+          s.TempRelays,
           style: TextStyle(
             fontSize: titleFontSize,
             fontWeight: FontWeight.bold,

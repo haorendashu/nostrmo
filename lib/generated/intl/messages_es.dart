@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancelación"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Detener en"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Confirmación"),
+        "Contact": MessageLookupByLibrary.simpleMessage("Contactos"),
         "Content": MessageLookupByLibrary.simpleMessage("Contenido"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Advertencia de contenido"),
@@ -82,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Copiar enlace inicial"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("Copia exitosa"),
+        "Creator": MessageLookupByLibrary.simpleMessage("Creador"),
         "Custom": MessageLookupByLibrary.simpleMessage("Personalizado"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Color personalizado"),
@@ -179,11 +181,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Vista previa del enlace"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl y lud16 no se pueden encontrar."),
+        "LocalRelay":
+            MessageLookupByLibrary.simpleMessage("Retransmisión local"),
         "Login": MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mención"),
         "Method": MessageLookupByLibrary.simpleMessage("Método"),
         "More": MessageLookupByLibrary.simpleMessage("Más"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Mi retransmisión"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Descifrado"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Cifrado"),
         "NIP07_getPublicKey":
@@ -217,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Abrir en el navegador"),
         "Optional": MessageLookupByLibrary.simpleMessage("Opcional"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Propietario"),
         "Password": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("Imagen"),
@@ -258,11 +264,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Cerradura de privacidad"),
         "Private": MessageLookupByLibrary.simpleMessage("Privado"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Los mensajes privados privados son un nuevo tipo de mensaje, que algunos clientes aún no han apoyado."),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "La clave no puede estar vacía"),
         "Public": MessageLookupByLibrary.simpleMessage("Abierto"),
         "Quote": MessageLookupByLibrary.simpleMessage("Cita"),
         "Read": MessageLookupByLibrary.simpleMessage("Leer"),
+        "Relay_Info": MessageLookupByLibrary.simpleMessage(
+            "Retransmisión de información"),
         "Relay_Mode":
             MessageLookupByLibrary.simpleMessage("Tipo de retransmisión"),
         "Relays": MessageLookupByLibrary.simpleMessage("Retransmisión"),
@@ -287,9 +297,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("Ver más"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Abrir página web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("La firma falló"),
+        "Soft": MessageLookupByLibrary.simpleMessage("Aplicación"),
         "Source": MessageLookupByLibrary.simpleMessage("Fuente"),
         "Submit": MessageLookupByLibrary.simpleMessage("Presentación"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Modo tableta"),
+        "TempRelays":
+            MessageLookupByLibrary.simpleMessage("Retransmisión temporal"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "El contenido no puede contener espacios"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -313,6 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
             "Idioma objetivo de la traducción"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Falló la carga"),
+        "Url": MessageLookupByLibrary.simpleMessage("Enlaces"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Escanear y enviar sats con la billetera de red Lightning"),
@@ -322,8 +336,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anomalía de verificación"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Falló la verificación"),
+        "Version": MessageLookupByLibrary.simpleMessage("Versión"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
             "Vista previa de vídeo de lista"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Vestir"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Permisos webrtc"),
         "Web_Appbar":

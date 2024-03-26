@@ -76,12 +76,12 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
     ));
 
     list.add(RelayInfoItemComponent(
-      title: "Url",
+      title: s.Url,
       child: SelectableText(relay.url),
     ));
 
     list.add(RelayInfoItemComponent(
-      title: "Owner",
+      title: s.Owner,
       child: Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
           List<Widget> list = [];
@@ -132,17 +132,17 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
     ));
 
     list.add(RelayInfoItemComponent(
-      title: "Contact",
+      title: s.Contact,
       child: SelectableText(relayInfo.contact),
     ));
 
     list.add(RelayInfoItemComponent(
-      title: "Soft",
+      title: s.Soft,
       child: SelectableText(relayInfo.software),
     ));
 
     list.add(RelayInfoItemComponent(
-      title: "Version",
+      title: s.Version,
       child: SelectableText(relayInfo.version),
     ));
 
@@ -201,7 +201,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
           ),
         ),
         title: Text(
-          "Relay Info",
+          s.Relay_Info,
           style: TextStyle(
             fontSize: titleFontSize,
             fontWeight: FontWeight.bold,

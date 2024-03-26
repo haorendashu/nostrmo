@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("ألغى"),
         "Close_at": MessageLookupByLibrary.simpleMessage("توقف"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("أكّد"),
+        "Contact": MessageLookupByLibrary.simpleMessage("شخص الاتصال"),
         "Content": MessageLookupByLibrary.simpleMessage("المحتويات"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("تحذير المحتوى"),
@@ -80,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("نسخ الرابط الأولي"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("نسخة ناجحة"),
+        "Creator": MessageLookupByLibrary.simpleMessage("المبدعين"),
         "Custom": MessageLookupByLibrary.simpleMessage("عرف"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("لون مخصص"),
         "Custom_Font_Family": MessageLookupByLibrary.simpleMessage("خط مخصص"),
@@ -166,11 +168,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Link_preview": MessageLookupByLibrary.simpleMessage("رابط معاينة"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "lnurl و lud16 لا يمكن العثور عليها ."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("ترحيل المحلية"),
         "Login": MessageLookupByLibrary.simpleMessage("سجل"),
         "Lud16": MessageLookupByLibrary.simpleMessage("لود"),
         "Mentions": MessageLookupByLibrary.simpleMessage("ذكر"),
         "Method": MessageLookupByLibrary.simpleMessage("طريقة ."),
         "More": MessageLookupByLibrary.simpleMessage("أكثر ."),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("بلدي الجذع"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("فك التشفير"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("مشفرة"),
         "NIP07_getPublicKey":
@@ -202,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("فتح صفحة المستخدم"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("فتح المتصفح"),
         "Optional": MessageLookupByLibrary.simpleMessage("اختياري"),
+        "Owner": MessageLookupByLibrary.simpleMessage("مالك"),
         "Password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
         "Pay": MessageLookupByLibrary.simpleMessage("باي"),
         "Picture": MessageLookupByLibrary.simpleMessage("صور"),
@@ -241,11 +246,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("دينامية الانتعاش"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("قفل الخصوصية"),
         "Private": MessageLookupByLibrary.simpleMessage("خاص"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "الرسائل الخاصة هي نوع جديد من الرسائل التي لا تدعم من قبل بعض العملاء ."),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "المفتاح لا يمكن أن تكون فارغة"),
         "Public": MessageLookupByLibrary.simpleMessage("علانية"),
         "Quote": MessageLookupByLibrary.simpleMessage("استشهد"),
         "Read": MessageLookupByLibrary.simpleMessage("قرأ"),
+        "Relay_Info": MessageLookupByLibrary.simpleMessage("ترحيل المعلومات"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("تتابع نوع"),
         "Relays": MessageLookupByLibrary.simpleMessage("تتابع"),
         "Remove_from_private_bookmark":
@@ -269,9 +277,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("شاهد المزيد"),
         "Show_web": MessageLookupByLibrary.simpleMessage("فتح صفحة ويب"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("فشل التوقيع"),
+        "Soft": MessageLookupByLibrary.simpleMessage("تطبيق ."),
         "Source": MessageLookupByLibrary.simpleMessage("المصدر"),
         "Submit": MessageLookupByLibrary.simpleMessage("قدم"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("وضع لوحة"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("ترحيل مؤقت"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "المحتوى لا يمكن أن تحتوي على مسافات"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -295,6 +305,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("ترجمة اللغة الهدف"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("فشل تحميل"),
+        "Url": MessageLookupByLibrary.simpleMessage("لينك ."),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "استخدام شبكة البرق المحفظة لمسح وإرسال ساتس"),
@@ -303,8 +314,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_error":
             MessageLookupByLibrary.simpleMessage("التحقق من استثناء"),
         "Verify_failure": MessageLookupByLibrary.simpleMessage("فشل التحقق"),
+        "Version": MessageLookupByLibrary.simpleMessage("طبعات"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("قائمة معاينة الفيديو"),
+        "Wear": MessageLookupByLibrary.simpleMessage("ارتدى"),
         "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("webtc إذن"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage(
             "شريط التنقل على شبكة الإنترنت"),

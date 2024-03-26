@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("anulează"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Opreşte-te la"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("confirma"),
+        "Contact": MessageLookupByLibrary.simpleMessage("contacte"),
         "Content": MessageLookupByLibrary.simpleMessage("conținut"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Avertizare conținut"),
@@ -82,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url":
             MessageLookupByLibrary.simpleMessage("Copiază legătura inițială"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("Copiare reușită"),
+        "Creator": MessageLookupByLibrary.simpleMessage("creator"),
         "Custom": MessageLookupByLibrary.simpleMessage("personalizat"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Culori personalizate"),
@@ -179,11 +181,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Previzualizare legături"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl şi Lud16 nu pot fi găsite."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("Releu local"),
         "Login": MessageLookupByLibrary.simpleMessage("Autentificare"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("mențiune"),
         "Method": MessageLookupByLibrary.simpleMessage("metoda"),
         "More": MessageLookupByLibrary.simpleMessage("mai mult"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Releul meu"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Decriptare"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("criptare"),
         "NIP07_getPublicKey":
@@ -216,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Deschide în browser"),
         "Optional": MessageLookupByLibrary.simpleMessage("Opțional"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Proprietar"),
         "Password": MessageLookupByLibrary.simpleMessage("parolă"),
         "Pay": MessageLookupByLibrary.simpleMessage("Plăteşte"),
         "Picture": MessageLookupByLibrary.simpleMessage("imagine"),
@@ -257,11 +262,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage(
             "Blocare de confidențialitate"),
         "Private": MessageLookupByLibrary.simpleMessage("privat"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Mesajele private sunt un nou tip de mesaj pentru care unii clienți nu au oferit încă suport."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Cheia nu poate fi goală."),
         "Public": MessageLookupByLibrary.simpleMessage("deschis"),
         "Quote": MessageLookupByLibrary.simpleMessage("citat"),
         "Read": MessageLookupByLibrary.simpleMessage("citit"),
+        "Relay_Info": MessageLookupByLibrary.simpleMessage(
+            "Informații privind transmiterea"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Tip releu"),
         "Relays": MessageLookupByLibrary.simpleMessage("releu"),
         "Remove_from_private_bookmark":
@@ -285,9 +294,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("Vezi mai multe"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Deschide pagina web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Semnătură eșuată"),
+        "Soft": MessageLookupByLibrary.simpleMessage("aplicare"),
         "Source": MessageLookupByLibrary.simpleMessage("sursă"),
         "Submit": MessageLookupByLibrary.simpleMessage("Trimite"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Mod comprimat"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("Releu temporar"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Conținutul nu poate conține spații"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -311,6 +322,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Tradu limba țintă"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Încărcare eșuată"),
+        "Url": MessageLookupByLibrary.simpleMessage("link"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Scanați și trimiteți sateliți utilizând Lightning Network Wallet"),
@@ -321,8 +333,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Excepție de verificare"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Verificare eșuată"),
+        "Version": MessageLookupByLibrary.simpleMessage("versiune"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Previzualizare video listă"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Purtarea"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Permisiuni WebRTC"),
         "Web_Appbar":

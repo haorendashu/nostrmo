@@ -2399,6 +2399,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Url`
+  String get Url {
+    return Intl.message(
+      'Url',
+      name: 'Url',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Owner`
+  String get Owner {
+    return Intl.message(
+      'Owner',
+      name: 'Owner',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact`
+  String get Contact {
+    return Intl.message(
+      'Contact',
+      name: 'Contact',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Soft`
+  String get Soft {
+    return Intl.message(
+      'Soft',
+      name: 'Soft',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version`
+  String get Version {
+    return Intl.message(
+      'Version',
+      name: 'Version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Relay Info`
+  String get Relay_Info {
+    return Intl.message(
+      'Relay Info',
+      name: 'Relay_Info',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

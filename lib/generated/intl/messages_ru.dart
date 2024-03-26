@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("Отменить"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Остановиться на"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Подтверждение"),
+        "Contact": MessageLookupByLibrary.simpleMessage("Контактные лица"),
         "Content": MessageLookupByLibrary.simpleMessage("Содержание"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Содержание предупреждений"),
@@ -83,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Копировать исходную ссылку"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Копировать успешно"),
+        "Creator": MessageLookupByLibrary.simpleMessage("Основатель"),
         "Custom": MessageLookupByLibrary.simpleMessage("Настройка"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Настройка цвета"),
         "Custom_Font_Family":
@@ -177,11 +179,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Предварительный просмотр ссылок"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl и Lud16 не найдены."),
+        "LocalRelay":
+            MessageLookupByLibrary.simpleMessage("Локальная ретрансляция"),
         "Login": MessageLookupByLibrary.simpleMessage("Регистрация"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Луд16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Упоминание"),
         "Method": MessageLookupByLibrary.simpleMessage("Методы"),
         "More": MessageLookupByLibrary.simpleMessage("Больше."),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Моя ретрансляция."),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Расшифровка"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("Шифрование"),
         "NIP07_getPublicKey":
@@ -215,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Открыть в браузере"),
         "Optional": MessageLookupByLibrary.simpleMessage("Необязательно"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Владелец"),
         "Password": MessageLookupByLibrary.simpleMessage("Пароль"),
         "Pay": MessageLookupByLibrary.simpleMessage("Пэй."),
         "Picture": MessageLookupByLibrary.simpleMessage("Фотографии"),
@@ -256,11 +262,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Блок конфиденциальности"),
         "Private":
             MessageLookupByLibrary.simpleMessage("Частная собственность"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Конфиденциальность - это новый тип сообщения, который некоторые клиенты еще не поддерживают."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Ключ не может быть пустым"),
         "Public": MessageLookupByLibrary.simpleMessage("Открыто"),
         "Quote": MessageLookupByLibrary.simpleMessage("Ссылки"),
         "Read": MessageLookupByLibrary.simpleMessage("Читать"),
+        "Relay_Info":
+            MessageLookupByLibrary.simpleMessage("Ретрансляционная информация"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Тип ретрансляции"),
         "Relays": MessageLookupByLibrary.simpleMessage("Трансляция"),
         "Remove_from_private_bookmark":
@@ -284,9 +294,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("Узнать больше"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Открыть страницу"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Ошибка подписи"),
+        "Soft": MessageLookupByLibrary.simpleMessage("Применение"),
         "Source": MessageLookupByLibrary.simpleMessage("Источник"),
         "Submit": MessageLookupByLibrary.simpleMessage("Представлено"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Планшетный режим"),
+        "TempRelays":
+            MessageLookupByLibrary.simpleMessage("Временная ретрансляция"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Содержание не может содержать пробелов"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -310,6 +323,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Перевод целевого языка"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Ошибка загрузки"),
+        "Url": MessageLookupByLibrary.simpleMessage("Ссылки"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Сканирование и отправка Sats с помощью веб - кошелька Lightning"),
@@ -320,8 +334,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Проверка аномалий"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Ошибка проверки"),
+        "Version": MessageLookupByLibrary.simpleMessage("Версия"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
             "Предварительный просмотр видео"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Одевайся."),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Права WebRTC"),
         "Web_Appbar":

@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("отмяна"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Спри на"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Потвърждаване"),
+        "Contact": MessageLookupByLibrary.simpleMessage("контакти"),
         "Content": MessageLookupByLibrary.simpleMessage("съдържание"),
         "Content_warning": MessageLookupByLibrary.simpleMessage(
             "Предупреждение за съдържанието"),
@@ -84,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Копиране на първоначалната връзка"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Копиране успешно"),
+        "Creator": MessageLookupByLibrary.simpleMessage("създател"),
         "Custom": MessageLookupByLibrary.simpleMessage("по поръчка"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Потребителски цветове"),
@@ -182,11 +184,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Преглед на връзката"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Лънурл и Лъд16 не могат да бъдат намерени."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("Локално реле"),
         "Login": MessageLookupByLibrary.simpleMessage("Влизане"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("споменаване"),
         "Method": MessageLookupByLibrary.simpleMessage("метод"),
         "More": MessageLookupByLibrary.simpleMessage("повече"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Моето реле."),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Дешифриране"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("криптиране"),
         "NIP07_getPublicKey":
@@ -221,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Отваряне в браузъра"),
         "Optional": MessageLookupByLibrary.simpleMessage("Незадължително"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Собственик"),
         "Password": MessageLookupByLibrary.simpleMessage("парола"),
         "Pay": MessageLookupByLibrary.simpleMessage("Плащане"),
         "Picture": MessageLookupByLibrary.simpleMessage("картина"),
@@ -261,11 +266,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage(
             "Заключване на поверителността"),
         "Private": MessageLookupByLibrary.simpleMessage("частен"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Личните съобщения са нов тип съобщения, за които някои клиенти все още не са предоставили поддръжка."),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage(
             "Ключът не може да бъде празен."),
         "Public": MessageLookupByLibrary.simpleMessage("отворено"),
         "Quote": MessageLookupByLibrary.simpleMessage("цитат"),
         "Read": MessageLookupByLibrary.simpleMessage("прочетено"),
+        "Relay_Info":
+            MessageLookupByLibrary.simpleMessage("Информация за релето"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Тип реле"),
         "Relays": MessageLookupByLibrary.simpleMessage("реле"),
         "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
@@ -292,9 +301,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Отваряне на уеб страница"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Подписът е неуспешен"),
+        "Soft": MessageLookupByLibrary.simpleMessage("приложение"),
         "Source": MessageLookupByLibrary.simpleMessage("източник"),
         "Submit": MessageLookupByLibrary.simpleMessage("Изпращане"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Таблетен режим"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("Временно реле"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Съдържанието не може да съдържа интервали"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -320,6 +331,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Превод на целевия език"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Грешка при качване"),
+        "Url": MessageLookupByLibrary.simpleMessage("връзка"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Сканиране и изпращане на сателити с помощта на Мрежов портфейл"),
@@ -330,8 +342,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Изключение от проверката"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Проверката е неуспешна"),
+        "Version": MessageLookupByLibrary.simpleMessage("версия"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Преглед на видео от списък"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Носене"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Разрешения за WebRTC"),
         "Web_Appbar":

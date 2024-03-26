@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("zrušit"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Zastavte se na"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("potvrdit"),
+        "Contact": MessageLookupByLibrary.simpleMessage("kontakty"),
         "Content": MessageLookupByLibrary.simpleMessage("obsah"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Upozornění na obsah"),
@@ -82,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kopírovat počáteční odkaz"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Kopírování úspěšné"),
+        "Creator": MessageLookupByLibrary.simpleMessage("tvůrce"),
         "Custom": MessageLookupByLibrary.simpleMessage("vlastní"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Vlastní barvy"),
         "Custom_Font_Family":
@@ -171,11 +173,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Link_preview": MessageLookupByLibrary.simpleMessage("Náhled odkazu"),
         "Lnurl_and_Lud16_can_t_found":
             MessageLookupByLibrary.simpleMessage("Lnurl a Lud16 nelze najít."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("Lokální relé"),
         "Login": MessageLookupByLibrary.simpleMessage("Přihlášení"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("zmínka"),
         "Method": MessageLookupByLibrary.simpleMessage("metoda"),
         "More": MessageLookupByLibrary.simpleMessage("více"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Moje štafeta"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Dešifrování"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("šifrování"),
         "NIP07_getPublicKey":
@@ -208,6 +212,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Otevřít v prohlížeči"),
         "Optional": MessageLookupByLibrary.simpleMessage("Nepovinné"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Majitel"),
         "Password": MessageLookupByLibrary.simpleMessage("heslo"),
         "Pay": MessageLookupByLibrary.simpleMessage("Zaplať"),
         "Picture": MessageLookupByLibrary.simpleMessage("obrázek"),
@@ -247,11 +252,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dynamická a odpověď"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Zámek soukromí"),
         "Private": MessageLookupByLibrary.simpleMessage("soukromé"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Soukromé zprávy jsou nový typ zprávy, který někteří klienti dosud neposkytli podporu."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Klíč nemůže být prázdný"),
         "Public": MessageLookupByLibrary.simpleMessage("otevřít"),
         "Quote": MessageLookupByLibrary.simpleMessage("citace"),
         "Read": MessageLookupByLibrary.simpleMessage("číst"),
+        "Relay_Info":
+            MessageLookupByLibrary.simpleMessage("Informace o přenosu"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Typ relé"),
         "Relays": MessageLookupByLibrary.simpleMessage("relé"),
         "Remove_from_private_bookmark":
@@ -276,9 +285,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_web":
             MessageLookupByLibrary.simpleMessage("Otevřít webovou stránku"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Podpis selhal"),
+        "Soft": MessageLookupByLibrary.simpleMessage("aplikace"),
         "Source": MessageLookupByLibrary.simpleMessage("zdroj"),
         "Submit": MessageLookupByLibrary.simpleMessage("Odeslat"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Režim tabletu"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("Dočasné relé"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Obsah nesmí obsahovat mezery"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -303,6 +314,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Přeložit cílový jazyk"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Nahrávání selhalo"),
+        "Url": MessageLookupByLibrary.simpleMessage("odkaz"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Skenování a odesílání satelitů pomocí Lightning Network Wallet"),
@@ -312,8 +324,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_error": MessageLookupByLibrary.simpleMessage("Výjimka ověření"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Ověření selhalo"),
+        "Version": MessageLookupByLibrary.simpleMessage("verze"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Náhled videa seznamu"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Nosení"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Oprávnění WebRTC"),
         "Web_Appbar":

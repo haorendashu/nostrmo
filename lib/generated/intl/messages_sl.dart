@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("prekliči"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop at"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("potrdi"),
+        "Contact": MessageLookupByLibrary.simpleMessage("stiki"),
         "Content": MessageLookupByLibrary.simpleMessage("vsebina"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Opozorilo o vsebini"),
@@ -83,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kopiraj začetno povezavo"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Kopiranje uspešno"),
+        "Creator": MessageLookupByLibrary.simpleMessage("ustvarjalec"),
         "Custom": MessageLookupByLibrary.simpleMessage("po meri"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Barve po meri"),
         "Custom_Font_Family":
@@ -174,11 +176,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Predogled povezave"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurla in Lud16 ni mogoče najti."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("Lokalni relej"),
         "Login": MessageLookupByLibrary.simpleMessage("Prijava"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("omeniti"),
         "Method": MessageLookupByLibrary.simpleMessage("metoda"),
         "More": MessageLookupByLibrary.simpleMessage("več"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Moj relej."),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Dešifriranje"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("šifriranje"),
         "NIP07_getPublicKey":
@@ -212,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Odpri v brskalniku"),
         "Optional": MessageLookupByLibrary.simpleMessage("Neobvezno"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Lastnik"),
         "Password": MessageLookupByLibrary.simpleMessage("geslo"),
         "Pay": MessageLookupByLibrary.simpleMessage("Plačaj"),
         "Picture": MessageLookupByLibrary.simpleMessage("slika"),
@@ -252,11 +257,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Privacy_Lock":
             MessageLookupByLibrary.simpleMessage("Zaklepanje zasebnosti"),
         "Private": MessageLookupByLibrary.simpleMessage("zasebno"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Zasebna sporočila so nova vrsta sporočila, za katero nekateri stranke še niso zagotovili podpore."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Ključ ne more biti prazen."),
         "Public": MessageLookupByLibrary.simpleMessage("odprto"),
         "Quote": MessageLookupByLibrary.simpleMessage("citiraj"),
         "Read": MessageLookupByLibrary.simpleMessage("preberi"),
+        "Relay_Info":
+            MessageLookupByLibrary.simpleMessage("Informacije o releju"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Tip releja"),
         "Relays": MessageLookupByLibrary.simpleMessage("rele"),
         "Remove_from_private_bookmark":
@@ -281,10 +290,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_more": MessageLookupByLibrary.simpleMessage("Prikaži več"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Odpri spletno stran"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Podpis ni uspel"),
+        "Soft": MessageLookupByLibrary.simpleMessage("aplikacija"),
         "Source": MessageLookupByLibrary.simpleMessage("vir"),
         "Submit": MessageLookupByLibrary.simpleMessage("Pošlji"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage(
             "Način tabličnega računalnika"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("Začasni relej"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Vsebina ne more vsebovati presledkov"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -308,6 +319,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Prevedi ciljni jezik"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Prenos ni uspel"),
+        "Url": MessageLookupByLibrary.simpleMessage("povezava"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Skeniranje in pošiljanje satelitskih omrežij s pomočjo Lightning Network Wallet"),
@@ -318,8 +330,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Izjema za preverjanje"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Preverjanje ni uspelo"),
+        "Version": MessageLookupByLibrary.simpleMessage("različica"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Predogled videa seznama"),
+        "Wear": MessageLookupByLibrary.simpleMessage("Nošenje"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("Dovoljenja WebRTC"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage(

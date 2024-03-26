@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("annullér"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop ved"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("bekræft"),
+        "Contact": MessageLookupByLibrary.simpleMessage("kontakter"),
         "Content": MessageLookupByLibrary.simpleMessage("indhold"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Indholdsadvarsel"),
@@ -84,6 +85,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kopiér oprindeligt link"),
         "Copy_success":
             MessageLookupByLibrary.simpleMessage("Kopiér vellykket"),
+        "Creator": MessageLookupByLibrary.simpleMessage("skaber"),
         "Custom": MessageLookupByLibrary.simpleMessage("brugerdefineret"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Brugerdefinerede farver"),
@@ -174,11 +176,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forhåndsvisning af link"),
         "Lnurl_and_Lud16_can_t_found": MessageLookupByLibrary.simpleMessage(
             "Lnurl og Lud16 kan ikke findes."),
+        "LocalRelay": MessageLookupByLibrary.simpleMessage("Lokalt relæ"),
         "Login": MessageLookupByLibrary.simpleMessage("Log ind"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Mentions": MessageLookupByLibrary.simpleMessage("omtale"),
         "Method": MessageLookupByLibrary.simpleMessage("metode"),
         "More": MessageLookupByLibrary.simpleMessage("mere"),
+        "MyRelays": MessageLookupByLibrary.simpleMessage("Mit relæ"),
         "NIP07_decrypt": MessageLookupByLibrary.simpleMessage("Decryptering"),
         "NIP07_encrypt": MessageLookupByLibrary.simpleMessage("kryptering"),
         "NIP07_getPublicKey":
@@ -212,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_in_browser":
             MessageLookupByLibrary.simpleMessage("Åbn i browser"),
         "Optional": MessageLookupByLibrary.simpleMessage("Valgfrit"),
+        "Owner": MessageLookupByLibrary.simpleMessage("Ejer"),
         "Password": MessageLookupByLibrary.simpleMessage("adgangskode"),
         "Pay": MessageLookupByLibrary.simpleMessage("Løn"),
         "Picture": MessageLookupByLibrary.simpleMessage("billede"),
@@ -252,11 +257,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dynamisk & svar"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("Privatlivslås"),
         "Private": MessageLookupByLibrary.simpleMessage("privat"),
+        "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
+            "Private beskeder er en ny type beskeder, som nogle kunder endnu ikke har ydet support til."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Nøglen kan ikke være tom"),
         "Public": MessageLookupByLibrary.simpleMessage("åben"),
         "Quote": MessageLookupByLibrary.simpleMessage("citat"),
         "Read": MessageLookupByLibrary.simpleMessage("læse"),
+        "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay information"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relætype"),
         "Relays": MessageLookupByLibrary.simpleMessage("relæ"),
         "Remove_from_private_bookmark":
@@ -282,9 +290,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Show_web": MessageLookupByLibrary.simpleMessage("Åbn webside"),
         "Sign_fail":
             MessageLookupByLibrary.simpleMessage("Underskrift mislykkedes"),
+        "Soft": MessageLookupByLibrary.simpleMessage("ansøgning"),
         "Source": MessageLookupByLibrary.simpleMessage("kilde"),
         "Submit": MessageLookupByLibrary.simpleMessage("Indsend"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablettilstand"),
+        "TempRelays": MessageLookupByLibrary.simpleMessage("Midlertidigt relæ"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Indhold kan ikke indeholde mellemrum"),
         "Text_can_t_contain_new_line": MessageLookupByLibrary.simpleMessage(
@@ -309,6 +319,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Oversæt målsprog"),
         "Upload_fail":
             MessageLookupByLibrary.simpleMessage("Upload mislykkedes"),
+        "Url": MessageLookupByLibrary.simpleMessage("link"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(
                 "Scan og send satellitter ved hjælp af Lightning Network Wallet"),
@@ -318,8 +329,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kontrolundtagelse"),
         "Verify_failure":
             MessageLookupByLibrary.simpleMessage("Verifikation mislykkedes"),
+        "Version": MessageLookupByLibrary.simpleMessage("version"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Visning af liste video"),
+        "Wear": MessageLookupByLibrary.simpleMessage("iført"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("WebRTC- tilladelser"),
         "Web_Appbar":
