@@ -209,7 +209,7 @@ class FollowEventProvider extends ChangeNotifier
         communityFilter.remove("authors");
         var communityList =
             contactListProvider.followedCommunitiesList().toList();
-        if (communityFilter.isNotEmpty) {
+        if (communityList.isNotEmpty) {
           communityFilter["#a"] = communityList;
           filters.add(communityFilter);
         }
