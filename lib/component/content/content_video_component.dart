@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/util/store_util.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../consts/base.dart';
+import '../../consts/base64.dart';
 
 class ContentVideoComponent extends StatefulWidget {
   String url;
@@ -17,16 +19,24 @@ class ContentVideoComponent extends StatefulWidget {
 }
 
 class _ContentVideoComponent extends State<ContentVideoComponent> {
-  late VideoPlayerController _controller;
+  VideoPlayerController? _controller;
 
   @override
   void initState() {
     super.initState();
     if (widget.url.indexOf("http") == 0) {
-      _controller = VideoPlayerController.network(widget.url)
+      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
         ..initialize().then((_) {
           setState(() {});
         });
+    } else if (widget.url.startsWith(BASE64.PREFIX)) {
+      StoreUtil.saveBS2TempFileByMd5("mp4", BASE64.toData(widget.url))
+          .then((tempFileName) {
+        _controller = VideoPlayerController.file(File(tempFileName))
+          ..initialize().then((_) {
+            setState(() {});
+          });
+      });
     } else {
       _controller = VideoPlayerController.file(File(widget.url))
         ..initialize().then((_) {
@@ -37,7 +47,9 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> list = [];
+    if (_controller == null) {
+      return Container();
+    }
 
     return Container(
       width: double.maxFinite,
@@ -46,15 +58,15 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
         bottom: Base.BASE_PADDING_HALF,
       ),
       child: Center(
-        child: _controller.value.isInitialized
+        child: _controller!.value.isInitialized
             ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
+                aspectRatio: _controller!.value.aspectRatio,
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
-                    VideoPlayer(_controller),
-                    ControlsOverlay(controller: _controller),
-                    VideoProgressIndicator(_controller, allowScrubbing: true),
+                    VideoPlayer(_controller!),
+                    ControlsOverlay(controller: _controller!),
+                    VideoProgressIndicator(_controller!, allowScrubbing: true),
                   ],
                 ),
               )

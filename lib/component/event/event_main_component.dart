@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -8,6 +9,7 @@ import 'package:nostrmo/component/content/markdown/markdown_mention_event_elemen
 import 'package:nostrmo/component/event/event_zap_goals_component.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/simple_name_component.dart';
+import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -274,6 +276,14 @@ class _EventMainComponent extends State<EventMainComponent> {
             buildContentWidget(_settingProvider, imagePreview, videoPreview),
           );
         }
+      } else if (widget.event.kind == kind.EventKind.SHARED_FILE) {
+        list.add(buildSharedFileWidget());
+        list.add(EventReactionsComponent(
+          screenshotController: widget.screenshotController,
+          event: widget.event,
+          eventRelation: eventRelation,
+          showDetailBtn: widget.showDetailBtn,
+        ));
       } else {
         if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
           var textStyle = TextStyle(
@@ -679,6 +689,31 @@ class _EventMainComponent extends State<EventMainComponent> {
         ],
       ),
     );
+  }
+
+  Widget buildSharedFileWidget() {
+    var content = widget.event.content;
+    var type = widget.eventRelation!.type;
+
+    if (!content.startsWith(BASE64.PREFIX)) {
+      content = BASE64.PREFIX + content;
+    }
+
+    if (type != null && type.startsWith("image")) {
+      return ContentImageComponent(
+        imageUrl: content,
+      );
+    } else if (type != null && type.startsWith("video")) {
+      return ContentVideoComponent(
+        url: content,
+      );
+    } else {
+      log("buildSharedFileWidget not support type $type");
+      return ContentComponent(
+        content: widget.event.content,
+        event: widget.event,
+      );
+    }
   }
 }
 

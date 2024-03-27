@@ -10,6 +10,11 @@ class HashUtil {
     return hex.encode(digest.bytes);
   }
 
+  static String md5Bytes(List<int> content) {
+    var digest = crypto.md5.convert(content);
+    return hex.encode(digest.bytes);
+  }
+
   static String sha1Bytes(List<int> content) {
     var digest = crypto.sha1.convert(content);
     return hex.encode(digest.bytes);

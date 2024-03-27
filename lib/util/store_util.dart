@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:crypto/crypto.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:nostrmo/util/hash_util.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'string_util.dart';
@@ -40,6 +42,23 @@ class StoreUtil {
 
     var tempFile = File(tempFilePath);
     await tempFile.writeAsBytes(uint8list);
+
+    return tempFilePath;
+  }
+
+  static Future<String> saveBS2TempFileByMd5(
+      String extension, List<int> uint8list,
+      {String? randFolderName, String? filename}) async {
+    var md5Hash = HashUtil.md5Bytes(uint8list);
+
+    var tempDir = await getTemporaryDirectory();
+    var folderPath = tempDir.path;
+    var tempFilePath = folderPath + "/" + md5Hash + "." + extension;
+
+    var tempFile = File(tempFilePath);
+    if (!tempFile.existsSync()) {
+      await tempFile.writeAsBytes(uint8list);
+    }
 
     return tempFilePath;
   }

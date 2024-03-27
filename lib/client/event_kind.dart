@@ -27,6 +27,8 @@ class EventKind {
 
   static const int FILE_HEADER = 1063;
 
+  static const int SHARED_FILE = 1064;
+
   static const int COMMUNITY_APPROVED = 4550;
 
   static const int POLL = 6969;
@@ -61,6 +63,7 @@ class EventKind {
     EventKind.GENERIC_REPOST,
     EventKind.LONG_FORM,
     EventKind.FILE_HEADER,
+    EventKind.SHARED_FILE,
     EventKind.POLL,
     EventKind.ZAP_GOALS,
   ];

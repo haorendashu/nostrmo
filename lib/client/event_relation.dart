@@ -33,6 +33,8 @@ class EventRelation {
 
   String? dTag;
 
+  String? type;
+
   EventRelation.fromEvent(Event event) {
     id = event.id;
     pubkey = event.pubKey;
@@ -85,6 +87,8 @@ class EventRelation {
           zapraiser = value;
         } else if (tagKey == "d") {
           dTag = value;
+        } else if (tagKey == "type") {
+          type = value;
         }
       }
     }
