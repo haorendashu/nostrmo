@@ -91,8 +91,8 @@ class RelayIsolateWorker {
         }
         subToMainSendPort.send(json);
       }, onError: (error) async {
+        print("Websocket stream error:  $url");
         _closeWS(wsChannel);
-        wsChannel = null;
         subToMainSendPort.send(RelayIsolateMsgs.DIS_CONNECTED);
       }, onDone: () {
         print("Websocket stream closed by remote:  $url");
