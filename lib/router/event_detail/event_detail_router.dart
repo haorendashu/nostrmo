@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
@@ -34,15 +35,19 @@ class _EventDetailRouter extends State<EventDetailRouter> {
 
   double rootEventHeight = 120;
 
+  String? titlePubkey;
+
+  String? title;
+
   @override
   void initState() {
     super.initState();
     _controller.addListener(() {
-      if (_controller.offset > rootEventHeight * 0.8 && !showTitle) {
+      if (_controller.offset > rootEventHeight * 0.5 && !showTitle) {
         setState(() {
           showTitle = true;
         });
-      } else if (_controller.offset < rootEventHeight * 0.8 && showTitle) {
+      } else if (_controller.offset < rootEventHeight * 0.5 && showTitle) {
         setState(() {
           showTitle = false;
         });
@@ -71,8 +76,17 @@ class _EventDetailRouter extends State<EventDetailRouter> {
     var themeData = Theme.of(context);
 
     Widget? appBarTitle;
-    if (showTitle && event != null) {
-      appBarTitle = ThreadDetailRouter.detailAppBarTitle(event!, themeData);
+    if (showTitle) {
+      if ((StringUtil.isBlank(titlePubkey) || StringUtil.isBlank(title)) &&
+          event != null) {
+        titlePubkey = event!.pubKey;
+        title = ThreadDetailRouter.getAppBarTitle(event!);
+      }
+
+      if (StringUtil.isNotBlank(titlePubkey) && StringUtil.isNotBlank(title)) {
+        appBarTitle = ThreadDetailRouter.detailAppBarTitle(
+            titlePubkey!, title!, themeData);
+      }
     }
 
     Widget? mainEventWidget;
@@ -89,6 +103,8 @@ class _EventDetailRouter extends State<EventDetailRouter> {
             return EventLoadListComponent();
           } else {
             event = _event;
+            titlePubkey = event!.pubKey;
+            title = ThreadDetailRouter.getAppBarTitle(event!);
             return EventListComponent(
               event: _event,
               showVideo: true,

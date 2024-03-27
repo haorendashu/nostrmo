@@ -33,12 +33,17 @@ class ThreadDetailRouter extends StatefulWidget {
     return _ThreadDetailRouter();
   }
 
-  static Widget detailAppBarTitle(Event event, ThemeData themeData) {
+  static String getAppBarTitle(Event event) {
+    return event.content.replaceAll("\n", " ").replaceAll("\r", " ");
+  }
+
+  static Widget detailAppBarTitle(
+      String pubkey, String title, ThemeData themeData) {
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
 
     List<Widget> appBarTitleList = [];
     var nameComponnet = SimpleNameComponent(
-      pubkey: event.pubKey,
+      pubkey: pubkey,
       textStyle: TextStyle(
         fontSize: bodyLargeFontSize,
         color: themeData.appBarTheme.titleTextStyle!.color,
@@ -48,7 +53,7 @@ class ThreadDetailRouter extends StatefulWidget {
     appBarTitleList.add(Text(" : "));
     appBarTitleList.add(Expanded(
         child: Text(
-      event.content.replaceAll("\n", " ").replaceAll("\r", " "),
+      title,
       style: TextStyle(
         overflow: TextOverflow.ellipsis,
         fontSize: bodyLargeFontSize,
@@ -75,15 +80,19 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
   double rootEventHeight = 120;
 
+  String? titlePubkey;
+
+  String? title;
+
   @override
   void initState() {
     super.initState();
     _controller.addListener(() {
-      if (_controller.offset > rootEventHeight * 0.8 && !showTitle) {
+      if (_controller.offset > rootEventHeight * 0.5 && !showTitle) {
         setState(() {
           showTitle = true;
         });
-      } else if (_controller.offset < rootEventHeight * 0.8 && showTitle) {
+      } else if (_controller.offset < rootEventHeight * 0.5 && showTitle) {
         setState(() {
           showTitle = false;
         });
@@ -184,8 +193,17 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     var cardColor = themeData.cardColor;
 
     Widget? appBarTitle;
-    if (showTitle && rootEvent != null) {
-      appBarTitle = ThreadDetailRouter.detailAppBarTitle(rootEvent!, themeData);
+    if (showTitle) {
+      if ((StringUtil.isBlank(titlePubkey) || StringUtil.isBlank(title)) &&
+          rootEvent != null) {
+        titlePubkey = rootEvent!.pubKey;
+        title = ThreadDetailRouter.getAppBarTitle(rootEvent!);
+      }
+
+      if (StringUtil.isNotBlank(titlePubkey) && StringUtil.isNotBlank(title)) {
+        appBarTitle = ThreadDetailRouter.detailAppBarTitle(
+            titlePubkey!, title!, themeData);
+      }
     }
 
     Widget? rootEventWidget;
@@ -196,6 +214,9 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           if (event == null) {
             return EventLoadListComponent();
           }
+
+          titlePubkey = event.pubKey;
+          title = ThreadDetailRouter.getAppBarTitle(event);
 
           {
             // check if the rootEvent isn't rootEvent
@@ -243,6 +264,9 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
               doQuery();
             });
           }
+
+          titlePubkey = event.pubKey;
+          title = ThreadDetailRouter.getAppBarTitle(event);
 
           return EventListComponent(
             event: event,
