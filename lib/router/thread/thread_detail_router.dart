@@ -193,13 +193,11 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     var cardColor = themeData.cardColor;
 
     Widget? appBarTitle;
+    if (rootEvent != null) {
+      titlePubkey = rootEvent!.pubKey;
+      title = ThreadDetailRouter.getAppBarTitle(rootEvent!);
+    }
     if (showTitle) {
-      if ((StringUtil.isBlank(titlePubkey) || StringUtil.isBlank(title)) &&
-          rootEvent != null) {
-        titlePubkey = rootEvent!.pubKey;
-        title = ThreadDetailRouter.getAppBarTitle(rootEvent!);
-      }
-
       if (StringUtil.isNotBlank(titlePubkey) && StringUtil.isNotBlank(title)) {
         appBarTitle = ThreadDetailRouter.detailAppBarTitle(
             titlePubkey!, title!, themeData);

@@ -76,13 +76,11 @@ class _EventDetailRouter extends State<EventDetailRouter> {
     var themeData = Theme.of(context);
 
     Widget? appBarTitle;
+    if (event != null) {
+      titlePubkey = event!.pubKey;
+      title = ThreadDetailRouter.getAppBarTitle(event!);
+    }
     if (showTitle) {
-      if ((StringUtil.isBlank(titlePubkey) || StringUtil.isBlank(title)) &&
-          event != null) {
-        titlePubkey = event!.pubKey;
-        title = ThreadDetailRouter.getAppBarTitle(event!);
-      }
-
       if (StringUtil.isNotBlank(titlePubkey) && StringUtil.isNotBlank(title)) {
         appBarTitle = ThreadDetailRouter.detailAppBarTitle(
             titlePubkey!, title!, themeData);
