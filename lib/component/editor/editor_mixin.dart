@@ -680,7 +680,7 @@ mixin EditorMixin {
 
   Future<Event?> _handleSendingSendBoxEvent(
       Event e, List<String> extralRelays) async {
-    if (StringUtil.isNotBlank(e.sig)) {
+    if (StringUtil.isBlank(e.sig)) {
       nostr!.signEvent(e);
     }
 
