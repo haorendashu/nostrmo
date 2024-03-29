@@ -14,9 +14,9 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 [<img src="./docs/screenshots/mobile2.png" width=160>](./docs/screenshots/mobile2.png)
 [<img src="./docs/screenshots/mobile3.png" width=160>](./docs/screenshots/mobile3.png)
 [<img src="./docs/screenshots/mobile4.png" width=160>](./docs/screenshots/mobile4.png)<br/>
-[<img src="./docs/screenshots/pc1.jpeg" width=300>](./docs/screenshots/pc1.jpeg)
-[<img src="./docs/screenshots/pc2.jpeg" width=300>](./docs/screenshots/pc2.jpeg)
-[<img src="./docs/screenshots/pc3.jpeg" width=300>](./docs/screenshots/pc3.jpeg)
+[<img src="./docs/screenshots/pc1.jpeg" width=320>](./docs/screenshots/pc1.jpeg)
+[<img src="./docs/screenshots/pc2.jpeg" width=320>](./docs/screenshots/pc2.jpeg)
+[<img src="./docs/screenshots/pc3.jpeg" width=320>](./docs/screenshots/pc3.jpeg)
 
 ## Features
 
@@ -39,7 +39,7 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 - [x] NIP-21 (`nostr:` URI scheme)
 - [x] NIP-23 (Long-form Content)
 - [ ] NIP-24 (Extra metadata fields and tags)
-- [ ] NIP-25 (Reactions)
+- [x] NIP-25 (Reactions)
 - [ ] NIP-26 (Delegated Event Signing)
 - [x] NIP-27 (Text Note References)
 - [ ] NIP-28 (Public Chat)
@@ -68,6 +68,7 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 - [x] NIP-58 (Badges)
 - [x] NIP-59 (Gift Wrap)
 - [x] NIP-65 (Relay List Metadata)
+- [x] NIP-69 (Zap Polls)
 - [x] NIP-72 (Moderated Communities)
 - [x] NIP-75 (Zap Goals)
 - [ ] NIP-78 (Application-specific data)
@@ -76,6 +77,7 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 - [ ] NIP-90 (Data Vending Machines)
 - [ ] NIP-92 (Media Attachments)
 - [x] NIP-94 (File Metadata)
+- [x] NIP-95 (Shared File)
 - [x] NIP-96 (HTTP File Storage Integration)
 - [ ] NIP-98 (HTTP Auth)
 - [ ] NIP-99 (Classified Listings)
