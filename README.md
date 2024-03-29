@@ -10,13 +10,13 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 
 ## Screenshots
 
-<img src="./docs/screenshots/mobile1.png" width="100"/>
-<img src="./docs/screenshots/mobile2.png" width="100"/>
-<img src="./docs/screenshots/mobile3.png" width="100"/>
-<img src="./docs/screenshots/mobile4.png" width="100"/><br/>
-<img src="./docs/screenshots/pc1.jpeg" width="150"/>
-<img src="./docs/screenshots/pc2.jpeg" width="150"/>
-<img src="./docs/screenshots/pc3.jpeg" width="150"/>
+[<img src="./docs/screenshots/mobile1.png" width=160>](./docs/screenshots/mobile1.png)
+[<img src="./docs/screenshots/mobile2.png" width=160>](./docs/screenshots/mobile2.png)
+[<img src="./docs/screenshots/mobile3.png" width=160>](./docs/screenshots/mobile3.png)
+[<img src="./docs/screenshots/mobile4.png" width=160>](./docs/screenshots/mobile4.png)<br/>
+[<img src="./docs/screenshots/pc1.jpeg" width=300>](./docs/screenshots/pc1.jpeg)
+[<img src="./docs/screenshots/pc2.jpeg" width=300>](./docs/screenshots/pc2.jpeg)
+[<img src="./docs/screenshots/pc3.jpeg" width=300>](./docs/screenshots/pc3.jpeg)
 
 ## Features
 
