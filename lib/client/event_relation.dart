@@ -66,7 +66,6 @@ class EventRelation {
 
           pMap[value] = 1;
         } else if (tagKey == "e") {
-          tagEList.add(value);
           if (tagLength > 3) {
             var marker = tag[3];
             if (marker == "root") {
@@ -75,7 +74,10 @@ class EventRelation {
             } else if (marker == "reply") {
               replyId = value;
               replyRelayAddr = tag[2];
+            } else if (marker == "mention") {
+              continue;
             }
+            tagEList.add(value);
           }
         } else if (tagKey == "subject") {
           subject = value;
