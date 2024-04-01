@@ -70,7 +70,7 @@ class _DatetimePickerComponent extends State<DatetimePickerComponent> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
-    var mainColor = themeData.appBarTheme.backgroundColor;
+    var mainColor = themeData.primaryColor;
     var bigTextSize = themeData.textTheme.bodyLarge!.fontSize;
     var s = S.of(context);
 
