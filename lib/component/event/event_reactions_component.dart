@@ -436,6 +436,12 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       if (StringUtil.isNotBlank(er.rootRelayAddr)) {
         relayAddr = er.rootRelayAddr!;
       }
+      if (StringUtil.isBlank(relayAddr)) {
+        var rootEvent = singleEventProvider.getEvent(er.rootId!);
+        if (rootEvent != null && rootEvent.sources.isNotEmpty) {
+          relayAddr = rootEvent.sources[0];
+        }
+      }
       tags.add(["e", er.rootId, relayAddr, "root"]);
     }
 
