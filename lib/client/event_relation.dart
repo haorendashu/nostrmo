@@ -77,8 +77,8 @@ class EventRelation {
             } else if (marker == "mention") {
               continue;
             }
-            tagEList.add(value);
           }
+          tagEList.add(value);
         } else if (tagKey == "subject") {
           subject = value;
         } else if (tagKey == "content-warning") {
