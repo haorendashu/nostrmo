@@ -69,7 +69,10 @@ dependencies:
   flutter_inappwebview: ^6.0.0-rc.3
   screenshot: ^2.1.0
   share_plus: ^7.2.1
-  video_player: ^2.8.2
+  # video_player: ^2.8.2
+  media_kit: ^1.1.10+1
+  media_kit_video: ^1.2.4
+  media_kit_libs_video: ^1.0.4
   image_picker: ^1.0.7
   # keframe: ^3.0.0
   pretty_qr_code: ^2.0.3

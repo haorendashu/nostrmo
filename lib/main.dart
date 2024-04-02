@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:nostrmo/client/nostr.dart';
 import 'package:nostrmo/client/relay_local/relay_local_db.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
@@ -153,6 +156,12 @@ bool firstLogin = false;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // init video package
+  try {
+    MediaKit.ensureInitialized();
+  } catch (e) {
+    log("MediaKit init error $e");
+  }
 
   if (!PlatformUtil.isWeb() && PlatformUtil.isPC()) {
     await windowManager.ensureInitialized();

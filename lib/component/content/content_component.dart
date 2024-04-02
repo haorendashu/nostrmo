@@ -468,17 +468,17 @@ class _ContentComponent extends State<ContentComponent> {
         }
         return null;
       } else if (pathType == "video") {
-        if (widget.showVideo && !PlatformUtil.isPC()) {
-          // block
-          bufferToList(buffer, allList, removeLastSpan: true);
-          var vComponent = ContentVideoComponent(url: str);
-          allList.add(WidgetSpan(child: vComponent));
-          counterAddLines(fake_video_counter);
-        } else {
-          // inline
-          bufferToList(buffer, allList);
-          allList.add(buildLinkSpan(str));
-        }
+        // if (widget.showVideo && !PlatformUtil.isPC()) {
+        // block
+        bufferToList(buffer, allList, removeLastSpan: true);
+        var vComponent = ContentVideoComponent(url: str);
+        allList.add(WidgetSpan(child: vComponent));
+        counterAddLines(fake_video_counter);
+        // } else {
+        //   // inline
+        //   bufferToList(buffer, allList);
+        //   allList.add(buildLinkSpan(str));
+        // }
         return null;
       } else if (pathType == "link") {
         if (!widget.showLinkPreview) {
