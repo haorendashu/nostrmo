@@ -192,8 +192,9 @@ class Nostr {
     _pool.reconnect();
   }
 
-  List<String> getExtralReadableRelays(List<String> extralRelays) {
-    return _pool.getExtralReadableRelays(extralRelays);
+  List<String> getExtralReadableRelays(
+      List<String> extralRelays, int maxRelayNum) {
+    return _pool.getExtralReadableRelays(extralRelays, maxRelayNum);
   }
 
   void removeTempRelay(String addr) {

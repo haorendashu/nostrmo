@@ -257,14 +257,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       } else {
         relays = relayListMetadata.readAbleRelays;
       }
-      tempRelays = nostr!.getExtralReadableRelays(relays);
-
-      // only query from 2 temp relay
-      if (tempRelays.length > 2) {
-        tempRelays = []
-          ..add(tempRelays[0])
-          ..add(tempRelays[1]);
-      }
+      tempRelays = nostr!.getExtralReadableRelays(relays, 3);
     }
     return tempRelays;
   }

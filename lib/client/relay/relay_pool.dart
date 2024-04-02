@@ -393,18 +393,31 @@ class RelayPool {
     return tempRelay;
   }
 
-  List<String> getExtralReadableRelays(List<String> extralRelays) {
+  List<String> getExtralReadableRelays(
+      List<String> extralRelays, int maxRelayNum) {
     List<String> list = [];
 
+    int sameNum = 0;
     for (var extralRelay in extralRelays) {
       var relay = _relays[extralRelay];
       if (relay == null || !relay.relayStatus.readAccess) {
         // not contains or can't readable
         list.add(extralRelay);
+      } else {
+        sameNum++;
       }
     }
 
-    return list;
+    var needExtralNum = maxRelayNum - sameNum;
+    if (needExtralNum <= 0) {
+      return [];
+    }
+
+    if (list.length < needExtralNum) {
+      return list;
+    }
+
+    return list.sublist(0, needExtralNum);
   }
 
   void removeTempRelay(String addr) {
