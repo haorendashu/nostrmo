@@ -112,6 +112,11 @@ flutter build web --release --dart-define=FLUTTER_WEB_CANVASKIT_URL=./
 
 ### Linux
 
+You should install mpv first.
+```
+sudo apt install libmpv-dev mpv
+```
+
 ```
 flutter build linux --release
 ```
