@@ -138,11 +138,10 @@ class FollowEventProvider extends ChangeNotifier
       bool queriyTags = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
-      // tags query can't query by size! if will make timeline xxxx
-      // targetNostr.addInitQuery(
-      //     addTagFilter([filter.toJson()], queriyTags), onEvent,
-      //     id: subscribeId);
-      targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
+      targetNostr.addInitQuery(
+          addTagCommunityFilter([filter.toJson()], queriyTags), onEvent,
+          id: subscribeId);
+      // targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
     } else {
       if (!eventBox.isEmpty()) {
         var activeRelays = targetNostr.activeRelays();
