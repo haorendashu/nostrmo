@@ -265,17 +265,46 @@ class _EventMainComponent extends State<EventMainComponent> {
             event: repostEvent,
             showVideo: widget.showVideo,
           ));
-        } else if (StringUtil.isNotBlank(eventRelation.rootId)) {
-          list.add(EventQuoteComponent(
-            id: eventRelation.rootId,
-            eventRelayAddr: eventRelation.rootRelayAddr,
-            showVideo: widget.showVideo,
-          ));
         } else {
-          list.add(
-            buildContentWidget(_settingProvider, imagePreview, videoPreview),
-          );
+          var rootId = eventRelation.rootId;
+          var rootRelayAddr = eventRelation.rootRelayAddr;
+          if (StringUtil.isBlank(rootId)) {
+            // rootId can't find, try to find any e tag.
+            for (var tag in widget.event.tags) {
+              if (tag.length > 1) {
+                var k = tag[0];
+                var v = tag[1];
+
+                if (k == "e") {
+                  rootId = v;
+                  if (tag.length > 2 && tag[2] != "") {
+                    rootRelayAddr = tag[2];
+                  }
+                  break;
+                }
+              }
+            }
+          }
+
+          if (StringUtil.isNotBlank(rootId)) {
+            list.add(EventQuoteComponent(
+              id: rootId,
+              eventRelayAddr: rootRelayAddr,
+              showVideo: widget.showVideo,
+            ));
+          } else {
+            list.add(
+              buildContentWidget(_settingProvider, imagePreview, videoPreview),
+            );
+          }
         }
+
+        list.add(EventReactionsComponent(
+          screenshotController: widget.screenshotController,
+          event: widget.event,
+          eventRelation: eventRelation,
+          showDetailBtn: widget.showDetailBtn,
+        ));
       } else if (widget.event.kind == kind.EventKind.SHARED_FILE) {
         list.add(buildSharedFileWidget());
         list.add(EventReactionsComponent(
