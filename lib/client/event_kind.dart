@@ -47,6 +47,8 @@ class EventKind {
 
   static const int AUTHENTICATION = 22242;
 
+  static const int FOLLOW_SETS = 30000;
+
   static const int BADGE_ACCEPT = 30008;
 
   static const int BADGE_DEFINITION = 30009;
