@@ -311,8 +311,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Klucz to losowy ciąg, podobny do hasła konta. Każdy, kto jest właścicielem tego klucza, może uzyskać dostęp do Twojego konta i kontrolować go."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Kolory motywu"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Typ motywu"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Powinien tu być wszechświat."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Powinien tu być wszechświat."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Ta dynamika zawiera wrażliwe treści"),

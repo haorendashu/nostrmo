@@ -291,7 +291,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "المفتاح عبارة عن سلسلة عشوائية تشبه كلمة مرور حسابك . أي شخص لديه هذا المفتاح يمكن الوصول إلى الحساب الخاص بك والتحكم فيها ."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("موضوع اللون"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("نوع الموضوع"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("يجب أن يكون هناك عالم"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(

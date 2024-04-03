@@ -299,7 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Khóa là một chuỗi ngẫu nhiên, tương tự như mật khẩu tài khoản của bạn. Bất cứ ai có khóa này đều có thể truy cập và kiểm soát tài khoản của bạn."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Màu sắc chủ đề"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Loại chủ đề"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("Phải có một vũ trụ ở đây."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(

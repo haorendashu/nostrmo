@@ -245,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "密钥是一个随机字符串，类似于您的帐户密码。任何拥有此密钥的人都可以访问和控制您的帐户。"),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("主题颜色"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("主题类型"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("这里应该有一个宇宙"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("该动态包含敏感内容"),
@@ -285,7 +285,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zap数量不能小于"),
         "add_poll_option": MessageLookupByLibrary.simpleMessage("添加投票选项"),
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
-        "boosted": MessageLookupByLibrary.simpleMessage("促进"),
+        "boosted": MessageLookupByLibrary.simpleMessage("转发"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
         "key_has_been_copy": MessageLookupByLibrary.simpleMessage("密钥复制成功"),
         "liked": MessageLookupByLibrary.simpleMessage("喜欢"),

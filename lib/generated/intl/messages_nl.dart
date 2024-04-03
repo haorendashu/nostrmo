@@ -307,8 +307,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "De sleutel is een willekeurige tekenreeks, vergelijkbaar met uw accountwachtwoord. Iedereen die eigenaar is van deze sleutel heeft toegang tot en controle over uw account."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Themakleuren"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Thematype"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Er zou hier een universum moeten zijn."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Er zou hier een universum moeten zijn."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Deze dynamiek bevat gevoelige inhoud"),

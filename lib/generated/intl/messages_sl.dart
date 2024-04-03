@@ -305,8 +305,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Ključ je naključni niz, podoben geslu vašega računa. Vsakdo, ki je lastnik tega ključa, lahko dostopa do vašega računa in ga nadzira."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Barve teme"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Vrsta teme"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Tukaj bi moralo biti vesolje."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Tukaj bi moralo biti vesolje."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Ta dinamika vsebuje občutljivo vsebino"),

@@ -298,7 +298,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Võti on juhuslik string, mis sarnaneb teie konto parooliga. Kõik, kellele see võti kuulub, saavad teie kontole ligi pääseda ja seda kontrollida."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Teema värvid"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Teema tüüp"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("Siin peaks olema universum."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(

@@ -316,7 +316,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Theme_Color":
             MessageLookupByLibrary.simpleMessage("Цветове на темата"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Тип тема"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("Тук трябва да има вселена."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(

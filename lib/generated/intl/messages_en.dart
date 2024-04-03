@@ -302,8 +302,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "The key is a random string that resembles your account password. Anyone with this key can access and control your account."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Theme Color"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Theme Style"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "There should be a universe here"),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "There should be an universe here"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "This note contains sensitive content"),

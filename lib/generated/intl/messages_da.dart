@@ -304,8 +304,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Nøglen er en tilfældig streng, der ligner din kontoadgangskode. Enhver, der ejer denne nøgle, kan få adgang til og kontrollere din konto."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Temafarver"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Tematype"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Der burde være et univers her"),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Der burde være et univers her"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Denne dynamik indeholder følsomt indhold"),

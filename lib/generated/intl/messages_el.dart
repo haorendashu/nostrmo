@@ -315,8 +315,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Το κλειδί είναι μια τυχαία συμβολοσειρά, παρόμοια με τον κωδικό πρόσβασης του λογαριασμού σας. Οποιοσδήποτε κατέχει αυτό το κλειδί μπορεί να έχει πρόσβαση και να ελέγχει το λογαριασμό σας."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Χρώματα θέματος"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Τύπος θέματος"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Πρέπει να υπάρχει ένα σύμπαν εδώ."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Πρέπει να υπάρχει ένα σύμπαν εδώ."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Αυτή η δυναμική περιέχει ευαίσθητο περιεχόμενο"),

@@ -313,8 +313,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La clé est une chaîne aléatoire, similaire au mot de passe de votre compte. Toute personne possédant cette clé peut accéder et contrôler votre compte."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Couleur du thème"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Type de thème"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Il devrait y avoir un univers ici"),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Il devrait y avoir un univers ici"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Cette dynamique contient du contenu sensible"),

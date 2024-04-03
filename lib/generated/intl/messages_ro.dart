@@ -308,8 +308,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Cheia este un șir aleatoriu, similar cu parola contului. Oricine deține această cheie poate accesa și controla contul dvs."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Culori tematice"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Tip temă"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Ar trebui să fie un univers aici."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Ar trebui să fie un univers aici."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Această dinamică conține conținut sensibil"),

@@ -299,7 +299,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Klíč je náhodný řetězec, podobný heslu vašeho účtu. Každý, kdo tento klíč vlastní, může přístup k vašemu účtu a ovládat ho."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Barvy motivu"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Typ motivu"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("Měl by tu být vesmír."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(

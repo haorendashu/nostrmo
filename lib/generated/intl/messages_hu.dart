@@ -300,8 +300,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "A kulcs egy véletlenszerű karakterlánc, hasonló a fiókjához. Bárki, aki ezt a kulcsot birtokolja, hozzáférhet és irányíthatja a fiókját."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Témaszínek"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Téma típusa"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Itt kellene lennie egy univerzumnak."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Itt kellene lennie egy univerzumnak."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Ez a dinamika érzékeny tartalmat tartalmaz"),

@@ -254,7 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "키는 계정 암호와 유사한 임의의 문자열입니다.이 키를 가진 사람은 누구나 계정에 액세스하고 제어할 수 있습니다."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("테마 색상"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("주제 유형"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("여기 우주가 있을 거예요."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("이 동적에는 중요한 컨텐트가 포함됩니다."),

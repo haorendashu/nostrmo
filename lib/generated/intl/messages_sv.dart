@@ -301,8 +301,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Nyckeln är en slumpmässig sträng, som liknar ditt kontolösenord. Alla som äger den här nyckeln kan komma åt och kontrollera ditt konto."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Temafärger"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Tematyp"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Det borde finnas ett universum här."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Det borde finnas ett universum här."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Den här dynamiken innehåller känsligt innehåll"),

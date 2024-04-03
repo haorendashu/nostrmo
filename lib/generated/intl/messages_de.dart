@@ -306,8 +306,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Der Schlüssel ist eine zufällige Zeichenfolge, ähnlich Ihrem Kontopasswort. Jeder, der diesen Schlüssel besitzt, kann auf Ihr Konto zugreifen und diese kontrollieren."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Designfarben"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Thementyp"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Es sollte hier ein Universum geben."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Es sollte hier ein Universum geben."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Diese Dynamik enthält sensible Inhalte"),

@@ -245,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "金鑰是一個隨機字串，類似於您的帳戶密碼。 任何擁有此金鑰的人都可以訪問和控制您的帳戶。"),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("主題顏色"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("主題類型"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("這裡應該有一個宇宙"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("該動態包含敏感內容"),

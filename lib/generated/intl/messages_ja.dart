@@ -261,7 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "鍵は、アカウントのパスワードに似たランダムな文字列です。この鍵を所有している人は、アカウントにアクセスして制御することができます。"),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("テーマの色"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("トピック・タイプ"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("ここには宇宙があるはずだ"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("動的に機密情報が含まれている"),

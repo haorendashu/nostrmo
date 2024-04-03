@@ -303,8 +303,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Avain on satunnainen merkkijono, joka muistuttaa tilisi salasanaa. Kuka tahansa, joka omistaa tämän avaimen, voi käyttää tiliäsi ja hallita sitä."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Teeman värit"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Teeman tyyppi"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Täällä pitäisi olla universumi."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Täällä pitäisi olla universumi."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Tämä dynamiikka sisältää arkaluonteista sisältöä"),

@@ -308,8 +308,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La chiave è una stringa casuale, simile alla password del tuo account. Chiunque possieda questa chiave può accedere e controllare il tuo account."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Colori del tema"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Tipo di tema"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Ci dovrebbe essere un universo qui"),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Ci dovrebbe essere un universo qui"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Questa dinamica contiene contenuti sensibili"),

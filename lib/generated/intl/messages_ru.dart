@@ -309,8 +309,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Ключ - это случайная строка, похожая на пароль вашей учетной записи. Любой, у кого есть этот ключ, может получить доступ к вашей учетной записи и контролировать ее."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Цвет темы"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Тип темы"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Здесь должна быть вселенная."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Здесь должна быть вселенная."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Эта динамика содержит чувствительный контент."),
