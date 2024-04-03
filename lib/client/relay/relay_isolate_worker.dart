@@ -29,7 +29,13 @@ class RelayIsolateWorker {
     var mainToSubSendPort = mainToSubReceivePort.sendPort;
     config.subToMainSendPort.send(mainToSubSendPort);
 
-    mainToSubReceivePort.listen((message) async {
+    mainToSubReceivePort.listen(onMainToSubMessage);
+
+    wsChannel = await handleWS();
+  }
+
+  void onMainToSubMessage(message) async {
+    try {
       if (message is String) {
         // this is the msg need to sended.
         if (wsChannel != null) {
@@ -56,9 +62,11 @@ class RelayIsolateWorker {
           config.subToMainSendPort.send(RelayIsolateMsgs.DIS_CONNECTED);
         }
       }
-    });
-
-    wsChannel = await handleWS();
+    } catch (e) {
+      // catch error on handle mainToSubMessage, close, and it will reconnect again.
+      _closeWS(wsChannel);
+      config.subToMainSendPort.send(RelayIsolateMsgs.DIS_CONNECTED);
+    }
   }
 
   static void runRelayIsolate(RelayIsolateConfig config) {
