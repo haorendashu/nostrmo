@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/relay/relay.dart';
 import 'package:nostrmo/component/comfirm_dialog.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
@@ -134,6 +135,20 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              RouterUtil.router(context, RouterPath.RELAYHUB);
+            },
+            child: Container(
+              padding: EdgeInsets.only(right: Base.BASE_PADDING),
+              child: Icon(
+                Icons.cloud,
+                color: themeData.appBarTheme.titleTextStyle!.color,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(children: [
         Expanded(

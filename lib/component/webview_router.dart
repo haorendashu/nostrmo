@@ -224,16 +224,22 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
       appbar = AppBar(
         backgroundColor: mainColor,
         leading: GestureDetector(
-          child: Icon(Icons.arrow_back_ios_new),
           onTap: handleBack,
+          child: Icon(
+            Icons.arrow_back_ios_new,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
         ),
         actions: [
           getMoreWidget(Container(
             height: btnWidth,
             width: btnWidth,
-            margin: EdgeInsets.only(right: Base.BASE_PADDING),
-            child: Icon(Icons.more_horiz),
+            margin: const EdgeInsets.only(right: Base.BASE_PADDING),
             alignment: Alignment.center,
+            child: Icon(
+              Icons.more_horiz,
+              color: themeData.appBarTheme.titleTextStyle!.color,
+            ),
           ))
         ],
       );

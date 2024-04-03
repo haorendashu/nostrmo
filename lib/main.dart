@@ -19,6 +19,7 @@ import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
+import 'package:nostrmo/router/relayhub/relayhub_router.dart';
 import 'package:nostrmo/router/relays/relay_info_router.dart';
 import 'package:nostrmo/router/user/followed_router.dart';
 import 'package:nostrmo/router/user/followed_tags_list_router.dart';
@@ -311,6 +312,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
       RouterPath.NOTICES: (context) => NoticeRouter(),
       RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
+      RouterPath.RELAYHUB: (context) => RelayhubRouter(),
       RouterPath.RELAYS: (context) => RelaysRouter(),
       RouterPath.FILTER: (context) => FilterRouter(),
       RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),

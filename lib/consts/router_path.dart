@@ -4,6 +4,7 @@ class RouterPath {
   static const String DONATE = "/donate";
   static const String NOTICES = "/notices";
   static const String KEY_BACKUP = "/keyBackup";
+  static const String RELAYHUB = "/relayhub";
   static const String RELAYS = "/relays";
   static const String FILTER = "/filter";
   static const String USER = "/user";
