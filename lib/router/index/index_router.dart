@@ -141,7 +141,6 @@ class _IndexRouter extends CustState<IndexRouter>
       return Scaffold();
     }
 
-    var _musicProvider = Provider.of<MusicProvider>(context);
     var _indexProvider = Provider.of<IndexProvider>(context);
     _indexProvider.setFollowTabController(followTabController);
     _indexProvider.setGlobalTabController(globalsTabController);
@@ -296,31 +295,39 @@ class _IndexRouter extends CustState<IndexRouter>
       )),
     );
 
-    Widget mainIndex = Column(
-      children: [
-        IndexAppBar(
-          center: appBarCenter,
-        ),
-        mainCenterWidget,
-      ],
-    );
+    Widget mainIndex = Selector<MusicProvider, MusicInfo?>(
+      builder: ((context, musicInfo, child) {
+        if (musicInfo != null) {
+          return Stack(
+            children: [
+              child!,
+              Positioned(
+                bottom: Base.BASE_PADDING,
+                left: 0,
+                right: 0,
+                child: MusicComponent(
+                  musicInfo,
+                  clearAble: true,
+                ),
+              ),
+            ],
+          );
+        }
 
-    if (_musicProvider.musicInfo != null) {
-      mainIndex = Stack(
+        return child!;
+      }),
+      selector: (context, _provider) {
+        return _provider.musicInfo;
+      },
+      child: Column(
         children: [
-          mainIndex,
-          Positioned(
-            bottom: Base.BASE_PADDING,
-            left: 0,
-            right: 0,
-            child: MusicComponent(
-              _musicProvider.musicInfo!,
-              clearAble: true,
-            ),
+          IndexAppBar(
+            center: appBarCenter,
           ),
+          mainCenterWidget,
         ],
-      );
-    }
+      ),
+    );
 
     if (PlatformUtil.isTableMode()) {
       var maxWidth = mediaDataCache.size.width;

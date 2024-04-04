@@ -69,6 +69,8 @@ class _MusicComponent extends State<MusicComponent> {
       Text(
         widget.musicInfo.name,
         style: subInfoTextStyle,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     ];
     if (isCurrent &&
@@ -79,6 +81,8 @@ class _MusicComponent extends State<MusicComponent> {
       musicSubInfos.add(Text(
         "  •  ${currentPosition.prettyDuration()} / ${currentDuration.prettyDuration()}",
         style: subInfoTextStyle,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ));
     }
 
