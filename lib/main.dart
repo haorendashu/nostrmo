@@ -19,6 +19,7 @@ import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
+import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/router/relayhub/relayhub_router.dart';
 import 'package:nostrmo/router/relays/relay_info_router.dart';
 import 'package:nostrmo/router/user/followed_router.dart';
@@ -56,6 +57,7 @@ import 'provider/list_provider.dart';
 import 'provider/list_set_provider.dart';
 import 'provider/mention_me_provider.dart';
 import 'provider/metadata_provider.dart';
+import 'provider/music_info_cache.dart';
 import 'provider/pc_router_fake_provider.dart';
 import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
@@ -149,6 +151,10 @@ late BadgeProvider badgeProvider;
 
 late GiftWrapProvider giftWrapProvider;
 
+late MusicProvider musicProvider;
+
+MusicInfoCache musicInfoCache = MusicInfoCache();
+
 RelayLocalDB? relayLocalDB;
 
 Nostr? nostr;
@@ -238,6 +244,7 @@ Future<void> main() async {
   listSetProvider = ListSetProvider();
   badgeProvider = BadgeProvider();
   giftWrapProvider = GiftWrapProvider();
+  musicProvider = MusicProvider()..init();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -403,6 +410,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<BadgeProvider>.value(
           value: badgeProvider,
+        ),
+        ListenableProvider<MusicProvider>.value(
+          value: musicProvider,
         ),
       ],
       child: HomeComponent(

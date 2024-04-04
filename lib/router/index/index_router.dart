@@ -8,10 +8,13 @@ import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostrmo/client/cashu/cashu_tokens.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
+import 'package:nostrmo/component/music/music_component.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/pc_router_fake.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/pc_router_fake_provider.dart';
 import 'package:nostrmo/router/thread/thread_detail_router.dart';
 import 'package:nostrmo/router/user/user_router.dart';
@@ -138,6 +141,7 @@ class _IndexRouter extends CustState<IndexRouter>
       return Scaffold();
     }
 
+    var _musicProvider = Provider.of<MusicProvider>(context);
     var _indexProvider = Provider.of<IndexProvider>(context);
     _indexProvider.setFollowTabController(followTabController);
     _indexProvider.setGlobalTabController(globalsTabController);
@@ -292,7 +296,7 @@ class _IndexRouter extends CustState<IndexRouter>
       )),
     );
 
-    var mainIndex = Column(
+    Widget mainIndex = Column(
       children: [
         IndexAppBar(
           center: appBarCenter,
@@ -300,6 +304,23 @@ class _IndexRouter extends CustState<IndexRouter>
         mainCenterWidget,
       ],
     );
+
+    if (_musicProvider.musicInfo != null) {
+      mainIndex = Stack(
+        children: [
+          mainIndex,
+          Positioned(
+            bottom: Base.BASE_PADDING,
+            left: 0,
+            right: 0,
+            child: MusicComponent(
+              _musicProvider.musicInfo!,
+              clearAble: true,
+            ),
+          ),
+        ],
+      );
+    }
 
     if (PlatformUtil.isTableMode()) {
       var maxWidth = mediaDataCache.size.width;
