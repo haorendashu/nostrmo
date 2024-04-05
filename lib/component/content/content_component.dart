@@ -20,6 +20,7 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/platform_util.dart';
 import '../event/event_quote_component.dart';
+import '../music/blank_link_music_info_builder.dart';
 import '../webview_router.dart';
 import 'content_cashu_component.dart';
 import 'content_custom_emoji_component.dart';
@@ -510,6 +511,17 @@ class _ContentComponent extends State<ContentComponent> {
           allList.add(WidgetSpan(child: w));
           counterAddLines(fake_link_pre_counter);
         }
+
+        return null;
+      } else if (pathType == "audio") {
+        String? eventId;
+        if (widget.event != null) {
+          eventId = widget.event!.id;
+        }
+        bufferToList(buffer, allList, removeLastSpan: true);
+        var w = ContentMusicComponent(eventId, str, blankLinkMusicInfoBuilder);
+        allList.add(WidgetSpan(child: w));
+        counterAddLines(fake_music_counter);
 
         return null;
       }
