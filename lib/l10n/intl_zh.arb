@@ -230,5 +230,19 @@
     "Contact": "联系人",
     "Soft": "应用",
     "Version": "版本",
-    "Relay_Info": "中继信息"
+    "Relay_Info": "中继信息",
+    "DMs": "私信",
+    "Close_Private_DM": "关闭私密私信",
+    "Open_Private_DM": "打开私密私信",
+    "Image_or_Video": "图片或视频",
+    "Take_photo": "拍照",
+    "Custom_Emoji": "自定义表情",
+    "Emoji": "表情",
+    "Mention_User": "提到用户",
+    "Hashtag": "标签",
+    "Sensitive_Content": "敏感内容",
+    "Subject": "标题",
+    "Delay_Send": "延长发布",
+    "Poll": "投票",
+    "Zap_Goals": "Zap目标"
 }

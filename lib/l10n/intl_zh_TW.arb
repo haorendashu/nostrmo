@@ -230,5 +230,6 @@
     "or": "或者",
     "poll_option_info": "投票選項資訊",
     "replied": "回復",
-    "terms_of_user": "使用者協定"
+    "terms_of_user": "使用者協定",
+    "DMs": "私訊"
 }

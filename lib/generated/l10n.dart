@@ -2459,6 +2459,156 @@ class S {
       args: [],
     );
   }
+
+  /// `DMs`
+  String get DMs {
+    return Intl.message(
+      'DMs',
+      name: 'DMs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close Private DM`
+  String get Close_Private_DM {
+    return Intl.message(
+      'Close Private DM',
+      name: 'Close_Private_DM',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open Private DM`
+  String get Open_Private_DM {
+    return Intl.message(
+      'Open Private DM',
+      name: 'Open_Private_DM',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image or Video`
+  String get Image_or_Video {
+    return Intl.message(
+      'Image or Video',
+      name: 'Image_or_Video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take photo`
+  String get Take_photo {
+    return Intl.message(
+      'Take photo',
+      name: 'Take_photo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Take video`
+  String get Take_video {
+    return Intl.message(
+      'Take video',
+      name: 'Take_video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom Emoji`
+  String get Custom_Emoji {
+    return Intl.message(
+      'Custom Emoji',
+      name: 'Custom_Emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Emoji`
+  String get Emoji {
+    return Intl.message(
+      'Emoji',
+      name: 'Emoji',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mention User`
+  String get Mention_User {
+    return Intl.message(
+      'Mention User',
+      name: 'Mention_User',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hashtag`
+  String get Hashtag {
+    return Intl.message(
+      'Hashtag',
+      name: 'Hashtag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sensitive Content`
+  String get Sensitive_Content {
+    return Intl.message(
+      'Sensitive Content',
+      name: 'Sensitive_Content',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subject`
+  String get Subject {
+    return Intl.message(
+      'Subject',
+      name: 'Subject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delay Send`
+  String get Delay_Send {
+    return Intl.message(
+      'Delay Send',
+      name: 'Delay_Send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Poll`
+  String get Poll {
+    return Intl.message(
+      'Poll',
+      name: 'Poll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zap Goals`
+  String get Zap_Goals {
+    return Intl.message(
+      'Zap Goals',
+      name: 'Zap_Goals',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

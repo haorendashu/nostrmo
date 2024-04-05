@@ -73,6 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("自定義"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("自定義顏色"),
         "Custom_Font_Family": MessageLookupByLibrary.simpleMessage("自定義字體"),
+        "DMs": MessageLookupByLibrary.simpleMessage("私訊"),
         "Dark": MessageLookupByLibrary.simpleMessage("深色"),
         "Data": MessageLookupByLibrary.simpleMessage("數據"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("默認顏色"),

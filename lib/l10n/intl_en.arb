@@ -239,5 +239,20 @@
     "Contact": "Contact",
     "Soft": "Soft",
     "Version": "Version",
-    "Relay_Info": "Relay Info"
+    "Relay_Info": "Relay Info",
+    "DMs": "DMs",
+    "Close_Private_DM": "Close Private DM",
+    "Open_Private_DM": "Open Private DM",
+    "Image_or_Video": "Image or Video",
+    "Take_photo": "Take photo",
+    "Take_video": "Take video",
+    "Custom_Emoji": "Custom Emoji",
+    "Emoji": "Emoji",
+    "Mention_User": "Mention User",
+    "Hashtag": "Hashtag",
+    "Sensitive_Content": "Sensitive Content",
+    "Subject": "Subject",
+    "Delay_Send": "Delay Send",
+    "Poll": "Poll",
+    "Zap_Goals": "Zap Goals"
 }

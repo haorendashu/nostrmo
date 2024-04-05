@@ -54,6 +54,8 @@ mixin EditorMixin {
 
   ZapGoalInputController zapGoalInputController = ZapGoalInputController();
 
+  ScrollController btnScrollController = ScrollController();
+
   var focusNode = FocusNode();
 
   bool inputPoll = false;
@@ -90,6 +92,7 @@ mixin EditorMixin {
     bool showShadow = true,
     double? height = IndexAppBar.height,
   }) {
+    var s = S.of(getContext());
     var themeData = Theme.of(getContext());
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var hintColor = themeData.hintColor;
@@ -103,6 +106,7 @@ mixin EditorMixin {
             color: openPrivateDM ? mainColor : null),
         isSelected: false,
         iconTheme: null,
+        tooltip: openPrivateDM ? s.Close_Private_DM : s.Open_Private_DM,
       ));
     }
     if (!PlatformUtil.isWeb()) {
@@ -111,6 +115,7 @@ mixin EditorMixin {
         icon: Icon(Icons.image),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Image_or_Video,
       ));
     }
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
@@ -119,12 +124,14 @@ mixin EditorMixin {
         icon: Icon(Icons.camera),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Take_photo,
       ));
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: tackAVideo,
         icon: Icon(Icons.video_call),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Take_video,
       ));
     }
     inputBtnList.addAll([
@@ -133,36 +140,42 @@ mixin EditorMixin {
         icon: Icon(Icons.bolt),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Lightning_Invoice,
       ),
       quill.QuillToolbarIconButton(
         onPressed: customEmojiSelect,
         icon: Icon(Icons.add_reaction_outlined),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Custom_Emoji,
       ),
       quill.QuillToolbarIconButton(
         onPressed: emojiBeginToSelect,
         icon: Icon(Icons.tag_faces),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Emoji,
       ),
       quill.QuillToolbarIconButton(
         onPressed: _inputMentionUser,
         icon: Icon(Icons.alternate_email_sharp),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Mention_User,
       ),
       quill.QuillToolbarIconButton(
         onPressed: _inputMentionEvent,
         icon: Icon(Icons.format_quote),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Quote,
       ),
       quill.QuillToolbarIconButton(
         onPressed: _inputTag,
         icon: Icon(Icons.tag),
         isSelected: false,
         iconTheme: null,
+        tooltip: s.Hashtag,
       ),
       // Expanded(child: Container())
     ]);
@@ -174,12 +187,14 @@ mixin EditorMixin {
           icon: Icon(Icons.warning, color: showWarning ? Colors.red : null),
           isSelected: false,
           iconTheme: null,
+          tooltip: s.Sensitive_Content,
         ),
         quill.QuillToolbarIconButton(
           onPressed: _addTitle,
           icon: Icon(Icons.title, color: showTitle ? mainColor : null),
           isSelected: false,
           iconTheme: null,
+          tooltip: s.Subject,
         ),
         quill.QuillToolbarIconButton(
           onPressed: selectedTime,
@@ -187,6 +202,7 @@ mixin EditorMixin {
               color: publishAt != null ? mainColor : null),
           isSelected: false,
           iconTheme: null,
+          tooltip: s.Delay_Send,
         )
       ]);
     }
@@ -201,6 +217,7 @@ mixin EditorMixin {
         isSelected: false,
         iconTheme: null,
         // fillColor: inputPoll ? mainColor.withOpacity(0.5) : null,
+        tooltip: s.Poll,
       ));
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: _inputGoal,
@@ -208,6 +225,7 @@ mixin EditorMixin {
         isSelected: false,
         iconTheme: null,
         // fillColor: inputZapGoal ? mainColor.withOpacity(0.5) : null,
+        tooltip: s.Zap_Goals,
       ));
     }
 
@@ -233,11 +251,18 @@ mixin EditorMixin {
               ]
             : null,
       ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: inputBtnList,
+      child: GestureDetector(
+        onHorizontalDragUpdate: (detail) {
+          btnScrollController
+              .jumpTo(btnScrollController.offset - detail.delta.dx);
+        },
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          controller: btnScrollController,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: inputBtnList,
+          ),
         ),
       ),
     );
