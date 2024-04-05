@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 class Metadata {
   String? pubKey;
   String? name;
@@ -35,7 +38,9 @@ class Metadata {
     banner = json['banner'];
     website = json['website'];
     about = json['about'];
-    nip05 = json['nip05'];
+    if (json['nip05'] != null && json['nip05'] is String) {
+      nip05 = json['nip05'];
+    }
     lud16 = json['lud16'];
     lud06 = json['lud06'];
     if (json['updated_at'] != null && json['updated_at'] is int) {
