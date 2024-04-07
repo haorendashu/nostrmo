@@ -56,12 +56,23 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
         left: Base.BASE_PADDING,
         bottom: Base.BASE_PADDING_HALF,
       ),
-      child: Text(
-        s.MyRelays,
-        style: TextStyle(
-          fontSize: titleFontSize,
-          fontWeight: FontWeight.bold,
-        ),
+      child: Row(
+        children: [
+          Text(
+            s.MyRelays,
+            style: TextStyle(
+              fontSize: titleFontSize,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          GestureDetector(
+            onTap: testAllMyRelaysSpeed,
+            child: Container(
+              margin: EdgeInsets.only(left: Base.BASE_PADDING),
+              child: Icon(Icons.speed),
+            ),
+          )
+        ],
       ),
     ));
     for (var i = 0; i < relayAddrs.length; i++) {
@@ -233,4 +244,12 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
   //   }
   // }
   // }
+
+  void testAllMyRelaysSpeed() {
+    var relayAddrs = relayProvider.relayAddrs;
+    for (var i = 0; i < relayAddrs.length; i++) {
+      var relayAddr = relayAddrs[i];
+      urlSpeedProvider.testSpeed(relayAddr);
+    }
+  }
 }

@@ -187,9 +187,9 @@ class RelayProvider extends ChangeNotifier {
     }
   }
 
-  bool containRelay(String relayAddr) {
-    return relayAddrs.contains(relayAddr);
-  }
+  // bool containRelay(String relayAddr) {
+  //   return relayAddrs.contains(relayAddr);
+  // }
 
   void saveRelay() {
     _updateRelayToContactList();

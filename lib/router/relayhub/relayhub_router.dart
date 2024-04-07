@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/placeholder/user_relay_placeholder.dart';
 import 'package:nostrmo/generated/l10n.dart';
+import 'package:nostrmo/main.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';
@@ -79,6 +80,18 @@ class _RelayhubRouter extends CustState<RelayhubRouter> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          GestureDetector(
+            onTap: testAllSpeed,
+            child: Container(
+              padding: EdgeInsets.only(right: Base.BASE_PADDING),
+              child: Icon(
+                Icons.speed,
+                color: themeData.appBarTheme.titleTextStyle!.color,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Container(
         margin: const EdgeInsets.only(
@@ -102,5 +115,11 @@ class _RelayhubRouter extends CustState<RelayhubRouter> {
     }
 
     setState(() {});
+  }
+
+  Future<void> testAllSpeed() async {
+    for (var addr in addrs) {
+      await urlSpeedProvider.testSpeed(addr);
+    }
   }
 }

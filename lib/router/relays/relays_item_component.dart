@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/router/relays/relay_speed_component.dart';
 import 'package:nostrmo/util/router_util.dart';
 
 import '../../consts/base.dart';
@@ -13,7 +14,7 @@ import '../../consts/client_connected.dart';
 import '../../data/relay_status.dart';
 import '../../generated/l10n.dart';
 
-class RelaysItemComponent extends StatelessWidget {
+class RelaysItemComponent extends StatefulWidget {
   String addr;
 
   RelayStatus relayStatus;
@@ -30,14 +31,21 @@ class RelaysItemComponent extends StatelessWidget {
   });
 
   @override
+  State<StatefulWidget> createState() {
+    return _RelaysItemComponent();
+  }
+}
+
+class _RelaysItemComponent extends State<RelaysItemComponent> {
+  @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var smallFontSize = themeData.textTheme.bodySmall!.fontSize;
     var cardColor = themeData.cardColor;
     Color borderLeftColor = Colors.green;
-    if (relayStatus.connected == ClientConneccted.UN_CONNECT) {
+    if (widget.relayStatus.connected == ClientConneccted.UN_CONNECT) {
       borderLeftColor = Colors.red;
-    } else if (relayStatus.connected == ClientConneccted.CONNECTING) {
+    } else if (widget.relayStatus.connected == ClientConneccted.CONNECTING) {
       borderLeftColor = Colors.yellow;
     }
 
@@ -47,7 +55,7 @@ class RelaysItemComponent extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 2),
-          child: Text(addr),
+          child: Text(widget.addr),
         ),
         Row(
           children: [
@@ -55,14 +63,14 @@ class RelaysItemComponent extends StatelessWidget {
               margin: EdgeInsets.only(right: Base.BASE_PADDING),
               child: RelaysItemNumComponent(
                 iconData: Icons.mail,
-                num: relayStatus.noteReceived,
+                num: widget.relayStatus.noteReceived,
               ),
             ),
             Container(
               child: RelaysItemNumComponent(
                 iconColor: Colors.red,
                 iconData: Icons.error,
-                num: relayStatus.error,
+                num: widget.relayStatus.error,
               ),
             ),
             Container(
@@ -70,7 +78,7 @@ class RelaysItemComponent extends StatelessWidget {
                 left: Base.BASE_PADDING,
               ),
               child: Text(
-                rwText,
+                widget.rwText,
                 style: TextStyle(
                   fontSize: smallFontSize,
                 ),
@@ -81,14 +89,16 @@ class RelaysItemComponent extends StatelessWidget {
       ],
     );
 
-    if (editable) {
+    if (widget.editable) {
       list.add(Expanded(
         child: leftWidget,
       ));
 
+      list.add(RelaySpeedComponent(widget.addr));
+
       list.add(GestureDetector(
         onTap: () {
-          var text = NIP19Tlv.encodeNrelay(Nrelay(addr));
+          var text = NIP19Tlv.encodeNrelay(Nrelay(widget.addr));
           Clipboard.setData(ClipboardData(text: text)).then((_) {
             BotToast.showText(text: S.of(context).Copy_success);
           });
@@ -102,7 +112,7 @@ class RelaysItemComponent extends StatelessWidget {
       ));
       list.add(GestureDetector(
         onTap: () {
-          removeRelay(addr);
+          removeRelay(widget.addr);
         },
         child: const Icon(
           Icons.delete,
@@ -115,8 +125,8 @@ class RelaysItemComponent extends StatelessWidget {
 
     Widget main = GestureDetector(
       onTap: () {
-        var relay = nostr!.getRelay(addr);
-        relay ??= nostr!.getTempRelay(addr);
+        var relay = nostr!.getRelay(widget.addr);
+        relay ??= nostr!.getTempRelay(widget.addr);
         if (relay != null && relay.info != null) {
           RouterUtil.router(context, RouterPath.RELAY_INFO, relay);
         }
