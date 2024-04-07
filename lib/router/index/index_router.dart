@@ -295,31 +295,8 @@ class _IndexRouter extends CustState<IndexRouter>
       )),
     );
 
-    Widget mainIndex = Selector<MusicProvider, MusicInfo?>(
-      builder: ((context, musicInfo, child) {
-        if (musicInfo != null) {
-          return Stack(
-            children: [
-              child!,
-              Positioned(
-                bottom: Base.BASE_PADDING,
-                left: 0,
-                right: 0,
-                child: MusicComponent(
-                  musicInfo,
-                  clearAble: true,
-                ),
-              ),
-            ],
-          );
-        }
-
-        return child!;
-      }),
-      selector: (context, _provider) {
-        return _provider.musicInfo;
-      },
-      child: Column(
+    List<Widget> mainIndexList = [
+      Column(
         children: [
           IndexAppBar(
             center: appBarCenter,
@@ -327,6 +304,29 @@ class _IndexRouter extends CustState<IndexRouter>
           mainCenterWidget,
         ],
       ),
+      Positioned(
+        bottom: Base.BASE_PADDING,
+        left: 0,
+        right: 0,
+        child: Selector<MusicProvider, MusicInfo?>(
+          builder: ((context, musicInfo, child) {
+            if (musicInfo != null) {
+              return MusicComponent(
+                musicInfo,
+                clearAble: true,
+              );
+            }
+
+            return Container();
+          }),
+          selector: (context, _provider) {
+            return _provider.musicInfo;
+          },
+        ),
+      )
+    ];
+    Widget mainIndex = Stack(
+      children: mainIndexList,
     );
 
     if (PlatformUtil.isTableMode()) {
