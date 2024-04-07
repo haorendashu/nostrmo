@@ -11,13 +11,15 @@ WavlakeTrackMusicInfoBuilder wavlakeTrackMusicInfoBuilder =
     WavlakeTrackMusicInfoBuilder();
 
 class WavlakeTrackMusicInfoBuilder extends MusicInfoBuilder {
-  static const String prefix = "https://wavlake.com/track/";
+  static const String prefix0 = "https://wavlake.com/track/";
+  static const String prefix1 = "https://wavlake.com/episode/";
 
   @override
   Future<MusicInfo?> build(String content, String? eventId) async {
     // try to fetch info from api
     try {
-      var id = content.replaceAll(prefix, "");
+      var id = content.replaceAll(prefix0, "");
+      id = id.replaceAll(prefix1, "");
       var jsonObj = await DioUtil.get(
           "https://catalog-prod-dot-wavlake-alpha.uc.r.appspot.com/v1/episodes/${id}");
       if (jsonObj != null && jsonObj["success"] == true) {
@@ -73,7 +75,10 @@ class WavlakeTrackMusicInfoBuilder extends MusicInfoBuilder {
 
   @override
   bool check(String content) {
-    if (content.indexOf(prefix) == 0) {
+    if (content.indexOf(prefix0) == 0) {
+      return true;
+    }
+    if (content.indexOf(prefix1) == 0) {
       return true;
     }
 
