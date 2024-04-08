@@ -162,6 +162,8 @@ RelayLocalDB? relayLocalDB;
 
 Nostr? nostr;
 
+bool dataSyncMode = false;
+
 bool firstLogin = false;
 
 Future<void> main() async {

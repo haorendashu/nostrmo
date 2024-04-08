@@ -1,7 +1,12 @@
+import 'dart:developer';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/simple_name_component.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
 import '../../component/appbar4stack.dart';
@@ -18,6 +23,7 @@ import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
+import '../../util/when_stop_function.dart';
 import 'user_statistics_component.dart';
 
 class UserRouter extends StatefulWidget {
@@ -28,7 +34,7 @@ class UserRouter extends StatefulWidget {
 }
 
 class _UserRouter extends CustState<UserRouter>
-    with PenddingEventsLaterFunction, LoadMoreEvent {
+    with PenddingEventsLaterFunction, LoadMoreEvent, WhenStopFunction {
   final GlobalKey<NestedScrollViewState> globalKey = GlobalKey();
 
   ScrollController _controller = ScrollController();
@@ -45,6 +51,7 @@ class _UserRouter extends CustState<UserRouter>
   void initState() {
     super.initState();
 
+    whenStopMS = 1500;
     queryLimit = 200;
 
     _controller.addListener(() {
@@ -189,18 +196,31 @@ class _UserRouter extends CustState<UserRouter>
           ),
         );
 
+        List<Widget> mainList = [
+          main,
+          Positioned(
+            top: paddingTop,
+            child: Container(
+              width: maxWidth,
+              child: appBar,
+            ),
+          ),
+        ];
+
+        if (dataSyncMode) {
+          mainList.add(Positioned(
+            right: Base.BASE_PADDING * 2,
+            bottom: Base.BASE_PADDING * 4,
+            child: GestureDetector(
+              onTap: beginToSyncAll,
+              child: const Icon(Icons.cloud_sync),
+            ),
+          ));
+        }
+
         return Scaffold(
             body: Stack(
-          children: [
-            main,
-            Positioned(
-              top: paddingTop,
-              child: Container(
-                width: maxWidth,
-                child: appBar,
-              ),
-            ),
-          ],
+          children: mainList,
         ));
       },
     );
@@ -239,6 +259,8 @@ class _UserRouter extends CustState<UserRouter>
         nostr!.unsubscribe(subscribeId!);
       } catch (e) {}
     }
+
+    closeLoading();
   }
 
   void unSubscribe() {
@@ -248,6 +270,13 @@ class _UserRouter extends CustState<UserRouter>
 
   @override
   void doQuery() {
+    _doQuery(onEventFunc: onEvent);
+  }
+
+  void _doQuery({Function(Event)? onEventFunc}) {
+    // print("_doQuery");
+    onEventFunc ??= onEvent;
+
     preQuery();
     if (StringUtil.isNotBlank(subscribeId)) {
       unSubscribe();
@@ -274,21 +303,66 @@ class _UserRouter extends CustState<UserRouter>
         filter.until = oldestCreatedAt;
         filtersMap[relay.url] = [filter.toJson()];
       }
-      nostr!.queryByFilters(filtersMap, onEvent, id: subscribeId);
+      nostr!.queryByFilters(filtersMap, onEventFunc, id: subscribeId);
     } else {
       // this is init query
       // try to query from user's write relay.
       List<String>? tempRelays =
           metadataProvider.getExtralRelays(pubkey!, true);
-      nostr!.query([filter.toJson()], onEvent,
+      nostr!.query([filter.toJson()], onEventFunc,
           id: subscribeId, tempRelays: tempRelays, onlyTempRelays: false);
     }
 
     readyComplete = true;
   }
 
+  var oldEventLength = 0;
+
+  void syncAllOnEvent(Event e) {
+    onEvent(e);
+    whenStop(() {
+      log("whenStop box length ${box.length()}");
+      if (box.length() > oldEventLength) {
+        oldEventLength = box.length();
+        _doQuery(onEventFunc: syncAllOnEvent);
+      } else {
+        unSubscribe();
+        // sync download complete
+        broadcaseAll();
+      }
+    });
+  }
+
+  Future<void> broadcaseAll() async {
+    log("begin to broadcaseAll");
+    var list = box.all();
+    for (var event in list) {
+      nostr!.broadcase(event);
+      await Future.delayed(const Duration(milliseconds: 10));
+    }
+    log("broadcaseAll complete");
+    closeLoading();
+  }
+
   @override
   EventMemBox getEventBox() {
     return box;
+  }
+
+  CancelFunc? cancelFunc;
+
+  void beginToSyncAll() {
+    cancelFunc = BotToast.showLoading();
+    oldEventLength = box.length();
+    _doQuery(onEventFunc: syncAllOnEvent);
+  }
+
+  void closeLoading() {
+    if (cancelFunc != null) {
+      try {
+        cancelFunc!.call();
+        cancelFunc = null;
+      } catch (e) {}
+    }
   }
 }

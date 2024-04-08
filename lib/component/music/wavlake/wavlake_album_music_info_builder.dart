@@ -20,8 +20,6 @@ class WavlakeAlbumMusicInfoBuilder extends MusicInfoBuilder {
       return null;
     }
 
-    log(source!);
-
     String nameAndTitleStr =
         SpiderUtil.subUntil(source!, "<title>", "</title>");
     var strs = nameAndTitleStr.split("•");
@@ -34,8 +32,6 @@ class WavlakeAlbumMusicInfoBuilder extends MusicInfoBuilder {
     String imageUrl =
         SpiderUtil.subUntil(source, '<meta property="og:image" content="', '"');
     String audioUrl = SpiderUtil.subUntil(source, '"liveUrl":"', '"');
-
-    print(audioUrl);
 
     if (StringUtil.isBlank(audioUrl) || audioUrl.indexOf("http") != 0) {
       return null;

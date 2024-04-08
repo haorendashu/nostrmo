@@ -96,20 +96,7 @@ class RelayLocalDB {
     List<dynamic> params = [];
     var sql = queryEventsSql(filter, false, params);
     var rawEvents = await _database.rawQuery(sql, params);
-    List<Map<String, Object?>> events = [];
-    for (var rawEvent in rawEvents) {
-      var event = Map<String, Object?>.from(rawEvent);
-      var tagsStr = rawEvent["tags"];
-      if (tagsStr is String) {
-        event["tags"] = jsonDecode(tagsStr);
-      }
-      var sourcesStr = rawEvent["sources"];
-      if (sourcesStr != null) {
-        event["sources"] = jsonDecode(sourcesStr as String);
-      }
-
-      events.add(event);
-    }
+    var events = _handleEventMaps(rawEvents);
     return events;
   }
 
@@ -220,5 +207,50 @@ class RelayLocalDB {
     // log("params ${jsonEncode(params)}");
 
     return query;
+  }
+
+  Future<List<Map<String, Object?>>> queryEventByPubkey(String pubkey) async {
+    var sql =
+        "SELECT id, pubkey, created_at, kind, tags, content, sig, sources FROM event WHERE pubkey = ? ORDER BY created_at DESC";
+    List<dynamic> params = [pubkey];
+    var rawEvents = await _database.rawQuery(sql, params);
+    var events = _handleEventMaps(rawEvents);
+    return events;
+  }
+
+  List<Map<String, Object?>> _handleEventMaps(
+      List<Map<String, Object?>> rawEvents) {
+    var length = rawEvents.length;
+    List<Map<String, Object?>> events = List.filled(length, {});
+    for (var i = 0; i < length; i++) {
+      var rawEvent = rawEvents[i];
+      var event = Map<String, Object?>.from(rawEvent);
+      var tagsStr = rawEvent["tags"];
+      if (tagsStr is String) {
+        event["tags"] = jsonDecode(tagsStr);
+      }
+      var sourcesStr = rawEvent["sources"];
+      if (sourcesStr != null) {
+        event["sources"] = jsonDecode(sourcesStr as String);
+      }
+
+      events[i] = event;
+    }
+
+    return events;
+  }
+
+  Map<String, Object?> _handleEventMap(Map<String, Object?> rawEvent) {
+    var event = Map<String, Object?>.from(rawEvent);
+    var tagsStr = rawEvent["tags"];
+    if (tagsStr is String) {
+      event["tags"] = jsonDecode(tagsStr);
+    }
+    var sourcesStr = rawEvent["sources"];
+    if (sourcesStr != null) {
+      event["sources"] = jsonDecode(sourcesStr as String);
+    }
+
+    return event;
   }
 }

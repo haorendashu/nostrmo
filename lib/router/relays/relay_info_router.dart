@@ -1,5 +1,12 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/relay_local/relay_local.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/user_pic_component.dart';
@@ -189,6 +196,37 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
       ));
     }
 
+    if (relay is RelayLocal) {
+      list.add(Container(
+        child: CheckboxListTile(
+          title: Text("Data Sync Mode"),
+          value: dataSyncMode,
+          onChanged: (bool? value) {
+            if (value != null) {
+              dataSyncMode = value;
+              setState(() {});
+            }
+          },
+        ),
+      ));
+
+      list.add(GestureDetector(
+        onTap: backMyNotes,
+        child: ListTile(
+          title: Text("Backup my notes."),
+          mouseCursor: SystemMouseCursors.click,
+        ),
+      ));
+
+      list.add(GestureDetector(
+        onTap: importNotes,
+        child: ListTile(
+          title: Text("Import notes."),
+          mouseCursor: SystemMouseCursors.click,
+        ),
+      ));
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -218,6 +256,42 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
         ),
       ),
     );
+  }
+
+  void backMyNotes() async {
+    var eventDatas = await relayLocalDB!.queryEventByPubkey(nostr!.publicKey);
+    var jsonStr = jsonEncode(eventDatas);
+    var result = await FileSaver.instance.saveFile(
+      name: DateTime.now().millisecondsSinceEpoch.toString(),
+      bytes: utf8.encode(jsonStr),
+      ext: ".json",
+    );
+
+    BotToast.showText(text: "File save success: $result");
+  }
+
+  Future<void> importNotes() async {
+    var result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      allowedExtensions: ["json"],
+      withData: true,
+    );
+    if (result != null) {
+      var cancelFunc = BotToast.showLoading();
+      try {
+        var platformFile = result.files.first;
+        var jsonObj = jsonDecode(utf8.decode(platformFile.bytes!));
+        if (jsonObj is List) {
+          for (var eventJson in jsonObj) {
+            var event = Event.fromJson(eventJson);
+            nostr!.broadcase(event);
+            await Future.delayed(const Duration(milliseconds: 10));
+          }
+        }
+      } finally {
+        cancelFunc.call();
+      }
+    }
   }
 }
 
