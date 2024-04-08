@@ -118,8 +118,13 @@ class Nostr {
     event.sign(_privateKey!);
   }
 
-  Event? broadcase(Event event, {List<String>? tempRelays}) {
-    var result = _pool.send(["EVENT", event.toJson()], tempRelays: tempRelays);
+  Event? broadcase(Event event,
+      {List<String>? tempRelays, List<String>? targetRelays}) {
+    var result = _pool.send(
+      ["EVENT", event.toJson()],
+      tempRelays: tempRelays,
+      targetRelays: targetRelays,
+    );
     if (result) {
       return event;
     }

@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Apri automaticamente contenuti sensibili"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Suggerimenti per il backup e la sicurezza"),
+        "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
+            "Esegui il backup dei miei dati"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Modalità base"),
         "Begin_to_download_translate_model":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Offrimi una tazza di caffè!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("annulla"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Chiudi messaggi privati"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Fermati a"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("conferma"),
         "Contact": MessageLookupByLibrary.simpleMessage("contatti"),
@@ -87,10 +91,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("personalizzato"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Colori personalizzati"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Emoticon personalizzate"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Carattere personalizzato"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Messaggio privato"),
         "Dark": MessageLookupByLibrary.simpleMessage("Colore scuro"),
         "Data": MessageLookupByLibrary.simpleMessage("dati"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage(
+            "Modalità sincronizzazione dati"),
         "Default_Color":
             MessageLookupByLibrary.simpleMessage("Colore predefinito"),
         "Default_Font_Family":
@@ -99,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pagina predefinita"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Etichetta predefinita"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("Rilascio esteso"),
         "Delete": MessageLookupByLibrary.simpleMessage("elimina"),
         "Delete_Account":
             MessageLookupByLibrary.simpleMessage("Elimina account"),
@@ -110,12 +120,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("donazione"),
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Senza compressione"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("espressione"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "I vuoti di ingresso possono essere bloccati dal relè."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Verifica della firma dell\'evento"),
         "Face": MessageLookupByLibrary.simpleMessage("rilevamento facciale"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Modalità rapida"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("File salvato correttamente"),
         "Filter": MessageLookupByLibrary.simpleMessage("filtro"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -143,15 +156,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Globals": MessageLookupByLibrary.simpleMessage("quadrato"),
         "Goal_Amount_In_Sats":
             MessageLookupByLibrary.simpleMessage("obiettivo"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("etichetta"),
         "Hide": MessageLookupByLibrary.simpleMessage("nascondi"),
         "Home": MessageLookupByLibrary.simpleMessage("home page"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Accetto"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Compressione immagine"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Immagine o video"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Immagine salvata correttamente"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Servizi di immagine"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Importa dati"),
         "Input": MessageLookupByLibrary.simpleMessage("input"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Inserisci commenti"),
@@ -184,6 +201,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Relè locale"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Citare gli utenti"),
         "Mentions": MessageLookupByLibrary.simpleMessage("menzione"),
         "Method": MessageLookupByLibrary.simpleMessage("metodo"),
         "More": MessageLookupByLibrary.simpleMessage("di più"),
@@ -216,6 +235,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Trova dinamiche dalla cache"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("Apri dettagli dinamici"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Apri messaggio privato"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Apri pagina utente"),
         "Open_in_browser":
@@ -256,6 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Si prega di tenere la chiave al sicuro per il recupero dell\'account."),
+        "Poll": MessageLookupByLibrary.simpleMessage("voto"),
         "Posts": MessageLookupByLibrary.simpleMessage("dinamica"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynamic&Reply"),
@@ -288,6 +310,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cerca gli eventi di Pubbey"),
         "Send": MessageLookupByLibrary.simpleMessage("invia"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("invio non riuscito"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Contenuto sensibile"),
         "Setting": MessageLookupByLibrary.simpleMessage("istituito"),
         "Share": MessageLookupByLibrary.simpleMessage("quota"),
         "Show": MessageLookupByLibrary.simpleMessage("display"),
@@ -296,8 +320,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Firma non riuscita"),
         "Soft": MessageLookupByLibrary.simpleMessage("applicazione"),
         "Source": MessageLookupByLibrary.simpleMessage("fonte"),
+        "Subject": MessageLookupByLibrary.simpleMessage("titolo"),
         "Submit": MessageLookupByLibrary.simpleMessage("Invia"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Modalità tablet"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("fotografia"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Relè temporaneo"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Il contenuto non può contenere spazi"),
@@ -355,6 +381,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Errore di formato chiave"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Avete già votato"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap obiettivo"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Il numero di Zap non può essere maggiore di"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

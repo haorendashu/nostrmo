@@ -2609,6 +2609,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Data Sync Mode`
+  String get Data_Sync_Mode {
+    return Intl.message(
+      'Data Sync Mode',
+      name: 'Data_Sync_Mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Backup my notes`
+  String get Backup_my_notes {
+    return Intl.message(
+      'Backup my notes',
+      name: 'Backup_my_notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Import notes`
+  String get Import_notes {
+    return Intl.message(
+      'Import notes',
+      name: 'Import_notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File save success`
+  String get File_save_success {
+    return Intl.message(
+      'File save success',
+      name: 'File_save_success',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -199,7 +199,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
     if (relay is RelayLocal) {
       list.add(Container(
         child: CheckboxListTile(
-          title: Text("Data Sync Mode"),
+          title: Text(s.Data_Sync_Mode),
           value: dataSyncMode,
           onChanged: (bool? value) {
             if (value != null) {
@@ -213,7 +213,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
       list.add(GestureDetector(
         onTap: backMyNotes,
         child: ListTile(
-          title: Text("Backup my notes."),
+          title: Text(s.Backup_my_notes),
           mouseCursor: SystemMouseCursors.click,
         ),
       ));
@@ -221,7 +221,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
       list.add(GestureDetector(
         onTap: importNotes,
         child: ListTile(
-          title: Text("Import notes."),
+          title: Text(s.Import_notes),
           mouseCursor: SystemMouseCursors.click,
         ),
       ));
@@ -267,7 +267,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
       ext: ".json",
     );
 
-    BotToast.showText(text: "File save success: $result");
+    BotToast.showText(text: "${S.of(context).File_save_success}: $result");
   }
 
   Future<void> importNotes() async {
@@ -285,7 +285,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
           for (var eventJson in jsonObj) {
             var event = Event.fromJson(eventJson);
             nostr!.broadcase(event);
-            await Future.delayed(const Duration(milliseconds: 10));
+            // await Future.delayed(const Duration(milliseconds: 10));
           }
         }
       } finally {

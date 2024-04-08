@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Автоматично отваряне на чувствително съдържание"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Съвети за архивиране и сигурност"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Архивиране на данните ми"),
         "Banner": MessageLookupByLibrary.simpleMessage("банер"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Основен режим"),
         "Begin_to_download_translate_model":
@@ -64,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Купи ми чаша кафе!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("отмяна"),
+        "Close_Private_DM": MessageLookupByLibrary.simpleMessage(
+            "Затваряне на личните съобщения"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Спри на"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Потвърждаване"),
         "Contact": MessageLookupByLibrary.simpleMessage("контакти"),
@@ -89,10 +93,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("по поръчка"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Потребителски цветове"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Потребителски емотикони"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Потребителски шрифт"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Лично съобщение"),
         "Dark": MessageLookupByLibrary.simpleMessage("Тъмен цвят"),
         "Data": MessageLookupByLibrary.simpleMessage("данни"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage(
+            "Режим на синхронизиране на данните"),
         "Default_Color":
             MessageLookupByLibrary.simpleMessage("Цвят по подразбиране"),
         "Default_Font_Family":
@@ -101,6 +110,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("страница по подразбиране"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Етикет по подразбиране"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Разширено освобождаване"),
         "Delete": MessageLookupByLibrary.simpleMessage("изтриване"),
         "Delete_Account":
             MessageLookupByLibrary.simpleMessage("Изтриване на сметка"),
@@ -112,12 +123,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("прякор"),
         "Donate": MessageLookupByLibrary.simpleMessage("дарение"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Некомпресиран"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("израз"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Входните заготовки могат да бъдат блокирани от релето."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Проверка на подписа на събитието"),
         "Face": MessageLookupByLibrary.simpleMessage("откриване на лицето"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Бърз режим"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("Файлът е записан успешно"),
         "Filter": MessageLookupByLibrary.simpleMessage("филтър"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -145,15 +159,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Глобален"),
         "Globals": MessageLookupByLibrary.simpleMessage("квадрат"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("цел"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("етикет"),
         "Hide": MessageLookupByLibrary.simpleMessage("скрий"),
         "Home": MessageLookupByLibrary.simpleMessage("начална страница"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Приемам"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage(
             "Компресиране на изображението"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Снимка или видео"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Изображението е записано успешно"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Услуги за изображения"),
+        "Import_notes":
+            MessageLookupByLibrary.simpleMessage("Импортиране на данни"),
         "Input": MessageLookupByLibrary.simpleMessage("вход"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Въвеждане на коментари"),
@@ -187,6 +206,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Локално реле"),
         "Login": MessageLookupByLibrary.simpleMessage("Влизане"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User": MessageLookupByLibrary.simpleMessage(
+            "Споменаване на потребителите"),
         "Mentions": MessageLookupByLibrary.simpleMessage("споменаване"),
         "Method": MessageLookupByLibrary.simpleMessage("метод"),
         "More": MessageLookupByLibrary.simpleMessage("повече"),
@@ -220,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Търсене на динамика от кеша"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage(
             "Отваряне на динамични детайли"),
+        "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
+            "Отваряне на частно съобщение"),
         "Open_User_page": MessageLookupByLibrary.simpleMessage(
             "Отваряне на потребителска страница"),
         "Open_in_browser":
@@ -260,6 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Моля пазете ключа за възстановяване на сметката."),
+        "Poll": MessageLookupByLibrary.simpleMessage("гласуване"),
         "Posts": MessageLookupByLibrary.simpleMessage("динамично"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Динамичен отговор"),
@@ -293,6 +317,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Send": MessageLookupByLibrary.simpleMessage("изпращане"),
         "Send_fail":
             MessageLookupByLibrary.simpleMessage("Грешка при изпращане"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Чувствително съдържание"),
         "Setting": MessageLookupByLibrary.simpleMessage("настройване"),
         "Share": MessageLookupByLibrary.simpleMessage("дял"),
         "Show": MessageLookupByLibrary.simpleMessage("дисплей"),
@@ -303,8 +329,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Подписът е неуспешен"),
         "Soft": MessageLookupByLibrary.simpleMessage("приложение"),
         "Source": MessageLookupByLibrary.simpleMessage("източник"),
+        "Subject": MessageLookupByLibrary.simpleMessage("заглавие"),
         "Submit": MessageLookupByLibrary.simpleMessage("Изпращане"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Таблетен режим"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("снимка"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Временно реле"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Съдържанието не може да съдържа интервали"),
@@ -363,6 +391,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Грешка във формата на ключа"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Вече гласувахте."),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap Цел"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Броят на Zaps не може да бъде по-голям от"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

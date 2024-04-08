@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tundliku sisu automaatne avamine"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Varundamis- ja turvanõuanded"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Varunda mu andmed"),
         "Banner": MessageLookupByLibrary.simpleMessage("bander"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Põhirežiim"),
         "Begin_to_download_translate_model":
@@ -61,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Osta mulle tass kohvi!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("tühista"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Sulge privaatsed kirjad"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Peatu"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("kinnita"),
         "Contact": MessageLookupByLibrary.simpleMessage("kontaktid"),
@@ -85,16 +89,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("kohandatud"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Kohandatud värvid"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Kohandatud emotikonid"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Kohandatud font"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Privaatsõnum"),
         "Dark": MessageLookupByLibrary.simpleMessage("Tume värv"),
         "Data": MessageLookupByLibrary.simpleMessage("andmed"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage(
+            "Andmete sünkroniseerimise režiim"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Vaikeväärv"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("vaikimisi font"),
         "Default_index":
             MessageLookupByLibrary.simpleMessage("vaikimisi lehekülg"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("Vaikimisi silt"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Laiendatud versioon"),
         "Delete": MessageLookupByLibrary.simpleMessage("kustuta"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Kustuta konto"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -104,12 +115,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("hüüdnimi"),
         "Donate": MessageLookupByLibrary.simpleMessage("annetus"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Pakkimata"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("avaldis"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Relee võib blokeerida sisendtühikud."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Sündmuse allkirja kontrollimine"),
         "Face": MessageLookupByLibrary.simpleMessage("näotuvastus"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Kiirrežiim"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("Fail salvestati edukalt"),
         "Filter": MessageLookupByLibrary.simpleMessage("filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -136,14 +150,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Globaalne"),
         "Globals": MessageLookupByLibrary.simpleMessage("ruut"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("sihtmärk"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("etikett"),
         "Hide": MessageLookupByLibrary.simpleMessage("peita"),
         "Home": MessageLookupByLibrary.simpleMessage("Avaleht"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ma nõustun"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Pildi tihendamine"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Pilt või video"),
         "Image_save_success":
             MessageLookupByLibrary.simpleMessage("Pilt salvestati edukalt"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Pilditeenused"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Andmete import"),
         "Input": MessageLookupByLibrary.simpleMessage("sisend"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Kommentaaride sisestamine"),
@@ -175,6 +193,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Kohalik relee"),
         "Login": MessageLookupByLibrary.simpleMessage("Sisselogimine"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Kasutajate nimetamine"),
         "Mentions": MessageLookupByLibrary.simpleMessage("mainida"),
         "Method": MessageLookupByLibrary.simpleMessage("meetod"),
         "More": MessageLookupByLibrary.simpleMessage("rohkem"),
@@ -206,6 +226,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dünaamika otsimine vahemälust"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("Ava dünaamilised detailid"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Ava privaatsõnum"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Ava kasutaja lehekülg"),
         "Open_in_browser":
@@ -246,6 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Palun hoidke võtit konto taastamiseks turvaliselt."),
+        "Poll": MessageLookupByLibrary.simpleMessage("hääletamine"),
         "Posts": MessageLookupByLibrary.simpleMessage("dünaamiline"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dünaamiline & Vastamine"),
@@ -277,6 +300,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pubkey sündmuste otsimine"),
         "Send": MessageLookupByLibrary.simpleMessage("saata"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("saatmine nurjus"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Tundlik sisu"),
         "Setting": MessageLookupByLibrary.simpleMessage("seadistada"),
         "Share": MessageLookupByLibrary.simpleMessage("osa"),
         "Show": MessageLookupByLibrary.simpleMessage("ekraan"),
@@ -285,9 +310,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Allkiri nurjus"),
         "Soft": MessageLookupByLibrary.simpleMessage("rakendus"),
         "Source": MessageLookupByLibrary.simpleMessage("allikas"),
+        "Subject": MessageLookupByLibrary.simpleMessage("pealkiri"),
         "Submit": MessageLookupByLibrary.simpleMessage("Esita"),
         "Table_Mode":
             MessageLookupByLibrary.simpleMessage("Tahvelarvuti režiim"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("foto"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Ajutine relee"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Sisu ei saa sisaldada tühikuid"),
@@ -344,6 +371,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Võtme vormingu viga"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Te olete juba hääletanud."),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap sihtmärk"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Zappide arv ei tohi olla suurem kui"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

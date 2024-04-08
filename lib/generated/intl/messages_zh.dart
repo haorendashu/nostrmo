@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("自动打开敏感内容"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
+        "Backup_my_notes": MessageLookupByLibrary.simpleMessage("备份我的数据"),
         "Banner": MessageLookupByLibrary.simpleMessage("横幅"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("基本模式"),
         "Begin_to_download_translate_model":
@@ -78,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "DMs": MessageLookupByLibrary.simpleMessage("私信"),
         "Dark": MessageLookupByLibrary.simpleMessage("深色"),
         "Data": MessageLookupByLibrary.simpleMessage("数据"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage("数据同步模式"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("默认颜色"),
         "Default_Font_Family": MessageLookupByLibrary.simpleMessage("默认字体"),
         "Default_index": MessageLookupByLibrary.simpleMessage("默认首页"),
@@ -98,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("Event签名校验"),
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("快速模式"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage("文件保存成功"),
         "Filter": MessageLookupByLibrary.simpleMessage("过滤"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage("找到云端中继列表，你要下载吗？"),
@@ -126,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_or_Video": MessageLookupByLibrary.simpleMessage("图片或视频"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage("图片保存成功"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("导入数据"),
         "Input": MessageLookupByLibrary.simpleMessage("输入"),
         "Input_Comment": MessageLookupByLibrary.simpleMessage("输入评论"),
         "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Sats 数量"),

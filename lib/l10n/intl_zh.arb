@@ -244,5 +244,9 @@
     "Subject": "标题",
     "Delay_Send": "延长发布",
     "Poll": "投票",
-    "Zap_Goals": "Zap目标"
+    "Zap_Goals": "Zap目标",
+    "Data_Sync_Mode": "数据同步模式",
+    "Backup_my_notes": "备份我的数据",
+    "Import_notes": "导入数据",
+    "File_save_success": "文件保存成功"
 }

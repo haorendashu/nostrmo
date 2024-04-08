@@ -340,12 +340,20 @@ class RelayPool {
 
   /// send message to relay
   /// there are tempRelays, it also send to tempRelays too.
-  bool send(List<dynamic> message, {List<String>? tempRelays}) {
+  bool send(List<dynamic> message,
+      {List<String>? tempRelays, List<String>? targetRelays}) {
     bool hadSubmitSend = false;
 
     for (Relay relay in _relays.values) {
       if (message[0] == "EVENT") {
         if (!relay.relayStatus.writeAccess) {
+          continue;
+        }
+      }
+
+      if (targetRelays != null && targetRelays.isNotEmpty) {
+        if (!targetRelays.contains(relay.url)) {
+          // not contain this relay
           continue;
         }
       }

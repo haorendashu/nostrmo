@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sensible Inhalte automatisch öffnen"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Backup- und Sicherheitstipps"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Sichern Sie meine Daten"),
         "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Grundmodus"),
         "Begin_to_download_translate_model":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Gib mir eine Tasse Kaffee!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Abbrechen"),
+        "Close_Private_DM": MessageLookupByLibrary.simpleMessage(
+            "Private Nachrichten schließen"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stoppen Sie bei"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("bestätigen"),
         "Contact": MessageLookupByLibrary.simpleMessage("Kontakte"),
@@ -88,16 +92,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("kundenspezifisch"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Benutzerdefinierte Farben"),
+        "Custom_Emoji": MessageLookupByLibrary.simpleMessage(
+            "Benutzerdefinierte Emoticons"),
         "Custom_Font_Family": MessageLookupByLibrary.simpleMessage(
             "Benutzerdefinierte Schriftart"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Private Nachricht"),
         "Dark": MessageLookupByLibrary.simpleMessage("Dunkle Farbe"),
         "Data": MessageLookupByLibrary.simpleMessage("Daten"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Datensynchronisationsmodus"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Standardfarbe"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("Standardschrift"),
         "Default_index": MessageLookupByLibrary.simpleMessage("Standardseite"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Standardbeschriftung"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Erweiterte Version"),
         "Delete": MessageLookupByLibrary.simpleMessage("löschen"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Konto löschen"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -107,12 +118,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("Spitzname"),
         "Donate": MessageLookupByLibrary.simpleMessage("Spende"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Unkomprimiert"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("Ausdruck"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Eingabefelder können durch das Relais blockiert werden."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Überprüfung der Ereignissignatur"),
         "Face": MessageLookupByLibrary.simpleMessage("Gesichtserkennung"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Schnellmodus"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage(
+            "Datei erfolgreich gespeichert"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -138,14 +152,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
         "Globals": MessageLookupByLibrary.simpleMessage("Quadrat"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("Ziel"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("Etikett"),
         "Hide": MessageLookupByLibrary.simpleMessage("Ausblenden"),
         "Home": MessageLookupByLibrary.simpleMessage("Startseite"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ich akzeptiere"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Bildkomprimierung"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Bild oder Video"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Bild erfolgreich gespeichert"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Bilddienste"),
+        "Import_notes":
+            MessageLookupByLibrary.simpleMessage("Daten importieren"),
         "Input": MessageLookupByLibrary.simpleMessage("Eingabe"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Kommentare eingeben"),
@@ -178,6 +197,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Lokales Relais"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Erwähnung der Benutzer"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Erwähnung"),
         "Method": MessageLookupByLibrary.simpleMessage("Methode"),
         "More": MessageLookupByLibrary.simpleMessage("mehr"),
@@ -212,6 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dynamiken aus Cache suchen"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("Dynamische Details öffnen"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Private Nachricht öffnen"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Benutzerseite öffnen"),
         "Open_in_browser":
@@ -253,6 +276,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Bitte bewahren Sie den Schlüssel für die Kontowiederherstellung sicher auf."),
+        "Poll": MessageLookupByLibrary.simpleMessage("Abstimmung"),
         "Posts": MessageLookupByLibrary.simpleMessage("dynamisch"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynamic&Reply"),
@@ -285,6 +309,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Suche nach Pubkey\'s Events"),
         "Send": MessageLookupByLibrary.simpleMessage("senden"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("Senden fehlschlägt"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Sensible Inhalte"),
         "Setting": MessageLookupByLibrary.simpleMessage("einrichten"),
         "Share": MessageLookupByLibrary.simpleMessage("Teilen"),
         "Show": MessageLookupByLibrary.simpleMessage("Anzeige"),
@@ -294,8 +320,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unterschrift fehlgeschlagen"),
         "Soft": MessageLookupByLibrary.simpleMessage("Anwendung"),
         "Source": MessageLookupByLibrary.simpleMessage("Quelle"),
+        "Subject": MessageLookupByLibrary.simpleMessage("Titel"),
         "Submit": MessageLookupByLibrary.simpleMessage("Absenden"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablet-Modus"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("photo"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Temporäres Relais"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Inhalt kann keine Leerzeichen enthalten"),
@@ -353,6 +381,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Schlüsselformatfehler"),
         "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
             "Sie haben bereits abgestimmt"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap-Ziel"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Die Anzahl der Zaps kann nicht größer sein als"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

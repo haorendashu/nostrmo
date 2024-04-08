@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Auto Open Sensitive Content"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("Backup and Safety tips"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Backup my notes"),
         "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Base Mode"),
         "Begin_to_download_translate_model":
@@ -94,6 +96,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "DMs": MessageLookupByLibrary.simpleMessage("DMs"),
         "Dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "Data": MessageLookupByLibrary.simpleMessage("Data"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Data Sync Mode"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Default Color"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("Default Font Family"),
@@ -118,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Event Sign Check"),
         "Face": MessageLookupByLibrary.simpleMessage("Face"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Fast Mode"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("File save success"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -155,6 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_save_success":
             MessageLookupByLibrary.simpleMessage("Image save success"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Image service"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Import notes"),
         "Input": MessageLookupByLibrary.simpleMessage("Input"),
         "Input_Comment": MessageLookupByLibrary.simpleMessage("Input Comment"),
         "Input_Custom_Emoji_Name":

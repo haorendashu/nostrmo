@@ -254,5 +254,9 @@
     "Subject": "Subject",
     "Delay_Send": "Delay Send",
     "Poll": "Poll",
-    "Zap_Goals": "Zap Goals"
+    "Zap_Goals": "Zap Goals",
+    "Data_Sync_Mode": "Data Sync Mode",
+    "Backup_my_notes": "Backup my notes",
+    "Import_notes": "Import notes",
+    "File_save_success": "File save success"
 }

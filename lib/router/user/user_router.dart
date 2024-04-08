@@ -334,11 +334,29 @@ class _UserRouter extends CustState<UserRouter>
   }
 
   Future<void> broadcaseAll() async {
+    var activeRelays = nostr!.activeRelays();
+
     log("begin to broadcaseAll");
     var list = box.all();
+    // var index = 0;
     for (var event in list) {
-      nostr!.broadcase(event);
-      await Future.delayed(const Duration(milliseconds: 10));
+      var message = ["EVENT", event.toJson()];
+
+      // find the relays not contain this event and send (broadcase) to it.
+      // int count = 0;
+      for (var relay in activeRelays) {
+        if (!event.sources.contains(relay.url)) {
+          try {
+            // count++;
+            relay.send(message);
+          } catch (e) {}
+        }
+      }
+      // log("note ${index} send to ${count} relays");
+
+      // nostr!.broadcase(event);
+      // await Future.delayed(const Duration(milliseconds: 10));
+      // index++;
     }
     log("broadcaseAll complete");
     closeLoading();

@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Αυτόματο άνοιγμα ευαίσθητου περιεχομένου"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Συμβουλές ασφαλείας και ασφαλείας"),
+        "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
+            "Κάντε αντίγραφα ασφαλείας των δεδομένων μου"),
         "Banner": MessageLookupByLibrary.simpleMessage("πανό"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Βασική λειτουργία"),
         "Begin_to_download_translate_model":
@@ -64,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Αγόρασε μου ένα φλιτζάνι καφέ!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("ακύρωση"),
+        "Close_Private_DM": MessageLookupByLibrary.simpleMessage(
+            "Κλείσιμο ιδιωτικών μηνυμάτων"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Σταματήστε στο"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("επιβεβαίωση"),
         "Contact": MessageLookupByLibrary.simpleMessage("επαφές"),
@@ -89,10 +93,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("προσαρμοσμένο"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Προσαρμοσμένα χρώματα"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Προσαρμοσμένα emoticons"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Προσαρμοσμένη γραμματοσειρά"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Ιδιωτικό μήνυμα"),
         "Dark": MessageLookupByLibrary.simpleMessage("Σκούρο χρώμα"),
         "Data": MessageLookupByLibrary.simpleMessage("δεδομένα"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage(
+            "Λειτουργία συγχρονισμού δεδομένων"),
         "Default_Color":
             MessageLookupByLibrary.simpleMessage("Προκαθορισμένο χρώμα"),
         "Default_Font_Family":
@@ -101,6 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("προεπιλεγμένη σελίδα"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Προκαθορισμένη ετικέτα"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("Εκτεταμένη έκδοση"),
         "Delete": MessageLookupByLibrary.simpleMessage("διαγραφή"),
         "Delete_Account":
             MessageLookupByLibrary.simpleMessage("Διαγραφή λογαριασμού"),
@@ -111,12 +121,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("ψευδώνυμο"),
         "Donate": MessageLookupByLibrary.simpleMessage("δωρεά"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Μη συμπιεσμένα"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("έκφραση"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Τα κενά εισόδου ενδέχεται να μπλοκάρονται από το ρελέ."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Επαλήθευση υπογραφής συμβάντος"),
         "Face": MessageLookupByLibrary.simpleMessage("ανίχνευση προσώπου"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Γρήγορη λειτουργία"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage(
+            "Αρχείο αποθηκευμένο με επιτυχία"),
         "Filter": MessageLookupByLibrary.simpleMessage("φίλτρο"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -145,15 +158,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Παγκόσμια"),
         "Globals": MessageLookupByLibrary.simpleMessage("τετράγωνο"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("στόχος"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("ετικέτα"),
         "Hide": MessageLookupByLibrary.simpleMessage("Απόκρυψη"),
         "Home": MessageLookupByLibrary.simpleMessage("Αρχική σελίδα"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Δέχομαι"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Συμπίεση εικόνας"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Εικόνα ή βίντεο"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Εικόνα αποθηκεύτηκε επιτυχώς"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Υπηρεσίες εικόνας"),
+        "Import_notes":
+            MessageLookupByLibrary.simpleMessage("Εισαγωγή δεδομένων"),
         "Input": MessageLookupByLibrary.simpleMessage("εισαγωγή"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Εισαγωγή σχολίων"),
@@ -188,6 +206,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Τοπικός αναμεταδότης"),
         "Login": MessageLookupByLibrary.simpleMessage("Σύνδεση"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Αναφέρεται στους χρήστες"),
         "Mentions": MessageLookupByLibrary.simpleMessage("αναφορά"),
         "Method": MessageLookupByLibrary.simpleMessage("μέθοδος"),
         "More": MessageLookupByLibrary.simpleMessage("περισσότερα"),
@@ -220,6 +240,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Εύρεση δυναμικών από τη μνήμη"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage(
             "Άνοιγμα δυναμικών λεπτομερειών"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Άνοιγμα ιδιωτικού μηνύματος"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Άνοιγμα σελίδας χρήστη"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage(
@@ -261,6 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Παρακαλώ κρατήστε το κλειδί ασφαλές για την ανάκτηση λογαριασμού."),
+        "Poll": MessageLookupByLibrary.simpleMessage("ψηφοφορία"),
         "Posts": MessageLookupByLibrary.simpleMessage("δυναμικός"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Δυναμική και απάντηση"),
@@ -293,6 +316,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Αναζήτηση συμβάντων του Pubkey"),
         "Send": MessageLookupByLibrary.simpleMessage("αποστολή"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("αποτυχία αποστολής"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Ευαίσθητο περιεχόμενο"),
         "Setting": MessageLookupByLibrary.simpleMessage("ρύθμιση"),
         "Share": MessageLookupByLibrary.simpleMessage("μερίδιο"),
         "Show": MessageLookupByLibrary.simpleMessage("οθόνη"),
@@ -301,9 +326,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Αποτυχία υπογραφής"),
         "Soft": MessageLookupByLibrary.simpleMessage("εφαρμογή"),
         "Source": MessageLookupByLibrary.simpleMessage("πηγή"),
+        "Subject": MessageLookupByLibrary.simpleMessage("τίτλος"),
         "Submit": MessageLookupByLibrary.simpleMessage("Υποβολή"),
         "Table_Mode":
             MessageLookupByLibrary.simpleMessage("Λειτουργία δισκίου"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("φωτογραφία"),
         "TempRelays":
             MessageLookupByLibrary.simpleMessage("Προσωρινός ηλεκτρονόμος"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
@@ -362,6 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Σφάλμα μορφοποίησης κλειδιού"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Έχετε ήδη ψηφίσει"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Στόχος Zap"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Ο αριθμός των Zaps δεν μπορεί να είναι μεγαλύτερος από"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
