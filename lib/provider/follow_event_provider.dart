@@ -138,10 +138,13 @@ class FollowEventProvider extends ChangeNotifier
       bool queriyTags = false}) {
     var subscribeId = StringUtil.rndNameStr(12);
     if (initQuery) {
-      targetNostr.addInitQuery(
-          addTagCommunityFilter([filter.toJson()], queriyTags), onEvent,
-          id: subscribeId);
-      // targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
+      // Due to some tag or community only have little notes, so if the first query (limit by number), it will pull some note very old!
+      // This will cause that the first init query has the very old note. it will lose some notes.
+      // targetNostr.addInitQuery(
+      //     addTagCommunityFilter([filter.toJson()], queriyTags), onEvent,
+      //     id: subscribeId);
+      filter.limit = 10;
+      targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
     } else {
       if (!eventBox.isEmpty()) {
         var activeRelays = targetNostr.activeRelays();
