@@ -285,7 +285,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
           for (var eventJson in jsonObj) {
             var event = Event.fromJson(eventJson);
             nostr!.broadcase(event);
-            // await Future.delayed(const Duration(milliseconds: 10));
+            await Future.delayed(const Duration(milliseconds: 10));
           }
         }
       } finally {

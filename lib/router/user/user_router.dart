@@ -355,7 +355,7 @@ class _UserRouter extends CustState<UserRouter>
       // log("note ${index} send to ${count} relays");
 
       // nostr!.broadcase(event);
-      // await Future.delayed(const Duration(milliseconds: 10));
+      await Future.delayed(const Duration(milliseconds: 10));
       // index++;
     }
     log("broadcaseAll complete");
