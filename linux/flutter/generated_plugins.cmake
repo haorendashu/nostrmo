@@ -6,10 +6,11 @@ list(APPEND FLUTTER_PLUGIN_LIST
   emoji_picker_flutter
   file_saver
   file_selector_linux
+  irondash_engine_context
   media_kit_libs_linux
   media_kit_video
-  pasteboard
   screen_retriever
+  super_native_extensions
   url_launcher_linux
   window_manager
 )

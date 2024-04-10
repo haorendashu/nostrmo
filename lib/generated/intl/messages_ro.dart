@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Deschide automat conținutul sensibil"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Sfaturi de rezervă și securitate"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Salvați datele mele"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Modul de bază"),
         "Begin_to_download_translate_model":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage(
             "Cumpără-mi o ceaşcă de cafea!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("anulează"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Închide mesajele private"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Opreşte-te la"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("confirma"),
         "Contact": MessageLookupByLibrary.simpleMessage("contacte"),
@@ -87,10 +91,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("personalizat"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Culori personalizate"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Emoticoane personalizate"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Font personalizat"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Mesaj privat"),
         "Dark": MessageLookupByLibrary.simpleMessage("Culoare închisă"),
         "Data": MessageLookupByLibrary.simpleMessage("date"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage(
+            "Modul de sincronizare a datelor"),
         "Default_Color":
             MessageLookupByLibrary.simpleMessage("Culoare implicită"),
         "Default_Font_Family":
@@ -99,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("pagină implicită"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Etichetă implicită"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("Eliberare extinsă"),
         "Delete": MessageLookupByLibrary.simpleMessage("șterge"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Șterge contul"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -109,12 +119,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("porecla"),
         "Donate": MessageLookupByLibrary.simpleMessage("donație"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Necomprimat"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("expresie"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Inputurile libere pot fi blocate de releu."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Verificarea semnăturii de eveniment"),
         "Face": MessageLookupByLibrary.simpleMessage("detectarea feței"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Mod rapid"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("Fișier salvat cu succes"),
         "Filter": MessageLookupByLibrary.simpleMessage("filtru"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -143,15 +156,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
         "Globals": MessageLookupByLibrary.simpleMessage("pătrat"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("țintă"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("etichetă"),
         "Hide": MessageLookupByLibrary.simpleMessage("ascunde"),
         "Home": MessageLookupByLibrary.simpleMessage("Pagina principală"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Accept"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Comprimare imagine"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Imagine sau video"),
         "Image_save_success":
             MessageLookupByLibrary.simpleMessage("Imagine salvată cu succes"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Servicii de imagine"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Importă date"),
         "Input": MessageLookupByLibrary.simpleMessage("intrare"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Introduceți comentarii"),
@@ -184,6 +201,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Releu local"),
         "Login": MessageLookupByLibrary.simpleMessage("Autentificare"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Menționarea utilizatorilor"),
         "Mentions": MessageLookupByLibrary.simpleMessage("mențiune"),
         "Method": MessageLookupByLibrary.simpleMessage("metoda"),
         "More": MessageLookupByLibrary.simpleMessage("mai mult"),
@@ -215,6 +234,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Găsește dinamica din cache"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("Deschide detalii dinamice"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Deschide mesajul privat"),
         "Open_User_page": MessageLookupByLibrary.simpleMessage(
             "Deschide pagina utilizatorului"),
         "Open_in_browser":
@@ -256,6 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Vă rugăm să păstrați cheia în siguranță pentru recuperarea contului."),
+        "Poll": MessageLookupByLibrary.simpleMessage("vot"),
         "Posts": MessageLookupByLibrary.simpleMessage("dinamic"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("& Răspuns dinamic"),
@@ -288,6 +310,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Caută evenimentele lui Pubbey"),
         "Send": MessageLookupByLibrary.simpleMessage("trimite"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("eșec în trimitere"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Conținut sensibil"),
         "Setting": MessageLookupByLibrary.simpleMessage("înființat"),
         "Share": MessageLookupByLibrary.simpleMessage("share"),
         "Show": MessageLookupByLibrary.simpleMessage("afișare"),
@@ -296,8 +320,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Semnătură eșuată"),
         "Soft": MessageLookupByLibrary.simpleMessage("aplicare"),
         "Source": MessageLookupByLibrary.simpleMessage("sursă"),
+        "Subject": MessageLookupByLibrary.simpleMessage("titlu"),
         "Submit": MessageLookupByLibrary.simpleMessage("Trimite"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Mod comprimat"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("fotografie"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Releu temporar"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Conținutul nu poate conține spații"),
@@ -308,8 +334,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Cheia este un șir aleatoriu, similar cu parola contului. Oricine deține această cheie poate accesa și controla contul dvs."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Culori tematice"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Tip temă"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Ar trebui să fie un univers aici."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Ar trebui să fie un univers aici."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Această dinamică conține conținut sensibil"),
@@ -354,6 +381,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Eroare de format cheie"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Aţi votat deja."),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap țintă"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Numărul de Zaps nu poate fi mai mare decât"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

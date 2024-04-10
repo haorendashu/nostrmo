@@ -340,12 +340,20 @@ class RelayPool {
 
   /// send message to relay
   /// there are tempRelays, it also send to tempRelays too.
-  bool send(List<dynamic> message, {List<String>? tempRelays}) {
+  bool send(List<dynamic> message,
+      {List<String>? tempRelays, List<String>? targetRelays}) {
     bool hadSubmitSend = false;
 
     for (Relay relay in _relays.values) {
       if (message[0] == "EVENT") {
         if (!relay.relayStatus.writeAccess) {
+          continue;
+        }
+      }
+
+      if (targetRelays != null && targetRelays.isNotEmpty) {
+        if (!targetRelays.contains(relay.url)) {
+          // not contain this relay
           continue;
         }
       }
@@ -393,18 +401,31 @@ class RelayPool {
     return tempRelay;
   }
 
-  List<String> getExtralReadableRelays(List<String> extralRelays) {
+  List<String> getExtralReadableRelays(
+      List<String> extralRelays, int maxRelayNum) {
     List<String> list = [];
 
+    int sameNum = 0;
     for (var extralRelay in extralRelays) {
       var relay = _relays[extralRelay];
       if (relay == null || !relay.relayStatus.readAccess) {
         // not contains or can't readable
         list.add(extralRelay);
+      } else {
+        sameNum++;
       }
     }
 
-    return list;
+    var needExtralNum = maxRelayNum - sameNum;
+    if (needExtralNum <= 0) {
+      return [];
+    }
+
+    if (list.length < needExtralNum) {
+      return list;
+    }
+
+    return list.sublist(0, needExtralNum);
   }
 
   void removeTempRelay(String addr) {

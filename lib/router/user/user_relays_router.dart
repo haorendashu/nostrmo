@@ -1,7 +1,10 @@
+import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/data/relay_status.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
+import 'package:nostrmo/router/relays/relay_speed_component.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/relay/relay_metadata.dart';
@@ -91,11 +94,14 @@ class _UserRelayRouter extends State<UserRelayRouter> {
 }
 
 class RelayMetadataComponent extends StatelessWidget {
-  RelayMetadata relayMetadata;
+  RelayMetadata? relayMetadata;
+
+  String? addr;
 
   bool addAble;
 
-  RelayMetadataComponent({required this.relayMetadata, this.addAble = true});
+  RelayMetadataComponent({this.relayMetadata, this.addr, this.addAble = true})
+      : assert(relayMetadata != null || addr != null);
 
   @override
   Widget build(BuildContext context) {
@@ -105,17 +111,60 @@ class RelayMetadataComponent extends StatelessWidget {
     var hintColor = themeData.hintColor;
     var bodySmallFontSize = themeData.textTheme.bodySmall!.fontSize;
 
-    Widget rightBtn = Container();
+    String? relayAddr = addr;
+    if (relayMetadata != null) {
+      relayAddr = relayMetadata!.addr;
+    }
+
+    if (StringUtil.isBlank(relayAddr)) {
+      return Container();
+    }
+
+    List<Widget> rightList = [];
+    if (relayAddr != null) {
+      rightList.add(RelaySpeedComponent(relayAddr));
+    }
+    Widget rightBtn = Row(
+      children: rightList,
+    );
     if (addAble) {
-      rightBtn = GestureDetector(
+      rightList.add(GestureDetector(
         onTap: () {
-          relayProvider.addRelay(relayMetadata.addr);
+          relayProvider.addRelay(relayAddr!);
         },
         child: Container(
           child: const Icon(
             Icons.add,
           ),
         ),
+      ));
+    }
+
+    Widget bottomWidget = Container();
+    if (relayMetadata != null) {
+      bottomWidget = Row(
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: Base.BASE_PADDING),
+            child: Text(
+              s.Read,
+              style: TextStyle(
+                fontSize: bodySmallFontSize,
+                color: relayMetadata!.read ? Colors.green : Colors.red,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(right: Base.BASE_PADDING),
+            child: Text(
+              s.Write,
+              style: TextStyle(
+                fontSize: bodySmallFontSize,
+                color: relayMetadata!.write ? Colors.green : Colors.red,
+              ),
+            ),
+          ),
+        ],
       );
     }
 
@@ -155,34 +204,9 @@ class RelayMetadataComponent extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.only(bottom: 2),
-                    child: Text(relayMetadata.addr),
+                    child: Text(relayAddr!),
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: Base.BASE_PADDING),
-                        child: Text(
-                          s.Read,
-                          style: TextStyle(
-                            fontSize: bodySmallFontSize,
-                            color:
-                                relayMetadata.read ? Colors.green : Colors.red,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(right: Base.BASE_PADDING),
-                        child: Text(
-                          s.Write,
-                          style: TextStyle(
-                            fontSize: bodySmallFontSize,
-                            color:
-                                relayMetadata.write ? Colors.green : Colors.red,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  bottomWidget,
                 ],
               ),
             ),

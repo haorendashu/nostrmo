@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Az érzékeny tartalom automatikus megnyitása"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Biztonsági mentés és biztonsági tippek"),
+        "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
+            "Az adatok biztonsági mentése"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Alapmód"),
         "Begin_to_download_translate_model":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Hívj meg egy csésze kávéra!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("törlés"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Privát üzenetek bezárása"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Állj meg"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("megerősítés"),
         "Contact": MessageLookupByLibrary.simpleMessage("kapcsolatok"),
@@ -86,10 +90,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Creator": MessageLookupByLibrary.simpleMessage("alkotó"),
         "Custom": MessageLookupByLibrary.simpleMessage("egyéni"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Egyéni színek"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Egyéni hangulatjelek"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Egyéni betűtípus"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Privát üzenet"),
         "Dark": MessageLookupByLibrary.simpleMessage("Sötét szín"),
         "Data": MessageLookupByLibrary.simpleMessage("adatok"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Adatszinkronizálási mód"),
         "Default_Color":
             MessageLookupByLibrary.simpleMessage("Alapértelmezett szín"),
         "Default_Font_Family":
@@ -98,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("alapértelmezett oldal"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Alapértelmezett címke"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Kiterjesztett kiadás"),
         "Delete": MessageLookupByLibrary.simpleMessage("törlés"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Fiók törlése"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -107,12 +118,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("becenév"),
         "Donate": MessageLookupByLibrary.simpleMessage("adományozás"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Tömörítetlen"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("kifejezés"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "A bemeneti üresek blokkolhatók a relé."),
         "Event_Sign_Check":
             MessageLookupByLibrary.simpleMessage("Eseményaláírás ellenőrzése"),
         "Face": MessageLookupByLibrary.simpleMessage("arcfelismerés"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Gyorsmód"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("Sikeresen mentett fájl"),
         "Filter": MessageLookupByLibrary.simpleMessage("szűrő"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -138,14 +152,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Globális"),
         "Globals": MessageLookupByLibrary.simpleMessage("négyzet"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("célpont"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("címke"),
         "Hide": MessageLookupByLibrary.simpleMessage("rejtsd el"),
         "Home": MessageLookupByLibrary.simpleMessage("honlap"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Elfogadom"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("Képtömörítés"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Kép vagy videó"),
         "Image_save_success":
             MessageLookupByLibrary.simpleMessage("Sikeresen mentett kép"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Képszolgáltatások"),
+        "Import_notes":
+            MessageLookupByLibrary.simpleMessage("Adatok importálása"),
         "Input": MessageLookupByLibrary.simpleMessage("bemenet"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Megjegyzések megadása"),
@@ -177,6 +196,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Helyi továbbító"),
         "Login": MessageLookupByLibrary.simpleMessage("Bejelentkezés"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Felhasználók megemlítése"),
         "Mentions": MessageLookupByLibrary.simpleMessage("említés"),
         "Method": MessageLookupByLibrary.simpleMessage("módszer"),
         "More": MessageLookupByLibrary.simpleMessage("több"),
@@ -208,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dinamika keresése a gyorsítótárból"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage(
             "Dinamikus részletek megnyitása"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Privát üzenet megnyitása"),
         "Open_User_page": MessageLookupByLibrary.simpleMessage(
             "Felhasználói oldal megnyitása"),
         "Open_in_browser":
@@ -248,6 +271,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Kérem, tartsa biztonságban a kulcsot a számlahelyreállításhoz."),
+        "Poll": MessageLookupByLibrary.simpleMessage("szavazás"),
         "Posts": MessageLookupByLibrary.simpleMessage("dinamikus"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dinamikus és válasz"),
@@ -279,6 +303,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Pubbey eseményeinek keresése"),
         "Send": MessageLookupByLibrary.simpleMessage("küldés"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("sikertelen küldés"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Érzékeny tartalom"),
         "Setting": MessageLookupByLibrary.simpleMessage("felállítás"),
         "Share": MessageLookupByLibrary.simpleMessage("részesedés"),
         "Show": MessageLookupByLibrary.simpleMessage("kijelző"),
@@ -288,8 +314,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Aláírás sikertelen"),
         "Soft": MessageLookupByLibrary.simpleMessage("kérelem"),
         "Source": MessageLookupByLibrary.simpleMessage("forrás"),
+        "Subject": MessageLookupByLibrary.simpleMessage("cím"),
         "Submit": MessageLookupByLibrary.simpleMessage("Küldés"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Tabletta üzemmód"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("fénykép"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Ideiglenes relé"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "A tartalom nem tartalmazhat szóközt"),
@@ -300,8 +328,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "A kulcs egy véletlenszerű karakterlánc, hasonló a fiókjához. Bárki, aki ezt a kulcsot birtokolja, hozzáférhet és irányíthatja a fiókját."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Témaszínek"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Téma típusa"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Itt kellene lennie egy univerzumnak."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Itt kellene lennie egy univerzumnak."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Ez a dinamika érzékeny tartalmat tartalmaz"),
@@ -346,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kulcsformátumhiba"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Ön már szavazott."),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap célpont"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "A Zaps száma nem lehet nagyobb, mint"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

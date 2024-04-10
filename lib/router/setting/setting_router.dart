@@ -165,13 +165,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.linkPreview).name,
       onTap: pickLinkPreview,
     ));
-    if (!PlatformUtil.isPC()) {
-      list.add(SettingGroupItemComponent(
-        name: s.Video_preview_in_list,
-        value: getOpenList(settingProvider.videoPreviewInList).name,
-        onTap: pickVideoPreviewInList,
-      ));
-    }
+    list.add(SettingGroupItemComponent(
+      name: s.Video_preview_in_list,
+      value: getOpenList(settingProvider.videoPreviewInList).name,
+      onTap: pickVideoPreviewInList,
+    ));
     list.add(SettingGroupItemComponent(
       name: s.Image_service,
       value: getImageServcie(settingProvider.imageService).name,
@@ -187,12 +185,12 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.imagePreview).name,
       onTap: pickImagePreview,
     ));
+    list.add(SettingGroupItemComponent(
+      name: s.Forbid_video,
+      value: getOpenList(settingProvider.videoPreview).name,
+      onTap: pickVideoPreview,
+    ));
     if (!PlatformUtil.isPC()) {
-      list.add(SettingGroupItemComponent(
-        name: s.Forbid_video,
-        value: getOpenList(settingProvider.videoPreview).name,
-        onTap: pickVideoPreview,
-      ));
       list.add(SettingGroupItemComponent(
         name: s.Translate,
         value: getOpenTranslate(settingProvider.openTranslate).name,

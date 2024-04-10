@@ -83,7 +83,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
     Widget? appBarTitle;
     if (showTitle) {
       appBarTitle = Text(
-        tag!,
+        "#${tag!}",
         style: TextStyle(
           fontSize: bodyLargeFontSize,
           overflow: TextOverflow.ellipsis,

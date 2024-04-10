@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Åbn automatisk følsomt indhold"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Sikkerheds- og sikkerhedstips"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Sikkerhedskopiér mine data"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
         "Base_Mode":
             MessageLookupByLibrary.simpleMessage("Grundlæggende tilstand"),
@@ -64,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Køb mig en kop kaffe!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("annullér"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Luk private beskeder"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop ved"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("bekræft"),
         "Contact": MessageLookupByLibrary.simpleMessage("kontakter"),
@@ -89,15 +93,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("brugerdefineret"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Brugerdefinerede farver"),
+        "Custom_Emoji": MessageLookupByLibrary.simpleMessage(
+            "Brugerdefinerede humørikoner"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Brugerdefineret skrifttype"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Privat besked"),
         "Dark": MessageLookupByLibrary.simpleMessage("Mørk farve"),
         "Data": MessageLookupByLibrary.simpleMessage("data"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Datasynkroniseringstilstand"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Standardfarve"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("standard skrifttype"),
         "Default_index": MessageLookupByLibrary.simpleMessage("standardside"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("Standardetiket"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("Udvidet udgivelse"),
         "Delete": MessageLookupByLibrary.simpleMessage("slet"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Slet konto"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -108,12 +118,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("donation"),
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Ikke komprimeret"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("udtryk"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Indgangshuller kan blokeres af relæet."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Bekræftelse af begivenhedssignatur"),
         "Face": MessageLookupByLibrary.simpleMessage("ansigtsdetektion"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Hurtigtilstand"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("Filen gemt med succes"),
         "Filter": MessageLookupByLibrary.simpleMessage("filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -139,15 +152,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Globalt"),
         "Globals": MessageLookupByLibrary.simpleMessage("kvadrat"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("mål"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("etiket"),
         "Hide": MessageLookupByLibrary.simpleMessage("skjul"),
         "Home": MessageLookupByLibrary.simpleMessage("hjemmeside"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Jeg accepterer"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Billedkomprimering"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Billede eller video"),
         "Image_save_success":
             MessageLookupByLibrary.simpleMessage("Billede gemt med succes"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Billedtjenester"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Importér data"),
         "Input": MessageLookupByLibrary.simpleMessage("input"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Indtast kommentarer"),
@@ -179,6 +196,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Lokalt relæ"),
         "Login": MessageLookupByLibrary.simpleMessage("Log ind"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Nævnelse af brugere"),
         "Mentions": MessageLookupByLibrary.simpleMessage("omtale"),
         "Method": MessageLookupByLibrary.simpleMessage("metode"),
         "More": MessageLookupByLibrary.simpleMessage("mere"),
@@ -211,6 +230,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Find dynamik fra cache"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("Åbn dynamiske detaljer"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Åbn privat besked"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Åbn brugerside"),
         "Open_in_browser":
@@ -252,6 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Vær venlig at holde nøglen sikker til kontogendannelse."),
+        "Poll": MessageLookupByLibrary.simpleMessage("afstemning"),
         "Posts": MessageLookupByLibrary.simpleMessage("dynamisk"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynamisk & svar"),
@@ -283,6 +305,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Send": MessageLookupByLibrary.simpleMessage("send"),
         "Send_fail":
             MessageLookupByLibrary.simpleMessage("mislykkedes sending"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Følsomt indhold"),
         "Setting": MessageLookupByLibrary.simpleMessage("oprettet"),
         "Share": MessageLookupByLibrary.simpleMessage("andel"),
         "Show": MessageLookupByLibrary.simpleMessage("display"),
@@ -292,8 +316,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Underskrift mislykkedes"),
         "Soft": MessageLookupByLibrary.simpleMessage("ansøgning"),
         "Source": MessageLookupByLibrary.simpleMessage("kilde"),
+        "Subject": MessageLookupByLibrary.simpleMessage("titel"),
         "Submit": MessageLookupByLibrary.simpleMessage("Indsend"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablettilstand"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("foto"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Midlertidigt relæ"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Indhold kan ikke indeholde mellemrum"),
@@ -304,8 +330,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Nøglen er en tilfældig streng, der ligner din kontoadgangskode. Enhver, der ejer denne nøgle, kan få adgang til og kontrollere din konto."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Temafarver"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Tematype"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Der burde være et univers her"),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Der burde være et univers her"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Denne dynamik indeholder følsomt indhold"),
@@ -350,6 +377,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fejl i nøgleformat"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("De har allerede stemt"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap mål"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Antallet af Zaps kan ikke være større end"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

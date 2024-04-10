@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Gevoelige inhoud automatisch openen"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("Back-up en beveiligingstips"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Back-up van mijn gegevens"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Basismodus"),
         "Begin_to_download_translate_model":
@@ -64,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Koop me een kop koffie!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("annuleren"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Privéberichten sluiten"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop bij"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("bevestigen"),
         "Contact": MessageLookupByLibrary.simpleMessage("contacten"),
@@ -89,16 +93,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("op maat"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Aangepaste kleuren"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Aangepaste emoticons"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Aangepast lettertype"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Privébericht"),
         "Dark": MessageLookupByLibrary.simpleMessage("Donkere kleur"),
         "Data": MessageLookupByLibrary.simpleMessage("gegevens"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Datasynchronisatiemodus"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Standaardkleur"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("standaardlettertype"),
         "Default_index":
             MessageLookupByLibrary.simpleMessage("standaardpagina"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("Standaard label"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Uitgebreide release"),
         "Delete": MessageLookupByLibrary.simpleMessage("verwijderen"),
         "Delete_Account":
             MessageLookupByLibrary.simpleMessage("Account verwijderen"),
@@ -110,12 +121,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("donatie"),
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Niet gecomprimeerd"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("expressie"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Input blanco\'s kunnen worden geblokkeerd door het relais."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Verificatie van gebeurtenishandtekening"),
         "Face": MessageLookupByLibrary.simpleMessage("gezichtsdetectie"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Snelle modus"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage(
+            "Bestand succesvol opgeslagen"),
         "Filter": MessageLookupByLibrary.simpleMessage("filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -142,14 +156,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Globaal"),
         "Globals": MessageLookupByLibrary.simpleMessage("vierkant"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("doelwit"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("label"),
         "Hide": MessageLookupByLibrary.simpleMessage("verbergen"),
         "Home": MessageLookupByLibrary.simpleMessage("startpagina"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Ik accepteer"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Beeldcompressie"),
+        "Image_or_Video": MessageLookupByLibrary.simpleMessage("Foto of video"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Afbeelding succesvol opgeslagen"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Beelddiensten"),
+        "Import_notes":
+            MessageLookupByLibrary.simpleMessage("Gegevens importeren"),
         "Input": MessageLookupByLibrary.simpleMessage("invoer"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Opmerkingen invoeren"),
@@ -181,6 +199,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Lokaal relais"),
         "Login": MessageLookupByLibrary.simpleMessage("Inloggen"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Vermelding van gebruikers"),
         "Mentions": MessageLookupByLibrary.simpleMessage("vermelding"),
         "Method": MessageLookupByLibrary.simpleMessage("methode"),
         "More": MessageLookupByLibrary.simpleMessage("meer"),
@@ -213,6 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Dynamiek zoeken uit cache"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("Dynamische details openen"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Privébericht openen"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Gebruikerspagina openen"),
         "Open_in_browser":
@@ -254,6 +276,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Bewaar de sleutel veilig voor accountherstel."),
+        "Poll": MessageLookupByLibrary.simpleMessage("stemming"),
         "Posts": MessageLookupByLibrary.simpleMessage("dynamisch"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynamic&Reply"),
@@ -286,6 +309,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Zoeken naar Pubkey\'s evenementen"),
         "Send": MessageLookupByLibrary.simpleMessage("verzenden"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("verzenden mislukt"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Gevoelige inhoud"),
         "Setting": MessageLookupByLibrary.simpleMessage("ingesteld"),
         "Share": MessageLookupByLibrary.simpleMessage("share"),
         "Show": MessageLookupByLibrary.simpleMessage("display"),
@@ -295,8 +320,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Handtekening mislukt"),
         "Soft": MessageLookupByLibrary.simpleMessage("toepassing"),
         "Source": MessageLookupByLibrary.simpleMessage("bron"),
+        "Subject": MessageLookupByLibrary.simpleMessage("titel"),
         "Submit": MessageLookupByLibrary.simpleMessage("Verzenden"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablet-modus"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("foto"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Tijdelijk relais"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Inhoud kan geen spaties bevatten"),
@@ -307,8 +334,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "De sleutel is een willekeurige tekenreeks, vergelijkbaar met uw accountwachtwoord. Iedereen die eigenaar is van deze sleutel heeft toegang tot en controle over uw account."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Themakleuren"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Thematype"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Er zou hier een universum moeten zijn."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Er zou hier een universum moeten zijn."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Deze dynamiek bevat gevoelige inhoud"),
@@ -351,6 +379,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fout in sleutelopmaak"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("U hebt al gestemd"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap doelwit"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Het aantal Zaps kan niet groter zijn dan"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

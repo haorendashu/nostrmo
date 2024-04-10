@@ -7,15 +7,19 @@ class CustContactList {
 
   final Map<String, int> _followedCommunitys;
 
-  CustContactList()
-      : _contacts = {},
-        _followedTags = {},
-        _followedCommunitys = {};
+  CustContactList(
+      {Map<String, Contact> contacts = const {},
+      Map<String, int> followedTags = const {},
+      Map<String, int> followedCommunitys = const {}})
+      : _contacts = contacts,
+        _followedTags = followedTags,
+        _followedCommunitys = followedCommunitys;
 
-  factory CustContactList.fromJson(List<dynamic> tags) {
-    Map<String, Contact> _contacts = {};
-    Map<String, int> _followedTags = {};
-    Map<String, int> _followedCommunitys = {};
+  static void getContactInfoFromTags(
+      List<dynamic> tags,
+      Map<String, Contact> _contacts,
+      Map<String, int> _followedTags,
+      Map<String, int> _followedCommunitys) {
     for (List<dynamic> tag in tags) {
       var length = tag.length;
       if (length == 0) {
@@ -42,6 +46,13 @@ class CustContactList {
         _followedCommunitys[id] = 1;
       }
     }
+  }
+
+  factory CustContactList.fromJson(List<dynamic> tags) {
+    Map<String, Contact> _contacts = {};
+    Map<String, int> _followedTags = {};
+    Map<String, int> _followedCommunitys = {};
+    getContactInfoFromTags(tags, _contacts, _followedTags, _followedCommunitys);
     return CustContactList._(_contacts, _followedTags, _followedCommunitys);
   }
 

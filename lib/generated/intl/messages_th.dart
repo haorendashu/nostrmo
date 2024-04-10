@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "เปิดเนื้อหาที่สำคัญโดยอัตโนมัติ"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "เคล็ดลับการสำรองข้อมูลและความปลอดภัย"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("สำรองข้อมูลของฉัน"),
         "Banner": MessageLookupByLibrary.simpleMessage("แบนเนอร์"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("โหมดพื้นฐาน"),
         "Begin_to_download_translate_model":
@@ -62,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("ซื้อกาแฟให้ฉัน!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("การยกเลิก"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("ปิดจดหมายส่วนตัวส่วนตัว"),
         "Close_at": MessageLookupByLibrary.simpleMessage("หยุดใน"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("ยืนยัน"),
         "Contact": MessageLookupByLibrary.simpleMessage("ติดต่อ"),
@@ -85,15 +89,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Creator": MessageLookupByLibrary.simpleMessage("ผู้สร้าง"),
         "Custom": MessageLookupByLibrary.simpleMessage("การปรับแต่ง"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("สีที่กำหนดเอง"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("ปรับแต่งการแสดงออก"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("แบบอักษรที่กำหนดเอง"),
+        "DMs": MessageLookupByLibrary.simpleMessage("ข้อความส่วนตัว"),
         "Dark": MessageLookupByLibrary.simpleMessage("สีเข้ม"),
         "Data": MessageLookupByLibrary.simpleMessage("ข้อมูล"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("โหมดการซิงค์ข้อมูล"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("สีปริยาย"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("แบบอักษรปกติ"),
         "Default_index": MessageLookupByLibrary.simpleMessage("หน้าแรกปริยาย"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("ป้ายกำกับปริยาย"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("ขยายการเปิดตัว"),
         "Delete": MessageLookupByLibrary.simpleMessage("ลบ"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("ลบบัญชี"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -103,12 +113,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("ชื่อเล่น"),
         "Donate": MessageLookupByLibrary.simpleMessage("การบริจาค"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("ไม่มีการบีบอัด"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("อีโม"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "การป้อนข้อมูลว่างอาจถูกห้ามโดยการถ่ายทอด"),
         "Event_Sign_Check":
             MessageLookupByLibrary.simpleMessage("การตรวจสอบลายเซ็น Event"),
         "Face": MessageLookupByLibrary.simpleMessage("การจดจำใบหน้า"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("โหมดด่วน"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("บันทึกไฟล์สำเร็จ"),
         "Filter": MessageLookupByLibrary.simpleMessage("การกรอง"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -133,13 +146,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Globals": MessageLookupByLibrary.simpleMessage("สแควร์"),
         "Goal_Amount_In_Sats":
             MessageLookupByLibrary.simpleMessage("วัตถุประสงค์"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("ป้ายกำกับ"),
         "Hide": MessageLookupByLibrary.simpleMessage("ซ่อนไว้"),
         "Home": MessageLookupByLibrary.simpleMessage("หน้าหลัก"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("ฉันยอมรับ"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("การบีบอัดภาพ"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("รูปภาพหรือวิดีโอ"),
         "Image_save_success":
             MessageLookupByLibrary.simpleMessage("บันทึกรูปภาพสำเร็จ"),
         "Image_service": MessageLookupByLibrary.simpleMessage("บริการรูปภาพ"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("นำเข้าข้อมูล"),
         "Input": MessageLookupByLibrary.simpleMessage("ป้อนข้อมูล"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("ป้อนความคิดเห็น"),
@@ -172,6 +189,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("รีเลย์ท้องถิ่น"),
         "Login": MessageLookupByLibrary.simpleMessage("เข้าสู่ระบบ"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User": MessageLookupByLibrary.simpleMessage("กล่าวถึงผู้ใช้"),
         "Mentions": MessageLookupByLibrary.simpleMessage("กล่าวถึง"),
         "Method": MessageLookupByLibrary.simpleMessage("วิธีการ"),
         "More": MessageLookupByLibrary.simpleMessage("มากกว่า"),
@@ -203,6 +221,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ค้นหาแบบไดนามิกจากแคช"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("เปิดรายละเอียดแบบไดนามิก"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("เปิดจดหมายส่วนตัวส่วนตัว"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("เปิดหน้าผู้ใช้"),
         "Open_in_browser":
@@ -243,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "โปรดเก็บกุญแจไว้อย่างดีเพื่อกู้คืนบัญชี"),
+        "Poll": MessageLookupByLibrary.simpleMessage("โหวต"),
         "Posts": MessageLookupByLibrary.simpleMessage("ไดนามิก"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("แบบไดนามิกและการตอบกลับ"),
@@ -274,6 +295,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ค้นหากิจกรรมสำหรับ Pubkey"),
         "Send": MessageLookupByLibrary.simpleMessage("ส่ง"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("ส่งล้มเหลว"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("เนื้อหาที่ละเอียดอ่อน"),
         "Setting": MessageLookupByLibrary.simpleMessage("การตั้งค่า"),
         "Share": MessageLookupByLibrary.simpleMessage("แบ่งปัน"),
         "Show": MessageLookupByLibrary.simpleMessage("แสดง"),
@@ -282,8 +305,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("ลายเซ็นล้มเหลว"),
         "Soft": MessageLookupByLibrary.simpleMessage("ใบสมัคร"),
         "Source": MessageLookupByLibrary.simpleMessage("แหล่งที่มา"),
+        "Subject": MessageLookupByLibrary.simpleMessage("ชื่อเรื่อง"),
         "Submit": MessageLookupByLibrary.simpleMessage("ส่ง"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("โหมดแท็บเล็ต"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("ถ่ายภาพ"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("รีเลย์ชั่วคราว"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("เนื้อหาต้องไม่มีช่องว่าง"),
@@ -294,7 +319,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "คีย์เป็นสตริงแบบสุ่มคล้ายกับรหัสผ่านบัญชีของคุณ ทุกคนที่มีกุญแจนี้สามารถเข้าถึงและควบคุมบัญชีของคุณได้"),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("สีธีม"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("ประเภทหัวข้อ"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("มันควรจะมีจักรวาลที่นี่"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
@@ -337,6 +362,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("รูปแบบคีย์ผิดพลาด"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("คุณได้โหวตแล้ว"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap เป้าหมาย"),
         "Zap_num_can_not_bigger_then":
             MessageLookupByLibrary.simpleMessage("จำนวนแซ่บต้องไม่เกิน"),
         "Zap_num_can_not_smaller_then":

@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Автоматически открывать чувствительный контент"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Резервное копирование и советы по безопасности"),
+        "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
+            "Резервное копирование моих данных."),
         "Banner": MessageLookupByLibrary.simpleMessage("Баннер"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Базовая модель"),
         "Begin_to_download_translate_model":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Купи мне кофе!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Отменить"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Закрыть личное письмо"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Остановиться на"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Подтверждение"),
         "Contact": MessageLookupByLibrary.simpleMessage("Контактные лица"),
@@ -87,10 +91,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Creator": MessageLookupByLibrary.simpleMessage("Основатель"),
         "Custom": MessageLookupByLibrary.simpleMessage("Настройка"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Настройка цвета"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Настройка выражения"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Настройка шрифтов"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Личное письмо"),
         "Dark": MessageLookupByLibrary.simpleMessage("Темный цвет"),
         "Data": MessageLookupByLibrary.simpleMessage("Данные"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Режим синхронизации данных"),
         "Default_Color":
             MessageLookupByLibrary.simpleMessage("Цвет по умолчанию"),
         "Default_Font_Family":
@@ -99,6 +108,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Главная страница по умолчанию"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Метки по умолчанию"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Продление публикации"),
         "Delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "Delete_Account":
             MessageLookupByLibrary.simpleMessage("Удалить аккаунт"),
@@ -109,12 +120,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("Прозвище"),
         "Donate": MessageLookupByLibrary.simpleMessage("Пожертвования"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Без сжатия"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("Лицо"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Ввод пробелов может быть запрещен ретрансляцией."),
         "Event_Sign_Check":
             MessageLookupByLibrary.simpleMessage("Проверка подписи Event"),
         "Face": MessageLookupByLibrary.simpleMessage("Распознавание лиц"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Быстрый режим"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("Файл успешно сохранен"),
         "Filter": MessageLookupByLibrary.simpleMessage("Фильтр"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -141,14 +155,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Глобальный уровень"),
         "Globals": MessageLookupByLibrary.simpleMessage("Площадь"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("Цель"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("Метки"),
         "Hide": MessageLookupByLibrary.simpleMessage("Скрыть"),
         "Home": MessageLookupByLibrary.simpleMessage("Главная страница"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Я согласен."),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Сжатие изображений"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Фото или видео"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Фотографии успешно сохранены"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Фотослужба"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Импорт данных"),
         "Input": MessageLookupByLibrary.simpleMessage("Ввод"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Введите комментарий"),
@@ -183,6 +201,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Локальная ретрансляция"),
         "Login": MessageLookupByLibrary.simpleMessage("Регистрация"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Луд16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Упоминание пользователей"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Упоминание"),
         "Method": MessageLookupByLibrary.simpleMessage("Методы"),
         "More": MessageLookupByLibrary.simpleMessage("Больше."),
@@ -215,6 +235,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Поиск динамики в кэше"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage(
             "Открыть динамические подробности"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Открыть личное письмо"),
         "Open_User_page": MessageLookupByLibrary.simpleMessage(
             "Открыть страницу пользователя"),
         "Open_in_browser":
@@ -255,6 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Пожалуйста, сохраните ключ для восстановления учетной записи."),
+        "Poll": MessageLookupByLibrary.simpleMessage("Голосование"),
         "Posts": MessageLookupByLibrary.simpleMessage("Динамика"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Динамический & ответ"),
@@ -288,6 +311,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Поиск событий Pubkey"),
         "Send": MessageLookupByLibrary.simpleMessage("Отправить"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("Ошибка отправки"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Чувствительный контент"),
         "Setting": MessageLookupByLibrary.simpleMessage("Настройка"),
         "Share": MessageLookupByLibrary.simpleMessage("Поделиться"),
         "Show": MessageLookupByLibrary.simpleMessage("Показать"),
@@ -296,8 +321,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Ошибка подписи"),
         "Soft": MessageLookupByLibrary.simpleMessage("Применение"),
         "Source": MessageLookupByLibrary.simpleMessage("Источник"),
+        "Subject": MessageLookupByLibrary.simpleMessage("Заголовок"),
         "Submit": MessageLookupByLibrary.simpleMessage("Представлено"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Планшетный режим"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("Фотографии."),
         "TempRelays":
             MessageLookupByLibrary.simpleMessage("Временная ретрансляция"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
@@ -309,8 +336,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Ключ - это случайная строка, похожая на пароль вашей учетной записи. Любой, у кого есть этот ключ, может получить доступ к вашей учетной записи и контролировать ее."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Цвет темы"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Тип темы"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Здесь должна быть вселенная."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Здесь должна быть вселенная."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Эта динамика содержит чувствительный контент."),
@@ -355,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ошибка формата ключа"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Ты уже проголосовал."),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Цель Zap"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Количество Zap не должно превышать"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

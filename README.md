@@ -107,7 +107,7 @@ flutter build windows --release
 ### Web
 
 ```
-flutter build web --release --dart-define=FLUTTER_WEB_CANVASKIT_URL=./
+flutter build web --release --web-renderer canvaskit
 ```
 
 ### Linux

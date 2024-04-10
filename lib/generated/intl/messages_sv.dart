@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Öppna känsligt innehåll automatiskt"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Säkerhetstips och säkerhetstips"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Säkerhetskopiera mina data"),
         "Banner": MessageLookupByLibrary.simpleMessage("banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Grundläge"),
         "Begin_to_download_translate_model":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Bjud mig på en kopp kaffe!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("avbryt"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Stäng privata meddelanden"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stanna vid"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("bekräfta"),
         "Contact": MessageLookupByLibrary.simpleMessage("kontakter"),
@@ -87,15 +91,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("anpassad"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Anpassade färger"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Anpassade uttryckssymboler"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Anpassat teckensnitt"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Privat meddelande"),
         "Dark": MessageLookupByLibrary.simpleMessage("Mörk färg"),
         "Data": MessageLookupByLibrary.simpleMessage("data"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Datasynkroniseringsläge"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Standardfärg"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("standardteckensnitt"),
         "Default_index": MessageLookupByLibrary.simpleMessage("standardsida"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("Standardetikett"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("Utökad utgivning"),
         "Delete": MessageLookupByLibrary.simpleMessage("ta bort"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Ta bort konto"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -105,12 +115,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("smeknamn"),
         "Donate": MessageLookupByLibrary.simpleMessage("donation"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Okomprimerad"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("uttryck"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Inmatningsluckor kan blockeras av reläet."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Verifiering av händelsesignatur"),
         "Face": MessageLookupByLibrary.simpleMessage("ansiktsdetektering"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Snabbläge"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage(
+            "Filen sparad med lyckat resultat"),
         "Filter": MessageLookupByLibrary.simpleMessage("filter"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -135,14 +148,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Globalt"),
         "Globals": MessageLookupByLibrary.simpleMessage("kvadrat"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("Mål"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("etikett"),
         "Hide": MessageLookupByLibrary.simpleMessage("dölj"),
         "Home": MessageLookupByLibrary.simpleMessage("startsida"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Jag accepterar"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Bildkomprimering"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Bild eller video"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Bild sparad med lyckat resultat"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Bildtjänster"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Importera data"),
         "Input": MessageLookupByLibrary.simpleMessage("inmatning"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Skriv in kommentarer"),
@@ -176,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Lokalt relä"),
         "Login": MessageLookupByLibrary.simpleMessage("Inloggning"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User": MessageLookupByLibrary.simpleMessage("Nämna användare"),
         "Mentions": MessageLookupByLibrary.simpleMessage("omnämnande"),
         "Method": MessageLookupByLibrary.simpleMessage("metod"),
         "More": MessageLookupByLibrary.simpleMessage("mer"),
@@ -208,6 +226,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hitta dynamik från cache"),
         "Open_Note_detail":
             MessageLookupByLibrary.simpleMessage("Öppna dynamiska detaljer"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Öppna privat meddelande"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Öppna användarsida"),
         "Open_in_browser":
@@ -248,6 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Håll nyckeln säker för kontoåterställning."),
+        "Poll": MessageLookupByLibrary.simpleMessage("omröstning"),
         "Posts": MessageLookupByLibrary.simpleMessage("dynamisk"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynamisk & svar"),
@@ -280,6 +301,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Send": MessageLookupByLibrary.simpleMessage("skicka"),
         "Send_fail":
             MessageLookupByLibrary.simpleMessage("misslyckas med sändning"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Känsligt innehåll"),
         "Setting": MessageLookupByLibrary.simpleMessage("inrätta"),
         "Share": MessageLookupByLibrary.simpleMessage("andel"),
         "Show": MessageLookupByLibrary.simpleMessage("visa"),
@@ -289,8 +312,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Underskrift misslyckades"),
         "Soft": MessageLookupByLibrary.simpleMessage("ansökan"),
         "Source": MessageLookupByLibrary.simpleMessage("Källa"),
+        "Subject": MessageLookupByLibrary.simpleMessage("titel"),
         "Submit": MessageLookupByLibrary.simpleMessage("Skicka in"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablettläge"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("fotografi"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Tillfälligt relä"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Innehållet kan inte innehålla mellanslag"),
@@ -301,8 +326,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Nyckeln är en slumpmässig sträng, som liknar ditt kontolösenord. Alla som äger den här nyckeln kan komma åt och kontrollera ditt konto."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Temafärger"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Tematyp"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Det borde finnas ett universum här."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Det borde finnas ett universum här."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Den här dynamiken innehåller känsligt innehåll"),
@@ -347,6 +373,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fel i nyckelformat"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Ni har redan röstat"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap mål"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Antalet Zaps kan inte vara större än"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

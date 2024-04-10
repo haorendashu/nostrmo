@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Avaa arkaluontoinen sisältö automaattisesti"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Varmuuskopiointi- ja tietoturvavinkit"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Varmuuskopioi tietoni"),
         "Banner": MessageLookupByLibrary.simpleMessage("banneri"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Perustila"),
         "Begin_to_download_translate_model":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Tarjoa kuppi kahvia!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("peruuta"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Sulje yksityiset viestit"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Pysähdy"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Vahvista"),
         "Contact": MessageLookupByLibrary.simpleMessage("yhteystiedot"),
@@ -87,15 +91,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Creator": MessageLookupByLibrary.simpleMessage("luoja"),
         "Custom": MessageLookupByLibrary.simpleMessage("custom"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Omat värit"),
+        "Custom_Emoji": MessageLookupByLibrary.simpleMessage("Omat hymiöt"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Mukautettu kirjasin"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Yksityinen viesti"),
         "Dark": MessageLookupByLibrary.simpleMessage("Tumma väri"),
         "Data": MessageLookupByLibrary.simpleMessage("tiedot"),
+        "Data_Sync_Mode":
+            MessageLookupByLibrary.simpleMessage("Tietojen synkronointitila"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Oletusväri"),
         "Default_Font_Family":
             MessageLookupByLibrary.simpleMessage("oletuskirjasin"),
         "Default_index": MessageLookupByLibrary.simpleMessage("oletussivu"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("Oletusarvo"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Laajennettu julkaisu"),
         "Delete": MessageLookupByLibrary.simpleMessage("Poista"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Poista tili"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -106,12 +116,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("lempinimi"),
         "Donate": MessageLookupByLibrary.simpleMessage("lahjoitus"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("Pakkaamaton"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("lauseke"),
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("Rele voi estää tuloaukot."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
             "Tapahtuman allekirjoituksen todentaminen"),
         "Face": MessageLookupByLibrary.simpleMessage("kasvojen tunnistus"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Pikatila"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage(
+            "Tiedosto tallennettiin onnistuneesti"),
         "Filter": MessageLookupByLibrary.simpleMessage("suodatin"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -137,14 +150,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("Maailmanlaajuinen"),
         "Globals": MessageLookupByLibrary.simpleMessage("neliö"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("tavoite"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("etiketti"),
         "Hide": MessageLookupByLibrary.simpleMessage("piilota"),
         "Home": MessageLookupByLibrary.simpleMessage("Kotisivu"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("Hyväksyn"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Kuvan pakkaaminen"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Kuva tai video"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Kuva tallennettiin onnistuneesti"),
         "Image_service": MessageLookupByLibrary.simpleMessage("Kuvapalvelut"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("Tuo tiedot"),
         "Input": MessageLookupByLibrary.simpleMessage("syöte"),
         "Input_Comment": MessageLookupByLibrary.simpleMessage("Anna kommentit"),
         "Input_Sats_num":
@@ -177,6 +194,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Paikallinen rele"),
         "Login": MessageLookupByLibrary.simpleMessage("Kirjautuminen"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Käyttäjien mainitseminen"),
         "Mentions": MessageLookupByLibrary.simpleMessage("maininta"),
         "Method": MessageLookupByLibrary.simpleMessage("menetelmä"),
         "More": MessageLookupByLibrary.simpleMessage("lisää"),
@@ -210,6 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Etsi dynamiikkaa välimuistista"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage(
             "Avaa dynaamiset yksityiskohdat"),
+        "Open_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Avaa yksityinen viesti"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Avaa käyttäjäsivu"),
         "Open_in_browser":
@@ -251,6 +272,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Pidä avain turvassa tilin palauttamista varten."),
+        "Poll": MessageLookupByLibrary.simpleMessage("äänestys"),
         "Posts": MessageLookupByLibrary.simpleMessage("dynaaminen"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynaaminen & vastaus"),
@@ -282,6 +304,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Send": MessageLookupByLibrary.simpleMessage("Lähetä"),
         "Send_fail":
             MessageLookupByLibrary.simpleMessage("epäonnistui lähetyksessä"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Herkkä sisältö"),
         "Setting": MessageLookupByLibrary.simpleMessage("perustaa"),
         "Share": MessageLookupByLibrary.simpleMessage("osuus"),
         "Show": MessageLookupByLibrary.simpleMessage("näyttö"),
@@ -291,8 +315,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Allekirjoitus epäonnistui"),
         "Soft": MessageLookupByLibrary.simpleMessage("hakemus"),
         "Source": MessageLookupByLibrary.simpleMessage("lähde"),
+        "Subject": MessageLookupByLibrary.simpleMessage("otsikko"),
         "Submit": MessageLookupByLibrary.simpleMessage("Lähetä"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Tablettitila"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("valokuva"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Väliaikainen rele"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Sisältö ei voi sisältää välilyöntejä"),
@@ -303,8 +329,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Avain on satunnainen merkkijono, joka muistuttaa tilisi salasanaa. Kuka tahansa, joka omistaa tämän avaimen, voi käyttää tiliäsi ja hallita sitä."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Teeman värit"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Teeman tyyppi"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Täällä pitäisi olla universumi."),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Täällä pitäisi olla universumi."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Tämä dynamiikka sisältää arkaluonteista sisältöä"),
@@ -349,6 +376,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Avaimen muotovirhe"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Olette jo äänestäneet"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap-kohde"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Zappien määrä ei voi olla suurempi kuin"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

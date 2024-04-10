@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ouverture automatique des contenus sensibles"),
         "Backup_and_Safety_tips": MessageLookupByLibrary.simpleMessage(
             "Conseils de sauvegarde et de sécurité"),
+        "Backup_my_notes":
+            MessageLookupByLibrary.simpleMessage("Sauvegarder mes données"),
         "Banner": MessageLookupByLibrary.simpleMessage("Bannières"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Mode de base"),
         "Begin_to_download_translate_model":
@@ -64,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Achète - moi un café!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Annulation"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("Fermer les messages privés"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Arrêter à"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Confirmation"),
         "Contact": MessageLookupByLibrary.simpleMessage("Contact"),
@@ -88,10 +92,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom": MessageLookupByLibrary.simpleMessage("Personnalisation"),
         "Custom_Color":
             MessageLookupByLibrary.simpleMessage("Couleurs personnalisées"),
+        "Custom_Emoji":
+            MessageLookupByLibrary.simpleMessage("Expressions personnalisées"),
         "Custom_Font_Family":
             MessageLookupByLibrary.simpleMessage("Polices personnalisées"),
+        "DMs": MessageLookupByLibrary.simpleMessage("Lettre privée"),
         "Dark": MessageLookupByLibrary.simpleMessage("Couleur foncée"),
         "Data": MessageLookupByLibrary.simpleMessage("Données"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage(
+            "Mode de synchronisation des données"),
         "Default_Color":
             MessageLookupByLibrary.simpleMessage("Couleur par défaut"),
         "Default_Font_Family":
@@ -100,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Accueil par défaut"),
         "Default_tab":
             MessageLookupByLibrary.simpleMessage("Étiquette par défaut"),
+        "Delay_Send":
+            MessageLookupByLibrary.simpleMessage("Publication prolongée"),
         "Delete": MessageLookupByLibrary.simpleMessage("Supprimer"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage(
             "Supprimer le numéro de compte"),
@@ -111,6 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("Donation"),
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Sans compression"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("Expressions"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Les blancs d\'entrée peuvent être interdits par le relais."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
@@ -118,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Face":
             MessageLookupByLibrary.simpleMessage("Reconnaissance du visage"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Mode rapide"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage(
+            "Fichier enregistré avec succès"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filtration"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -147,15 +161,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Globals": MessageLookupByLibrary.simpleMessage("La place"),
         "Goal_Amount_In_Sats":
             MessageLookupByLibrary.simpleMessage("Objectifs"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("Étiquettes"),
         "Hide": MessageLookupByLibrary.simpleMessage("Cacher"),
         "Home": MessageLookupByLibrary.simpleMessage("Accueil"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("J\'accepte"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Compression d\'images"),
+        "Image_or_Video":
+            MessageLookupByLibrary.simpleMessage("Images ou vidéos"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage(
             "Image sauvegardée avec succès"),
         "Image_service":
             MessageLookupByLibrary.simpleMessage("Services en images"),
+        "Import_notes":
+            MessageLookupByLibrary.simpleMessage("Importer des données"),
         "Input": MessageLookupByLibrary.simpleMessage("Entrée"),
         "Input_Comment":
             MessageLookupByLibrary.simpleMessage("Entrez un commentaire"),
@@ -188,6 +207,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Relais locaux"),
         "Login": MessageLookupByLibrary.simpleMessage("Se connecter"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Le lud16"),
+        "Mention_User":
+            MessageLookupByLibrary.simpleMessage("Mention des utilisateurs"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mention"),
         "Method": MessageLookupByLibrary.simpleMessage("La méthode"),
         "More": MessageLookupByLibrary.simpleMessage("Plus"),
@@ -220,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Trouver la dynamique à partir du cache"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage(
             "Ouvrir les détails dynamiques"),
+        "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
+            "Ouvrir un message privé privé"),
         "Open_User_page":
             MessageLookupByLibrary.simpleMessage("Ouvrir la page utilisateur"),
         "Open_in_browser":
@@ -260,6 +283,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Veuillez prendre soin de vos clés afin de restaurer votre compte."),
+        "Poll": MessageLookupByLibrary.simpleMessage("Vote"),
         "Posts": MessageLookupByLibrary.simpleMessage("Dynamique"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Dynamique & réponses"),
@@ -292,6 +316,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Rechercher un événement sur pubkey"),
         "Send": MessageLookupByLibrary.simpleMessage("Envoyer"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("L\'envoi a échoué"),
+        "Sensitive_Content":
+            MessageLookupByLibrary.simpleMessage("Contenu sensible"),
         "Setting": MessageLookupByLibrary.simpleMessage("Paramètres"),
         "Share": MessageLookupByLibrary.simpleMessage("Partager"),
         "Show": MessageLookupByLibrary.simpleMessage("Afficher"),
@@ -301,8 +327,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("La signature a échoué"),
         "Soft": MessageLookupByLibrary.simpleMessage("Application"),
         "Source": MessageLookupByLibrary.simpleMessage("Sources"),
+        "Subject": MessageLookupByLibrary.simpleMessage("Titre"),
         "Submit": MessageLookupByLibrary.simpleMessage("Soumettre"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Mode tablette"),
+        "Take_photo":
+            MessageLookupByLibrary.simpleMessage("Prendre des photos"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("Relais temporaire"),
         "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
             "Le contenu ne peut pas contenir d\'espaces"),
@@ -313,8 +342,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "La clé est une chaîne aléatoire, similaire au mot de passe de votre compte. Toute personne possédant cette clé peut accéder et contrôler votre compte."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("Couleur du thème"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("Type de thème"),
-        "There_should_be_a_universe_here": MessageLookupByLibrary.simpleMessage(
-            "Il devrait y avoir un univers ici"),
+        "There_should_be_an_universe_here":
+            MessageLookupByLibrary.simpleMessage(
+                "Il devrait y avoir un univers ici"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "Cette dynamique contient du contenu sensible"),
@@ -360,6 +390,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Format de clé incorrect"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("Vous avez déjà voté"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Objectifs de ZAP"),
         "Zap_num_can_not_bigger_then": MessageLookupByLibrary.simpleMessage(
             "Le nombre de Zap ne peut être supérieur à"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(

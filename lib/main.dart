@@ -19,6 +19,8 @@ import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
+import 'package:nostrmo/provider/music_provider.dart';
+import 'package:nostrmo/router/relayhub/relayhub_router.dart';
 import 'package:nostrmo/router/relays/relay_info_router.dart';
 import 'package:nostrmo/router/user/followed_router.dart';
 import 'package:nostrmo/router/user/followed_tags_list_router.dart';
@@ -55,12 +57,14 @@ import 'provider/list_provider.dart';
 import 'provider/list_set_provider.dart';
 import 'provider/mention_me_provider.dart';
 import 'provider/metadata_provider.dart';
+import 'provider/music_info_cache.dart';
 import 'provider/pc_router_fake_provider.dart';
 import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
 import 'provider/replaceable_event_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
+import 'provider/url_speed_provider.dart';
 import 'provider/webview_provider.dart';
 import 'router/bookmark/bookmark_router.dart';
 import 'router/community/community_detail_router.dart';
@@ -148,9 +152,17 @@ late BadgeProvider badgeProvider;
 
 late GiftWrapProvider giftWrapProvider;
 
+late MusicProvider musicProvider;
+
+late UrlSpeedProvider urlSpeedProvider;
+
+MusicInfoCache musicInfoCache = MusicInfoCache();
+
 RelayLocalDB? relayLocalDB;
 
 Nostr? nostr;
+
+bool dataSyncMode = false;
 
 bool firstLogin = false;
 
@@ -237,6 +249,8 @@ Future<void> main() async {
   listSetProvider = ListSetProvider();
   badgeProvider = BadgeProvider();
   giftWrapProvider = GiftWrapProvider();
+  musicProvider = MusicProvider()..init();
+  urlSpeedProvider = UrlSpeedProvider();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -311,6 +325,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
       RouterPath.NOTICES: (context) => NoticeRouter(),
       RouterPath.KEY_BACKUP: (context) => KeyBackupRouter(),
+      RouterPath.RELAYHUB: (context) => RelayhubRouter(),
       RouterPath.RELAYS: (context) => RelaysRouter(),
       RouterPath.FILTER: (context) => FilterRouter(),
       RouterPath.PROFILE_EDITOR: (context) => ProfileEditorRouter(),
@@ -401,6 +416,12 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<BadgeProvider>.value(
           value: badgeProvider,
+        ),
+        ListenableProvider<MusicProvider>.value(
+          value: musicProvider,
+        ),
+        ListenableProvider<UrlSpeedProvider>.value(
+          value: urlSpeedProvider,
         ),
       ],
       child: HomeComponent(

@@ -4,6 +4,8 @@ import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:nostrmo/client/cashu/cashu_tokens.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
+import 'package:nostrmo/component/content/content_music_component.dart';
+import 'package:nostrmo/component/music/wavlake/wavlake_track_music_info_builder.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -18,6 +20,8 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/platform_util.dart';
 import '../event/event_quote_component.dart';
+import '../music/blank_link_music_info_builder.dart';
+import '../music/wavlake/wavlake_album_music_info_builder.dart';
 import '../webview_router.dart';
 import 'content_cashu_component.dart';
 import 'content_custom_emoji_component.dart';
@@ -468,19 +472,49 @@ class _ContentComponent extends State<ContentComponent> {
         }
         return null;
       } else if (pathType == "video") {
-        // if (widget.showVideo && !PlatformUtil.isPC()) {
-        // block
-        bufferToList(buffer, allList, removeLastSpan: true);
-        var vComponent = ContentVideoComponent(url: str);
-        allList.add(WidgetSpan(child: vComponent));
-        counterAddLines(fake_video_counter);
-        // } else {
-        //   // inline
-        //   bufferToList(buffer, allList);
-        //   allList.add(buildLinkSpan(str));
-        // }
+        if (widget.showVideo) {
+          // block
+          bufferToList(buffer, allList, removeLastSpan: true);
+          var vComponent = ContentVideoComponent(url: str);
+          allList.add(WidgetSpan(child: vComponent));
+          counterAddLines(fake_video_counter);
+        } else {
+          // inline
+          bufferToList(buffer, allList);
+          allList.add(buildLinkSpan(str));
+        }
         return null;
       } else if (pathType == "link") {
+        // TODO make a music builder list
+        if (wavlakeTrackMusicInfoBuilder.check(str)) {
+          // check if it is wavlake track link
+          String? eventId;
+          if (widget.event != null) {
+            eventId = widget.event!.id;
+          }
+          bufferToList(buffer, allList, removeLastSpan: true);
+          var w =
+              ContentMusicComponent(eventId, str, wavlakeTrackMusicInfoBuilder);
+          allList.add(WidgetSpan(child: w));
+          counterAddLines(fake_music_counter);
+
+          return null;
+        }
+        if (wavlakeAlbumMusicInfoBuilder.check(str)) {
+          // check if it is wavlake track link
+          String? eventId;
+          if (widget.event != null) {
+            eventId = widget.event!.id;
+          }
+          bufferToList(buffer, allList, removeLastSpan: true);
+          var w =
+              ContentMusicComponent(eventId, str, wavlakeAlbumMusicInfoBuilder);
+          allList.add(WidgetSpan(child: w));
+          counterAddLines(fake_music_counter);
+
+          return null;
+        }
+
         if (!widget.showLinkPreview) {
           // inline
           bufferToList(buffer, allList);
@@ -493,6 +527,18 @@ class _ContentComponent extends State<ContentComponent> {
           allList.add(WidgetSpan(child: w));
           counterAddLines(fake_link_pre_counter);
         }
+
+        return null;
+      } else if (pathType == "audio") {
+        String? eventId;
+        if (widget.event != null) {
+          eventId = widget.event!.id;
+        }
+        bufferToList(buffer, allList, removeLastSpan: true);
+        var w = ContentMusicComponent(eventId, str, blankLinkMusicInfoBuilder);
+        allList.add(WidgetSpan(child: w));
+        counterAddLines(fake_music_counter);
+
         return null;
       }
     } else if (str.indexOf(PRE_NOSTR_BASE) == 0 ||
@@ -849,6 +895,8 @@ class _ContentComponent extends State<ContentComponent> {
   int fake_video_counter = 11;
 
   int fake_link_pre_counter = 7;
+
+  int fake_music_counter = 3;
 
   int fake_zap_counter = 6;
 

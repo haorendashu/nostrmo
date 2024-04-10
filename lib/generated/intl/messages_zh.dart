@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("自动打开敏感内容"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
+        "Backup_my_notes": MessageLookupByLibrary.simpleMessage("备份我的数据"),
         "Banner": MessageLookupByLibrary.simpleMessage("横幅"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("基本模式"),
         "Begin_to_download_translate_model":
@@ -56,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("给我买一杯咖啡！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "Close_Private_DM": MessageLookupByLibrary.simpleMessage("关闭私密私信"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "Contact": MessageLookupByLibrary.simpleMessage("联系人"),
@@ -72,13 +74,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Creator": MessageLookupByLibrary.simpleMessage("创建者"),
         "Custom": MessageLookupByLibrary.simpleMessage("自定义"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("自定义颜色"),
+        "Custom_Emoji": MessageLookupByLibrary.simpleMessage("自定义表情"),
         "Custom_Font_Family": MessageLookupByLibrary.simpleMessage("自定义字体"),
+        "DMs": MessageLookupByLibrary.simpleMessage("私信"),
         "Dark": MessageLookupByLibrary.simpleMessage("深色"),
         "Data": MessageLookupByLibrary.simpleMessage("数据"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage("数据同步模式"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("默认颜色"),
         "Default_Font_Family": MessageLookupByLibrary.simpleMessage("默认字体"),
         "Default_index": MessageLookupByLibrary.simpleMessage("默认首页"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("默认标签"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("延长发布"),
         "Delete": MessageLookupByLibrary.simpleMessage("删除"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("删除账号"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -88,11 +94,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("昵称"),
         "Donate": MessageLookupByLibrary.simpleMessage("捐赠"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("不压缩"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("表情"),
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("输入空白可能会被中继禁止。"),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("Event签名校验"),
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("快速模式"),
+        "File_save_success": MessageLookupByLibrary.simpleMessage("文件保存成功"),
         "Filter": MessageLookupByLibrary.simpleMessage("过滤"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage("找到云端中继列表，你要下载吗？"),
@@ -113,12 +121,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("全球"),
         "Globals": MessageLookupByLibrary.simpleMessage("广场"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("目标"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("标签"),
         "Hide": MessageLookupByLibrary.simpleMessage("隐藏"),
         "Home": MessageLookupByLibrary.simpleMessage("首页"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
+        "Image_or_Video": MessageLookupByLibrary.simpleMessage("图片或视频"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage("图片保存成功"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("导入数据"),
         "Input": MessageLookupByLibrary.simpleMessage("输入"),
         "Input_Comment": MessageLookupByLibrary.simpleMessage("输入评论"),
         "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Sats 数量"),
@@ -141,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("本地中继"),
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User": MessageLookupByLibrary.simpleMessage("提到用户"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
         "Method": MessageLookupByLibrary.simpleMessage("方法"),
         "More": MessageLookupByLibrary.simpleMessage("更多"),
@@ -166,6 +178,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_Event_from_cache":
             MessageLookupByLibrary.simpleMessage("从缓存中查找动态"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage("打开动态详情"),
+        "Open_Private_DM": MessageLookupByLibrary.simpleMessage("打开私密私信"),
         "Open_User_page": MessageLookupByLibrary.simpleMessage("打开用户页面"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("浏览器中打开"),
         "Optional": MessageLookupByLibrary.simpleMessage("可选"),
@@ -198,6 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入用户公钥"),
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage("请妥善保管密钥以便恢复帐户。"),
+        "Poll": MessageLookupByLibrary.simpleMessage("投票"),
         "Posts": MessageLookupByLibrary.simpleMessage("动态"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("动态 & 回复"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隐私锁"),
@@ -225,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("搜索Pubkey的Event"),
         "Send": MessageLookupByLibrary.simpleMessage("发送"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("发送失败"),
+        "Sensitive_Content": MessageLookupByLibrary.simpleMessage("敏感内容"),
         "Setting": MessageLookupByLibrary.simpleMessage("设置"),
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
         "Show": MessageLookupByLibrary.simpleMessage("显示"),
@@ -233,8 +248,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("签名失败"),
         "Soft": MessageLookupByLibrary.simpleMessage("应用"),
         "Source": MessageLookupByLibrary.simpleMessage("来源"),
+        "Subject": MessageLookupByLibrary.simpleMessage("标题"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("平板模式"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("拍照"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("临时中继"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("内容不能包含空格"),
@@ -245,7 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "密钥是一个随机字符串，类似于您的帐户密码。任何拥有此密钥的人都可以访问和控制您的帐户。"),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("主题颜色"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("主题类型"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("这里应该有一个宇宙"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("该动态包含敏感内容"),
@@ -279,13 +296,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("密钥格式错误"),
         "You_had_voted_with": MessageLookupByLibrary.simpleMessage("你已经投票了"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap目标"),
         "Zap_num_can_not_bigger_then":
             MessageLookupByLibrary.simpleMessage("Zap数量不能大于"),
         "Zap_num_can_not_smaller_then":
             MessageLookupByLibrary.simpleMessage("Zap数量不能小于"),
         "add_poll_option": MessageLookupByLibrary.simpleMessage("添加投票选项"),
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
-        "boosted": MessageLookupByLibrary.simpleMessage("促进"),
+        "boosted": MessageLookupByLibrary.simpleMessage("转发"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
         "key_has_been_copy": MessageLookupByLibrary.simpleMessage("密钥复制成功"),
         "liked": MessageLookupByLibrary.simpleMessage("喜欢"),

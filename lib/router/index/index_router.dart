@@ -8,10 +8,13 @@ import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostrmo/client/cashu/cashu_tokens.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
+import 'package:nostrmo/component/music/music_component.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/pc_router_fake.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/pc_router_fake_provider.dart';
 import 'package:nostrmo/router/thread/thread_detail_router.dart';
 import 'package:nostrmo/router/user/user_router.dart';
@@ -292,13 +295,38 @@ class _IndexRouter extends CustState<IndexRouter>
       )),
     );
 
-    var mainIndex = Column(
-      children: [
-        IndexAppBar(
-          center: appBarCenter,
+    List<Widget> mainIndexList = [
+      Column(
+        children: [
+          IndexAppBar(
+            center: appBarCenter,
+          ),
+          mainCenterWidget,
+        ],
+      ),
+      Positioned(
+        bottom: Base.BASE_PADDING,
+        left: 0,
+        right: 0,
+        child: Selector<MusicProvider, MusicInfo?>(
+          builder: ((context, musicInfo, child) {
+            if (musicInfo != null) {
+              return MusicComponent(
+                musicInfo,
+                clearAble: true,
+              );
+            }
+
+            return Container();
+          }),
+          selector: (context, _provider) {
+            return _provider.musicInfo;
+          },
         ),
-        mainCenterWidget,
-      ],
+      )
+    ];
+    Widget mainIndex = Stack(
+      children: mainIndexList,
     );
 
     if (PlatformUtil.isTableMode()) {
@@ -335,7 +363,7 @@ class _IndexRouter extends CustState<IndexRouter>
                   if (infos.isEmpty) {
                     return Container(
                       child: Center(
-                        child: Text(s.There_should_be_a_universe_here),
+                        child: Text(s.There_should_be_an_universe_here),
                       ),
                     );
                   }

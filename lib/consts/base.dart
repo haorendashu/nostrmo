@@ -3,7 +3,7 @@ import 'package:nostrmo/util/hash_util.dart';
 class Base {
   static const APP_NAME = "Nostrmo";
 
-  static String VERSION_NAME = "2.2.0";
+  static String VERSION_NAME = "2.3.0";
 
   static int VERSION_NUM = 1;
 
@@ -19,6 +19,8 @@ class Base {
   static String INDEXS_CONTACTS = "https://nostrmo.com/indexs/contacts.json";
 
   static String INDEXS_TOPICS = "https://nostrmo.com/indexs/topics.json";
+
+  static String INDEXS_RELAYS = "https://nostrmo.com/indexs/relays.json";
 
   static String WEB_TOOLS = "https://nostrmo.com/indexs/webtools.json";
 

@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip04/nip04.dart';
+import 'package:nostrmo/client/nip51/follow_set_ds.dart';
 import 'package:nostrmo/router/tag/topic_map.dart';
 
 import '../../client/event_kind.dart' as kind;
@@ -89,7 +91,15 @@ class ContactListProvider extends ChangeNotifier {
         kinds: [kind.EventKind.CONTACT_LIST],
         limit: 1,
         authors: [targetNostr!.publicKey]);
-    targetNostr.addInitQuery([filter.toJson()], _onEvent, id: subscriptId);
+    // var filter1 = Filter(
+    //     kinds: [kind.EventKind.FOLLOW_SETS],
+    //     limit: 100,
+    //     authors: [targetNostr.publicKey]);
+    targetNostr.addInitQuery([
+      filter.toJson(),
+      // filter1.toJson()
+      // filter1.toJson()..["#d"] = FollowSetDs.PRIVATE_FOLLOW
+    ], _onEvent, id: subscriptId);
   }
 
   void _onEvent(Event e) {
@@ -102,6 +112,11 @@ class ContactListProvider extends ChangeNotifier {
 
         relayProvider.relayUpdateByContactListEvent(e);
       }
+    } else if (e.kind == kind.EventKind.FOLLOW_SETS) {
+      log(jsonEncode(e.toJson()));
+      var agreement = NIP04.getAgreement(nostr!.privateKey!);
+      var plainContent = NIP04.decrypt(e.content, agreement, nostr!.publicKey!);
+      log("plainContent $plainContent");
     }
   }
 

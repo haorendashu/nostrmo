@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("민감한 컨텐츠 자동 열기"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("백업 및 보안 팁"),
+        "Backup_my_notes": MessageLookupByLibrary.simpleMessage("내 데이터 백업"),
         "Banner": MessageLookupByLibrary.simpleMessage("배너"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("기본 모드"),
         "Begin_to_download_translate_model":
@@ -56,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("촉진 시 방송"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("커피 한 잔 사줘!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("취소"),
+        "Close_Private_DM":
+            MessageLookupByLibrary.simpleMessage("개인 정보 를 폐쇄 하다"),
         "Close_at": MessageLookupByLibrary.simpleMessage("중지"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("확인"),
         "Contact": MessageLookupByLibrary.simpleMessage("연락처"),
@@ -72,13 +75,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "Creator": MessageLookupByLibrary.simpleMessage("작성자"),
         "Custom": MessageLookupByLibrary.simpleMessage("사용자 지정"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("사용자 색상"),
+        "Custom_Emoji": MessageLookupByLibrary.simpleMessage("사용자 정의 이모티콘"),
         "Custom_Font_Family": MessageLookupByLibrary.simpleMessage("사용자 정의 글꼴"),
+        "DMs": MessageLookupByLibrary.simpleMessage("개인 편지"),
         "Dark": MessageLookupByLibrary.simpleMessage("짙은 색"),
         "Data": MessageLookupByLibrary.simpleMessage("데이터"),
+        "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage("데이터 동기화 모드"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("기본 색상"),
         "Default_Font_Family": MessageLookupByLibrary.simpleMessage("기본 글꼴"),
         "Default_index": MessageLookupByLibrary.simpleMessage("기본 홈 페이지"),
         "Default_tab": MessageLookupByLibrary.simpleMessage("기본 레이블"),
+        "Delay_Send": MessageLookupByLibrary.simpleMessage("출시 기간 연장"),
         "Delete": MessageLookupByLibrary.simpleMessage("삭제"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("계정 삭제"),
         "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
@@ -88,11 +95,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("닉네임"),
         "Donate": MessageLookupByLibrary.simpleMessage("기부"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("비압축"),
+        "Emoji": MessageLookupByLibrary.simpleMessage("표정"),
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("공백을 입력하면 트렁크에서 사용할 수 없습니다."),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("이벤트 서명 확인"),
         "Face": MessageLookupByLibrary.simpleMessage("얼굴 인식"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("빠른 모드"),
+        "File_save_success":
+            MessageLookupByLibrary.simpleMessage("파일이 성공적으로 저장되었습니다."),
         "Filter": MessageLookupByLibrary.simpleMessage("필터링"),
         "Find_clouded_relay_list_do_you_want_to_download":
             MessageLookupByLibrary.simpleMessage(
@@ -114,12 +124,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Global": MessageLookupByLibrary.simpleMessage("글로벌"),
         "Globals": MessageLookupByLibrary.simpleMessage("광장"),
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("목표"),
+        "Hashtag": MessageLookupByLibrary.simpleMessage("레이블"),
         "Hide": MessageLookupByLibrary.simpleMessage("숨기기"),
         "Home": MessageLookupByLibrary.simpleMessage("첫 페이지"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("받아들일게요"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("그림 압축"),
+        "Image_or_Video": MessageLookupByLibrary.simpleMessage("사진 또는 비디오"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage("그림 저장 성공"),
         "Image_service": MessageLookupByLibrary.simpleMessage("사진 서비스"),
+        "Import_notes": MessageLookupByLibrary.simpleMessage("데이터 가져오기"),
         "Input": MessageLookupByLibrary.simpleMessage("입력"),
         "Input_Comment": MessageLookupByLibrary.simpleMessage("의견 입력"),
         "Input_Sats_num": MessageLookupByLibrary.simpleMessage("Sats 수량 입력"),
@@ -146,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("로컬 트렁크"),
         "Login": MessageLookupByLibrary.simpleMessage("로그인"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Mention_User": MessageLookupByLibrary.simpleMessage("사용자 언급"),
         "Mentions": MessageLookupByLibrary.simpleMessage("언급"),
         "Method": MessageLookupByLibrary.simpleMessage("방법"),
         "More": MessageLookupByLibrary.simpleMessage("추가"),
@@ -172,6 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_Event_from_cache":
             MessageLookupByLibrary.simpleMessage("캐시에서 동적 찾기"),
         "Open_Note_detail": MessageLookupByLibrary.simpleMessage("동적 세부 정보 열기"),
+        "Open_Private_DM": MessageLookupByLibrary.simpleMessage("비밀 사신을 열다"),
         "Open_User_page": MessageLookupByLibrary.simpleMessage("사용자 페이지 열기"),
         "Open_in_browser": MessageLookupByLibrary.simpleMessage("브라우저에서 열기"),
         "Optional": MessageLookupByLibrary.simpleMessage("옵션"),
@@ -206,6 +221,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("사용자 공개 키를 입력하십시오."),
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage("계정을 복구할 수 있도록 키를 잘 보관하십시오."),
+        "Poll": MessageLookupByLibrary.simpleMessage("투표"),
         "Posts": MessageLookupByLibrary.simpleMessage("동적"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("동적 & 응답"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("개인 정보 보호 잠금 장치"),
@@ -234,6 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pubkey 이벤트 검색"),
         "Send": MessageLookupByLibrary.simpleMessage("발송"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("전송 실패"),
+        "Sensitive_Content": MessageLookupByLibrary.simpleMessage("민감한 내용"),
         "Setting": MessageLookupByLibrary.simpleMessage("설치"),
         "Share": MessageLookupByLibrary.simpleMessage("공유"),
         "Show": MessageLookupByLibrary.simpleMessage("표시"),
@@ -242,8 +259,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("서명 실패"),
         "Soft": MessageLookupByLibrary.simpleMessage("적용"),
         "Source": MessageLookupByLibrary.simpleMessage("출처"),
+        "Subject": MessageLookupByLibrary.simpleMessage("제목"),
         "Submit": MessageLookupByLibrary.simpleMessage("제출"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("태블릿 모드"),
+        "Take_photo": MessageLookupByLibrary.simpleMessage("사진 촬영"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("임시 중계"),
         "Text_can_t_contain_blank_space":
             MessageLookupByLibrary.simpleMessage("컨텐트에 공백을 포함할 수 없습니다."),
@@ -254,7 +273,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "키는 계정 암호와 유사한 임의의 문자열입니다.이 키를 가진 사람은 누구나 계정에 액세스하고 제어할 수 있습니다."),
         "Theme_Color": MessageLookupByLibrary.simpleMessage("테마 색상"),
         "Theme_Style": MessageLookupByLibrary.simpleMessage("주제 유형"),
-        "There_should_be_a_universe_here":
+        "There_should_be_an_universe_here":
             MessageLookupByLibrary.simpleMessage("여기 우주가 있을 거예요."),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("이 동적에는 중요한 컨텐트가 포함됩니다."),
@@ -291,6 +310,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("키 형식 오류"),
         "You_had_voted_with": MessageLookupByLibrary.simpleMessage("투표하셨잖아요"),
+        "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap 대상"),
         "Zap_num_can_not_bigger_then":
             MessageLookupByLibrary.simpleMessage("Zap 수량은 초과할 수 없습니다."),
         "Zap_num_can_not_smaller_then":

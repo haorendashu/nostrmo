@@ -223,34 +223,30 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
       ));
     }
 
-    Widget quillWidget = quill.QuillProvider(
-      configurations: quill.QuillConfigurations(
+    Widget quillWidget = quill.QuillEditor(
+      configurations: quill.QuillEditorConfigurations(
+        placeholder: s.What_s_happening,
+        embedBuilders: [
+          MentionUserEmbedBuilder(),
+          MentionEventEmbedBuilder(),
+          PicEmbedBuilder(),
+          VideoEmbedBuilder(),
+          LnbcEmbedBuilder(),
+          TagEmbedBuilder(),
+          CustomEmojiEmbedBuilder(),
+        ],
+        scrollable: true,
+        autoFocus: false,
+        expands: false,
+        // padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(
+          left: Base.BASE_PADDING,
+          right: Base.BASE_PADDING,
+        ),
         controller: editorController,
       ),
-      child: quill.QuillEditor(
-        configurations: quill.QuillEditorConfigurations(
-          placeholder: s.What_s_happening,
-          embedBuilders: [
-            MentionUserEmbedBuilder(),
-            MentionEventEmbedBuilder(),
-            PicEmbedBuilder(),
-            VideoEmbedBuilder(),
-            LnbcEmbedBuilder(),
-            TagEmbedBuilder(),
-            CustomEmojiEmbedBuilder(),
-          ],
-          scrollable: true,
-          autoFocus: false,
-          expands: false,
-          // padding: EdgeInsets.zero,
-          padding: EdgeInsets.only(
-            left: Base.BASE_PADDING,
-            right: Base.BASE_PADDING,
-          ),
-        ),
-        scrollController: ScrollController(),
-        focusNode: focusNode,
-      ),
+      scrollController: ScrollController(),
+      focusNode: focusNode,
     );
     List<Widget> editorList = [];
     var editorInputWidget = Container(
