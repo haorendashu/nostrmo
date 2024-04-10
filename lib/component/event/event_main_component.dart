@@ -299,12 +299,12 @@ class _EventMainComponent extends State<EventMainComponent> {
           }
         }
 
-        list.add(EventReactionsComponent(
-          screenshotController: widget.screenshotController,
-          event: widget.event,
-          eventRelation: eventRelation,
-          showDetailBtn: widget.showDetailBtn,
-        ));
+        // list.add(EventReactionsComponent(
+        //   screenshotController: widget.screenshotController,
+        //   event: widget.event,
+        //   eventRelation: eventRelation,
+        //   showDetailBtn: widget.showDetailBtn,
+        // ));
       } else if (widget.event.kind == kind.EventKind.SHARED_FILE) {
         list.add(buildSharedFileWidget());
         list.add(EventReactionsComponent(
@@ -402,8 +402,7 @@ class _EventMainComponent extends State<EventMainComponent> {
             if (StringUtil.isNotBlank(m)) {
               if (m!.indexOf("image/") == 0) {
                 list.add(ContentImageComponent(imageUrl: url!));
-              } else if (m.indexOf("video/") == 0 &&
-                  widget.showVideo) {
+              } else if (m.indexOf("video/") == 0 && widget.showVideo) {
                 list.add(ContentVideoComponent(url: url!));
               } else {
                 list.add(ContentLinkComponent(link: url!));
