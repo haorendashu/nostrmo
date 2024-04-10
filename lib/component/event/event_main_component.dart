@@ -403,8 +403,7 @@ class _EventMainComponent extends State<EventMainComponent> {
               if (m!.indexOf("image/") == 0) {
                 list.add(ContentImageComponent(imageUrl: url!));
               } else if (m.indexOf("video/") == 0 &&
-                  widget.showVideo &&
-                  !PlatformUtil.isPC()) {
+                  widget.showVideo) {
                 list.add(ContentVideoComponent(url: url!));
               } else {
                 list.add(ContentLinkComponent(link: url!));
@@ -413,7 +412,7 @@ class _EventMainComponent extends State<EventMainComponent> {
               var fileType = ContentDecoder.getPathType(url!);
               if (fileType == "image") {
                 list.add(ContentImageComponent(imageUrl: url));
-              } else if (fileType == "video" && !PlatformUtil.isPC()) {
+              } else if (fileType == "video") {
                 if (settingProvider.videoPreview != OpenStatus.OPEN &&
                     (settingProvider.videoPreviewInList == OpenStatus.OPEN ||
                         widget.showVideo)) {
