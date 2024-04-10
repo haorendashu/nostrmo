@@ -112,9 +112,10 @@ flutter build web --release --web-renderer canvaskit
 
 ### Linux
 
-You should install mpv first.
+Linux depend on ```libsqlite``` and ```libmpv```, you can try to run this script to install before it run: 
+
 ```
-sudo apt install libmpv-dev mpv
+sudo apt-get -y install libsqlite3-0 libsqlite3-dev libmpv-dev mpv
 ```
 
 ```
