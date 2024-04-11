@@ -209,11 +209,20 @@ class _UserRouter extends CustState<UserRouter>
 
         if (dataSyncMode) {
           mainList.add(Positioned(
+            right: Base.BASE_PADDING * 5,
+            bottom: Base.BASE_PADDING * 4,
+            child: GestureDetector(
+              onTap: beginToDown,
+              child: const Icon(Icons.cloud_download),
+            ),
+          ));
+
+          mainList.add(Positioned(
             right: Base.BASE_PADDING * 2,
             bottom: Base.BASE_PADDING * 4,
             child: GestureDetector(
-              onTap: beginToSyncAll,
-              child: const Icon(Icons.cloud_sync),
+              onTap: broadcaseAll,
+              child: const Icon(Icons.cloud_upload),
             ),
           ));
         }
@@ -318,22 +327,23 @@ class _UserRouter extends CustState<UserRouter>
 
   var oldEventLength = 0;
 
-  void syncAllOnEvent(Event e) {
+  void downloadAllOnEvent(Event e) {
     onEvent(e);
     whenStop(() {
       log("whenStop box length ${box.length()}");
       if (box.length() > oldEventLength) {
         oldEventLength = box.length();
-        _doQuery(onEventFunc: syncAllOnEvent);
+        _doQuery(onEventFunc: downloadAllOnEvent);
       } else {
+        // download complete
         unSubscribe();
-        // sync download complete
-        broadcaseAll();
+        closeLoading();
       }
     });
   }
 
   Future<void> broadcaseAll() async {
+    cancelFunc = BotToast.showLoading();
     var activeRelays = nostr!.activeRelays();
 
     log("begin to broadcaseAll");
@@ -369,11 +379,11 @@ class _UserRouter extends CustState<UserRouter>
 
   CancelFunc? cancelFunc;
 
-  void beginToSyncAll() {
-    cancelFunc = BotToast.showLoading();
-    oldEventLength = box.length();
-    _doQuery(onEventFunc: syncAllOnEvent);
-  }
+  // void beginToSyncAll() {
+  //   cancelFunc = BotToast.showLoading();
+  //   oldEventLength = box.length();
+  //   _doQuery(onEventFunc: syncAllOnEvent);
+  // }
 
   void closeLoading() {
     if (cancelFunc != null) {
@@ -382,5 +392,11 @@ class _UserRouter extends CustState<UserRouter>
         cancelFunc = null;
       } catch (e) {}
     }
+  }
+
+  void beginToDown() {
+    cancelFunc = BotToast.showLoading();
+    oldEventLength = box.length();
+    _doQuery(onEventFunc: downloadAllOnEvent);
   }
 }
