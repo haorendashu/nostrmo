@@ -130,8 +130,7 @@ class RelayLocalDB {
         params.add(author);
       }
 
-      conditions
-          .add("pubkey IN(${makePlaceHolders(filter["authors"]!.length)})");
+      conditions.add("pubkey IN(${makePlaceHolders(filter[key]!.length)})");
 
       filter.remove(key);
     }
@@ -176,7 +175,6 @@ class RelayLocalDB {
         }
       }
     }
-    // here, only check the tag values and ignore the tag names
     for (var tagValue in tagQuery) {
       conditions.add("tags LIKE ? ESCAPE '\\'");
       params.add("%${tagValue.replaceAll("%", "\%")}%");
