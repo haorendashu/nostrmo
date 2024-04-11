@@ -223,7 +223,7 @@ class RelayPool {
       var event =
           Event(localNostr.publicKey, EventKind.AUTHENTICATION, tags, "");
       event.sign(localNostr.privateKey!);
-      relay.send(["AUTH", event.toJson()]);
+      relay.send(["AUTH", event.toJson()], forceSend: true);
     }
   }
 

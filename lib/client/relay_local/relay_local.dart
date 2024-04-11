@@ -36,7 +36,7 @@ class RelayLocal extends Relay {
   }
 
   @override
-  bool send(List message) {
+  bool send(List message, {bool? forceSend}) {
     // all messages were resend by the local, so we didn't check sig here.
 
     if (message.isNotEmpty) {

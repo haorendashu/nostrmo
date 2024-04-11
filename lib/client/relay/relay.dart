@@ -63,7 +63,7 @@ abstract class Relay {
     info ??= await RelayInfoUtil.get(url);
   }
 
-  bool send(List<dynamic> message);
+  bool send(List<dynamic> message, {bool? forceSend});
 
   Future<void> disconnect();
 

@@ -84,9 +84,10 @@ class RelayIsolate extends Relay {
   }
 
   @override
-  bool send(List message) {
-    if (mainToSubSendPort != null &&
-        relayStatus.connected == ClientConneccted.CONNECTED) {
+  bool send(List message, {bool? forceSend}) {
+    if (forceSend == true ||
+        (mainToSubSendPort != null &&
+            relayStatus.connected == ClientConneccted.CONNECTED)) {
       final encoded = jsonEncode(message);
       // log(encoded);
       mainToSubSendPort!.send(encoded);
