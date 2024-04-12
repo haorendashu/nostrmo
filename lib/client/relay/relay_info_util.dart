@@ -4,8 +4,14 @@ import 'relay_info.dart';
 
 class RelayInfoUtil {
   static Future<RelayInfo> get(String url) async {
-    final response = await http.get(Uri.parse(url).replace(scheme: 'https'),
-        headers: {'Accept': 'application/nostr+json'});
+    late Uri uri;
+    if (url.indexOf("wss://") == 0) {
+      uri = Uri.parse(url).replace(scheme: 'https');
+    } else {
+      uri = Uri.parse(url).replace(scheme: 'http');
+    }
+    final response =
+        await http.get(uri, headers: {'Accept': 'application/nostr+json'});
     final decodedResponse = jsonDecode(response.body) as Map;
     return RelayInfo.fromJson(decodedResponse);
   }
