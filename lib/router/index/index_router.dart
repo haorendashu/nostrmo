@@ -1,23 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
-import 'package:nostrmo/client/cashu/cashu_tokens.dart';
-import 'package:nostrmo/client/nip19/nip19_tlv.dart';
-import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
 import 'package:nostrmo/component/music/music_component.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/pc_router_fake.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/base_consts.dart';
-import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/pc_router_fake_provider.dart';
-import 'package:nostrmo/router/thread/thread_detail_router.dart';
-import 'package:nostrmo/router/user/user_router.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';

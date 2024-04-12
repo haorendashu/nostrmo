@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
@@ -231,6 +232,9 @@ class _IndexDrawerContnetComponnent
         onTap: () {
           EditorRouter.open(context);
         },
+        onLongPress: () {
+          Uploader.pickAndUpload2NIP95(context);
+        },
       ));
     }
 
@@ -296,6 +300,8 @@ class IndexDrawerItem extends StatelessWidget {
 
   Function? onDoubleTap;
 
+  Function? onLongPress;
+
   Color? color;
 
   // bool borderTop;
@@ -308,6 +314,7 @@ class IndexDrawerItem extends StatelessWidget {
     required this.onTap,
     this.color,
     this.onDoubleTap,
+    this.onLongPress,
     // this.borderTop = true,
     // this.borderBottom = false,
   });
@@ -340,6 +347,11 @@ class IndexDrawerItem extends StatelessWidget {
       onDoubleTap: () {
         if (onDoubleTap != null) {
           onDoubleTap!();
+        }
+      },
+      onLongPress: () {
+        if (onLongPress != null) {
+          onLongPress!();
         }
       },
       behavior: HitTestBehavior.translucent,

@@ -77,6 +77,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool showLinkedLongForm;
 
+  bool inQuote;
+
   EventMainComponent({
     super.key,
     required this.screenshotController,
@@ -92,6 +94,7 @@ class EventMainComponent extends StatefulWidget {
     this.showCommunity = true,
     this.eventRelation,
     this.showLinkedLongForm = true,
+    this.inQuote = false,
   });
 
   @override
@@ -305,14 +308,16 @@ class _EventMainComponent extends State<EventMainComponent> {
         //   eventRelation: eventRelation,
         //   showDetailBtn: widget.showDetailBtn,
         // ));
-      } else if (widget.event.kind == kind.EventKind.SHARED_FILE) {
-        list.add(buildSharedFileWidget());
-        list.add(EventReactionsComponent(
-          screenshotController: widget.screenshotController,
-          event: widget.event,
-          eventRelation: eventRelation,
-          showDetailBtn: widget.showDetailBtn,
-        ));
+      } else if (widget.event.kind == kind.EventKind.STORAGE_SHARED_FILE) {
+        list.add(buildStorageSharedFileWidget());
+        if (!widget.inQuote) {
+          list.add(EventReactionsComponent(
+            screenshotController: widget.screenshotController,
+            event: widget.event,
+            eventRelation: eventRelation,
+            showDetailBtn: widget.showDetailBtn,
+          ));
+        }
       } else {
         if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
           var textStyle = TextStyle(
@@ -434,7 +439,9 @@ class _EventMainComponent extends State<EventMainComponent> {
           ));
         }
 
-        if (widget.event.kind != kind.EventKind.ZAP) {
+        if (widget.event.kind != kind.EventKind.ZAP &&
+            !(widget.event.kind == kind.EventKind.FILE_HEADER &&
+                widget.inQuote)) {
           list.add(EventReactionsComponent(
             screenshotController: widget.screenshotController,
             event: widget.event,
@@ -502,10 +509,14 @@ class _EventMainComponent extends State<EventMainComponent> {
       ));
     }
 
-    eventAllList.add(EventTopComponent(
-      event: widget.event,
-      pagePubkey: widget.pagePubkey,
-    ));
+    if (!(widget.inQuote &&
+        (widget.event.kind == kind.EventKind.FILE_HEADER ||
+            widget.event.kind == kind.EventKind.STORAGE_SHARED_FILE))) {
+      eventAllList.add(EventTopComponent(
+        event: widget.event,
+        pagePubkey: widget.pagePubkey,
+      ));
+    }
 
     eventAllList.add(Container(
       width: double.maxFinite,
@@ -718,9 +729,9 @@ class _EventMainComponent extends State<EventMainComponent> {
     );
   }
 
-  Widget buildSharedFileWidget() {
+  Widget buildStorageSharedFileWidget() {
     var content = widget.event.content;
-    var type = widget.eventRelation!.type;
+    var type = eventRelation.type;
 
     if (!content.startsWith(BASE64.PREFIX)) {
       content = BASE64.PREFIX + content;

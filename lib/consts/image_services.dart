@@ -1,4 +1,5 @@
 class ImageServices {
+  static const NIP_95 = "NIP-95";
   static const NOSTR_BUILD = "nostr.build";
   static const NOSTRIMG_COM = "nostrimg.com";
   static const POMF2_LAIN_LA = "pomf2.lain.la";

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/aid.dart';
+import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/provider/replaceable_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -95,6 +96,21 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
 
   Widget buildEventWidget(
       Event event, Color cardColor, BoxDecoration boxDecoration) {
+    if (event.kind == EventKind.STORAGE_SHARED_FILE ||
+        event.kind == EventKind.FILE_HEADER) {
+      return EventMainComponent(
+        screenshotController: screenshotController,
+        event: event,
+        showReplying: false,
+        textOnTap: () {
+          jumpToThread(event);
+        },
+        showVideo: widget.showVideo,
+        imageListMode: true,
+        inQuote: true,
+      );
+    }
+
     return Screenshot(
       controller: screenshotController,
       child: Container(
@@ -115,6 +131,7 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
             },
             showVideo: widget.showVideo,
             imageListMode: true,
+            inQuote: true,
           ),
         ),
       ),

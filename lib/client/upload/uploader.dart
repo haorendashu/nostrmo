@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mime/mime.dart';
+import 'package:nostrmo/client/event.dart';
+import 'package:nostrmo/client/upload/nip95_uploader.dart';
 import 'package:nostrmo/client/upload/void_cat.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -39,6 +41,15 @@ class Uploader {
     }
 
     return fileType!;
+  }
+
+  static Future<Event?> pickAndUpload2NIP95(BuildContext context) async {
+    var filePath = await pick(context);
+    if (StringUtil.isNotBlank(filePath)) {
+      return NIP95Uploader.uploadForEvent(filePath!);
+    }
+
+    return null;
   }
 
   static Future<void> pickAndUpload(BuildContext context) async {
@@ -88,6 +99,8 @@ class Uploader {
       return await NostrfilesDevUploader.upload(localPath);
     } else if (imageService == ImageServices.NOSTR_BUILD) {
       return await NostrBuildUploader.upload(localPath);
+    } else if (imageService == ImageServices.NIP_95) {
+      return await NIP95Uploader.upload(localPath);
     }
     return await NostrimgComUploader.upload(localPath);
   }
