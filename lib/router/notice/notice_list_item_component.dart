@@ -31,7 +31,7 @@ class NoticeListItemComponent extends StatelessWidget {
           Row(
             children: [
               Text(
-                notice.url,
+                StringUtil.breakWord(notice.url),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),

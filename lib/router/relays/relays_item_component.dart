@@ -8,6 +8,7 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/relays/relay_speed_component.dart';
 import 'package:nostrmo/util/router_util.dart';
+import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
 import '../../consts/client_connected.dart';
@@ -55,7 +56,7 @@ class _RelaysItemComponent extends State<RelaysItemComponent> {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 2),
-          child: Text(widget.addr),
+          child: Text(StringUtil.breakWord(widget.addr)),
         ),
         Row(
           children: [

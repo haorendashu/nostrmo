@@ -89,26 +89,27 @@ class DMNoticeItemComponent extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        newestNotice.url,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          newestNotice.url,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            GetTimeAgo.parse(
-                                DateTime.fromMillisecondsSinceEpoch(newestNotice
-                                    .dateTime.millisecondsSinceEpoch)),
-                            style: TextStyle(
-                              fontSize: smallTextSize,
-                              color: themeData.hintColor,
-                            ),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          GetTimeAgo.parse(DateTime.fromMillisecondsSinceEpoch(
+                              newestNotice.dateTime.millisecondsSinceEpoch)),
+                          style: TextStyle(
+                            fontSize: smallTextSize,
+                            color: themeData.hintColor,
                           ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                   Container(
