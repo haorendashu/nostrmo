@@ -31,6 +31,7 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
 
   @override
   Widget doBuild(BuildContext context) {
+    var themeData = Theme.of(context);
     if (pubkeys.isEmpty) {
       return MetadataListPlaceholder(
         onRefresh: refresh,
@@ -46,7 +47,8 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
         }
 
         return Container(
-          margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+          color: themeData.cardColor,
+          padding: const EdgeInsets.only(bottom: Base.BASE_PADDING),
           child: Selector<MetadataProvider, Metadata?>(
             builder: (context, metadata, child) {
               return GestureDetector(

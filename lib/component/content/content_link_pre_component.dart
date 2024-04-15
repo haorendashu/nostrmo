@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
+import 'package:nostrmo/component/image_component.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/link_preview_data_provider.dart';
@@ -42,8 +43,8 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
           ),
           child: LinkPreview(
             linkStyle: TextStyle(
-              color: Colors.blue,
-              decorationColor: Colors.blue,
+              color: themeData.primaryColor,
+              decorationColor: themeData.primaryColor,
             ),
             enableAnimation: true,
             onPreviewDataFetched: (data) {

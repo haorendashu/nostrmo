@@ -515,7 +515,7 @@ class _MyApp extends State<MyApp> {
       textTheme: textTheme,
       hintColor: hintColor,
       buttonTheme: ButtonThemeData(),
-      shadowColor: Colors.black.withOpacity(0.1),
+      shadowColor: Colors.black.withOpacity(0.2),
       tabBarTheme: TabBarTheme(
         indicatorColor: Colors.white,
         indicatorSize: TabBarIndicatorSize.tab,
@@ -526,12 +526,74 @@ class _MyApp extends State<MyApp> {
     );
   }
 
+  // The old darkTheme, delete later
+  // ThemeData getDarkTheme() {
+  //   Color color500 = _getMainColor();
+  //   MaterialColor themeColor = ColorList.getThemeColor(color500.value);
+
+  //   Color? mainTextColor;
+  //   Color? topFontColor = Colors.white;
+  //   Color hintColor = Colors.grey;
+
+  //   double baseFontSize = settingProvider.fontSize;
+
+  //   var textTheme = TextTheme(
+  //     bodyLarge: TextStyle(fontSize: baseFontSize + 2),
+  //     bodyMedium: TextStyle(fontSize: baseFontSize),
+  //     bodySmall: TextStyle(fontSize: baseFontSize - 2),
+  //   );
+  //   var titleTextStyle = TextStyle(
+  //     color: topFontColor,
+  //     // color: Colors.black,
+  //   );
+
+  //   if (settingProvider.fontFamily != null) {
+  //     textTheme =
+  //         GoogleFonts.getTextTheme(settingProvider.fontFamily!, textTheme);
+  //     titleTextStyle = GoogleFonts.getFont(settingProvider.fontFamily!,
+  //         textStyle: titleTextStyle);
+  //   }
+
+  //   return ThemeData(
+  //     platform: TargetPlatform.iOS,
+  //     primarySwatch: themeColor,
+  //     colorScheme: ColorScheme.fromSeed(
+  //       seedColor: themeColor[500]!,
+  //       brightness: Brightness.dark,
+  //     ),
+  //     // scaffoldBackgroundColor: Base.SCAFFOLD_BACKGROUND_COLOR,
+  //     scaffoldBackgroundColor: ColorsUtil.hexToColor("#212121"),
+  //     primaryColor: themeColor[500],
+  //     appBarTheme: AppBarTheme(
+  //       // color: Base.APPBAR_COLOR,
+  //       backgroundColor: Colors.grey[800],
+  //       titleTextStyle: titleTextStyle,
+  //       elevation: 0,
+  //       scrolledUnderElevation: 0,
+  //     ),
+  //     dividerColor: Colors.grey[200],
+  //     cardColor: Colors.grey[800],
+  //     // indicatorColor: ColorsUtil.hexToColor("#818181"),
+  //     textTheme: textTheme,
+  //     hintColor: hintColor,
+  //     shadowColor: Colors.black.withOpacity(0.1),
+  //     tabBarTheme: TabBarTheme(
+  //       indicatorColor: Colors.white,
+  //       indicatorSize: TabBarIndicatorSize.tab,
+  //       dividerHeight: 0,
+  //       labelColor: Colors.white,
+  //       unselectedLabelColor: Colors.grey[200],
+  //     ),
+  //   );
+  // }
+
   ThemeData getDarkTheme() {
     Color color500 = _getMainColor();
     MaterialColor themeColor = ColorList.getThemeColor(color500.value);
 
     Color? mainTextColor;
-    Color? topFontColor = Colors.white;
+    // Color? topFontColor = Colors.white;
+    Color? topFontColor = Colors.grey[200];
     Color hintColor = Colors.grey;
 
     double baseFontSize = settingProvider.fontSize;
@@ -561,21 +623,25 @@ class _MyApp extends State<MyApp> {
         brightness: Brightness.dark,
       ),
       // scaffoldBackgroundColor: Base.SCAFFOLD_BACKGROUND_COLOR,
-      scaffoldBackgroundColor: ColorsUtil.hexToColor("#212121"),
+      // scaffoldBackgroundColor: ColorsUtil.hexToColor("#212121"),
+      scaffoldBackgroundColor: Color.fromARGB(255, 40, 40, 40),
       primaryColor: themeColor[500],
       appBarTheme: AppBarTheme(
         // color: Base.APPBAR_COLOR,
-        backgroundColor: Colors.grey[800],
+        // backgroundColor: Colors.grey[800],
+        backgroundColor: Colors.black,
         titleTextStyle: titleTextStyle,
         elevation: 0,
         scrolledUnderElevation: 0,
       ),
       dividerColor: Colors.grey[200],
-      cardColor: Colors.grey[800],
+      // cardColor: Colors.grey[800],
+      cardColor: Colors.black,
       // indicatorColor: ColorsUtil.hexToColor("#818181"),
       textTheme: textTheme,
       hintColor: hintColor,
-      shadowColor: Colors.black.withOpacity(0.1),
+      // shadowColor: Colors.black.withOpacity(0.1),
+      shadowColor: Colors.white.withOpacity(0.3),
       tabBarTheme: TabBarTheme(
         indicatorColor: Colors.white,
         indicatorSize: TabBarIndicatorSize.tab,

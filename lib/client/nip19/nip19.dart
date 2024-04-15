@@ -32,9 +32,17 @@ class Nip19 {
   }
 
   static String encodeSimplePubKey(String pubKey) {
-    var code = encodePubKey(pubKey);
-    var length = code.length;
-    return code.substring(0, 6) + ":" + code.substring(length - 6);
+    try {
+      var code = encodePubKey(pubKey);
+      var length = code.length;
+      return code.substring(0, 6) + ":" + code.substring(length - 6);
+    } catch (e) {
+      if (pubKey.length > 12) {
+        return pubKey.substring(0, 13);
+      } else {
+        return pubKey;
+      }
+    }
   }
 
   // static String decode(String npub) {

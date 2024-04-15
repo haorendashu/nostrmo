@@ -493,9 +493,14 @@ class MetadataIconBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
+
     var decoration = BoxDecoration(
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(width: 1),
+      border: Border.all(
+        width: 1,
+        color: themeData.textTheme.bodyMedium!.color ?? Colors.black,
+      ),
     );
     var main = Container(
       height: 28,
@@ -548,25 +553,28 @@ class MetadataTextBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        border: borderColor != null
-            ? Border.all(width: 1, color: borderColor!)
-            : Border.all(width: 1),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          height: 28,
-          padding: EdgeInsets.only(left: 8, right: 8),
-          alignment: Alignment.center,
-          child: Text(
-            text,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: borderColor,
-            ),
+    var themeData = Theme.of(context);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          border: borderColor != null
+              ? Border.all(width: 1, color: borderColor!)
+              : Border.all(
+                  width: 1,
+                  color: themeData.textTheme.bodyMedium!.color ?? Colors.black,
+                ),
+        ),
+        height: 32,
+        padding: EdgeInsets.only(left: 8, right: 8),
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: borderColor,
           ),
         ),
       ),

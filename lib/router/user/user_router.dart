@@ -128,7 +128,8 @@ class _UserRouter extends CustState<UserRouter>
       builder: (context, metadata, child) {
         Color? appbarBackgroundColor = Colors.transparent;
         if (showAppbarBG) {
-          appbarBackgroundColor = Colors.white.withOpacity(0.6);
+          // appbarBackgroundColor = Colors.white.withOpacity(0.6);
+          appbarBackgroundColor = themeData.cardColor.withOpacity(0.6);
         }
         Widget? appbarTitle;
         if (showTitle) {
@@ -167,10 +168,14 @@ class _UserRouter extends CustState<UserRouter>
                 ),
               ),
               SliverToBoxAdapter(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: UserStatisticsComponent(
-                    pubkey: pubkey!,
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+                  color: themeData.cardColor,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: UserStatisticsComponent(
+                      pubkey: pubkey!,
+                    ),
                   ),
                 ),
               ),

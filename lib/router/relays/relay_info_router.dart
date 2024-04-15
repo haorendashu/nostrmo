@@ -118,14 +118,14 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
           list.add(Container(
             margin: EdgeInsets.only(left: Base.BASE_PADDING),
             child: NameComponnet(
-              pubkey: relayInfo.pubKey,
+              pubkey: relayInfo.pubkey,
               metadata: metadata,
             ),
           ));
 
           return GestureDetector(
             onTap: () {
-              RouterUtil.router(context, RouterPath.USER, relayInfo.pubKey);
+              RouterUtil.router(context, RouterPath.USER, relayInfo.pubkey);
             },
             child: Row(
               children: list,
@@ -133,7 +133,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
           );
         },
         selector: (context, _provider) {
-          return _provider.getMetadata(relayInfo.pubKey);
+          return _provider.getMetadata(relayInfo.pubkey);
         },
       ),
     ));
@@ -386,6 +386,7 @@ class NipComponent extends StatelessWidget {
         style: TextStyle(
           color: mainColor,
           decoration: TextDecoration.underline,
+          decorationColor: mainColor,
         ),
       ),
     );

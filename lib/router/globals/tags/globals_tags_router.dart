@@ -45,7 +45,8 @@ class _GlobalsTagsRouter extends KeepAliveCustState<GlobalsTagsRouter> {
             child: Text(
               topic,
               style: TextStyle(
-                color: Colors.white,
+                // color: Colors.white,
+                color: themeData.appBarTheme.titleTextStyle!.color,
               ),
             ),
           ),
@@ -54,6 +55,7 @@ class _GlobalsTagsRouter extends KeepAliveCustState<GlobalsTagsRouter> {
 
       return Container(
         // padding: EdgeInsets.all(Base.BASE_PADDING),
+        color: themeData.cardColor,
         child: Center(
           child: SingleChildScrollView(
             child: Wrap(

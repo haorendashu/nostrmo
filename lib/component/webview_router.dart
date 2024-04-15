@@ -133,6 +133,7 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
     var themeData = Theme.of(context);
     var paddingTop = mediaDataCache.padding.top;
     var mainColor = themeData.primaryColor;
+    var appBarBG = themeData.appBarTheme.backgroundColor;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var _settingProvider = Provider.of<SettingProvider>(context);
     var _webViewProvider = Provider.of<WebViewProvider>(context);
@@ -222,7 +223,7 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
     if (_settingProvider.webviewAppbarOpen == OpenStatus.OPEN) {
       bodyWidget = main;
       appbar = AppBar(
-        backgroundColor: mainColor,
+        backgroundColor: appBarBG,
         leading: GestureDetector(
           onTap: handleBack,
           child: Icon(

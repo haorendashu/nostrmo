@@ -52,7 +52,7 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
       color: cardColor,
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.2),
+          color: themeData.shadowColor,
           offset: const Offset(0, 0),
           blurRadius: 10,
           spreadRadius: 0,

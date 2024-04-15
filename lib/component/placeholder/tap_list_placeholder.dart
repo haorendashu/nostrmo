@@ -19,6 +19,7 @@ class TapListPlaceholder extends StatelessWidget {
     }
 
     return Container(
+      color: themeData.cardColor,
       child: Center(
         child: Wrap(
           children: list,

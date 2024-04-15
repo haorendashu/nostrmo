@@ -39,6 +39,7 @@ class MetadataComponent extends StatefulWidget {
 class _MetadataComponent extends State<MetadataComponent> {
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     List<Widget> mainList = [];
 
     mainList.add(MetadataTopComponent(
@@ -64,7 +65,7 @@ class _MetadataComponent extends State<MetadataComponent> {
             top: Base.BASE_PADDING_HALF,
             left: Base.BASE_PADDING,
             right: Base.BASE_PADDING,
-            bottom: Base.BASE_PADDING,
+            bottom: Base.BASE_PADDING_HALF,
           ),
           // child: Text(widget.metadata!.about!),
           child: Container(
@@ -89,9 +90,12 @@ class _MetadataComponent extends State<MetadataComponent> {
       );
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: mainList,
+    return Container(
+      color: themeData.cardColor,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: mainList,
+      ),
     );
   }
 }
