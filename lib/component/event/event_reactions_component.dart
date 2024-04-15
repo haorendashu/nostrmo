@@ -415,7 +415,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
             padding: const EdgeInsets.only(
               left: Base.BASE_PADDING,
               right: Base.BASE_PADDING,
-              bottom: Base.BASE_PADDING,
+              bottom: Base.BASE_PADDING_HALF,
             ),
             width: double.maxFinite,
             child: Wrap(
@@ -427,9 +427,14 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
           ));
         }
 
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: mainList,
+        return Container(
+          padding: const EdgeInsets.only(
+            bottom: Base.BASE_PADDING_HALF,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: mainList,
+          ),
         );
       },
       selector: (context, _provider) {
