@@ -9,6 +9,7 @@ import 'package:nostrmo/util/string_util.dart';
 import '../consts/base.dart';
 import '../generated/l10n.dart';
 import '../util/router_util.dart';
+import '../util/theme_util.dart';
 
 class NIP07Dialog extends StatefulWidget {
   String method;
@@ -182,7 +183,7 @@ class _NIP07Dialog extends State<NIP07Dialog> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.2),
+      backgroundColor: ThemeUtil.getDialogCoverColor(themeData),
       body: FocusScope(
         // autofocus: true,
         child: GestureDetector(

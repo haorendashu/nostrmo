@@ -7,6 +7,7 @@ import '../consts/base.dart';
 import '../generated/l10n.dart';
 import '../util/router_util.dart';
 import '../util/string_util.dart';
+import '../util/theme_util.dart';
 
 class ZapGenDialog extends StatefulWidget {
   String pubkey;
@@ -140,7 +141,7 @@ class _ZapGenDialog extends State<ZapGenDialog> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.2),
+      backgroundColor: ThemeUtil.getDialogCoverColor(themeData),
       body: FocusScope(
         // autofocus: true,
         child: GestureDetector(

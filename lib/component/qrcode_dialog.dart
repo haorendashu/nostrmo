@@ -20,6 +20,7 @@ import '../provider/metadata_provider.dart';
 import '../util/router_util.dart';
 import '../util/store_util.dart';
 import '../util/string_util.dart';
+import '../util/theme_util.dart';
 import 'image_component.dart';
 
 class QrcodeDialog extends StatefulWidget {
@@ -123,6 +124,7 @@ class _QrcodeDialog extends State<QrcodeDialog> {
       child: PrettyQr(
         data: nip19Pubkey,
         size: QR_WIDTH,
+        elementColor: themeData.textTheme.bodyMedium!.color ?? Colors.black,
         image: AssetImage("assets/imgs/logo/logo512.png"),
       ),
     ));
@@ -174,7 +176,7 @@ class _QrcodeDialog extends State<QrcodeDialog> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.2),
+      backgroundColor: ThemeUtil.getDialogCoverColor(themeData),
       body: FocusScope(
         // autofocus: true,
         child: GestureDetector(

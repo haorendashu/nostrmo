@@ -10,6 +10,7 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
+import '../../util/theme_util.dart';
 import '../content/content_custom_emoji_component.dart';
 
 class CustomEmojiAddDialog extends StatefulWidget {
@@ -128,7 +129,7 @@ class _CustomEmojiAddDialog extends State<CustomEmojiAddDialog> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.2),
+      backgroundColor: ThemeUtil.getDialogCoverColor(themeData),
       body: FocusScope(
         // autofocus: true,
         child: GestureDetector(

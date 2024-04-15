@@ -4,6 +4,7 @@ import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
+import '../../util/theme_util.dart';
 import 'text_input_dialog_inner_component.dart';
 
 class TextInputDialog extends StatefulWidget {
@@ -47,6 +48,7 @@ class TextInputDialog extends StatefulWidget {
 class _TextInputDialog extends State<TextInputDialog> {
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     var main = TextInputDialogInnerComponent(
       widget.title,
       hintText: widget.hintText,
@@ -55,7 +57,7 @@ class _TextInputDialog extends State<TextInputDialog> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.2),
+      backgroundColor: ThemeUtil.getDialogCoverColor(themeData),
       body: FocusScope(
         autofocus: true,
         child: GestureDetector(

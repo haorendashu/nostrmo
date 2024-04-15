@@ -5,6 +5,7 @@ import 'package:nostrmo/util/platform_util.dart';
 
 import '../consts/base.dart';
 import '../util/router_util.dart';
+import '../util/theme_util.dart';
 import 'badge_detail_component.dart';
 
 class BadgeDetailDialog extends StatefulWidget {
@@ -35,6 +36,8 @@ class BadgeDetailDialog extends StatefulWidget {
 class _BadgeDetailDialog extends State<BadgeDetailDialog> {
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
+
     Widget main = BadgeDetailComponent(
       badgeDefinition: widget.badgeDefinition,
     );
@@ -46,7 +49,7 @@ class _BadgeDetailDialog extends State<BadgeDetailDialog> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.2),
+      backgroundColor: ThemeUtil.getDialogCoverColor(themeData),
       body: FocusScope(
         // autofocus: true,
         child: GestureDetector(

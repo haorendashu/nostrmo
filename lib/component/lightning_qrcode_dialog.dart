@@ -7,6 +7,7 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import '../consts/base.dart';
 import '../generated/l10n.dart';
 import '../util/router_util.dart';
+import '../util/theme_util.dart';
 
 class LightningQrcodeDialog extends StatefulWidget {
   String? title;
@@ -113,7 +114,7 @@ class _LightningQrcodeDialog extends State<LightningQrcodeDialog> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.2),
+      backgroundColor: ThemeUtil.getDialogCoverColor(themeData),
       body: FocusScope(
         // autofocus: true,
         child: GestureDetector(
