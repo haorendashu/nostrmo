@@ -152,7 +152,9 @@ class _EventDetailRouter extends State<EventDetailRouter> {
                 event.kind == kind.EventKind.GENERIC_REPOST) {
               return ReactionEventListComponent(event: event, text: s.boosted);
             } else if (event.kind == kind.EventKind.REACTION) {
-              return ReactionEventListComponent(event: event, text: s.liked);
+              return ReactionEventListComponent(
+                  event: event,
+                  text: s.liked + " " + EventReactions.getLikeText(event));
             }
 
             return Container();

@@ -19,6 +19,8 @@ class EventReactions implements FindEventInterface {
 
   int likeNum = 0;
 
+  Map<String, int> likeNumMap = {};
+
   List<Event> likes = [];
 
   List<Event>? myLikeEvents;
@@ -42,6 +44,7 @@ class EventReactions implements FindEventInterface {
       ..repostNum = repostNum
       ..reposts = reposts
       ..likeNum = likeNum
+      ..likeNumMap = likeNumMap
       ..likes = likes
       ..myLikeEvents = myLikeEvents
       ..zaps = zaps
@@ -70,6 +73,14 @@ class EventReactions implements FindEventInterface {
     accessTime = t;
   }
 
+  static String getLikeText(Event event) {
+    if (event.content == "+" || event.content.length > 3) {
+      return "❤️";
+    }
+
+    return event.content;
+  }
+
   bool onEvent(Event event) {
     dataTime = DateTime.now();
 
@@ -85,15 +96,19 @@ class EventReactions implements FindEventInterface {
         repostNum++;
         reposts.add(event);
       } else if (event.kind == kind.EventKind.REACTION) {
-        if (event.content == "-") {
-          likeNum--;
-        } else {
-          likeNum++;
-          likes.add(event);
-          if (event.pubKey == nostr!.publicKey) {
-            myLikeEvents ??= [];
-            myLikeEvents!.add(event);
-          }
+        var likeText = getLikeText(event);
+
+        var num = likeNumMap[likeText];
+        num ??= 0;
+        num++;
+        likeNumMap[likeText] = num;
+
+        likeNum++;
+
+        likes.add(event);
+        if (event.pubKey == nostr!.publicKey) {
+          myLikeEvents ??= [];
+          myLikeEvents!.add(event);
         }
       } else if (event.kind == kind.EventKind.ZAP) {
         zapNum += ZapNumUtil.getNumFromZapEvent(event);

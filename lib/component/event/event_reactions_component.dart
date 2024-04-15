@@ -2,12 +2,16 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:nostrmo/client/nip51/bookmarks.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
+import 'package:nostrmo/component/like_text_select_bottom_sheet.dart';
 import 'package:nostrmo/component/zap_gen_dialog.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -62,6 +66,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
     var fontSize = themeData.textTheme.bodySmall!.fontSize!;
+    var mainColor = themeData.primaryColor;
     var mediumFontSize = themeData.textTheme.bodyMedium!.fontSize;
     var popFontStyle = TextStyle(
       fontSize: mediumFontSize,
@@ -84,30 +89,62 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
           myLikeEvents = eventReactions.myLikeEvents;
         }
         if (myLikeEvents != null && myLikeEvents!.isNotEmpty) {
-          likeColor = Colors.red;
+          likeColor = mainColor;
         }
 
-        return Container(
-          height: 34,
-          child: Row(
-            children: [
-              Expanded(
-                  child: EventReactionNumComponent(
+        String? iconText;
+        Widget? showMoreWidget;
+        IconData likeIconData = Icons.add_reaction_outlined;
+        if (eventReactions != null) {
+          var mapLength = eventReactions.likeNumMap.length;
+          if (mapLength == 1) {
+            iconText = eventReactions.likeNumMap.keys.first;
+          } else if (mapLength > 1) {
+            int maxNum = 0;
+            for (var entry in eventReactions.likeNumMap.entries) {
+              if (entry.value > maxNum) {
+                iconText = entry.key;
+                maxNum = entry.value;
+              }
+            }
+
+            var iconData = Icons.keyboard_double_arrow_down;
+            if (showMoreLike) {
+              iconData = Icons.keyboard_double_arrow_up;
+            }
+
+            showMoreWidget = GestureDetector(
+              onTap: showMoreLikeTap,
+              child: Icon(iconData, color: likeColor),
+            );
+          }
+        }
+        Widget likeWidget = EventReactionNumComponent(
+          num: likeNum,
+          iconText: iconText,
+          iconData: likeIconData,
+          onTap: onLikeTap,
+          color: likeColor,
+          fontSize: fontSize,
+          showMoreWidget: showMoreWidget,
+        );
+
+        var topReactionsWidget = Row(
+          children: [
+            Expanded(
+                child: Container(
+              alignment: Alignment.center,
+              child: EventReactionNumComponent(
                 num: replyNum,
                 iconData: Icons.comment,
                 onTap: onCommmentTap,
                 color: hintColor,
                 fontSize: fontSize,
-              )),
-              // Expanded(
-              //     child: EventReactionNumComponent(
-              //   num: repostNum,
-              //   iconData: Icons.repeat,
-              //   onTap: onRepostTap,
-              //   color: hintColor,
-              //   fontSize: fontSize,
-              // )),
-              Expanded(
+              ),
+            )),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
                 child: PopupMenuButton<String>(
                   tooltip: s.Boost,
                   itemBuilder: (context) {
@@ -131,15 +168,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   ),
                 ),
               ),
-              Expanded(
-                  child: EventReactionNumComponent(
-                num: likeNum,
-                iconData: Icons.favorite,
-                onTap: onLikeTap,
-                color: likeColor,
-                fontSize: fontSize,
-              )),
-              Expanded(
+            ),
+            Expanded(
+                child: Container(
+              alignment: Alignment.center,
+              child: likeWidget,
+            )),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
                 child: PopupMenuButton<int>(
                   tooltip: "Zap",
                   itemBuilder: (context) {
@@ -227,7 +264,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   ),
                 ),
               ),
-              Expanded(
+            ),
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
                 child: PopupMenuButton<String>(
                   tooltip: s.More,
                   itemBuilder: (context) {
@@ -326,8 +366,70 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
+        );
+
+        List<Widget> mainList = [
+          Container(
+            height: 34,
+            child: topReactionsWidget,
+          )
+        ];
+
+        if (showMoreLike &&
+            eventReactions != null &&
+            eventReactions.likeNumMap.length > 1) {
+          Map<String, int> myLikeMap = {};
+          if (eventReactions.myLikeEvents != null) {
+            for (var event in eventReactions.myLikeEvents!) {
+              var likeText = EventReactions.getLikeText(event);
+              myLikeMap[likeText] = 1;
+            }
+          }
+          List<Widget> ers = [];
+          for (var entry in eventReactions.likeNumMap.entries) {
+            var likeText = entry.key;
+            var num = entry.value;
+
+            Color color = hintColor;
+            if (myLikeMap[likeText] != null) {
+              color = mainColor;
+            }
+
+            ers.add(Container(
+              margin: const EdgeInsets.only(right: Base.BASE_PADDING_HALF),
+              child: EventReactionNumComponent(
+                iconData: Icons.favorite,
+                iconText: likeText,
+                num: num,
+                color: color,
+                fontSize: fontSize,
+                onTap: () {},
+              ),
+            ));
+          }
+
+          mainList.add(Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(
+              left: Base.BASE_PADDING,
+              right: Base.BASE_PADDING,
+              bottom: Base.BASE_PADDING,
+            ),
+            width: double.maxFinite,
+            child: Wrap(
+              runSpacing: Base.BASE_PADDING_HALF,
+              spacing: Base.BASE_PADDING_HALF,
+              alignment: WrapAlignment.center,
+              children: ers,
+            ),
+          ));
+        }
+
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: mainList,
         );
       },
       selector: (context, _provider) {
@@ -478,10 +580,16 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }
   }
 
-  void onLikeTap() {
+  Future<void> onLikeTap() async {
     if (myLikeEvents == null || myLikeEvents!.isEmpty) {
       // like
-      var likeEvent = nostr!.sendLike(widget.event.id);
+      // get emoji text
+      var emojiText = await selectLikeEmojiText();
+      if (StringUtil.isBlank(emojiText)) {
+        return;
+      }
+
+      var likeEvent = nostr!.sendLike(widget.event.id, content: emojiText);
       if (likeEvent != null) {
         eventReactionsProvider.addLike(widget.event.id, likeEvent);
       }
@@ -522,9 +630,31 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   void genZap() {
     ZapGenDialog.show(context, widget.event.pubKey, eventId: widget.event.id);
   }
+
+  bool showMoreLike = false;
+
+  void showMoreLikeTap() {
+    setState(() {
+      showMoreLike = !showMoreLike;
+    });
+  }
+
+  Future<String?> selectLikeEmojiText() async {
+    var text = await showModalBottomSheet(
+      isScrollControlled: false,
+      context: context,
+      builder: (context) {
+        return LikeTextSelectBottomSheet();
+      },
+    );
+
+    return text;
+  }
 }
 
 class EventReactionNumComponent extends StatelessWidget {
+  String? iconText;
+
   IconData iconData;
 
   int num;
@@ -537,13 +667,17 @@ class EventReactionNumComponent extends StatelessWidget {
 
   double fontSize;
 
+  Widget? showMoreWidget;
+
   EventReactionNumComponent({
+    this.iconText,
     required this.iconData,
     required this.num,
     this.onTap,
     this.onLongPress,
     required this.color,
     required this.fontSize,
+    this.showMoreWidget,
   });
 
   @override
@@ -557,19 +691,27 @@ class EventReactionNumComponent extends StatelessWidget {
     if (num != 0) {
       String numStr = NumberFormatUtil.format(num);
 
+      List<Widget> list = [];
+      if (StringUtil.isNotBlank(iconText)) {
+        list.add(Text(iconText!));
+      } else {
+        list.add(iconWidget);
+      }
+      list.add(Container(
+        margin: const EdgeInsets.only(left: 4),
+        child: Text(
+          numStr,
+          style: TextStyle(color: color, fontSize: fontSize),
+        ),
+      ));
+      if (showMoreWidget != null) {
+        list.add(showMoreWidget!);
+      }
+
       main = Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          iconWidget,
-          Container(
-            margin: const EdgeInsets.only(left: 4),
-            child: Text(
-              numStr,
-              style: TextStyle(color: color, fontSize: fontSize),
-            ),
-          ),
-        ],
+        children: list,
       );
     } else {
       main = iconWidget;
@@ -579,16 +721,10 @@ class EventReactionNumComponent extends StatelessWidget {
       return GestureDetector(
         onTap: onTap,
         onLongPress: onLongPress,
-        child: Container(
-          alignment: Alignment.center,
-          child: main,
-        ),
-      );
-    } else {
-      return Container(
-        alignment: Alignment.center,
         child: main,
       );
+    } else {
+      return main;
     }
   }
 }

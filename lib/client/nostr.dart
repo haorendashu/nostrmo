@@ -35,11 +35,13 @@ class Nostr {
 
   String get publicKey => _publicKey;
 
-  Event? sendLike(String id, {String? pubkey}) {
+  Event? sendLike(String id, {String? pubkey, String? content}) {
     List<String> tempRelays = [];
     if (pubkey != null) {
       tempRelays.addAll(metadataProvider.getExtralRelays(pubkey, false));
     }
+
+    content ??= "+";
 
     Event event = Event(
         _publicKey,
@@ -47,7 +49,7 @@ class Nostr {
         [
           ["e", id]
         ],
-        "+");
+        content);
     return sendEvent(event, tempRelays: tempRelays);
   }
 

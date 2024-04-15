@@ -49,6 +49,20 @@ class EventReactionsProvider extends ChangeNotifier
       if (er.myLikeEvents != null) {
         var length = er.myLikeEvents!.length;
         er.likeNum -= length;
+
+        for (var e in er.myLikeEvents!) {
+          var likeText = EventReactions.getLikeText(e);
+          var num = er.likeNumMap[likeText];
+          if (num != null && num > 0) {
+            num--;
+
+            if (num > 0) {
+              er.likeNumMap[likeText] = num;
+            } else {
+              er.likeNumMap.remove(likeText);
+            }
+          }
+        }
       } else {
         er.likeNum--;
       }
