@@ -1,14 +1,20 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:mime/mime.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/upload/nip95_uploader.dart';
 import 'package:nostrmo/client/upload/void_cat.dart';
+import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/store_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../consts/base64.dart';
 import '../../consts/image_services.dart';
@@ -81,6 +87,26 @@ class Uploader {
 
     if (assets != null && assets.isNotEmpty) {
       var file = await assets[0].file;
+
+      if (settingProvider.imgCompress >= 30 &&
+          settingProvider.imgCompress < 100) {
+        var fileExtension = StoreUtil.getFileExtension(file!.path);
+        fileExtension ??= "jpg";
+        var tempDir = await getTemporaryDirectory();
+        var tempFilePath =
+            "${tempDir.path}/${StringUtil.rndNameStr(12)}$fileExtension";
+        var result = await FlutterImageCompress.compressAndGetFile(
+          file.path,
+          tempFilePath,
+          quality: settingProvider.imgCompress,
+        );
+
+        if (result != null) {
+          // log("file ${result.path} length ${await result.length()}");
+          return result.path;
+        }
+      }
+
       return file!.path;
     }
 
@@ -89,14 +115,15 @@ class Uploader {
 
   static Future<String?> upload(String localPath,
       {String? imageService}) async {
-    if (imageService == ImageServices.NOSTRIMG_COM) {
-      return await NostrimgComUploader.upload(localPath);
-    } else if (imageService == ImageServices.POMF2_LAIN_LA) {
+    // if (imageService == ImageServices.NOSTRIMG_COM) {
+    //   return await NostrimgComUploader.upload(localPath);
+    // } else if (imageService == ImageServices.VOID_CAT) {
+    //   return await VoidCatUploader.upload(localPath);
+    // } else if (imageService == ImageServices.NOSTRFILES_DEV) {
+    //   return await NostrfilesDevUploader.upload(localPath);
+    // } else
+    if (imageService == ImageServices.POMF2_LAIN_LA) {
       return await Pomf2LainLa.upload(localPath);
-    } else if (imageService == ImageServices.VOID_CAT) {
-      return await VoidCatUploader.upload(localPath);
-    } else if (imageService == ImageServices.NOSTRFILES_DEV) {
-      return await NostrfilesDevUploader.upload(localPath);
     } else if (imageService == ImageServices.NOSTR_BUILD) {
       return await NostrBuildUploader.upload(localPath);
     } else if (imageService == ImageServices.NIP_95) {

@@ -61,7 +61,7 @@ dependencies:
   bech32: ^0.2.2
   hex: ^0.2.0
   wechat_assets_picker: ^8.8.1+1
-  file_picker: ^6.1.1
+  file_picker: ^8.0.0+1
   dio: ^5.1.2
   dio_cookie_manager: ^3.0.0
   emoji_picker_flutter: ^1.6.3
@@ -108,6 +108,7 @@ dependencies:
   table_calendar: ^3.0.9
   intl: ^0.18.1
   device_info_plus: ^10.0.1
+  flutter_image_compress: ^2.2.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

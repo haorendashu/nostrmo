@@ -104,7 +104,7 @@ class StoreUtil {
     return dir.existsSync();
   }
 
-  static String? getfileType(String path) {
+  static String? getFileExtension(String path) {
     var index = path.lastIndexOf(".");
     if (index == -1) {
       return null;
@@ -114,7 +114,11 @@ class StoreUtil {
     n = n.toLowerCase();
 
     var strs = n.split("?");
-    var s = strs[0];
+    return strs[0];
+  }
+
+  static String? getfileType(String path) {
+    var s = getFileExtension(path);
 
     if (s == ".png" ||
         s == ".jpg" ||

@@ -89,11 +89,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         onTap: pickI18N,
       ),
     );
-    // list.add(SettingGroupItemComponent(
-    //   name: s.Image_Compress,
-    //   value: getCompressList(settingProvider.imgCompress).name,
-    //   onTap: pickImageCompressList,
-    // ));
+    list.add(SettingGroupItemComponent(
+      name: s.Image_Compress,
+      value: getCompressList(settingProvider.imgCompress).name,
+      onTap: pickImageCompressList,
+    ));
     if (!PlatformUtil.isPC()) {
       list.add(SettingGroupItemComponent(
         name: s.Privacy_Lock,
@@ -666,10 +666,10 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
   void initImageServcieList() {
     if (imageServcieList == null) {
       imageServcieList = [];
-      imageServcieList!
-          .add(EnumObj(ImageServices.NOSTRIMG_COM, ImageServices.NOSTRIMG_COM));
-      imageServcieList!.add(
-          EnumObj(ImageServices.NOSTRFILES_DEV, ImageServices.NOSTRFILES_DEV));
+      // imageServcieList!
+      //     .add(EnumObj(ImageServices.NOSTRIMG_COM, ImageServices.NOSTRIMG_COM));
+      // imageServcieList!.add(
+      //     EnumObj(ImageServices.NOSTRFILES_DEV, ImageServices.NOSTRFILES_DEV));
       imageServcieList!
           .add(EnumObj(ImageServices.NOSTR_BUILD, ImageServices.NOSTR_BUILD));
       imageServcieList!.add(
