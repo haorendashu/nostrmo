@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/simple_name_component.dart';
+import 'package:nostrmo/component/sync_upload_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:provider/provider.dart';
 
@@ -348,33 +349,7 @@ class _UserRouter extends CustState<UserRouter>
   }
 
   Future<void> broadcaseAll() async {
-    cancelFunc = BotToast.showLoading();
-    var activeRelays = nostr!.activeRelays();
-
-    log("begin to broadcaseAll");
-    var list = box.all();
-    // var index = 0;
-    for (var event in list) {
-      var message = ["EVENT", event.toJson()];
-
-      // find the relays not contain this event and send (broadcase) to it.
-      // int count = 0;
-      for (var relay in activeRelays) {
-        if (!event.sources.contains(relay.url)) {
-          try {
-            // count++;
-            relay.send(message);
-          } catch (e) {}
-        }
-      }
-      // log("note ${index} send to ${count} relays");
-
-      // nostr!.broadcase(event);
-      await Future.delayed(const Duration(milliseconds: 10));
-      // index++;
-    }
-    log("broadcaseAll complete");
-    closeLoading();
+    await SyncUploadDialog.show(context, box.all());
   }
 
   @override

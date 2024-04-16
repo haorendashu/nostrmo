@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/relay_local/relay_local.dart';
 import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/sync_upload_dialog.dart';
 import 'package:nostrmo/component/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
@@ -277,20 +278,22 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
       withData: true,
     );
     if (result != null) {
-      var cancelFunc = BotToast.showLoading();
-      try {
-        var platformFile = result.files.first;
-        var jsonObj = jsonDecode(utf8.decode(platformFile.bytes!));
-        if (jsonObj is List) {
-          for (var eventJson in jsonObj) {
+      List<Event> events = [];
+
+      var platformFile = result.files.first;
+      var jsonObj = jsonDecode(utf8.decode(platformFile.bytes!));
+      if (jsonObj is List) {
+        for (var eventJson in jsonObj) {
+          try {
             var event = Event.fromJson(eventJson);
-            nostr!.broadcase(event);
-            await Future.delayed(const Duration(milliseconds: 10));
+            events.add(event);
+          } catch (e) {
+            log("importNotes error ${e}");
           }
         }
-      } finally {
-        cancelFunc.call();
       }
+
+      SyncUploadDialog.show(context, events);
     }
   }
 }

@@ -211,6 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入用户公钥"),
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage("请妥善保管密钥以便恢复帐户。"),
+        "Please_select_relays": MessageLookupByLibrary.simpleMessage("请选择中继"),
         "Poll": MessageLookupByLibrary.simpleMessage("投票"),
         "Posts": MessageLookupByLibrary.simpleMessage("动态"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("动态 & 回复"),
@@ -237,8 +238,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search_note_content": MessageLookupByLibrary.simpleMessage("搜索动态内容"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("搜索Pubkey的Event"),
+        "Select_relay_to_upload":
+            MessageLookupByLibrary.simpleMessage("选择上传中继"),
         "Send": MessageLookupByLibrary.simpleMessage("发送"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("发送失败"),
+        "Send_interval": MessageLookupByLibrary.simpleMessage("发送间隔"),
         "Sensitive_Content": MessageLookupByLibrary.simpleMessage("敏感内容"),
         "Setting": MessageLookupByLibrary.simpleMessage("设置"),
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
@@ -250,6 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Source": MessageLookupByLibrary.simpleMessage("来源"),
         "Subject": MessageLookupByLibrary.simpleMessage("标题"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
+        "Sync_Upload": MessageLookupByLibrary.simpleMessage("同步上传"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("平板模式"),
         "Take_photo": MessageLookupByLibrary.simpleMessage("拍照"),
         "TempRelays": MessageLookupByLibrary.simpleMessage("临时中继"),
@@ -275,6 +280,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("翻译目标语言"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("上传失败"),
+        "Upload_num": MessageLookupByLibrary.simpleMessage("上传数量"),
         "Url": MessageLookupByLibrary.simpleMessage("链接"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage("使用闪电网络钱包扫描并发送Sats"),

@@ -270,6 +270,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_keep_the_key_properly_for_account_recovery":
             MessageLookupByLibrary.simpleMessage(
                 "Please keep the key properly for account recovery."),
+        "Please_select_relays":
+            MessageLookupByLibrary.simpleMessage("Please select relays"),
         "Poll": MessageLookupByLibrary.simpleMessage("Poll"),
         "Posts": MessageLookupByLibrary.simpleMessage("Posts"),
         "Posts_and_replies":
@@ -300,8 +302,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Search note content"),
         "Search_pubkey_event":
             MessageLookupByLibrary.simpleMessage("Search pubkey event"),
+        "Select_relay_to_upload":
+            MessageLookupByLibrary.simpleMessage("Select relay to upload"),
         "Send": MessageLookupByLibrary.simpleMessage("Send"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("Send fail"),
+        "Send_interval": MessageLookupByLibrary.simpleMessage("Send interval"),
         "Sensitive_Content":
             MessageLookupByLibrary.simpleMessage("Sensitive Content"),
         "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
@@ -314,6 +319,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Source": MessageLookupByLibrary.simpleMessage("Source"),
         "Subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
+        "Sync_Upload": MessageLookupByLibrary.simpleMessage("Sync Upload"),
         "Table_Mode": MessageLookupByLibrary.simpleMessage("Table Mode"),
         "Take_photo": MessageLookupByLibrary.simpleMessage("Take photo"),
         "Take_video": MessageLookupByLibrary.simpleMessage("Take video"),
@@ -342,6 +348,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Translate Target Language"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload fail."),
+        "Upload_num": MessageLookupByLibrary.simpleMessage("Upload num"),
         "Url": MessageLookupByLibrary.simpleMessage("Url"),
         "Use_lightning_wallet_scan_and_send_sats":
             MessageLookupByLibrary.simpleMessage(

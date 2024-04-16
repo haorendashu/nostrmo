@@ -258,5 +258,10 @@
     "Data_Sync_Mode": "Data Sync Mode",
     "Backup_my_notes": "Backup my notes",
     "Import_notes": "Import notes",
-    "File_save_success": "File save success"
+    "File_save_success": "File save success",
+    "Sync_Upload": "Sync Upload",
+    "Upload_num": "Upload num",
+    "Send_interval": "Send interval",
+    "Select_relay_to_upload": "Select relay to upload",
+    "Please_select_relays": "Please select relays"
 }

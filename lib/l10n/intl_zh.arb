@@ -248,5 +248,10 @@
     "Data_Sync_Mode": "数据同步模式",
     "Backup_my_notes": "备份我的数据",
     "Import_notes": "导入数据",
-    "File_save_success": "文件保存成功"
+    "File_save_success": "文件保存成功",
+    "Sync_Upload": "同步上传",
+    "Upload_num": "上传数量",
+    "Send_interval": "发送间隔",
+    "Select_relay_to_upload": "选择上传中继",
+    "Please_select_relays": "请选择中继"
 }

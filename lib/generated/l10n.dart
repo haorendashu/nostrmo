@@ -2649,6 +2649,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Sync Upload`
+  String get Sync_Upload {
+    return Intl.message(
+      'Sync Upload',
+      name: 'Sync_Upload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload num`
+  String get Upload_num {
+    return Intl.message(
+      'Upload num',
+      name: 'Upload_num',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send interval`
+  String get Send_interval {
+    return Intl.message(
+      'Send interval',
+      name: 'Send_interval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select relay to upload`
+  String get Select_relay_to_upload {
+    return Intl.message(
+      'Select relay to upload',
+      name: 'Select_relay_to_upload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select relays`
+  String get Please_select_relays {
+    return Intl.message(
+      'Please select relays',
+      name: 'Please_select_relays',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
