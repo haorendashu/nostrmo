@@ -70,7 +70,7 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
         } else {
           return EventListComponent(
             event: event,
-            showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+            showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
           );
         }
       },

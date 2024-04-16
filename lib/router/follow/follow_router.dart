@@ -65,7 +65,7 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
         var event = events[index];
         return EventListComponent(
           event: event,
-          showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+          showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
         );
       },
       itemCount: events.length,

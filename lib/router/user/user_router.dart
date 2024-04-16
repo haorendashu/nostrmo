@@ -194,7 +194,7 @@ class _UserRouter extends CustState<UserRouter>
                 return EventListComponent(
                   event: event,
                   showVideo:
-                      _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+                      _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
                 );
               },
               itemCount: box.length(),

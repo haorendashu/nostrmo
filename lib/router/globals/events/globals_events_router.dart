@@ -56,7 +56,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
           var event = list[index];
           return EventListComponent(
             event: event,
-            showVideo: _settingProvider.videoPreviewInList == OpenStatus.OPEN,
+            showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
           );
         },
         itemCount: list.length,
