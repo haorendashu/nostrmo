@@ -98,7 +98,9 @@ class CustContactList {
   }
 
   void clear() {
-    _contacts.clear();
+    if (_contacts.isNotEmpty) {
+      _contacts.clear();
+    }
   }
 
   bool containsTag(String tagName) {
