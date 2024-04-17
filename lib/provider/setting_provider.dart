@@ -172,7 +172,7 @@ class SettingProvider extends ChangeNotifier {
 
   int get videoPreviewInList => _settingData!.videoPreviewInList != null
       ? _settingData!.videoPreviewInList!
-      : OpenStatus.CLOSE;
+      : OpenStatus.OPEN;
 
   String? get network => _settingData!.network;
 
