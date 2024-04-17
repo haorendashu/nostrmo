@@ -3,11 +3,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
-import 'package:nostrmo/client/nip51/follow_set_ds.dart';
+import 'package:nostrmo/client/nip51/follow_set.dart';
 import 'package:nostrmo/router/tag/topic_map.dart';
+import 'package:pointycastle/pointycastle.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../client/event.dart';
+import '../client/event_kind.dart';
 import '../client/nip02/contact.dart';
 import '../client/nip02/cust_contact_list.dart';
 import '../client/filter.dart';
@@ -25,6 +27,10 @@ class ContactListProvider extends ChangeNotifier {
 
   CustContactList? _contactList;
 
+  Map<String, FollowSet> followSetMap = {};
+
+  ECDHBasicAgreement? nip04Agreement;
+
   static ContactListProvider getInstance() {
     if (_contactListProvider == null) {
       _contactListProvider = ContactListProvider();
@@ -40,6 +46,7 @@ class ContactListProvider extends ChangeNotifier {
     if (targetNostr != null) {
       pubkey = targetNostr.publicKey;
     }
+    nip04Agreement = NIP04.getAgreement(targetNostr!.privateKey!);
 
     var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
     if (StringUtil.isNotBlank(str)) {
@@ -91,14 +98,13 @@ class ContactListProvider extends ChangeNotifier {
         kinds: [kind.EventKind.CONTACT_LIST],
         limit: 1,
         authors: [targetNostr!.publicKey]);
-    // var filter1 = Filter(
-    //     kinds: [kind.EventKind.FOLLOW_SETS],
-    //     limit: 100,
-    //     authors: [targetNostr.publicKey]);
+    var filter1 = Filter(
+        kinds: [kind.EventKind.FOLLOW_SETS],
+        limit: 100,
+        authors: [targetNostr.publicKey]);
     targetNostr.addInitQuery([
       filter.toJson(),
-      // filter1.toJson()
-      // filter1.toJson()..["#d"] = FollowSetDs.PRIVATE_FOLLOW
+      filter1.toJson(),
     ], _onEvent, id: subscriptId);
   }
 
@@ -113,10 +119,21 @@ class ContactListProvider extends ChangeNotifier {
         relayProvider.relayUpdateByContactListEvent(e);
       }
     } else if (e.kind == kind.EventKind.FOLLOW_SETS) {
-      log(jsonEncode(e.toJson()));
-      var agreement = NIP04.getAgreement(nostr!.privateKey!);
-      var plainContent = NIP04.decrypt(e.content, agreement, nostr!.publicKey!);
-      log("plainContent $plainContent");
+      var followSet = FollowSet.fromEvent(e, nip04Agreement!);
+      if (StringUtil.isBlank(followSet.dTag)) {
+        return;
+      }
+
+      var oldFollowSet = followSetMap[followSet.dTag];
+      if (oldFollowSet != null) {
+        if (followSet.createdAt > oldFollowSet.createdAt) {
+          followSetMap[followSet.dTag] = followSet;
+          notifyListeners();
+        }
+      } else {
+        followSetMap[followSet.dTag] = followSet;
+        notifyListeners();
+      }
     }
   }
 
@@ -256,5 +273,34 @@ class ContactListProvider extends ChangeNotifier {
     _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify(notify: false);
+  }
+
+  void deleteFollowSet(String dTag) {
+    followSetMap.remove(dTag);
+
+    var filter =
+        Filter(authors: [nostr!.publicKey], kinds: [EventKind.FOLLOW_SETS]);
+    var filterMap = filter.toJson();
+    filterMap["#d"] = [dTag];
+
+    Map<String, int> deleted = {};
+    nostr!.query([filterMap], (event) {
+      if (event.kind == EventKind.FOLLOW_SETS) {
+        if (deleted[event.id] == null) {
+          deleted[event.id] = 1;
+          log(jsonEncode(event.sources));
+          log(jsonEncode(event.toJson()));
+          nostr!.deleteEvent(event.id);
+        }
+      }
+    });
+    notifyListeners();
+  }
+
+  void addFollowSet(FollowSet followSet) {
+    followSetMap[followSet.dTag] = followSet;
+    var event = followSet.toEventMap(nip04Agreement!, nostr!.publicKey);
+    nostr!.sendEvent(event);
+    notifyListeners();
   }
 }

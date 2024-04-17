@@ -20,6 +20,7 @@ import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/music_provider.dart';
+import 'package:nostrmo/router/follow_set/follow_set_list_router.dart';
 import 'package:nostrmo/router/relayhub/relayhub_router.dart';
 import 'package:nostrmo/router/relays/relay_info_router.dart';
 import 'package:nostrmo/router/user/followed_router.dart';
@@ -72,6 +73,7 @@ import 'router/dm/dm_detail_router.dart';
 import 'router/donate/donate_router.dart';
 import 'router/event_detail/event_detail_router.dart';
 import 'router/filter/filter_router.dart';
+import 'router/follow_set/follow_set_detail_router.dart';
 import 'router/profile_editor/profile_editor_router.dart';
 import 'router/index/index_router.dart';
 import 'router/keybackup/key_backup_router.dart';
@@ -338,6 +340,8 @@ class _MyApp extends State<MyApp> {
       RouterPath.FOLLOWED_COMMUNITIES: (context) => FollowedCommunitiesRouter(),
       RouterPath.FOLLOWED: (context) => FollowedRouter(),
       RouterPath.BOOKMARK: (context) => BookmarkRouter(),
+      RouterPath.FOLLOW_SET_LIST: (context) => FollowSetListRouter(),
+      RouterPath.FOLLOW_SET_DETAIL: (context) => FollowSetDetailRouter(),
     };
 
     return MultiProvider(

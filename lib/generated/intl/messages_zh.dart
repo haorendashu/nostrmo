@@ -94,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("昵称"),
         "Donate": MessageLookupByLibrary.simpleMessage("捐赠"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("不压缩"),
+        "Edit_name": MessageLookupByLibrary.simpleMessage("编辑名称"),
         "Emoji": MessageLookupByLibrary.simpleMessage("表情"),
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("输入空白可能会被中继禁止。"),
@@ -106,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("找到云端中继列表，你要下载吗？"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("指纹识别"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("跟随系统"),
+        "Follow_set": MessageLookupByLibrary.simpleMessage("跟随集"),
+        "Follow_set_name_edit": MessageLookupByLibrary.simpleMessage("编辑跟随集名称"),
         "Followed": MessageLookupByLibrary.simpleMessage("关注"),
         "Followed_Communities": MessageLookupByLibrary.simpleMessage("关注的社区"),
         "Followed_Tags": MessageLookupByLibrary.simpleMessage("关注的主题"),
@@ -139,6 +142,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("添加账号密钥"),
         "Input_can_not_be_null": MessageLookupByLibrary.simpleMessage("输入不能为空"),
         "Input_dirtyword": MessageLookupByLibrary.simpleMessage("请输入过滤词语"),
+        "Input_follow_set_name":
+            MessageLookupByLibrary.simpleMessage("输入跟随集名称"),
         "Input_parse_error": MessageLookupByLibrary.simpleMessage("输入解析失败"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage("请输入中继地址。"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),

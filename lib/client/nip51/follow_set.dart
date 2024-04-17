@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_kind.dart';
@@ -21,6 +22,8 @@ class FollowSet extends CustContactList {
   Map<String, int> _privateFollowedTags;
   Map<String, int> _privateFollowedCommunitys;
 
+  int createdAt;
+
   FollowSet(
     this.dTag,
     Map<String, Contact> contacts,
@@ -31,7 +34,8 @@ class FollowSet extends CustContactList {
     this._publicFollowedCommunitys,
     this._privateContacts,
     this._privateFollowedTags,
-    this._privateFollowedCommunitys, {
+    this._privateFollowedCommunitys,
+    this.createdAt, {
     this.title,
   }) : super(
           contacts: contacts,
@@ -70,13 +74,24 @@ class FollowSet extends CustContactList {
     }
 
     if (StringUtil.isNotBlank(e.content)) {
-      var contentSource = NIP04.decrypt(e.content, agreement, e.pubKey);
-      var jsonObj = jsonDecode(contentSource);
-      if (jsonObj is List) {
-        CustContactList.getContactInfoFromTags(
-            jsonObj, contacts, followedTags, followedCommunitys);
+      try {
+        var contentSource = NIP04.decrypt(e.content, agreement, e.pubKey);
+        var jsonObj = jsonDecode(contentSource);
+        if (jsonObj is List) {
+          CustContactList.getContactInfoFromTags(jsonObj, privateContacts,
+              privateFollowedTags, privateFollowedCommunitys);
+        }
+      } catch (e) {
+        // sometimes would decode fail
       }
     }
+
+    contacts.addAll(publicContacts);
+    contacts.addAll(privateContacts);
+    followedTags.addAll(publicFollowedTags);
+    followedTags.addAll(privateFollowedTags);
+    followedCommunitys.addAll(publicFollowedCommunitys);
+    followedCommunitys.addAll(privateFollowedCommunitys);
 
     return FollowSet(
       dTag,
@@ -89,6 +104,7 @@ class FollowSet extends CustContactList {
       privateContacts,
       privateFollowedTags,
       privateFollowedCommunitys,
+      e.createdAt,
       title: title,
     );
   }
@@ -126,5 +142,29 @@ class FollowSet extends CustContactList {
     var content = NIP04.encrypt(contentSource, agreement, pubkey);
 
     return Event(pubkey, EventKind.FOLLOW_SETS, tags, content);
+  }
+
+  List<Contact> get publicContacts {
+    return _publicContacts.values.toList();
+  }
+
+  List<Contact> get privateContacts {
+    return _privateContacts.values.toList();
+  }
+
+  String displayName() {
+    if (StringUtil.isNotBlank(title)) {
+      return title!;
+    }
+
+    return dTag;
+  }
+
+  void addPrivate(Contact contact) {
+    _privateContacts[contact.publicKey] = contact;
+  }
+
+  void addPublic(Contact contact) {
+    _publicContacts[contact.publicKey] = contact;
   }
 }

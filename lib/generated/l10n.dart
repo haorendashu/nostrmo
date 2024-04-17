@@ -2699,6 +2699,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Follow set`
+  String get Follow_set {
+    return Intl.message(
+      'Follow set',
+      name: 'Follow_set',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follow set name edit`
+  String get Follow_set_name_edit {
+    return Intl.message(
+      'Follow set name edit',
+      name: 'Follow_set_name_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input follow set name`
+  String get Input_follow_set_name {
+    return Intl.message(
+      'Input follow set name',
+      name: 'Input_follow_set_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit name`
+  String get Edit_name {
+    return Intl.message(
+      'Edit name',
+      name: 'Edit_name',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -108,6 +108,20 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     }
 
     if (isLocal) {
+      list.add(
+          Selector<ContactListProvider, int>(builder: (context, num, child) {
+        return UserStatisticsItemComponent(
+            num: num,
+            name: s.Follow_set,
+            onTap: () {
+              RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
+            });
+      }, selector: (context, _provider) {
+        return _provider.followSetMap.length;
+      }));
+    }
+
+    if (isLocal) {
       list.add(Selector<RelayProvider, int>(builder: (context, num, child) {
         return UserStatisticsItemComponent(
             num: num, name: s.Relays, onTap: onRelaysTap);

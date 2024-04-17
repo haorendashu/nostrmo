@@ -263,5 +263,9 @@
     "Upload_num": "Upload num",
     "Send_interval": "Send interval",
     "Select_relay_to_upload": "Select relay to upload",
-    "Please_select_relays": "Please select relays"
+    "Please_select_relays": "Please select relays",
+    "Follow_set": "Follow set",
+    "Follow_set_name_edit": "Follow set name edit",
+    "Input_follow_set_name": "Input follow set name",
+    "Edit_name": "Edit name"
 }

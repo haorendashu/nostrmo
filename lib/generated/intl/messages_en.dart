@@ -115,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("Donate"),
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Don\'t Compress"),
+        "Edit_name": MessageLookupByLibrary.simpleMessage("Edit name"),
         "Emoji": MessageLookupByLibrary.simpleMessage("Emoji"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
             "Empty text may be ban by relays."),
@@ -130,6 +131,9 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Find clouded relay list, do you want to download it?"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("Fingerprint"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("Follow System"),
+        "Follow_set": MessageLookupByLibrary.simpleMessage("Follow set"),
+        "Follow_set_name_edit":
+            MessageLookupByLibrary.simpleMessage("Follow set name edit"),
         "Followed": MessageLookupByLibrary.simpleMessage("Followed"),
         "Followed_Communities":
             MessageLookupByLibrary.simpleMessage("Followed Communities"),
@@ -177,6 +181,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Input can not be null"),
         "Input_dirtyword":
             MessageLookupByLibrary.simpleMessage("Input dirtyword."),
+        "Input_follow_set_name":
+            MessageLookupByLibrary.simpleMessage("Input follow set name"),
         "Input_parse_error":
             MessageLookupByLibrary.simpleMessage("Input parse error"),
         "Input_relay_address":
