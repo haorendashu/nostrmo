@@ -152,6 +152,8 @@ class RelayPool {
               event.sources.add(source);
             }
           }
+          // mark this event is from local relay.
+          event.localEvent = true;
         } else {
           event.sources.add(relay.url);
         }

@@ -70,8 +70,11 @@ class Event {
   /// 64-byte Schnorr signature of [Event.id].
   String sig = '';
 
-  /// Relay that an event was received from
+  /// Relay that an event was received from.
   List<String> sources = [];
+
+  /// whether this event is from local relay.
+  bool localEvent = false;
 
   /// Returns the Event object as a JSON object
   Map<String, dynamic> toJson() {

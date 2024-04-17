@@ -56,6 +56,11 @@ class EventMemBox implements FindEventInterface {
     var length = _eventList.length;
     for (var index = length - 1; index > -1; index--) {
       var event = _eventList[index];
+      if (event.localEvent) {
+        // local event, don't handle sources
+        continue;
+      }
+
       for (var source in event.sources) {
         if (relayMap[source] != null) {
           // log("$source findCreatedAt $length $index ${length - index}");
@@ -111,9 +116,17 @@ class EventMemBox implements FindEventInterface {
   bool add(Event event) {
     var oldEvent = _idMap[event.id];
     if (oldEvent != null) {
-      if (event.sources.isNotEmpty &&
-          !oldEvent.sources.contains(event.sources[0])) {
-        oldEvent.sources.add(event.sources[0]);
+      if (!event.localEvent) {
+        // only the remote event need to set sources
+        if (oldEvent.localEvent) {
+          // this event is local event, so clean the sources.
+          oldEvent.sources.clear();
+          // clean sources and this event isn't local event.
+          oldEvent.localEvent = false;
+        }
+        if (!oldEvent.sources.contains(event.sources[0])) {
+          oldEvent.sources.add(event.sources[0]);
+        }
       }
       return false;
     }
