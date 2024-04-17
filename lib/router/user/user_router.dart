@@ -53,7 +53,7 @@ class _UserRouter extends CustState<UserRouter>
     super.initState();
 
     whenStopMS = 1500;
-    queryLimit = 200;
+    // queryLimit = 200;
 
     _controller.addListener(() {
       var _showTitle = false;
@@ -324,6 +324,8 @@ class _UserRouter extends CustState<UserRouter>
       // try to query from user's write relay.
       List<String>? tempRelays =
           metadataProvider.getExtralRelays(pubkey!, true);
+      // the init page set to very small, due to open user page very often
+      filter.limit = 10;
       nostr!.query([filter.toJson()], onEventFunc,
           id: subscribeId, tempRelays: tempRelays, onlyTempRelays: false);
     }
