@@ -28,6 +28,7 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
     var textColor = themeData.textTheme.bodyMedium!.color;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
     var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
+    var appbarColor = themeData.appBarTheme.titleTextStyle!.color;
 
     var main = Selector<ContactListProvider, Map<String, FollowSet>>(
         builder: (context, map, child) {
@@ -63,7 +64,7 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
           },
           child: Icon(
             Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
+            color: appbarColor,
           ),
         ),
         title: Text(
@@ -74,14 +75,16 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
           ),
         ),
         actions: [
-          Container(
-            child: TextButton(
-              onPressed: followSetAdd,
-              style: ButtonStyle(),
+          GestureDetector(
+            onTap: followSetAdd,
+            behavior: HitTestBehavior.translucent,
+            child: Container(
+              width: 50,
+              alignment: Alignment.center,
               child: Text(
                 "+",
                 style: TextStyle(
-                  color: textColor,
+                  color: appbarColor,
                   fontSize: 30,
                 ),
               ),
