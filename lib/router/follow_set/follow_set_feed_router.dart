@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip51/follow_set.dart';
 import 'package:nostrmo/component/appbar4stack.dart';
@@ -35,10 +37,23 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
 
   FollowSet? followSet;
 
+  Color? mainColor;
+
+  Color? appBarBG;
+
   @override
   void initState() {
     super.initState();
     bindLoadMoreScroll(_controller);
+    _controller.addListener(() {
+      if (_controller.offset > 50 && mainColor != null) {
+        appBarBG = mainColor!.withOpacity(0.2);
+        setState(() {});
+      } else {
+        appBarBG = null;
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -66,7 +81,7 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
     var _settingProvider = Provider.of<SettingProvider>(context);
     var mediaQuery = MediaQuery.of(context);
     var padding = mediaQuery.padding;
-    var mainColor = themeData.primaryColor;
+    mainColor = themeData.primaryColor;
     var appBarTextColor = themeData.appBarTheme.titleTextStyle!.color;
 
     var events = box.all();
@@ -91,12 +106,10 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
       );
     }
 
-    var appBarBG = mainColor;
-    try {
-      if (_controller.offset > 50) {
-        appBarBG = mainColor.withOpacity(0.2);
-      }
-    } catch (e) {}
+    var currentAppBarBG = mainColor;
+    if (appBarBG != null) {
+      currentAppBarBG = appBarBG;
+    }
 
     var main = ListView.builder(
       controller: _controller,
@@ -124,7 +137,7 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
             top: 0,
             bottom: mediaQuery.size.height - padding.top - Appbar4Stack.height,
             child: Container(
-              color: appBarBG,
+              color: currentAppBarBG,
               padding: EdgeInsets.only(top: padding.top),
               child: Appbar4Stack(
                 title: Text(
