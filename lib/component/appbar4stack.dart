@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import '../util/router_util.dart';
 
 class Appbar4Stack extends StatefulWidget {
+  static double height = 46;
+
   Widget? title;
+
+  Color? textColor;
 
   Color? backgroundColor;
 
@@ -11,6 +15,7 @@ class Appbar4Stack extends StatefulWidget {
 
   Appbar4Stack({
     this.title,
+    this.textColor,
     this.backgroundColor,
     this.action,
   });
@@ -22,8 +27,6 @@ class Appbar4Stack extends StatefulWidget {
 }
 
 class _Appbar4Stack extends State<Appbar4Stack> {
-  double height = 46;
-
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
@@ -36,8 +39,11 @@ class _Appbar4Stack extends State<Appbar4Stack> {
       GestureDetector(
         child: Container(
           alignment: Alignment.center,
-          width: height,
-          child: Icon(Icons.arrow_back_ios_new),
+          width: Appbar4Stack.height,
+          child: Icon(
+            Icons.arrow_back_ios_new,
+            color: widget.textColor,
+          ),
         ),
         onTap: () {
           RouterUtil.back(context);
@@ -57,12 +63,12 @@ class _Appbar4Stack extends State<Appbar4Stack> {
       ));
     } else {
       list.add(Container(
-        width: height,
+        width: Appbar4Stack.height,
       ));
     }
 
     return Container(
-      height: height,
+      height: Appbar4Stack.height,
       color: backgroundColor,
       // color: Colors.red,
       child: Row(

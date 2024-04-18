@@ -94,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Display_Name": MessageLookupByLibrary.simpleMessage("昵称"),
         "Donate": MessageLookupByLibrary.simpleMessage("捐赠"),
         "Dont_Compress": MessageLookupByLibrary.simpleMessage("不压缩"),
+        "Edit": MessageLookupByLibrary.simpleMessage("编辑"),
         "Edit_name": MessageLookupByLibrary.simpleMessage("编辑名称"),
         "Emoji": MessageLookupByLibrary.simpleMessage("表情"),
         "Empty_text_may_be_ban_by_relays":

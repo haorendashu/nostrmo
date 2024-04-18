@@ -28,4 +28,5 @@ class RouterPath {
   static const String BOOKMARK = "/bookmark";
   static const String FOLLOW_SET_LIST = "/followSetList";
   static const String FOLLOW_SET_DETAIL = "/followSetDetail";
+  static const String FOLLOW_SET_FEED = "/followSetFeed";
 }

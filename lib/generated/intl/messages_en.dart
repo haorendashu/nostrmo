@@ -115,6 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Donate": MessageLookupByLibrary.simpleMessage("Donate"),
         "Dont_Compress":
             MessageLookupByLibrary.simpleMessage("Don\'t Compress"),
+        "Edit": MessageLookupByLibrary.simpleMessage("Edit"),
         "Edit_name": MessageLookupByLibrary.simpleMessage("Edit name"),
         "Emoji": MessageLookupByLibrary.simpleMessage("Emoji"),
         "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(

@@ -42,7 +42,7 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
             child: GestureDetector(
               onTap: () {
                 RouterUtil.router(
-                    context, RouterPath.FOLLOW_SET_DETAIL, followSet);
+                    context, RouterPath.FOLLOW_SET_FEED, followSet);
               },
               child: FollowSetListItem(followSet, () {
                 setState(() {});
@@ -141,17 +141,23 @@ class FollowSetListItem extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: Text(followSet.displayName())),
-          Container(
-            margin: EdgeInsets.only(right: Base.BASE_PADDING),
-            child: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(right: Base.BASE_PADDING_HALF),
-                  child: Icon(Icons.people),
-                ),
-                Text(
-                    "${followSet.privateContacts.length} / ${followSet.publicContacts.length}")
-              ],
+          GestureDetector(
+            onTap: () {
+              RouterUtil.router(
+                  context, RouterPath.FOLLOW_SET_DETAIL, followSet);
+            },
+            child: Container(
+              margin: EdgeInsets.only(right: Base.BASE_PADDING),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: Base.BASE_PADDING_HALF),
+                    child: Icon(Icons.people),
+                  ),
+                  Text(
+                      "${followSet.privateContacts.length} / ${followSet.publicContacts.length}")
+                ],
+              ),
             ),
           ),
           PopupMenuButton(
@@ -162,6 +168,12 @@ class FollowSetListItem extends StatelessWidget {
                   value: "editTitle",
                   child: Row(
                     children: [Icon(Icons.edit), Text(" ${s.Edit_name}")],
+                  ),
+                ),
+                PopupMenuItem(
+                  value: "edit",
+                  child: Row(
+                    children: [Icon(Icons.people), Text(" ${s.Edit}")],
                   ),
                 ),
                 PopupMenuItem(
@@ -218,6 +230,8 @@ class FollowSetListItem extends StatelessWidget {
   void onSelect(BuildContext context, value) {
     if (value == "editTitle") {
       titleEdit(context);
+    } else if (value == "edit") {
+      RouterUtil.router(context, RouterPath.FOLLOW_SET_DETAIL, followSet);
     } else if (value == "delete") {
       doDelete();
     }
