@@ -72,7 +72,16 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
     var events = box.all();
     if (events.isEmpty) {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+            leading: GestureDetector(
+          onTap: () {
+            RouterUtil.back(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: themeData.appBarTheme.titleTextStyle!.color,
+          ),
+        )),
         body: EventListPlaceholder(
           onRefresh: () {
             box.clear;

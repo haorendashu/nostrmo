@@ -167,4 +167,20 @@ class FollowSet extends CustContactList {
   void addPublic(Contact contact) {
     _publicContacts[contact.publicKey] = contact;
   }
+
+  void removePrivate(String pubkey) {
+    _privateContacts.remove(pubkey);
+  }
+
+  void removePublic(String pubkey) {
+    _publicContacts.remove(pubkey);
+  }
+
+  bool privateFollow(String pubkey) {
+    return _privateContacts[pubkey] != null;
+  }
+
+  bool publicFollow(String pubkey) {
+    return _publicContacts[pubkey] != null;
+  }
 }

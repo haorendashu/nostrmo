@@ -4,6 +4,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostrmo/component/follow_set_follow_bottom_sheet.dart';
 import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/component/webview_router.dart';
@@ -243,6 +244,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
                 contactListProvider
                     .addContact(Contact(publicKey: widget.pubkey));
               },
+              onLongPress: onFollowPress,
             ));
           } else {
             return wrapBtn(MetadataTextBtn(
@@ -250,6 +252,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
               onTap: () {
                 contactListProvider.removeContact(widget.pubkey);
               },
+              onLongPress: onFollowPress,
             ));
           }
         },
@@ -480,6 +483,15 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
           doubleTapZoomable: true, swipeDismissible: true);
     }
   }
+
+  void onFollowPress() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return FollowSetFollowBottomSheet(widget.pubkey);
+      },
+    );
+  }
 }
 
 class MetadataIconBtn extends StatelessWidget {
@@ -541,6 +553,8 @@ class MetadataIconBtn extends StatelessWidget {
 class MetadataTextBtn extends StatelessWidget {
   void Function() onTap;
 
+  void Function()? onLongPress;
+
   String text;
 
   Color? borderColor;
@@ -548,6 +562,7 @@ class MetadataTextBtn extends StatelessWidget {
   MetadataTextBtn({
     required this.text,
     required this.onTap,
+    this.onLongPress,
     this.borderColor,
   });
 
@@ -557,6 +572,11 @@ class MetadataTextBtn extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
+      onLongPress: () {
+        if (onLongPress != null) {
+          onLongPress!();
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
