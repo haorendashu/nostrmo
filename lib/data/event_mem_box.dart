@@ -116,7 +116,7 @@ class EventMemBox implements FindEventInterface {
   bool add(Event event) {
     var oldEvent = _idMap[event.id];
     if (oldEvent != null) {
-      if (!event.localEvent) {
+      if (!event.localEvent && event.sources.isNotEmpty) {
         // only the remote event need to set sources
         if (oldEvent.localEvent) {
           // this event is local event, so clean the sources.
