@@ -18,7 +18,7 @@ class RelayLocal extends Relay {
         "This is a local relay. It will cache some event.",
         "29320975df855fe34a7b45ada2421e2c741c37c0136901fe477133a91eb18b07",
         "29320975df855fe34a7b45ada2421e2c741c37c0136901fe477133a91eb18b07",
-        ["1"],
+        ["1", "11", "12", "16", "33", "42", "45", "50", "95"],
         "Nostrmo",
         "0.1.0");
   }
