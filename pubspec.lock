@@ -711,10 +711,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: f8bfe2cfcace3a5b7bc2a40d1a9feb3fefb999ddf88a612d4bb5997ce052e7f3
+      sha256: c37ab7bd479daa7b20ef281b528d8eea10a2c4f149edb1f94acdbc41af0fbaf3
       url: "https://pub.dev"
     source: hosted
-    version: "9.3.5"
+    version: "9.3.7"
   flutter_socks_proxy:
     dependency: "direct main"
     description:
@@ -1790,10 +1790,10 @@ packages:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: abd3b8cb479ca685132472202c70cc11ebb8f4242080f290130d1377bab7cbc1
+      sha256: "530a2118d032483b192713c68ed7105fe64418f22492165f87ed01f9b01d4965"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.10"
+    version: "0.8.12"
   synchronized:
     dependency: transitive
     description:

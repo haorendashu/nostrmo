@@ -175,6 +175,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getImageServcie(settingProvider.imageService).name,
       onTap: pickImageServcie,
     ));
+    if (settingProvider.imageService == ImageServices.NIP_96 &&
+        StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
+      list.add(SettingGroupItemComponent(
+        name: s.Image_service,
+        value: settingProvider.imageServiceAddr,
+      ));
+    }
+
     list.add(SettingGroupItemComponent(
       name: s.Limit_Note_Height,
       value: getOpenList(settingProvider.limitNoteHeight).name,
@@ -678,6 +686,8 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       //     .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
       imageServcieList!
           .add(EnumObj(ImageServices.NIP_95, ImageServices.NIP_95));
+      imageServcieList!
+          .add(EnumObj(ImageServices.NIP_96, ImageServices.NIP_96));
     }
   }
 
@@ -694,6 +704,15 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     EnumObj? resultEnumObj =
         await EnumSelectorComponent.show(context, imageServcieList!);
     if (resultEnumObj != null) {
+      if (resultEnumObj.value == ImageServices.NIP_96) {
+        var addr = await TextInputDialog.show(
+            context, "Please input a NIP-96 server address.");
+        if (StringUtil.isNotBlank(addr)) {
+          settingProvider.imageService = ImageServices.NIP_96;
+          settingProvider.imageServiceAddr = addr;
+        }
+        return;
+      }
       settingProvider.imageService = resultEnumObj.value;
     }
   }

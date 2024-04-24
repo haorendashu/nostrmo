@@ -7,6 +7,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:mime/mime.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/upload/nip95_uploader.dart';
+import 'package:nostrmo/client/upload/nip96_uploader.dart';
 import 'package:nostrmo/client/upload/void_cat.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/main.dart';
@@ -61,7 +62,9 @@ class Uploader {
   static Future<void> pickAndUpload(BuildContext context) async {
     var filePath = await pick(context);
     if (StringUtil.isNotBlank(filePath)) {
-      var result = await Pomf2LainLa.upload(filePath!);
+      // var result = await Pomf2LainLa.upload(filePath!);
+      var result =
+          await NIP96Uploader.upload("https://nostr.build/", filePath!);
       print("result $result");
     }
   }
@@ -114,7 +117,7 @@ class Uploader {
   }
 
   static Future<String?> upload(String localPath,
-      {String? imageService}) async {
+      {String? imageService, String? fileName}) async {
     // if (imageService == ImageServices.NOSTRIMG_COM) {
     //   return await NostrimgComUploader.upload(localPath);
     // } else if (imageService == ImageServices.VOID_CAT) {
@@ -123,12 +126,17 @@ class Uploader {
     //   return await NostrfilesDevUploader.upload(localPath);
     // } else
     if (imageService == ImageServices.POMF2_LAIN_LA) {
-      return await Pomf2LainLa.upload(localPath);
+      return await Pomf2LainLa.upload(localPath, fileName: fileName);
     } else if (imageService == ImageServices.NOSTR_BUILD) {
-      return await NostrBuildUploader.upload(localPath);
+      return await NostrBuildUploader.upload(localPath, fileName: fileName);
     } else if (imageService == ImageServices.NIP_95) {
-      return await NIP95Uploader.upload(localPath);
+      return await NIP95Uploader.upload(localPath, fileName: fileName);
+    } else if (imageService == ImageServices.NIP_96 &&
+        StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
+      return await NIP96Uploader.upload(
+          settingProvider.imageServiceAddr!, localPath,
+          fileName: fileName);
     }
-    return await NostrimgComUploader.upload(localPath);
+    return await NostrBuildUploader.upload(localPath, fileName: fileName);
   }
 }

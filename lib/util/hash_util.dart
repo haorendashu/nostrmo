@@ -19,4 +19,9 @@ class HashUtil {
     var digest = crypto.sha1.convert(content);
     return hex.encode(digest.bytes);
   }
+
+  static String sha256Bytes(List<int> content) {
+    var digest = crypto.sha256.convert(content);
+    return hex.encode(digest.bytes);
+  }
 }

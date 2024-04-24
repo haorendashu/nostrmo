@@ -178,6 +178,8 @@ class SettingProvider extends ChangeNotifier {
 
   String? get imageService => _settingData!.imageService;
 
+  String? get imageServiceAddr => _settingData!.imageServiceAddr;
+
   int? get videoPreview => _settingData!.videoPreview;
 
   int? get imagePreview => _settingData!.imagePreview;
@@ -302,6 +304,11 @@ class SettingProvider extends ChangeNotifier {
 
   set imageService(String? o) {
     _settingData!.imageService = o;
+    saveAndNotifyListeners();
+  }
+
+  set imageServiceAddr(String? o) {
+    _settingData!.imageServiceAddr = o;
     saveAndNotifyListeners();
   }
 
@@ -447,6 +454,8 @@ class SettingData {
 
   String? imageService;
 
+  String? imageServiceAddr;
+
   int? videoPreview;
 
   int? imagePreview;
@@ -505,6 +514,7 @@ class SettingData {
     this.videoPreviewInList,
     this.network,
     this.imageService,
+    this.imageServiceAddr,
     this.videoPreview,
     this.imagePreview,
     this.i18n,
@@ -543,6 +553,7 @@ class SettingData {
     videoPreviewInList = json['videoPreviewInList'];
     network = json['network'];
     imageService = json['imageService'];
+    imageServiceAddr = json['imageServiceAddr'];
     videoPreview = json['videoPreview'];
     imagePreview = json['imagePreview'];
     i18n = json['i18n'];
@@ -591,6 +602,7 @@ class SettingData {
     data['videoPreviewInList'] = this.videoPreviewInList;
     data['network'] = this.network;
     data['imageService'] = this.imageService;
+    data['imageServiceAddr'] = this.imageServiceAddr;
     data['videoPreview'] = this.videoPreview;
     data['imagePreview'] = this.imagePreview;
     data['i18n'] = this.i18n;
