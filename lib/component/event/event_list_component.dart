@@ -125,7 +125,8 @@ class _EventListComponent extends State<EventListComponent> {
         try {
           var jsonMap = jsonDecode(widget.event.content);
           var repostEvent = Event.fromJson(jsonMap);
-          RouterUtil.router(context, RouterPath.THREAD_DETAIL, repostEvent);
+          RouterUtil.router(
+              context, RouterPath.getThreadDetailPath(), repostEvent);
           return;
         } catch (e) {
           print(e);
@@ -137,11 +138,11 @@ class _EventListComponent extends State<EventListComponent> {
         var event = singleEventProvider.getEvent(eventRelation.rootId!,
             eventRelayAddr: eventRelation.rootRelayAddr);
         if (event != null) {
-          RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
+          RouterUtil.router(context, RouterPath.getThreadDetailPath(), event);
           return;
         }
       }
     }
-    RouterUtil.router(context, RouterPath.THREAD_DETAIL, widget.event);
+    RouterUtil.router(context, RouterPath.getThreadDetailPath(), widget.event);
   }
 }

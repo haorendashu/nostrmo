@@ -79,6 +79,8 @@ class EventMainComponent extends StatefulWidget {
 
   bool inQuote;
 
+  bool traceMode;
+
   EventMainComponent({
     super.key,
     required this.screenshotController,
@@ -95,6 +97,7 @@ class EventMainComponent extends StatefulWidget {
     this.eventRelation,
     this.showLinkedLongForm = true,
     this.inQuote = false,
+    this.traceMode = false,
   });
 
   @override
@@ -500,9 +503,9 @@ class _EventMainComponent extends State<EventMainComponent> {
       );
 
       eventAllList.add(Container(
-        padding: const EdgeInsets.only(
+        padding: EdgeInsets.only(
           left: Base.BASE_PADDING + 4,
-          right: Base.BASE_PADDING + 4,
+          right: Base.BASE_PADDING + 4 + (widget.traceMode ? 40 : 0),
           bottom: Base.BASE_PADDING_HALF,
         ),
         child: communityTitle,
@@ -520,8 +523,8 @@ class _EventMainComponent extends State<EventMainComponent> {
 
     eventAllList.add(Container(
       width: double.maxFinite,
-      padding: const EdgeInsets.only(
-        left: Base.BASE_PADDING,
+      padding: EdgeInsets.only(
+        left: Base.BASE_PADDING + (widget.traceMode ? 40 : 0),
         right: Base.BASE_PADDING,
       ),
       child: Column(
@@ -530,9 +533,12 @@ class _EventMainComponent extends State<EventMainComponent> {
       ),
     ));
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: eventAllList,
+    return Container(
+      // color: Colors.blue,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: eventAllList,
+      ),
     );
   }
 

@@ -148,7 +148,7 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
   }
 
   void jumpToThread(Event event) {
-    RouterUtil.router(context, RouterPath.THREAD_DETAIL, event);
+    RouterUtil.router(context, RouterPath.getThreadDetailPath(), event);
   }
 
   @override

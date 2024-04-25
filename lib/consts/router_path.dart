@@ -1,3 +1,6 @@
+import 'package:nostrmo/consts/thread_mode.dart';
+import 'package:nostrmo/main.dart';
+
 class RouterPath {
   static const String INDEX = "/";
   static const String EDITOR = "/editor";
@@ -15,6 +18,7 @@ class RouterPath {
   static const String USER_RELAYS = "/userRelays";
   static const String DM_DETAIL = "/dmDetail";
   static const String THREAD_DETAIL = "/threadDetail";
+  static const String THREAD_TRACE = "/threadTrace";
   static const String EVENT_DETAIL = "/eventDetail";
   static const String TAG_DETAIL = "/tagDetail";
   static const String SETTING = "/setting";
@@ -29,4 +33,12 @@ class RouterPath {
   static const String FOLLOW_SET_LIST = "/followSetList";
   static const String FOLLOW_SET_DETAIL = "/followSetDetail";
   static const String FOLLOW_SET_FEED = "/followSetFeed";
+
+  static String getThreadDetailPath() {
+    if (settingProvider.threadMode == ThreadMode.FULL_MODE) {
+      return THREAD_DETAIL;
+    }
+
+    return THREAD_TRACE;
+  }
 }

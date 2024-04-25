@@ -256,6 +256,10 @@ class SettingProvider extends ChangeNotifier {
 
   int? get limitNoteHeight => _settingData!.limitNoteHeight;
 
+  int? get threadMode => _settingData!.threadMode;
+
+  int? get maxSubEventLevel => _settingData!.maxSubEventLevel;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -418,6 +422,16 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set threadMode(int? o) {
+    _settingData!.threadMode = o;
+    saveAndNotifyListeners();
+  }
+
+  set maxSubEventLevel(int? o) {
+    _settingData!.maxSubEventLevel = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -501,6 +515,10 @@ class SettingData {
 
   int? limitNoteHeight;
 
+  int? threadMode;
+
+  int? maxSubEventLevel;
+
   /// updated time
   late int updatedTime;
 
@@ -535,6 +553,8 @@ class SettingData {
     this.relayMode,
     this.eventSignCheck,
     this.limitNoteHeight,
+    this.threadMode,
+    this.maxSubEventLevel,
     this.updatedTime = 0,
   });
 
@@ -583,6 +603,8 @@ class SettingData {
     relayMode = json['relayMode'];
     eventSignCheck = json['eventSignCheck'];
     limitNoteHeight = json['limitNoteHeight'];
+    threadMode = json['threadMode'];
+    maxSubEventLevel = json['maxSubEventLevel'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -623,6 +645,8 @@ class SettingData {
     data['relayMode'] = this.relayMode;
     data['eventSignCheck'] = this.eventSignCheck;
     data['limitNoteHeight'] = this.limitNoteHeight;
+    data['threadMode'] = this.threadMode;
+    data['maxSubEventLevel'] = this.maxSubEventLevel;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

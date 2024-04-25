@@ -15,10 +15,14 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
 
   List<Event> _penddingEvents = [];
 
-  Event? getEvent(String id, {String? eventRelayAddr}) {
+  Event? getEvent(String id, {String? eventRelayAddr, bool queryData = true}) {
     var event = _eventsMap[id];
     if (event != null) {
       return event;
+    }
+
+    if (!queryData) {
+      return null;
     }
 
     if (_needUpdateIds[id] == null) {
@@ -58,7 +62,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
     notifyListeners();
   }
 
-  void _onEvent(Event event) {
+  void onEvent(Event event) {
     _penddingEvents.add(event);
     later(_laterCallback, null);
   }
@@ -69,8 +73,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       var filter = Filter(ids: tempIds);
       var subscriptId = StringUtil.rndNameStr(12);
       // print("query filter ${jsonEncode(filter.toJson())}");
-      nostr!.query([filter.toJson()], _onEvent, id: subscriptId,
-          onComplete: () {
+      nostr!.query([filter.toJson()], onEvent, id: subscriptId, onComplete: () {
         // log("singleEventProvider onComplete $tempIds");
         for (var id in tempIds) {
           var eventRelayAddr = _handingIds.remove(id);
@@ -79,7 +82,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
             print(
                 "single event ${id} not found! begin to query again from ${eventRelayAddr}.");
             var filter = Filter(ids: tempIds);
-            nostr!.query([filter.toJson()], _onEvent,
+            nostr!.query([filter.toJson()], onEvent,
                 tempRelays: [eventRelayAddr!]);
           }
         }

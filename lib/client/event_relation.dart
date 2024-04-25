@@ -35,6 +35,10 @@ class EventRelation {
 
   String? type;
 
+  String? get replyOrRootId {
+    return replyId != null ? replyId : rootId;
+  }
+
   EventRelation.fromEvent(Event event) {
     id = event.id;
     pubkey = event.pubKey;

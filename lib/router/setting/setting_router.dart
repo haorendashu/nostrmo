@@ -9,6 +9,7 @@ import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:nostrmo/client/nip02/cust_contact_list.dart';
 import 'package:nostrmo/client/filter.dart';
+import 'package:nostrmo/consts/thread_mode.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/router/index/account_manager_component.dart';
 import 'package:nostrmo/util/platform_util.dart';
@@ -79,6 +80,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     initFontEnumList(s);
     initImageServcieList();
     initTranslateLanguages();
+    initThreadModes();
 
     List<Widget> list = [];
 
@@ -227,6 +229,16 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenListDefault(settingProvider.autoOpenSensitive).name,
       onTap: pickAutoOpenSensitive,
     ));
+    list.add(SettingGroupItemComponent(
+      name: s.Thread_Mode,
+      value: getThreadMode(settingProvider.threadMode).name,
+      onTap: pickThreadMode,
+    ));
+    // list.add(SettingGroupItemComponent(
+    //   name: s.Max_Sub_Notes,
+    //   value: "${settingProvider.maxSubEventLevel ?? ""}",
+    //   onTap: inputMaxSubNotesNumber,
+    // ));
 
     list.add(
         SettingGroupTitleComponent(iconData: Icons.cloud, title: s.Network));
@@ -1006,4 +1018,36 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       settingProvider.eventSignCheck = resultEnumObj.value;
     }
   }
+
+  List<EnumObj>? threadModes;
+
+  List<EnumObj> initThreadModes() {
+    if (threadModes == null) {
+      var s = S.of(context);
+      threadModes = [];
+      threadModes!.add(EnumObj(ThreadMode.FULL_MODE, s.Full_Mode));
+      threadModes!.add(EnumObj(ThreadMode.TRACE_MODE, s.Trace_Mode));
+    }
+
+    return threadModes!;
+  }
+
+  getThreadMode(int? o) {
+    for (var eo in threadModes!) {
+      if (eo.value == o) {
+        return eo;
+      }
+    }
+    return threadModes![1];
+  }
+
+  pickThreadMode() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, initThreadModes());
+    if (resultEnumObj != null) {
+      settingProvider.threadMode = resultEnumObj.value;
+    }
+  }
+
+  inputMaxSubNotesNumber() {}
 }

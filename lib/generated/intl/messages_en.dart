@@ -146,6 +146,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Forbid_image": MessageLookupByLibrary.simpleMessage("Forbid image"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("Forbid video"),
         "From": MessageLookupByLibrary.simpleMessage("From"),
+        "Full_Mode": MessageLookupByLibrary.simpleMessage("Full Mode"),
         "Gen_invoice_code_error":
             MessageLookupByLibrary.simpleMessage("Gen invoice code error."),
         "Generate_a_new_private_key":
@@ -201,6 +202,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Local Relay"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("Mention User"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
         "Metadata_can_not_be_found":
@@ -270,6 +272,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please input lnbc text"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Please input search content"),
+        "Please_input_the_max_sub_notes_number":
+            MessageLookupByLibrary.simpleMessage(
+                "Please input the max sub notes number"),
         "Please_input_title":
             MessageLookupByLibrary.simpleMessage("Please input title"),
         "Please_input_user_pubkey":
@@ -346,9 +351,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "This note contains sensitive content"),
+        "Thread_Mode": MessageLookupByLibrary.simpleMessage("Thread Mode"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
         "Topic": MessageLookupByLibrary.simpleMessage("Topic"),
         "Topics": MessageLookupByLibrary.simpleMessage("Topics"),
+        "Trace_Mode": MessageLookupByLibrary.simpleMessage("Trace Mode"),
         "Translate": MessageLookupByLibrary.simpleMessage("Translate"),
         "Translate_Source_Language":
             MessageLookupByLibrary.simpleMessage("Translate Source Language"),

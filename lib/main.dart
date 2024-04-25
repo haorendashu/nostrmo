@@ -20,6 +20,7 @@ import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/music_provider.dart';
+import 'package:nostrmo/router/thread_trace_router/thread_trace_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_feed_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_list_router.dart';
 import 'package:nostrmo/router/relayhub/relayhub_router.dart';
@@ -324,6 +325,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.USER_RELAYS: (context) => UserRelayRouter(),
       RouterPath.DM_DETAIL: (context) => DMDetailRouter(),
       RouterPath.THREAD_DETAIL: (context) => ThreadDetailRouter(),
+      RouterPath.THREAD_TRACE: (context) => ThreadTraceRouter(),
       RouterPath.EVENT_DETAIL: (context) => EventDetailRouter(),
       RouterPath.TAG_DETAIL: (context) => TagDetailRouter(),
       RouterPath.NOTICES: (context) => NoticeRouter(),

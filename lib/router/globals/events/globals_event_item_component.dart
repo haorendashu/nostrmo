@@ -83,6 +83,6 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
   }
 
   void jumpToThread() {
-    RouterUtil.router(context, RouterPath.THREAD_DETAIL, _event);
+    RouterUtil.router(context, RouterPath.getThreadDetailPath(), _event);
   }
 }

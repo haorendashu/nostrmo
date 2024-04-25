@@ -2749,6 +2749,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Thread Mode`
+  String get Thread_Mode {
+    return Intl.message(
+      'Thread Mode',
+      name: 'Thread_Mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Max Sub Notes`
+  String get Max_Sub_Notes {
+    return Intl.message(
+      'Max Sub Notes',
+      name: 'Max_Sub_Notes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full Mode`
+  String get Full_Mode {
+    return Intl.message(
+      'Full Mode',
+      name: 'Full_Mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trace Mode`
+  String get Trace_Mode {
+    return Intl.message(
+      'Trace Mode',
+      name: 'Trace_Mode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input the max sub notes number`
+  String get Please_input_the_max_sub_notes_number {
+    return Intl.message(
+      'Please input the max sub notes number',
+      name: 'Please_input_the_max_sub_notes_number',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

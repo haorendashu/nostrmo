@@ -258,5 +258,10 @@
     "Follow_set_name_edit": "编辑跟随集名称",
     "Input_follow_set_name": "输入跟随集名称",
     "Edit_name": "编辑名称",
-    "Edit": "编辑"
+    "Edit": "编辑",
+    "Thread_Mode": "详情模式",
+    "Max_Sub_Notes": "最大子动态数量",
+    "Full_Mode": "全量模式",
+    "Trace_Mode": "追踪模式",
+    "Please_input_the_max_sub_notes_number": "请输入最大的子动态数量"
 }

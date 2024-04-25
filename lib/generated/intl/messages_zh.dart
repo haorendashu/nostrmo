@@ -120,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Forbid_image": MessageLookupByLibrary.simpleMessage("禁止图片"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("禁止视频"),
         "From": MessageLookupByLibrary.simpleMessage("来自"),
+        "Full_Mode": MessageLookupByLibrary.simpleMessage("全量模式"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("生成一个新的密钥"),
         "Global": MessageLookupByLibrary.simpleMessage("全球"),
@@ -158,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("本地中继"),
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("最大子动态数量"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("提到用户"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
         "Method": MessageLookupByLibrary.simpleMessage("方法"),
@@ -212,6 +214,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入闪电网络发票"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("请输入搜索内容"),
+        "Please_input_the_max_sub_notes_number":
+            MessageLookupByLibrary.simpleMessage("请输入最大的子动态数量"),
         "Please_input_title": MessageLookupByLibrary.simpleMessage("请输入标题"),
         "Please_input_user_pubkey":
             MessageLookupByLibrary.simpleMessage("请输入用户公钥"),
@@ -277,9 +281,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("这里应该有一个宇宙"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("该动态包含敏感内容"),
+        "Thread_Mode": MessageLookupByLibrary.simpleMessage("详情模式"),
         "Timeline": MessageLookupByLibrary.simpleMessage("时间线"),
         "Topic": MessageLookupByLibrary.simpleMessage("主题"),
         "Topics": MessageLookupByLibrary.simpleMessage("主题"),
+        "Trace_Mode": MessageLookupByLibrary.simpleMessage("追踪模式"),
         "Translate": MessageLookupByLibrary.simpleMessage("翻译"),
         "Translate_Source_Language":
             MessageLookupByLibrary.simpleMessage("翻译来源语言"),

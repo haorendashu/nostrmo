@@ -268,5 +268,10 @@
     "Follow_set_name_edit": "Follow set name edit",
     "Input_follow_set_name": "Input follow set name",
     "Edit_name": "Edit name",
-    "Edit": "Edit"
+    "Edit": "Edit",
+    "Thread_Mode": "Thread Mode",
+    "Max_Sub_Notes": "Max Sub Notes",
+    "Full_Mode": "Full Mode",
+    "Trace_Mode": "Trace Mode",
+    "Please_input_the_max_sub_notes_number": "Please input the max sub notes number"
 }
