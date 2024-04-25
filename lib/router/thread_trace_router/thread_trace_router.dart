@@ -124,6 +124,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
             ],
           ),
           EventMainComponent(
+            key: sourceEventKey,
             screenshotController: ScreenshotController(),
             event: sourceEvent!,
             showReplying: false,
@@ -318,14 +319,14 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     }
 
     if (refresh) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   Scrollable.ensureVisible(sourceEventKey.currentContext!);
-      // });
-      // whenStop(() {
-      //   if (sourceEventKey.currentContext != null) {
-      //     Scrollable.ensureVisible(sourceEventKey.currentContext!);
-      //   }
-      // });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Scrollable.ensureVisible(sourceEventKey.currentContext!);
+      });
+      whenStop(() {
+        if (sourceEventKey.currentContext != null) {
+          Scrollable.ensureVisible(sourceEventKey.currentContext!);
+        }
+      });
 
       setState(() {});
     }
