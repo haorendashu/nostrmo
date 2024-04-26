@@ -2799,6 +2799,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Show more replies`
+  String get Show_more_replies {
+    return Intl.message(
+      'Show more replies',
+      name: 'Show_more_replies',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

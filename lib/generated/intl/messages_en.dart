@@ -325,6 +325,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("Share"),
         "Show": MessageLookupByLibrary.simpleMessage("Show"),
         "Show_more": MessageLookupByLibrary.simpleMessage("Show more"),
+        "Show_more_replies":
+            MessageLookupByLibrary.simpleMessage("Show more replies"),
         "Show_web": MessageLookupByLibrary.simpleMessage("Show web"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
         "Soft": MessageLookupByLibrary.simpleMessage("Soft"),

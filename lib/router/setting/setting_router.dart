@@ -235,11 +235,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getThreadMode(settingProvider.threadMode).name,
       onTap: pickThreadMode,
     ));
-    // list.add(SettingGroupItemComponent(
-    //   name: s.Max_Sub_Notes,
-    //   value: "${settingProvider.maxSubEventLevel ?? ""}",
-    //   onTap: inputMaxSubNotesNumber,
-    // ));
+    list.add(SettingGroupItemComponent(
+      name: s.Max_Sub_Notes,
+      value: "${settingProvider.maxSubEventLevel ?? ""}",
+      onTap: inputMaxSubNotesNumber,
+    ));
 
     list.add(
         SettingGroupTitleComponent(iconData: Icons.cloud, title: s.Network));
@@ -1042,5 +1042,15 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     }
   }
 
-  inputMaxSubNotesNumber() {}
+  inputMaxSubNotesNumber() async {
+    var numText = await TextInputDialog.show(
+        context, S.of(context).Please_input_the_max_sub_notes_number);
+    if (StringUtil.isNotBlank(numText)) {
+      var num = int.tryParse(numText!);
+      if (num != null && num <= 0) {
+        num = null;
+      }
+      settingProvider.maxSubEventLevel = num;
+    }
+  }
 }

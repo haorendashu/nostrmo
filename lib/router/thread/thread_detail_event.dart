@@ -1,7 +1,10 @@
 import '../../client/event.dart';
+import '../../client/event_relation.dart';
 
 class ThreadDetailEvent {
   Event event;
+
+  EventRelation relation;
 
   int totalLevelNum = 1;
 
@@ -27,5 +30,8 @@ class ThreadDetailEvent {
 
   List<ThreadDetailEvent> subItems = [];
 
-  ThreadDetailEvent({required this.event});
+  ThreadDetailEvent({
+    required this.event,
+    required this.relation,
+  });
 }

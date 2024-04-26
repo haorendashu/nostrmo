@@ -147,11 +147,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     ));
 
     for (var item in rootSubList) {
-      // if (item.event.kind == kind.EventKind.ZAP &&
-      //     StringUtil.isBlank(item.event.content)) {
-      //   continue;
-      // }
-
       var totalLevelNum = item.totalLevelNum;
       var needWidth = (totalLevelNum - 1) *
               (Base.BASE_PADDING +
@@ -211,12 +206,16 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     box.clear();
     parentEventTraces.clear();
     rootSubList.clear();
+    forceParentId = null;
 
     // find parent data
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
     var replyId = eventRelation.replyOrRootId;
     if (StringUtil.isNotBlank(replyId)) {
       findParentEvent(replyId!);
+
+      // this sourceEvent has parent event, so it is reply event, only show the sub reply events.
+      forceParentId = sourceEvent!.id;
     }
 
     // find reply data
@@ -230,7 +229,15 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       ..remove(EventKind.REPOST);
 
     // query sub events
-    var filter = Filter(e: [sourceEvent!.id], kinds: replyKinds);
+    var parentIds = [sourceEvent!.id];
+    if (StringUtil.isNotBlank(eventRelation.rootId)) {
+      // only the query from root can query all sub replies.
+      parentIds.add(eventRelation.rootId!);
+      // parentIds = [eventRelation.rootId!];
+    }
+    var filter = Filter(e: parentIds, kinds: replyKinds);
+
+    log(jsonEncode(filter.toJson()));
 
     var filters = [filter.toJson()];
     if (aId != null) {
@@ -239,9 +246,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       m["#a"] = [aId.toAString()];
       filters.add(m);
     }
-
-    // print(filters);
-
     nostr!.query(filters, onEvent);
   }
 

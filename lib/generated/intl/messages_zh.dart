@@ -258,6 +258,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
         "Show": MessageLookupByLibrary.simpleMessage("显示"),
         "Show_more": MessageLookupByLibrary.simpleMessage("查看更多"),
+        "Show_more_replies": MessageLookupByLibrary.simpleMessage("显示更多回复"),
         "Show_web": MessageLookupByLibrary.simpleMessage("打开网页"),
         "Sign_fail": MessageLookupByLibrary.simpleMessage("签名失败"),
         "Soft": MessageLookupByLibrary.simpleMessage("应用"),

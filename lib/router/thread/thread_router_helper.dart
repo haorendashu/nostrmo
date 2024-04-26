@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../client/event.dart';
@@ -18,32 +20,53 @@ mixin ThreadRouterHelper<T extends StatefulWidget>
 
   List<ThreadDetailEvent> rootSubList = [];
 
+  String? forceParentId;
+
   void listToTree({bool refresh = true}) {
     // event in box had been sorted. The last one is the oldest.
     var all = box.all();
     var length = all.length;
+    log("forceParentId is $forceParentId");
+    log("listToTree length is $length");
     List<ThreadDetailEvent> _rootSubList = [];
     // key - id, value - item
     Map<String, ThreadDetailEvent> itemMap = {};
     for (var i = length - 1; i > -1; i--) {
       var event = all[i];
-      var item = ThreadDetailEvent(event: event);
+      var relation = EventRelation.fromEvent(event);
+      var item = ThreadDetailEvent(event: event, relation: relation);
       itemMap[event.id] = item;
     }
 
     for (var i = length - 1; i > -1; i--) {
       var event = all[i];
-      var relation = EventRelation.fromEvent(event);
       var item = itemMap[event.id]!;
+      var relation = item.relation;
 
-      if (relation.replyId == null) {
-        _rootSubList.add(item);
-      } else {
-        var replyItem = itemMap[relation.replyId];
-        if (replyItem == null) {
+      if (StringUtil.isBlank(forceParentId)) {
+        // is not reply page
+        if (relation.replyId == null) {
           _rootSubList.add(item);
         } else {
-          replyItem.subItems.add(item);
+          var replyItem = itemMap[relation.replyId];
+          if (replyItem == null) {
+            _rootSubList.add(item);
+          } else {
+            replyItem.subItems.add(item);
+          }
+        }
+      } else {
+        // this is reply page
+        if (relation.replyId != null) {
+          if (relation.replyId == forceParentId) {
+            // reply the forceParentId, set as root
+            _rootSubList.add(item);
+          } else {
+            var replyItem = itemMap[relation.replyId];
+            if (replyItem != null) {
+              replyItem.subItems.add(item);
+            }
+          }
         }
       }
     }
@@ -55,7 +78,9 @@ mixin ThreadRouterHelper<T extends StatefulWidget>
 
     if (refresh) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Scrollable.ensureVisible(sourceEventKey.currentContext!);
+        if (sourceEventKey.currentContext != null) {
+          Scrollable.ensureVisible(sourceEventKey.currentContext!);
+        }
       });
       whenStop(() {
         if (sourceEventKey.currentContext != null) {

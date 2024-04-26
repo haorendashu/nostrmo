@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/provider/setting_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../../component/event/event_bitcion_icon_component.dart';
