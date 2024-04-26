@@ -8,6 +8,7 @@ import '../../client/aid.dart';
 import '../../client/event.dart';
 import '../../client/event_relation.dart';
 import '../../client/filter.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event/event_load_list_component.dart';
@@ -26,6 +27,7 @@ import '../../util/when_stop_function.dart';
 import 'thread_detail_event.dart';
 import 'thread_detail_event_main_component.dart';
 import 'thread_detail_item_component.dart';
+import 'thread_router_helper.dart';
 
 class ThreadDetailRouter extends StatefulWidget {
   @override
@@ -69,9 +71,7 @@ class ThreadDetailRouter extends StatefulWidget {
 }
 
 class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
-    with PenddingEventsLaterFunction, WhenStopFunction {
-  EventMemBox box = EventMemBox();
-
+    with PenddingEventsLaterFunction, WhenStopFunction, ThreadRouterHelper {
   Event? sourceEvent;
 
   bool showTitle = false;
@@ -99,8 +99,6 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       }
     });
   }
-
-  GlobalKey sourceEventKey = GlobalKey();
 
   void initFromArgs() {
     // do some init oper
@@ -349,26 +347,12 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {},
-        //     icon: Icon(Icons.more_horiz),
-        //   ),
-        // ],
+        leading: AppbarBackBtnComponent(),
         title: appBarTitle,
       ),
       body: EventReplyCallback(
-        child: main,
         onReplyCallback: onReplyCallback,
+        child: main,
       ),
     );
   }
@@ -413,84 +397,4 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
   String? rootEventRelayAddr;
 
   Event? rootEvent;
-
-  List<ThreadDetailEvent>? rootSubList = [];
-
-  // void onRootEvent(Event event) {
-  //   setState(() {
-  //     rootEvent = event;
-  //   });
-  // }
-
-  void onEvent(Event event) {
-    // print(event.toJson());
-    if (event.kind == kind.EventKind.ZAP && StringUtil.isBlank(event.content)) {
-      return;
-    }
-
-    later(event, (list) {
-      box.addList(list);
-      listToTree();
-      eventReactionsProvider.onEvents(list);
-    }, null);
-  }
-
-  void listToTree({bool refresh = true}) {
-    // event in box had been sorted. The last one is the oldest.
-    var all = box.all();
-    var length = all.length;
-    List<ThreadDetailEvent> _rootSubList = [];
-    // key - id, value - item
-    Map<String, ThreadDetailEvent> itemMap = {};
-    for (var i = length - 1; i > -1; i--) {
-      var event = all[i];
-      var item = ThreadDetailEvent(event: event);
-      itemMap[event.id] = item;
-    }
-
-    for (var i = length - 1; i > -1; i--) {
-      var event = all[i];
-      var relation = EventRelation.fromEvent(event);
-      var item = itemMap[event.id]!;
-
-      if (relation.replyId == null) {
-        _rootSubList.add(item);
-      } else {
-        var replyItem = itemMap[relation.replyId];
-        if (replyItem == null) {
-          _rootSubList.add(item);
-        } else {
-          replyItem.subItems.add(item);
-        }
-      }
-    }
-
-    rootSubList = _rootSubList;
-    for (var rootSub in rootSubList!) {
-      rootSub.handleTotalLevelNum(0);
-    }
-
-    if (refresh) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   Scrollable.ensureVisible(sourceEventKey.currentContext!);
-      // });
-      whenStop(() {
-        if (sourceEventKey.currentContext != null) {
-          Scrollable.ensureVisible(sourceEventKey.currentContext!);
-        }
-      });
-
-      setState(() {});
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    disposeLater();
-  }
-
-  onReplyCallback(Event event) {
-    onEvent(event);
-  }
 }

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/client/filter.dart';
 import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/thread_trace_router/event_trace_info.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -15,14 +14,16 @@ import '../../client/aid.dart';
 import '../../client/event.dart';
 import '../../client/event_kind.dart';
 import '../../client/event_relation.dart';
+import '../../component/appbar_back_btn_component.dart';
+import '../../component/event_reply_callback.dart';
 import '../../consts/base.dart';
-import '../../generated/l10n.dart';
 import '../../util/peddingevents_later_function.dart';
+import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../../util/when_stop_function.dart';
-import '../thread/thread_detail_event.dart';
 import '../thread/thread_detail_event_main_component.dart';
 import '../thread/thread_detail_item_component.dart';
+import '../thread/thread_router_helper.dart';
 
 class ThreadTraceRouter extends StatefulWidget {
   @override
@@ -32,9 +33,7 @@ class ThreadTraceRouter extends StatefulWidget {
 }
 
 class _ThreadTraceRouter extends State<ThreadTraceRouter>
-    with PenddingEventsLaterFunction, WhenStopFunction {
-  EventMemBox box = EventMemBox();
-
+    with PenddingEventsLaterFunction, WhenStopFunction, ThreadRouterHelper {
   // used to filter parent events
   Map<String, int> parentIds = {};
   List<EventTraceInfo> parentEventTraces = [];
@@ -47,8 +46,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
   void initState() {
     super.initState();
   }
-
-  GlobalKey sourceEventKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -172,20 +169,25 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       children: mainList,
     );
 
+    if (PlatformUtil.isTableMode()) {
+      main = GestureDetector(
+        onVerticalDragUpdate: (detail) {
+          _controller.jumpTo(_controller.offset - detail.delta.dy);
+        },
+        behavior: HitTestBehavior.translucent,
+        child: main,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: appBarTitle,
       ),
-      body: main,
+      body: EventReplyCallback(
+        onReplyCallback: onReplyCallback,
+        child: main,
+      ),
     );
   }
 
@@ -224,7 +226,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
 
     // print(filters);
 
-    nostr!.query(filters, onReplyEvent);
+    nostr!.query(filters, onEvent);
   }
 
   String parentEventId(String eventId) {
@@ -264,69 +266,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       if (StringUtil.isNotBlank(replyId)) {
         findParentEvent(replyId!);
       }
-
-      setState(() {});
-    }
-  }
-
-  void onReplyEvent(Event event) {
-    if (event.kind == EventKind.ZAP && StringUtil.isBlank(event.content)) {
-      return;
-    }
-
-    later(event, (list) {
-      box.addList(list);
-      listToTree();
-      eventReactionsProvider.onEvents(list);
-    }, null);
-  }
-
-  List<ThreadDetailEvent> rootSubList = [];
-
-  void listToTree({bool refresh = true}) {
-    // event in box had been sorted. The last one is the oldest.
-    var all = box.all();
-    var length = all.length;
-    List<ThreadDetailEvent> _rootSubList = [];
-    // key - id, value - item
-    Map<String, ThreadDetailEvent> itemMap = {};
-    for (var i = length - 1; i > -1; i--) {
-      var event = all[i];
-      var item = ThreadDetailEvent(event: event);
-      itemMap[event.id] = item;
-    }
-
-    for (var i = length - 1; i > -1; i--) {
-      var event = all[i];
-      var relation = EventRelation.fromEvent(event);
-      var item = itemMap[event.id]!;
-
-      if (relation.replyId == null) {
-        _rootSubList.add(item);
-      } else {
-        var replyItem = itemMap[relation.replyId];
-        if (replyItem == null) {
-          _rootSubList.add(item);
-        } else {
-          replyItem.subItems.add(item);
-        }
-      }
-    }
-
-    rootSubList = _rootSubList;
-    for (var rootSub in rootSubList) {
-      rootSub.handleTotalLevelNum(0);
-    }
-
-    if (refresh) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Scrollable.ensureVisible(sourceEventKey.currentContext!);
-      });
-      whenStop(() {
-        if (sourceEventKey.currentContext != null) {
-          Scrollable.ensureVisible(sourceEventKey.currentContext!);
-        }
-      });
 
       setState(() {});
     }
