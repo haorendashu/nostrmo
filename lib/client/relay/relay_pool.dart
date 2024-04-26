@@ -136,7 +136,7 @@ class RelayPool {
         relay.relayStatus.noteReceive();
 
         // check block pubkey
-        if (filterProvider.checkBlock(event.pubKey)) {
+        if (filterProvider.checkBlock(event.pubkey)) {
           return;
         }
         // check dirtyword

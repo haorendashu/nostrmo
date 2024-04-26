@@ -37,7 +37,7 @@ class _ReactionEventListComponent extends State<ReactionEventListComponent> {
         bottom: Base.BASE_PADDING,
       ),
       child: ReactionEventItemComponent(
-        pubkey: widget.event.pubKey,
+        pubkey: widget.event.pubkey,
         text: widget.text,
         createdAt: widget.event.createdAt,
       ),

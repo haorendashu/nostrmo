@@ -69,7 +69,7 @@ class BadgeDefinitionProvider extends ChangeNotifier with LaterFunction {
     for (var event in _penddingEvents) {
       var bd = BadgeDefinition.loadFromEvent(event);
       if (bd != null) {
-        var badgeId = "30009:${event.pubKey}:${bd.d}";
+        var badgeId = "30009:${event.pubkey}:${bd.d}";
 
         var oldBD = map[badgeId];
         if (oldBD == null || oldBD.updatedAt < bd.updatedAt) {

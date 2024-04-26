@@ -17,7 +17,7 @@ class BlankLinkMusicInfoBuilder extends MusicInfoBuilder {
     if (StringUtil.isNotBlank(eventId)) {
       var event = singleEventProvider.getEvent(eventId!);
       if (event != null) {
-        var metadata = metadataProvider.getMetadata(event.pubKey);
+        var metadata = metadataProvider.getMetadata(event.pubkey);
         if (metadata != null) {
           imageUrl = metadata.picture;
           name = metadata.name;

@@ -13,7 +13,7 @@ class RelayListMetadata {
   late List<String> writeAbleRelays;
 
   RelayListMetadata.fromEvent(Event event) {
-    pubkey = event.pubKey;
+    pubkey = event.pubkey;
     createdAt = event.createdAt;
     // relays = [];
     readAbleRelays = [];

@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'dart:developer';
-
 class Metadata {
-  String? pubKey;
+  String? pubkey;
   String? name;
   String? displayName;
   String? picture;
@@ -16,7 +13,7 @@ class Metadata {
   int? valid;
 
   Metadata({
-    this.pubKey,
+    this.pubkey,
     this.name,
     this.displayName,
     this.picture,
@@ -31,7 +28,7 @@ class Metadata {
   });
 
   Metadata.fromJson(Map<String, dynamic> json) {
-    pubKey = json['pub_key'];
+    pubkey = json['pub_key'];
     name = json['name'];
     displayName = json['display_name'];
     picture = json['picture'];
@@ -51,7 +48,7 @@ class Metadata {
 
   Map<String, dynamic> toFullJson() {
     var data = toJson();
-    data['pub_key'] = this.pubKey;
+    data['pub_key'] = this.pubkey;
     return data;
   }
 

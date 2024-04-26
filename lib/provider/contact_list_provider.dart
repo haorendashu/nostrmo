@@ -172,8 +172,8 @@ class ContactListProvider extends ChangeNotifier {
     _saveAndNotify();
   }
 
-  void removeContact(String pubKey) {
-    _contactList!.remove(pubKey);
+  void removeContact(String pubkey) {
+    _contactList!.remove(pubkey);
     _event = nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
@@ -192,8 +192,8 @@ class ContactListProvider extends ChangeNotifier {
     return _contactList!.list();
   }
 
-  Contact? getContact(String pubKey) {
-    return _contactList!.get(pubKey);
+  Contact? getContact(String pubkey) {
+    return _contactList!.get(pubkey);
   }
 
   void clear() {

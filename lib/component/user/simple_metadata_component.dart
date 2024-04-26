@@ -113,7 +113,7 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
               children: [
                 userImageWidget,
                 NameComponnet(
-                  pubkey: metadata.pubKey!,
+                  pubkey: metadata.pubkey!,
                   metadata: metadata,
                 ),
               ],

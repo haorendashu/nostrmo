@@ -75,7 +75,7 @@ class FollowSet extends CustContactList {
 
     if (StringUtil.isNotBlank(e.content)) {
       try {
-        var contentSource = NIP04.decrypt(e.content, agreement, e.pubKey);
+        var contentSource = NIP04.decrypt(e.content, agreement, e.pubkey);
         var jsonObj = jsonDecode(contentSource);
         if (jsonObj is List) {
           CustContactList.getContactInfoFromTags(jsonObj, privateContacts,

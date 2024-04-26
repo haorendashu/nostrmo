@@ -46,7 +46,7 @@ class _UserContactListComponent extends State<UserContactListComponent> {
                 },
                 behavior: HitTestBehavior.translucent,
                 child: MetadataComponent(
-                  pubKey: contact.publicKey,
+                  pubkey: contact.publicKey,
                   metadata: metadata,
                   jumpable: true,
                 ),

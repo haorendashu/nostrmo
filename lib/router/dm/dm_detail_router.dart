@@ -107,7 +107,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
             return DMDetailItemComponent(
               sessionPubkey: detail!.dmSession.pubkey,
               event: event,
-              isLocal: localPubkey == event.pubKey,
+              isLocal: localPubkey == event.pubkey,
               agreement: agreement!,
             );
           },

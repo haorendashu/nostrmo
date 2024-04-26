@@ -182,7 +182,7 @@ class EventMemBox implements FindEventInterface {
   List<Event> listByPubkey(String pubkey) {
     List<Event> list = [];
     for (var event in _eventList) {
-      if (event.pubKey == pubkey) {
+      if (event.pubkey == pubkey) {
         list.add(event);
       }
     }

@@ -18,10 +18,10 @@ class MetadataDB {
     return objs;
   }
 
-  static Future<Metadata?> get(String pubKey, {DatabaseExecutor? db}) async {
+  static Future<Metadata?> get(String pubkey, {DatabaseExecutor? db}) async {
     db = await DB.getDB(db);
     var list =
-        await db.query("metadata", where: "pub_key = ?", whereArgs: [pubKey]);
+        await db.query("metadata", where: "pub_key = ?", whereArgs: [pubkey]);
     if (list.isNotEmpty) {
       return Metadata.fromJson(list[0]);
     }
@@ -35,7 +35,7 @@ class MetadataDB {
   static Future update(Metadata o, {DatabaseExecutor? db}) async {
     db = await DB.getDB(db);
     await db.update("metadata", o.toJson(),
-        where: "pub_key = ?", whereArgs: [o.pubKey]);
+        where: "pub_key = ?", whereArgs: [o.pubkey]);
   }
 
   static Future<void> deleteAll({DatabaseExecutor? db}) async {

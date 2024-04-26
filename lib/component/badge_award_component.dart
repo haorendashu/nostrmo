@@ -54,7 +54,7 @@ class _BadgeAwardComponent extends State<BadgeAwardComponent> {
         badgeDefinition: badgeDefinition,
       );
     }, selector: (context, _provider) {
-      return _provider.get(badgeId, widget.event.pubKey);
+      return _provider.get(badgeId, widget.event.pubkey);
     });
 
     List<Widget> list = [badgeDetailComp];

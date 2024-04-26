@@ -21,7 +21,7 @@ class BadgeDefinition {
       {this.name, this.description, this.image, this.thumb});
 
   static BadgeDefinition? loadFromEvent(Event event) {
-    String pubkey = event.pubKey;
+    String pubkey = event.pubkey;
     String? d;
     String? name;
     String? description;

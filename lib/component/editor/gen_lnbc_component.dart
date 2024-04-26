@@ -125,7 +125,7 @@ class _GenLnbcComponent extends State<GenLnbcComponent> {
             decoration: BoxDecoration(color: mainColor),
             child: InkWell(
               onTap: () {
-                _onComfirm(metadata.pubKey!);
+                _onComfirm(metadata.pubkey!);
               },
               highlightColor: mainColor.withOpacity(0.2),
               child: Container(

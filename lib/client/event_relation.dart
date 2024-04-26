@@ -41,7 +41,7 @@ class EventRelation {
 
   EventRelation.fromEvent(Event event) {
     id = event.id;
-    pubkey = event.pubKey;
+    pubkey = event.pubkey;
 
     Map<String, int> pMap = {};
     var length = event.tags.length;
@@ -130,7 +130,7 @@ class EventRelation {
       rootRelayAddr = replyRelayAddr;
     }
 
-    pMap.remove(event.pubKey);
+    pMap.remove(event.pubkey);
     tagPList.addAll(pMap.keys);
   }
 }

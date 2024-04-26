@@ -78,7 +78,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
 
     Widget? appBarTitle;
     if (event != null) {
-      titlePubkey = event!.pubKey;
+      titlePubkey = event!.pubkey;
       title = ThreadDetailRouter.getAppBarTitle(event!);
     }
     if (showTitle) {
@@ -102,7 +102,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
             return EventLoadListComponent();
           } else {
             event = _event;
-            titlePubkey = event!.pubKey;
+            titlePubkey = event!.pubkey;
             title = ThreadDetailRouter.getAppBarTitle(event!);
             return EventListComponent(
               event: _event,

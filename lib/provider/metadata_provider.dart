@@ -35,7 +35,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         if (md.valid == Nip05Status.NIP05_NOT_VALIDED) {
           md.valid = null;
         }
-        _metadataProvider!._metadataCache[md.pubKey!] = md;
+        _metadataProvider!._metadataCache[md.pubkey!] = md;
       }
 
       var relayListMetadataEvents = await EventDB.list(
@@ -160,26 +160,26 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         continue;
       }
 
-      _handingPubkeys.remove(event.pubKey);
+      _handingPubkeys.remove(event.pubkey);
 
       var jsonObj = jsonDecode(event.content);
       var md = Metadata.fromJson(jsonObj);
-      md.pubKey = event.pubKey;
+      md.pubkey = event.pubkey;
       md.updated_at = event.createdAt;
 
       // check cache
-      var oldMetadata = _metadataCache[md.pubKey];
+      var oldMetadata = _metadataCache[md.pubkey];
       if (oldMetadata == null) {
         // db
         MetadataDB.insert(md);
         // cache
-        _metadataCache[md.pubKey!] = md;
+        _metadataCache[md.pubkey!] = md;
         // refresh
       } else if (oldMetadata.updated_at! < md.updated_at!) {
         // db
         MetadataDB.update(md);
         // cache
-        _metadataCache[md.pubKey!] = md;
+        _metadataCache[md.pubkey!] = md;
         // refresh
       }
     }
@@ -194,7 +194,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       later(_laterCallback, null);
     } else if (event.kind == kind.EventKind.RELAY_LIST_METADATA) {
       // this is relayInfoMetadata, only set to cache, not update UI
-      var oldRelayListMetadata = _relayListMetadataCache[event.pubKey];
+      var oldRelayListMetadata = _relayListMetadataCache[event.pubkey];
       if (oldRelayListMetadata == null) {
         // insert
         EventDB.insert(Base.RELAY_LIST_METADATA_KEY_INDEX, event);

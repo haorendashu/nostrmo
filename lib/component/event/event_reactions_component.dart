@@ -342,7 +342,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                       child: Text(s.Block, style: popFontStyle),
                     ));
 
-                    if (widget.event.pubKey == nostr!.publicKey) {
+                    if (widget.event.pubkey == nostr!.publicKey) {
                       list.add(PopupMenuDivider());
                       list.add(PopupMenuItem(
                         value: "delete",
@@ -461,7 +461,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       var text = jsonEncode(widget.event.toJson());
       _doCopy(text);
     } else if (value == "copyPubkey") {
-      var text = Nip19.encodePubKey(widget.event.pubKey);
+      var text = Nip19.encodePubKey(widget.event.pubkey);
       _doCopy(text);
     } else if (value == "copyId") {
       var text = Nip19.encodeNoteId(widget.event.id);
@@ -491,7 +491,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       }
       EnumSelectorComponent.show(context, list);
     } else if (value == "block") {
-      filterProvider.addBlock(widget.event.pubKey);
+      filterProvider.addBlock(widget.event.pubkey);
     } else if (value == "delete") {
       nostr!.deleteEvent(widget.event.id);
       followEventProvider.deleteEvent(widget.event.id);
@@ -532,7 +532,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     tagsAddedWhenSend.add(["e", widget.event.id, relayAddr, directMarked]);
 
     List<dynamic> tagPs = [];
-    tagPs.add(["p", widget.event.pubKey]);
+    tagPs.add(["p", widget.event.pubkey]);
     if (er.tagPList.isNotEmpty) {
       for (var p in er.tagPList) {
         tagPs.add(["p", p]);
@@ -611,7 +611,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     if (sats < 0) {
       genZap();
     } else {
-      await ZapAction.handleZap(context, sats, widget.event.pubKey,
+      await ZapAction.handleZap(context, sats, widget.event.pubkey,
           eventId: widget.event.id);
     }
   }
@@ -633,7 +633,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   }
 
   void genZap() {
-    ZapGenDialog.show(context, widget.event.pubKey, eventId: widget.event.id);
+    ZapGenDialog.show(context, widget.event.pubkey, eventId: widget.event.id);
   }
 
   bool showMoreLike = false;

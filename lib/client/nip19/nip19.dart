@@ -3,8 +3,8 @@ import 'package:hex/hex.dart';
 import 'package:nostrmo/client/nip19/hrps.dart';
 
 class Nip19 {
-  // static String encodePubKey(String pubKey) {
-  //   var data = hex.decode(pubKey);
+  // static String encodePubKey(String pubkey) {
+  //   var data = hex.decode(pubkey);
   //   data = Bech32.convertBits(data, 8, 5, true);
   //   return Bech32.encode(Hrps.PUBLIC_KEY, data);
   // }
@@ -22,7 +22,7 @@ class Nip19 {
   }
 
   static String encodePubKey(String pubkey) {
-    // var data = HEX.decode(pubKey);
+    // var data = HEX.decode(pubkey);
     // data = _convertBits(data, 8, 5, true);
 
     // var encoder = Bech32Encoder();
@@ -31,16 +31,16 @@ class Nip19 {
     return _encodeKey(Hrps.PUBLIC_KEY, pubkey);
   }
 
-  static String encodeSimplePubKey(String pubKey) {
+  static String encodeSimplePubKey(String pubkey) {
     try {
-      var code = encodePubKey(pubKey);
+      var code = encodePubKey(pubkey);
       var length = code.length;
       return code.substring(0, 6) + ":" + code.substring(length - 6);
     } catch (e) {
-      if (pubKey.length > 12) {
-        return pubKey.substring(0, 13);
+      if (pubkey.length > 12) {
+        return pubkey.substring(0, 13);
       } else {
-        return pubKey;
+        return pubkey;
       }
     }
   }

@@ -240,7 +240,7 @@ class _EventPollComponent extends State<EventPollComponent> {
         ZapAction.handleZap(
           context,
           num,
-          widget.event.pubKey,
+          widget.event.pubkey,
           eventId: widget.event.id,
           pollOption: selectKey,
         );

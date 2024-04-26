@@ -334,9 +334,9 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       filter["#p"] = [widget.pubkey];
       followedSubscribeId = StringUtil.rndNameStr(12);
       nostr!.query([filter], (e) {
-        var oldEvent = followedMap![e.pubKey];
+        var oldEvent = followedMap![e.pubkey];
         if (oldEvent == null || e.createdAt > oldEvent.createdAt) {
-          followedMap![e.pubKey] = e;
+          followedMap![e.pubkey] = e;
 
           setState(() {
             followedNum = followedMap!.length;

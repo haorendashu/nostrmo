@@ -42,7 +42,7 @@ class ListProvider extends ChangeNotifier {
   }
 
   void onEvent(Event event) {
-    var key = "${event.kind}:${event.pubKey}";
+    var key = "${event.kind}:${event.pubkey}";
 
     var oldEvent = _holder[key];
     if (oldEvent == null) {

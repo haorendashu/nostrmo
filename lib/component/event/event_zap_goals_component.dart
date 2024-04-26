@@ -154,7 +154,7 @@ class _EventZapGoalsComponent extends State<EventZapGoalsComponent> {
     //     ZapAction.handleZap(
     //       context,
     //       num,
-    //       widget.event.pubKey,
+    //       widget.event.pubkey,
     //       eventId: widget.event.id,
     //       pollOption: selectKey,
     //     );

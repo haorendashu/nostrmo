@@ -43,7 +43,7 @@ class _EventTopComponent extends State<EventTopComponent> {
     var themeData = Theme.of(context);
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
-    var pubkey = widget.event.pubKey;
+    var pubkey = widget.event.pubkey;
     // if this is the zap event, change the pubkey from the zap tag info
     if (widget.event.kind == EventKind.ZAP) {
       for (var tag in widget.event.tags) {
@@ -51,8 +51,8 @@ class _EventTopComponent extends State<EventTopComponent> {
           var description = tag[1];
           var jsonMap = jsonDecode(description);
           var sourceEvent = Event.fromJson(jsonMap);
-          if (StringUtil.isNotBlank(sourceEvent.pubKey)) {
-            pubkey = sourceEvent.pubKey;
+          if (StringUtil.isNotBlank(sourceEvent.pubkey)) {
+            pubkey = sourceEvent.pubkey;
           }
         }
       }
@@ -112,7 +112,7 @@ class _EventTopComponent extends State<EventTopComponent> {
                         // margin: const EdgeInsets.only(bottom: 2),
                         child: jumpWrap(
                           NameComponnet(
-                            pubkey: widget.event.pubKey,
+                            pubkey: widget.event.pubkey,
                             metadata: metadata,
                             maxLines: 1,
                             textOverflow: TextOverflow.ellipsis,
@@ -142,11 +142,11 @@ class _EventTopComponent extends State<EventTopComponent> {
     return GestureDetector(
       onTap: () {
         // disable jump when in same user page.
-        if (widget.pagePubkey == widget.event.pubKey) {
+        if (widget.pagePubkey == widget.event.pubkey) {
           return;
         }
 
-        RouterUtil.router(context, RouterPath.USER, widget.event.pubKey);
+        RouterUtil.router(context, RouterPath.USER, widget.event.pubkey);
       },
       child: c,
     );

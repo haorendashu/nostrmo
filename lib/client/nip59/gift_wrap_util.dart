@@ -12,18 +12,18 @@ import '../nip44/nip44_v2.dart';
 
 class GiftWrapUtil {
   static Future<Event?> getRumorEvent(Event e, String privateKey) async {
-    var sealKey = NIP44V2.shareSecret(nostr!.privateKey!, e.pubKey);
+    var sealKey = NIP44V2.shareSecret(nostr!.privateKey!, e.pubkey);
     var rumorText = await NIP44V2.decrypt(e.content, sealKey);
 
     var rumorJson = jsonDecode(rumorText);
     var rumorEvent = Event.fromJson(rumorJson);
 
     if (!rumorEvent.isValid || !rumorEvent.isSigned) {
-      log("GiftWrap rumorEvent sign check result fail, id: ${e.id}, from: ${e.pubKey}");
+      log("GiftWrap rumorEvent sign check result fail, id: ${e.id}, from: ${e.pubkey}");
       return null;
     }
 
-    var sourceKey = NIP44V2.shareSecret(nostr!.privateKey!, rumorEvent.pubKey);
+    var sourceKey = NIP44V2.shareSecret(nostr!.privateKey!, rumorEvent.pubkey);
     var sourceText = await NIP44V2.decrypt(rumorEvent.content, sourceKey);
 
     var jsonObj = jsonDecode(sourceText);

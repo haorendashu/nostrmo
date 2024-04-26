@@ -13,47 +13,47 @@ import 'client_utils/keys.dart';
 class Event {
   /// Creates a new Nostr event.
   ///
-  /// [pubKey] is the author's public key.
+  /// [pubkey] is the author's public key.
   /// [kind] is the event kind.
   /// [tags] is a JSON object of event tags.
   /// [content] is an arbitrary string.
   ///
   /// Nostr event `id` and `created_at` fields are calculated automatically.
   ///
-  /// An [ArgumentError] is thrown if [pubKey] is invalid.
-  Event(this.pubKey, this.kind, this.tags, this.content,
+  /// An [ArgumentError] is thrown if [pubkey] is invalid.
+  Event(this.pubkey, this.kind, this.tags, this.content,
       {DateTime? publishAt}) {
-    if (!keyIsValid(pubKey)) {
-      throw ArgumentError.value(pubKey, 'pubKey', 'Invalid key');
+    if (!keyIsValid(pubkey)) {
+      throw ArgumentError.value(pubkey, 'pubkey', 'Invalid key');
     }
     if (publishAt != null) {
       createdAt = publishAt.millisecondsSinceEpoch ~/ 1000;
     } else {
       createdAt = _secondsSinceEpoch();
     }
-    id = _getId(pubKey, createdAt, kind, tags, content);
+    id = _getId(pubkey, createdAt, kind, tags, content);
   }
 
-  Event._(this.id, this.pubKey, this.createdAt, this.kind, this.tags,
+  Event._(this.id, this.pubkey, this.createdAt, this.kind, this.tags,
       this.content, this.sig);
 
   factory Event.fromJson(Map<String, dynamic> data) {
     final id = data['id'] as String;
-    final pubKey = data['pubkey'] as String;
+    final pubkey = data['pubkey'] as String;
     final createdAt = data['created_at'] as int;
     final kind = data['kind'] as int;
     final tags = data['tags'];
     final content = data['content'] as String;
     final sig = data['sig'] == null ? "" : data['sig'] as String;
 
-    return Event._(id, pubKey, createdAt, kind, tags, content, sig);
+    return Event._(id, pubkey, createdAt, kind, tags, content, sig);
   }
 
   /// The event ID is a 32-byte SHA256 hash of the serialised event data.
   String id = '';
 
   /// The event author's public key.
-  final String pubKey;
+  final String pubkey;
 
   /// Event creation timestamp in Unix time.
   late int createdAt;
@@ -80,7 +80,7 @@ class Event {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'pubkey': pubKey,
+      'pubkey': pubkey,
       'created_at': createdAt,
       'kind': kind,
       'tags': tags,
@@ -105,7 +105,7 @@ class Event {
       do {
         const int nonceIndex = 1;
         tags.last[nonceIndex] = (++nonce).toString();
-        id = _getId(pubKey, createdAt, kind, tags, content);
+        id = _getId(pubkey, createdAt, kind, tags, content);
       } while (_countLeadingZeroBytes(id) < difficultyInBytes);
     }
   }
@@ -119,14 +119,14 @@ class Event {
 
   bool get isValid {
     // Validate event data
-    if (id != _getId(pubKey, createdAt, kind, tags, content)) {
+    if (id != _getId(pubkey, createdAt, kind, tags, content)) {
       return false;
     }
     return true;
   }
 
   bool get isSigned {
-    if (!schnorr.verify(pubKey, id, sig)) {
+    if (!schnorr.verify(pubkey, id, sig)) {
       return false;
     }
     return true;

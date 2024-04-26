@@ -57,7 +57,7 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
                 },
                 behavior: HitTestBehavior.translucent,
                 child: MetadataComponent(
-                  pubKey: pubkey,
+                  pubkey: pubkey,
                   metadata: metadata,
                   jumpable: true,
                 ),

@@ -48,7 +48,7 @@ class ReplaceableEventProvider extends ChangeNotifier with LaterFunction {
         var tagKey = tag[0];
         var value = tag[1] as String;
         if (tagKey == "d") {
-          aIdString = "${event.kind}:${event.pubKey}:$value";
+          aIdString = "${event.kind}:${event.pubkey}:$value";
           break;
         }
       }

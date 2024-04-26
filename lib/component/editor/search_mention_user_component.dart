@@ -107,7 +107,7 @@ class SearchMentionUserItemComponent extends StatelessWidget {
       );
     }
 
-    String nip19Name = Nip19.encodeSimplePubKey(metadata.pubKey!);
+    String nip19Name = Nip19.encodeSimplePubKey(metadata.pubkey!);
     String displayName = nip19Name;
     String name = "";
     if (StringUtil.isNotBlank(metadata.displayName)) {
@@ -165,7 +165,7 @@ class SearchMentionUserItemComponent extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        RouterUtil.back(context, metadata.pubKey);
+        RouterUtil.back(context, metadata.pubkey);
       },
       child: main,
     );

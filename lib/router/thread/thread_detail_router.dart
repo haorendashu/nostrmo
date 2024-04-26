@@ -129,7 +129,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     if (rootEvent != null && StringUtil.isNotBlank(eventRelation.dTag)) {
       aId = AId(
           kind: rootEvent!.kind,
-          pubkey: rootEvent!.pubKey,
+          pubkey: rootEvent!.pubkey,
           title: eventRelation.dTag!);
     }
 
@@ -192,7 +192,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
     Widget? appBarTitle;
     if (rootEvent != null) {
-      titlePubkey = rootEvent!.pubKey;
+      titlePubkey = rootEvent!.pubkey;
       title = ThreadDetailRouter.getAppBarTitle(rootEvent!);
     }
     if (showTitle) {
@@ -211,7 +211,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             return EventLoadListComponent();
           }
 
-          titlePubkey = event.pubKey;
+          titlePubkey = event.pubkey;
           title = ThreadDetailRouter.getAppBarTitle(event);
 
           {
@@ -261,7 +261,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             });
           }
 
-          titlePubkey = event.pubKey;
+          titlePubkey = event.pubkey;
           title = ThreadDetailRouter.getAppBarTitle(event);
 
           return EventListComponent(

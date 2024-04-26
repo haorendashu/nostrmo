@@ -131,10 +131,10 @@ class _SearchRouter extends CustState<SearchRouter>
 
               return GestureDetector(
                 onTap: () {
-                  RouterUtil.router(context, RouterPath.USER, metadata.pubKey);
+                  RouterUtil.router(context, RouterPath.USER, metadata.pubkey);
                 },
                 child: MetadataTopComponent(
-                  pubkey: metadata.pubKey!,
+                  pubkey: metadata.pubkey!,
                   metadata: metadata,
                 ),
               );

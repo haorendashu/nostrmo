@@ -68,7 +68,7 @@ class ListSetProvider extends ChangeNotifier with LaterFunction {
       }
     }
 
-    return "${event.kind}:${event.pubKey}:$dTag";
+    return "${event.kind}:${event.pubkey}:$dTag";
   }
 
   void onEvent(Event event) {
