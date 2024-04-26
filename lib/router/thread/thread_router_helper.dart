@@ -75,19 +75,22 @@ mixin ThreadRouterHelper<T extends StatefulWidget>
     }
 
     if (refresh) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (sourceEventKey.currentContext != null) {
-          Scrollable.ensureVisible(sourceEventKey.currentContext!);
-        }
-      });
-      whenStop(() {
-        if (sourceEventKey.currentContext != null) {
-          Scrollable.ensureVisible(sourceEventKey.currentContext!);
-        }
-      });
-
       setState(() {});
+      scrollToSourceEvent();
     }
+  }
+
+  void scrollToSourceEvent() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (sourceEventKey.currentContext != null) {
+        Scrollable.ensureVisible(sourceEventKey.currentContext!);
+      }
+    });
+    whenStop(() {
+      if (sourceEventKey.currentContext != null) {
+        Scrollable.ensureVisible(sourceEventKey.currentContext!);
+      }
+    });
   }
 
   void onEvent(Event event) {

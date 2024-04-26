@@ -207,6 +207,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     parentEventTraces.clear();
     rootSubList.clear();
     forceParentId = null;
+    sourceEventKey = GlobalKey();
 
     // find parent data
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
@@ -248,7 +249,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
 
     beginQueryParentFlag = false;
     nostr!.query(filters, onEvent, onComplete: beginQueryParent);
-    Future.delayed(const Duration(seconds: 2)).then((value) {
+    Future.delayed(const Duration(seconds: 1)).then((value) {
       // avoid query onComplete no callback.
       beginQueryParent();
     });
@@ -314,6 +315,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       }
 
       setState(() {});
+      scrollToSourceEvent();
     }
   }
 }
