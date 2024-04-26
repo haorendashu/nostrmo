@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../client/nip02/cust_contact_list.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
 import 'user_contact_list_component.dart';
@@ -34,15 +35,7 @@ class _UserContactListRouter extends State<UserContactListRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           s.Following,
           style: TextStyle(

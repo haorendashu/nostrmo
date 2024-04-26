@@ -9,6 +9,7 @@ import 'package:widget_size/widget_size.dart';
 import '../../client/event.dart';
 import '../../client/filter.dart';
 import '../../client/nip172/community_info.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event_delete_callback.dart';
@@ -124,15 +125,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         actions: [
           GestureDetector(
             onTap: addToCommunity,

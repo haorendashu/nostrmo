@@ -8,6 +8,7 @@ import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/relay/relay_metadata.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
@@ -58,15 +59,7 @@ class _UserRelayRouter extends State<UserRelayRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(s.Relays),
       ),
       body: Container(

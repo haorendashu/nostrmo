@@ -4,6 +4,7 @@ import 'package:nostrmo/client/nip51/bookmarks.dart';
 import 'package:nostrmo/provider/list_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/content/content_link_pre_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_quote_component.dart';
@@ -55,15 +56,7 @@ class _BookmarkRouter extends CustState<BookmarkRouter> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              RouterUtil.back(context);
-            },
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: themeData.appBarTheme.titleTextStyle!.color,
-            ),
-          ),
+          leading: AppbarBackBtnComponent(),
           title: TabBar(
             indicatorColor: indicatorColor,
             indicatorWeight: 3,

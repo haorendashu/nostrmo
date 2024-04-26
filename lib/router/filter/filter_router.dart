@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/router/filter/filter_block_component.dart';
 import 'package:nostrmo/router/filter/filter_dirtyword_component.dart';
 
+import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
 import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
@@ -40,15 +41,7 @@ class _FilterRouter extends State<FilterRouter>
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: TabBar(
           indicatorColor: indicatorColor,
           indicatorWeight: 3,

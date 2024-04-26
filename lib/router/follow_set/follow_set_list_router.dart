@@ -8,6 +8,7 @@ import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip51/follow_set.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/editor/text_input_dialog.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
@@ -58,15 +59,7 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: appbarColor,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           s.Follow_set,
           style: TextStyle(

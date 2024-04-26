@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
 import '../../client/nip02/cust_contact_list.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';
@@ -42,15 +43,7 @@ class _UserZapListRouter extends State<UserZapListRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           "⚡Zaps⚡",
           style: TextStyle(

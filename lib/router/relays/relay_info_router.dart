@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../client/relay/relay.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/image_component.dart';
 import '../../component/webview_router.dart';
 import '../../generated/l10n.dart';
@@ -230,15 +231,7 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           s.Relay_Info,
           style: TextStyle(

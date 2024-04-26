@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/filter.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../data/relay_status.dart';
@@ -130,15 +131,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           s.Relays,
           style: TextStyle(

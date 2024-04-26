@@ -21,6 +21,7 @@ import 'package:pointycastle/ecc/api.dart';
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
@@ -300,16 +301,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
       appBar: AppBar(
         // title: Text("Note"),
         backgroundColor: scaffoldBackgroundColor,
-        leading: TextButton(
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: textColor,
-          ),
-          onPressed: () {
-            RouterUtil.back(context);
-          },
-          style: ButtonStyle(),
-        ),
+        leading: AppbarBackBtnComponent(),
         actions: [
           Container(
             child: TextButton(

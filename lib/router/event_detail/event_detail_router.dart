@@ -5,6 +5,7 @@ import 'package:widget_size/widget_size.dart';
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event/event_load_list_component.dart';
 import '../../component/event/reaction_event_list_component.dart';
@@ -194,15 +195,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: appBarTitle,
       ),
       body: mainWidget,

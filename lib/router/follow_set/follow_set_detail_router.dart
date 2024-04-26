@@ -7,6 +7,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
 
+import '../../component/appbar_back_btn_component.dart';
 import '../../consts/router_path.dart';
 import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
@@ -61,15 +62,7 @@ class _FollowSetDetailRouter extends State<FollowSetDetailRouter> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              RouterUtil.back(context);
-            },
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: themeData.appBarTheme.titleTextStyle!.color,
-            ),
-          ),
+          leading: AppbarBackBtnComponent(),
           title: TabBar(
             indicatorColor: indicatorColor,
             indicatorWeight: 3,

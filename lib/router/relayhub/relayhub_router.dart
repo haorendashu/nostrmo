@@ -7,6 +7,7 @@ import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/appbar_back_btn_component.dart';
 import '../../consts/base.dart';
 import '../../data/relay_status.dart';
 import '../../provider/relay_provider.dart';
@@ -64,15 +65,7 @@ class _RelayhubRouter extends CustState<RelayhubRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           "Relayhub",
           style: TextStyle(

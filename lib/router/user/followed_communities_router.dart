@@ -5,6 +5,7 @@ import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip02/cust_contact_list.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -110,15 +111,7 @@ class _FollowedCommunitiesRouter extends State<FollowedCommunitiesRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           s.Followed_Communities,
           style: TextStyle(

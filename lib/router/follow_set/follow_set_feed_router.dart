@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../client/event.dart';
 import '../../client/event_kind.dart';
 import '../../client/filter.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../consts/base_consts.dart';
@@ -87,16 +88,7 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
     var events = box.all();
     if (events.isEmpty) {
       return Scaffold(
-        appBar: AppBar(
-            leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        )),
+        appBar: AppBar(leading: AppbarBackBtnComponent()),
         body: EventListPlaceholder(
           onRefresh: () {
             box.clear;

@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/colors_selector_component.dart';
 import '../../component/comfirm_dialog.dart';
 import '../../component/editor/text_input_dialog.dart';
@@ -295,15 +296,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           s.Setting,
           style: TextStyle(

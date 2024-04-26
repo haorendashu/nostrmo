@@ -16,6 +16,7 @@ import 'package:pointycastle/export.dart' as pointycastle;
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 import '../../client/nip04/nip04.dart';
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/lnbc_embed_builder.dart';
 import '../../component/editor/mention_event_embed_builder.dart';
@@ -237,15 +238,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
 
     return Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: nameComponnet,
       ),
       body: main,

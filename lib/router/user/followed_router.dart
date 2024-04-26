@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
@@ -75,15 +76,7 @@ class _FollowedRouter extends State<FollowedRouter> {
 
     var main = Scaffold(
       appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            RouterUtil.back(context);
-          },
-          child: Icon(
-            Icons.arrow_back_ios,
-            color: themeData.appBarTheme.titleTextStyle!.color,
-          ),
-        ),
+        leading: AppbarBackBtnComponent(),
         title: Text(
           s.Followed,
           style: TextStyle(
