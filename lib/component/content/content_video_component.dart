@@ -72,7 +72,7 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
     } else {
       videoWidget = MaterialVideoControlsTheme(
         normal: videoControls(),
-        fullscreen: videoControls(),
+        fullscreen: videoFullControls(),
         child: videoWidget,
       );
     }
@@ -114,6 +114,15 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
   }
 
   MaterialVideoControlsThemeData videoControls() {
+    return const MaterialVideoControlsThemeData(
+      topButtonBar: [
+        Spacer(),
+        MaterialDesktopVolumeButton(),
+      ],
+    );
+  }
+
+  MaterialVideoControlsThemeData videoFullControls() {
     return const MaterialVideoControlsThemeData(
       volumeGesture: true,
       topButtonBar: [
