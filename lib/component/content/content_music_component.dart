@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/music/music_component.dart';
 import 'package:nostrmo/component/music/music_info_builder.dart';
+import 'package:nostrmo/component/placeholder/music_placeholder.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/music_provider.dart';
@@ -30,7 +31,13 @@ class _ContentMusicComponent extends CustState<ContentMusicComponent> {
   @override
   Widget doBuild(BuildContext context) {
     if (musicInfo == null) {
-      return Container();
+      return Container(
+        margin: const EdgeInsets.only(
+          top: Base.BASE_PADDING_HALF,
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        child: MusicPlaceholder(),
+      );
     }
 
     return Container(
