@@ -33,7 +33,6 @@ class _IndexTabItemComponent extends State<IndexTabItemComponent> {
   Widget build(BuildContext context) {
     return WidgetSize(
       onChange: (size) {
-        log("size is ${size.width}");
         if (size.width < 50) {
           if (showFullText && StringUtil.isNotBlank(widget.omitText)) {
             setState(() {
