@@ -78,6 +78,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       var length = parentEventTraces.length;
       for (var i = 0; i < length; i++) {
         var pet = parentEventTraces[length - 1 - i];
+        var screenshotController = ScreenshotController();
 
         traceList.add(GestureDetector(
           behavior: HitTestBehavior.translucent,
@@ -85,19 +86,27 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
             RouterUtil.router(
                 context, RouterPath.getThreadDetailPath(), pet.event);
           },
-          child: EventMainComponent(
-            screenshotController: ScreenshotController(),
-            event: pet.event,
-            showReplying: false,
-            traceMode: true,
-            textOnTap: () {
-              RouterUtil.router(
-                  context, RouterPath.getThreadDetailPath(), pet.event);
-            },
+          child: Screenshot(
+            controller: screenshotController,
+            child: EventMainComponent(
+              screenshotController: screenshotController,
+              event: pet.event,
+              showReplying: false,
+              showVideo: true,
+              imageListMode: false,
+              showSubject: false,
+              showLinkedLongForm: false,
+              traceMode: true,
+              textOnTap: () {
+                RouterUtil.router(
+                    context, RouterPath.getThreadDetailPath(), pet.event);
+              },
+            ),
           ),
         ));
       }
     }
+    var screenshotController = ScreenshotController();
     mainList.add(Container(
       color: cardColor,
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
@@ -120,11 +129,18 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
               ),
             ],
           ),
-          EventMainComponent(
-            key: sourceEventKey,
-            screenshotController: ScreenshotController(),
-            event: sourceEvent!,
-            showReplying: false,
+          Screenshot(
+            controller: screenshotController,
+            child: EventMainComponent(
+              key: sourceEventKey,
+              screenshotController: ScreenshotController(),
+              event: sourceEvent!,
+              showReplying: false,
+              showVideo: true,
+              imageListMode: false,
+              showSubject: false,
+              showLinkedLongForm: false,
+            ),
           )
         ],
       ),
