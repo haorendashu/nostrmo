@@ -29,6 +29,7 @@ import '../search/search_router.dart';
 import 'index_app_bar.dart';
 import 'index_bottom_bar.dart';
 import 'index_drawer_content.dart';
+import 'index_tab_item_component.dart';
 
 class IndexRouter extends StatefulWidget {
   Function reload;
@@ -157,30 +158,20 @@ class _IndexRouter extends CustState<IndexRouter>
         indicatorSize: TabBarIndicatorSize.tab,
         dividerHeight: 0,
         tabs: [
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              s.Posts,
-              style: titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.Posts,
+            titleTextStyle,
+            omitText: "P",
           ),
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              s.Posts_and_replies,
-              textAlign: TextAlign.center,
-              style: titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.Posts_and_replies,
+            titleTextStyle,
+            omitText: "PR",
           ),
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              s.Mentions,
-              style: titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.Mentions,
+            titleTextStyle,
+            omitText: "M",
           ),
         ],
         controller: followTabController,
@@ -192,29 +183,20 @@ class _IndexRouter extends CustState<IndexRouter>
         indicatorSize: TabBarIndicatorSize.tab,
         dividerHeight: 0,
         tabs: [
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              s.Notes,
-              style: titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.Notes,
+            titleTextStyle,
+            omitText: "N",
           ),
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              s.Users,
-              style: titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.Users,
+            titleTextStyle,
+            omitText: "U",
           ),
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              s.Topics,
-              style: titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.Topics,
+            titleTextStyle,
+            omitText: "T",
           ),
         ],
         controller: globalsTabController,
@@ -233,21 +215,15 @@ class _IndexRouter extends CustState<IndexRouter>
         indicatorSize: TabBarIndicatorSize.tab,
         dividerHeight: 0,
         tabs: [
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              "DMs",
-              style: themeData.appBarTheme.titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.DMs,
+            titleTextStyle,
+            omitText: "DM",
           ),
-          Container(
-            height: IndexAppBar.height,
-            alignment: Alignment.center,
-            child: Text(
-              s.Request,
-              style: themeData.appBarTheme.titleTextStyle,
-            ),
+          IndexTabItemComponent(
+            s.Request,
+            titleTextStyle,
+            omitText: "R",
           ),
         ],
         controller: dmTabController,
