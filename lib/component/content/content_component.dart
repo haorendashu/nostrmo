@@ -548,7 +548,7 @@ class _ContentComponent extends State<ContentComponent> {
         str.indexOf(PRE_USER) == 0 ||
         str.indexOf(PRE_NOTE) == 0) {
       var key = str.replaceFirst("@", "");
-      key = str.replaceFirst(PRE_NOSTR_BASE, "");
+      key = key.replaceFirst(PRE_NOSTR_BASE, "");
 
       String? otherStr;
 
