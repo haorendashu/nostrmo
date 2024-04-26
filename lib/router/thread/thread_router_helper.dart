@@ -26,8 +26,6 @@ mixin ThreadRouterHelper<T extends StatefulWidget>
     // event in box had been sorted. The last one is the oldest.
     var all = box.all();
     var length = all.length;
-    log("forceParentId is $forceParentId");
-    log("listToTree length is $length");
     List<ThreadDetailEvent> _rootSubList = [];
     // key - id, value - item
     Map<String, ThreadDetailEvent> itemMap = {};

@@ -208,6 +208,10 @@ class EventMemBox implements FindEventInterface {
     return _eventList[index];
   }
 
+  Event? getById(String id) {
+    return _idMap[id];
+  }
+
   void clear() {
     _eventList.clear();
     _idMap.clear();

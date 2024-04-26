@@ -212,7 +212,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
     var replyId = eventRelation.replyOrRootId;
     if (StringUtil.isNotBlank(replyId)) {
-      findParentEvent(replyId!);
+      // this query move onReplyQueryComplete function call, avoid query limit.
+      // findParentEvent(replyId!);
 
       // this sourceEvent has parent event, so it is reply event, only show the sub reply events.
       forceParentId = sourceEvent!.id;
@@ -237,8 +238,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     }
     var filter = Filter(e: parentIds, kinds: replyKinds);
 
-    log(jsonEncode(filter.toJson()));
-
     var filters = [filter.toJson()];
     if (aId != null) {
       var f = Filter(kinds: replyKinds);
@@ -246,7 +245,26 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       m["#a"] = [aId.toAString()];
       filters.add(m);
     }
-    nostr!.query(filters, onEvent);
+
+    beginQueryParentFlag = false;
+    nostr!.query(filters, onEvent, onComplete: beginQueryParent);
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      // avoid query onComplete no callback.
+      beginQueryParent();
+    });
+  }
+
+  var beginQueryParentFlag = false;
+
+  void beginQueryParent() {
+    if (!beginQueryParentFlag) {
+      beginQueryParentFlag = true;
+      var eventRelation = EventRelation.fromEvent(sourceEvent!);
+      var replyId = eventRelation.replyOrRootId;
+      if (StringUtil.isNotBlank(replyId)) {
+        findParentEvent(replyId!);
+      }
+    }
   }
 
   String parentEventId(String eventId) {
@@ -255,14 +273,22 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
 
   void findParentEvent(String eventId) {
     // log("findParentEvent $eventId");
-    var pe = singleEventProvider.getEvent(eventId, queryData: false);
-    if (pe == null) {
-      var filter = Filter(ids: [eventId]);
-      nostr!
-          .query([filter.toJson()], onParentEvent, id: parentEventId(eventId));
-    } else {
+    // query from reply events
+    var pe = box.getById(eventId);
+    if (pe != null) {
       onParentEvent(pe);
+      return;
     }
+
+    // query from singleEventProvider
+    pe = singleEventProvider.getEvent(eventId, queryData: false);
+    if (pe != null) {
+      onParentEvent(pe);
+      return;
+    }
+
+    var filter = Filter(ids: [eventId]);
+    nostr!.query([filter.toJson()], onParentEvent, id: parentEventId(eventId));
   }
 
   void onParentEvent(Event e) {
