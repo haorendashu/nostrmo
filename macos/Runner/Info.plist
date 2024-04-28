@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.4.0</string>
+	<string>2.5.0</string>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>24</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationCategoryType</key>
@@ -30,6 +30,8 @@
 	<string>$(PRODUCT_COPYRIGHT)</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need to access the photo to upload, and use it for avatar or Note picture.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

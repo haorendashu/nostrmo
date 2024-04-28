@@ -411,7 +411,7 @@ SPEC CHECKSUMS:
   super_native_extensions: 4916b3c627a9c7fffdc48a23a9eca0b1ac228fa7
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
   url_launcher_ios: 68d46cc9766d0c41dbdc884310529557e3cd7a86
-  video_player_avfoundation: 02011213dab73ae3687df27ce441fbbcc82b5579
+  video_player_avfoundation: 2b4384f3b157206b5e150a0083cdc0c905d260d3
   volume_controller: 531ddf792994285c9b17f9d8a7e4dcdd29b3eae9
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
 
