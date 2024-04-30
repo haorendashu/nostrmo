@@ -263,7 +263,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       var eventRelation = EventRelation.fromEvent(sourceEvent!);
       var replyId = eventRelation.replyOrRootId;
       if (StringUtil.isNotBlank(replyId)) {
-        findParentEvent(replyId!);
+        findParentEvent(replyId!,
+            eventRelayAddr: eventRelation.replyOrRootRelayAddr);
       }
     }
   }
@@ -272,7 +273,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     return "eventTrace${eventId.substring(0, 8)}";
   }
 
-  void findParentEvent(String eventId) {
+  void findParentEvent(String eventId, {String? eventRelayAddr}) {
     // log("findParentEvent $eventId");
     // query from reply events
     var pe = box.getById(eventId);
@@ -289,7 +290,12 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     }
 
     var filter = Filter(ids: [eventId]);
-    nostr!.query([filter.toJson()], onParentEvent, id: parentEventId(eventId));
+    List<String>? tempRelays;
+    if (StringUtil.isNotBlank(eventRelayAddr)) {
+      tempRelays = nostr!.getExtralReadableRelays([eventRelayAddr!], 1);
+    }
+    nostr!.query([filter.toJson()], onParentEvent,
+        id: parentEventId(eventId), tempRelays: tempRelays);
   }
 
   void onParentEvent(Event e) {
@@ -311,7 +317,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       // a new event find, try to find a new parent event
       var replyId = addedEti.eventRelation.replyOrRootId;
       if (StringUtil.isNotBlank(replyId)) {
-        findParentEvent(replyId!);
+        findParentEvent(replyId!,
+            eventRelayAddr: addedEti.eventRelation.replyOrRootRelayAddr);
       }
 
       setState(() {});
