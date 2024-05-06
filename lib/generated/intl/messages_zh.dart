@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("给我买一杯咖啡！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "Clear_All_Data": MessageLookupByLibrary.simpleMessage("清空所有数据"),
+        "Clear_Not_My_Data": MessageLookupByLibrary.simpleMessage("清空非我的数据"),
         "Close_Private_DM": MessageLookupByLibrary.simpleMessage("关闭私密私信"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("确认"),
@@ -79,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "DMs": MessageLookupByLibrary.simpleMessage("私信"),
         "Dark": MessageLookupByLibrary.simpleMessage("深色"),
         "Data": MessageLookupByLibrary.simpleMessage("数据"),
+        "Data_Length": MessageLookupByLibrary.simpleMessage("数据数量"),
         "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage("数据同步模式"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("默认颜色"),
         "Default_Font_Family": MessageLookupByLibrary.simpleMessage("默认字体"),
@@ -102,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("Event签名校验"),
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("快速模式"),
+        "File_Size": MessageLookupByLibrary.simpleMessage("文件大小"),
         "File_save_success": MessageLookupByLibrary.simpleMessage("文件保存成功"),
         "Filter": MessageLookupByLibrary.simpleMessage("过滤"),
         "Find_clouded_relay_list_do_you_want_to_download":
@@ -282,6 +286,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("这里应该有一个宇宙"),
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage("该动态包含敏感内容"),
+        "This_operation_cannot_be_undo":
+            MessageLookupByLibrary.simpleMessage("该操作无法恢复"),
         "Thread_Mode": MessageLookupByLibrary.simpleMessage("详情模式"),
         "Timeline": MessageLookupByLibrary.simpleMessage("时间线"),
         "Topic": MessageLookupByLibrary.simpleMessage("主题"),

@@ -2809,6 +2809,56 @@ class S {
       args: [],
     );
   }
+
+  /// `This operation cannot be undo`
+  String get This_operation_cannot_be_undo {
+    return Intl.message(
+      'This operation cannot be undo',
+      name: 'This_operation_cannot_be_undo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data Length`
+  String get Data_Length {
+    return Intl.message(
+      'Data Length',
+      name: 'Data_Length',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File Size`
+  String get File_Size {
+    return Intl.message(
+      'File Size',
+      name: 'File_Size',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear All Data`
+  String get Clear_All_Data {
+    return Intl.message(
+      'Clear All Data',
+      name: 'Clear_All_Data',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear Not My Data`
+  String get Clear_Not_My_Data {
+    return Intl.message(
+      'Clear Not My Data',
+      name: 'Clear_Not_My_Data',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -68,6 +68,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Buy me a coffee!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "Clear_All_Data":
+            MessageLookupByLibrary.simpleMessage("Clear All Data"),
+        "Clear_Not_My_Data":
+            MessageLookupByLibrary.simpleMessage("Clear Not My Data"),
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Close Private DM"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Close at"),
@@ -96,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "DMs": MessageLookupByLibrary.simpleMessage("DMs"),
         "Dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "Data": MessageLookupByLibrary.simpleMessage("Data"),
+        "Data_Length": MessageLookupByLibrary.simpleMessage("Data Length"),
         "Data_Sync_Mode":
             MessageLookupByLibrary.simpleMessage("Data Sync Mode"),
         "Default_Color": MessageLookupByLibrary.simpleMessage("Default Color"),
@@ -124,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Event Sign Check"),
         "Face": MessageLookupByLibrary.simpleMessage("Face"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Fast Mode"),
+        "File_Size": MessageLookupByLibrary.simpleMessage("File Size"),
         "File_save_success":
             MessageLookupByLibrary.simpleMessage("File save success"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filter"),
@@ -353,6 +359,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "This_note_contains_sensitive_content":
             MessageLookupByLibrary.simpleMessage(
                 "This note contains sensitive content"),
+        "This_operation_cannot_be_undo": MessageLookupByLibrary.simpleMessage(
+            "This operation cannot be undo"),
         "Thread_Mode": MessageLookupByLibrary.simpleMessage("Thread Mode"),
         "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
         "Topic": MessageLookupByLibrary.simpleMessage("Topic"),

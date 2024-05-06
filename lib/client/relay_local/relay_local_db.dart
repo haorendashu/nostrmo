@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:nostrmo/util/string_util.dart';
 import 'package:sqflite/sqflite.dart';
@@ -22,6 +23,15 @@ class RelayLocalDB {
   }
 
   static Future<RelayLocalDB?> init() async {
+    var path = await getFilepath();
+
+    var database =
+        await openDatabase(path, version: _VERSION, onCreate: _onCreate);
+
+    return RelayLocalDB._(database);
+  }
+
+  static Future<String> getFilepath() async {
     String path = _dbName;
 
     if (!PlatformUtil.isWeb()) {
@@ -29,10 +39,13 @@ class RelayLocalDB {
       path = join(databasesPath, _dbName);
     }
 
-    var database =
-        await openDatabase(path, version: _VERSION, onCreate: _onCreate);
+    return path;
+  }
 
-    return RelayLocalDB._(database);
+  static Future<int> getDBFileSize() async {
+    var path = await getFilepath();
+    var file = File(path);
+    return await file.length();
   }
 
   static Future<void> _onCreate(Database db, int version) async {
@@ -250,5 +263,20 @@ class RelayLocalDB {
     }
 
     return event;
+  }
+
+  Future<int?> allDataCount() async {
+    var sql = "select count(1) from event";
+    return Sqflite.firstIntValue(await _database.rawQuery(sql, []));
+  }
+
+  Future<void> deleteData({String? pubkey}) async {
+    List params = [];
+    var sql = "delete from event where 1 = 1";
+    if (StringUtil.isNotBlank(pubkey)) {
+      sql += " and pubkey <> ?";
+      params.add(pubkey);
+    }
+    await _database.execute(sql, params);
   }
 }

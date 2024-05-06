@@ -274,5 +274,10 @@
     "Full_Mode": "Full Mode",
     "Trace_Mode": "Trace Mode",
     "Please_input_the_max_sub_notes_number": "Please input the max sub notes number",
-    "Show_more_replies": "Show more replies"
+    "Show_more_replies": "Show more replies",
+    "This_operation_cannot_be_undo": "This operation cannot be undo",
+    "Data_Length": "Data Length",
+    "File_Size": "File Size",
+    "Clear_All_Data": "Clear All Data",
+    "Clear_Not_My_Data": "Clear Not My Data"
 }

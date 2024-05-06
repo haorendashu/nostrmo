@@ -8,6 +8,9 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/relay_local/relay_local.dart';
+import 'package:nostrmo/client/relay_local/relay_local_db.dart';
+import 'package:nostrmo/component/comfirm_dialog.dart';
+import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/sync_upload_dialog.dart';
 import 'package:nostrmo/component/user_pic_component.dart';
@@ -16,6 +19,7 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
+import 'package:nostrmo/util/store_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
@@ -34,11 +38,17 @@ class RelayInfoRouter extends StatefulWidget {
   }
 }
 
-class _RelayInfoRouter extends State<RelayInfoRouter> {
+class _RelayInfoRouter extends CustState<RelayInfoRouter> {
+  bool isMyRelay = false;
+
   double IMAGE_WIDTH = 45;
 
+  int? dataLength;
+
+  int? dbFileSize;
+
   @override
-  Widget build(BuildContext context) {
+  Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var mainColor = themeData.primaryColor;
@@ -52,7 +62,6 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
 
     var relay = relayItf as Relay;
     var relayInfo = relay.info!;
-    bool isMyRelay = false;
     if (nostr!.getRelay(relay.relayStatus.addr) != null) {
       isMyRelay = true;
     }
@@ -199,6 +208,36 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
     }
 
     if (relay is RelayLocal) {
+      if (dataLength != null) {
+        list.add(ListTile(
+          title: Text(s.Data_Length),
+          trailing: Text(dataLength!.toString()),
+        ));
+      }
+
+      if (dbFileSize != null) {
+        list.add(ListTile(
+          title: Text(s.File_Size),
+          trailing: Text(StoreUtil.bytesToShowStr(dbFileSize!)),
+        ));
+      }
+
+      list.add(GestureDetector(
+        onTap: clearAllData,
+        child: ListTile(
+          title: Text(s.Clear_All_Data),
+          mouseCursor: SystemMouseCursors.click,
+        ),
+      ));
+
+      list.add(GestureDetector(
+        onTap: clearNotMyData,
+        child: ListTile(
+          title: Text(s.Clear_Not_My_Data),
+          mouseCursor: SystemMouseCursors.click,
+        ),
+      ));
+
       list.add(Container(
         child: CheckboxListTile(
           title: Text(s.Data_Sync_Mode),
@@ -287,6 +326,45 @@ class _RelayInfoRouter extends State<RelayInfoRouter> {
       }
 
       SyncUploadDialog.show(context, events);
+    }
+  }
+
+  @override
+  Future<void> onReady(BuildContext context) async {
+    if (isMyRelay) {
+      updateMyRelayData();
+    }
+  }
+
+  Future<void> updateMyRelayData() async {
+    dataLength = await relayLocalDB!.allDataCount();
+    dbFileSize = await RelayLocalDB.getDBFileSize();
+    setState(() {});
+  }
+
+  Future<void> clearAllData() async {
+    await doClearData();
+  }
+
+  Future<void> clearNotMyData() async {
+    await doClearData(pubkey: nostr!.publicKey);
+  }
+
+  Future<void> doClearData({String? pubkey}) async {
+    var result = await ComfirmDialog.show(
+        context, S.of(context).This_operation_cannot_be_undo);
+    if (result != true) {
+      return;
+    }
+
+    var cancelFunc = BotToast.showLoading();
+    try {
+      dataLength = null;
+      dbFileSize = null;
+      await relayLocalDB!.deleteData(pubkey: pubkey);
+    } finally {
+      updateMyRelayData();
+      cancelFunc.call();
     }
   }
 }
