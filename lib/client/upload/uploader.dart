@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -11,6 +12,7 @@ import 'package:nostrmo/client/upload/nip95_uploader.dart';
 import 'package:nostrmo/client/upload/nip96_uploader.dart';
 import 'package:nostrmo/client/upload/void_cat.dart';
 import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/store_util.dart';
@@ -26,6 +28,8 @@ import 'nostrimg_com_uploader.dart';
 import 'pomf2_lain_la.dart';
 
 class Uploader {
+  static int NIP95_MAX_LENGTH = 80000;
+
   // static Future<String?> pickAndUpload(BuildContext context) async {
   //   var assets = await AssetPicker.pickAssets(
   //     context,
@@ -75,6 +79,10 @@ class Uploader {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
       if (result != null) {
+        if (result.files.single.size > NIP95_MAX_LENGTH) {
+          BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+        }
+
         if (PlatformUtil.isWeb() && result.files.single.bytes != null) {
           return BASE64.toBase64(result.files.single.bytes!);
         }
@@ -84,6 +92,7 @@ class Uploader {
 
       return null;
     }
+
     var assets = await AssetPicker.pickAssets(
       context,
       pickerConfig: const AssetPickerConfig(maxAssets: 1),
@@ -106,12 +115,21 @@ class Uploader {
         );
 
         if (result != null) {
+          if ((await result.length()) > NIP95_MAX_LENGTH) {
+            BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+          }
+
           // log("file ${result.path} length ${await result.length()}");
           return result.path;
         }
       }
 
-      return file!.path;
+      var fileSize = StoreUtil.getFileSize(file!.path);
+      if (fileSize != null && fileSize > NIP95_MAX_LENGTH) {
+        BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+      }
+
+      return file.path;
     }
 
     return null;

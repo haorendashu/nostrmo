@@ -2859,6 +2859,16 @@ class S {
       args: [],
     );
   }
+
+  /// `File is too big for NIP-95`
+  String get File_is_too_big_for_NIP_95 {
+    return Intl.message(
+      'File is too big for NIP-95',
+      name: 'File_is_too_big_for_NIP_95',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

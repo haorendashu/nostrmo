@@ -137,4 +137,9 @@ class StoreUtil {
     var tempPath = await StoreUtil.saveBS2TempFile(extension, uint8list);
     return await ImageGallerySaver.saveFile(tempPath);
   }
+
+  static int? getFileSize(String filepath) {
+    var file = File(filepath);
+    return file.lengthSync();
+  }
 }

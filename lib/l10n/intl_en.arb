@@ -279,5 +279,6 @@
     "Data_Length": "Data Length",
     "File_Size": "File Size",
     "Clear_All_Data": "Clear All Data",
-    "Clear_Not_My_Data": "Clear Not My Data"
+    "Clear_Not_My_Data": "Clear Not My Data",
+    "File_is_too_big_for_NIP_95": "File is too big for NIP-95"
 }

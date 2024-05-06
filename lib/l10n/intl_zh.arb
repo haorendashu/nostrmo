@@ -269,5 +269,6 @@
     "Data_Length": "数据数量",
     "File_Size": "文件大小",
     "Clear_All_Data": "清空所有数据",
-    "Clear_Not_My_Data": "清空非我的数据"
+    "Clear_Not_My_Data": "清空非我的数据",
+    "File_is_too_big_for_NIP_95": "对NIP-95来说文件太大"
 }

@@ -106,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("快速模式"),
         "File_Size": MessageLookupByLibrary.simpleMessage("文件大小"),
+        "File_is_too_big_for_NIP_95":
+            MessageLookupByLibrary.simpleMessage("对NIP-95来说文件太大"),
         "File_save_success": MessageLookupByLibrary.simpleMessage("文件保存成功"),
         "Filter": MessageLookupByLibrary.simpleMessage("过滤"),
         "Find_clouded_relay_list_do_you_want_to_download":

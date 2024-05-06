@@ -130,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Face": MessageLookupByLibrary.simpleMessage("Face"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Fast Mode"),
         "File_Size": MessageLookupByLibrary.simpleMessage("File Size"),
+        "File_is_too_big_for_NIP_95":
+            MessageLookupByLibrary.simpleMessage("File is too big for NIP-95"),
         "File_save_success":
             MessageLookupByLibrary.simpleMessage("File save success"),
         "Filter": MessageLookupByLibrary.simpleMessage("Filter"),
