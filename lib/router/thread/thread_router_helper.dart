@@ -70,6 +70,9 @@ mixin ThreadRouterHelper<T extends StatefulWidget>
     }
 
     rootSubList = _rootSubList;
+    rootSubList.sort((tde1, tde2) {
+      return tde1.event.createdAt - tde2.event.createdAt;
+    });
     for (var rootSub in rootSubList) {
       rootSub.handleTotalLevelNum(0);
     }
