@@ -263,6 +263,7 @@ class _SearchRouter extends CustState<SearchRouter>
       if (until != null) {
         filterMap!["until"] = until;
       }
+      log(jsonEncode(filterMap));
       nostr!.query([filterMap!], onQueryEvent, id: subscribeId);
     }
   }
@@ -292,6 +293,7 @@ class _SearchRouter extends CustState<SearchRouter>
     // }
 
     List<String>? authors;
+    String? searchText;
     if (StringUtil.isNotBlank(value) && value.indexOf("npub") == 0) {
       try {
         var result = Nip19.decode(value);
@@ -303,7 +305,7 @@ class _SearchRouter extends CustState<SearchRouter>
       }
     } else {
       if (StringUtil.isNotBlank(value)) {
-        authors = [value];
+        searchText = value;
       }
     }
 
@@ -312,7 +314,9 @@ class _SearchRouter extends CustState<SearchRouter>
     filterMap =
         Filter(kinds: searchEventKinds, authors: authors, limit: queryLimit)
             .toJson();
-    filterMap!.remove("search");
+    if (StringUtil.isNotBlank(searchText)) {
+      filterMap!["search"] = searchText;
+    }
     penddingEvents.clear;
     doQuery();
   }
