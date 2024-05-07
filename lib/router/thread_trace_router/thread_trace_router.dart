@@ -97,6 +97,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
               showSubject: false,
               showLinkedLongForm: false,
               traceMode: true,
+              showLongContent: true,
               textOnTap: () {
                 RouterUtil.router(
                     context, RouterPath.getThreadDetailPath(), pet.event);
@@ -140,6 +141,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
               imageListMode: false,
               showSubject: false,
               showLinkedLongForm: false,
+              showLongContent: true,
             ),
           )
         ],
