@@ -45,7 +45,6 @@ class RelayProvider extends ChangeNotifier {
         "wss://nos.lol",
         "wss://nostr.wine",
         "wss://atlas.nostr.land",
-        "wss://relay.orangepill.dev",
         "wss://relay.damus.io",
         "wss://nostr-relay.app",
         "wss://nostr.oxtr.dev",
@@ -53,7 +52,8 @@ class RelayProvider extends ChangeNotifier {
         "wss://relay.primal.net",
         "wss://relay.nostr.bg",
         "wss://relay.nostr.band",
-        "wss://yabu.me"
+        "wss://yabu.me",
+        "wss://nostr.mom"
       ];
     }
 
