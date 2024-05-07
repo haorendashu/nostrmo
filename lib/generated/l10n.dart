@@ -2869,6 +2869,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Address`
+  String get Address {
+    return Intl.message(
+      'Address',
+      name: 'Address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lightning Address`
+  String get Lightning_Address {
+    return Intl.message(
+      'Lightning Address',
+      name: 'Lightning_Address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hide Relay Notices`
+  String get Hide_Relay_Notices {
+    return Intl.message(
+      'Hide Relay Notices',
+      name: 'Hide_Relay_Notices',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -270,5 +270,8 @@
     "File_Size": "文件大小",
     "Clear_All_Data": "清空所有数据",
     "Clear_Not_My_Data": "清空非我的数据",
-    "File_is_too_big_for_NIP_95": "对NIP-95来说文件太大"
+    "File_is_too_big_for_NIP_95": "对NIP-95来说文件太大",
+    "Address": "地址",
+    "Lightning_Address": "闪电地址",
+    "Hide_Relay_Notices": "隐藏中继通知"
 }

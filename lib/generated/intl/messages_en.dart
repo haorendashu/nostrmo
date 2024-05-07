@@ -40,6 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add to private bookmark"),
         "Add_to_public_bookmark":
             MessageLookupByLibrary.simpleMessage("Add to public bookmark"),
+        "Address": MessageLookupByLibrary.simpleMessage("Address"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Address can\'t be null."),
         "Any": MessageLookupByLibrary.simpleMessage("Any"),
@@ -165,6 +166,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Goal Amount In Sats"),
         "Hashtag": MessageLookupByLibrary.simpleMessage("Hashtag"),
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
+        "Hide_Relay_Notices":
+            MessageLookupByLibrary.simpleMessage("Hide Relay Notices"),
         "Home": MessageLookupByLibrary.simpleMessage("Home"),
         "Hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("I accept the"),
@@ -200,6 +203,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Key Backup"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
+        "Lightning_Address":
+            MessageLookupByLibrary.simpleMessage("Lightning Address"),
         "Lightning_Invoice":
             MessageLookupByLibrary.simpleMessage("Lightning Invoice"),
         "Limit_Note_Height":

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/notice_provider.dart';
+import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +23,7 @@ class DMKnownListRouter extends StatefulWidget {
 class _DMKnownListRouter extends State<DMKnownListRouter> {
   @override
   Widget build(BuildContext context) {
+    var _settingProvider = Provider.of<SettingProvider>(context);
     var _dmProvider = Provider.of<DMProvider>(context);
     var details = _dmProvider.knownList;
     var allLength = details.length;
@@ -42,10 +45,14 @@ class _DMKnownListRouter extends State<DMKnownListRouter> {
           }
 
           if (index == 0 && flag > 0) {
-            return DMNoticeItemComponent(
-              newestNotice: notices.last,
-              hasNewMessage: hasNewNotice,
-            );
+            if (_settingProvider.hideRelayNotices != OpenStatus.CLOSE) {
+              return Container();
+            } else {
+              return DMNoticeItemComponent(
+                newestNotice: notices.last,
+                hasNewMessage: hasNewNotice,
+              );
+            }
           } else {
             var detail = details[index - flag];
             return DMSessionListItemComponent(

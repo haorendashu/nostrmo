@@ -260,6 +260,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get maxSubEventLevel => _settingData!.maxSubEventLevel;
 
+  int? get hideRelayNotices => _settingData!.hideRelayNotices;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -432,6 +434,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set hideRelayNotices(int? o) {
+    _settingData!.hideRelayNotices = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -519,6 +526,8 @@ class SettingData {
 
   int? maxSubEventLevel;
 
+  int? hideRelayNotices;
+
   /// updated time
   late int updatedTime;
 
@@ -556,6 +565,7 @@ class SettingData {
     this.threadMode,
     this.maxSubEventLevel,
     this.updatedTime = 0,
+    this.hideRelayNotices,
   });
 
   SettingData.fromJson(Map<String, dynamic> json) {
@@ -605,6 +615,7 @@ class SettingData {
     limitNoteHeight = json['limitNoteHeight'];
     threadMode = json['threadMode'];
     maxSubEventLevel = json['maxSubEventLevel'];
+    hideRelayNotices = json['hideRelayNotices'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -647,6 +658,7 @@ class SettingData {
     data['limitNoteHeight'] = this.limitNoteHeight;
     data['threadMode'] = this.threadMode;
     data['maxSubEventLevel'] = this.maxSubEventLevel;
+    data['hideRelayNotices'] = this.hideRelayNotices;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

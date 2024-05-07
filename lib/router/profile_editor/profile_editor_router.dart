@@ -182,7 +182,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
       padding: padding,
       child: TextField(
         controller: nip05Controller,
-        decoration: InputDecoration(labelText: s.Nip05),
+        decoration: InputDecoration(labelText: "Nostr ${s.Address}"),
       ),
     ));
 
@@ -192,18 +192,19 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
       child: TextField(
         controller: lud16Controller,
         decoration: InputDecoration(
-            labelText: s.Lud16, hintText: "walletname@walletservice.com"),
+            labelText: s.Lightning_Address,
+            hintText: "walletname@walletservice.com"),
       ),
     ));
 
-    list.add(Container(
-      margin: margin,
-      padding: padding,
-      child: TextField(
-        controller: lud06Controller,
-        decoration: InputDecoration(labelText: "Lnurl"),
-      ),
-    ));
+    // list.add(Container(
+    //   margin: margin,
+    //   padding: padding,
+    //   child: TextField(
+    //     controller: lud06Controller,
+    //     decoration: InputDecoration(labelText: "Lnurl"),
+    //   ),
+    // ));
 
     return Scaffold(
       body: Stack(

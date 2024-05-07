@@ -280,6 +280,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         ));
       }
     }
+    list.add(SettingGroupItemComponent(
+      name: s.Hide_Relay_Notices,
+      value: getOpenList(settingProvider.hideRelayNotices).name,
+      onTap: pickHideRelayNotices,
+    ));
 
     list.add(SettingGroupTitleComponent(iconData: Icons.source, title: s.Data));
     list.add(SettingGroupItemComponent(
@@ -1051,6 +1056,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         num = null;
       }
       settingProvider.maxSubEventLevel = num;
+    }
+  }
+
+  pickHideRelayNotices() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.hideRelayNotices = resultEnumObj.value;
     }
   }
 }

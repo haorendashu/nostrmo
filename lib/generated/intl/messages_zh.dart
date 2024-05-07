@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("添加到私人书签"),
         "Add_to_public_bookmark":
             MessageLookupByLibrary.simpleMessage("添加到公开书签"),
+        "Address": MessageLookupByLibrary.simpleMessage("地址"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("地址不能为空。"),
         "Any": MessageLookupByLibrary.simpleMessage("任意"),
@@ -134,6 +135,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage("目标"),
         "Hashtag": MessageLookupByLibrary.simpleMessage("标签"),
         "Hide": MessageLookupByLibrary.simpleMessage("隐藏"),
+        "Hide_Relay_Notices": MessageLookupByLibrary.simpleMessage("隐藏中继通知"),
         "Home": MessageLookupByLibrary.simpleMessage("首页"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
@@ -157,6 +159,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
+        "Lightning_Address": MessageLookupByLibrary.simpleMessage("闪电地址"),
         "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("闪电发票"),
         "Limit_Note_Height": MessageLookupByLibrary.simpleMessage("限制动态高度"),
         "Link_preview": MessageLookupByLibrary.simpleMessage("链接预览"),
