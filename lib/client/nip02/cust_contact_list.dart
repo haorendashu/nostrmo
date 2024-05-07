@@ -1,19 +1,25 @@
 import 'contact.dart';
 
 class CustContactList {
-  final Map<String, Contact> _contacts;
+  late Map<String, Contact> _contacts;
 
-  final Map<String, int> _followedTags;
+  late Map<String, int> _followedTags;
 
-  final Map<String, int> _followedCommunitys;
+  late Map<String, int> _followedCommunitys;
 
-  CustContactList(
-      {Map<String, Contact> contacts = const {},
-      Map<String, int> followedTags = const {},
-      Map<String, int> followedCommunitys = const {}})
-      : _contacts = contacts,
-        _followedTags = followedTags,
-        _followedCommunitys = followedCommunitys;
+  CustContactList({
+    Map<String, Contact>? contacts,
+    Map<String, int>? followedTags,
+    Map<String, int>? followedCommunitys,
+  }) {
+    contacts ??= {};
+    followedTags ??= {};
+    followedCommunitys ??= {};
+
+    _contacts = contacts;
+    _followedTags = followedTags;
+    _followedCommunitys = followedCommunitys;
+  }
 
   static void getContactInfoFromTags(
       List<dynamic> tags,
