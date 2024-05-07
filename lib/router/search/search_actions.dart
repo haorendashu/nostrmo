@@ -3,6 +3,8 @@ class SearchActions {
 
   static const String openNoteId = "openNoteId";
 
+  static const String openHashtag = "openHashtag";
+
   static const String searchMetadataFromCache = "searchMetadataFromCache";
 
   static const String searchEventFromCache = "searchEventFromCache";

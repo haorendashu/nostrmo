@@ -97,6 +97,9 @@ class _SearchRouter extends CustState<SearchRouter>
         } else if (action == SearchActions.openNoteId) {
           list.add(SearchActionItemComponent(
               title: s.Open_Note_detail, onTap: openNoteId));
+        } else if (action == SearchActions.openHashtag) {
+          list.add(SearchActionItemComponent(
+              title: "${s.open} ${s.Hashtag}", onTap: openHashtag));
         } else if (action == SearchActions.searchMetadataFromCache) {
           list.add(SearchActionItemComponent(
               title: s.Search_User_from_cache, onTap: searchMetadataFromCache));
@@ -373,6 +376,14 @@ class _SearchRouter extends CustState<SearchRouter>
     }
   }
 
+  openHashtag() {
+    hideKeyBoard();
+    var text = controller.text;
+    if (StringUtil.isNotBlank(text)) {
+      RouterUtil.router(context, RouterPath.TAG_DETAIL, text);
+    }
+  }
+
   List<Metadata> metadatas = [];
 
   searchMetadataFromCache() {
@@ -427,6 +438,9 @@ class _SearchRouter extends CustState<SearchRouter>
       }
       if (Nip19.isNoteId(text)) {
         searchAbles.add(SearchActions.openNoteId);
+      }
+      if (searchAbles.isEmpty) {
+        searchAbles.add(SearchActions.openHashtag);
       }
       searchAbles.add(SearchActions.searchMetadataFromCache);
       searchAbles.add(SearchActions.searchEventFromCache);
