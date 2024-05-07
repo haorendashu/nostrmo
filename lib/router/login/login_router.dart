@@ -117,6 +117,7 @@ class _LoginRouter extends State<LoginRouter>
           style: TextStyle(
             color: mainColor,
             decoration: TextDecoration.underline,
+            decorationColor: mainColor,
           ),
         ),
       ),
@@ -124,6 +125,7 @@ class _LoginRouter extends State<LoginRouter>
 
     var termsWiget = Container(
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Checkbox(
               value: checkTerms,
@@ -143,12 +145,12 @@ class _LoginRouter extends State<LoginRouter>
                 style: TextStyle(
                   color: mainColor,
                   decoration: TextDecoration.underline,
+                  decorationColor: mainColor,
                 ),
               ),
             ),
           ),
         ],
-        mainAxisSize: MainAxisSize.min,
       ),
     ).animate(controller: animationController, effects: [
       ShakeEffect(),
