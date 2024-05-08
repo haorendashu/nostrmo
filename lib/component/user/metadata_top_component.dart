@@ -26,6 +26,7 @@ import '../../util/string_util.dart';
 import '../comfirm_dialog.dart';
 import '../image_component.dart';
 import '../image_preview_dialog.dart';
+import 'follow_btn_component.dart';
 import 'metadata_component.dart';
 
 class MetadataTopComponent extends StatefulWidget {
@@ -234,32 +235,10 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
         iconData: Icons.mail,
         onTap: openDMSession,
       )));
-      topBtnList.add(Selector<ContactListProvider, Contact?>(
-        builder: (context, contact, child) {
-          if (contact == null) {
-            return wrapBtn(MetadataTextBtn(
-              text: "Follow",
-              borderColor: mainColor,
-              onTap: () {
-                contactListProvider
-                    .addContact(Contact(publicKey: widget.pubkey));
-              },
-              onLongPress: onFollowPress,
-            ));
-          } else {
-            return wrapBtn(MetadataTextBtn(
-              text: "Unfollow",
-              onTap: () {
-                contactListProvider.removeContact(widget.pubkey);
-              },
-              onLongPress: onFollowPress,
-            ));
-          }
-        },
-        selector: (context, _provider) {
-          return _provider.getContact(widget.pubkey);
-        },
-      ));
+      topBtnList.add(wrapBtn(FollowBtnComponent(
+        pubkey: widget.pubkey,
+        followedBorderColor: mainColor,
+      )));
     }
 
     if (StringUtil.isBlank(displayName)) {
@@ -482,15 +461,6 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ImagePreviewDialog.show(context, multiImageProvider,
           doubleTapZoomable: true, swipeDismissible: true);
     }
-  }
-
-  void onFollowPress() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return FollowSetFollowBottomSheet(widget.pubkey);
-      },
-    );
   }
 }
 

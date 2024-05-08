@@ -207,4 +207,12 @@ class Nostr {
   void removeTempRelay(String addr) {
     _pool.removeTempRelay(addr);
   }
+
+  bool readable() {
+    return _pool.readable();
+  }
+
+  bool writable() {
+    return _pool.writable();
+  }
 }

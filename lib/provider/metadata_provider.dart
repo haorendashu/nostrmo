@@ -188,7 +188,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     notifyListeners();
   }
 
-  void _onEvent(Event event) {
+  void onEvent(Event event) {
     if (event.kind == kind.EventKind.METADATA) {
       _penddingEvents.add(event);
       later(_laterCallback, null);
@@ -212,6 +212,12 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       return;
     }
 
+    // if (!nostr!.readable()) {
+    //   // the nostr isn't readable later handle it again.
+    //   later(_laterCallback, null);
+    //   return;
+    // }
+
     List<Map<String, dynamic>> filters = [];
     for (var pubkey in _needUpdatePubKeys) {
       var filter = Filter(
@@ -219,12 +225,12 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
           authors: [pubkey]);
       filters.add(filter.toJson());
       if (filters.length > 11) {
-        nostr!.query(filters, _onEvent);
+        nostr!.query(filters, onEvent);
         filters.clear();
       }
     }
     if (filters.isNotEmpty) {
-      nostr!.query(filters, _onEvent);
+      nostr!.query(filters, onEvent);
     }
 
     for (var pubkey in _needUpdatePubKeys) {

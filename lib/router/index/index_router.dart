@@ -11,6 +11,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/pc_router_fake_provider.dart';
+import 'package:nostrmo/router/follow_suggest/follow_suggest_router.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
@@ -133,6 +134,10 @@ class _IndexRouter extends CustState<IndexRouter>
 
     if (!unlock) {
       return Scaffold();
+    }
+
+    if (newUser) {
+      return FollowSuggestRouter();
     }
 
     var _indexProvider = Provider.of<IndexProvider>(context);

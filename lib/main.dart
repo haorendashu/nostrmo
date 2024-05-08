@@ -170,6 +170,9 @@ bool dataSyncMode = false;
 
 bool firstLogin = false;
 
+// this user is new, should add follow suggest.
+bool newUser = false;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // init video package

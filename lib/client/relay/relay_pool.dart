@@ -440,4 +440,26 @@ class RelayPool {
   Relay? getTempRelay(String url) {
     return _tempRelays[url];
   }
+
+  bool readable() {
+    for (var relay in _relays.values) {
+      if (relay.relayStatus.connected == ClientConneccted.CONNECTED &&
+          relay.relayStatus.readAccess) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool writable() {
+    for (var relay in _relays.values) {
+      if (relay.relayStatus.connected == ClientConneccted.CONNECTED &&
+          relay.relayStatus.writeAccess) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }

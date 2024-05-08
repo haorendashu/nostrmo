@@ -273,5 +273,6 @@
     "File_is_too_big_for_NIP_95": "对NIP-95来说文件太大",
     "Address": "地址",
     "Lightning_Address": "闪电地址",
-    "Hide_Relay_Notices": "隐藏中继通知"
+    "Hide_Relay_Notices": "隐藏中继通知",
+    "Popular_Users": "受欢迎的用户"
 }

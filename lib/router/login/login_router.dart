@@ -184,9 +184,12 @@ class _LoginRouter extends State<LoginRouter>
   void generatePK() {
     var pk = generatePrivateKey();
     controller.text = pk;
+
+    // mark newUser and will show follow suggest after login.
+    newUser = true;
   }
 
-  void doLogin() {
+  Future<void> doLogin() async {
     if (checkTerms != true) {
       tipAcceptTerm();
       return;
@@ -198,13 +201,19 @@ class _LoginRouter extends State<LoginRouter>
       return;
     }
 
+    // var cancelFunc = BotToast.showLoading();
+    // try {
     if (Nip19.isPrivateKey(pk)) {
       pk = Nip19.decode(pk);
     }
     settingProvider.addAndChangePrivateKey(pk, updateUI: false);
     nostr = relayProvider.genNostr(pk);
-    settingProvider.notifyListeners();
+    //   await Future.delayed(Duration(seconds: 5));
+    // } finally {
+    //   cancelFunc.call();
+    // }
 
+    settingProvider.notifyListeners();
     firstLogin = true;
     indexProvider.setCurrentTap(1);
   }

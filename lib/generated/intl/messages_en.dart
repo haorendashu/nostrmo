@@ -298,6 +298,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_select_relays":
             MessageLookupByLibrary.simpleMessage("Please select relays"),
         "Poll": MessageLookupByLibrary.simpleMessage("Poll"),
+        "Popular_Users": MessageLookupByLibrary.simpleMessage("Popular Users"),
         "Posts": MessageLookupByLibrary.simpleMessage("Posts"),
         "Posts_and_replies":
             MessageLookupByLibrary.simpleMessage("Posts & Replies"),

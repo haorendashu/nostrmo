@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/user/follow_btn_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
@@ -13,9 +14,12 @@ class SimpleMetadataComponent extends StatefulWidget {
 
   Metadata? metadata;
 
+  bool showFollow;
+
   SimpleMetadataComponent({
     required this.pubkey,
     this.metadata,
+    this.showFollow = false,
   });
 
   @override
@@ -74,6 +78,8 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
         height: HEIGHT,
         fit: BoxFit.fitWidth,
       );
+    } else {
+      bannerImage = Container();
     }
 
     Widget userImageWidget = Container(
@@ -91,35 +97,41 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
       child: imageWidget,
     );
 
+    List<Widget> list = [
+      bannerImage,
+      Container(
+        height: HEIGHT,
+        color: cardColor.withOpacity(0.4),
+      ),
+      Container(
+        padding: const EdgeInsets.only(left: Base.BASE_PADDING),
+        child: Row(
+          children: [
+            userImageWidget,
+            NameComponnet(
+              pubkey: metadata.pubkey!,
+              metadata: metadata,
+            ),
+          ],
+        ),
+      ),
+    ];
+
+    if (widget.showFollow) {
+      list.add(Positioned(
+        right: Base.BASE_PADDING,
+        child: FollowBtnComponent(
+          pubkey: widget.pubkey,
+          followedBorderColor: themeData.primaryColor,
+        ),
+      ));
+    }
+
     return Container(
       height: HEIGHT,
       child: Stack(
         alignment: Alignment.center,
-        children: [
-          ImageComponent(
-            imageUrl: metadata.banner!,
-            width: double.maxFinite,
-            height: HEIGHT,
-            fit: BoxFit.fitWidth,
-            placeholder: (context, url) => CircularProgressIndicator(),
-          ),
-          Container(
-            height: HEIGHT,
-            color: cardColor.withOpacity(0.4),
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: Base.BASE_PADDING),
-            child: Row(
-              children: [
-                userImageWidget,
-                NameComponnet(
-                  pubkey: metadata.pubkey!,
-                  metadata: metadata,
-                ),
-              ],
-            ),
-          ),
-        ],
+        children: list,
       ),
     );
   }

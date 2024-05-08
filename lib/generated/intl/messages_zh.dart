@@ -232,6 +232,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请妥善保管密钥以便恢复帐户。"),
         "Please_select_relays": MessageLookupByLibrary.simpleMessage("请选择中继"),
         "Poll": MessageLookupByLibrary.simpleMessage("投票"),
+        "Popular_Users": MessageLookupByLibrary.simpleMessage("受欢迎的用户"),
         "Posts": MessageLookupByLibrary.simpleMessage("动态"),
         "Posts_and_replies": MessageLookupByLibrary.simpleMessage("动态 & 回复"),
         "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隐私锁"),

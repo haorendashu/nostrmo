@@ -283,5 +283,6 @@
     "File_is_too_big_for_NIP_95": "File is too big for NIP-95",
     "Address": "Address",
     "Lightning_Address": "Lightning Address",
-    "Hide_Relay_Notices": "Hide Relay Notices"
+    "Hide_Relay_Notices": "Hide Relay Notices",
+    "Popular_Users": "Popular Users"
 }
