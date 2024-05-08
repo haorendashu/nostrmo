@@ -201,6 +201,7 @@ class ContactListProvider extends ChangeNotifier {
     _contactList!.clear();
     content = "";
     clearCurrentContactList();
+    followSetMap.clear();
 
     notifyListeners();
   }
