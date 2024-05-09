@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
@@ -34,6 +36,8 @@ class EventRelation {
   String? dTag;
 
   String? type;
+
+  List<EventZapInfo> zapInfos = [];
 
   String? get replyOrRootId {
     return replyId != null ? replyId : rootId;
@@ -99,6 +103,9 @@ class EventRelation {
           dTag = value;
         } else if (tagKey == "type") {
           type = value;
+        } else if (tagKey == "zap" && tagLength > 3) {
+          var zapInfo = EventZapInfo.fromTags(tag);
+          zapInfos.add(zapInfo);
         }
       }
     }
@@ -136,5 +143,31 @@ class EventRelation {
 
     pMap.remove(event.pubkey);
     tagPList.addAll(pMap.keys);
+  }
+}
+
+class EventZapInfo {
+  late String pubkey;
+
+  late String relayAddr;
+
+  late double weight;
+
+  EventZapInfo(this.pubkey, this.relayAddr, this.weight);
+
+  factory EventZapInfo.fromTags(List tag) {
+    var pubkey = tag[1] as String;
+    var relayAddr = tag[2] as String;
+    var sourceWeidght = tag[3];
+    double weight = 1;
+    if (sourceWeidght is String) {
+      weight = double.parse(sourceWeidght);
+    } else if (sourceWeidght is double) {
+      weight = sourceWeidght;
+    } else if (sourceWeidght is int) {
+      weight = sourceWeidght.toDouble();
+    }
+
+    return EventZapInfo(pubkey, relayAddr, weight!);
   }
 }

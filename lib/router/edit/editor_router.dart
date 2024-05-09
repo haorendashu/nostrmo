@@ -26,6 +26,7 @@ import '../../component/cust_state.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
 import '../../component/editor/poll_input_component.dart';
+import '../../component/editor/zap_split_input_component.dart';
 import '../../generated/l10n.dart';
 import '../../util/string_util.dart';
 import 'editor_notify_item_component.dart';
@@ -264,6 +265,9 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
       editorList.add(ZapGoalInputComponent(
         zapGoalInputController: zapGoalInputController,
       ));
+    }
+    if (openZapSplit) {
+      editorList.add(ZapSplitInputComponent(eventZapInfos));
     }
 
     list.add(Expanded(

@@ -44,6 +44,8 @@ import '../content/markdown/markdown_nevent_inline_syntax.dart';
 import '../content/markdown/markdown_nprofile_inline_syntax.dart';
 import '../content/markdown/markdown_nrelay_element_builder.dart';
 import '../content/markdown/markdown_nrelay_inline_syntax copy.dart';
+import '../image_component.dart';
+import '../zap_split_icon_component.dart';
 import 'event_poll_component.dart';
 import '../webview_router.dart';
 import 'event_quote_component.dart';
@@ -254,6 +256,10 @@ class _EventMainComponent extends State<EventMainComponent> {
           ));
         }
 
+        if (eventRelation.zapInfos.isNotEmpty) {
+          list.add(buildZapInfoWidgets(themeData));
+        }
+
         list.add(EventReactionsComponent(
           screenshotController: widget.screenshotController,
           event: widget.event,
@@ -314,6 +320,10 @@ class _EventMainComponent extends State<EventMainComponent> {
       } else if (widget.event.kind == kind.EventKind.STORAGE_SHARED_FILE) {
         list.add(buildStorageSharedFileWidget());
         if (!widget.inQuote) {
+          if (eventRelation.zapInfos.isNotEmpty) {
+            list.add(buildZapInfoWidgets(themeData));
+          }
+
           list.add(EventReactionsComponent(
             screenshotController: widget.screenshotController,
             event: widget.event,
@@ -440,6 +450,10 @@ class _EventMainComponent extends State<EventMainComponent> {
           list.add(EventQuoteComponent(
             aId: eventRelation.aId!,
           ));
+        }
+
+        if (eventRelation.zapInfos.isNotEmpty) {
+          list.add(buildZapInfoWidgets(themeData));
         }
 
         if (widget.event.kind != kind.EventKind.ZAP &&
@@ -758,6 +772,66 @@ class _EventMainComponent extends State<EventMainComponent> {
         event: widget.event,
       );
     }
+  }
+
+  Widget buildZapInfoWidgets(ThemeData themeData) {
+    List<Widget> list = [];
+
+    list.add(ZapSplitIconComponent(themeData.textTheme.bodyMedium!.fontSize!));
+
+    var imgSize = themeData.textTheme.bodyMedium!.fontSize! + 2;
+
+    for (var zapInfo in eventRelation.zapInfos) {
+      list.add(Container(
+        margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+        child: Selector<MetadataProvider, Metadata?>(
+          builder: (context, metadata, child) {
+            Widget imageWidget = Container(
+              width: imgSize,
+              height: imgSize,
+              color: themeData.hintColor,
+            );
+            if (metadata != null && StringUtil.isNotBlank(metadata.picture)) {
+              imageWidget = ImageComponent(
+                imageUrl: metadata.picture!,
+                width: imgSize,
+                height: imgSize,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => CircularProgressIndicator(),
+              );
+            }
+
+            return GestureDetector(
+              onTap: () {
+                RouterUtil.router(context, RouterPath.USER, zapInfo.pubkey);
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: imgSize,
+                width: imgSize,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(imgSize / 2),
+                  color: Colors.grey,
+                ),
+                child: imageWidget,
+              ),
+            );
+          },
+          selector: (BuildContext, provider) {
+            return provider.getMetadata(zapInfo.pubkey);
+          },
+        ),
+      ));
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: list,
+      ),
+    );
   }
 }
 

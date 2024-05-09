@@ -558,7 +558,7 @@ class MetadataTextBtn extends StatelessWidget {
                 ),
         ),
         height: 32,
-        padding: EdgeInsets.only(left: 8, right: 8),
+        padding: EdgeInsets.only(left: 8, right: 8, bottom: 2),
         alignment: Alignment.center,
         child: Text(
           text,

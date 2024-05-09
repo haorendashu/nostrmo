@@ -25,6 +25,7 @@ import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
+import '../../client/event_relation.dart';
 import '../../client/nip04/nip04.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/nip19/nip19_tlv.dart';
@@ -38,6 +39,7 @@ import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
 import '../image_component.dart';
+import '../zap_split_icon_component.dart';
 import 'cust_embed_types.dart';
 import 'custom_emoji_add_dialog.dart';
 import 'gen_lnbc_component.dart';
@@ -63,6 +65,8 @@ mixin EditorMixin {
   bool inputZapGoal = false;
 
   bool openPrivateDM = false;
+
+  bool openZapSplit = false;
 
   // dm arg
   ECDHBasicAgreement? getAgreement();
@@ -136,13 +140,6 @@ mixin EditorMixin {
     }
     inputBtnList.addAll([
       quill.QuillToolbarIconButton(
-        onPressed: _inputLnbc,
-        icon: Icon(Icons.bolt),
-        isSelected: false,
-        iconTheme: null,
-        tooltip: s.Lightning_Invoice,
-      ),
-      quill.QuillToolbarIconButton(
         onPressed: customEmojiSelect,
         icon: Icon(Icons.add_reaction_outlined),
         isSelected: false,
@@ -177,10 +174,27 @@ mixin EditorMixin {
         iconTheme: null,
         tooltip: s.Hashtag,
       ),
+      quill.QuillToolbarIconButton(
+        onPressed: _inputLnbc,
+        icon: Icon(Icons.bolt),
+        isSelected: false,
+        iconTheme: null,
+        tooltip: s.Lightning_Invoice,
+      ),
       // Expanded(child: Container())
     ]);
 
     if (getAgreement() == null) {
+      inputBtnList.add(quill.QuillToolbarIconButton(
+        onPressed: openZapSplitTap,
+        icon: ZapSplitIconComponent(
+          themeData.textTheme.bodyLarge!.fontSize!,
+          color: openZapSplit ? mainColor : null,
+        ),
+        isSelected: false,
+        iconTheme: null,
+        tooltip: s.Split_and_Transfer_Zap,
+      ));
       inputBtnList.addAll([
         quill.QuillToolbarIconButton(
           onPressed: _addWarning,
@@ -663,6 +677,17 @@ mixin EditorMixin {
       allTags.add(["content-warning", ""]);
     }
 
+    if (eventZapInfos.isNotEmpty) {
+      for (var zapInfo in eventZapInfos) {
+        allTags.add([
+          "zap",
+          zapInfo.pubkey,
+          zapInfo.relayAddr,
+          zapInfo.weight.toStringAsFixed(2),
+        ]);
+      }
+    }
+
     Event? event;
     List<Event> extralEvents = [];
     if (agreement != null && StringUtil.isNotBlank(pubkey)) {
@@ -1064,6 +1089,17 @@ mixin EditorMixin {
     var dt = await DatetimePickerComponent.show(getContext(),
         dateTime: publishAt != null ? publishAt : DateTime.now());
     publishAt = dt;
+    updateUI();
+  }
+
+  List<EventZapInfo> eventZapInfos = [];
+
+  void openZapSplitTap() {
+    openZapSplit = !openZapSplit;
+    if (!openZapSplit) {
+      // close zap and clean infos
+      eventZapInfos.clear();
+    }
     updateUI();
   }
 }

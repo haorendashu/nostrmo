@@ -274,5 +274,8 @@
     "Address": "地址",
     "Lightning_Address": "闪电地址",
     "Hide_Relay_Notices": "隐藏中继通知",
-    "Popular_Users": "受欢迎的用户"
+    "Popular_Users": "受欢迎的用户",
+    "Split_and_Transfer_Zap": "拆分和转移Zap",
+    "Split_Zap_Tip": "在支持的客户端上可以拆分和转移 Zaps 到你添加的用户。",
+    "Add_User": "添加用户"
 }

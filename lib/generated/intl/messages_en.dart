@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_Account": MessageLookupByLibrary.simpleMessage("Add Account"),
         "Add_Custom_Emoji":
             MessageLookupByLibrary.simpleMessage("Add Custom Emoji"),
+        "Add_User": MessageLookupByLibrary.simpleMessage("Add User"),
         "Add_a_Note": MessageLookupByLibrary.simpleMessage("Add a Note"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("Add account and login?"),
@@ -345,6 +346,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("Sign fail"),
         "Soft": MessageLookupByLibrary.simpleMessage("Soft"),
         "Source": MessageLookupByLibrary.simpleMessage("Source"),
+        "Split_Zap_Tip": MessageLookupByLibrary.simpleMessage(
+            "The support client will split and transfer zaps to the users you had added."),
+        "Split_and_Transfer_Zap":
+            MessageLookupByLibrary.simpleMessage("Split and Transfer Zap"),
         "Subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "Sync_Upload": MessageLookupByLibrary.simpleMessage("Sync Upload"),

@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("关于"),
         "Account_Manager": MessageLookupByLibrary.simpleMessage("账号管理"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("添加账号"),
+        "Add_User": MessageLookupByLibrary.simpleMessage("添加用户"),
         "Add_a_Note": MessageLookupByLibrary.simpleMessage("发布动态"),
         "Add_account_and_login":
             MessageLookupByLibrary.simpleMessage("添加并且登录？"),
@@ -273,6 +274,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Sign_fail": MessageLookupByLibrary.simpleMessage("签名失败"),
         "Soft": MessageLookupByLibrary.simpleMessage("应用"),
         "Source": MessageLookupByLibrary.simpleMessage("来源"),
+        "Split_Zap_Tip": MessageLookupByLibrary.simpleMessage(
+            "在支持的客户端上可以拆分和转移 Zaps 到你添加的用户。"),
+        "Split_and_Transfer_Zap":
+            MessageLookupByLibrary.simpleMessage("拆分和转移Zap"),
         "Subject": MessageLookupByLibrary.simpleMessage("标题"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
         "Sync_Upload": MessageLookupByLibrary.simpleMessage("同步上传"),

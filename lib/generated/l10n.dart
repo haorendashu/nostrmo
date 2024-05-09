@@ -2909,6 +2909,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Split and Transfer Zap`
+  String get Split_and_Transfer_Zap {
+    return Intl.message(
+      'Split and Transfer Zap',
+      name: 'Split_and_Transfer_Zap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The support client will split and transfer zaps to the users you had added.`
+  String get Split_Zap_Tip {
+    return Intl.message(
+      'The support client will split and transfer zaps to the users you had added.',
+      name: 'Split_Zap_Tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add User`
+  String get Add_User {
+    return Intl.message(
+      'Add User',
+      name: 'Add_User',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
