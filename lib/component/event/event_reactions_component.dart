@@ -34,7 +34,6 @@ import '../editor/cust_embed_types.dart';
 import '../event_delete_callback.dart';
 import '../event_reply_callback.dart';
 import '../zap/zap_bottom_sheet_component.dart';
-import '../zap/zap_gen_dialog.dart';
 
 class EventReactionsComponent extends StatefulWidget {
   ScreenshotController screenshotController;
@@ -178,130 +177,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
             Expanded(
                 child: GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () {
-                List<EventZapInfo> list = [];
-                var zapInfos = widget.eventRelation.zapInfos;
-                if (zapInfos.isEmpty) {
-                  String relayAddr = "";
-                  var relayListMetadata = metadataProvider
-                      .getRelayListMetadata(widget.event.pubkey);
-                  if (relayListMetadata != null &&
-                      relayListMetadata.writeAbleRelays.isNotEmpty) {
-                    relayAddr = relayListMetadata.writeAbleRelays.first;
-                  }
-                  list.add(EventZapInfo(widget.event.pubkey, relayAddr, 1));
-                } else {
-                  list.addAll(zapInfos);
-                }
-
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (BuildContext _context) {
-                    return ZapBottomSheetComponent(context, list);
-                  },
-                );
-              },
+              onTap: openZapDialog,
               child: EventReactionNumComponent(
                 num: zapNum,
                 iconData: Icons.bolt,
                 onTap: null,
-                onLongPress: genZap,
                 color: hintColor,
                 fontSize: fontSize,
               ),
             )),
-            // Expanded(
-            //   child: Container(
-            //     alignment: Alignment.center,
-            //     child: PopupMenuButton<int>(
-            //       tooltip: "Zap",
-            //       itemBuilder: (context) {
-            //         return [
-            //           PopupMenuItem(
-            //             value: 10,
-            //             child: Row(
-            //               children: [
-            //                 Icon(Icons.bolt, color: Colors.orange),
-            //                 Text(" Zap 10", style: popFontStyle)
-            //               ],
-            //               mainAxisSize: MainAxisSize.min,
-            //             ),
-            //           ),
-            //           PopupMenuItem(
-            //             value: 50,
-            //             child: Row(
-            //               children: [
-            //                 Icon(Icons.bolt, color: Colors.orange),
-            //                 Text(" Zap 50", style: popFontStyle)
-            //               ],
-            //               mainAxisSize: MainAxisSize.min,
-            //             ),
-            //           ),
-            //           PopupMenuItem(
-            //             value: 100,
-            //             child: Row(
-            //               children: [
-            //                 Icon(Icons.bolt, color: Colors.orange),
-            //                 Text(" Zap 100", style: popFontStyle)
-            //               ],
-            //               mainAxisSize: MainAxisSize.min,
-            //             ),
-            //           ),
-            //           PopupMenuItem(
-            //             value: 500,
-            //             child: Row(
-            //               children: [
-            //                 Icon(Icons.bolt, color: Colors.orange),
-            //                 Text(" Zap 500", style: popFontStyle)
-            //               ],
-            //               mainAxisSize: MainAxisSize.min,
-            //             ),
-            //           ),
-            //           PopupMenuItem(
-            //             value: 1000,
-            //             child: Row(
-            //               children: [
-            //                 Icon(Icons.bolt, color: Colors.orange),
-            //                 Text(" Zap 1000", style: popFontStyle)
-            //               ],
-            //               mainAxisSize: MainAxisSize.min,
-            //             ),
-            //           ),
-            //           PopupMenuItem(
-            //             value: 5000,
-            //             child: Row(
-            //               children: [
-            //                 Icon(Icons.bolt, color: Colors.orange),
-            //                 Text(" Zap 5000", style: popFontStyle)
-            //               ],
-            //               mainAxisSize: MainAxisSize.min,
-            //             ),
-            //           ),
-            //           PopupMenuItem(
-            //             value: -1,
-            //             child: Row(
-            //               children: [
-            //                 Icon(Icons.bolt, color: Colors.orange),
-            //                 Text(" ${s.Custom}", style: popFontStyle)
-            //               ],
-            //               mainAxisSize: MainAxisSize.min,
-            //             ),
-            //           ),
-            //         ];
-            //       },
-            //       onSelected: onZapSelect,
-            //       child: EventReactionNumComponent(
-            //         num: zapNum,
-            //         iconData: Icons.bolt,
-            //         onTap: null,
-            //         onLongPress: genZap,
-            //         color: hintColor,
-            //         fontSize: fontSize,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Expanded(
               child: Container(
                 alignment: Alignment.center,
@@ -644,15 +528,6 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }
   }
 
-  Future<void> onZapSelect(int sats) async {
-    if (sats < 0) {
-      genZap();
-    } else {
-      await ZapAction.handleZap(context, sats, widget.event.pubkey,
-          eventId: widget.event.id);
-    }
-  }
-
   void onShareTap() {
     widget.screenshotController.capture().then((Uint8List? imageData) async {
       if (imageData != null) {
@@ -667,10 +542,6 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }).catchError((onError) {
       print(onError);
     });
-  }
-
-  void genZap() {
-    ZapGenDialog.show(context, widget.event.pubkey, eventId: widget.event.id);
   }
 
   bool showMoreLike = false;
@@ -691,6 +562,31 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     );
 
     return text;
+  }
+
+  void openZapDialog() {
+    List<EventZapInfo> list = [];
+    var zapInfos = widget.eventRelation.zapInfos;
+    if (zapInfos.isEmpty) {
+      String relayAddr = "";
+      var relayListMetadata =
+          metadataProvider.getRelayListMetadata(widget.event.pubkey);
+      if (relayListMetadata != null &&
+          relayListMetadata.writeAbleRelays.isNotEmpty) {
+        relayAddr = relayListMetadata.writeAbleRelays.first;
+      }
+      list.add(EventZapInfo(widget.event.pubkey, relayAddr, 1));
+    } else {
+      list.addAll(zapInfos);
+    }
+
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext _context) {
+        return ZapBottomSheetComponent(context, list);
+      },
+    );
   }
 }
 

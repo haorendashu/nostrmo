@@ -16,6 +16,7 @@ import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../client/event_relation.dart';
 import '../../client/nip02/contact.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/zap/zap_action.dart';
@@ -25,7 +26,7 @@ import '../../util/string_util.dart';
 import '../comfirm_dialog.dart';
 import '../image_component.dart';
 import '../image_preview_dialog.dart';
-import '../zap/zap_gen_dialog.dart';
+import '../zap/zap_bottom_sheet_component.dart';
 import 'follow_btn_component.dart';
 import 'metadata_component.dart';
 
@@ -156,78 +157,9 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       if (widget.metadata != null &&
           (StringUtil.isNotBlank(widget.metadata!.lud06) ||
               StringUtil.isNotBlank(widget.metadata!.lud16))) {
-        topBtnList.add(wrapBtn(PopupMenuButton<int>(
-          itemBuilder: (context) {
-            return [
-              PopupMenuItem(
-                value: 10,
-                child: Row(
-                  children: [
-                    Icon(Icons.bolt, color: Colors.orange),
-                    Text(" Zap 10")
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-              PopupMenuItem(
-                value: 50,
-                child: Row(
-                  children: [
-                    Icon(Icons.bolt, color: Colors.orange),
-                    Text(" Zap 50")
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-              PopupMenuItem(
-                value: 100,
-                child: Row(
-                  children: [
-                    Icon(Icons.bolt, color: Colors.orange),
-                    Text(" Zap 100")
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-              PopupMenuItem(
-                value: 500,
-                child: Row(
-                  children: [
-                    Icon(Icons.bolt, color: Colors.orange),
-                    Text(" Zap 500")
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-              PopupMenuItem(
-                value: 1000,
-                child: Row(
-                  children: [
-                    Icon(Icons.bolt, color: Colors.orange),
-                    Text(" Zap 1000")
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-              PopupMenuItem(
-                value: 5000,
-                child: Row(
-                  children: [
-                    Icon(Icons.bolt, color: Colors.orange),
-                    Text(" Zap 5000")
-                  ],
-                  mainAxisSize: MainAxisSize.min,
-                ),
-              ),
-            ];
-          },
-          onSelected: onZapSelect,
-          child: MetadataIconBtn(
-            onLongPress: () {
-              ZapGenDialog.show(context, widget.pubkey);
-            },
-            iconData: Icons.currency_bitcoin,
-          ),
+        topBtnList.add(wrapBtn(MetadataIconBtn(
+          onTap: openZapDialog,
+          iconData: Icons.currency_bitcoin,
         )));
       }
 
@@ -407,10 +339,6 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     RouterUtil.router(context, RouterPath.DM_DETAIL, detail);
   }
 
-  void onZapSelect(int sats) {
-    ZapAction.handleZap(context, sats, widget.pubkey);
-  }
-
   Future<void> handleScanner() async {
     var result = await RouterUtil.router(context, RouterPath.QRSCANNER);
     if (StringUtil.isNotBlank(result)) {
@@ -461,6 +389,26 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       ImagePreviewDialog.show(context, multiImageProvider,
           doubleTapZoomable: true, swipeDismissible: true);
     }
+  }
+
+  void openZapDialog() {
+    List<EventZapInfo> list = [];
+    String relayAddr = "";
+    var relayListMetadata =
+        metadataProvider.getRelayListMetadata(widget.pubkey);
+    if (relayListMetadata != null &&
+        relayListMetadata.writeAbleRelays.isNotEmpty) {
+      relayAddr = relayListMetadata.writeAbleRelays.first;
+    }
+    list.add(EventZapInfo(widget.pubkey, relayAddr, 1));
+
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext _context) {
+        return ZapBottomSheetComponent(context, list);
+      },
+    );
   }
 }
 
