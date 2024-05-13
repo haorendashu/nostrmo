@@ -129,11 +129,118 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
           showMoreWidget: showMoreWidget,
         );
 
+        Widget moreBtnWidget = Container(
+          alignment: Alignment.center,
+          child: PopupMenuButton<String>(
+            tooltip: s.More,
+            itemBuilder: (context) {
+              var bookmarkItem =
+                  BookmarkItem.getFromEventReactions(widget.eventRelation);
+
+              List<PopupMenuEntry<String>> list = [
+                PopupMenuItem(
+                  value: "copyEvent",
+                  child: Text(s.Copy_Note_Json, style: popFontStyle),
+                ),
+                PopupMenuItem(
+                  value: "copyPubkey",
+                  child: Text(s.Copy_Note_Pubkey, style: popFontStyle),
+                ),
+                PopupMenuItem(
+                  value: "copyId",
+                  child: Text(s.Copy_Note_Id, style: popFontStyle),
+                ),
+                PopupMenuDivider(),
+              ];
+
+              if (widget.showDetailBtn) {
+                list.add(PopupMenuItem(
+                  value: "detail",
+                  child: Text(s.Detail, style: popFontStyle),
+                ));
+              }
+
+              list.add(PopupMenuItem(
+                value: "share",
+                child: Text(s.Share, style: popFontStyle),
+              ));
+              list.add(PopupMenuDivider());
+              if (listProvider.checkPrivateBookmark(bookmarkItem)) {
+                list.add(PopupMenuItem(
+                  value: "removeFromPrivateBookmark",
+                  child:
+                      Text(s.Remove_from_private_bookmark, style: popFontStyle),
+                ));
+              } else {
+                list.add(PopupMenuItem(
+                  value: "addToPrivateBookmark",
+                  child: Text(s.Add_to_private_bookmark, style: popFontStyle),
+                ));
+              }
+              if (listProvider.checkPublicBookmark(bookmarkItem)) {
+                list.add(PopupMenuItem(
+                  value: "removeFromPublicBookmark",
+                  child:
+                      Text(s.Remove_from_public_bookmark, style: popFontStyle),
+                ));
+              } else {
+                list.add(PopupMenuItem(
+                  value: "addToPublicBookmark",
+                  child: Text(s.Add_to_public_bookmark, style: popFontStyle),
+                ));
+              }
+              list.add(PopupMenuDivider());
+              list.add(PopupMenuItem(
+                value: "source",
+                child: Text(s.Source, style: popFontStyle),
+              ));
+              list.add(PopupMenuItem(
+                value: "broadcase",
+                child: Text(s.Broadcast, style: popFontStyle),
+              ));
+              list.add(PopupMenuItem(
+                value: "block",
+                child: Text(s.Block, style: popFontStyle),
+              ));
+
+              if (widget.event.pubkey == nostr!.publicKey) {
+                list.add(PopupMenuDivider());
+                list.add(PopupMenuItem(
+                  value: "delete",
+                  child: Text(
+                    s.Delete,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: mediumFontSize,
+                    ),
+                  ),
+                ));
+              }
+
+              return list;
+            },
+            onSelected: onPopupSelected,
+            child: Container(
+              height: double.infinity,
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING_HALF,
+                right: Base.BASE_PADDING_HALF,
+              ),
+              child: Icon(
+                Icons.more_vert,
+                size: 16,
+                color: hintColor,
+              ),
+            ),
+          ),
+        );
+
         var topReactionsWidget = Row(
           children: [
             Expanded(
                 child: Container(
-              alignment: Alignment.center,
+              alignment: Alignment.centerLeft,
               child: EventReactionNumComponent(
                 num: replyNum,
                 iconData: Icons.comment,
@@ -178,116 +285,18 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: openZapDialog,
-              child: EventReactionNumComponent(
-                num: zapNum,
-                iconData: Icons.bolt,
-                onTap: null,
-                color: hintColor,
-                fontSize: fontSize,
-              ),
-            )),
-            Expanded(
               child: Container(
-                alignment: Alignment.center,
-                child: PopupMenuButton<String>(
-                  tooltip: s.More,
-                  itemBuilder: (context) {
-                    var bookmarkItem = BookmarkItem.getFromEventReactions(
-                        widget.eventRelation);
-
-                    List<PopupMenuEntry<String>> list = [
-                      PopupMenuItem(
-                        value: "copyEvent",
-                        child: Text(s.Copy_Note_Json, style: popFontStyle),
-                      ),
-                      PopupMenuItem(
-                        value: "copyPubkey",
-                        child: Text(s.Copy_Note_Pubkey, style: popFontStyle),
-                      ),
-                      PopupMenuItem(
-                        value: "copyId",
-                        child: Text(s.Copy_Note_Id, style: popFontStyle),
-                      ),
-                      PopupMenuDivider(),
-                    ];
-
-                    if (widget.showDetailBtn) {
-                      list.add(PopupMenuItem(
-                        value: "detail",
-                        child: Text(s.Detail, style: popFontStyle),
-                      ));
-                    }
-
-                    list.add(PopupMenuItem(
-                      value: "share",
-                      child: Text(s.Share, style: popFontStyle),
-                    ));
-                    list.add(PopupMenuDivider());
-                    if (listProvider.checkPrivateBookmark(bookmarkItem)) {
-                      list.add(PopupMenuItem(
-                        value: "removeFromPrivateBookmark",
-                        child: Text(s.Remove_from_private_bookmark,
-                            style: popFontStyle),
-                      ));
-                    } else {
-                      list.add(PopupMenuItem(
-                        value: "addToPrivateBookmark",
-                        child: Text(s.Add_to_private_bookmark,
-                            style: popFontStyle),
-                      ));
-                    }
-                    if (listProvider.checkPublicBookmark(bookmarkItem)) {
-                      list.add(PopupMenuItem(
-                        value: "removeFromPublicBookmark",
-                        child: Text(s.Remove_from_public_bookmark,
-                            style: popFontStyle),
-                      ));
-                    } else {
-                      list.add(PopupMenuItem(
-                        value: "addToPublicBookmark",
-                        child:
-                            Text(s.Add_to_public_bookmark, style: popFontStyle),
-                      ));
-                    }
-                    list.add(PopupMenuDivider());
-                    list.add(PopupMenuItem(
-                      value: "source",
-                      child: Text(s.Source, style: popFontStyle),
-                    ));
-                    list.add(PopupMenuItem(
-                      value: "broadcase",
-                      child: Text(s.Broadcast, style: popFontStyle),
-                    ));
-                    list.add(PopupMenuItem(
-                      value: "block",
-                      child: Text(s.Block, style: popFontStyle),
-                    ));
-
-                    if (widget.event.pubkey == nostr!.publicKey) {
-                      list.add(PopupMenuDivider());
-                      list.add(PopupMenuItem(
-                        value: "delete",
-                        child: Text(
-                          s.Delete,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: mediumFontSize,
-                          ),
-                        ),
-                      ));
-                    }
-
-                    return list;
-                  },
-                  onSelected: onPopupSelected,
-                  child: Icon(
-                    Icons.more_vert,
-                    size: 16,
-                    color: hintColor,
-                  ),
+                height: double.infinity,
+                child: EventReactionNumComponent(
+                  num: zapNum,
+                  iconData: Icons.bolt,
+                  onTap: null,
+                  color: hintColor,
+                  fontSize: fontSize,
                 ),
               ),
-            ),
+            )),
+            moreBtnWidget,
           ],
         );
 
@@ -320,13 +329,12 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
             ers.add(Container(
               margin: const EdgeInsets.only(right: Base.BASE_PADDING_HALF),
-              child: EventReactionNumComponent(
+              child: EventReactionEmojiNumComponent(
                 iconData: Icons.favorite,
                 iconText: likeText,
                 num: num,
                 color: color,
                 fontSize: fontSize,
-                onTap: () {},
               ),
             ));
           }
@@ -626,15 +634,17 @@ class EventReactionNumComponent extends StatelessWidget {
       size: 14,
       color: color,
     );
+
+    List<Widget> list = [];
+    if (StringUtil.isNotBlank(iconText)) {
+      list.add(Text(iconText!));
+    } else {
+      list.add(iconWidget);
+    }
+
     if (num != 0) {
       String numStr = NumberFormatUtil.format(num);
 
-      List<Widget> list = [];
-      if (StringUtil.isNotBlank(iconText)) {
-        list.add(Text(iconText!));
-      } else {
-        list.add(iconWidget);
-      }
       list.add(Container(
         margin: const EdgeInsets.only(left: 4),
         child: Text(
@@ -645,24 +655,85 @@ class EventReactionNumComponent extends StatelessWidget {
       if (showMoreWidget != null) {
         list.add(showMoreWidget!);
       }
-
-      main = Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: list,
-      );
-    } else {
-      main = iconWidget;
     }
+
+    main = Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: list,
+    );
+    main = Container(
+      height: double.infinity,
+      child: main,
+    );
 
     if (onTap != null || onLongPress != null) {
       return GestureDetector(
         onTap: onTap,
         onLongPress: onLongPress,
+        behavior: HitTestBehavior.translucent,
         child: main,
       );
     } else {
       return main;
     }
+  }
+}
+
+class EventReactionEmojiNumComponent extends StatelessWidget {
+  String? iconText;
+
+  IconData iconData;
+
+  int num;
+
+  Color color;
+
+  double fontSize;
+
+  EventReactionEmojiNumComponent({
+    this.iconText,
+    required this.iconData,
+    required this.num,
+    required this.color,
+    required this.fontSize,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Widget iconWidget = Icon(
+      iconData,
+      size: 14,
+      color: color,
+    );
+
+    List<Widget> list = [];
+    if (StringUtil.isNotBlank(iconText)) {
+      list.add(Text(iconText!));
+    } else {
+      list.add(iconWidget);
+    }
+
+    if (num != 0) {
+      String numStr = NumberFormatUtil.format(num);
+
+      list.add(Container(
+        margin: const EdgeInsets.only(left: 4),
+        child: Text(
+          numStr,
+          style: TextStyle(color: color, fontSize: fontSize),
+        ),
+      ));
+    }
+
+    return Container(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: list,
+      ),
+    );
   }
 }
