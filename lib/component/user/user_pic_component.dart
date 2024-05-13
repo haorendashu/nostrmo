@@ -12,9 +12,12 @@ class UserPicComponent extends StatefulWidget {
 
   double width;
 
+  Metadata? metadata;
+
   UserPicComponent({
     required this.pubkey,
     required this.width,
+    this.metadata,
   });
 
   @override
@@ -26,35 +29,43 @@ class UserPicComponent extends StatefulWidget {
 class _UserPicComponent extends State<UserPicComponent> {
   @override
   Widget build(BuildContext context) {
+    if (widget.metadata != null) {
+      return buildWidget(widget.metadata);
+    }
+
     return Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
-        Widget? imageWidget;
-        if (metadata != null) {
-          if (StringUtil.isNotBlank(metadata.picture)) {
-            imageWidget = ImageComponent(
-              imageUrl: metadata.picture!,
-              width: widget.width,
-              height: widget.width,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => CircularProgressIndicator(),
-            );
-          }
-        }
-
-        return Container(
-          width: widget.width,
-          height: widget.width,
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.width / 2),
-            color: Colors.grey,
-          ),
-          child: imageWidget,
-        );
+        return buildWidget(metadata);
       },
       selector: (context, _provider) {
         return _provider.getMetadata(widget.pubkey);
       },
+    );
+  }
+
+  Widget buildWidget(Metadata? metadata) {
+    Widget? imageWidget;
+    if (metadata != null) {
+      if (StringUtil.isNotBlank(metadata.picture)) {
+        imageWidget = ImageComponent(
+          imageUrl: metadata.picture!,
+          width: widget.width,
+          height: widget.width,
+          fit: BoxFit.cover,
+          placeholder: (context, url) => CircularProgressIndicator(),
+        );
+      }
+    }
+
+    return Container(
+      width: widget.width,
+      height: widget.width,
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(widget.width / 2),
+        color: Colors.grey,
+      ),
+      child: imageWidget,
     );
   }
 }

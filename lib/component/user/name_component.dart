@@ -6,22 +6,6 @@ import '../../client/nip19/nip19.dart';
 import '../../util/string_util.dart';
 
 class NameComponent extends StatefulWidget {
-  static String getSimpleName(String pubkey, Metadata? metadata) {
-    String? name;
-    if (metadata != null) {
-      if (StringUtil.isNotBlank(metadata.displayName)) {
-        name = metadata.displayName;
-      } else if (StringUtil.isNotBlank(metadata.name)) {
-        name = metadata.name;
-      }
-    }
-    if (StringUtil.isBlank(name)) {
-      name = Nip19.encodeSimplePubKey(pubkey);
-    }
-
-    return name!;
-  }
-
   String pubkey;
 
   Metadata? metadata;

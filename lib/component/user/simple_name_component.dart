@@ -24,11 +24,20 @@ class SimpleNameComponent extends StatefulWidget {
 
   String pubkey;
 
+  Metadata? metadata;
+
   TextStyle? textStyle;
+
+  int? maxLines;
+
+  TextOverflow? textOverflow;
 
   SimpleNameComponent({
     required this.pubkey,
+    this.metadata,
     this.textStyle,
+    this.maxLines,
+    this.textOverflow,
   });
 
   @override
@@ -40,17 +49,27 @@ class SimpleNameComponent extends StatefulWidget {
 class _SimpleNameComponent extends State<SimpleNameComponent> {
   @override
   Widget build(BuildContext context) {
+    if (widget.metadata != null) {
+      return buildWidget(widget.metadata);
+    }
+
     return Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
-      var name = SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
-      return Container(
-        child: Text(
-          name,
-          style: widget.textStyle,
-        ),
-      );
+      return buildWidget(metadata);
     }, selector: (context, _provider) {
       return _provider.getMetadata(widget.pubkey);
     });
+  }
+
+  Widget buildWidget(Metadata? metadata) {
+    var name = SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
+    return Container(
+      child: Text(
+        name,
+        style: widget.textStyle,
+        maxLines: widget.maxLines,
+        overflow: widget.textOverflow,
+      ),
+    );
   }
 }

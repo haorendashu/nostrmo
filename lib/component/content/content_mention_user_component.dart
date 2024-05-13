@@ -27,7 +27,8 @@ class _ContentMentionUserComponent extends State<ContentMentionUserComponent> {
   Widget build(BuildContext context) {
     return Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
-        String name = NameComponent.getSimpleName(widget.pubkey, metadata);
+        String name =
+            SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
 
         return ContentStrLinkComponent(
           str: "@$name",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
@@ -7,6 +8,7 @@ import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/string_util.dart';
 import '../image_component.dart';
+import '../user/user_pic_component.dart';
 
 class ZapBottomSheetUserComponent extends StatefulWidget {
   String pubkey;
@@ -42,40 +44,6 @@ class _ZapBottomSheetUserComponent extends State<ZapBottomSheetUserComponent> {
     return Container(
       child: Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
-          String nip19Name = Nip19.encodeSimplePubKey(widget.pubkey);
-          String displayName = "";
-          String? name;
-          if (metadata != null) {
-            if (StringUtil.isNotBlank(metadata.displayName)) {
-              displayName = metadata.displayName!;
-              if (StringUtil.isNotBlank(metadata.name)) {
-                name = metadata.name;
-              }
-            } else if (StringUtil.isNotBlank(metadata.name)) {
-              displayName = metadata.name!;
-            }
-          }
-          if (StringUtil.isBlank(displayName)) {
-            displayName = nip19Name;
-          }
-          List<TextSpan> nameSpans = [];
-          nameSpans.add(TextSpan(
-            text: displayName,
-            style: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
-            ),
-          ));
-          if (StringUtil.isNotBlank(name)) {
-            nameSpans.add(TextSpan(
-              text: name != null ? "@$name" : "",
-              style: TextStyle(
-                fontSize: fontSize,
-                color: hintColor,
-              ),
-            ));
-          }
-
           Widget userNameComponent = Container(
             width: widget.configMaxWidth ? 100 : null,
             // height: 40,
@@ -87,26 +55,14 @@ class _ZapBottomSheetUserComponent extends State<ZapBottomSheetUserComponent> {
             ),
             // color: Colors.green,
             alignment: Alignment.center,
-            child: Text.rich(
-              TextSpan(
-                children: nameSpans,
-              ),
+            child: SimpleNameComponent(
+              pubkey: widget.pubkey,
+              metadata: metadata,
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              textOverflow: TextOverflow.ellipsis,
             ),
           );
 
-          Widget? imageWidget;
-          if (metadata != null && StringUtil.isNotBlank(metadata.picture)) {
-            print(metadata.picture);
-            imageWidget = ImageComponent(
-              imageUrl: metadata.picture!,
-              width: IMAGE_WIDTH,
-              height: IMAGE_WIDTH,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => CircularProgressIndicator(),
-            );
-          }
           Widget userImageWidget = Container(
             height: IMAGE_WIDTH + IMAGE_BORDER * 2,
             width: IMAGE_WIDTH + IMAGE_BORDER * 2,
@@ -118,16 +74,10 @@ class _ZapBottomSheetUserComponent extends State<ZapBottomSheetUserComponent> {
                 color: scaffoldBackgroundColor,
               ),
             ),
-            child: Container(
-              alignment: Alignment.center,
-              height: IMAGE_WIDTH,
+            child: UserPicComponent(
+              pubkey: widget.pubkey,
               width: IMAGE_WIDTH,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-                color: Colors.grey,
-              ),
-              child: imageWidget,
+              metadata: metadata,
             ),
           );
 
