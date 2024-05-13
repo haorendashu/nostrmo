@@ -7,8 +7,8 @@ import 'package:markdown/markdown.dart' as md;
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
 import 'package:nostrmo/component/event/event_zap_goals_component.dart';
-import 'package:nostrmo/component/name_component.dart';
-import 'package:nostrmo/component/simple_name_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
+import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,7 @@ import '../content/markdown/markdown_nprofile_inline_syntax.dart';
 import '../content/markdown/markdown_nrelay_element_builder.dart';
 import '../content/markdown/markdown_nrelay_inline_syntax copy.dart';
 import '../image_component.dart';
-import '../zap_split_icon_component.dart';
+import '../zap/zap_split_icon_component.dart';
 import 'event_poll_component.dart';
 import '../webview_router.dart';
 import 'event_quote_component.dart';
@@ -779,10 +779,13 @@ class _EventMainComponent extends State<EventMainComponent> {
 
     list.add(ZapSplitIconComponent(themeData.textTheme.bodyMedium!.fontSize!));
 
+    var imageWidgetHeight = themeData.textTheme.bodyMedium!.fontSize! + 10;
+    var imageWidgetWidth = themeData.textTheme.bodyMedium!.fontSize! + 2;
     var imgSize = themeData.textTheme.bodyMedium!.fontSize! + 2;
 
+    List<Widget> userWidgetList = [];
     for (var zapInfo in eventRelation.zapInfos) {
-      list.add(Container(
+      userWidgetList.add(Container(
         margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
         child: Selector<MetadataProvider, Metadata?>(
           builder: (context, metadata, child) {
@@ -806,15 +809,20 @@ class _EventMainComponent extends State<EventMainComponent> {
                 RouterUtil.router(context, RouterPath.USER, zapInfo.pubkey);
               },
               child: Container(
+                width: imageWidgetWidth,
+                height: imageWidgetHeight,
                 alignment: Alignment.center,
-                height: imgSize,
-                width: imgSize,
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(imgSize / 2),
-                  color: Colors.grey,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: imgSize,
+                  width: imgSize,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(imgSize / 2),
+                    color: Colors.grey,
+                  ),
+                  child: imageWidget,
                 ),
-                child: imageWidget,
               ),
             );
           },
@@ -824,11 +832,16 @@ class _EventMainComponent extends State<EventMainComponent> {
         ),
       ));
     }
+    list.add(Expanded(
+      child: Wrap(
+        children: userWidgetList,
+      ),
+    ));
 
     return Container(
       margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: list,
       ),
     );

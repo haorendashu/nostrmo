@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -111,7 +111,7 @@ class _EventTopComponent extends State<EventTopComponent> {
                       Container(
                         // margin: const EdgeInsets.only(bottom: 2),
                         child: jumpWrap(
-                          NameComponnet(
+                          NameComponent(
                             pubkey: widget.event.pubkey,
                             metadata: metadata,
                             maxLines: 1,

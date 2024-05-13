@@ -4,7 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
-import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
@@ -321,7 +321,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
 
       list.add(Container(
         margin: EdgeInsets.only(left: 5, right: 5),
-        child: NameComponnet(
+        child: NameComponent(
           pubkey: pubkey,
           metadata: metadata,
         ),

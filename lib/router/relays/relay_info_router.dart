@@ -11,9 +11,9 @@ import 'package:nostrmo/client/relay_local/relay_local.dart';
 import 'package:nostrmo/client/relay_local/relay_local_db.dart';
 import 'package:nostrmo/component/comfirm_dialog.dart';
 import 'package:nostrmo/component/cust_state.dart';
-import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/sync_upload_dialog.dart';
-import 'package:nostrmo/component/user_pic_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
@@ -128,7 +128,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
 
           list.add(Container(
             margin: EdgeInsets.only(left: Base.BASE_PADDING),
-            child: NameComponnet(
+            child: NameComponent(
               pubkey: relayInfo.pubkey,
               metadata: metadata,
             ),

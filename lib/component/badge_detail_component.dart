@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/image_component.dart';
-import 'package:nostrmo/component/name_component.dart';
-import 'package:nostrmo/component/simple_name_component.dart';
-import 'package:nostrmo/component/user_pic_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
+import 'package:nostrmo/component/user/simple_name_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
@@ -88,8 +88,7 @@ class _BadgeDetailComponent extends State<BadgeDetailComponent> {
                       pubkey: widget.badgeDefinition.pubkey, width: 26),
                   Container(
                     margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
-                    child: SimpleNameComponent(
-                        pubkey: widget.badgeDefinition.pubkey),
+                    child: NameComponent(pubkey: widget.badgeDefinition.pubkey),
                   ),
                 ],
               ),

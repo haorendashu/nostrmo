@@ -420,6 +420,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zap num can not bigger then"),
         "Zap_num_can_not_smaller_then": MessageLookupByLibrary.simpleMessage(
             "Zap num can not smaller then"),
+        "Zap_number_not_enough":
+            MessageLookupByLibrary.simpleMessage("Zap number not enough"),
         "add_poll_option":
             MessageLookupByLibrary.simpleMessage("add poll option"),
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),

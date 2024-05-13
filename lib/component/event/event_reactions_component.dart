@@ -10,7 +10,6 @@ import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:nostrmo/client/nip51/bookmarks.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/component/like_text_select_bottom_sheet.dart';
-import 'package:nostrmo/component/zap_gen_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -34,6 +33,8 @@ import '../../util/string_util.dart';
 import '../editor/cust_embed_types.dart';
 import '../event_delete_callback.dart';
 import '../event_reply_callback.dart';
+import '../zap/zap_bottom_sheet_component.dart';
+import '../zap/zap_gen_dialog.dart';
 
 class EventReactionsComponent extends StatefulWidget {
   ScreenshotController screenshotController;
@@ -175,96 +176,132 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               child: likeWidget,
             )),
             Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                child: PopupMenuButton<int>(
-                  tooltip: "Zap",
-                  itemBuilder: (context) {
-                    return [
-                      PopupMenuItem(
-                        value: 10,
-                        child: Row(
-                          children: [
-                            Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 10", style: popFontStyle)
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: 50,
-                        child: Row(
-                          children: [
-                            Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 50", style: popFontStyle)
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: 100,
-                        child: Row(
-                          children: [
-                            Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 100", style: popFontStyle)
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: 500,
-                        child: Row(
-                          children: [
-                            Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 500", style: popFontStyle)
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: 1000,
-                        child: Row(
-                          children: [
-                            Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 1000", style: popFontStyle)
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: 5000,
-                        child: Row(
-                          children: [
-                            Icon(Icons.bolt, color: Colors.orange),
-                            Text(" Zap 5000", style: popFontStyle)
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      PopupMenuItem(
-                        value: -1,
-                        child: Row(
-                          children: [
-                            Icon(Icons.bolt, color: Colors.orange),
-                            Text(" ${s.Custom}", style: popFontStyle)
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                    ];
+                child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                List<EventZapInfo> list = [];
+                var zapInfos = widget.eventRelation.zapInfos;
+                if (zapInfos.isEmpty) {
+                  String relayAddr = "";
+                  var relayListMetadata = metadataProvider
+                      .getRelayListMetadata(widget.event.pubkey);
+                  if (relayListMetadata != null &&
+                      relayListMetadata.writeAbleRelays.isNotEmpty) {
+                    relayAddr = relayListMetadata.writeAbleRelays.first;
+                  }
+                  list.add(EventZapInfo(widget.event.pubkey, relayAddr, 1));
+                } else {
+                  list.addAll(zapInfos);
+                }
+
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext _context) {
+                    return ZapBottomSheetComponent(context, list);
                   },
-                  onSelected: onZapSelect,
-                  child: EventReactionNumComponent(
-                    num: zapNum,
-                    iconData: Icons.bolt,
-                    onTap: null,
-                    onLongPress: genZap,
-                    color: hintColor,
-                    fontSize: fontSize,
-                  ),
-                ),
+                );
+              },
+              child: EventReactionNumComponent(
+                num: zapNum,
+                iconData: Icons.bolt,
+                onTap: null,
+                onLongPress: genZap,
+                color: hintColor,
+                fontSize: fontSize,
               ),
-            ),
+            )),
+            // Expanded(
+            //   child: Container(
+            //     alignment: Alignment.center,
+            //     child: PopupMenuButton<int>(
+            //       tooltip: "Zap",
+            //       itemBuilder: (context) {
+            //         return [
+            //           PopupMenuItem(
+            //             value: 10,
+            //             child: Row(
+            //               children: [
+            //                 Icon(Icons.bolt, color: Colors.orange),
+            //                 Text(" Zap 10", style: popFontStyle)
+            //               ],
+            //               mainAxisSize: MainAxisSize.min,
+            //             ),
+            //           ),
+            //           PopupMenuItem(
+            //             value: 50,
+            //             child: Row(
+            //               children: [
+            //                 Icon(Icons.bolt, color: Colors.orange),
+            //                 Text(" Zap 50", style: popFontStyle)
+            //               ],
+            //               mainAxisSize: MainAxisSize.min,
+            //             ),
+            //           ),
+            //           PopupMenuItem(
+            //             value: 100,
+            //             child: Row(
+            //               children: [
+            //                 Icon(Icons.bolt, color: Colors.orange),
+            //                 Text(" Zap 100", style: popFontStyle)
+            //               ],
+            //               mainAxisSize: MainAxisSize.min,
+            //             ),
+            //           ),
+            //           PopupMenuItem(
+            //             value: 500,
+            //             child: Row(
+            //               children: [
+            //                 Icon(Icons.bolt, color: Colors.orange),
+            //                 Text(" Zap 500", style: popFontStyle)
+            //               ],
+            //               mainAxisSize: MainAxisSize.min,
+            //             ),
+            //           ),
+            //           PopupMenuItem(
+            //             value: 1000,
+            //             child: Row(
+            //               children: [
+            //                 Icon(Icons.bolt, color: Colors.orange),
+            //                 Text(" Zap 1000", style: popFontStyle)
+            //               ],
+            //               mainAxisSize: MainAxisSize.min,
+            //             ),
+            //           ),
+            //           PopupMenuItem(
+            //             value: 5000,
+            //             child: Row(
+            //               children: [
+            //                 Icon(Icons.bolt, color: Colors.orange),
+            //                 Text(" Zap 5000", style: popFontStyle)
+            //               ],
+            //               mainAxisSize: MainAxisSize.min,
+            //             ),
+            //           ),
+            //           PopupMenuItem(
+            //             value: -1,
+            //             child: Row(
+            //               children: [
+            //                 Icon(Icons.bolt, color: Colors.orange),
+            //                 Text(" ${s.Custom}", style: popFontStyle)
+            //               ],
+            //               mainAxisSize: MainAxisSize.min,
+            //             ),
+            //           ),
+            //         ];
+            //       },
+            //       onSelected: onZapSelect,
+            //       child: EventReactionNumComponent(
+            //         num: zapNum,
+            //         iconData: Icons.bolt,
+            //         onTap: null,
+            //         onLongPress: genZap,
+            //         color: hintColor,
+            //         fontSize: fontSize,
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Expanded(
               child: Container(
                 alignment: Alignment.center,

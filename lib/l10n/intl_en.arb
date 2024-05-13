@@ -287,5 +287,6 @@
     "Popular_Users": "Popular Users",
     "Split_and_Transfer_Zap": "Split and Transfer Zap",
     "Split_Zap_Tip": "The support client will split and transfer zaps to the users you had added.",
-    "Add_User": "Add User"
+    "Add_User": "Add User",
+    "Zap_number_not_enough": "Zap number not enough"
 }

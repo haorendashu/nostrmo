@@ -1,13 +1,12 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
 
-import '../client/zap/zap_action.dart';
-import '../consts/base.dart';
-import '../generated/l10n.dart';
-import '../util/router_util.dart';
-import '../util/string_util.dart';
-import '../util/theme_util.dart';
+import '../../client/zap/zap_action.dart';
+import '../../consts/base.dart';
+import '../../generated/l10n.dart';
+import '../../util/router_util.dart';
+import '../../util/string_util.dart';
+import '../../util/theme_util.dart';
 
 class ZapGenDialog extends StatefulWidget {
   String pubkey;

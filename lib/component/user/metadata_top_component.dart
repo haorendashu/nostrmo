@@ -8,7 +8,6 @@ import 'package:nostrmo/component/follow_set_follow_bottom_sheet.dart';
 import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/component/webview_router.dart';
-import 'package:nostrmo/component/zap_gen_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
@@ -26,6 +25,7 @@ import '../../util/string_util.dart';
 import '../comfirm_dialog.dart';
 import '../image_component.dart';
 import '../image_preview_dialog.dart';
+import '../zap/zap_gen_dialog.dart';
 import 'follow_btn_component.dart';
 import 'metadata_component.dart';
 
@@ -558,7 +558,7 @@ class MetadataTextBtn extends StatelessWidget {
                 ),
         ),
         height: 32,
-        padding: EdgeInsets.only(left: 8, right: 8, bottom: 2),
+        padding: EdgeInsets.only(left: 8, right: 8, bottom: 1),
         alignment: Alignment.center,
         child: Text(
           text,

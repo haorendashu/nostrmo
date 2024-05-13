@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/component/simple_name_component.dart';
+import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/nip19/nip19.dart';
@@ -8,6 +8,7 @@ import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
+import '../user/name_component.dart';
 import 'content_str_link_component.dart';
 
 class ContentMentionUserComponent extends StatefulWidget {
@@ -26,8 +27,7 @@ class _ContentMentionUserComponent extends State<ContentMentionUserComponent> {
   Widget build(BuildContext context) {
     return Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
-        String name =
-            SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
+        String name = NameComponent.getSimpleName(widget.pubkey, metadata);
 
         return ContentStrLinkComponent(
           str: "@$name",

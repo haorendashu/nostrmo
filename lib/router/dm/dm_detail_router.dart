@@ -24,7 +24,7 @@ import '../../component/editor/mention_user_embed_builder.dart';
 import '../../component/editor/pic_embed_builder.dart';
 import '../../component/editor/tag_embed_builder.dart';
 import '../../component/editor/video_embed_builder.dart';
-import '../../component/name_component.dart';
+import '../../component/user/name_component.dart';
 import '../../consts/base.dart';
 import '../../data/dm_session_info.dart';
 import '../../data/metadata.dart';
@@ -73,7 +73,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
 
     var nameComponnet = Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
-        return NameComponnet(
+        return NameComponent(
           pubkey: detail!.dmSession.pubkey,
           metadata: metadata,
         );

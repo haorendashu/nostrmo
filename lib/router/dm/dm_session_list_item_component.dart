@@ -4,9 +4,9 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip04/dm_session.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
-import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
-import 'package:nostrmo/component/user_pic_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
@@ -115,7 +115,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
                       Row(
                         children: [
                           Expanded(
-                            child: NameComponnet(
+                            child: NameComponent(
                               pubkey: dmSession.pubkey,
                               metadata: metadata,
                               maxLines: 1,

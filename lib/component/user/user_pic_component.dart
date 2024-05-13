@@ -2,11 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../data/metadata.dart';
-import '../main.dart';
-import '../provider/metadata_provider.dart';
-import '../util/string_util.dart';
-import 'image_component.dart';
+import '../../data/metadata.dart';
+import '../../provider/metadata_provider.dart';
+import '../../util/string_util.dart';
+import '../image_component.dart';
 
 class UserPicComponent extends StatefulWidget {
   String pubkey;

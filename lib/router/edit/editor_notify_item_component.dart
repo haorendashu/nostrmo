@@ -3,7 +3,7 @@ import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../component/simple_name_component.dart';
+import '../../component/user/simple_name_component.dart';
 import '../../consts/base.dart';
 
 class EditorNotifyItem {

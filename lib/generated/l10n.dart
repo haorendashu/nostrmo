@@ -2939,6 +2939,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Zap number not enough`
+  String get Zap_number_not_enough {
+    return Intl.message(
+      'Zap number not enough',
+      name: 'Zap_number_not_enough',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../component/user_pic_component.dart';
+import '../../component/user/user_pic_component.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';

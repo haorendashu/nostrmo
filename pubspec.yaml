@@ -103,7 +103,7 @@ dependencies:
   permission_handler: ^10.2.0
   file_saver: ^0.2.12
   # youtube_player_flutter: ^8.1.2
-  auto_size_text_field: ^2.2.1
+  auto_size_text_field: ^2.2.3
   numberpicker: ^2.1.2
   table_calendar: ^3.0.9
   intl: ^0.18.1

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/component/name_component.dart';
 import 'package:nostrmo/component/user/follow_btn_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
@@ -108,7 +108,7 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
         child: Row(
           children: [
             userImageWidget,
-            NameComponnet(
+            NameComponent(
               pubkey: metadata.pubkey!,
               metadata: metadata,
             ),

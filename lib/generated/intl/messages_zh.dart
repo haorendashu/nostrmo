@@ -337,6 +337,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Zap数量不能大于"),
         "Zap_num_can_not_smaller_then":
             MessageLookupByLibrary.simpleMessage("Zap数量不能小于"),
+        "Zap_number_not_enough": MessageLookupByLibrary.simpleMessage("打闪数量不足"),
         "add_poll_option": MessageLookupByLibrary.simpleMessage("添加投票选项"),
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
         "boosted": MessageLookupByLibrary.simpleMessage("转发"),

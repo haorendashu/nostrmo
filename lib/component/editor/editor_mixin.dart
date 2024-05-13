@@ -39,7 +39,7 @@ import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
 import '../image_component.dart';
-import '../zap_split_icon_component.dart';
+import '../zap/zap_split_icon_component.dart';
 import 'cust_embed_types.dart';
 import 'custom_emoji_add_dialog.dart';
 import 'gen_lnbc_component.dart';

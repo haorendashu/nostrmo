@@ -13,7 +13,7 @@ import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event/event_load_list_component.dart';
 import '../../component/event_reply_callback.dart';
-import '../../component/simple_name_component.dart';
+import '../../component/user/simple_name_component.dart';
 import '../../consts/base.dart';
 import '../../data/event_mem_box.dart';
 import '../../generated/l10n.dart';

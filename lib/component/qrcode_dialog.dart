@@ -5,7 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/component/name_component.dart';
+import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
@@ -83,7 +83,7 @@ class _QrcodeDialog extends State<QrcodeDialog> {
           child: imageWidget,
         );
 
-        Widget userNameWidget = NameComponnet(
+        Widget userNameWidget = NameComponent(
           pubkey: widget.pubkey,
           metadata: metadata,
         );

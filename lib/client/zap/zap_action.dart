@@ -10,6 +10,7 @@ import '../../util/string_util.dart';
 import 'zap.dart';
 
 class ZapAction {
+  /// zap to single pubkey.
   static Future<void> handleZap(BuildContext context, int sats, String pubkey,
       {String? eventId, String? pollOption, String? comment}) async {
     var s = S.of(context);

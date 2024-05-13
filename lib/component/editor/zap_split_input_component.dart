@@ -6,7 +6,7 @@ import 'package:nostrmo/util/string_util.dart';
 import '../../client/event_relation.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
-import '../zap_split_icon_component.dart';
+import '../zap/zap_split_icon_component.dart';
 import 'search_mention_user_component.dart';
 import 'text_input_and_search_dialog.dart';
 import 'zap_split_input_item_component.dart';

@@ -10,7 +10,7 @@ import 'package:pointycastle/export.dart' as pointycastle;
 import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
-import '../../component/user_pic_component.dart';
+import '../../component/user/user_pic_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../main.dart';

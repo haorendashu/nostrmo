@@ -9,7 +9,7 @@ import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/string_util.dart';
 import '../image_component.dart';
-import '../simple_name_component.dart';
+import '../user/simple_name_component.dart';
 
 class ReactionEventMetadataComponent extends StatefulWidget {
   String pubkey;
