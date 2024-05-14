@@ -49,6 +49,7 @@ class _IndexTabItemComponent extends State<IndexTabItemComponent> {
       },
       child: Container(
         height: IndexAppBar.height,
+        width: double.infinity,
         alignment: Alignment.center,
         child: Text(
           showFullText ? widget.text : widget.omitText!,

@@ -162,6 +162,7 @@ class _IndexRouter extends CustState<IndexRouter>
         indicatorWeight: 3,
         indicatorSize: TabBarIndicatorSize.tab,
         dividerHeight: 0,
+        labelPadding: EdgeInsets.zero,
         tabs: [
           IndexTabItemComponent(
             s.Posts,
