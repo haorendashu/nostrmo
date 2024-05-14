@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/dm_session_info_db.dart';
@@ -9,6 +10,7 @@ import 'package:nostrmo/data/metadata_db.dart';
 import 'package:nostrmo/provider/index_provider.dart';
 import 'package:nostrmo/provider/webview_provider.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
+import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
 import 'package:nostrmo/router/user/user_statistics_component.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
@@ -24,6 +26,12 @@ import '../edit/editor_router.dart';
 import 'account_manager_component.dart';
 
 class IndexDrawerContnetComponnent extends StatefulWidget {
+  bool smallMode;
+
+  IndexDrawerContnetComponnent({
+    required this.smallMode,
+  });
+
   @override
   State<StatefulWidget> createState() {
     return _IndexDrawerContnetComponnent();
@@ -49,53 +57,62 @@ class _IndexDrawerContnetComponnent
     var hintColor = themeData.hintColor;
     List<Widget> list = [];
 
-    list.add(Container(
-      // margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
-      child: Stack(children: [
-        Selector<MetadataProvider, Metadata?>(
-          builder: (context, metadata, child) {
-            return MetadataTopComponent(
-              pubkey: pubkey,
-              metadata: metadata,
-              isLocal: true,
-              jumpable: true,
-            );
-          },
-          selector: (context, _provider) {
-            return _provider.getMetadata(pubkey);
-          },
+    if (widget.smallMode) {
+      list.add(Container(
+        margin: const EdgeInsets.only(
+          top: Base.BASE_PADDING,
         ),
-        Positioned(
-          top: paddingTop + Base.BASE_PADDING_HALF,
-          right: Base.BASE_PADDING,
-          child: Container(
-            height: profileEditBtnWidth,
-            width: profileEditBtnWidth,
-            decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: BorderRadius.circular(profileEditBtnWidth / 2),
-            ),
-            child: IconButton(
-              icon: Icon(Icons.edit_square),
-              onPressed: jumpToProfileEdit,
+        child: UserPicComponent(pubkey: pubkey, width: 50),
+      ));
+    } else {
+      list.add(Container(
+        // margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
+        child: Stack(children: [
+          Selector<MetadataProvider, Metadata?>(
+            builder: (context, metadata, child) {
+              return MetadataTopComponent(
+                pubkey: pubkey,
+                metadata: metadata,
+                isLocal: true,
+                jumpable: true,
+              );
+            },
+            selector: (context, _provider) {
+              return _provider.getMetadata(pubkey);
+            },
+          ),
+          Positioned(
+            top: paddingTop + Base.BASE_PADDING_HALF,
+            right: Base.BASE_PADDING,
+            child: Container(
+              height: profileEditBtnWidth,
+              width: profileEditBtnWidth,
+              decoration: BoxDecoration(
+                color: cardColor,
+                borderRadius: BorderRadius.circular(profileEditBtnWidth / 2),
+              ),
+              child: IconButton(
+                icon: Icon(Icons.edit_square),
+                onPressed: jumpToProfileEdit,
+              ),
             ),
           ),
-        ),
-      ]),
-    ));
+        ]),
+      ));
 
-    list.add(GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onHorizontalDragUpdate: (detail) {
-        userStatisticscontroller
-            .jumpTo(userStatisticscontroller.offset - detail.delta.dx);
-      },
-      child: SingleChildScrollView(
-        controller: userStatisticscontroller,
-        scrollDirection: Axis.horizontal,
-        child: UserStatisticsComponent(pubkey: pubkey),
-      ),
-    ));
+      list.add(GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onHorizontalDragUpdate: (detail) {
+          userStatisticscontroller
+              .jumpTo(userStatisticscontroller.offset - detail.delta.dx);
+        },
+        child: SingleChildScrollView(
+          controller: userStatisticscontroller,
+          scrollDirection: Axis.horizontal,
+          child: UserStatisticsComponent(pubkey: pubkey),
+        ),
+      ));
+    }
 
     List<Widget> centerList = [];
     if (PlatformUtil.isTableMode()) {
@@ -109,6 +126,7 @@ class _IndexDrawerContnetComponnent
         onDoubleTap: () {
           indexProvider.followScrollToTop();
         },
+        smallMode: widget.smallMode,
       ));
       centerList.add(IndexDrawerItem(
         iconData: Icons.public,
@@ -120,6 +138,7 @@ class _IndexDrawerContnetComponnent
         onDoubleTap: () {
           indexProvider.globalScrollToTop();
         },
+        smallMode: widget.smallMode,
       ));
       centerList.add(IndexDrawerItem(
         iconData: Icons.search,
@@ -128,6 +147,7 @@ class _IndexDrawerContnetComponnent
         onTap: () {
           indexProvider.setCurrentTap(2);
         },
+        smallMode: widget.smallMode,
       ));
       centerList.add(IndexDrawerItem(
         iconData: Icons.mail,
@@ -136,6 +156,7 @@ class _IndexDrawerContnetComponnent
         onTap: () {
           indexProvider.setCurrentTap(3);
         },
+        smallMode: widget.smallMode,
       ));
     }
 
@@ -145,6 +166,7 @@ class _IndexDrawerContnetComponnent
       onTap: () {
         RouterUtil.router(context, RouterPath.FILTER);
       },
+      smallMode: widget.smallMode,
     ));
 
     if (!PlatformUtil.isTableMode()) {
@@ -154,6 +176,7 @@ class _IndexDrawerContnetComponnent
         onTap: () {
           RouterUtil.router(context, RouterPath.RELAYS);
         },
+        smallMode: widget.smallMode,
       ));
     }
 
@@ -163,6 +186,7 @@ class _IndexDrawerContnetComponnent
       onTap: () {
         RouterUtil.router(context, RouterPath.KEY_BACKUP);
       },
+      smallMode: widget.smallMode,
     ));
 
     centerList.add(IndexDrawerItem(
@@ -171,6 +195,7 @@ class _IndexDrawerContnetComponnent
       onTap: () {
         RouterUtil.router(context, RouterPath.BOOKMARK);
       },
+      smallMode: widget.smallMode,
     ));
 
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
@@ -180,6 +205,7 @@ class _IndexDrawerContnetComponnent
         onTap: () {
           RouterUtil.router(context, RouterPath.DONATE);
         },
+        smallMode: widget.smallMode,
       ));
     }
 
@@ -189,6 +215,7 @@ class _IndexDrawerContnetComponnent
       onTap: () {
         RouterUtil.router(context, RouterPath.SETTING);
       },
+      smallMode: widget.smallMode,
     ));
 
     if (!PlatformUtil.isPC()) {
@@ -201,6 +228,7 @@ class _IndexDrawerContnetComponnent
             onTap: () {
               RouterUtil.router(context, RouterPath.WEBUTILS);
             },
+            smallMode: widget.smallMode,
           );
         }
 
@@ -210,6 +238,7 @@ class _IndexDrawerContnetComponnent
           onTap: () {
             webViewProvider.show();
           },
+          smallMode: widget.smallMode,
         );
       }, selector: (context, _provider) {
         return _provider.url;
@@ -235,6 +264,7 @@ class _IndexDrawerContnetComponnent
         onLongPress: () {
           Uploader.pickAndUpload2NIP95(context);
         },
+        smallMode: widget.smallMode,
       ));
     }
 
@@ -244,31 +274,62 @@ class _IndexDrawerContnetComponnent
       onTap: () {
         _showBasicModalBottomSheet(context);
       },
+      smallMode: widget.smallMode,
     ));
-    // list.add(IndexDrawerItem(
-    //   iconData: Icons.logout,
-    //   name: "Sign out",
-    //   onTap: signOut,
-    // ));
 
-    list.add(Container(
-      margin: const EdgeInsets.only(top: Base.BASE_PADDING_HALF),
-      padding: const EdgeInsets.only(
-        left: Base.BASE_PADDING * 2,
-        bottom: Base.BASE_PADDING,
-        top: Base.BASE_PADDING,
-      ),
-      decoration: BoxDecoration(
-          border: Border(
-              top: BorderSide(
-        width: 1,
-        color: hintColor,
-      ))),
-      alignment: Alignment.centerLeft,
-      child: Text("V " + Base.VERSION_NAME),
-    ));
+    if (widget.smallMode) {
+      list.add(Container(
+        margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+        child: IndexDrawerItem(
+          iconData: Icons.last_page,
+          name: "",
+          onTap: toggleSmallMode,
+          smallMode: widget.smallMode,
+        ),
+      ));
+    } else {
+      Widget versionWidget = Text("V " + Base.VERSION_NAME);
+
+      if (PlatformUtil.isTableMode()) {
+        List<Widget> subList = [];
+        subList.add(GestureDetector(
+          onTap: toggleSmallMode,
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            margin: EdgeInsets.only(right: Base.BASE_PADDING),
+            child: Icon(Icons.first_page),
+          ),
+        ));
+        subList.add(versionWidget);
+
+        versionWidget = Row(
+          children: subList,
+          crossAxisAlignment: CrossAxisAlignment.start,
+        );
+      }
+
+      list.add(Container(
+        margin: const EdgeInsets.only(top: Base.BASE_PADDING_HALF),
+        padding: const EdgeInsets.only(
+          left: Base.BASE_PADDING * 2,
+          bottom: Base.BASE_PADDING,
+          top: Base.BASE_PADDING,
+        ),
+        decoration: BoxDecoration(
+            border: Border(
+                top: BorderSide(
+          width: 1,
+          color: hintColor,
+        ))),
+        alignment: Alignment.centerLeft,
+        child: versionWidget,
+      ));
+    }
 
     return Container(
+      color: themeData.cardColor,
+      margin:
+          PlatformUtil.isTableMode() ? const EdgeInsets.only(right: 1) : null,
       child: Column(
         children: list,
       ),
@@ -289,6 +350,13 @@ class _IndexDrawerContnetComponnent
       },
     );
   }
+
+  toggleSmallMode() {
+    var callback = IndexPcDrawerWrapperCallback.of(context);
+    if (callback != null) {
+      callback.toggle();
+    }
+  }
 }
 
 class IndexDrawerItem extends StatelessWidget {
@@ -306,7 +374,7 @@ class IndexDrawerItem extends StatelessWidget {
 
   // bool borderTop;
 
-  // bool borderBottom;
+  bool smallMode;
 
   IndexDrawerItem({
     required this.iconData,
@@ -315,6 +383,7 @@ class IndexDrawerItem extends StatelessWidget {
     this.color,
     this.onDoubleTap,
     this.onLongPress,
+    this.smallMode = false,
     // this.borderTop = true,
     // this.borderBottom = false,
   });
@@ -323,22 +392,41 @@ class IndexDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
-    List<Widget> list = [];
 
-    list.add(Container(
-      margin: EdgeInsets.only(
-        left: Base.BASE_PADDING * 2,
-        right: Base.BASE_PADDING,
-      ),
-      child: Icon(
-        iconData,
-        color: color,
-      ),
-    ));
+    Widget iconWidget = Icon(
+      iconData,
+      color: color,
+    );
 
-    list.add(Text(name, style: TextStyle(color: color)));
+    Widget mainWidget;
+    if (smallMode) {
+      mainWidget = Container(
+        decoration: BoxDecoration(
+          color: color != null ? Colors.white.withOpacity(0.1) : null,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        padding: EdgeInsets.all(8),
+        margin: EdgeInsets.only(bottom: 2),
+        child: iconWidget,
+      );
+    } else {
+      List<Widget> list = [];
+      list.add(Container(
+        margin: const EdgeInsets.only(
+          left: Base.BASE_PADDING * 2,
+          right: Base.BASE_PADDING,
+        ),
+        child: iconWidget,
+      ));
+      list.add(Text(name, style: TextStyle(color: color)));
 
-    var borderSide = BorderSide(width: 1, color: hintColor);
+      mainWidget = Container(
+        height: 34,
+        child: Row(
+          children: list,
+        ),
+      );
+    }
 
     return GestureDetector(
       onTap: () {
@@ -355,18 +443,7 @@ class IndexDrawerItem extends StatelessWidget {
         }
       },
       behavior: HitTestBehavior.translucent,
-      child: Container(
-        height: 34,
-        // decoration: BoxDecoration(
-        //   border: Border(
-        //     top: borderTop ? borderSide : BorderSide.none,
-        //     bottom: borderBottom ? borderSide : BorderSide.none,
-        //   ),
-        // ),
-        child: Row(
-          children: list,
-        ),
-      ),
+      child: mainWidget,
     );
   }
 }

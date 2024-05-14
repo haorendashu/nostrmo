@@ -12,6 +12,7 @@ import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/pc_router_fake_provider.dart';
 import 'package:nostrmo/router/follow_suggest/follow_suggest_router.dart';
+import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,10 @@ import 'index_drawer_content.dart';
 import 'index_tab_item_component.dart';
 
 class IndexRouter extends StatefulWidget {
+  static double PC_MAX_COLUMN_0 = 200;
+
+  static double PC_MAX_COLUMN_1 = 550;
+
   Function reload;
 
   IndexRouter({required this.reload});
@@ -45,10 +50,6 @@ class IndexRouter extends StatefulWidget {
 
 class _IndexRouter extends CustState<IndexRouter>
     with TickerProviderStateMixin, WidgetsBindingObserver {
-  static double PC_MAX_COLUMN_0 = 200;
-
-  static double PC_MAX_COLUMN_1 = 550;
-
   late TabController followTabController;
 
   late TabController globalsTabController;
@@ -308,20 +309,19 @@ class _IndexRouter extends CustState<IndexRouter>
       var maxWidth = mediaDataCache.size.width;
       double column0Width = maxWidth * 1 / 5;
       double column1Width = maxWidth * 2 / 5;
-      if (column0Width > PC_MAX_COLUMN_0) {
-        column0Width = PC_MAX_COLUMN_0;
+      if (column0Width > IndexRouter.PC_MAX_COLUMN_0) {
+        column0Width = IndexRouter.PC_MAX_COLUMN_0;
       }
-      if (column1Width > PC_MAX_COLUMN_1) {
-        column1Width = PC_MAX_COLUMN_1;
+      if (column1Width > IndexRouter.PC_MAX_COLUMN_1) {
+        column1Width = IndexRouter.PC_MAX_COLUMN_1;
       }
 
       return Scaffold(
         // floatingActionButton: addBtn,
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Row(children: [
-          Container(
-            width: column0Width,
-            child: IndexDrawerContnetComponnent(),
+          IndexPcDrawerWrapper(
+            fixWidth: column0Width,
           ),
           Container(
             width: column1Width,
@@ -388,7 +388,9 @@ class _IndexRouter extends CustState<IndexRouter>
         floatingActionButtonLocation:
             FloatingActionButtonLocation.miniCenterDocked,
         drawer: Drawer(
-          child: IndexDrawerContnetComponnent(),
+          child: IndexDrawerContnetComponnent(
+            smallMode: false,
+          ),
         ),
         bottomNavigationBar: IndexBottomBar(),
       );
