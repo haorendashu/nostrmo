@@ -3,6 +3,7 @@ import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/main.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/appbar_back_btn_component.dart';
 import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';
 import '../../provider/notice_provider.dart';
@@ -20,6 +21,8 @@ class NoticeRouter extends StatefulWidget {
 class _NoticeRouter extends State<NoticeRouter> {
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
+    var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var s = S.of(context);
 
     var _noticeProvider = Provider.of<NoticeProvider>(context);
@@ -52,7 +55,13 @@ class _NoticeRouter extends State<NoticeRouter> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(s.Notices),
+        leading: AppbarBackBtnComponent(),
+        title: Text(
+          s.Notices,
+          style: TextStyle(
+            fontSize: bodyLargeFontSize,
+          ),
+        ),
       ),
       body: main,
     );
