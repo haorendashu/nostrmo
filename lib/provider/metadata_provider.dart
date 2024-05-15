@@ -128,25 +128,27 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
     if (metadata == null) {
       return Nip05Status.METADATA_NOT_FOUND;
-    } else if (StringUtil.isBlank(metadata.nip05)) {
-      return Nip05Status.NIP05_NOT_FOUND;
-    } else if (metadata.valid == null) {
-      Nip05Validor.valid(metadata.nip05!, pubkey).then((valid) async {
-        if (valid != null) {
-          if (valid) {
-            metadata.valid = Nip05Status.NIP05_VALIDED;
-            await MetadataDB.update(metadata);
-          } else {
-            // only update cache, next open app vill valid again
-            metadata.valid = Nip05Status.NIP05_NOT_VALIDED;
+    } else if (StringUtil.isNotBlank(metadata.nip05)) {
+      if (metadata.valid == null) {
+        Nip05Validor.valid(metadata.nip05!, pubkey).then((valid) async {
+          if (valid != null) {
+            if (valid) {
+              metadata.valid = Nip05Status.NIP05_VALIDED;
+              await MetadataDB.update(metadata);
+            } else {
+              // only update cache, next open app vill valid again
+              metadata.valid = Nip05Status.NIP05_NOT_VALIDED;
+            }
+            notifyListeners();
           }
-          notifyListeners();
-        }
-      });
+        });
+
+        return Nip05Status.NIP05_NOT_VALIDED;
+      } else if (metadata.valid! == Nip05Status.NIP05_VALIDED) {
+        return Nip05Status.NIP05_VALIDED;
+      }
 
       return Nip05Status.NIP05_NOT_VALIDED;
-    } else if (metadata.valid! == Nip05Status.NIP05_VALIDED) {
-      return Nip05Status.NIP05_VALIDED;
     }
 
     return Nip05Status.NIP05_NOT_FOUND;

@@ -244,7 +244,10 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       if (StringUtil.isNotBlank(widget.metadata!.nip05)) {
         topList.add(MetadataIconDataComp(
           text: widget.metadata!.nip05!,
-          leftWidget: Nip05ValidComponent(pubkey: widget.pubkey),
+          leftWidget: Container(
+            margin: const EdgeInsets.only(right: 2),
+            child: Nip05ValidComponent(pubkey: widget.pubkey),
+          ),
         ));
       }
       if (widget.metadata != null) {
