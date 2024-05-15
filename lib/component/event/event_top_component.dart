@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostrmo/client/event_kind.dart';
+import 'package:nostrmo/component/simple_date_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
@@ -17,6 +18,7 @@ import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../image_component.dart';
+import '../nip05_valid_component.dart';
 
 class EventTopComponent extends StatefulWidget {
   Event event;
@@ -69,6 +71,8 @@ class _EventTopComponent extends State<EventTopComponent> {
         var themeData = Theme.of(context);
 
         Widget? imageWidget;
+        String nip05Text = Nip19.encodeSimplePubKey(pubkey);
+
         if (metadata != null) {
           if (StringUtil.isNotBlank(metadata.picture)) {
             imageWidget = ImageComponent(
@@ -78,6 +82,10 @@ class _EventTopComponent extends State<EventTopComponent> {
               fit: BoxFit.cover,
               placeholder: (context, url) => const CircularProgressIndicator(),
             );
+          }
+
+          if (StringUtil.isNotBlank(metadata.nip05)) {
+            nip05Text = metadata.nip05!;
           }
         }
 
@@ -108,24 +116,56 @@ class _EventTopComponent extends State<EventTopComponent> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        // margin: const EdgeInsets.only(bottom: 2),
-                        child: jumpWrap(
-                          NameComponent(
-                            pubkey: widget.event.pubkey,
-                            metadata: metadata,
-                            maxLines: 1,
-                            textOverflow: TextOverflow.ellipsis,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: jumpWrap(
+                              NameComponent(
+                                pubkey: widget.event.pubkey,
+                                metadata: metadata,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                                showNip05: false,
+                                showName: false,
+                              ),
+                            ),
                           ),
-                        ),
+                          // SimpleDateComponent(widget.event.createdAt),
+                          Text(
+                            GetTimeAgo.parse(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  widget.event.createdAt * 1000),
+                              pattern: "dd MMM, yyyy",
+                            ),
+                            style: TextStyle(
+                              fontSize: smallTextSize,
+                              color: themeData.hintColor,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        GetTimeAgo.parse(DateTime.fromMillisecondsSinceEpoch(
-                            widget.event.createdAt * 1000)),
-                        style: TextStyle(
-                          fontSize: smallTextSize,
-                          color: themeData.hintColor,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: nip05Text,
+                              style: TextStyle(
+                                fontSize: smallTextSize,
+                                color: themeData.hintColor,
+                              ),
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.baseline,
+                              baseline: TextBaseline.ideographic,
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 3),
+                                child: Nip05ValidComponent(pubkey: pubkey),
+                              ),
+                            ),
+                          ],
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

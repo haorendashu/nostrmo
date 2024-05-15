@@ -20,6 +20,8 @@ class NameComponent extends StatefulWidget {
 
   int? maxLines;
 
+  bool showName;
+
   NameComponent({
     required this.pubkey,
     this.metadata,
@@ -28,6 +30,7 @@ class NameComponent extends StatefulWidget {
     this.fontColor,
     this.textOverflow,
     this.maxLines = 3,
+    this.showName = true,
   });
 
   @override
@@ -84,7 +87,7 @@ class _NameComponent extends State<NameComponent> {
         color: widget.fontColor,
       ),
     ));
-    if (StringUtil.isNotBlank(name)) {
+    if (StringUtil.isNotBlank(name) && widget.showName) {
       nameList.add(WidgetSpan(
         child: Container(
           margin: EdgeInsets.only(left: 2),
@@ -99,15 +102,14 @@ class _NameComponent extends State<NameComponent> {
       ));
     }
 
-    Widget nip05Widget = Container();
     if (widget.showNip05) {
-      nip05Widget = Container(
+      var nip05Widget = Container(
         margin: const EdgeInsets.only(left: 3),
         child: Nip05ValidComponent(pubkey: widget.pubkey),
       );
-    }
 
-    nameList.add(WidgetSpan(child: nip05Widget));
+      nameList.add(WidgetSpan(child: nip05Widget));
+    }
 
     return Text.rich(
       TextSpan(children: nameList),
