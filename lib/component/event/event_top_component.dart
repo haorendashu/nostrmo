@@ -40,12 +40,14 @@ class _EventTopComponent extends State<EventTopComponent> {
 
   static const double HALF_IMAGE_WIDTH = 17;
 
+  String? pubkey;
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
-    var pubkey = widget.event.pubkey;
+    pubkey = widget.event.pubkey;
     // if this is the zap event, change the pubkey from the zap tag info
     if (widget.event.kind == EventKind.ZAP) {
       for (var tag in widget.event.tags) {
@@ -65,13 +67,13 @@ class _EventTopComponent extends State<EventTopComponent> {
         return previous != next;
       },
       selector: (context, _metadataProvider) {
-        return _metadataProvider.getMetadata(pubkey);
+        return _metadataProvider.getMetadata(pubkey!);
       },
       builder: (context, metadata, child) {
         var themeData = Theme.of(context);
 
         Widget? imageWidget;
-        String nip05Text = Nip19.encodeSimplePubKey(pubkey);
+        String nip05Text = Nip19.encodeSimplePubKey(pubkey!);
 
         if (metadata != null) {
           if (StringUtil.isNotBlank(metadata.picture)) {
@@ -159,7 +161,7 @@ class _EventTopComponent extends State<EventTopComponent> {
                               baseline: TextBaseline.ideographic,
                               child: Container(
                                 margin: const EdgeInsets.only(left: 3),
-                                child: Nip05ValidComponent(pubkey: pubkey),
+                                child: Nip05ValidComponent(pubkey: pubkey!),
                               ),
                             ),
                           ],
@@ -186,7 +188,7 @@ class _EventTopComponent extends State<EventTopComponent> {
           return;
         }
 
-        RouterUtil.router(context, RouterPath.USER, widget.event.pubkey);
+        RouterUtil.router(context, RouterPath.USER, pubkey);
       },
       child: c,
     );
