@@ -33,6 +33,7 @@ class RouterPath {
   static const String FOLLOW_SET_LIST = "/followSetList";
   static const String FOLLOW_SET_DETAIL = "/followSetDetail";
   static const String FOLLOW_SET_FEED = "/followSetFeed";
+  static const String NWC_SETTING = "/nwcSetting";
 
   static String getThreadDetailPath() {
     if (settingProvider.threadMode == ThreadMode.FULL_MODE) {

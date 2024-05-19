@@ -45,7 +45,13 @@ class EventKind {
 
   static const int EMOJIS_LIST = 10030;
 
+  static const int NWC_INFO_EVENT = 13194;
+
   static const int AUTHENTICATION = 22242;
+
+  static const int NWC_REQUEST_EVENT = 23194;
+
+  static const int NWC_RESPONSE_EVENT = 23195;
 
   static const int HTTP_AUTH = 27235;
 

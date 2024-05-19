@@ -233,6 +233,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_lightning":
             MessageLookupByLibrary.simpleMessage("Lightning payment"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("Sign Event"),
+        "NWC_TIP1": MessageLookupByLibrary.simpleMessage(
+            "NWC is Nostr Wallet Connect, with NWC Setting you zap within the app."),
+        "NWC_TIP2": MessageLookupByLibrary.simpleMessage("NWC URL is like"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -259,6 +262,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Open in browser"),
         "Optional": MessageLookupByLibrary.simpleMessage("Optional"),
         "Owner": MessageLookupByLibrary.simpleMessage("Owner"),
+        "PLease_input_NWC_URL":
+            MessageLookupByLibrary.simpleMessage("PLease input NWC URL"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
         "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
         "Picture": MessageLookupByLibrary.simpleMessage("Picture"),
@@ -427,6 +432,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),
         "boosted": MessageLookupByLibrary.simpleMessage("boosted"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "is_sending": MessageLookupByLibrary.simpleMessage("is sending"),
         "key_has_been_copy":
             MessageLookupByLibrary.simpleMessage("key has been copy!"),
         "liked": MessageLookupByLibrary.simpleMessage("liked"),

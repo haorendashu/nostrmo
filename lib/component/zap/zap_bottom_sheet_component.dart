@@ -277,7 +277,10 @@ class _ZapBottomSheetComponent extends CustState<ZapBottomSheetComponent> {
           context: widget.parentContext,
           builder: (context) {
             return ZapsSendDialog(
-                zapInfos: widget.zapInfos, pubkeyZapNumbers: pubkeyZapNumbers);
+              zapInfos: widget.zapInfos,
+              pubkeyZapNumbers: pubkeyZapNumbers,
+              comment: comment,
+            );
           });
     }
   }

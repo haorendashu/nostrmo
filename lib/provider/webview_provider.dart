@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class WebViewProvider extends ChangeNotifier {
@@ -8,6 +10,8 @@ class WebViewProvider extends ChangeNotifier {
   String? get url => _url;
 
   bool get showable => _showable;
+
+  Completer? openCompleter;
 
   void open(String url) {
     this._url = url;
@@ -29,5 +33,26 @@ class WebViewProvider extends ChangeNotifier {
   void show() {
     _showable = true;
     notifyListeners();
+  }
+
+  Future openWithFuture(String url) {
+    if (openCompleter != null) {
+      openCompleter!.complete();
+    }
+
+    this._url = url;
+    this._showable = true;
+    openCompleter = Completer();
+
+    notifyListeners();
+    return openCompleter!.future;
+  }
+
+  void closeAndReturn(dynamic result) {
+    close();
+
+    if (openCompleter != null) {
+      openCompleter!.complete(result);
+    }
   }
 }

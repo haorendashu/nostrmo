@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/zap/zap_action.dart';
 import 'package:nostrmo/component/cust_state.dart';
@@ -21,7 +23,13 @@ class ZapsSendDialog extends StatefulWidget {
 
   List<EventZapInfo> zapInfos;
 
-  ZapsSendDialog({required this.zapInfos, required this.pubkeyZapNumbers});
+  String? comment;
+
+  ZapsSendDialog({
+    required this.zapInfos,
+    required this.pubkeyZapNumbers,
+    this.comment,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -127,8 +135,8 @@ class _ZapsSendDialog extends CustState<ZapsSendDialog> {
     }
   }
 
-  void sendZapFunction(String pubkey, String invoiceCode) {
-    LightningUtil.goToPay(context, invoiceCode);
+  void sendZapFunction(String pubkey, String invoiceCode, int zapNum) {
+    LightningUtil.goToPay(context, invoiceCode, zapNum: zapNum);
     setState(() {
       sendedMap[pubkey] = true;
     });
@@ -150,7 +158,7 @@ class ZapsSendDialogItem extends StatelessWidget {
 
   bool? sended;
 
-  Function(String, String) sendZapFunction;
+  Function(String, String, int) sendZapFunction;
 
   ZapsSendDialogItem(this.pubkey, this.zapNumber, this.sendZapFunction,
       {this.invoiceCode, this.sended});
@@ -200,7 +208,7 @@ class ZapsSendDialogItem extends StatelessWidget {
             child: MetadataTextBtn(
               text: s.Send,
               onTap: () {
-                sendZapFunction(pubkey, invoiceCode!);
+                sendZapFunction(pubkey, invoiceCode!, zapNumber);
               },
             ),
           ),

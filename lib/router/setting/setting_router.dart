@@ -9,6 +9,7 @@ import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:nostrmo/client/nip02/cust_contact_list.dart';
 import 'package:nostrmo/client/filter.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/consts/thread_mode.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/router/index/account_manager_component.dart';
@@ -118,6 +119,18 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getDefaultTab(defaultTabList, settingProvider.defaultTab).name,
       onTap: () {
         pickDefaultTab(defaultTabList);
+      },
+    ));
+
+    String nwcValue = getOpenList(OpenStatus.OPEN).name;
+    if (StringUtil.isBlank(settingProvider.nwcUrl)) {
+      nwcValue = getOpenList(OpenStatus.CLOSE).name;
+    }
+    list.add(SettingGroupItemComponent(
+      name: "NWC ${s.Setting}",
+      value: nwcValue,
+      onTap: () {
+        RouterUtil.router(context, RouterPath.NWC_SETTING);
       },
     ));
 

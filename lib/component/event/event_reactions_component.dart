@@ -592,7 +592,11 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       isScrollControlled: true,
       context: context,
       builder: (BuildContext _context) {
-        return ZapBottomSheetComponent(context, list);
+        return ZapBottomSheetComponent(
+          context,
+          list,
+          eventId: widget.event.id,
+        );
       },
     );
   }

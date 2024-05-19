@@ -181,6 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "NIP07_getRelays": MessageLookupByLibrary.simpleMessage("获取中继列表"),
         "NIP07_lightning": MessageLookupByLibrary.simpleMessage("闪电支付"),
         "NIP07_signEvent": MessageLookupByLibrary.simpleMessage("签名"),
+        "NWC_TIP1": MessageLookupByLibrary.simpleMessage(
+            "NWC 是 Nostr 钱包链接协议, 通过 NWC 你可以在 APP 里面 ZAP。"),
+        "NWC_TIP2": MessageLookupByLibrary.simpleMessage("NWC 链接像这样子"),
         "Name": MessageLookupByLibrary.simpleMessage("名称"),
         "Network": MessageLookupByLibrary.simpleMessage("网络"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
@@ -342,6 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "auto": MessageLookupByLibrary.simpleMessage("自动"),
         "boosted": MessageLookupByLibrary.simpleMessage("转发"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
+        "is_sending": MessageLookupByLibrary.simpleMessage("发送中"),
         "key_has_been_copy": MessageLookupByLibrary.simpleMessage("密钥复制成功"),
         "liked": MessageLookupByLibrary.simpleMessage("喜欢"),
         "loading": MessageLookupByLibrary.simpleMessage("加载中"),

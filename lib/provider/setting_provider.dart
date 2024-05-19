@@ -22,6 +22,8 @@ class SettingProvider extends ChangeNotifier {
 
   Map<String, String> _privateKeyMap = {};
 
+  Map<String, String> _nwcUrlMap = {};
+
   static Future<SettingProvider> getInstance() async {
     if (_settingProvider == null) {
       _settingProvider = SettingProvider();
@@ -40,6 +42,7 @@ class SettingProvider extends ChangeNotifier {
         var setting = SettingData.fromJson(jsonMap);
         _settingData = setting;
         _privateKeyMap.clear();
+        _nwcUrlMap.clear();
 
         // move privateKeyMap to encryptPrivateKeyMap since 1.2.0
         String? privateKeyMapText = _settingData!.encryptPrivateKeyMap;
@@ -72,6 +75,24 @@ class SettingProvider extends ChangeNotifier {
             log(e.toString());
           }
         }
+
+        var nwcUrlMap = _settingData!.nwcUrlMap;
+        if (StringUtil.isNotBlank(nwcUrlMap)) {
+          try {
+            nwcUrlMap =
+                EncryptUtil.aesDecrypt(nwcUrlMap!, Base.KEY_EKEY, Base.KEY_IV);
+            var jsonKeyMap = jsonDecode(nwcUrlMap);
+            if (jsonKeyMap != null) {
+              for (var entry in (jsonKeyMap as Map<String, dynamic>).entries) {
+                _nwcUrlMap[entry.key] = entry.value;
+              }
+            }
+          } catch (e) {
+            log("_settingData!.nwcUrlMap! jsonDecode error");
+            log(e.toString());
+          }
+        }
+
         return;
       }
     }
@@ -137,9 +158,13 @@ class SettingProvider extends ChangeNotifier {
 
   void removeKey(int index) {
     var indexStr = index.toString();
+
     _privateKeyMap.remove(indexStr);
-    // _settingData!.privateKeyMap = json.encode(_privateKeyMap);
     _encodePrivateKeyMap();
+
+    _nwcUrlMap.remove(indexStr);
+    _encodeNwcUrlMap();
+
     if (_settingData!.privateKeyIndex == index) {
       if (_privateKeyMap.isEmpty) {
         _settingData!.privateKeyIndex = null;
@@ -151,6 +176,29 @@ class SettingProvider extends ChangeNotifier {
     }
 
     saveAndNotifyListeners();
+  }
+
+  set nwcUrl(String? o) {
+    var indexKey = _settingData!.privateKeyIndex.toString();
+    if (StringUtil.isNotBlank(o)) {
+      _nwcUrlMap[indexKey] = o!;
+    } else {
+      _nwcUrlMap.remove(indexKey);
+    }
+
+    _encodeNwcUrlMap();
+    saveAndNotifyListeners();
+  }
+
+  String? get nwcUrl {
+    var indexKey = _settingData!.privateKeyIndex.toString();
+    return _nwcUrlMap[indexKey];
+  }
+
+  void _encodeNwcUrlMap() {
+    var nwcUrlMap = json.encode(_nwcUrlMap);
+    _settingData!.nwcUrlMap =
+        EncryptUtil.aesEncrypt(nwcUrlMap, Base.KEY_EKEY, Base.KEY_IV);
   }
 
   SettingData get settingData => _settingData!;
@@ -528,6 +576,8 @@ class SettingData {
 
   int? hideRelayNotices;
 
+  String? nwcUrlMap;
+
   /// updated time
   late int updatedTime;
 
@@ -564,8 +614,9 @@ class SettingData {
     this.limitNoteHeight,
     this.threadMode,
     this.maxSubEventLevel,
-    this.updatedTime = 0,
     this.hideRelayNotices,
+    this.nwcUrlMap,
+    this.updatedTime = 0,
   });
 
   SettingData.fromJson(Map<String, dynamic> json) {
@@ -616,6 +667,7 @@ class SettingData {
     threadMode = json['threadMode'];
     maxSubEventLevel = json['maxSubEventLevel'];
     hideRelayNotices = json['hideRelayNotices'];
+    nwcUrlMap = json['nwcUrlMap'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -659,6 +711,7 @@ class SettingData {
     data['threadMode'] = this.threadMode;
     data['maxSubEventLevel'] = this.maxSubEventLevel;
     data['hideRelayNotices'] = this.hideRelayNotices;
+    data['nwcUrlMap'] = this.nwcUrlMap;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

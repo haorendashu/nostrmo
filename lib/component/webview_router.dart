@@ -173,6 +173,11 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
               return NavigationActionPolicy.CANCEL;
             }
 
+            if (uri.scheme == "nostr+walletconnect") {
+              webViewProvider.closeAndReturn(uri.toString());
+              return NavigationActionPolicy.CANCEL;
+            }
+
             // if (![
             //   "http",
             //   "https",

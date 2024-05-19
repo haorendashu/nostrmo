@@ -278,5 +278,8 @@
     "Split_and_Transfer_Zap": "拆分和转移Zap",
     "Split_Zap_Tip": "在支持的客户端上可以拆分和转移 Zaps 到你添加的用户。",
     "Add_User": "添加用户",
-    "Zap_number_not_enough": "打闪数量不足"
+    "Zap_number_not_enough": "打闪数量不足",
+    "NWC_TIP1": "NWC 是 Nostr 钱包链接协议, 通过 NWC 你可以在 APP 里面 ZAP。",
+    "NWC_TIP2": "NWC 链接像这样子",
+    "is_sending": "发送中"
 }

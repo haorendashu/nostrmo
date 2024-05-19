@@ -2949,6 +2949,46 @@ class S {
       args: [],
     );
   }
+
+  /// `NWC is Nostr Wallet Connect, with NWC Setting you zap within the app.`
+  String get NWC_TIP1 {
+    return Intl.message(
+      'NWC is Nostr Wallet Connect, with NWC Setting you zap within the app.',
+      name: 'NWC_TIP1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NWC URL is like`
+  String get NWC_TIP2 {
+    return Intl.message(
+      'NWC URL is like',
+      name: 'NWC_TIP2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PLease input NWC URL`
+  String get PLease_input_NWC_URL {
+    return Intl.message(
+      'PLease input NWC URL',
+      name: 'PLease_input_NWC_URL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `is sending`
+  String get is_sending {
+    return Intl.message(
+      'is sending',
+      name: 'is_sending',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

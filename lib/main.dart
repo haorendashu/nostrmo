@@ -20,6 +20,7 @@ import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/music_provider.dart';
+import 'package:nostrmo/provider/nwc_provider.dart';
 import 'package:nostrmo/router/thread_trace_router/thread_trace_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_feed_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_list_router.dart';
@@ -76,6 +77,7 @@ import 'router/donate/donate_router.dart';
 import 'router/event_detail/event_detail_router.dart';
 import 'router/filter/filter_router.dart';
 import 'router/follow_set/follow_set_detail_router.dart';
+import 'router/nwc/nwc_setting_router.dart';
 import 'router/profile_editor/profile_editor_router.dart';
 import 'router/index/index_router.dart';
 import 'router/keybackup/key_backup_router.dart';
@@ -159,6 +161,8 @@ late GiftWrapProvider giftWrapProvider;
 late MusicProvider musicProvider;
 
 late UrlSpeedProvider urlSpeedProvider;
+
+late NWCProvider nwcProvider;
 
 MusicInfoCache musicInfoCache = MusicInfoCache();
 
@@ -258,6 +262,7 @@ Future<void> main() async {
   giftWrapProvider = GiftWrapProvider();
   musicProvider = MusicProvider()..init();
   urlSpeedProvider = UrlSpeedProvider();
+  nwcProvider = NWCProvider()..init();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
@@ -349,6 +354,7 @@ class _MyApp extends State<MyApp> {
       RouterPath.FOLLOW_SET_LIST: (context) => FollowSetListRouter(),
       RouterPath.FOLLOW_SET_DETAIL: (context) => FollowSetDetailRouter(),
       RouterPath.FOLLOW_SET_FEED: (context) => FollowSetFeedRouter(),
+      RouterPath.NWC_SETTING: (context) => NwcSettingRouter(),
     };
 
     return MultiProvider(

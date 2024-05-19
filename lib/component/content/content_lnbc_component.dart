@@ -104,7 +104,9 @@ class ContentLnbcComponent extends StatelessWidget {
             child: InkWell(
               onTap: () async {
                 // call to pay
-                LightningUtil.goToPay(context, lnbc);
+                if (num > 0) {
+                  LightningUtil.goToPay(context, lnbc, zapNum: num);
+                }
               },
               child: Container(
                 color: Colors.black,
