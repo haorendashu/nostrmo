@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/client/event_kind.dart' as kind;
 
+import '../util/spider_util.dart';
 import 'event.dart';
 
 /// This class is designed for get the relation from event, but it seam to used for get tagInfo from event before event_main display.
@@ -38,6 +37,8 @@ class EventRelation {
   String? type;
 
   List<EventZapInfo> zapInfos = [];
+
+  String? innerZapContent;
 
   String? get replyOrRootId {
     return replyId != null ? replyId : rootId;
@@ -106,6 +107,9 @@ class EventRelation {
         } else if (tagKey == "zap" && tagLength > 3) {
           var zapInfo = EventZapInfo.fromTags(tag);
           zapInfos.add(zapInfo);
+        } else if (tagKey == "description" &&
+            event.kind == kind.EventKind.ZAP) {
+          innerZapContent = SpiderUtil.subUntil(value, '\"content\":\"', '\",');
         }
       }
     }

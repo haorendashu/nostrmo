@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/zap/zap_action.dart';
 import 'package:nostrmo/component/cust_state.dart';

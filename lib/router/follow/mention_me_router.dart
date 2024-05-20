@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/event/zap_event_main_component.dart';
@@ -7,6 +10,7 @@ import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
 import 'package:nostrmo/util/load_more_event.dart';
+import 'package:nostrmo/util/spider_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
@@ -62,12 +66,31 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       controller: _controller,
       itemBuilder: (BuildContext context, int index) {
         var event = events[index];
-        if (event.kind == kind.EventKind.ZAP &&
-            StringUtil.isBlank(event.content)) {
-          return ZapEventListComponent(event: event);
-        } else if (event.kind == kind.EventKind.BADGE_AWARD) {
+        if (event.kind == kind.EventKind.BADGE_AWARD) {
           return BadgeAwardComponent(event: event);
         } else {
+          if (event.kind == kind.EventKind.ZAP) {
+            if (StringUtil.isBlank(event.content)) {
+              String innerContent = "";
+              for (var tag in event.tags) {
+                var tagLength = tag.length;
+                if (tagLength > 1) {
+                  var k = tag[0];
+                  var v = tag[1];
+                  if (k == "description") {
+                    innerContent =
+                        SpiderUtil.subUntil(v, '\"content\":\"', '\",');
+                    break;
+                  }
+                }
+              }
+
+              if (StringUtil.isBlank(innerContent)) {
+                return ZapEventListComponent(event: event);
+              }
+            }
+          }
+
           return EventListComponent(
             event: event,
             showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,

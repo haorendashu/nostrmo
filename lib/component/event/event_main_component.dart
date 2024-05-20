@@ -562,10 +562,17 @@ class _EventMainComponent extends State<EventMainComponent> {
 
   Widget buildContentWidget(
       SettingProvider _settingProvider, bool imagePreview, bool videoPreview) {
+    var content = widget.event.content;
+    if (StringUtil.isBlank(content) &&
+        widget.event.kind == kind.EventKind.ZAP &&
+        StringUtil.isNotBlank(eventRelation.innerZapContent)) {
+      content = eventRelation.innerZapContent!;
+    }
+
     var main = Container(
       width: double.maxFinite,
       child: ContentComponent(
-        content: widget.event.content,
+        content: content,
         event: widget.event,
         textOnTap: widget.textOnTap,
         showImage: imagePreview,
