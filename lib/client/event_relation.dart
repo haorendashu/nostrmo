@@ -148,6 +148,23 @@ class EventRelation {
     pMap.remove(event.pubkey);
     tagPList.addAll(pMap.keys);
   }
+
+  static String getInnerZapContent(Event event) {
+    String innerContent = "";
+    for (var tag in event.tags) {
+      var tagLength = tag.length;
+      if (tagLength > 1) {
+        var k = tag[0];
+        var v = tag[1];
+        if (k == "description") {
+          innerContent = SpiderUtil.subUntil(v, '\"content\":\"', '\",');
+          break;
+        }
+      }
+    }
+
+    return innerContent;
+  }
 }
 
 class EventZapInfo {

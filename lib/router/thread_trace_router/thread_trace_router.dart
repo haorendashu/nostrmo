@@ -15,6 +15,7 @@ import '../../client/event.dart';
 import '../../client/event_kind.dart';
 import '../../client/event_relation.dart';
 import '../../component/appbar_back_btn_component.dart';
+import '../../component/event/event_bitcion_icon_component.dart';
 import '../../component/event_reply_callback.dart';
 import '../../consts/base.dart';
 import '../../util/peddingevents_later_function.dart';
@@ -107,7 +108,26 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
         ));
       }
     }
+
     var screenshotController = ScreenshotController();
+    Widget mainEventWidget = Screenshot(
+      controller: screenshotController,
+      child: EventMainComponent(
+        key: sourceEventKey,
+        screenshotController: ScreenshotController(),
+        event: sourceEvent!,
+        showReplying: false,
+        showVideo: true,
+        imageListMode: false,
+        showSubject: false,
+        showLinkedLongForm: false,
+        showLongContent: true,
+      ),
+    );
+    if (sourceEvent!.kind == EventKind.ZAP) {
+      mainEventWidget = EventBitcionIconComponent.wrapper(mainEventWidget);
+    }
+
     mainList.add(Container(
       color: cardColor,
       margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
@@ -130,20 +150,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
               ),
             ],
           ),
-          Screenshot(
-            controller: screenshotController,
-            child: EventMainComponent(
-              key: sourceEventKey,
-              screenshotController: ScreenshotController(),
-              event: sourceEvent!,
-              showReplying: false,
-              showVideo: true,
-              imageListMode: false,
-              showSubject: false,
-              showLinkedLongForm: false,
-              showLongContent: true,
-            ),
-          )
+          mainEventWidget
         ],
       ),
     ));

@@ -19,4 +19,17 @@ class EventBitcionIconComponent extends StatelessWidget {
       ),
     );
   }
+
+  static Widget wrapper(Widget child) {
+    return Stack(
+      children: [
+        child,
+        Positioned(
+          top: -35,
+          right: -10,
+          child: EventBitcionIconComponent(),
+        ),
+      ],
+    );
+  }
 }

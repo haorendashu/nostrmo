@@ -84,16 +84,7 @@ class _EventListComponent extends State<EventListComponent> {
     );
 
     if (widget.event.kind == kind.EventKind.ZAP) {
-      main = Stack(
-        children: [
-          main,
-          Positioned(
-            top: -35,
-            right: -10,
-            child: EventBitcionIconComponent(),
-          ),
-        ],
-      );
+      main = EventBitcionIconComponent.wrapper(main);
     }
 
     Widget approvedWrap = Selector<CommunityApprovedProvider, bool>(

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/event/zap_event_main_component.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
@@ -71,21 +72,8 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
         } else {
           if (event.kind == kind.EventKind.ZAP) {
             if (StringUtil.isBlank(event.content)) {
-              String innerContent = "";
-              for (var tag in event.tags) {
-                var tagLength = tag.length;
-                if (tagLength > 1) {
-                  var k = tag[0];
-                  var v = tag[1];
-                  if (k == "description") {
-                    innerContent =
-                        SpiderUtil.subUntil(v, '\"content\":\"', '\",');
-                    break;
-                  }
-                }
-              }
-
-              if (StringUtil.isBlank(innerContent)) {
+              var innerZapContent = EventRelation.getInnerZapContent(event);
+              if (StringUtil.isBlank(innerZapContent)) {
                 return ZapEventListComponent(event: event);
               }
             }

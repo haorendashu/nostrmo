@@ -120,17 +120,18 @@ class _EventTopComponent extends State<EventTopComponent> {
                     children: [
                       Row(
                         children: [
-                          Expanded(
-                            child: jumpWrap(
-                              NameComponent(
-                                pubkey: widget.event.pubkey,
-                                metadata: metadata,
-                                maxLines: 1,
-                                textOverflow: TextOverflow.ellipsis,
-                                showNip05: false,
-                                showName: false,
-                              ),
+                          jumpWrap(
+                            NameComponent(
+                              pubkey: widget.event.pubkey,
+                              metadata: metadata,
+                              maxLines: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                              showNip05: false,
+                              showName: false,
                             ),
+                          ),
+                          Expanded(
+                            child: Container(),
                           ),
                           // SimpleDateComponent(widget.event.createdAt),
                           Text(
