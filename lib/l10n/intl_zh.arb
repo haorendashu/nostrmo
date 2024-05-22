@@ -281,5 +281,6 @@
     "Zap_number_not_enough": "打闪数量不足",
     "NWC_TIP1": "NWC 是 Nostr 钱包链接协议, 通过 NWC 你可以在 APP 里面 ZAP。",
     "NWC_TIP2": "NWC 链接像这样子",
-    "is_sending": "发送中"
+    "is_sending": "发送中",
+    "Image_service_path": "图片服务地址"
 }

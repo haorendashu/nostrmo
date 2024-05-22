@@ -60,6 +60,8 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     widget.indexReload();
   }
 
+  late S s;
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
@@ -69,7 +71,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     var mainColor = themeData.primaryColor;
     var hintColor = themeData.hintColor;
 
-    var s = S.of(context);
+    s = S.of(context);
 
     initOpenList(s);
     initI18nList(s);
@@ -191,10 +193,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getImageServcie(settingProvider.imageService).name,
       onTap: pickImageServcie,
     ));
-    if (settingProvider.imageService == ImageServices.NIP_96 &&
+    if ((settingProvider.imageService == ImageServices.NIP_96 ||
+            settingProvider.imageService == ImageServices.BLOSSOM) &&
         StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
       list.add(SettingGroupItemComponent(
-        name: s.Image_service,
+        name: s.Image_service_path,
         value: settingProvider.imageServiceAddr,
       ));
     }
@@ -705,12 +708,16 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           .add(EnumObj(ImageServices.NOSTR_BUILD, ImageServices.NOSTR_BUILD));
       imageServcieList!.add(
           EnumObj(ImageServices.POMF2_LAIN_LA, ImageServices.POMF2_LAIN_LA));
-      // imageServcieList!
-      //     .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
+      imageServcieList!
+          .add(EnumObj(ImageServices.NOSTO_RE, ImageServices.NOSTO_RE));
+      imageServcieList!
+          .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
       imageServcieList!
           .add(EnumObj(ImageServices.NIP_95, ImageServices.NIP_95));
       imageServcieList!
           .add(EnumObj(ImageServices.NIP_96, ImageServices.NIP_96));
+      imageServcieList!
+          .add(EnumObj(ImageServices.BLOSSOM, ImageServices.BLOSSOM));
     }
   }
 
@@ -729,9 +736,17 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     if (resultEnumObj != null) {
       if (resultEnumObj.value == ImageServices.NIP_96) {
         var addr = await TextInputDialog.show(
-            context, "Please input a NIP-96 server address.");
+            context, "${s.Please_input} NIP-96 ${s.Image_service_path}");
         if (StringUtil.isNotBlank(addr)) {
           settingProvider.imageService = ImageServices.NIP_96;
+          settingProvider.imageServiceAddr = addr;
+        }
+        return;
+      } else if (resultEnumObj.value == ImageServices.BLOSSOM) {
+        var addr = await TextInputDialog.show(
+            context, "${s.Please_input} Blossom ${s.Image_service_path}");
+        if (StringUtil.isNotBlank(addr)) {
+          settingProvider.imageService = ImageServices.BLOSSOM;
           settingProvider.imageServiceAddr = addr;
         }
         return;

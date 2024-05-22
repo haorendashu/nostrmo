@@ -15,12 +15,22 @@ class VoidCatUploader {
   static final String UPLOAD_ACTION = "https://void.cat/upload?cli=true";
 
   static Future<String?> upload(String filePath, {String? fileName}) async {
+    var extName = "";
+
     Uint8List? bytes;
     if (BASE64.check(filePath)) {
       bytes = BASE64.toData(filePath);
     } else {
       var tempFile = File(filePath);
       bytes = await tempFile.readAsBytes();
+
+      if (StringUtil.isBlank(fileName)) {
+        fileName = filePath.split("/").last;
+      }
+    }
+
+    if (StringUtil.isNotBlank(fileName)) {
+      extName = fileName!.split(".").last;
     }
 
     var digest = sha256.convert(bytes!);
@@ -44,6 +54,10 @@ class VoidCatUploader {
       ),
     );
     var body = response.data;
+
+    if (StringUtil.isNotBlank(body) && StringUtil.isNotBlank(extName)) {
+      body = "$body.$extName";
+    }
 
     return body;
   }

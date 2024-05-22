@@ -143,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Image_or_Video": MessageLookupByLibrary.simpleMessage("图片或视频"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage("图片保存成功"),
         "Image_service": MessageLookupByLibrary.simpleMessage("图片服务"),
+        "Image_service_path": MessageLookupByLibrary.simpleMessage("图片服务地址"),
         "Import_notes": MessageLookupByLibrary.simpleMessage("导入数据"),
         "Input": MessageLookupByLibrary.simpleMessage("输入"),
         "Input_Comment": MessageLookupByLibrary.simpleMessage("输入评论"),

@@ -2989,6 +2989,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Image service path`
+  String get Image_service_path {
+    return Intl.message(
+      'Image service path',
+      name: 'Image_service_path',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/upload/blossom_uploader.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
@@ -260,6 +261,12 @@ class _IndexDrawerContnetComponnent
         name: s.Add_a_Note,
         onTap: () {
           EditorRouter.open(context);
+          // var fileResult = await Uploader.pick(context);
+          // if (StringUtil.isNotBlank(fileResult)) {
+          //   var imagePath =
+          //       await BolssomUploader.upload("https://nosto.re/", fileResult!);
+          //   print(imagePath);
+          // }
         },
         onLongPress: () {
           Uploader.pickAndUpload2NIP95(context);

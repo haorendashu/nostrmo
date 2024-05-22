@@ -51,7 +51,7 @@ class BolssomUploader {
     }
 
     var fileSize = bytes.length;
-    // log("file size is ${bytes.length}");
+    log("file size is ${bytes.length}");
     payload = HashUtil.sha256Bytes(bytes);
     multipartFile = MultipartFile.fromBytes(
       bytes,
@@ -81,16 +81,16 @@ class BolssomUploader {
     ]);
     tags.add(["size", "$fileSize"]);
     tags.add(["x", payload]);
-    var nip98Event =
-        Event(nostr!.publicKey, EventKind.HTTP_AUTH, tags, "Upload $fileName");
+    var nip98Event = Event(nostr!.publicKey, EventKind.BLOSSOM_HTTP_AUTH, tags,
+        "Upload $fileName");
     nostr!.signEvent(nip98Event);
     // log(jsonEncode(nip98Event.toJson()));
     headers["Authorization"] =
         "Nostr ${base64Url.encode(utf8.encode(jsonEncode(nip98Event.toJson())))}";
 
-    // log(jsonEncode(headers));
+    log(jsonEncode(headers));
 
-    var formData = FormData.fromMap({"file": multipartFile});
+    // var formData = FormData.fromMap({"file": multipartFile});
     try {
       var response = await dio.put(
         uploadApiPath,
@@ -104,26 +104,12 @@ class BolssomUploader {
         ),
       );
       var body = response.data;
-      // log(jsonEncode(response.data));
-      if (body is Map<String, dynamic> &&
-          body["status"] == "success" &&
-          body["nip94_event"] != null) {
-        var nip94Event = body["nip94_event"];
-        if (nip94Event["tags"] != null) {
-          for (var tag in nip94Event["tags"]) {
-            if (tag is List && tag.length > 1) {
-              var k = tag[0];
-              var v = tag[1];
-
-              if (k == "url") {
-                return v;
-              }
-            }
-          }
-        }
+      log(jsonEncode(response.data));
+      if (body is Map<String, dynamic> && body["url"] != null) {
+        return body["url"];
       }
     } catch (e) {
-      print("nostr.build nip96 upload exception:");
+      print("BolssomUploader.upload upload exception:");
       print(e);
     }
 

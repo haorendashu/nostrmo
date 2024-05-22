@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:mime/mime.dart';
 import 'package:nostrmo/client/event.dart';
+import 'package:nostrmo/client/upload/blossom_uploader.dart';
 import 'package:nostrmo/client/upload/nip95_uploader.dart';
 import 'package:nostrmo/client/upload/nip96_uploader.dart';
 import 'package:nostrmo/client/upload/void_cat.dart';
@@ -139,15 +140,16 @@ class Uploader {
       {String? imageService, String? fileName}) async {
     // if (imageService == ImageServices.NOSTRIMG_COM) {
     //   return await NostrimgComUploader.upload(localPath);
-    // } else if (imageService == ImageServices.VOID_CAT) {
-    //   return await VoidCatUploader.upload(localPath);
-    // } else if (imageService == ImageServices.NOSTRFILES_DEV) {
+    // } else  if (imageService == ImageServices.NOSTRFILES_DEV) {
     //   return await NostrfilesDevUploader.upload(localPath);
     // } else
     if (imageService == ImageServices.POMF2_LAIN_LA) {
       return await Pomf2LainLa.upload(localPath, fileName: fileName);
     } else if (imageService == ImageServices.NOSTR_BUILD) {
       return await NostrBuildUploader.upload(localPath, fileName: fileName);
+    } else if (imageService == ImageServices.NOSTO_RE) {
+      return await BolssomUploader.upload("https://nosto.re/", localPath,
+          fileName: fileName);
     } else if (imageService == ImageServices.NIP_95) {
       return await NIP95Uploader.upload(localPath, fileName: fileName);
     } else if (imageService == ImageServices.NIP_96 &&
@@ -155,6 +157,13 @@ class Uploader {
       return await NIP96Uploader.upload(
           settingProvider.imageServiceAddr!, localPath,
           fileName: fileName);
+    } else if (imageService == ImageServices.BLOSSOM &&
+        StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
+      return await BolssomUploader.upload(
+          settingProvider.imageServiceAddr!, localPath,
+          fileName: fileName);
+    } else if (imageService == ImageServices.VOID_CAT) {
+      return await VoidCatUploader.upload(localPath);
     }
     return await NostrBuildUploader.upload(localPath, fileName: fileName);
   }

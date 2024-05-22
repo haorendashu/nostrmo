@@ -292,5 +292,6 @@
     "NWC_TIP1": "NWC is Nostr Wallet Connect, with NWC Setting you zap within the app.",
     "NWC_TIP2": "NWC URL is like",
     "PLease_input_NWC_URL": "PLease input NWC URL",
-    "is_sending": "is sending"
+    "is_sending": "is sending",
+    "Image_service_path": "Image service path"
 }
