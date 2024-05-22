@@ -261,12 +261,6 @@ class _IndexDrawerContnetComponnent
         name: s.Add_a_Note,
         onTap: () {
           EditorRouter.open(context);
-          // var fileResult = await Uploader.pick(context);
-          // if (StringUtil.isNotBlank(fileResult)) {
-          //   var imagePath =
-          //       await BolssomUploader.upload("https://nosto.re/", fileResult!);
-          //   print(imagePath);
-          // }
         },
         onLongPress: () {
           Uploader.pickAndUpload2NIP95(context);
