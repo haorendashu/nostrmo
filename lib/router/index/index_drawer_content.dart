@@ -62,6 +62,7 @@ class _IndexDrawerContnetComponnent
       list.add(Container(
         margin: const EdgeInsets.only(
           top: Base.BASE_PADDING,
+          bottom: Base.BASE_PADDING_HALF,
         ),
         child: UserPicComponent(pubkey: pubkey, width: 50),
       ));
