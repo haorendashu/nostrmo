@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/event_relation.dart';

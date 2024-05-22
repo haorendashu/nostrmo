@@ -55,6 +55,10 @@ class VoidCatUploader {
     );
     var body = response.data;
 
+    if (body != null && body.indexOf('"ok":false') > -1) {
+      return null;
+    }
+
     if (StringUtil.isNotBlank(body) && StringUtil.isNotBlank(extName)) {
       body = "$body.$extName";
     }

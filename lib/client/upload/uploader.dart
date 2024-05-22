@@ -138,6 +138,10 @@ class Uploader {
 
   static Future<String?> upload(String localPath,
       {String? imageService, String? fileName}) async {
+    if (PlatformUtil.isWeb()) {
+      return await BolssomUploader.upload("https://nosto.re/", localPath,
+          fileName: fileName);
+    }
     // if (imageService == ImageServices.NOSTRIMG_COM) {
     //   return await NostrimgComUploader.upload(localPath);
     // } else  if (imageService == ImageServices.NOSTRFILES_DEV) {

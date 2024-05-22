@@ -113,15 +113,13 @@ mixin EditorMixin {
         tooltip: openPrivateDM ? s.Close_Private_DM : s.Open_Private_DM,
       ));
     }
-    if (!PlatformUtil.isWeb()) {
-      inputBtnList.add(quill.QuillToolbarIconButton(
-        onPressed: pickImage,
-        icon: Icon(Icons.image),
-        isSelected: false,
-        iconTheme: null,
-        tooltip: s.Image_or_Video,
-      ));
-    }
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: pickImage,
+      icon: Icon(Icons.image),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: s.Image_or_Video,
+    ));
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: takeAPhoto,
