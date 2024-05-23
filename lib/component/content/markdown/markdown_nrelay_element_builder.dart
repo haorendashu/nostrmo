@@ -41,4 +41,9 @@ class MarkdownNrelayElementBuilder implements MarkdownElementBuilder {
       TextStyle? preferredStyle, TextStyle? parentStyle) {
     return null;
   }
+
+  @override
+  bool isBlockElement() {
+    return false;
+  }
 }

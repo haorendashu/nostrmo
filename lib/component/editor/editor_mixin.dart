@@ -38,6 +38,7 @@ import '../../router/index/index_app_bar.dart';
 import '../../util/platform_util.dart';
 import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
+import '../emoji_picker_component.dart';
 import '../image_component.dart';
 import '../zap/zap_split_icon_component.dart';
 import 'cust_embed_types.dart';
@@ -281,51 +282,7 @@ mixin EditorMixin {
   }
 
   Widget buildEmojiSelector() {
-    var themeData = Theme.of(getContext());
-    var mainColor = themeData.primaryColor;
-    var bgColor = themeData.scaffoldBackgroundColor;
-
-    return Container(
-      height: 260,
-      child: EmojiPicker(
-        onEmojiSelected: (Category? category, Emoji emoji) {
-          emojiInsert(emoji);
-        },
-        onBackspacePressed: null,
-        // textEditingController:
-        //     textEditionController, // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
-        config: Config(
-          columns: 10,
-          emojiSizeMax: 20 * (PlatformUtil.isIOS() ? 1.30 : 1.0),
-          verticalSpacing: 0,
-          horizontalSpacing: 0,
-          gridPadding: EdgeInsets.zero,
-          initCategory: Category.RECENT,
-          bgColor: bgColor,
-          indicatorColor: mainColor,
-          iconColor: Colors.grey,
-          iconColorSelected: mainColor,
-          backspaceColor: mainColor,
-          skinToneDialogBgColor: Colors.white,
-          skinToneIndicatorColor: Colors.grey,
-          enableSkinTones: true,
-          // showRecentsTab: true,
-          recentTabBehavior: RecentTabBehavior.RECENT,
-          recentsLimit: 30,
-          emojiTextStyle:
-              PlatformUtil.isWeb() ? GoogleFonts.notoColorEmoji() : null,
-          noRecents: Text(
-            'No Recents',
-            style: TextStyle(fontSize: 14, color: Colors.black26),
-            textAlign: TextAlign.center,
-          ), // Needs to be const Widget
-          loadingIndicator: const SizedBox.shrink(), // Needs to be const Widget
-          tabIndicatorAnimDuration: kTabScrollDuration,
-          categoryIcons: const CategoryIcons(),
-          buttonMode: ButtonMode.MATERIAL,
-        ),
-      ),
-    );
+    return EmojiPickerComponent(emojiInsert);
   }
 
   bool emojiShow = false;
@@ -337,11 +294,11 @@ mixin EditorMixin {
     updateUI();
   }
 
-  void emojiInsert(Emoji emoji) {
+  void emojiInsert(String emoji) {
     final index = editorController.selection.baseOffset;
     final length = editorController.selection.extentOffset - index;
     editorController.replaceText(
-        index, length, emoji.emoji, TextSelection.collapsed(offset: index + 2),
+        index, length, emoji, TextSelection.collapsed(offset: index + 2),
         ignoreFocus: true);
     updateUI();
   }

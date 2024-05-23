@@ -274,7 +274,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       var replyId = eventRelation.replyOrRootId;
       if (StringUtil.isNotBlank(replyId)) {
         findParentEvent(replyId!,
-            eventRelayAddr: eventRelation.replyOrRootRelayAddr);
+            eventRelayAddr: eventRelation.replyOrRootRelayAddr,
+            subEventPubkey: sourceEvent!.pubkey);
       }
     }
   }
@@ -283,7 +284,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     return "eventTrace${eventId.substring(0, 8)}";
   }
 
-  void findParentEvent(String eventId, {String? eventRelayAddr}) {
+  void findParentEvent(String eventId,
+      {String? eventRelayAddr, String? subEventPubkey}) {
     // log("findParentEvent $eventId");
     // query from reply events
     var pe = box.getById(eventId);
@@ -300,9 +302,15 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     }
 
     var filter = Filter(ids: [eventId]);
-    List<String>? tempRelays;
+    List<String> tempRelays = [];
     if (StringUtil.isNotBlank(eventRelayAddr)) {
-      tempRelays = nostr!.getExtralReadableRelays([eventRelayAddr!], 1);
+      var eventRelays = nostr!.getExtralReadableRelays([eventRelayAddr!], 1);
+      tempRelays.addAll(eventRelays);
+    }
+    if (StringUtil.isNotBlank(subEventPubkey)) {
+      var subEventPubkeyRelays =
+          metadataProvider.getExtralRelays(subEventPubkey!, false);
+      tempRelays.addAll(subEventPubkeyRelays);
     }
     nostr!.query([filter.toJson()], onParentEvent,
         id: parentEventId(eventId), tempRelays: tempRelays);
@@ -328,7 +336,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       var replyId = addedEti.eventRelation.replyOrRootId;
       if (StringUtil.isNotBlank(replyId)) {
         findParentEvent(replyId!,
-            eventRelayAddr: addedEti.eventRelation.replyOrRootRelayAddr);
+            eventRelayAddr: addedEti.eventRelation.replyOrRootRelayAddr,
+            subEventPubkey: addedEti.event.pubkey);
       }
 
       setState(() {});

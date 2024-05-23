@@ -1,6 +1,7 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nostrmo/component/emoji_picker_component.dart';
 
 import '../consts/base.dart';
 import '../generated/l10n.dart';
@@ -47,47 +48,9 @@ class _LikeTextSelectBottomSheet extends State<LikeTextSelectBottomSheet> {
       ),
     ));
 
-    list.add(Container(
-      height: 260,
-      child: EmojiPicker(
-        onEmojiSelected: (Category? category, Emoji emoji) {
-          RouterUtil.back(context, emoji.emoji);
-        },
-        onBackspacePressed: null,
-        // textEditingController:
-        //     textEditionController, // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
-        config: Config(
-          columns: 10,
-          emojiSizeMax: 20 * (PlatformUtil.isIOS() ? 1.30 : 1.0),
-          verticalSpacing: 0,
-          horizontalSpacing: 0,
-          gridPadding: EdgeInsets.zero,
-          initCategory: Category.RECENT,
-          bgColor: backgroundColor,
-          indicatorColor: mainColor,
-          iconColor: Colors.grey,
-          iconColorSelected: mainColor,
-          backspaceColor: mainColor,
-          skinToneDialogBgColor: Colors.white,
-          skinToneIndicatorColor: Colors.grey,
-          enableSkinTones: true,
-          // showRecentsTab: true,
-          recentTabBehavior: RecentTabBehavior.RECENT,
-          recentsLimit: 30,
-          emojiTextStyle:
-              PlatformUtil.isWeb() ? GoogleFonts.notoColorEmoji() : null,
-          noRecents: Text(
-            'No Recents',
-            style: TextStyle(fontSize: 14, color: Colors.black26),
-            textAlign: TextAlign.center,
-          ), // Needs to be const Widget
-          loadingIndicator: const SizedBox.shrink(), // Needs to be const Widget
-          tabIndicatorAnimDuration: kTabScrollDuration,
-          categoryIcons: const CategoryIcons(),
-          buttonMode: ButtonMode.MATERIAL,
-        ),
-      ),
-    ));
+    list.add(EmojiPickerComponent((emoji) {
+      RouterUtil.back(context, emoji);
+    }));
 
     return Container(
       child: Column(
