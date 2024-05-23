@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/nip05_valid_component.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -109,12 +110,17 @@ class SearchMentionUserItemComponent extends StatelessWidget {
 
     String nip19Name = Nip19.encodeSimplePubKey(metadata.pubkey!);
     String displayName = nip19Name;
-    String name = "";
     if (StringUtil.isNotBlank(metadata.displayName)) {
       displayName = metadata.displayName!;
+    } else {
+      if (StringUtil.isNotBlank(metadata.name)) {
+        displayName = metadata.name!;
+      }
     }
-    if (metadata.name != null) {
-      name = metadata.name!;
+
+    var nip05Text = metadata.nip05;
+    if (StringUtil.isBlank(nip05Text)) {
+      nip05Text = nip19Name;
     }
 
     var main = Container(
@@ -147,12 +153,28 @@ class SearchMentionUserItemComponent extends StatelessWidget {
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: hintColor,
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: nip05Text,
+                          style: TextStyle(
+                            fontSize: themeData.textTheme.bodySmall!.fontSize,
+                            color: themeData.hintColor,
+                          ),
+                        ),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.baseline,
+                          baseline: TextBaseline.ideographic,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 3),
+                            child:
+                                Nip05ValidComponent(pubkey: metadata.pubkey!),
+                          ),
+                        ),
+                      ],
                     ),
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

@@ -854,7 +854,7 @@ mixin EditorMixin {
     var s = S.of(context);
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
-    var labelUnSelectColor = themeData.dividerColor;
+    var labelUnSelectColor = themeData.hintColor;
 
     return Container(
       height: 260,

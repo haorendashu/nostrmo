@@ -70,7 +70,13 @@ class _IndexAppBar extends State<IndexAppBar> {
         right: Base.BASE_PADDING,
       ),
       height: paddingTop + IndexAppBar.height,
-      color: appBarBackgroundColor,
+      decoration: BoxDecoration(
+        color: appBarBackgroundColor,
+        border: Border(
+          bottom:
+              BorderSide(width: 1, color: themeData.scaffoldBackgroundColor),
+        ),
+      ),
       child: Row(children: [
         Container(
           child: userPicWidget,

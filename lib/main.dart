@@ -484,19 +484,19 @@ class _MyApp extends State<MyApp> {
     Color color500 = _getMainColor();
     MaterialColor themeColor = ColorList.getThemeColor(color500.value);
 
-    Color? mainTextColor;
+    Color mainTextColor = Colors.black;
     Color hintColor = Colors.grey;
     var scaffoldBackgroundColor = Colors.grey[100];
 
     double baseFontSize = settingProvider.fontSize;
 
     var textTheme = TextTheme(
-      bodyLarge: TextStyle(fontSize: baseFontSize + 2),
-      bodyMedium: TextStyle(fontSize: baseFontSize),
-      bodySmall: TextStyle(fontSize: baseFontSize - 2),
+      bodyLarge: TextStyle(fontSize: baseFontSize + 2, color: mainTextColor),
+      bodyMedium: TextStyle(fontSize: baseFontSize, color: mainTextColor),
+      bodySmall: TextStyle(fontSize: baseFontSize - 2, color: mainTextColor),
     );
     var titleTextStyle = TextStyle(
-      color: PlatformUtil.isPC() ? Colors.black : Colors.white,
+      color: mainTextColor,
     );
 
     if (settingProvider.fontFamily != null) {
@@ -518,14 +518,12 @@ class _MyApp extends State<MyApp> {
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       primaryColor: themeColor[500],
       appBarTheme: AppBarTheme(
-        // color: Base.APPBAR_COLOR,
-        backgroundColor:
-            PlatformUtil.isPC() ? scaffoldBackgroundColor : themeColor[500],
+        backgroundColor: Colors.white,
         titleTextStyle: titleTextStyle,
         elevation: 0,
         scrolledUnderElevation: 0,
       ),
-      dividerColor: Colors.grey,
+      dividerColor: ColorsUtil.hexToColor("#DFE1EB"),
       cardColor: Colors.white,
       // dividerColor: Colors.grey[200],
       // indicatorColor: ColorsUtil.hexToColor("#818181"),

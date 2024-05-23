@@ -45,8 +45,7 @@ class _GlobalsTagsRouter extends KeepAliveCustState<GlobalsTagsRouter> {
             child: Text(
               topic,
               style: TextStyle(
-                // color: Colors.white,
-                color: themeData.appBarTheme.titleTextStyle!.color,
+                color: Colors.white,
               ),
             ),
           ),

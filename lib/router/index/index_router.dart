@@ -151,10 +151,7 @@ class _IndexRouter extends CustState<IndexRouter>
       fontWeight: FontWeight.bold,
       color: titleTextColor,
     );
-    Color? indicatorColor = titleTextColor;
-    if (PlatformUtil.isPC()) {
-      indicatorColor = themeData.primaryColor;
-    }
+    Color? indicatorColor = themeData.primaryColor;
 
     Widget? appBarCenter;
     if (_indexProvider.currentTap == 0) {
@@ -236,18 +233,6 @@ class _IndexRouter extends CustState<IndexRouter>
         controller: dmTabController,
       );
     }
-
-    var addBtn = FloatingActionButton(
-      onPressed: () {
-        EditorRouter.open(context);
-      },
-      backgroundColor: mainColor,
-      shape: const CircleBorder(),
-      child: const Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-    );
 
     var mainCenterWidget = MediaQuery.removePadding(
       context: context,
@@ -384,9 +369,9 @@ class _IndexRouter extends CustState<IndexRouter>
     } else {
       return Scaffold(
         body: mainIndex,
-        floatingActionButton: addBtn,
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniCenterDocked,
+        // floatingActionButton: addBtn,
+        // floatingActionButtonLocation:
+        //     FloatingActionButtonLocation.miniCenterDocked,
         drawer: Drawer(
           child: IndexDrawerContnetComponnent(
             smallMode: false,

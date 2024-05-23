@@ -36,9 +36,9 @@ class EventTopComponent extends StatefulWidget {
 }
 
 class _EventTopComponent extends State<EventTopComponent> {
-  static const double IMAGE_WIDTH = 34;
+  static const double IMAGE_WIDTH = 36;
 
-  static const double HALF_IMAGE_WIDTH = 17;
+  static const double HALF_IMAGE_WIDTH = 18;
 
   String? pubkey;
 

@@ -24,6 +24,7 @@ import '../../util/router_util.dart';
 import '../../util/when_stop_function.dart';
 import '../thread/thread_detail_event_main_component.dart';
 import '../thread/thread_detail_item_component.dart';
+import '../thread/thread_detail_router.dart';
 import '../thread/thread_router_helper.dart';
 
 class ThreadTraceRouter extends StatefulWidget {
@@ -70,7 +71,9 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
 
-    Widget? appBarTitle = Container();
+    var title = ThreadDetailRouter.getAppBarTitle(sourceEvent!);
+    var appBarTitle = ThreadDetailRouter.detailAppBarTitle(
+        sourceEvent!.pubkey, title, themeData);
 
     List<Widget> mainList = [];
 
@@ -143,7 +146,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
                 ),
                 top: 38,
                 bottom: 0,
-                left: 28,
+                left: 29,
               ),
               Column(
                 children: traceList,

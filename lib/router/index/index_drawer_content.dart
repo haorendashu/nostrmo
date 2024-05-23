@@ -119,7 +119,7 @@ class _IndexDrawerContnetComponnent
     List<Widget> centerList = [];
     if (PlatformUtil.isTableMode()) {
       centerList.add(IndexDrawerItem(
-        iconData: Icons.home,
+        iconData: Icons.home_rounded,
         name: s.Home,
         color: _indexProvider.currentTap == 0 ? mainColor : null,
         onTap: () {
@@ -131,7 +131,7 @@ class _IndexDrawerContnetComponnent
         smallMode: widget.smallMode,
       ));
       centerList.add(IndexDrawerItem(
-        iconData: Icons.public,
+        iconData: Icons.public_rounded,
         name: s.Globals,
         color: _indexProvider.currentTap == 1 ? mainColor : null,
         onTap: () {
@@ -143,7 +143,7 @@ class _IndexDrawerContnetComponnent
         smallMode: widget.smallMode,
       ));
       centerList.add(IndexDrawerItem(
-        iconData: Icons.search,
+        iconData: Icons.search_rounded,
         name: s.Search,
         color: _indexProvider.currentTap == 2 ? mainColor : null,
         onTap: () {
@@ -152,7 +152,7 @@ class _IndexDrawerContnetComponnent
         smallMode: widget.smallMode,
       ));
       centerList.add(IndexDrawerItem(
-        iconData: Icons.mail,
+        iconData: Icons.mail_rounded,
         name: "DMs",
         color: _indexProvider.currentTap == 3 ? mainColor : null,
         onTap: () {
@@ -163,7 +163,7 @@ class _IndexDrawerContnetComponnent
     }
 
     centerList.add(IndexDrawerItem(
-      iconData: Icons.block,
+      iconData: Icons.block_rounded,
       name: s.Filter,
       onTap: () {
         RouterUtil.router(context, RouterPath.FILTER);
@@ -173,7 +173,7 @@ class _IndexDrawerContnetComponnent
 
     if (!PlatformUtil.isTableMode()) {
       centerList.add(IndexDrawerItem(
-        iconData: Icons.cloud,
+        iconData: Icons.cloud_rounded,
         name: s.Relays,
         onTap: () {
           RouterUtil.router(context, RouterPath.RELAYS);
@@ -183,7 +183,7 @@ class _IndexDrawerContnetComponnent
     }
 
     centerList.add(IndexDrawerItem(
-      iconData: Icons.key,
+      iconData: Icons.key_rounded,
       name: s.Key_Backup,
       onTap: () {
         RouterUtil.router(context, RouterPath.KEY_BACKUP);
@@ -192,7 +192,7 @@ class _IndexDrawerContnetComponnent
     ));
 
     centerList.add(IndexDrawerItem(
-      iconData: Icons.bookmarks,
+      iconData: Icons.bookmarks_rounded,
       name: s.Bookmark,
       onTap: () {
         RouterUtil.router(context, RouterPath.BOOKMARK);
@@ -212,7 +212,7 @@ class _IndexDrawerContnetComponnent
     }
 
     centerList.add(IndexDrawerItem(
-      iconData: Icons.settings,
+      iconData: Icons.settings_rounded,
       name: s.Setting,
       onTap: () {
         RouterUtil.router(context, RouterPath.SETTING);
@@ -225,7 +225,7 @@ class _IndexDrawerContnetComponnent
           Selector<WebViewProvider, String?>(builder: (context, url, child) {
         if (StringUtil.isBlank(url)) {
           return IndexDrawerItem(
-            iconData: Icons.view_list,
+            iconData: Icons.view_list_rounded,
             name: s.Web_Utils,
             onTap: () {
               RouterUtil.router(context, RouterPath.WEBUTILS);
@@ -235,7 +235,7 @@ class _IndexDrawerContnetComponnent
         }
 
         return IndexDrawerItem(
-          iconData: Icons.public,
+          iconData: Icons.public_rounded,
           name: s.Show_web,
           onTap: () {
             webViewProvider.show();
@@ -258,7 +258,7 @@ class _IndexDrawerContnetComponnent
 
     if (PlatformUtil.isTableMode()) {
       list.add(IndexDrawerItem(
-        iconData: Icons.add,
+        iconData: Icons.add_rounded,
         name: s.Add_a_Note,
         onTap: () {
           EditorRouter.open(context);
@@ -271,7 +271,7 @@ class _IndexDrawerContnetComponnent
     }
 
     list.add(IndexDrawerItem(
-      iconData: Icons.account_box,
+      iconData: Icons.account_box_rounded,
       name: s.Account_Manager,
       onTap: () {
         _showBasicModalBottomSheet(context);
@@ -283,7 +283,7 @@ class _IndexDrawerContnetComponnent
       list.add(Container(
         margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
         child: IndexDrawerItem(
-          iconData: Icons.last_page,
+          iconData: Icons.last_page_rounded,
           name: "",
           onTap: toggleSmallMode,
           smallMode: widget.smallMode,
@@ -299,7 +299,7 @@ class _IndexDrawerContnetComponnent
           behavior: HitTestBehavior.translucent,
           child: Container(
             margin: EdgeInsets.only(right: Base.BASE_PADDING),
-            child: Icon(Icons.first_page),
+            child: Icon(Icons.first_page_rounded),
           ),
         ));
         subList.add(versionWidget);

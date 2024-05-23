@@ -36,7 +36,7 @@ class SimpleDateComponent extends StatelessWidget {
       text = "${t}d";
     } else {
       var dt = DateTime.fromMillisecondsSinceEpoch(date * 1000);
-      text = "${dt.year}-${dt.month}-${dt.day}";
+      text = "${dt.year}-${dt.month}-${dt.day} ${dt.hour}:${dt.minute}";
     }
 
     return Container(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/index_provider.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
+import '../edit/editor_router.dart';
 
 class IndexBottomBar extends StatefulWidget {
   static const double HEIGHT = 50;
@@ -28,7 +31,7 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     int current = 0;
 
     list.add(IndexBottomBarButton(
-      iconData: Icons.home,
+      iconData: Icons.home_rounded,
       index: current,
       selected: current == currentTap,
       onDoubleTap: () {
@@ -38,7 +41,7 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     current++;
 
     list.add(IndexBottomBarButton(
-      iconData: Icons.public, // notifications_active
+      iconData: Icons.public_rounded, // notifications_active
       index: current,
       selected: current == currentTap,
       onDoubleTap: () {
@@ -47,20 +50,25 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     ));
     current++;
 
-    list.add(Expanded(
-        child: Container(
-      height: IndexBottomBar.HEIGHT,
-    )));
+    list.add(IndexBottomBarButton(
+      iconData: Icons.add_circle_outline_rounded, // notifications_active
+      index: -1,
+      selected: false,
+      bigFont: true,
+      onTap: (value) {
+        EditorRouter.open(context);
+      },
+    ));
 
     list.add(IndexBottomBarButton(
-      iconData: Icons.search,
+      iconData: Icons.search_rounded,
       index: current,
       selected: current == currentTap,
     ));
     current++;
 
     list.add(IndexBottomBarButton(
-      iconData: Icons.mail,
+      iconData: Icons.mail_rounded,
       index: current,
       selected: current == currentTap,
     ));
@@ -73,16 +81,15 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     //   ),
     // );
     return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          offset: Offset(-6, 0),
-          color: themeData.shadowColor,
-          spreadRadius: 2,
-          blurRadius: 8,
-        )
-      ]),
+      decoration: BoxDecoration(
+          border: Border(
+        top: BorderSide(
+          width: 1,
+          color: themeData.scaffoldBackgroundColor,
+        ),
+      )),
       child: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        // shape: CircularNotchedRectangle(),
         color: themeData.cardColor,
         surfaceTintColor: themeData.cardColor,
         shadowColor: themeData.shadowColor,
@@ -108,6 +115,7 @@ class IndexBottomBarButton extends StatelessWidget {
   final int index;
   final bool selected;
   final Function(int)? onTap;
+  bool bigFont;
   Function? onDoubleTap;
 
   IndexBottomBarButton({
@@ -116,6 +124,7 @@ class IndexBottomBarButton extends StatelessWidget {
     required this.selected,
     this.onTap,
     this.onDoubleTap,
+    this.bigFont = false,
   });
 
   @override
@@ -146,6 +155,7 @@ class IndexBottomBarButton extends StatelessWidget {
           child: Icon(
             iconData,
             color: selected ? selectedColor : null,
+            size: bigFont ? 40 : null,
           ),
         ),
       ),

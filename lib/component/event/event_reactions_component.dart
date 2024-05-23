@@ -65,7 +65,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     var s = S.of(context);
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
-    var fontSize = themeData.textTheme.bodySmall!.fontSize!;
+    var fontSize = themeData.textTheme.bodyMedium!.fontSize!;
     var mainColor = themeData.primaryColor;
     var mediumFontSize = themeData.textTheme.bodyMedium!.fontSize;
     var popFontStyle = TextStyle(
@@ -108,14 +108,18 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               }
             }
 
-            var iconData = Icons.keyboard_double_arrow_down;
+            var iconData = Icons.keyboard_double_arrow_down_rounded;
             if (showMoreLike) {
-              iconData = Icons.keyboard_double_arrow_up;
+              iconData = Icons.keyboard_double_arrow_up_rounded;
             }
 
             showMoreWidget = GestureDetector(
               onTap: showMoreLikeTap,
-              child: Icon(iconData, color: likeColor),
+              child: Icon(
+                iconData,
+                color: likeColor,
+                size: 24,
+              ),
             );
           }
         }
@@ -228,8 +232,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 right: Base.BASE_PADDING_HALF,
               ),
               child: Icon(
-                Icons.more_vert,
-                size: 16,
+                Icons.more_vert_rounded,
+                size: 18,
                 color: hintColor,
               ),
             ),
@@ -243,7 +247,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               alignment: Alignment.centerLeft,
               child: EventReactionNumComponent(
                 num: replyNum,
-                iconData: Icons.comment,
+                iconData: Icons.comment_rounded,
                 onTap: onCommmentTap,
                 color: hintColor,
                 fontSize: fontSize,
@@ -269,7 +273,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                   onSelected: onRepostTap,
                   child: EventReactionNumComponent(
                     num: repostNum,
-                    iconData: Icons.repeat,
+                    iconData: Icons.repeat_rounded,
                     color: hintColor,
                     fontSize: fontSize,
                   ),
@@ -289,7 +293,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 height: double.infinity,
                 child: EventReactionNumComponent(
                   num: zapNum,
-                  iconData: Icons.bolt,
+                  iconData: Icons.bolt_rounded,
                   onTap: null,
                   color: hintColor,
                   fontSize: fontSize,
@@ -330,7 +334,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
             ers.add(Container(
               margin: const EdgeInsets.only(right: Base.BASE_PADDING_HALF),
               child: EventReactionEmojiNumComponent(
-                iconData: Icons.favorite,
+                iconData: Icons.favorite_rounded,
                 iconText: likeText,
                 num: num,
                 color: color,
@@ -635,7 +639,7 @@ class EventReactionNumComponent extends StatelessWidget {
     Widget? main;
     var iconWidget = Icon(
       iconData,
-      size: 14,
+      size: 16,
       color: color,
     );
 
@@ -708,7 +712,7 @@ class EventReactionEmojiNumComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget iconWidget = Icon(
       iconData,
-      size: 14,
+      size: 16,
       color: color,
     );
 
