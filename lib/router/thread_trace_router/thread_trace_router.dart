@@ -146,7 +146,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
                 ),
                 top: 38,
                 bottom: 0,
-                left: 29,
+                left: 28,
               ),
               Column(
                 children: traceList,
