@@ -16,12 +16,16 @@ class SettingGroupTitleComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
+    var cardColor = themeData.cardColor;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
     return SliverToBoxAdapter(
       child: Container(
-        margin: EdgeInsets.only(
+        color: cardColor,
+        padding: EdgeInsets.only(
           top: 30,
+          left: 20,
+          right: 20,
         ),
         child: Row(
           children: [

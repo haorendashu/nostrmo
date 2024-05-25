@@ -19,6 +19,7 @@ class BedgeComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     var imagePath = badgeDefinition.thumb;
     if (StringUtil.isBlank(imagePath)) {
       imagePath = badgeDefinition.image;
@@ -42,7 +43,7 @@ class BedgeComponent extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-        color: Colors.grey,
+        color: themeData.hintColor,
       ),
       child: imageWidget,
     );

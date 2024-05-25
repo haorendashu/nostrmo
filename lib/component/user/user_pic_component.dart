@@ -44,6 +44,8 @@ class _UserPicComponent extends State<UserPicComponent> {
   }
 
   Widget buildWidget(Metadata? metadata) {
+    var themeData = Theme.of(context);
+
     Widget? imageWidget;
     if (metadata != null) {
       if (StringUtil.isNotBlank(metadata.picture)) {
@@ -63,7 +65,7 @@ class _UserPicComponent extends State<UserPicComponent> {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(widget.width / 2),
-        color: Colors.grey,
+        color: themeData.hintColor,
       ),
       child: imageWidget,
     );

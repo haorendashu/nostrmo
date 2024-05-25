@@ -89,7 +89,7 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-        color: Colors.grey,
+        color: themeData.hintColor,
       ),
       margin: const EdgeInsets.only(
         right: Base.BASE_PADDING,

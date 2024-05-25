@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("需要身份验证"),
         "Auto_Open_Sensitive_Content":
             MessageLookupByLibrary.simpleMessage("自动打开敏感内容"),
+        "Background_Image": MessageLookupByLibrary.simpleMessage("背景图片"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
         "Backup_my_notes": MessageLookupByLibrary.simpleMessage("备份我的数据"),
@@ -59,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("给我买一杯咖啡！"),
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
+        "Card_Color": MessageLookupByLibrary.simpleMessage("卡片颜色"),
         "Clear_All_Data": MessageLookupByLibrary.simpleMessage("清空所有数据"),
         "Clear_Not_My_Data": MessageLookupByLibrary.simpleMessage("清空非我的数据"),
         "Close_Private_DM": MessageLookupByLibrary.simpleMessage("关闭私密私信"),
@@ -137,6 +139,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Hashtag": MessageLookupByLibrary.simpleMessage("标签"),
         "Hide": MessageLookupByLibrary.simpleMessage("隐藏"),
         "Hide_Relay_Notices": MessageLookupByLibrary.simpleMessage("隐藏中继通知"),
+        "Hint_Font_Color": MessageLookupByLibrary.simpleMessage("提示文字颜色"),
         "Home": MessageLookupByLibrary.simpleMessage("首页"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
@@ -170,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("本地中继"),
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Main_Font_Color": MessageLookupByLibrary.simpleMessage("主文字颜色"),
         "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("最大子动态数量"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("提到用户"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),

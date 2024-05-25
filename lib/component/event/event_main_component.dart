@@ -145,11 +145,6 @@ class _EventMainComponent extends State<EventMainComponent> {
     var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
     var mainColor = themeData.primaryColor;
 
-    Color? contentCardColor = themeData.cardColor;
-    if (contentCardColor == Colors.white) {
-      contentCardColor = Colors.grey[300];
-    }
-
     Event? repostEvent;
     if ((widget.event.kind == kind.EventKind.REPOST ||
             widget.event.kind == kind.EventKind.GENERIC_REPOST) &&
@@ -826,7 +821,7 @@ class _EventMainComponent extends State<EventMainComponent> {
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(imgSize / 2),
-                    color: Colors.grey,
+                    color: themeData.hintColor,
                   ),
                   child: imageWidget,
                 ),

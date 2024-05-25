@@ -49,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Authenticat need"),
         "Auto_Open_Sensitive_Content":
             MessageLookupByLibrary.simpleMessage("Auto Open Sensitive Content"),
+        "Background_Image":
+            MessageLookupByLibrary.simpleMessage("Background Image"),
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("Backup and Safety tips"),
         "Backup_my_notes":
@@ -70,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Buy me a coffee!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "Card_Color": MessageLookupByLibrary.simpleMessage("Card Color"),
         "Clear_All_Data":
             MessageLookupByLibrary.simpleMessage("Clear All Data"),
         "Clear_Not_My_Data":
@@ -169,6 +172,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "Hide_Relay_Notices":
             MessageLookupByLibrary.simpleMessage("Hide Relay Notices"),
+        "Hint_Font_Color":
+            MessageLookupByLibrary.simpleMessage("Hint Font Color"),
         "Home": MessageLookupByLibrary.simpleMessage("Home"),
         "Hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("I accept the"),
@@ -218,6 +223,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Local Relay"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
+        "Main_Font_Color":
+            MessageLookupByLibrary.simpleMessage("Main Font Color"),
         "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("Mention User"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),

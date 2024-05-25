@@ -246,6 +246,14 @@ class SettingProvider extends ChangeNotifier {
   /// theme color
   int? get themeColor => _settingData!.themeColor;
 
+  int? get mainFontColor => _settingData!.mainFontColor;
+
+  int? get hintFontColor => _settingData!.hintFontColor;
+
+  int? get cardColor => _settingData!.cardColor;
+
+  String? get backgroundImage => _settingData!.backgroundImage;
+
   /// fontFamily
   String? get fontFamily => _settingData!.fontFamily;
 
@@ -406,6 +414,26 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set mainFontColor(int? o) {
+    _settingData!.mainFontColor = o;
+    saveAndNotifyListeners();
+  }
+
+  set hintFontColor(int? o) {
+    _settingData!.hintFontColor = o;
+    saveAndNotifyListeners();
+  }
+
+  set cardColor(int? o) {
+    _settingData!.cardColor = o;
+    saveAndNotifyListeners();
+  }
+
+  set backgroundImage(String? o) {
+    _settingData!.backgroundImage = o;
+    saveAndNotifyListeners();
+  }
+
   /// fontFamily
   set fontFamily(String? _fontFamily) {
     _settingData!.fontFamily = _fontFamily;
@@ -543,6 +571,17 @@ class SettingData {
   /// theme color
   int? themeColor;
 
+  /// main font color
+  int? mainFontColor;
+
+  /// hint font color
+  int? hintFontColor;
+
+  /// card color
+  int? cardColor;
+
+  String? backgroundImage;
+
   /// fontFamily
   String? fontFamily;
 
@@ -599,6 +638,10 @@ class SettingData {
     this.imgCompress = 50,
     this.themeStyle = ThemeStyle.AUTO,
     this.themeColor,
+    this.mainFontColor,
+    this.hintFontColor,
+    this.cardColor,
+    this.backgroundImage,
     this.fontFamily,
     this.openTranslate,
     this.translateTarget,
@@ -650,6 +693,10 @@ class SettingData {
       themeStyle = ThemeStyle.AUTO;
     }
     themeColor = json['themeColor'];
+    mainFontColor = json['mainFontColor'];
+    hintFontColor = json['hintFontColor'];
+    cardColor = json['cardColor'];
+    backgroundImage = json['backgroundImage'];
     openTranslate = json['openTranslate'];
     translateTarget = json['translateTarget'];
     translateSourceArgs = json['translateSourceArgs'];
@@ -695,6 +742,10 @@ class SettingData {
     data['imgCompress'] = this.imgCompress;
     data['themeStyle'] = this.themeStyle;
     data['themeColor'] = this.themeColor;
+    data['mainFontColor'] = this.mainFontColor;
+    data['hintFontColor'] = this.hintFontColor;
+    data['cardColor'] = this.cardColor;
+    data['backgroundImage'] = this.backgroundImage;
     data['fontFamily'] = this.fontFamily;
     data['openTranslate'] = this.openTranslate;
     data['translateTarget'] = this.translateTarget;

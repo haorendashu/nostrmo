@@ -47,7 +47,7 @@ class _EmojiPickerComponent extends State<EmojiPickerComponent> {
             showBackspaceButton: false,
             backgroundColor: bgColor,
             indicatorColor: mainColor,
-            iconColor: Colors.grey,
+            iconColor: themeData.hintColor,
             iconColorSelected: mainColor,
             backspaceColor: mainColor,
           ),

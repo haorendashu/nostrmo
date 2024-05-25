@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/translations.dart';
@@ -8,6 +10,7 @@ import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
+import 'util/string_util.dart';
 
 class HomeComponent extends StatefulWidget {
   Widget child;
@@ -34,6 +37,25 @@ class _HomeComponent extends State<HomeComponent> {
     PlatformUtil.init(context);
     var _webviewProvider = Provider.of<WebViewProvider>(context);
 
+    Widget child = widget.child;
+    if (StringUtil.isNotBlank(settingProvider.backgroundImage)) {
+      ImageProvider? image;
+      if (settingProvider.backgroundImage!.indexOf("http") == 0) {
+        image = NetworkImage(settingProvider.backgroundImage!);
+      } else {
+        image = FileImage(File(settingProvider.backgroundImage!));
+      }
+
+      child = Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: image,
+          fit: BoxFit.cover,
+        )),
+        child: child,
+      );
+    }
+
     return MaterialApp(
       locale: widget.locale,
       debugShowCheckedModeBanner: false,
@@ -48,7 +70,7 @@ class _HomeComponent extends State<HomeComponent> {
       theme: widget.theme,
       home: Stack(
         children: [
-          Positioned.fill(child: widget.child),
+          Positioned.fill(child: child),
           webViewProvider.url != null
               ? Positioned(
                   child: Offstage(

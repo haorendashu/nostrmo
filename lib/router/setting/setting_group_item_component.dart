@@ -26,6 +26,7 @@ class SettingGroupItemComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
+    var cardColor = themeData.cardColor;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
     if (child == null && StringUtil.isNotBlank(value)) {
@@ -52,12 +53,11 @@ class SettingGroupItemComponent extends StatelessWidget {
 
     return SliverToBoxAdapter(
       child: Container(
-        margin: const EdgeInsets.only(
+        color: cardColor,
+        padding: EdgeInsets.only(
           top: 12,
-        ),
-        padding: const EdgeInsets.only(
-          left: Base.BASE_PADDING_HALF,
-          right: Base.BASE_PADDING_HALF,
+          left: 20 + Base.BASE_PADDING_HALF,
+          right: 20 + Base.BASE_PADDING_HALF,
         ),
         child: GestureDetector(
           onTap: () {

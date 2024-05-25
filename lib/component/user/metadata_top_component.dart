@@ -223,7 +223,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     topList.add(Container(
       width: maxWidth,
       height: bannerHeight,
-      color: Colors.grey.withOpacity(0.5),
+      color: hintColor.withOpacity(0.5),
       child: bannerImage,
     ));
     topList.add(Container(
@@ -277,7 +277,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-        color: Colors.grey,
+        color: hintColor,
       ),
       child: imageWidget,
     );

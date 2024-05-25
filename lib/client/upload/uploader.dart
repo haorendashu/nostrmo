@@ -80,7 +80,8 @@ class Uploader {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
 
       if (result != null) {
-        if (result.files.single.size > NIP95_MAX_LENGTH) {
+        if (settingProvider.imageService == ImageServices.NIP_95 &&
+            result.files.single.size > NIP95_MAX_LENGTH) {
           BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
         }
 

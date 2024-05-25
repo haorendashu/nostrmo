@@ -99,7 +99,7 @@ mixin EditorMixin {
   }) {
     var s = S.of(getContext());
     var themeData = Theme.of(getContext());
-    var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
+    var cardColor = themeData.cardColor;
     var hintColor = themeData.hintColor;
     var mainColor = themeData.primaryColor;
 
@@ -252,7 +252,7 @@ mixin EditorMixin {
       height: height,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: scaffoldBackgroundColor,
+        color: cardColor,
         boxShadow: showShadow
             ? [
                 BoxShadow(

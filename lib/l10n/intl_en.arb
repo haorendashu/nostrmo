@@ -293,5 +293,9 @@
     "NWC_TIP2": "NWC URL is like",
     "PLease_input_NWC_URL": "PLease input NWC URL",
     "is_sending": "is sending",
-    "Image_service_path": "Image service path"
+    "Image_service_path": "Image service path",
+    "Card_Color": "Card Color",
+    "Main_Font_Color": "Main Font Color",
+    "Hint_Font_Color": "Hint Font Color",
+    "Background_Image": "Background Image"
 }

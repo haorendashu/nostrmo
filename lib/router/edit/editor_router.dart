@@ -121,6 +121,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     var mainColor = themeData.primaryColor;
     var hintColor = themeData.hintColor;
     var textColor = themeData.textTheme.bodyMedium!.color;
+    var cardColor = themeData.cardColor;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
     var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
 
@@ -304,7 +305,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     return Scaffold(
       appBar: AppBar(
         // title: Text("Note"),
-        backgroundColor: scaffoldBackgroundColor,
+        backgroundColor: cardColor,
         leading: AppbarBackBtnComponent(),
         actions: [
           Container(
@@ -323,6 +324,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
         ],
       ),
       body: Container(
+        color: cardColor,
         child: Column(
           children: list,
         ),

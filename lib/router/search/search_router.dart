@@ -72,6 +72,7 @@ class _SearchRouter extends CustState<SearchRouter>
   @override
   Widget doBuild(BuildContext context) {
     var s = S.of(context);
+    var themeData = Theme.of(context);
     var _settingProvider = Provider.of<SettingProvider>(context);
     preBuild();
 
@@ -209,6 +210,7 @@ class _SearchRouter extends CustState<SearchRouter>
         child: Container(
           child: Column(children: [
             Container(
+              color: themeData.cardColor,
               child: TextField(
                 controller: controller,
                 decoration: InputDecoration(

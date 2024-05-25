@@ -40,7 +40,7 @@ class DMNoticeItemComponent extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-          color: Colors.grey,
+          color: hintColor,
         ),
         child: Image.asset("assets/imgs/logo/logo512.png"),
       ),
@@ -67,11 +67,13 @@ class DMNoticeItemComponent extends StatelessWidget {
     var main = Container(
       padding: EdgeInsets.all(Base.BASE_PADDING),
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-        width: 1,
-        color: hintColor,
-      ))),
+        border: Border(
+            bottom: BorderSide(
+          width: 1,
+          color: hintColor,
+        )),
+        color: themeData.cardColor,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

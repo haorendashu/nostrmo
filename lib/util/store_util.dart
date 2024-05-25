@@ -4,6 +4,7 @@ import 'package:crypto/crypto.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:nostrmo/util/hash_util.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 import 'string_util.dart';
 
@@ -24,6 +25,32 @@ class StoreUtil {
   static Future<String> getBasePath() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     return appDocDir.path;
+  }
+
+  static Future<String?> saveFileToDocument(String filePath,
+      {String? targetFileName}) async {
+    if (StringUtil.isBlank(targetFileName)) {
+      var fileName = basename(filePath);
+      var fileNameStrs = fileName.split(".");
+      if (fileNameStrs.length > 1) {
+        fileName =
+            "${DateTime.now().millisecondsSinceEpoch}.${fileNameStrs[1]}";
+      }
+
+      targetFileName = fileName;
+    }
+
+    var oldFile = File(filePath);
+
+    var basePath = await getBasePath();
+    var targetFilePath = "$basePath/$targetFileName";
+    var targetFile = File(targetFilePath);
+    if (targetFile.existsSync()) {
+      targetFile.deleteSync();
+    }
+
+    await oldFile.copy(targetFilePath);
+    return targetFilePath;
   }
 
   static Future<String> saveBS2TempFile(String extension, List<int> uint8list,

@@ -121,7 +121,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-              color: Colors.grey,
+              color: themeData.hintColor,
             ),
             child: imageWidget,
           ));

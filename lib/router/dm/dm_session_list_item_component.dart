@@ -92,11 +92,13 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
         return Container(
           padding: EdgeInsets.all(Base.BASE_PADDING),
           decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-            width: 1,
-            color: hintColor,
-          ))),
+            border: Border(
+                bottom: BorderSide(
+              width: 1,
+              color: hintColor,
+            )),
+            color: themeData.cardColor,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -17,6 +17,7 @@ class SearchActionItemComponent extends StatelessWidget {
     var themeData = Theme.of(context);
     var fontSize = themeData.textTheme.bodyLarge!.fontSize;
     var hintColor = themeData.hintColor;
+    var cardColor = themeData.cardColor;
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -32,11 +33,14 @@ class SearchActionItemComponent extends StatelessWidget {
           bottom: Base.BASE_PADDING,
         ),
         decoration: BoxDecoration(
-            border: Border(
-                bottom: BorderSide(
-          width: 1,
-          color: hintColor,
-        ))),
+          color: cardColor,
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: hintColor,
+            ),
+          ),
+        ),
         child: Text(
           title,
           style: TextStyle(fontSize: fontSize),

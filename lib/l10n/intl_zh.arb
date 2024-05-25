@@ -282,5 +282,9 @@
     "NWC_TIP1": "NWC 是 Nostr 钱包链接协议, 通过 NWC 你可以在 APP 里面 ZAP。",
     "NWC_TIP2": "NWC 链接像这样子",
     "is_sending": "发送中",
-    "Image_service_path": "图片服务地址"
+    "Image_service_path": "图片服务地址",
+    "Card_Color": "卡片颜色",
+    "Main_Font_Color": "主文字颜色",
+    "Hint_Font_Color": "提示文字颜色",
+    "Background_Image": "背景图片"
 }

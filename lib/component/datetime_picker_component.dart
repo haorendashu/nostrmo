@@ -69,7 +69,7 @@ class _DatetimePickerComponent extends State<DatetimePickerComponent> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-    var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
+    var cardColor = themeData.cardColor;
     var mainColor = themeData.primaryColor;
     var bigTextSize = themeData.textTheme.bodyLarge!.fontSize;
     var s = S.of(context);
@@ -194,7 +194,7 @@ class _DatetimePickerComponent extends State<DatetimePickerComponent> {
     ));
 
     var main = Container(
-      color: scaffoldBackgroundColor,
+      color: cardColor,
       padding: const EdgeInsets.all(Base.BASE_PADDING),
       child: Column(
         mainAxisSize: MainAxisSize.min,

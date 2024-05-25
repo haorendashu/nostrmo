@@ -30,6 +30,7 @@ class _ReactionEventMetadataComponent
 
   @override
   Widget build(BuildContext context) {
+    var themeData = Theme.of(context);
     return Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
       List<Widget> list = [];
@@ -55,7 +56,7 @@ class _ReactionEventMetadataComponent
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-          color: Colors.grey,
+          color: themeData.hintColor,
         ),
         child: imageWidget,
       ));

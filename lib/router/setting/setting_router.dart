@@ -9,12 +9,15 @@ import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:nostrmo/client/nip02/cust_contact_list.dart';
 import 'package:nostrmo/client/filter.dart';
+import 'package:nostrmo/client/upload/uploader.dart';
+import 'package:nostrmo/component/color_pick_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/consts/thread_mode.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/router/index/account_manager_component.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
+import 'package:nostrmo/util/store_util.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
@@ -67,9 +70,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     var themeData = Theme.of(context);
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var _settingProvider = Provider.of<SettingProvider>(context);
+    var valueFontSize = themeData.textTheme.bodyMedium!.fontSize;
 
     var mainColor = themeData.primaryColor;
     var hintColor = themeData.hintColor;
+    var cardColor = themeData.cardColor;
 
     s = S.of(context);
 
@@ -79,6 +84,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     initDefaultList(s);
     initDefaultTabListTimeline(s);
     initDefaultTabListGlobal(s);
+    initColorStyleEnumList(s);
 
     initThemeStyleList(s);
     initFontEnumList(s);
@@ -152,6 +158,31 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         width: 28,
         color: mainColor,
       ),
+    ));
+    var textStyle = TextStyle(
+      color: hintColor,
+      fontWeight: FontWeight.bold,
+      fontSize: valueFontSize,
+    );
+    list.add(SettingGroupItemComponent(
+      name: s.Card_Color,
+      onTap: pickCardColor,
+      child: getCustomColorWidget(settingProvider.cardColor, textStyle),
+    ));
+    list.add(SettingGroupItemComponent(
+      name: s.Main_Font_Color,
+      onTap: pickMainFontColor,
+      child: getCustomColorWidget(settingProvider.mainFontColor, textStyle),
+    ));
+    list.add(SettingGroupItemComponent(
+      name: s.Hint_Font_Color,
+      onTap: pickHintFontColor,
+      child: getCustomColorWidget(settingProvider.hintFontColor, textStyle),
+    ));
+    list.add(SettingGroupItemComponent(
+      name: s.Background_Image,
+      onTap: pickBackgroundImage,
+      child: Container(),
     ));
     list.add(SettingGroupItemComponent(
       name: s.Font_Family,
@@ -311,6 +342,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
     list.add(SliverToBoxAdapter(
       child: Container(
+        color: cardColor,
         height: 30,
       ),
     ));
@@ -327,11 +359,6 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.only(top: Base.BASE_PADDING),
-        padding: EdgeInsets.only(
-          left: 20,
-          right: 20,
-        ),
         child: CustomScrollView(
           slivers: list,
         ),
@@ -591,6 +618,92 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     Color? color = await ColorSelectorComponent.show(context);
     if (color != null) {
       settingProvider.themeColor = color.value;
+      resetTheme();
+    }
+  }
+
+  List<EnumObj>? colorStyleEnumList;
+
+  void initColorStyleEnumList(S s) {
+    if (colorStyleEnumList == null) {
+      colorStyleEnumList = [];
+      colorStyleEnumList!.add(EnumObj(false, s.Default_Color));
+      colorStyleEnumList!.add(EnumObj(true, s.Custom_Color));
+    }
+  }
+
+  Widget getCustomColorWidget(int? colorValue, TextStyle textStyle) {
+    if (colorValue == null) {
+      return Text(
+        s.Default_Color,
+        style: textStyle,
+      );
+    } else {
+      return Container(
+        height: 28,
+        width: 28,
+        color: Color(colorValue),
+      );
+    }
+  }
+
+  Future<int?> pickCustomColor({int? colorValue}) async {
+    Color? oldColor;
+    if (colorValue != null) {
+      oldColor = Color(colorValue);
+    }
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, colorStyleEnumList!);
+    if (resultEnumObj != null) {
+      if (resultEnumObj.value == true) {
+        // pick customm color
+        Color? color = await ColorPickDialog.show(context, oldColor);
+        if (color != null) {
+          return color.value;
+        }
+      } else {
+        return -1;
+      }
+    }
+
+    return null;
+  }
+
+  Future<void> pickMainFontColor() async {
+    var colorValue =
+        await pickCustomColor(colorValue: settingProvider.mainFontColor);
+    if (colorValue != null) {
+      if (colorValue == -1) {
+        settingProvider.mainFontColor = null;
+      } else {
+        settingProvider.mainFontColor = colorValue;
+      }
+      resetTheme();
+    }
+  }
+
+  Future<void> pickHintFontColor() async {
+    var colorValue =
+        await pickCustomColor(colorValue: settingProvider.hintFontColor);
+    if (colorValue != null) {
+      if (colorValue == -1) {
+        settingProvider.hintFontColor = null;
+      } else {
+        settingProvider.hintFontColor = colorValue;
+      }
+      resetTheme();
+    }
+  }
+
+  Future<void> pickCardColor() async {
+    var colorValue =
+        await pickCustomColor(colorValue: settingProvider.cardColor);
+    if (colorValue != null) {
+      if (colorValue == -1) {
+        settingProvider.cardColor = null;
+      } else {
+        settingProvider.cardColor = colorValue;
+      }
       resetTheme();
     }
   }
@@ -1093,5 +1206,27 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     if (resultEnumObj != null) {
       settingProvider.hideRelayNotices = resultEnumObj.value;
     }
+  }
+
+  pickBackgroundImage() async {
+    var filepath = await Uploader.pick(context);
+    if (StringUtil.isBlank(filepath)) {
+      settingProvider.backgroundImage = null;
+    }
+
+    if (PlatformUtil.isWeb()) {
+      var uploadedFilepath = await Uploader.upload(filepath!,
+          imageService: settingProvider.imageService);
+      settingProvider.backgroundImage = uploadedFilepath;
+    } else {
+      var targetFilePath = await StoreUtil.saveFileToDocument(filepath!,
+          targetFileName: "nostrbg.jpg");
+      if (StringUtil.isNotBlank(targetFilePath)) {
+        settingProvider.backgroundImage = targetFilePath;
+        settingProvider.translateTarget = null;
+      }
+    }
+
+    resetTheme();
   }
 }

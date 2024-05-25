@@ -60,6 +60,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     var themeData = Theme.of(context);
     var textColor = themeData.textTheme.bodyMedium!.color;
     var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
+    var cardColor = themeData.cardColor;
 
     var hintColor = themeData.hintColor;
     var s = S.of(context);
@@ -132,7 +133,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
 
     list.add(Container(
       decoration: BoxDecoration(
-        color: scaffoldBackgroundColor,
+        color: cardColor,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),

@@ -2999,6 +2999,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Card Color`
+  String get Card_Color {
+    return Intl.message(
+      'Card Color',
+      name: 'Card_Color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Main Font Color`
+  String get Main_Font_Color {
+    return Intl.message(
+      'Main Font Color',
+      name: 'Main_Font_Color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hint Font Color`
+  String get Hint_Font_Color {
+    return Intl.message(
+      'Hint Font Color',
+      name: 'Hint_Font_Color',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Background Image`
+  String get Background_Image {
+    return Intl.message(
+      'Background Image',
+      name: 'Background_Image',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
