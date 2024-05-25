@@ -331,7 +331,7 @@ class RelayPool {
       }
     }
 
-    if (!(tempRelays != null && tempRelays.isNotEmpty && onlyTempRelays)) {
+    if (!((tempRelays != null && tempRelays.isNotEmpty) && onlyTempRelays)) {
       // send throw my relay
       for (Relay relay in _relays.values) {
         relayDoQuery(relay, subscription);

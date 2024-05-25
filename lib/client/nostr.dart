@@ -155,7 +155,7 @@ class Nostr {
       {String? id,
       Function? onComplete,
       List<String>? tempRelays,
-      bool onlyTempRelays = true}) {
+      bool onlyTempRelays = false}) {
     return _pool.query(filters, onEvent,
         id: id,
         onComplete: onComplete,

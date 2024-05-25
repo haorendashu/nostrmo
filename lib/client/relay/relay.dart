@@ -51,7 +51,7 @@ abstract class Relay {
     for (var message in pendingMessages) {
       // TODO To check result? and how to handle if send fail?
       var result = send(message);
-      if (result) {
+      if (!result) {
         print("message send fail onConnected");
       }
     }
