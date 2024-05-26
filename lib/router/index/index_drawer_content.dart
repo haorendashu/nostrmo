@@ -26,21 +26,21 @@ import '../../provider/metadata_provider.dart';
 import '../edit/editor_router.dart';
 import 'account_manager_component.dart';
 
-class IndexDrawerContnetComponnent extends StatefulWidget {
+class IndexDrawerContentComponnent extends StatefulWidget {
   bool smallMode;
 
-  IndexDrawerContnetComponnent({
+  IndexDrawerContentComponnent({
     required this.smallMode,
   });
 
   @override
   State<StatefulWidget> createState() {
-    return _IndexDrawerContnetComponnent();
+    return _IndexDrawerContentComponnent();
   }
 }
 
-class _IndexDrawerContnetComponnent
-    extends State<IndexDrawerContnetComponnent> {
+class _IndexDrawerContentComponnent
+    extends State<IndexDrawerContentComponnent> {
   ScrollController userStatisticscontroller = ScrollController();
 
   double profileEditBtnWidth = 40;
@@ -64,7 +64,12 @@ class _IndexDrawerContnetComponnent
           top: Base.BASE_PADDING + paddingTop,
           bottom: Base.BASE_PADDING_HALF,
         ),
-        child: UserPicComponent(pubkey: pubkey, width: 50),
+        child: GestureDetector(
+          onTap: () {
+            RouterUtil.router(context, RouterPath.USER, pubkey);
+          },
+          child: UserPicComponent(pubkey: pubkey, width: 50),
+        ),
       ));
     } else {
       list.add(Container(

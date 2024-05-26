@@ -373,7 +373,7 @@ class _IndexRouter extends CustState<IndexRouter>
         // floatingActionButtonLocation:
         //     FloatingActionButtonLocation.miniCenterDocked,
         drawer: Drawer(
-          child: IndexDrawerContnetComponnent(
+          child: IndexDrawerContentComponnent(
             smallMode: false,
           ),
         ),
