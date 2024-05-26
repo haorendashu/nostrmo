@@ -60,8 +60,8 @@ class _IndexDrawerContnetComponnent
 
     if (widget.smallMode) {
       list.add(Container(
-        margin: const EdgeInsets.only(
-          top: Base.BASE_PADDING,
+        margin: EdgeInsets.only(
+          top: Base.BASE_PADDING + paddingTop,
           bottom: Base.BASE_PADDING_HALF,
         ),
         child: UserPicComponent(pubkey: pubkey, width: 50),
