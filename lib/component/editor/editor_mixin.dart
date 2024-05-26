@@ -964,7 +964,6 @@ mixin EditorMixin {
           alignment: Alignment.center,
           child: ImageComponent(
             imageUrl: emoji.filepath!,
-            placeholder: (context, url) => Container(),
           ),
         ),
       ));

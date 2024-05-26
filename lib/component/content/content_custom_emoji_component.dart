@@ -23,7 +23,6 @@ class ContentCustomEmojiComponent extends StatelessWidget {
           // width: fontSize! * 2,
           imageUrl: imagePath,
           // fit: imageBoxFix,
-          placeholder: (context, url) => Container(),
         ),
       );
     } else {

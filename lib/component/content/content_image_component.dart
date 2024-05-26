@@ -48,8 +48,6 @@ class ContentImageComponent extends StatelessWidget {
             fit: imageBoxFix,
             width: width,
             height: height,
-            // placeholder: (context, url) => CircularProgressIndicator(),
-            placeholder: (context, url) => Container(),
           ),
         ),
       ),
