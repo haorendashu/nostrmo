@@ -58,6 +58,8 @@ class _ContentImageComponent extends CustState<ContentImageComponent> {
 
   @override
   Widget doBuild(BuildContext context) {
+    var themeData = Theme.of(context);
+
     Widget? main;
     if ((widget.fileMetadata != null &&
             StringUtil.isNotBlank(widget.fileMetadata!.blurhash)) &&
@@ -80,13 +82,16 @@ class _ContentImageComponent extends CustState<ContentImageComponent> {
           });
         },
         child: Center(
-          child: AspectRatio(
-            aspectRatio: 1.6,
-            child: Image(
-              fit: widget.imageBoxFix,
-              width: widget.width,
-              height: widget.height,
-              image: imageProvider,
+          child: Container(
+            color: themeData.hintColor.withOpacity(0.2),
+            child: AspectRatio(
+              aspectRatio: 1.6,
+              child: Image(
+                fit: widget.imageBoxFix,
+                width: widget.width,
+                height: widget.height,
+                image: imageProvider,
+              ),
             ),
           ),
         ),
