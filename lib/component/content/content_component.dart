@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:nostrmo/client/cashu/cashu_tokens.dart';
+import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/component/content/content_music_component.dart';
 import 'package:nostrmo/component/music/wavlake/wavlake_track_music_info_builder.dart';
 import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +60,8 @@ class ContentComponent extends StatefulWidget {
 
   bool smallest;
 
+  EventRelation? eventRelation;
+
   ContentComponent({
     this.content,
     this.event,
@@ -67,6 +71,7 @@ class ContentComponent extends StatefulWidget {
     this.showLinkPreview = true,
     this.imageListMode = false,
     this.smallest = false,
+    this.eventRelation,
   });
 
   @override
@@ -409,6 +414,7 @@ class _ContentComponent extends State<ContentComponent> {
               imageIndex: index,
               height: CONTENT_IMAGE_LIST_HEIGHT,
               width: CONTENT_IMAGE_LIST_HEIGHT,
+              fileMetadata: getFileMetadata(image),
               // imageBoxFix: BoxFit.fitWidth,
             ),
           ),
@@ -463,6 +469,7 @@ class _ContentComponent extends State<ContentComponent> {
               imageUrl: str,
               imageList: images,
               imageIndex: images.length - 1,
+              fileMetadata: getFileMetadata(str),
             );
 
             bufferToList(buffer, allList, removeLastSpan: true);
@@ -1006,6 +1013,12 @@ class _ContentComponent extends State<ContentComponent> {
       if (onDeviceTranslator != null) {
         onDeviceTranslator.close();
       }
+    }
+  }
+
+  getFileMetadata(String image) {
+    if (widget.eventRelation != null) {
+      return widget.eventRelation!.fileMetadatas[image];
     }
   }
 }

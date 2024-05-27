@@ -5,6 +5,7 @@ import 'package:nostrmo/client/event_kind.dart' as kind;
 
 import '../util/spider_util.dart';
 import 'event.dart';
+import 'nip94/file_metadata.dart';
 
 /// This class is designed for get the relation from event, but it seam to used for get tagInfo from event before event_main display.
 class EventRelation {
@@ -39,6 +40,8 @@ class EventRelation {
   List<EventZapInfo> zapInfos = [];
 
   String? innerZapContent;
+
+  Map<String, FileMetadata> fileMetadatas = {};
 
   String? get replyOrRootId {
     return replyId != null ? replyId : rootId;
@@ -110,6 +113,11 @@ class EventRelation {
         } else if (tagKey == "description" &&
             event.kind == kind.EventKind.ZAP) {
           innerZapContent = SpiderUtil.subUntil(value, '\"content\":\"', '\",');
+        } else if (tagKey == "imeta") {
+          var fileMetadata = FileMetadata.fromNIP92Tag(tag);
+          if (fileMetadata != null) {
+            fileMetadatas[fileMetadata.url] = fileMetadata;
+          }
         }
       }
     }

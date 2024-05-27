@@ -574,6 +574,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         showVideo: videoPreview,
         showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
         imageListMode: widget.imageListMode,
+        eventRelation: eventRelation,
       ),
       // child: Column(
       //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -762,6 +763,7 @@ class _EventMainComponent extends State<EventMainComponent> {
     if (type != null && type.startsWith("image")) {
       return ContentImageComponent(
         imageUrl: content,
+        fileMetadata: eventRelation.fileMetadatas[content],
       );
     } else if (type != null && type.startsWith("video")) {
       return ContentVideoComponent(
@@ -772,6 +774,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       return ContentComponent(
         content: widget.event.content,
         event: widget.event,
+        eventRelation: eventRelation,
       );
     }
   }
