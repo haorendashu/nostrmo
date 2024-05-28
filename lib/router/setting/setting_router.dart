@@ -1219,18 +1219,18 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     var filepath = await Uploader.pick(context);
     if (StringUtil.isBlank(filepath)) {
       settingProvider.backgroundImage = null;
-    }
-
-    if (PlatformUtil.isWeb()) {
-      var uploadedFilepath = await Uploader.upload(filepath!,
-          imageService: settingProvider.imageService);
-      settingProvider.backgroundImage = uploadedFilepath;
     } else {
-      var targetFilePath = await StoreUtil.saveFileToDocument(filepath!,
-          targetFileName: "nostrbg.jpg");
-      if (StringUtil.isNotBlank(targetFilePath)) {
-        settingProvider.backgroundImage = targetFilePath;
-        settingProvider.translateTarget = null;
+      if (PlatformUtil.isWeb()) {
+        var uploadedFilepath = await Uploader.upload(filepath!,
+            imageService: settingProvider.imageService);
+        settingProvider.backgroundImage = uploadedFilepath;
+      } else {
+        var targetFilePath = await StoreUtil.saveFileToDocument(filepath!,
+            targetFileName: "nostrbg.jpg");
+        if (StringUtil.isNotBlank(targetFilePath)) {
+          settingProvider.backgroundImage = targetFilePath;
+          settingProvider.translateTarget = null;
+        }
       }
     }
 
