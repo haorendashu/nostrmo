@@ -297,5 +297,6 @@
     "Card_Color": "Card Color",
     "Main_Font_Color": "Main Font Color",
     "Hint_Font_Color": "Hint Font Color",
-    "Background_Image": "Background Image"
+    "Background_Image": "Background Image",
+    "Image": "Image"
 }

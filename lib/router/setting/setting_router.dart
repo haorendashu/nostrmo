@@ -248,6 +248,13 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getOpenList(settingProvider.videoPreview).name,
       onTap: pickVideoPreview,
     ));
+    if (!PlatformUtil.isWeb()) {
+      list.add(SettingGroupItemComponent(
+        name: "Blurhash ${s.Image}",
+        value: getOpenList(settingProvider.openBlurhashImage).name,
+        onTap: pickOpenBlurhashImage,
+      ));
+    }
     if (!PlatformUtil.isPC()) {
       list.add(SettingGroupItemComponent(
         name: s.Translate,
@@ -1228,5 +1235,13 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     }
 
     resetTheme();
+  }
+
+  pickOpenBlurhashImage() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.openBlurhashImage = resultEnumObj.value;
+    }
   }
 }

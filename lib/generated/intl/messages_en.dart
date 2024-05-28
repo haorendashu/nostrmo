@@ -177,6 +177,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Home": MessageLookupByLibrary.simpleMessage("Home"),
         "Hour": MessageLookupByLibrary.simpleMessage("Hour"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("I accept the"),
+        "Image": MessageLookupByLibrary.simpleMessage("Image"),
         "Image_Compress":
             MessageLookupByLibrary.simpleMessage("Image Compress"),
         "Image_or_Video":

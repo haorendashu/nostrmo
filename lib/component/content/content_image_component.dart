@@ -4,6 +4,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip94/file_metadata.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -44,27 +45,19 @@ class ContentImageComponent extends StatefulWidget {
 }
 
 class _ContentImageComponent extends CustState<ContentImageComponent> {
-  bool forceShowImage = false;
-
-  Future<void> onReady(BuildContext context) async {
-    // try to download file
-    try {
-      localCacheManager.getFileStream(widget.imageUrl);
-    } catch (e) {
-      print("contentImageComponent try to getFile error:");
-      print(e.toString());
-    }
-  }
+  Future<void> onReady(BuildContext context) async {}
 
   @override
   Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
 
     Widget? main;
-    if ((widget.fileMetadata != null &&
+    Widget? placeholder;
+    // needn't get from provider
+    if (settingProvider.openBlurhashImage != OpenStatus.CLOSE &&
+        (widget.fileMetadata != null &&
             StringUtil.isNotBlank(widget.fileMetadata!.blurhash)) &&
-        !PlatformUtil.isWeb() &&
-        !forceShowImage) {
+        !PlatformUtil.isWeb()) {
       int? width = widget.fileMetadata!.getImageWidth();
       int? height = widget.fileMetadata!.getImageHeight();
 
@@ -74,43 +67,34 @@ class _ContentImageComponent extends CustState<ContentImageComponent> {
       final imageProvider = BlurhashFfiImage(widget.fileMetadata!.blurhash!,
           decodingHeight: height, decodingWidth: width);
 
-      // main = Container(width: 100, height: 100, color: Colors.red);
-      main = GestureDetector(
-        onTap: () {
-          setState(() {
-            forceShowImage = true;
-          });
-        },
-        child: Center(
-          child: Container(
-            color: themeData.hintColor.withOpacity(0.2),
-            child: AspectRatio(
-              aspectRatio: 1.6,
-              child: Image(
-                fit: widget.imageBoxFix,
-                width: widget.width,
-                height: widget.height,
-                image: imageProvider,
-              ),
-            ),
-          ),
-        ),
-      );
-    } else {
-      main = GestureDetector(
-        onTap: () {
-          previewImages(context);
-        },
-        child: Center(
-          child: ImageComponent(
-            imageUrl: widget.imageUrl,
+      placeholder = Container(
+        color: themeData.hintColor.withOpacity(0.2),
+        child: AspectRatio(
+          aspectRatio: 1.6,
+          child: Image(
             fit: widget.imageBoxFix,
             width: widget.width,
             height: widget.height,
+            image: imageProvider,
           ),
         ),
       );
     }
+    main = GestureDetector(
+      onTap: () {
+        previewImages(context);
+      },
+      child: Center(
+        child: ImageComponent(
+          imageUrl: widget.imageUrl,
+          fit: widget.imageBoxFix,
+          width: widget.width,
+          height: widget.height,
+          placeholder:
+              placeholder != null ? (context, url) => placeholder! : null,
+        ),
+      ),
+    );
 
     return Container(
       width: widget.width,

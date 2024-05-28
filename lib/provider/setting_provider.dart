@@ -318,6 +318,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get hideRelayNotices => _settingData!.hideRelayNotices;
 
+  int? get openBlurhashImage => _settingData!.openBlurhashImage;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -515,6 +517,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set openBlurhashImage(int? o) {
+    _settingData!.openBlurhashImage = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -617,6 +624,8 @@ class SettingData {
 
   String? nwcUrlMap;
 
+  int? openBlurhashImage;
+
   /// updated time
   late int updatedTime;
 
@@ -659,6 +668,7 @@ class SettingData {
     this.maxSubEventLevel,
     this.hideRelayNotices,
     this.nwcUrlMap,
+    this.openBlurhashImage,
     this.updatedTime = 0,
   });
 
@@ -715,6 +725,7 @@ class SettingData {
     maxSubEventLevel = json['maxSubEventLevel'];
     hideRelayNotices = json['hideRelayNotices'];
     nwcUrlMap = json['nwcUrlMap'];
+    openBlurhashImage = json['openBlurhashImage'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -763,6 +774,7 @@ class SettingData {
     data['maxSubEventLevel'] = this.maxSubEventLevel;
     data['hideRelayNotices'] = this.hideRelayNotices;
     data['nwcUrlMap'] = this.nwcUrlMap;
+    data['openBlurhashImage'] = this.openBlurhashImage;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

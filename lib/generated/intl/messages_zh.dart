@@ -142,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Hint_Font_Color": MessageLookupByLibrary.simpleMessage("提示文字颜色"),
         "Home": MessageLookupByLibrary.simpleMessage("首页"),
         "I_accept_the": MessageLookupByLibrary.simpleMessage("我接受"),
+        "Image": MessageLookupByLibrary.simpleMessage("图片"),
         "Image_Compress": MessageLookupByLibrary.simpleMessage("图片压缩"),
         "Image_or_Video": MessageLookupByLibrary.simpleMessage("图片或视频"),
         "Image_save_success": MessageLookupByLibrary.simpleMessage("图片保存成功"),

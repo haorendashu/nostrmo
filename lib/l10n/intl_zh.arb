@@ -286,5 +286,6 @@
     "Card_Color": "卡片颜色",
     "Main_Font_Color": "主文字颜色",
     "Hint_Font_Color": "提示文字颜色",
-    "Background_Image": "背景图片"
+    "Background_Image": "背景图片",
+    "Image": "图片"
 }
