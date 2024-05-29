@@ -69,14 +69,20 @@ class EventKind {
 
   static const int COMMUNITY_DEFINITION = 34550;
 
+  static const int VIDEO_HORIZONTAL = 34235;
+
+  static const int VIDEO_VERTICAL = 34236;
+
   static List<int> SUPPORTED_EVENTS = [
-    EventKind.TEXT_NOTE,
-    EventKind.REPOST,
-    EventKind.GENERIC_REPOST,
-    EventKind.LONG_FORM,
-    EventKind.FILE_HEADER,
-    EventKind.STORAGE_SHARED_FILE,
-    EventKind.POLL,
-    EventKind.ZAP_GOALS,
+    TEXT_NOTE,
+    REPOST,
+    GENERIC_REPOST,
+    LONG_FORM,
+    FILE_HEADER,
+    STORAGE_SHARED_FILE,
+    POLL,
+    ZAP_GOALS,
+    VIDEO_HORIZONTAL,
+    VIDEO_VERTICAL,
   ];
 }

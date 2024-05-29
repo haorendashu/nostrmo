@@ -395,7 +395,9 @@ class _EventMainComponent extends State<EventMainComponent> {
           ));
         }
 
-        if (widget.event.kind == kind.EventKind.FILE_HEADER) {
+        if (widget.event.kind == kind.EventKind.FILE_HEADER ||
+            widget.event.kind == kind.EventKind.VIDEO_HORIZONTAL ||
+            widget.event.kind == kind.EventKind.VIDEO_VERTICAL) {
           String? m;
           String? url;
           for (var tag in widget.event.tags) {
@@ -411,29 +413,34 @@ class _EventMainComponent extends State<EventMainComponent> {
           }
 
           if (StringUtil.isNotBlank(url)) {
-            //  show and decode depend m
-            if (StringUtil.isNotBlank(m)) {
-              if (m!.indexOf("image/") == 0) {
-                list.add(ContentImageComponent(imageUrl: url!));
-              } else if (m.indexOf("video/") == 0 && widget.showVideo) {
-                list.add(ContentVideoComponent(url: url!));
-              } else {
-                list.add(ContentLinkComponent(link: url!));
-              }
+            if (widget.event.kind == kind.EventKind.VIDEO_HORIZONTAL ||
+                widget.event.kind == kind.EventKind.VIDEO_VERTICAL) {
+              list.add(ContentVideoComponent(url: url!));
             } else {
-              var fileType = ContentDecoder.getPathType(url!);
-              if (fileType == "image") {
-                list.add(ContentImageComponent(imageUrl: url));
-              } else if (fileType == "video") {
-                if (settingProvider.videoPreview != OpenStatus.OPEN &&
-                    (settingProvider.videoPreviewInList == OpenStatus.OPEN ||
-                        widget.showVideo)) {
-                  list.add(ContentVideoComponent(url: url));
+              //  show and decode depend m
+              if (StringUtil.isNotBlank(m)) {
+                if (m!.indexOf("image/") == 0) {
+                  list.add(ContentImageComponent(imageUrl: url!));
+                } else if (m.indexOf("video/") == 0 && widget.showVideo) {
+                  list.add(ContentVideoComponent(url: url!));
+                } else {
+                  list.add(ContentLinkComponent(link: url!));
+                }
+              } else {
+                var fileType = ContentDecoder.getPathType(url!);
+                if (fileType == "image") {
+                  list.add(ContentImageComponent(imageUrl: url));
+                } else if (fileType == "video") {
+                  if (settingProvider.videoPreview != OpenStatus.OPEN &&
+                      (settingProvider.videoPreviewInList == OpenStatus.OPEN ||
+                          widget.showVideo)) {
+                    list.add(ContentVideoComponent(url: url));
+                  } else {
+                    list.add(ContentLinkComponent(link: url));
+                  }
                 } else {
                   list.add(ContentLinkComponent(link: url));
                 }
-              } else {
-                list.add(ContentLinkComponent(link: url));
               }
             }
           }
