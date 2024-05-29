@@ -29,6 +29,8 @@ class EventKind {
 
   static const int STORAGE_SHARED_FILE = 1064;
 
+  static const int TORRENTS = 2003;
+
   static const int COMMUNITY_APPROVED = 4550;
 
   static const int POLL = 6969;
@@ -80,6 +82,7 @@ class EventKind {
     LONG_FORM,
     FILE_HEADER,
     STORAGE_SHARED_FILE,
+    TORRENTS,
     POLL,
     ZAP_GOALS,
     VIDEO_HORIZONTAL,

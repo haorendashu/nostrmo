@@ -48,6 +48,7 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 - [ ] NIP-31 (Dealing with Unknown Events)
 - [ ] NIP-32 (Labeling)
 - [ ] NIP-34 (`git` stuff)
+- [x] NIP-35 (Torrents)
 - [x] NIP-36 (Sensitive Content)
 - [ ] NIP-38 (User Statuses)
 - [ ] NIP-39 (External Identities in Profiles)

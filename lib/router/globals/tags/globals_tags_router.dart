@@ -8,6 +8,7 @@ import 'package:nostrmo/util/router_util.dart';
 import '../../../component/cust_state.dart';
 import '../../../component/keep_alive_cust_state.dart';
 import '../../../component/placeholder/tap_list_placeholder.dart';
+import '../../../component/tag_component.dart';
 import '../../../consts/base.dart';
 import '../../../util/dio_util.dart';
 import '../../../util/string_util.dart';
@@ -32,23 +33,8 @@ class _GlobalsTagsRouter extends KeepAliveCustState<GlobalsTagsRouter> {
     } else {
       List<Widget> list = [];
       for (var topic in topics) {
-        list.add(GestureDetector(
-          onTap: () {
-            RouterUtil.router(context, RouterPath.TAG_DETAIL, topic);
-          },
-          child: Container(
-            padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
-            decoration: BoxDecoration(
-              color: mainColor,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(
-              topic,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
+        list.add(TagComponent(
+          tag: topic,
         ));
       }
 

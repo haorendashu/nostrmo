@@ -4,8 +4,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:nostrmo/client/nip35/torrent_info.dart';
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
+import 'package:nostrmo/component/event/event_torrent_component.dart';
 import 'package:nostrmo/component/event/event_zap_goals_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
@@ -452,6 +454,13 @@ class _EventMainComponent extends State<EventMainComponent> {
           list.add(EventQuoteComponent(
             aId: eventRelation.aId!,
           ));
+        }
+
+        if (widget.event.kind == kind.EventKind.TORRENTS) {
+          var torrentInfo = TorrentInfo.fromEvent(widget.event);
+          if (torrentInfo != null) {
+            list.add(EventTorrentComponent(torrentInfo));
+          }
         }
 
         if (eventRelation.zapInfos.isNotEmpty) {
