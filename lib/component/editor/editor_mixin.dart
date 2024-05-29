@@ -1,27 +1,25 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:blurhash_dart/blurhash_dart.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/date_symbols.dart';
 import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
 import 'package:nostrmo/component/comfirm_dialog.dart';
-import 'package:nostrmo/component/content/content_custom_emoji_component.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
 import 'package:nostrmo/component/webview_router.dart';
-import 'package:nostrmo/provider/custom_emoji_provider.dart';
+import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/sendbox/sendbox.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
+import 'package:image/image.dart' as img;
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
@@ -528,6 +526,35 @@ mixin EditorMixin {
                 imageService: settingProvider.imageService,
               );
               if (StringUtil.isNotBlank(imagePath)) {
+                if (StringUtil.isNotBlank(m["image"])) {
+                  // upload success! try to gen Blurhash, (NIP-92)
+                  try {
+                    Uint8List? fileBytes;
+                    if (BASE64.check(value)) {
+                      // is base64
+                      fileBytes = BASE64.toData(value);
+                    } else {
+                      fileBytes = File(value).readAsBytesSync();
+                    }
+
+                    print("begin to gen blurhash");
+                    final image = img.decodeImage(fileBytes);
+                    final blurHash =
+                        BlurHash.encode(image!, numCompX: 4, numCompY: 3);
+                    print("blurhash $blurHash");
+
+                    tagsAddedWhenSend.add([
+                      "imeta",
+                      "url $imagePath",
+                      "blurhash ${blurHash.hash}",
+                      "dim ${image.width}x${image.height}"
+                    ]);
+                  } catch (e) {
+                    print("handle upload file NIP-92 info error:");
+                    print(e.toString());
+                  }
+                }
+
                 value = imagePath;
               } else {
                 BotToast.showText(text: S.of(context).Upload_fail);

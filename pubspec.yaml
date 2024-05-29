@@ -112,6 +112,7 @@ dependencies:
   flutter_seekbar: ^1.0.1
   flutter_colorpicker: ^1.1.0
   blurhash_ffi: ^1.2.6
+  blurhash_dart: ^1.2.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
