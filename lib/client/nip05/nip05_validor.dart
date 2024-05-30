@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class Nip05Validor {
@@ -30,12 +32,17 @@ class Nip05Validor {
     var url = "https://$address/.well-known/nostr.json?name=$name";
     try {
       var response = await dio.get(url);
-      if (response.data != null &&
-          response.data is Map &&
-          response.data["names"] != null) {
-        var dataPubkey = response.data["names"][name];
-        if (dataPubkey != null && dataPubkey == pubkey) {
-          return true;
+      if (response.data != null) {
+        var map = response.data;
+        if (map is String) {
+          map = jsonDecode(response.data);
+        }
+
+        if (map is Map && map["names"] != null) {
+          var dataPubkey = map["names"][name];
+          if (dataPubkey != null && dataPubkey == pubkey) {
+            return true;
+          }
         }
       }
     } catch (e) {
