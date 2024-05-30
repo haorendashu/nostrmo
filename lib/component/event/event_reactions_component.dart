@@ -34,6 +34,7 @@ import '../editor/cust_embed_types.dart';
 import '../event_delete_callback.dart';
 import '../event_reply_callback.dart';
 import '../zap/zap_bottom_sheet_component.dart';
+import 'event_top_zaps_component.dart';
 
 class EventReactionsComponent extends StatefulWidget {
   ScreenshotController screenshotController;
@@ -93,7 +94,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         }
 
         String? iconText;
-        Widget? showMoreWidget;
+        Widget? showMoreIconWidget;
         IconData likeIconData = Icons.add_reaction_outlined;
         if (eventReactions != null) {
           var mapLength = eventReactions.likeNumMap.length;
@@ -113,7 +114,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               iconData = Icons.keyboard_double_arrow_up_rounded;
             }
 
-            showMoreWidget = GestureDetector(
+            showMoreIconWidget = GestureDetector(
               onTap: showMoreLikeTap,
               child: Icon(
                 iconData,
@@ -130,8 +131,25 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
           onTap: onLikeTap,
           color: likeColor,
           fontSize: fontSize,
-          showMoreWidget: showMoreWidget,
+          showMoreWidget: showMoreIconWidget,
         );
+
+        Widget? showMoreZapWidget;
+        if (eventReactions!.zaps.isNotEmpty) {
+          var iconData = Icons.keyboard_double_arrow_up_rounded;
+          if (showMoreZap) {
+            iconData = Icons.keyboard_double_arrow_down_rounded;
+          }
+
+          showMoreZapWidget = GestureDetector(
+            onTap: showMoreZapTap,
+            child: Icon(
+              iconData,
+              color: hintColor,
+              size: 24,
+            ),
+          );
+        }
 
         Widget moreBtnWidget = Container(
           alignment: Alignment.center,
@@ -254,6 +272,27 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               ),
             )),
             Expanded(
+                child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: openZapDialog,
+              child: Container(
+                height: double.infinity,
+                child: EventReactionNumComponent(
+                  num: zapNum,
+                  iconData: Icons.bolt_rounded,
+                  onTap: null,
+                  color: hintColor,
+                  fontSize: fontSize,
+                  showMoreWidget: showMoreZapWidget,
+                ),
+              ),
+            )),
+            Expanded(
+                child: Container(
+              alignment: Alignment.center,
+              child: likeWidget,
+            )),
+            Expanded(
               child: Container(
                 alignment: Alignment.center,
                 child: PopupMenuButton<String>(
@@ -280,36 +319,26 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 ),
               ),
             ),
-            Expanded(
-                child: Container(
-              alignment: Alignment.center,
-              child: likeWidget,
-            )),
-            Expanded(
-                child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: openZapDialog,
-              child: Container(
-                height: double.infinity,
-                child: EventReactionNumComponent(
-                  num: zapNum,
-                  iconData: Icons.bolt_rounded,
-                  onTap: null,
-                  color: hintColor,
-                  fontSize: fontSize,
-                ),
-              ),
-            )),
             moreBtnWidget,
           ],
         );
 
-        List<Widget> mainList = [
-          Container(
-            height: 34,
-            child: topReactionsWidget,
-          )
-        ];
+        List<Widget> mainList = [];
+
+        if (showMoreZap && eventReactions!.zaps.isNotEmpty) {
+          mainList.add(Container(
+            margin: const EdgeInsets.only(
+              top: Base.BASE_PADDING,
+              bottom: Base.BASE_PADDING_HALF,
+            ),
+            child: EventTopZapsComponent(eventReactions.zaps),
+          ));
+        }
+
+        mainList.add(Container(
+          height: 34,
+          child: topReactionsWidget,
+        ));
 
         if (showMoreLike &&
             eventReactions != null &&
@@ -553,6 +582,14 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       }
     }).catchError((onError) {
       print(onError);
+    });
+  }
+
+  bool showMoreZap = false;
+
+  void showMoreZapTap() {
+    setState(() {
+      showMoreZap = !showMoreZap;
     });
   }
 

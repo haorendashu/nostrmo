@@ -13,7 +13,7 @@ import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../client/nip02/cust_contact_list.dart';
 import '../../client/filter.dart';
-import '../../client/zap/zap_num_util.dart';
+import '../../client/zap/zap_info_util.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
@@ -384,7 +384,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     // print(event.toJson());
     if (event.kind == kind.EventKind.ZAP && zapEventBox!.add(event)) {
       setState(() {
-        zapNum = zapNum! + ZapNumUtil.getNumFromZapEvent(event);
+        zapNum = zapNum! + ZapInfoUtil.getNumFromZapEvent(event);
       });
     }
   }

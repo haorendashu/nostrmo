@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../../client/event.dart';
 import '../../client/nip69/poll_info.dart';
 import '../../client/zap/zap_action.dart';
-import '../../client/zap/zap_num_util.dart';
+import '../../client/zap/zap_info_util.dart';
 import '../../consts/base.dart';
 import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';
@@ -62,7 +62,7 @@ class _EventPollComponent extends State<EventPollComponent> {
                 var tagType = tag[0] as String;
                 if (tagType == "bolt11") {
                   var zapStr = tag[1] as String;
-                  num = ZapNumUtil.getNumFromStr(zapStr);
+                  num = ZapInfoUtil.getNumFromStr(zapStr);
                 } else if (tagType == "description") {
                   var text = tag[1];
                   selectKey =

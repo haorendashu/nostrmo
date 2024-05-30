@@ -2,7 +2,7 @@ import 'package:nostrmo/util/string_util.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../client/event.dart';
-import '../client/zap/zap_num_util.dart';
+import '../client/zap/zap_info_util.dart';
 import '../main.dart';
 import '../util/find_event_interface.dart';
 
@@ -111,7 +111,7 @@ class EventReactions implements FindEventInterface {
           myLikeEvents!.add(event);
         }
       } else if (event.kind == kind.EventKind.ZAP) {
-        zapNum += ZapNumUtil.getNumFromZapEvent(event);
+        zapNum += ZapInfoUtil.getNumFromZapEvent(event);
         zaps.add(event);
 
         if (StringUtil.isNotBlank(event.content)) {

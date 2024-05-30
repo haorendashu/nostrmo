@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/event.dart';
-import '../../client/zap/zap_num_util.dart';
+import '../../client/zap/zap_info_util.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
@@ -35,31 +35,7 @@ class _ZapEventMainComponent extends State<ZapEventMainComponent> {
     super.initState();
 
     eventId = widget.event.id;
-    parseSenderPubkey();
-  }
-
-  void parseSenderPubkey() {
-    String? zapRequestEventStr;
-    for (var tag in widget.event.tags) {
-      if (tag is List<dynamic> && tag.length > 1) {
-        var key = tag[0];
-        if (key == "description") {
-          zapRequestEventStr = tag[1];
-        }
-      }
-    }
-
-    if (StringUtil.isNotBlank(zapRequestEventStr)) {
-      try {
-        var eventJson = jsonDecode(zapRequestEventStr!);
-        var zapRequestEvent = Event.fromJson(eventJson);
-        senderPubkey = zapRequestEvent.pubkey;
-      } catch (e) {
-        log("jsonDecode zapRequest error ${e.toString()}");
-        senderPubkey =
-            SpiderUtil.subUntil(zapRequestEventStr!, "pubkey\":\"", "\"");
-      }
-    }
+    senderPubkey = ZapInfoUtil.parseSenderPubkey(widget.event);
   }
 
   @override
@@ -69,10 +45,10 @@ class _ZapEventMainComponent extends State<ZapEventMainComponent> {
     }
 
     if (eventId != widget.event.id) {
-      parseSenderPubkey();
+      senderPubkey = ZapInfoUtil.parseSenderPubkey(widget.event);
     }
 
-    var zapNum = ZapNumUtil.getNumFromZapEvent(widget.event);
+    var zapNum = ZapInfoUtil.getNumFromZapEvent(widget.event);
     String zapNumStr = NumberFormatUtil.format(zapNum);
 
     var text = "zaped $zapNumStr sats";

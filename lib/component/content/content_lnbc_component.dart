@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/util/lightning_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../client/zap/zap_num_util.dart';
+import '../../client/zap/zap_info_util.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 
@@ -22,7 +22,7 @@ class ContentLnbcComponent extends StatelessWidget {
     double largeFontSize = 20;
 
     var numStr = s.Any;
-    var num = ZapNumUtil.getNumFromStr(lnbc);
+    var num = ZapInfoUtil.getNumFromStr(lnbc);
     if (num > 0) {
       numStr = num.toString();
     }
