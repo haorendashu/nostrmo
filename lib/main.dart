@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:nostrmo/client/nostr.dart';
 import 'package:nostrmo/client/relay_local/relay_local_db.dart';
+import 'package:nostrmo/component/content/trie_text_matcher/trie_text_matcher_builder.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
@@ -40,6 +41,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'component/content/trie_text_matcher/trie_text_matcher.dart';
 import 'consts/base.dart';
 import 'consts/colors.dart';
 import 'consts/router_path.dart';
@@ -177,6 +179,8 @@ bool firstLogin = false;
 // this user is new, should add follow suggest.
 bool newUser = false;
 
+late TrieTextMatcher defaultTrieTextMatcher;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // init video package
@@ -263,6 +267,8 @@ Future<void> main() async {
   musicProvider = MusicProvider()..init();
   urlSpeedProvider = UrlSpeedProvider();
   nwcProvider = NWCProvider()..init();
+
+  defaultTrieTextMatcher = TrieTextMatcherBuilder.build();
 
   if (StringUtil.isNotBlank(settingProvider.network)) {
     var network = settingProvider.network;
