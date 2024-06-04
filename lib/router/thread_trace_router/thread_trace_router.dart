@@ -229,6 +229,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     rootSubList.clear();
     forceParentId = null;
     sourceEventKey = GlobalKey();
+    screenshotControllerMap.clear();
 
     // find parent data
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
