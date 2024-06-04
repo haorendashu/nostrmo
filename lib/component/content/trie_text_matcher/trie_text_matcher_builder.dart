@@ -11,6 +11,8 @@ class TrieTextMatcherBuilder {
     matcher.addNodes(TargetTextType.MD_IMAGE,
         [..."![".codeUnits, -1, ..."](".codeUnits, -1, ...")".codeUnits]);
     matcher.addNodes(
+        TargetTextType.MD_IMAGE, [..."![](".codeUnits, -1, ...")".codeUnits]);
+    matcher.addNodes(
         TargetTextType.MD_BOLD, [..."**".codeUnits, -1, ..."**".codeUnits]);
     matcher.addNodes(
         TargetTextType.MD_BOLD, [..."__".codeUnits, -1, ..."__".codeUnits]);

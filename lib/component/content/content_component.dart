@@ -450,6 +450,7 @@ class _ContentComponent extends State<ContentComponent> {
               if (strs.isNotEmpty && strs.first.startsWith("```")) {
                 // find the end ``` !!!
                 endI = tempI;
+                break;
               }
             }
             if (endI != null) {
@@ -464,6 +465,7 @@ class _ContentComponent extends State<ContentComponent> {
                 WidgetSpan(
                   child: Container(
                     padding: const EdgeInsets.all(Base.BASE_PADDING),
+                    width: double.infinity,
                     decoration: BoxDecoration(color: codeBackgroundColor),
                     child: SelectableText(codeText),
                   ),
@@ -975,40 +977,37 @@ class _ContentComponent extends State<ContentComponent> {
             }
           }
         } else if (item.textType == TargetTextType.MD_IMAGE) {
-          if (item.args.length > 1) {
-            var linkArg = item.args[1];
-            if (linkArg.textType == TargetTextType.PURE_TEXT) {
-              var str =
-                  codeUnitsToString(codeUnits, linkArg.start, linkArg.end);
-              images.add(str);
-              if (!widget.showImage) {
-                currentList.add(buildLinkSpan(str));
+          var linkArg = item.args.last;
+          if (linkArg.textType == TargetTextType.PURE_TEXT) {
+            var str = codeUnitsToString(codeUnits, linkArg.start, linkArg.end);
+            images.add(str);
+            if (!widget.showImage) {
+              currentList.add(buildLinkSpan(str));
+            } else {
+              if (widget.imageListMode &&
+                  (contentDecoderInfo != null &&
+                      contentDecoderInfo!.imageNum > 1)) {
+                // this content decode in list, use list mode
+                var imagePlaceholder = Container(
+                  // margin: const EdgeInsets.only(left: 4),
+                  child: const Icon(
+                    Icons.image,
+                    size: 15,
+                  ),
+                );
+
+                currentList.add(WidgetSpan(child: imagePlaceholder));
               } else {
-                if (widget.imageListMode &&
-                    (contentDecoderInfo != null &&
-                        contentDecoderInfo!.imageNum > 1)) {
-                  // this content decode in list, use list mode
-                  var imagePlaceholder = Container(
-                    // margin: const EdgeInsets.only(left: 4),
-                    child: const Icon(
-                      Icons.image,
-                      size: 15,
-                    ),
-                  );
+                // show image in content
+                var imageWidget = ContentImageComponent(
+                  imageUrl: str,
+                  imageList: images,
+                  imageIndex: images.length - 1,
+                  fileMetadata: getFileMetadata(str),
+                );
 
-                  currentList.add(WidgetSpan(child: imagePlaceholder));
-                } else {
-                  // show image in content
-                  var imageWidget = ContentImageComponent(
-                    imageUrl: str,
-                    imageList: images,
-                    imageIndex: images.length - 1,
-                    fileMetadata: getFileMetadata(str),
-                  );
-
-                  currentList.add(WidgetSpan(child: imageWidget));
-                  counterAddLines(fake_image_counter);
-                }
+                currentList.add(WidgetSpan(child: imageWidget));
+                counterAddLines(fake_image_counter);
               }
             }
           }
