@@ -7,8 +7,9 @@ class TrieTextMatcher {
   void addNodes(int textType, List<dynamic> nodes, {bool allowNoArg = false}) {
     var current = root;
     for (var node in nodes) {
-      if (node == true) {
+      if (node == -1) {
         // arg nodes
+        current = current.findOrCreate(node);
         current.isArg = true;
       } else if (node is int) {
         current = current.findOrCreate(node);
@@ -39,7 +40,7 @@ class TrieTextMatcher {
         var char = source[index];
         var tmpNode = current.find(char);
         if (tmpNode != null) {
-          var isArg = (tmpNode == current && current.isArg);
+          var isArg = tmpNode.isArg;
           current = tmpNode;
           if (!isArg &&
               current.done &&
@@ -120,10 +121,11 @@ class TrieTextMatcherNode {
     if (childNode != null) {
       return childNode;
     } else if (isArg) {
+      // current node is Arg
       return this;
     }
-
-    return null;
+    // find the arg node
+    return children[-1];
   }
 
   TrieTextMatcherNode findOrCreate(int char) {
