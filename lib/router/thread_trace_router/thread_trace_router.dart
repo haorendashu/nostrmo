@@ -44,6 +44,17 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
 
   ScrollController _controller = ScrollController();
 
+  Map<String, ScreenshotController> screenshotControllerMap = {};
+
+  ScreenshotController getScreenshotController(String eventId) {
+    var c = screenshotControllerMap[eventId];
+    if (c == null) {
+      c = ScreenshotController();
+      screenshotControllerMap[eventId] = c;
+    }
+    return c;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -82,7 +93,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       var length = parentEventTraces.length;
       for (var i = 0; i < length; i++) {
         var pet = parentEventTraces[length - 1 - i];
-        var screenshotController = ScreenshotController();
 
         traceList.add(GestureDetector(
           behavior: HitTestBehavior.translucent,
@@ -91,9 +101,9 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
                 context, RouterPath.getThreadDetailPath(), pet.event);
           },
           child: Screenshot(
-            controller: screenshotController,
+            controller: getScreenshotController(pet.event.id),
             child: EventMainComponent(
-              screenshotController: screenshotController,
+              screenshotController: getScreenshotController(pet.event.id),
               event: pet.event,
               showReplying: false,
               showVideo: true,
@@ -112,12 +122,11 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       }
     }
 
-    var screenshotController = ScreenshotController();
     Widget mainEventWidget = Screenshot(
-      controller: screenshotController,
+      controller: getScreenshotController(sourceEvent!.id),
       child: EventMainComponent(
         key: sourceEventKey,
-        screenshotController: ScreenshotController(),
+        screenshotController: getScreenshotController(sourceEvent!.id),
         event: sourceEvent!,
         showReplying: false,
         showVideo: true,
