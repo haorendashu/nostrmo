@@ -7,6 +7,7 @@ import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/thread_trace_router/event_trace_info.dart';
+import 'package:nostrmo/router/thread_trace_router/thread_trace_event_component.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -42,17 +43,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
   Event? sourceEvent;
 
   ScrollController _controller = ScrollController();
-
-  Map<String, ScreenshotController> screenshotControllerMap = {};
-
-  ScreenshotController getScreenshotController(String eventId) {
-    var c = screenshotControllerMap[eventId];
-    if (c == null) {
-      c = ScreenshotController();
-      screenshotControllerMap[eventId] = c;
-    }
-    return c;
-  }
 
   @override
   void initState() {
@@ -99,41 +89,21 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
             RouterUtil.router(
                 context, RouterPath.getThreadDetailPath(), pet.event);
           },
-          child: Screenshot(
-            controller: getScreenshotController(pet.event.id),
-            child: EventMainComponent(
-              screenshotController: getScreenshotController(pet.event.id),
-              event: pet.event,
-              showReplying: false,
-              showVideo: true,
-              imageListMode: false,
-              showSubject: false,
-              showLinkedLongForm: false,
-              traceMode: true,
-              showLongContent: true,
-              textOnTap: () {
-                RouterUtil.router(
-                    context, RouterPath.getThreadDetailPath(), pet.event);
-              },
-            ),
+          child: ThreadTraceEventComponent(
+            pet.event,
+            textOnTap: () {
+              RouterUtil.router(
+                  context, RouterPath.getThreadDetailPath(), pet.event);
+            },
           ),
         ));
       }
     }
 
-    Widget mainEventWidget = Screenshot(
-      controller: getScreenshotController(sourceEvent!.id),
-      child: EventMainComponent(
-        key: sourceEventKey,
-        screenshotController: getScreenshotController(sourceEvent!.id),
-        event: sourceEvent!,
-        showReplying: false,
-        showVideo: true,
-        imageListMode: false,
-        showSubject: false,
-        showLinkedLongForm: false,
-        showLongContent: true,
-      ),
+    Widget mainEventWidget = ThreadTraceEventComponent(
+      sourceEvent!,
+      key: sourceEventKey,
+      traceMode: false,
     );
     if (sourceEvent!.kind == EventKind.ZAP) {
       mainEventWidget = EventBitcionIconComponent.wrapper(mainEventWidget);
@@ -228,7 +198,6 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     rootSubList.clear();
     forceParentId = null;
     sourceEventKey = GlobalKey();
-    screenshotControllerMap.clear();
 
     // find parent data
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
