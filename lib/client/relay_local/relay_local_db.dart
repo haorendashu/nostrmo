@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 import '../../util/platform_util.dart';
+import '../event.dart';
 
 class RelayLocalDB {
   static const _VERSION = 1;
@@ -58,6 +59,34 @@ class RelayLocalDB {
     db.execute("CREATE INDEX IF NOT EXISTS kindidx ON event(kind)");
     db.execute(
         "CREATE INDEX IF NOT EXISTS kindtimeidx ON event(kind,created_at DESC)");
+  }
+
+  Future<Event?> queryById(String id) async {
+    var sql =
+        "SELECT id, pubkey, created_at, kind, tags, content, sig, sources FROM event WHERE id = ?";
+    List<dynamic> params = [id];
+    var rawEvents = await _database.rawQuery(sql, params);
+    var events = _loadEventFromRawEvents(rawEvents);
+    if (events.isNotEmpty) {
+      return events.first;
+    }
+    return null;
+  }
+
+  List<Event> _loadEventFromRawEvents(List<Map<String, Object?>> rawEvents) {
+    rawEvents = _handleEventMaps(rawEvents);
+    List<Event> events = [];
+    for (var rawEvent in rawEvents) {
+      var event = Event.fromJson(rawEvent);
+      var sources = rawEvent["sources"];
+      if (sources != null && sources is List) {
+        for (var source in sources) {
+          event.sources.add(source);
+        }
+      }
+      events.add(event);
+    }
+    return events;
   }
 
   bool checkAndSetEventFromMem(Map<String, dynamic> event) {

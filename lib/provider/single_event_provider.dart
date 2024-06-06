@@ -21,6 +21,8 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       return event;
     }
 
+    _getEventFromLocalRelay(id);
+
     if (!queryData) {
       return null;
     }
@@ -32,6 +34,18 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
     later(_laterCallback, null);
 
     return null;
+  }
+
+  void _getEventFromLocalRelay(String id) async {
+    if (relayLocalDB != null) {
+      var event = await relayLocalDB!.queryById(id);
+      if (event != null) {
+        print("get event from relayDB");
+        _eventsMap[id] = event;
+        _needUpdateIds.remove(id);
+        notifyListeners();
+      }
+    }
   }
 
   void _laterCallback() {
