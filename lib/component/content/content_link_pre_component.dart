@@ -26,22 +26,22 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
 
-    return Selector<LinkPreviewDataProvider, PreviewData?>(
-      builder: (context, data, child) {
-        return Container(
-          margin: const EdgeInsets.all(Base.BASE_PADDING),
-          decoration: BoxDecoration(
-            color: cardColor,
-            boxShadow: [
-              BoxShadow(
-                color: themeData.shadowColor,
-                offset: const Offset(0, 0),
-                blurRadius: 10,
-                spreadRadius: 0,
-              ),
-            ],
+    return Container(
+      margin: const EdgeInsets.all(Base.BASE_PADDING),
+      decoration: BoxDecoration(
+        color: cardColor,
+        boxShadow: [
+          BoxShadow(
+            color: themeData.shadowColor,
+            offset: const Offset(0, 0),
+            blurRadius: 10,
+            spreadRadius: 0,
           ),
-          child: LinkPreview(
+        ],
+      ),
+      child: Selector<LinkPreviewDataProvider, PreviewData?>(
+        builder: (context, data, child) {
+          return LinkPreview(
             linkStyle: TextStyle(
               color: themeData.primaryColor,
               decorationColor: themeData.primaryColor,
@@ -57,12 +57,12 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
             onLinkPressed: (link) {
               WebViewRouter.open(context, link);
             },
-          ),
-        );
-      },
-      selector: (context, _provider) {
-        return _provider.getPreviewData(widget.link);
-      },
+          );
+        },
+        selector: (context, _provider) {
+          return _provider.getPreviewData(widget.link);
+        },
+      ),
     );
   }
 }
