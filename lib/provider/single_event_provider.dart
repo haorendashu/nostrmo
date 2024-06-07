@@ -40,7 +40,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
     if (relayLocalDB != null) {
       var event = await relayLocalDB!.queryById(id);
       if (event != null) {
-        print("get event from relayDB");
+        // print("get event from relayDB $id");
         _eventsMap[id] = event;
         _needUpdateIds.remove(id);
         notifyListeners();

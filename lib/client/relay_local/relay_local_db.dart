@@ -75,6 +75,10 @@ class RelayLocalDB {
 
   List<Event> _loadEventFromRawEvents(List<Map<String, Object?>> rawEvents) {
     rawEvents = _handleEventMaps(rawEvents);
+    return loadEventFromMaps(rawEvents);
+  }
+
+  List<Event> loadEventFromMaps(List<Map<String, Object?>> rawEvents) {
     List<Event> events = [];
     for (var rawEvent in rawEvents) {
       var event = Event.fromJson(rawEvent);
