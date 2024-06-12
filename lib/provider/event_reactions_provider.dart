@@ -15,7 +15,7 @@ class EventReactionsProvider extends ChangeNotifier
 
   EventReactionsProvider() {
     laterTimeMS = 2000;
-    whenStopMS = 500;
+    whenStopMS = 100;
   }
 
   List<EventReactions> allReactions() {
@@ -80,16 +80,9 @@ class EventReactionsProvider extends ChangeNotifier
   EventReactions? get(String id, {bool avoidPull = false}) {
     var er = _eventReactionsMap[id];
     if (er == null) {
-      _loadFromRelayLocal(id);
-
-      if (avoidPull) {
-        return null;
-      }
-
-      // plan to pull
-      _penddingIds[id] = 1;
-      // later(laterFunc, null);
+      _localPenddingIds[id] = avoidPull;
       whenStop(laterFunc);
+
       // set a empty er to avoid pull many times
       er = EventReactions(id);
       _eventReactionsMap[id] = er;
@@ -110,7 +103,27 @@ class EventReactionsProvider extends ChangeNotifier
 
   Map<String, int> localQueringCache = {};
 
-  void _loadFromRelayLocal(String id) async {
+  _handleLocalPenddings() {
+    var entries = _localPenddingIds.entries;
+    for (var entry in entries) {
+      var id = entry.key;
+      var avoidPull = entry.value;
+
+      _loadFromRelayLocal(id)
+          .timeout(const Duration(seconds: 2))
+          .onError((e, st) {
+        return false;
+      }).then((exist) {
+        if (!exist && !avoidPull) {
+          // not exist and not avoidPull, or timeout
+          _penddingIds[id] = 1;
+        }
+      });
+    }
+    _localPenddingIds.clear();
+  }
+
+  Future<bool> _loadFromRelayLocal(String id) async {
     if (relayLocalDB != null && localQueringCache[id] == null) {
       try {
         // stop other quering
@@ -123,14 +136,21 @@ class EventReactionsProvider extends ChangeNotifier
           // print("Event Reactions load from relayDB $id");
           onEvents(events);
           whenStop(laterFunc);
+
+          return true;
         }
       } finally {
         localQueringCache.remove(id);
       }
     }
+
+    return false;
   }
 
   void laterFunc() {
+    if (_localPenddingIds.isNotEmpty) {
+      _handleLocalPenddings();
+    }
     if (_penddingIds.isNotEmpty) {
       _doPull();
     }
@@ -138,6 +158,8 @@ class EventReactionsProvider extends ChangeNotifier
       _handleEvent();
     }
   }
+
+  Map<String, bool> _localPenddingIds = {};
 
   Map<String, int> _penddingIds = {};
 
@@ -204,6 +226,7 @@ class EventReactionsProvider extends ChangeNotifier
 
   void removePendding(String id) {
     _penddingIds.remove(id);
+    _localPenddingIds.remove(id);
   }
 
   void clear() {
