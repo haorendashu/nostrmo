@@ -8,6 +8,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_quill/translations.dart';
 import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_cache_manager/src/cache_store.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:media_kit/media_kit.dart';
@@ -136,7 +137,9 @@ late BadgeDefinitionProvider badgeDefinitionProvider;
 
 late MediaDataCache mediaDataCache;
 
-late CacheManager localCacheManager;
+late CacheStore imageCacheStore;
+
+late CacheManager imageLocalCacheManager;
 
 late PcRouterFakeProvider pcRouterFakeProvider;
 
@@ -253,7 +256,7 @@ Future<void> main() async {
   linkPreviewDataProvider = LinkPreviewDataProvider();
   badgeDefinitionProvider = BadgeDefinitionProvider();
   mediaDataCache = MediaDataCache();
-  localCacheManager = CacheManagerBuilder.build();
+  CacheManagerBuilder.build();
   pcRouterFakeProvider = PcRouterFakeProvider();
   webViewProvider = WebViewProvider();
   // customEmojiProvider = CustomEmojiProvider.load();

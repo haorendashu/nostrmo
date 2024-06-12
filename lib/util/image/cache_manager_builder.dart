@@ -1,17 +1,19 @@
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_cache_manager/src/cache_store.dart';
 import 'package:flutter_cache_manager/src/web/web_helper.dart';
+import 'package:nostrmo/main.dart';
 
 import 'retry_http_file_service.dart';
 
 class CacheManagerBuilder {
   static const key = 'cachedImageData';
 
-  static CacheManager build() {
+  static void build() {
     var config = Config(key);
-    var store = CacheStore(config);
+    imageCacheStore = CacheStore(config);
 
-    return CacheManager.custom(config,
-        cacheStore: store, webHelper: WebHelper(store, RetryHttpFileServcie()));
+    imageLocalCacheManager = CacheManager.custom(config,
+        cacheStore: imageCacheStore,
+        webHelper: WebHelper(imageCacheStore, RetryHttpFileServcie()));
   }
 }

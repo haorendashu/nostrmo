@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
+import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/image_component.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/link_preview_data_provider.dart';
+import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';
@@ -26,22 +28,30 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
 
-    return Container(
-      margin: const EdgeInsets.all(Base.BASE_PADDING),
-      decoration: BoxDecoration(
-        color: cardColor,
-        boxShadow: [
-          BoxShadow(
-            color: themeData.shadowColor,
-            offset: const Offset(0, 0),
-            blurRadius: 10,
-            spreadRadius: 0,
+    return Selector<LinkPreviewDataProvider, PreviewData?>(
+      builder: (context, data, child) {
+        if (data != null &&
+            StringUtil.isBlank(data.title) &&
+            StringUtil.isBlank(data.description) &&
+            data.image != null &&
+            StringUtil.isNotBlank(data.image!.url)) {
+          return ContentImageComponent(imageUrl: widget.link);
+        }
+
+        return Container(
+          margin: const EdgeInsets.all(Base.BASE_PADDING),
+          decoration: BoxDecoration(
+            color: cardColor,
+            boxShadow: [
+              BoxShadow(
+                color: themeData.shadowColor,
+                offset: const Offset(0, 0),
+                blurRadius: 10,
+                spreadRadius: 0,
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Selector<LinkPreviewDataProvider, PreviewData?>(
-        builder: (context, data, child) {
-          return LinkPreview(
+          child: LinkPreview(
             linkStyle: TextStyle(
               color: themeData.primaryColor,
               decorationColor: themeData.primaryColor,
@@ -57,12 +67,12 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
             onLinkPressed: (link) {
               WebViewRouter.open(context, link);
             },
-          );
-        },
-        selector: (context, _provider) {
-          return _provider.getPreviewData(widget.link);
-        },
-      ),
+          ),
+        );
+      },
+      selector: (context, _provider) {
+        return _provider.getPreviewData(widget.link);
+      },
     );
   }
 }

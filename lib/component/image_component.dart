@@ -47,7 +47,7 @@ class ImageComponent extends StatelessWidget {
       fit: fit,
       placeholder: placeholder,
       errorWidget: (context, url, error) => Icon(Icons.error),
-      cacheManager: localCacheManager,
+      cacheManager: imageLocalCacheManager,
       // imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
     );
   }
