@@ -25,7 +25,7 @@ class ListSetProvider extends ChangeNotifier with LaterFunction {
       _penddingAIdStrs.add(aIdStr);
     }
 
-    later(_laterCallback, null);
+    later(_laterCallback);
     return null;
   }
 

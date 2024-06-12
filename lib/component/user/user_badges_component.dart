@@ -106,7 +106,7 @@ class _UserBadgesComponent extends CustState<UserBadgesComponent>
       if (result) {
         later(() {
           setState(() {});
-        }, null);
+        });
       }
     });
   }

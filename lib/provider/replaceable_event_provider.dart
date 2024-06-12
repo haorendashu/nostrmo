@@ -24,7 +24,7 @@ class ReplaceableEventProvider extends ChangeNotifier with LaterFunction {
     if (_needUpdateIds[aIdStr] == null && _handingIds[aIdStr] == null) {
       _needUpdateIds[aIdStr] = aId;
     }
-    later(_laterCallback, null);
+    later(_laterCallback);
 
     return null;
   }

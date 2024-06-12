@@ -92,7 +92,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     if (!_needUpdatePubKeys.contains(pubkey)) {
       _needUpdatePubKeys.add(pubkey);
     }
-    later(_laterCallback, null);
+    later(_laterCallback);
   }
 
   Metadata? getMetadata(String pubkey) {
@@ -105,7 +105,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         !_handingPubkeys.containsKey(pubkey)) {
       _needUpdatePubKeys.add(pubkey);
     }
-    later(_laterCallback, null);
+    later(_laterCallback);
 
     return null;
   }
@@ -193,7 +193,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   void onEvent(Event event) {
     if (event.kind == kind.EventKind.METADATA) {
       _penddingEvents.add(event);
-      later(_laterCallback, null);
+      later(_laterCallback);
     } else if (event.kind == kind.EventKind.RELAY_LIST_METADATA) {
       // this is relayInfoMetadata, only set to cache, not update UI
       var oldRelayListMetadata = _relayListMetadataCache[event.pubkey];

@@ -141,6 +141,8 @@ class RelayLocalDB {
       Map<String, dynamic> filter) async {
     List<dynamic> params = [];
     var sql = queryEventsSql(filter, false, params);
+    // print("sql $sql");
+    // print(jsonEncode(params));
     var rawEvents = await _database.rawQuery(sql, params);
     var events = _handleEventMaps(rawEvents);
     return events;

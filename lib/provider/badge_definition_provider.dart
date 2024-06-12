@@ -21,7 +21,7 @@ class BadgeDefinitionProvider extends ChangeNotifier with LaterFunction {
         !_handingPubkeys.containsKey(pubkey)) {
       _needUpdatePubKeys.add(pubkey);
     }
-    later(_laterCallback, null);
+    later(_laterCallback);
   }
 
   Map<String, int> _handingPubkeys = {};
@@ -60,7 +60,7 @@ class BadgeDefinitionProvider extends ChangeNotifier with LaterFunction {
 
   void _onEvent(Event event) {
     _penddingEvents.add(event);
-    later(_laterCallback, null);
+    later(_laterCallback);
   }
 
   void _handlePenddingEvents() {

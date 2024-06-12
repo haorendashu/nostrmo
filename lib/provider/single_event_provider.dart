@@ -27,11 +27,11 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       return null;
     }
 
-    if (_needUpdateIds[id] == null) {
+    if (_needUpdateIds[id] == null && _handingIds[id] == null) {
       eventRelayAddr ??= "";
       _needUpdateIds[id] = eventRelayAddr;
     }
-    later(_laterCallback, null);
+    later(_laterCallback);
 
     return null;
   }
@@ -78,7 +78,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
 
   void onEvent(Event event) {
     _penddingEvents.add(event);
-    later(_laterCallback, null);
+    later(_laterCallback);
   }
 
   void _laterSearch() {
@@ -95,7 +95,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
             // eventRelayAddr exist and event not found, send a single query again.
             print(
                 "single event ${id} not found! begin to query again from ${eventRelayAddr}.");
-            var filter = Filter(ids: tempIds);
+            var filter = Filter(ids: [id]);
             nostr!.query([filter.toJson()], onEvent,
                 tempRelays: [eventRelayAddr!]);
           }

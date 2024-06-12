@@ -5,7 +5,7 @@ mixin LaterFunction {
 
   bool _running = true;
 
-  void later(Function func, Function? completeFunc) {
+  void later(Function func) {
     if (latering) {
       return;
     }
@@ -18,9 +18,6 @@ mixin LaterFunction {
 
       latering = false;
       func();
-      if (completeFunc != null) {
-        completeFunc();
-      }
     });
   }
 

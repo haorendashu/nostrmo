@@ -24,7 +24,7 @@ class CommunityApprovedProvider extends ChangeNotifier with LaterFunction {
 
     // plan to query
     eids.add(eid);
-    later(laterFunction, null);
+    later(laterFunction);
 
     return false;
   }
@@ -65,7 +65,7 @@ class CommunityApprovedProvider extends ChangeNotifier with LaterFunction {
 
   void onEvent(Event e) {
     penddingEvents.add(e);
-    later(laterFunction, null);
+    later(laterFunction);
   }
 
   String? getEId(Event e) {

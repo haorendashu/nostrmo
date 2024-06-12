@@ -108,15 +108,24 @@ class EventReactionsProvider extends ChangeNotifier
     return er;
   }
 
+  Map<String, int> localQueringCache = {};
+
   void _loadFromRelayLocal(String id) async {
-    if (relayLocalDB != null) {
-      var filter = Filter(e: [id]);
-      var eventMaps = await relayLocalDB!.doQueryEvent(filter.toJson());
-      var events = relayLocalDB!.loadEventFromMaps(eventMaps);
-      if (events.isNotEmpty) {
-        // print("Event Reactions load from relayDB $id");
-        onEvents(events);
-        whenStop(laterFunc);
+    if (relayLocalDB != null && localQueringCache[id] == null) {
+      try {
+        // stop other quering
+        localQueringCache[id] = 1;
+
+        var filter = Filter(e: [id]);
+        var eventMaps = await relayLocalDB!.doQueryEvent(filter.toJson());
+        var events = relayLocalDB!.loadEventFromMaps(eventMaps);
+        if (events.isNotEmpty) {
+          // print("Event Reactions load from relayDB $id");
+          onEvents(events);
+          whenStop(laterFunc);
+        }
+      } finally {
+        localQueringCache.remove(id);
       }
     }
   }
@@ -137,9 +146,13 @@ class EventReactionsProvider extends ChangeNotifier
       return;
     }
 
-    var filter = Filter(e: _penddingIds.keys.toList());
+    List<Map<String, dynamic>> filters = [];
+    for (var id in _penddingIds.keys) {
+      var filter = Filter(e: [id]);
+      filters.add(filter.toJson());
+    }
     _penddingIds.clear();
-    nostr!.query([filter.toJson()], onEvent);
+    nostr!.query(filters, onEvent);
   }
 
   void addEventAndHandle(Event event) {

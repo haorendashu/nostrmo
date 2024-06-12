@@ -28,7 +28,7 @@ class CommunityInfoProvider extends ChangeNotifier with LaterFunction {
     if (!_handingIds.containsKey(aid) && !_needPullIds.contains(aid)) {
       _needPullIds.add(aid);
     }
-    later(_laterCallback, null);
+    later(_laterCallback);
 
     return null;
   }
@@ -68,7 +68,7 @@ class CommunityInfoProvider extends ChangeNotifier with LaterFunction {
 
   void _onEvent(Event event) {
     _penddingEvents.add(event);
-    later(_laterCallback, null);
+    later(_laterCallback);
   }
 
   void _handlePenddingEvents() {
