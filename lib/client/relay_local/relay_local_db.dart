@@ -237,6 +237,7 @@ class RelayLocalDB {
       params.add("%${search.replaceAll("%", "\%")}%");
     }
 
+    List<String> tagQueryConditions = [];
     List<String> tagQuery = [];
     for (var entry in filter.entries) {
       var k = entry.key;
@@ -244,12 +245,17 @@ class RelayLocalDB {
 
       if (k != "limit") {
         for (var vItem in v) {
+          tagQueryConditions.add("tags LIKE ? ESCAPE '\\'");
           tagQuery.add("\"${k.replaceFirst("#", "")}\",\"${vItem}");
         }
       }
     }
+    if (tagQueryConditions.length > 1) {
+      conditions.add("( ${tagQueryConditions.join(" OR ")} )");
+    } else if (tagQueryConditions.length == 1) {
+      conditions.add(tagQueryConditions[0]);
+    }
     for (var tagValue in tagQuery) {
-      conditions.add("tags LIKE ? ESCAPE '\\'");
       params.add("%${tagValue.replaceAll("%", "\%")}%");
     }
 

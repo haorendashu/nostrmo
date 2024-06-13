@@ -1,21 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../client/event.dart';
 import '../client/filter.dart';
 import '../data/event_reactions.dart';
 import '../main.dart';
-import '../util/later_function.dart';
 import '../util/when_stop_function.dart';
 
-class EventReactionsProvider extends ChangeNotifier
-    with LaterFunction, WhenStopFunction {
+class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   int update_time = 1000 * 60 * 10;
 
   Map<String, EventReactions> _eventReactionsMap = {};
 
   EventReactionsProvider() {
-    laterTimeMS = 2000;
-    whenStopMS = 100;
+    whenStopMS = 300;
   }
 
   List<EventReactions> allReactions() {
