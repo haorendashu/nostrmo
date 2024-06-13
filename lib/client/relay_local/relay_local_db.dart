@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:nostrmo/util/string_util.dart';
@@ -10,7 +11,7 @@ import '../../util/platform_util.dart';
 import '../event.dart';
 
 class RelayLocalDB {
-  static const _VERSION = 1;
+  static const _VERSION = 2;
 
   static const _dbName = "local_relay.db";
 
@@ -26,8 +27,8 @@ class RelayLocalDB {
   static Future<RelayLocalDB?> init() async {
     var path = await getFilepath();
 
-    var database =
-        await openDatabase(path, version: _VERSION, onCreate: _onCreate);
+    var database = await openDatabase(path,
+        version: _VERSION, onCreate: _onCreate, onUpgrade: onUpgrade);
 
     return RelayLocalDB._(database);
   }
@@ -50,15 +51,39 @@ class RelayLocalDB {
   }
 
   static Future<void> _onCreate(Database db, int version) async {
+    log("db onCreate version $version");
     // init db
-    db.execute(
+    await db.execute(
         "CREATE TABLE IF NOT EXISTS event (id text NOT NULL, pubkey text NOT NULL, created_at integer NOT NULL, kind integer NOT NULL, tags jsonb NOT NULL, content text NOT NULL, sig text NOT NULL, sources text);");
-    db.execute("CREATE UNIQUE INDEX IF NOT EXISTS ididx ON event(id)");
-    db.execute("CREATE INDEX IF NOT EXISTS pubkeyprefix ON event(pubkey)");
-    db.execute("CREATE INDEX IF NOT EXISTS timeidx ON event(created_at DESC)");
-    db.execute("CREATE INDEX IF NOT EXISTS kindidx ON event(kind)");
-    db.execute(
-        "CREATE INDEX IF NOT EXISTS kindtimeidx ON event(kind,created_at DESC)");
+    await db.execute("CREATE UNIQUE INDEX IF NOT EXISTS ididx ON event(id)");
+    // these version 1 index was delete since version 2
+    // await db
+    //     .execute("CREATE INDEX IF NOT EXISTS pubkeyprefix ON event(pubkey)");
+    // await db.execute(
+    //     "CREATE INDEX IF NOT EXISTS timeidx ON event(created_at DESC)");
+    // await db.execute("CREATE INDEX IF NOT EXISTS kindidx ON event(kind)");
+    // await db.execute(
+    //     "CREATE INDEX IF NOT EXISTS kindtimeidx ON event(kind,created_at DESC)");
+    // this index create since version 2
+    await db.execute(
+        "CREATE INDEX IF NOT EXISTS kindpubtimeidx ON event(kind,pubkey,created_at DESC)");
+  }
+
+  static Future<void> onUpgrade(
+      Database db, int oldVersion, int newVersion) async {
+    log("onUpgrade oldVersion $oldVersion newVersion $newVersion");
+    if (oldVersion == 1 && newVersion == 2) {
+      log("onUpgrade begin! ${DateTime.now().toLocal()}");
+      // delete old index
+      await db.execute("DROP INDEX IF EXISTS pubkeyprefix ;");
+      await db.execute("DROP INDEX IF EXISTS timeidx ;");
+      await db.execute("DROP INDEX IF EXISTS kindidx ;");
+      await db.execute("DROP INDEX IF EXISTS kindtimeidx ;");
+      // create new index
+      await db.execute(
+          "CREATE INDEX IF NOT EXISTS kindpubtimeidx ON event(kind,pubkey,created_at DESC)");
+      log("onUpgrade complete! ${DateTime.now().toLocal()}");
+    }
   }
 
   Future<Event?> queryById(String id) async {
