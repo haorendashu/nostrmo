@@ -1226,8 +1226,18 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         settingProvider.backgroundImage = uploadedFilepath;
       } else {
         var targetFilePath = await StoreUtil.saveFileToDocument(filepath!,
-            targetFileName: "nostrbg.jpg");
+            targetFileName:
+                "nostrbg_${DateTime.now().millisecondsSinceEpoch}.jpg");
         if (StringUtil.isNotBlank(targetFilePath)) {
+          if (StringUtil.isNotBlank(settingProvider.backgroundImage)) {
+            // try to remove old file.
+            try {
+              var targetFile = File(settingProvider.backgroundImage!);
+              if (targetFile.existsSync()) {
+                targetFile.deleteSync();
+              }
+            } catch (e) {}
+          }
           settingProvider.backgroundImage = targetFilePath;
           settingProvider.translateTarget = null;
         }

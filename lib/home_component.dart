@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/translations.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/provider/webview_provider.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
@@ -36,14 +37,15 @@ class _HomeComponent extends State<HomeComponent> {
   Widget build(BuildContext context) {
     PlatformUtil.init(context);
     var _webviewProvider = Provider.of<WebViewProvider>(context);
+    var _settingProvider = Provider.of<SettingProvider>(context);
 
     Widget child = widget.child;
-    if (StringUtil.isNotBlank(settingProvider.backgroundImage)) {
+    if (StringUtil.isNotBlank(_settingProvider.backgroundImage)) {
       ImageProvider? image;
-      if (settingProvider.backgroundImage!.indexOf("http") == 0) {
-        image = NetworkImage(settingProvider.backgroundImage!);
+      if (_settingProvider.backgroundImage!.indexOf("http") == 0) {
+        image = NetworkImage(_settingProvider.backgroundImage!);
       } else {
-        image = FileImage(File(settingProvider.backgroundImage!));
+        image = FileImage(File(_settingProvider.backgroundImage!));
       }
 
       child = Container(
