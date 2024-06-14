@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../client/event.dart';
+import '../client/event_kind.dart';
 import '../client/filter.dart';
 import '../data/event_reactions.dart';
 import '../main.dart';
@@ -14,7 +15,7 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   Map<String, EventReactions> _eventReactionsMap = {};
 
   EventReactionsProvider() {
-    whenStopMS = 300;
+    whenStopMS = 200;
   }
 
   List<EventReactions> allReactions() {
@@ -122,13 +123,21 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
     _localPenddingIds.clear();
   }
 
+  List<int> SUPPORT_EVENT_KINDS = [
+    EventKind.TEXT_NOTE,
+    EventKind.REPOST,
+    EventKind.GENERIC_REPOST,
+    EventKind.REACTION,
+    EventKind.ZAP
+  ];
+
   Future<bool> _loadFromRelayLocal(String id) async {
     if (relayLocalDB != null && localQueringCache[id] == null) {
       try {
         // stop other quering
         localQueringCache[id] = 1;
 
-        var filter = Filter(e: [id]);
+        var filter = Filter(e: [id], kinds: SUPPORT_EVENT_KINDS);
         var eventMaps = await relayLocalDB!.doQueryEvent(filter.toJson());
         var events = relayLocalDB!.loadEventFromMaps(eventMaps);
         if (events.isNotEmpty) {
@@ -147,6 +156,7 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   }
 
   void laterFunc() {
+    log("laterFunc call!");
     if (_localPenddingIds.isNotEmpty) {
       _handleLocalPenddings();
     }
@@ -169,7 +179,7 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
 
     List<Map<String, dynamic>> filters = [];
     for (var id in _penddingIds.keys) {
-      var filter = Filter(e: [id]);
+      var filter = Filter(e: [id], kinds: SUPPORT_EVENT_KINDS);
       filters.add(filter.toJson());
     }
     _penddingIds.clear();

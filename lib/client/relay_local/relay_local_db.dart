@@ -246,7 +246,7 @@ class RelayLocalDB {
       if (k != "limit") {
         for (var vItem in v) {
           tagQueryConditions.add("tags LIKE ? ESCAPE '\\'");
-          tagQuery.add("\"${k.replaceFirst("#", "")}\",\"${vItem}");
+          tagQuery.add("${k.replaceFirst("#", "")}\",\"${vItem}");
         }
       }
     }
@@ -274,7 +274,7 @@ class RelayLocalDB {
     late String query;
     if (doCount) {
       query =
-          " SELECT COUNT(*) FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";
+          " SELECT COUNT(1) FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";
     } else {
       query =
           " SELECT id, pubkey, created_at, kind, tags, content, sig, sources FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";

@@ -27,8 +27,8 @@ mixin WhenStopFunction {
 
       var nowMS = DateTime.now().millisecondsSinceEpoch;
       if (nowMS >= stopTime) {
-        waitingStop = false;
         func();
+        waitingStop = false;
       } else {
         _goWaitForStop(func);
       }
