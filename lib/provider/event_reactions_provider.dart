@@ -191,7 +191,7 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
       filters.add(filter.toJson());
     }
     _needHandleIds.clear();
-    nostr!.query(filters, onEvent);
+    nostr!.query(filters, onEvent, queryLocal: false);
   }
 
   void addEventAndHandle(Event event) {

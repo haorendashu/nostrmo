@@ -305,7 +305,8 @@ class RelayPool {
       {String? id,
       Function? onComplete,
       List<String>? tempRelays,
-      bool onlyTempRelays = true}) {
+      bool onlyTempRelays = true,
+      bool queryLocal = true}) {
     if (filters.isEmpty) {
       throw ArgumentError("No filters given", "filters");
     }
@@ -334,6 +335,9 @@ class RelayPool {
     if (!((tempRelays != null && tempRelays.isNotEmpty) && onlyTempRelays)) {
       // send throw my relay
       for (Relay relay in _relays.values) {
+        if (relay is RelayLocal && !queryLocal) {
+          continue;
+        }
         relayDoQuery(relay, subscription);
       }
     }

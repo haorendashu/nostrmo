@@ -39,7 +39,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
   Map<String, int> _localRelayQuering = {};
 
   void _getEventFromLocalRelay(String id) async {
-    if (relayLocalDB != null) {
+    if (relayLocalDB != null && _localRelayQuering[id] == null) {
       _localRelayQuering[id] = 1;
       try {
         var event = await relayLocalDB!.queryById(id);
@@ -119,7 +119,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       nostr!.query([filter.toJson()], onEvent, id: subscriptId, onComplete: () {
         // print("singleEventProvider onComplete $tempIds");
         onCompete();
-      });
+      }, queryLocal: false);
       Future.delayed(const Duration(seconds: 2), onCompete);
 
       for (var entry in _needUpdateIds.entries) {

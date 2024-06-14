@@ -155,12 +155,17 @@ class Nostr {
       {String? id,
       Function? onComplete,
       List<String>? tempRelays,
-      bool onlyTempRelays = false}) {
-    return _pool.query(filters, onEvent,
-        id: id,
-        onComplete: onComplete,
-        tempRelays: tempRelays,
-        onlyTempRelays: onlyTempRelays);
+      bool onlyTempRelays = false,
+      bool queryLocal = true}) {
+    return _pool.query(
+      filters,
+      onEvent,
+      id: id,
+      onComplete: onComplete,
+      tempRelays: tempRelays,
+      onlyTempRelays: onlyTempRelays,
+      queryLocal: queryLocal,
+    );
   }
 
   String queryByFilters(Map<String, List<Map<String, dynamic>>> filtersMap,
