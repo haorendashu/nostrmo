@@ -89,6 +89,7 @@ class RelayLocalDB {
   Future<Event?> queryById(String id) async {
     var sql =
         "SELECT id, pubkey, created_at, kind, tags, content, sig, sources FROM event WHERE id = ?";
+    // print("queryById $id");
     List<dynamic> params = [id];
     var rawEvents = await _database.rawQuery(sql, params);
     var events = _loadEventFromRawEvents(rawEvents);
@@ -166,8 +167,6 @@ class RelayLocalDB {
       Map<String, dynamic> filter) async {
     List<dynamic> params = [];
     var sql = queryEventsSql(filter, false, params);
-    // print("sql $sql");
-    // print(jsonEncode(params));
     var rawEvents = await _database.rawQuery(sql, params);
     var events = _handleEventMaps(rawEvents);
     return events;
@@ -280,8 +279,8 @@ class RelayLocalDB {
           " SELECT id, pubkey, created_at, kind, tags, content, sig, sources FROM event WHERE ${conditions.join(" AND ")} ORDER BY created_at DESC LIMIT ?";
     }
 
-    // log("sql ${query}");
-    // log("params ${jsonEncode(params)}");
+    // print("sql ${query}");
+    // print("params ${jsonEncode(params)}");
 
     return query;
   }

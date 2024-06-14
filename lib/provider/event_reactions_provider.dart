@@ -80,7 +80,13 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   EventReactions? get(String id, {bool avoidPull = false}) {
     var er = _eventReactionsMap[id];
     if (er == null) {
-      _localPenddingIds[id] = avoidPull;
+      if (localQueringCache[id] != null ||
+          _needHandleIds[id] != null ||
+          _pullIds[id] != null) {
+        return null;
+      }
+      // print("begin to pull $id");
+      _localNeedHandleIds[id] = avoidPull;
       whenStop(laterFunc);
 
       // set a empty er to avoid pull many times
@@ -91,7 +97,7 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
       // check dataTime if need to update
       if (now.millisecondsSinceEpoch - er.dataTime.millisecondsSinceEpoch >
           update_time) {
-        _penddingIds[id] = 1;
+        _needHandleIds[id] = 1;
         // later(laterFunc, null);
         whenStop(laterFunc);
       }
@@ -104,11 +110,11 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   Map<String, int> localQueringCache = {};
 
   _handleLocalPenddings() {
-    var entries = _localPenddingIds.entries;
+    var entries = _localNeedHandleIds.entries;
+    _localNeedHandleIds = {};
     for (var entry in entries) {
       var id = entry.key;
       var avoidPull = entry.value;
-
       _loadFromRelayLocal(id)
           .timeout(const Duration(seconds: 2))
           .onError((e, st) {
@@ -116,11 +122,10 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
       }).then((exist) {
         if (!exist && !avoidPull) {
           // not exist and not avoidPull, or timeout
-          _penddingIds[id] = 1;
+          _needHandleIds[id] = 1;
         }
       });
     }
-    _localPenddingIds.clear();
   }
 
   List<int> SUPPORT_EVENT_KINDS = [
@@ -157,10 +162,10 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
 
   void laterFunc() {
     // log("laterFunc call!");
-    if (_localPenddingIds.isNotEmpty) {
+    if (_localNeedHandleIds.isNotEmpty) {
       _handleLocalPenddings();
     }
-    if (_penddingIds.isNotEmpty) {
+    if (_needHandleIds.isNotEmpty) {
       _doPull();
     }
     if (_penddingEvents.isNotEmpty) {
@@ -168,21 +173,24 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
     }
   }
 
-  Map<String, bool> _localPenddingIds = {};
+  Map<String, bool> _localNeedHandleIds = {};
 
-  Map<String, int> _penddingIds = {};
+  Map<String, int> _needHandleIds = {};
+
+  Map<String, int> _pullIds = {};
 
   void _doPull() {
-    if (_penddingIds.isEmpty) {
+    if (_needHandleIds.isEmpty) {
       return;
     }
 
     List<Map<String, dynamic>> filters = [];
-    for (var id in _penddingIds.keys) {
+    for (var id in _needHandleIds.keys) {
+      _pullIds[id] = 1;
       var filter = Filter(e: [id], kinds: SUPPORT_EVENT_KINDS);
       filters.add(filter.toJson());
     }
-    _penddingIds.clear();
+    _needHandleIds.clear();
     nostr!.query(filters, onEvent);
   }
 
@@ -205,6 +213,8 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
     bool updated = false;
 
     for (var event in _penddingEvents) {
+      _pullIds.remove(event.id);
+
       for (var tag in event.tags) {
         if (tag.length > 1) {
           var tagType = tag[0] as String;
@@ -234,8 +244,8 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   }
 
   void removePendding(String id) {
-    _penddingIds.remove(id);
-    _localPenddingIds.remove(id);
+    _needHandleIds.remove(id);
+    _localNeedHandleIds.remove(id);
   }
 
   void clear() {
