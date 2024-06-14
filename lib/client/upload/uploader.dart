@@ -106,10 +106,11 @@ class Uploader {
       if (settingProvider.imgCompress >= 30 &&
           settingProvider.imgCompress < 100) {
         var fileExtension = StoreUtil.getFileExtension(file!.path);
-        fileExtension ??= "jpg";
+        fileExtension ??= ".jpg";
         var tempDir = await getTemporaryDirectory();
         var tempFilePath =
             "${tempDir.path}/${StringUtil.rndNameStr(12)}$fileExtension";
+        FlutterImageCompress.validator.ignoreCheckExtName = true;
         var result = await FlutterImageCompress.compressAndGetFile(
           file.path,
           tempFilePath,
@@ -117,7 +118,8 @@ class Uploader {
         );
 
         if (result != null) {
-          if ((await result.length()) > NIP95_MAX_LENGTH) {
+          if (settingProvider.imageService == ImageServices.NIP_95 &&
+              (await result.length()) > NIP95_MAX_LENGTH) {
             BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
           }
 
@@ -126,12 +128,14 @@ class Uploader {
         }
       }
 
-      var fileSize = StoreUtil.getFileSize(file!.path);
-      if (fileSize != null && fileSize > NIP95_MAX_LENGTH) {
-        BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+      if (settingProvider.imageService == ImageServices.NIP_95) {
+        var fileSize = StoreUtil.getFileSize(file!.path);
+        if (fileSize != null && fileSize > NIP95_MAX_LENGTH) {
+          BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+        }
       }
 
-      return file.path;
+      return file!.path;
     }
 
     return null;
