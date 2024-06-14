@@ -30,20 +30,27 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
     if (_needUpdateIds[id] == null && _handingIds[id] == null) {
       eventRelayAddr ??= "";
       _needUpdateIds[id] = eventRelayAddr;
+      later(_laterCallback);
     }
-    later(_laterCallback);
 
     return null;
   }
 
+  Map<String, int> _localRelayQuering = {};
+
   void _getEventFromLocalRelay(String id) async {
     if (relayLocalDB != null) {
-      var event = await relayLocalDB!.queryById(id);
-      if (event != null) {
-        // print("get event from relayDB $id");
-        _eventsMap[id] = event;
-        _needUpdateIds.remove(id);
-        notifyListeners();
+      _localRelayQuering[id] = 1;
+      try {
+        var event = await relayLocalDB!.queryById(id);
+        if (event != null) {
+          // print("get event from relayDB $id");
+          _eventsMap[id] = event;
+          _needUpdateIds.remove(id);
+          notifyListeners();
+        }
+      } finally {
+        _localRelayQuering.remove(id);
       }
     }
   }
@@ -87,8 +94,15 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       var filter = Filter(ids: tempIds);
       var subscriptId = StringUtil.rndNameStr(12);
       // print("query filter ${jsonEncode(filter.toJson())}");
-      nostr!.query([filter.toJson()], onEvent, id: subscriptId, onComplete: () {
-        // log("singleEventProvider onComplete $tempIds");
+
+      bool onCompleteCalled = false;
+      onCompete() {
+        if (onCompleteCalled) {
+          return;
+        }
+        // print("onCompete function call!");
+        onCompleteCalled = true;
+
         for (var id in tempIds) {
           var eventRelayAddr = _handingIds.remove(id);
           if (StringUtil.isNotBlank(eventRelayAddr) && _eventsMap[id] == null) {
@@ -97,10 +111,16 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
                 "single event ${id} not found! begin to query again from ${eventRelayAddr}.");
             var filter = Filter(ids: [id]);
             nostr!.query([filter.toJson()], onEvent,
-                tempRelays: [eventRelayAddr!]);
+                tempRelays: [eventRelayAddr!], onlyTempRelays: true);
           }
         }
+      }
+
+      nostr!.query([filter.toJson()], onEvent, id: subscriptId, onComplete: () {
+        // print("singleEventProvider onComplete $tempIds");
+        onCompete();
       });
+      Future.delayed(const Duration(seconds: 2), onCompete);
 
       for (var entry in _needUpdateIds.entries) {
         _handingIds[entry.key] = entry.value;
