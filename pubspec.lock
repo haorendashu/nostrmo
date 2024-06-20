@@ -710,10 +710,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: da6f19abda6662dd3a4da7e16f17492e3205b20d09f68ffd8c0b19ec0688a343
+      sha256: eced84095d2d762b6e9feaca196dea3fdc6d1573f7090466fed6acccda7b0ca1
       url: "https://pub.dev"
     source: hosted
-    version: "9.3.19"
+    version: "9.4.4"
   flutter_seekbar:
     dependency: "direct main"
     description:
@@ -932,22 +932,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.19.0"
-  irondash_engine_context:
-    dependency: transitive
-    description:
-      name: irondash_engine_context
-      sha256: e8398cca5e28dc280c87b8c35a6ff4e15be844eabec51e713631f83903563681
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.3"
-  irondash_message_channel:
-    dependency: transitive
-    description:
-      name: irondash_message_channel
-      sha256: b4101669776509c76133b8917ab8cfc704d3ad92a8c450b92934dd8884a2f060
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
   js:
     dependency: transitive
     description:
@@ -1340,14 +1324,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  pixel_snap:
-    dependency: transitive
-    description:
-      name: pixel_snap
-      sha256: "677410ea37b07cd37ecb6d5e6c0d8d7615a7cf3bd92ba406fd1ac57e937d1fb0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.5"
   platform:
     dependency: transitive
     description:
@@ -1705,22 +1681,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  super_clipboard:
-    dependency: transitive
-    description:
-      name: super_clipboard
-      sha256: f81058a9b3cadaaf60f37c2a37dd2647c6e5eda4533e335f1512605e3b9fb860
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.15"
-  super_native_extensions:
-    dependency: transitive
-    description:
-      name: super_native_extensions
-      sha256: bb6499c83484c1dbe293e68907a9b6d51e30b699502c5e11940e834c310df261
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.15"
   synchronized:
     dependency: transitive
     description:

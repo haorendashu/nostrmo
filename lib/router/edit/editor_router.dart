@@ -2,8 +2,7 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:intl/intl.dart';
 import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
@@ -46,7 +45,7 @@ class EditorRouter extends StatefulWidget {
 
   List<dynamic> tagPs = [];
 
-  List<quill.BlockEmbed>? initEmbeds;
+  List<BlockEmbed>? initEmbeds;
 
   EditorRouter({
     required this.tags,
@@ -64,7 +63,7 @@ class EditorRouter extends StatefulWidget {
     List<dynamic>? tagPs,
     ECDHBasicAgreement? agreement,
     String? pubkey,
-    List<quill.BlockEmbed>? initEmbeds,
+    List<BlockEmbed>? initEmbeds,
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
@@ -226,8 +225,8 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
       ));
     }
 
-    Widget quillWidget = quill.QuillEditor(
-      configurations: quill.QuillEditorConfigurations(
+    Widget quillWidget = QuillEditor(
+      configurations: QuillEditorConfigurations(
         placeholder: s.What_s_happening,
         embedBuilders: [
           MentionUserEmbedBuilder(),
