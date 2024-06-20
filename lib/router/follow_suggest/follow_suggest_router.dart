@@ -30,6 +30,8 @@ class _FollowSuggestRouter extends CustState<FollowSuggestRouter> {
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
 
+    var mediaData = MediaQuery.of(context);
+
     int crossAxisCount = 1;
     if (PlatformUtil.isTableMode()) {
       crossAxisCount = 2;
@@ -96,8 +98,11 @@ class _FollowSuggestRouter extends CustState<FollowSuggestRouter> {
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(
-          Base.BASE_PADDING * 2,
+        padding: EdgeInsets.only(
+          top: mediaData.padding.top + Base.BASE_PADDING,
+          right: Base.BASE_PADDING * 2,
+          bottom: Base.BASE_PADDING * 2,
+          left: Base.BASE_PADDING * 2,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
