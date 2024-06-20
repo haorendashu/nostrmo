@@ -185,7 +185,8 @@ bool newUser = false;
 late TrieTextMatcher defaultTrieTextMatcher;
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // init video package
   try {
     MediaKit.ensureInitialized();
