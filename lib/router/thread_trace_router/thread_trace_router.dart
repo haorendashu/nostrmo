@@ -219,7 +219,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
 
     List<int> replyKinds = [...EventKind.SUPPORTED_EVENTS]
       ..remove(EventKind.REPOST)
-      ..remove(EventKind.LONG_FORM);
+      ..remove(EventKind.LONG_FORM)
+      ..add(EventKind.ZAP);
 
     // query sub events
     var parentIds = [sourceEvent!.id];

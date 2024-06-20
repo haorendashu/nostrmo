@@ -372,7 +372,8 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
 
       List<int> replyKinds = [...kind.EventKind.SUPPORTED_EVENTS]
         ..remove(kind.EventKind.REPOST)
-        ..remove(kind.EventKind.LONG_FORM);
+        ..remove(kind.EventKind.LONG_FORM)
+        ..add(kind.EventKind.ZAP);
 
       // query sub events
       var filter = Filter(e: [rootId!], kinds: replyKinds);
