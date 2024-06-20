@@ -30,6 +30,16 @@ class PcRouterFakeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeLast() {
+    if (routerFakeInfos.isNotEmpty) {
+      routerFakeInfos.removeLast();
+      List<RouterFakeInfo> newList = [];
+      newList.addAll(routerFakeInfos);
+      routerFakeInfos = newList;
+      notifyListeners();
+    }
+  }
+
   void remove(RouterFakeInfo info) {
     List<RouterFakeInfo> newList = [];
     routerFakeInfos.remove(info);

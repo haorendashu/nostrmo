@@ -14,6 +14,7 @@ import 'package:nostrmo/provider/pc_router_fake_provider.dart';
 import 'package:nostrmo/router/follow_suggest/follow_suggest_router.dart';
 import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
 import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
@@ -301,7 +302,7 @@ class _IndexRouter extends CustState<IndexRouter>
         column1Width = IndexRouter.PC_MAX_COLUMN_1;
       }
 
-      return Scaffold(
+      var mainScaffold = Scaffold(
         // floatingActionButton: addBtn,
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Row(children: [
@@ -365,6 +366,16 @@ class _IndexRouter extends CustState<IndexRouter>
             ),
           )
         ]),
+      );
+
+      return PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) {
+          if (pcRouterFakeProvider.routerFakeInfos.isNotEmpty) {
+            pcRouterFakeProvider.removeLast();
+          }
+        },
+        child: mainScaffold,
       );
     } else {
       return Scaffold(
