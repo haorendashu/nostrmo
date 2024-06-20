@@ -130,6 +130,8 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
 
   @override
   Widget build(BuildContext context) {
+    var s = S.of(context);
+
     var main = Scaffold(
       backgroundColor: widget.backgroundColor.withOpacity(0.5),
       body: Stack(
@@ -165,7 +167,7 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
                 child: IconButton(
                   icon: const Icon(Icons.download),
                   color: widget.closeButtonColor,
-                  tooltip: widget.closeButtonTooltip,
+                  tooltip: s.Download,
                   onPressed: saveImage,
                 )),
           ]),
