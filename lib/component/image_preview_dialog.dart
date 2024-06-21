@@ -106,6 +106,9 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
   /// paning on the zoomed-in image.
   final _popScopeKey = GlobalKey();
 
+  // focus node to capture keyboard events
+  final FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -179,7 +182,19 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
         return true;
       },
       key: _popScopeKey,
-      child: main,
+      child: KeyboardListener(
+        focusNode: _focusNode,
+        onKeyEvent: (ke) {
+          var duration = const Duration(seconds: 1);
+          if (ke.logicalKey.keyLabel == 'Arrow Left') {
+            _pageController.previousPage(
+                duration: duration, curve: Curves.ease);
+          } else if (ke.logicalKey.keyLabel == 'Arrow Right') {
+            _pageController.nextPage(duration: duration, curve: Curves.ease);
+          }
+        },
+        child: main,
+      ),
     );
 
     if (widget.swipeDismissible) {
