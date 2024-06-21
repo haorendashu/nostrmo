@@ -37,6 +37,7 @@ class _NwcSettingRouter extends CustState<NwcSettingRouter> {
     var themeData = Theme.of(context);
     var s = S.of(context);
     var mainColor = themeData.primaryColor;
+    var cardColor = themeData.cardColor;
 
     List<Widget> list = [];
 
@@ -151,6 +152,7 @@ class _NwcSettingRouter extends CustState<NwcSettingRouter> {
           left: 20,
           right: 20,
         ),
+        color: cardColor,
         child: Column(
           children: list,
         ),
