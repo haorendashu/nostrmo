@@ -7,6 +7,7 @@ import 'package:nostrmo/client/nip19/nip19_tlv.dart';
 import 'package:nostrmo/component/follow_set_follow_bottom_sheet.dart';
 import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/generated/l10n.dart';
@@ -110,17 +111,6 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       }
     }
 
-    Widget? imageWidget;
-    if (widget.metadata != null &&
-        StringUtil.isNotBlank(widget.metadata!.picture)) {
-      imageWidget = ImageComponent(
-        imageUrl: widget.metadata!.picture!,
-        width: IMAGE_WIDTH,
-        height: IMAGE_WIDTH,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => CircularProgressIndicator(),
-      );
-    }
     Widget? bannerImage;
     if (widget.metadata != null &&
         StringUtil.isNotBlank(widget.metadata!.banner)) {
@@ -270,16 +260,10 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       }
     }
 
-    Widget userImageWidget = Container(
-      alignment: Alignment.center,
-      height: IMAGE_WIDTH,
+    Widget userImageWidget = UserPicComponent(
+      pubkey: widget.pubkey,
       width: IMAGE_WIDTH,
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-        color: hintColor,
-      ),
-      child: imageWidget,
+      metadata: widget.metadata,
     );
     if (widget.userPicturePreview) {
       userImageWidget = GestureDetector(

@@ -11,6 +11,7 @@ import 'package:nostrmo/component/event/event_torrent_component.dart';
 import 'package:nostrmo/component/event/event_zap_goals_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
@@ -807,24 +808,9 @@ class _EventMainComponent extends State<EventMainComponent> {
     List<Widget> userWidgetList = [];
     for (var zapInfo in eventRelation.zapInfos) {
       userWidgetList.add(Container(
-        margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+        margin: const EdgeInsets.only(left: Base.BASE_PADDING_HALF),
         child: Selector<MetadataProvider, Metadata?>(
           builder: (context, metadata, child) {
-            Widget imageWidget = Container(
-              width: imgSize,
-              height: imgSize,
-              color: themeData.hintColor,
-            );
-            if (metadata != null && StringUtil.isNotBlank(metadata.picture)) {
-              imageWidget = ImageComponent(
-                imageUrl: metadata.picture!,
-                width: imgSize,
-                height: imgSize,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => CircularProgressIndicator(),
-              );
-            }
-
             return GestureDetector(
               onTap: () {
                 RouterUtil.router(context, RouterPath.USER, zapInfo.pubkey);
@@ -833,16 +819,10 @@ class _EventMainComponent extends State<EventMainComponent> {
                 width: imageWidgetWidth,
                 height: imageWidgetHeight,
                 alignment: Alignment.center,
-                child: Container(
-                  alignment: Alignment.center,
-                  height: imgSize,
+                child: UserPicComponent(
+                  pubkey: zapInfo.pubkey,
                   width: imgSize,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(imgSize / 2),
-                    color: themeData.hintColor,
-                  ),
-                  child: imageWidget,
+                  metadata: metadata,
                 ),
               ),
             );

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/nip05_valid_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 
 import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
@@ -97,17 +98,6 @@ class SearchMentionUserItemComponent extends StatelessWidget {
     var cardColor = themeData.cardColor;
     Color hintColor = themeData.hintColor;
 
-    Widget? imageWidget;
-    if (StringUtil.isNotBlank(metadata.picture)) {
-      imageWidget = ImageComponent(
-        imageUrl: metadata.picture!,
-        width: IMAGE_WIDTH,
-        height: IMAGE_WIDTH,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => CircularProgressIndicator(),
-      );
-    }
-
     String nip19Name = Nip19.encodeSimplePubKey(metadata.pubkey!);
     String displayName = nip19Name;
     if (StringUtil.isNotBlank(metadata.displayName)) {
@@ -129,16 +119,10 @@ class SearchMentionUserItemComponent extends StatelessWidget {
       padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
       child: Row(
         children: [
-          Container(
-            alignment: Alignment.center,
-            height: IMAGE_WIDTH,
+          UserPicComponent(
+            pubkey: metadata.pubkey!,
             width: IMAGE_WIDTH,
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-              color: hintColor,
-            ),
-            child: imageWidget,
+            metadata: metadata,
           ),
           Expanded(
             child: Container(

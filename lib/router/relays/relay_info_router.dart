@@ -104,32 +104,11 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
         builder: (context, metadata, child) {
           List<Widget> list = [];
 
-          Widget? imageWidget;
-          if (metadata != null) {
-            imageWidget = ImageComponent(
-              imageUrl: metadata.picture!,
-              width: IMAGE_WIDTH,
-              height: IMAGE_WIDTH,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => CircularProgressIndicator(),
-            );
-          }
           list.add(Container(
             alignment: Alignment.center,
-            height: IMAGE_WIDTH,
-            width: IMAGE_WIDTH,
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-              color: themeData.hintColor,
-            ),
-            child: imageWidget,
-          ));
-
-          list.add(Container(
-            margin: EdgeInsets.only(left: Base.BASE_PADDING),
-            child: NameComponent(
+            child: UserPicComponent(
               pubkey: relayInfo.pubkey,
+              width: IMAGE_WIDTH,
               metadata: metadata,
             ),
           ));

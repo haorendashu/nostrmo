@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/user/follow_btn_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
@@ -60,16 +61,6 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
   Widget buildWidget(ThemeData themeData, Metadata metadata) {
     var cardColor = themeData.cardColor;
 
-    Widget? imageWidget;
-    if (StringUtil.isNotBlank(metadata.picture)) {
-      imageWidget = ImageComponent(
-        imageUrl: metadata.picture!,
-        width: IMAGE_WIDTH,
-        height: IMAGE_WIDTH,
-        fit: BoxFit.cover,
-        placeholder: (context, url) => CircularProgressIndicator(),
-      );
-    }
     Widget? bannerImage;
     if (StringUtil.isNotBlank(metadata.banner)) {
       bannerImage = ImageComponent(
@@ -83,18 +74,14 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
     }
 
     Widget userImageWidget = Container(
-      alignment: Alignment.center,
-      height: IMAGE_WIDTH,
-      width: IMAGE_WIDTH,
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-        color: themeData.hintColor,
-      ),
       margin: const EdgeInsets.only(
         right: Base.BASE_PADDING,
       ),
-      child: imageWidget,
+      child: UserPicComponent(
+        pubkey: widget.pubkey,
+        width: IMAGE_WIDTH,
+        metadata: metadata,
+      ),
     );
 
     List<Widget> list = [

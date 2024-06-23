@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:provider/provider.dart';
@@ -60,27 +61,10 @@ class _QrcodeDialog extends State<QrcodeDialog> {
     var nip19Pubkey = Nip19.encodePubKey(widget.pubkey);
     Widget topWidget = Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
-        Widget? imageWidget;
-        if (metadata != null && StringUtil.isNotBlank(metadata.picture)) {
-          imageWidget = ImageComponent(
-            imageUrl: metadata.picture!,
-            width: IMAGE_WIDTH,
-            height: IMAGE_WIDTH,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => CircularProgressIndicator(),
-          );
-        }
-
-        Widget userImageWidget = Container(
-          alignment: Alignment.center,
-          height: IMAGE_WIDTH,
+        Widget userImageWidget = UserPicComponent(
+          pubkey: widget.pubkey,
           width: IMAGE_WIDTH,
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-            color: hintColor,
-          ),
-          child: imageWidget,
+          metadata: metadata,
         );
 
         Widget userNameWidget = NameComponent(
@@ -99,7 +83,7 @@ class _QrcodeDialog extends State<QrcodeDialog> {
             children: [
               userImageWidget,
               Container(
-                margin: EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+                margin: const EdgeInsets.only(left: Base.BASE_PADDING_HALF),
                 child: Container(
                   width: QR_WIDTH - IMAGE_WIDTH - Base.BASE_PADDING_HALF,
                   child: userNameWidget,

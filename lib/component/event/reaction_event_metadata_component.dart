@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
@@ -30,35 +31,16 @@ class _ReactionEventMetadataComponent
 
   @override
   Widget build(BuildContext context) {
-    var themeData = Theme.of(context);
     return Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
       List<Widget> list = [];
 
       var name = SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
 
-      Widget? imageWidget;
-      if (metadata != null) {
-        if (StringUtil.isNotBlank(metadata.picture)) {
-          imageWidget = ImageComponent(
-            imageUrl: metadata.picture!,
-            width: IMAGE_WIDTH,
-            height: IMAGE_WIDTH,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-          );
-        }
-      }
-
-      list.add(Container(
+      list.add(UserPicComponent(
+        pubkey: widget.pubkey,
         width: IMAGE_WIDTH,
-        height: IMAGE_WIDTH,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-          color: themeData.hintColor,
-        ),
-        child: imageWidget,
+        metadata: metadata,
       ));
 
       list.add(Container(

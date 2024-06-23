@@ -6,6 +6,7 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/component/simple_date_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -72,20 +73,9 @@ class _EventTopComponent extends State<EventTopComponent> {
       builder: (context, metadata, child) {
         var themeData = Theme.of(context);
 
-        Widget? imageWidget;
         String nip05Text = Nip19.encodeSimplePubKey(pubkey!);
 
         if (metadata != null) {
-          if (StringUtil.isNotBlank(metadata.picture)) {
-            imageWidget = ImageComponent(
-              imageUrl: metadata.picture!,
-              width: IMAGE_WIDTH,
-              height: IMAGE_WIDTH,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => const CircularProgressIndicator(),
-            );
-          }
-
           if (StringUtil.isNotBlank(metadata.nip05)) {
             nip05Text = metadata.nip05!;
           }
@@ -101,15 +91,12 @@ class _EventTopComponent extends State<EventTopComponent> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               jumpWrap(Container(
-                width: IMAGE_WIDTH,
-                height: IMAGE_WIDTH,
-                margin: EdgeInsets.only(top: 4),
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(HALF_IMAGE_WIDTH),
-                  color: themeData.hintColor,
+                margin: const EdgeInsets.only(top: 4),
+                child: UserPicComponent(
+                  width: IMAGE_WIDTH,
+                  pubkey: pubkey!,
+                  metadata: metadata,
                 ),
-                child: imageWidget,
               )),
               Expanded(
                 child: Container(

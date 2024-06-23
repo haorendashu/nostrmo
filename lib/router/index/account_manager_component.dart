@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
@@ -281,19 +282,6 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
 
       var nip19PubKey = Nip19.encodePubKey(pubkey);
 
-      Widget? imageWidget;
-      if (metadata != null) {
-        if (StringUtil.isNotBlank(metadata.picture)) {
-          imageWidget = ImageComponent(
-            imageUrl: metadata.picture!,
-            width: IMAGE_WIDTH,
-            height: IMAGE_WIDTH,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-          );
-        }
-      }
-
       list.add(Container(
         width: 24,
         alignment: Alignment.centerLeft,
@@ -308,15 +296,10 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
         ),
       ));
 
-      list.add(Container(
+      list.add(UserPicComponent(
+        pubkey: pubkey,
         width: IMAGE_WIDTH,
-        height: IMAGE_WIDTH,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(IMAGE_WIDTH / 2),
-          color: hintColor,
-        ),
-        child: imageWidget,
+        metadata: metadata,
       ));
 
       list.add(Container(

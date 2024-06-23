@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/util/colors_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/metadata.dart';
@@ -46,13 +47,14 @@ class _UserPicComponent extends State<UserPicComponent> {
   Widget buildWidget(Metadata? metadata) {
     var themeData = Theme.of(context);
 
+    double imageBorder = widget.width / 14;
     Widget? imageWidget;
     if (metadata != null) {
       if (StringUtil.isNotBlank(metadata.picture)) {
         imageWidget = ImageComponent(
           imageUrl: metadata.picture!,
-          width: widget.width,
-          height: widget.width,
+          width: widget.width - imageBorder * 2,
+          height: widget.width - imageBorder * 2,
           fit: BoxFit.cover,
           placeholder: (context, url) => CircularProgressIndicator(),
         );
@@ -63,11 +65,45 @@ class _UserPicComponent extends State<UserPicComponent> {
       width: widget.width,
       height: widget.width,
       clipBehavior: Clip.hardEdge,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(widget.width / 2),
-        color: themeData.hintColor,
+        color: ColorsUtil.hexToColor("#${widget.pubkey.substring(0, 6)}"),
       ),
-      child: imageWidget,
+      child: Container(
+        width: widget.width - imageBorder * 2,
+        height: widget.width - imageBorder * 2,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.width / 2 - imageBorder),
+          color: themeData.hintColor,
+        ),
+        child: imageWidget,
+      ),
     );
+
+    // Widget? imageWidget;
+    // if (metadata != null) {
+    //   if (StringUtil.isNotBlank(metadata.picture)) {
+    //     imageWidget = ImageComponent(
+    //       imageUrl: metadata.picture!,
+    //       width: widget.width,
+    //       height: widget.width,
+    //       fit: BoxFit.cover,
+    //       placeholder: (context, url) => CircularProgressIndicator(),
+    //     );
+    //   }
+    // }
+
+    // return Container(
+    //   width: widget.width,
+    //   height: widget.width,
+    //   clipBehavior: Clip.hardEdge,
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(widget.width / 2),
+    //     color: themeData.hintColor,
+    //   ),
+    //   child: imageWidget,
+    // );
   }
 }
