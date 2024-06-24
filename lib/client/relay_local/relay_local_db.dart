@@ -126,6 +126,11 @@ class RelayLocalDB {
     return value != null;
   }
 
+  Future<void> deleteEventByKind(String pubkey, int eventKind) async {
+    var sql = "delete from event where kind = ? and pubkey = ?";
+    await _database.execute(sql, [eventKind, pubkey]);
+  }
+
   Future<void> deleteEvent(String pubkey, String id) async {
     var sql = "delete from event where id = ? and pubkey = ?";
     await _database.execute(sql, [id, pubkey]);

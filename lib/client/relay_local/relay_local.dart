@@ -60,10 +60,10 @@ class RelayLocal extends Relay {
     var event = message[1];
     var id = event["id"];
     var eventKind = event["kind"];
+    var pubkey = event["pubkey"];
 
     if (eventKind == EventKind.EVENT_DELETION) {
       var tags = event["tags"];
-      var pubkey = event["pubkey"];
       if (tags is List && tags.isNotEmpty) {
         for (var tag in tags) {
           if (tag is List && tag.isNotEmpty && tag.length > 1) {
@@ -78,6 +78,12 @@ class RelayLocal extends Relay {
         }
       }
     } else {
+      if (eventKind == EventKind.METADATA ||
+          eventKind == EventKind.CONTACT_LIST) {
+        // these eventkind can only save 1 event, so delete other event first.
+        relayLocalDB.deleteEventByKind(pubkey, eventKind);
+      }
+
       // maybe it shouldn't insert here, due to it doesn't had a source.
       relayLocalDB.addEvent(event);
     }
