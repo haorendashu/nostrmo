@@ -159,10 +159,7 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
                   icon: const Icon(Icons.close),
                   color: widget.closeButtonColor,
                   tooltip: widget.closeButtonTooltip,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    _handleDismissal();
-                  },
+                  onPressed: close,
                 )),
             Positioned(
                 bottom: 5,
@@ -191,6 +188,8 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
                 duration: duration, curve: Curves.ease);
           } else if (ke.logicalKey.keyLabel == 'Arrow Right') {
             _pageController.nextPage(duration: duration, curve: Curves.ease);
+          } else if (ke.logicalKey.keyLabel == 'Arrow Down') {
+            close();
           }
         },
         child: main,
@@ -268,5 +267,10 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
     if (_internalPageChangeListener != null) {
       _pageController.removeListener(_internalPageChangeListener!);
     }
+  }
+
+  void close() {
+    Navigator.of(context).pop();
+    _handleDismissal();
   }
 }
