@@ -3059,6 +3059,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Pubkey`
+  String get Pubkey {
+    return Intl.message(
+      'Pubkey',
+      name: 'Pubkey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Color`
+  String get Color {
+    return Intl.message(
+      'Color',
+      name: 'Color',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -206,6 +206,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         onTap: pickOpenMode,
       ));
     }
+    list.add(SettingGroupItemComponent(
+      name: "${s.Pubkey} ${s.Color}",
+      value: getOpenList(settingProvider.pubkeyColor).name,
+      onTap: pickPubkeyColor,
+    ));
 
     list.add(
         SettingGroupTitleComponent(iconData: Icons.article, title: s.Notes));
@@ -1252,6 +1257,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.openBlurhashImage = resultEnumObj.value;
+    }
+  }
+
+  pickPubkeyColor() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.pubkeyColor = resultEnumObj.value;
     }
   }
 }

@@ -320,6 +320,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get openBlurhashImage => _settingData!.openBlurhashImage;
 
+  int? get pubkeyColor => _settingData!.pubkeyColor;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -522,6 +524,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set pubkeyColor(int? o) {
+    _settingData!.pubkeyColor = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -626,6 +633,8 @@ class SettingData {
 
   int? openBlurhashImage;
 
+  int? pubkeyColor;
+
   /// updated time
   late int updatedTime;
 
@@ -669,6 +678,7 @@ class SettingData {
     this.hideRelayNotices,
     this.nwcUrlMap,
     this.openBlurhashImage,
+    this.pubkeyColor,
     this.updatedTime = 0,
   });
 
@@ -726,6 +736,7 @@ class SettingData {
     hideRelayNotices = json['hideRelayNotices'];
     nwcUrlMap = json['nwcUrlMap'];
     openBlurhashImage = json['openBlurhashImage'];
+    pubkeyColor = json['pubkeyColor'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -775,6 +786,7 @@ class SettingData {
     data['hideRelayNotices'] = this.hideRelayNotices;
     data['nwcUrlMap'] = this.nwcUrlMap;
     data['openBlurhashImage'] = this.openBlurhashImage;
+    data['pubkeyColor'] = this.pubkeyColor;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Clear_Not_My_Data": MessageLookupByLibrary.simpleMessage("清空非我的数据"),
         "Close_Private_DM": MessageLookupByLibrary.simpleMessage("关闭私密私信"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
+        "Color": MessageLookupByLibrary.simpleMessage("颜色"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("确认"),
         "Contact": MessageLookupByLibrary.simpleMessage("联系人"),
         "Content": MessageLookupByLibrary.simpleMessage("内容"),
@@ -251,6 +252,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
             "隐私私信是一种新的消息类型，一些客户端还没有对这种消息提供支持。"),
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("密钥不能为空"),
+        "Pubkey": MessageLookupByLibrary.simpleMessage("公钥"),
         "Public": MessageLookupByLibrary.simpleMessage("公开"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),

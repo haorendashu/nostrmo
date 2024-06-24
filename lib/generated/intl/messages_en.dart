@@ -80,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Close Private DM"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Close at"),
+        "Color": MessageLookupByLibrary.simpleMessage("Color"),
         "Comfirm": MessageLookupByLibrary.simpleMessage("Comfirm"),
         "Contact": MessageLookupByLibrary.simpleMessage("Contact"),
         "Content": MessageLookupByLibrary.simpleMessage("Content"),
@@ -325,6 +326,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Private Direct Message is a new message type that some clients do not yet support."),
         "Private_key_is_null":
             MessageLookupByLibrary.simpleMessage("Private key is null."),
+        "Pubkey": MessageLookupByLibrary.simpleMessage("Pubkey"),
         "Public": MessageLookupByLibrary.simpleMessage("Public"),
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),

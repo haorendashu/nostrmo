@@ -299,5 +299,7 @@
     "Hint_Font_Color": "Hint Font Color",
     "Background_Image": "Background Image",
     "Image": "Image",
-    "Download": "Download"
+    "Download": "Download",
+    "Pubkey": "Pubkey",
+    "Color": "Color"
 }

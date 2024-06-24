@@ -288,5 +288,7 @@
     "Hint_Font_Color": "提示文字颜色",
     "Background_Image": "背景图片",
     "Image": "图片",
-    "Download": "下载"
+    "Download": "下载",
+    "Pubkey": "公钥",
+    "Color": "颜色"
 }
