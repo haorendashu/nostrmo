@@ -94,7 +94,9 @@ class _IndexRouter extends CustState<IndexRouter>
     switch (state) {
       case AppLifecycleState.resumed:
         print("AppLifecycleState.resumed");
-        nostr!.reconnect();
+        if (nostr != null) {
+          nostr!.reconnect();
+        }
         break;
       case AppLifecycleState.inactive:
         print("AppLifecycleState.inactive");
