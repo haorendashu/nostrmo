@@ -17,7 +17,6 @@ import '../generated/l10n.dart';
 
 const _defaultBackgroundColor = Colors.black;
 const _defaultCloseButtonColor = Colors.white;
-const _defaultCloseButtonTooltip = 'Close';
 
 class ImagePreviewDialog extends StatefulWidget {
   final EasyImageProvider imageProvider;
@@ -28,7 +27,6 @@ class ImagePreviewDialog extends StatefulWidget {
   final bool swipeDismissible;
   final bool doubleTapZoomable;
   final Color backgroundColor;
-  final String closeButtonTooltip;
   final Color closeButtonColor;
 
   const ImagePreviewDialog(this.imageProvider,
@@ -40,7 +38,6 @@ class ImagePreviewDialog extends StatefulWidget {
       this.swipeDismissible = false,
       this.doubleTapZoomable = false,
       required this.backgroundColor,
-      required this.closeButtonTooltip,
       required this.closeButtonColor})
       : super(key: key);
 
@@ -51,8 +48,6 @@ class ImagePreviewDialog extends StatefulWidget {
   /// The optional [swipeDismissible] boolean defaults to false and allows swipe-down-to-dismiss.
   /// The optional [doubleTapZoomable] boolean defaults to false and allows double tap to zoom.
   /// The [backgroundColor] defaults to black, but can be set to any other color.
-  /// The [closeButtonTooltip] text is displayed when the user long-presses on the
-  /// close button and is used for accessibility.
   /// The [closeButtonColor] defaults to white, but can be set to any other color.
   static Future<void> show(
       BuildContext context, EasyImageProvider imageProvider,
@@ -63,7 +58,6 @@ class ImagePreviewDialog extends StatefulWidget {
       bool swipeDismissible = false,
       bool doubleTapZoomable = false,
       Color backgroundColor = _defaultBackgroundColor,
-      String closeButtonTooltip = _defaultCloseButtonTooltip,
       Color closeButtonColor = _defaultCloseButtonColor}) {
     // if (immersive) {
     //   // Hide top and bottom bars
@@ -82,8 +76,7 @@ class ImagePreviewDialog extends StatefulWidget {
               swipeDismissible: swipeDismissible,
               doubleTapZoomable: doubleTapZoomable,
               backgroundColor: backgroundColor,
-              closeButtonColor: closeButtonColor,
-              closeButtonTooltip: closeButtonTooltip);
+              closeButtonColor: closeButtonColor);
         });
   }
 
@@ -158,7 +151,7 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
                 child: IconButton(
                   icon: const Icon(Icons.close),
                   color: widget.closeButtonColor,
-                  tooltip: widget.closeButtonTooltip,
+                  tooltip: s.close,
                   onPressed: close,
                 )),
             Positioned(
@@ -243,12 +236,17 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
           BotToast.showText(text: S.of(context).Image_save_success);
         }
       } else {
-        var result = await FileSaver.instance.saveFile(
-          name: DateTime.now().millisecondsSinceEpoch.toString(),
-          bytes: imageAsBytes,
-          ext: ".png",
+        // var result = await FileSaver.instance.saveFile(
+        //   name: DateTime.now().millisecondsSinceEpoch.toString(),
+        //   bytes: imageAsBytes,
+        //   ext: ".png",
+        // );
+        var result = "Good!";
+        print(result);
+        BotToast.showText(
+          text: "${S.of(context).Image_save_success} $result",
+          crossPage: true,
         );
-        BotToast.showText(text: "${S.of(context).Image_save_success} $result");
       }
     }
   }

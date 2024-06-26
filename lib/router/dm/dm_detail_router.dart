@@ -85,7 +85,6 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     );
 
     var localPubkey = nostr!.publicKey;
-    agreement = NIP04.getAgreement(nostr!.privateKey!);
 
     List<Widget> list = [];
 
@@ -109,7 +108,6 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
               sessionPubkey: detail!.dmSession.pubkey,
               event: event,
               isLocal: localPubkey == event.pubkey,
-              agreement: agreement!,
             );
           },
           reverse: true,

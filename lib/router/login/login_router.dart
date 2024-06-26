@@ -207,7 +207,7 @@ class _LoginRouter extends State<LoginRouter>
       pk = Nip19.decode(pk);
     }
     settingProvider.addAndChangePrivateKey(pk, updateUI: false);
-    nostr = relayProvider.genNostr(pk);
+    nostr = await relayProvider.genNostrWithPrivateKey(pk);
     //   await Future.delayed(Duration(seconds: 5));
     // } finally {
     //   cancelFunc.call();

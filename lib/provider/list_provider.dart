@@ -65,7 +65,7 @@ class ListProvider extends ChangeNotifier {
   //   "30030:6e75f7972397ca3295e0f4ca0fbc6eb9cc79be85bafdd56bd378220ca8eee74e:TheGrinder #ZapStream",
   // ];
 
-  void _handleExtraAndNotify(Event event) {
+  void _handleExtraAndNotify(Event event) async {
     if (event.kind == EventKind.EMOJIS_LIST) {
       // This is a emoji list, try to handle some listSet
       for (var tag in event.tags) {
@@ -79,7 +79,10 @@ class ListProvider extends ChangeNotifier {
       }
     } else if (event.kind == EventKind.BOOKMARKS_LIST) {
       // due to bookmarks info will use many times, so it should parse when it was receive.
-      _bookmarks = parseBookmarks();
+      var bm = await parseBookmarks();
+      if (bm != null) {
+        _bookmarks = bm;
+      }
     }
     notifyListeners();
   }
@@ -166,7 +169,7 @@ class ListProvider extends ChangeNotifier {
     return result;
   }
 
-  void addCustomEmoji(CustomEmoji emoji) {
+  void addCustomEmoji(CustomEmoji emoji) async {
     var cancelFunc = BotToast.showLoading();
 
     try {
@@ -179,7 +182,7 @@ class ListProvider extends ChangeNotifier {
       tags.add(["emoji", emoji.name, emoji.filepath]);
       var changedEvent =
           Event(nostr!.publicKey, EventKind.EMOJIS_LIST, tags, "");
-      var result = nostr!.sendEvent(changedEvent);
+      var result = await nostr!.sendEvent(changedEvent);
 
       if (result != null) {
         _holder[emojiKey] = result;
@@ -204,7 +207,7 @@ class ListProvider extends ChangeNotifier {
     return _holder[bookmarksKey];
   }
 
-  Bookmarks parseBookmarks() {
+  Future<Bookmarks?> parseBookmarks() async {
     var bookmarks = Bookmarks();
     var bookmarksEvent = getBookmarksEvent();
     if (bookmarksEvent == null) {
@@ -213,10 +216,13 @@ class ListProvider extends ChangeNotifier {
 
     var content = bookmarksEvent.content;
     if (StringUtil.isNotBlank(content)) {
-      var agreement = NIP04.getAgreement(nostr!.privateKey!);
-      var plainContent = NIP04.decrypt(content, agreement, nostr!.publicKey);
+      var plainContent =
+          await nostr!.nostrSigner.decrypt(nostr!.publicKey, content);
+      if (StringUtil.isBlank(plainContent)) {
+        return null;
+      }
 
-      var jsonObj = jsonDecode(plainContent);
+      var jsonObj = jsonDecode(plainContent!);
       if (jsonObj is List) {
         List<BookmarkItem> privateItems = [];
         for (var jsonObjItem in jsonObj) {
@@ -276,17 +282,20 @@ class ListProvider extends ChangeNotifier {
     saveBookmarks(bookmarks);
   }
 
-  void saveBookmarks(Bookmarks bookmarks) {
-    var content = "";
+  void saveBookmarks(Bookmarks bookmarks) async {
+    String? content = "";
     if (bookmarks.privateItems.isNotEmpty) {
       List<List> list = [];
       for (var item in bookmarks.privateItems) {
         list.add(item.toJson());
       }
 
-      var agreement = NIP04.getAgreement(nostr!.privateKey!);
       var jsonText = jsonEncode(list);
-      content = NIP04.encrypt(jsonText, agreement, nostr!.publicKey);
+      content = await nostr!.nostrSigner.encrypt(nostr!.publicKey, jsonText);
+      if (StringUtil.isBlank(content)) {
+        BotToast.showText(text: "Bookmark encrypt error");
+        return;
+      }
     }
 
     List tags = [];
@@ -295,8 +304,8 @@ class ListProvider extends ChangeNotifier {
     }
 
     var event =
-        Event(nostr!.publicKey, EventKind.BOOKMARKS_LIST, tags, content);
-    var resultEvent = nostr!.sendEvent(event);
+        Event(nostr!.publicKey, EventKind.BOOKMARKS_LIST, tags, content!);
+    var resultEvent = await nostr!.sendEvent(event);
     if (resultEvent != null) {
       _holder[bookmarksKey] = resultEvent;
     }

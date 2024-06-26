@@ -5,6 +5,7 @@ import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip02/cust_contact_list.dart';
 import 'package:nostrmo/client/nip04/nip04.dart';
+import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:pointycastle/export.dart';
 
@@ -43,7 +44,7 @@ class FollowSet extends CustContactList {
           followedCommunitys: followedCommunitys,
         );
 
-  factory FollowSet.fromEvent(Event e, ECDHBasicAgreement agreement) {
+  static Future<FollowSet?> genFollowSet(Event e) async {
     Map<String, Contact> contacts = {};
     Map<String, int> followedTags = {};
     Map<String, int> followedCommunitys = {};
@@ -75,11 +76,14 @@ class FollowSet extends CustContactList {
 
     if (StringUtil.isNotBlank(e.content)) {
       try {
-        var contentSource = NIP04.decrypt(e.content, agreement, e.pubkey);
-        var jsonObj = jsonDecode(contentSource);
-        if (jsonObj is List) {
-          CustContactList.getContactInfoFromTags(jsonObj, privateContacts,
-              privateFollowedTags, privateFollowedCommunitys);
+        var contentSource =
+            await nostr!.nostrSigner.decrypt(e.pubkey, e.content);
+        if (StringUtil.isNotBlank(contentSource)) {
+          var jsonObj = jsonDecode(contentSource!);
+          if (jsonObj is List) {
+            CustContactList.getContactInfoFromTags(jsonObj, privateContacts,
+                privateFollowedTags, privateFollowedCommunitys);
+          }
         }
       } catch (e) {
         // sometimes would decode fail
@@ -109,7 +113,7 @@ class FollowSet extends CustContactList {
     );
   }
 
-  Event toEventMap(ECDHBasicAgreement agreement, String pubkey) {
+  Future<Event?> toEventMap(String pubkey) async {
     List<dynamic> tags = [];
     if (StringUtil.isNotBlank(dTag)) {
       tags.add(["d", dTag]);
@@ -139,9 +143,12 @@ class FollowSet extends CustContactList {
     }
 
     var contentSource = jsonEncode(privateTags);
-    var content = NIP04.encrypt(contentSource, agreement, pubkey);
+    var content = await nostr!.nostrSigner.encrypt(pubkey, contentSource);
+    if (StringUtil.isBlank(content)) {
+      return null;
+    }
 
-    return Event(pubkey, EventKind.FOLLOW_SETS, tags, content);
+    return Event(pubkey, EventKind.FOLLOW_SETS, tags, content!);
   }
 
   List<Contact> get publicContacts {

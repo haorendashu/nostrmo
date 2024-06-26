@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:nostrmo/client/nostr.dart';
 import 'package:nostrmo/client/relay_local/relay_local_db.dart';
+import 'package:nostrmo/client/signer/local_nostr_signer.dart';
 import 'package:nostrmo/component/content/trie_text_matcher/trie_text_matcher_builder.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
@@ -281,7 +282,8 @@ Future<void> main() async {
   }
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
-    nostr = relayProvider.genNostr(settingProvider.privateKey!);
+    nostr =
+        await relayProvider.genNostrWithPrivateKey(settingProvider.privateKey!);
   }
 
   FlutterNativeSplash.remove();

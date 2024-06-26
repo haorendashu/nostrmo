@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/util/string_util.dart';
 
 import '../../component/appbar4stack.dart';
 import '../../generated/l10n.dart';
@@ -186,7 +187,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
       return;
     }
 
-    doCopy(nostr!.privateKey!);
+    doCopy(settingProvider.privateKey);
   }
 
   void copyKey() {
@@ -194,13 +195,17 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
       return;
     }
 
-    var pk = nostr!.privateKey;
+    var pk = settingProvider.privateKey;
     var nip19Key = Nip19.encodePrivateKey(pk!);
     doCopy(nip19Key);
   }
 
-  void doCopy(String key) {
-    Clipboard.setData(ClipboardData(text: key)).then((_) {
+  void doCopy(String? key) {
+    if (StringUtil.isBlank(key)) {
+      return;
+    }
+
+    Clipboard.setData(ClipboardData(text: key!)).then((_) {
       BotToast.showText(text: S.of(context).key_has_been_copy);
     });
   }

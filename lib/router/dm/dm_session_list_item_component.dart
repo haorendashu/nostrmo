@@ -22,11 +22,8 @@ import '../../util/string_util.dart';
 class DMSessionListItemComponent extends StatefulWidget {
   DMSessionDetail detail;
 
-  pointycastle.ECDHBasicAgreement agreement;
-
   DMSessionListItemComponent({
     required this.detail,
-    required this.agreement,
   });
 
   @override
@@ -40,6 +37,8 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
 
   static const double HALF_IMAGE_WIDTH = 17;
 
+  String? plainContent;
+
   @override
   Widget build(BuildContext context) {
     var main = Selector<MetadataProvider, Metadata?>(
@@ -52,9 +51,20 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
         var dmSession = widget.detail.dmSession;
 
         var content = dmSession.newestEvent!.content;
-        if (dmSession.newestEvent!.kind == EventKind.DIRECT_MESSAGE) {
-          content = NIP04.decrypt(dmSession.newestEvent!.content,
-              widget.agreement, dmSession.pubkey);
+        if (dmSession.newestEvent!.kind == EventKind.DIRECT_MESSAGE &&
+            StringUtil.isBlank(plainContent)) {
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+            var pc = await nostr!.nostrSigner
+                .decrypt(dmSession.pubkey, dmSession.newestEvent!.content);
+            if (StringUtil.isNotBlank(pc)) {
+              setState(() {
+                plainContent = pc;
+              });
+            }
+          });
+        }
+        if (StringUtil.isNotBlank(plainContent)) {
+          content = plainContent!;
         }
         content = content.replaceAll("\r", " ");
         content = content.replaceAll("\n", " ");

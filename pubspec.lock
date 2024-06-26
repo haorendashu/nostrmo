@@ -718,10 +718,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: eced84095d2d762b6e9feaca196dea3fdc6d1573f7090466fed6acccda7b0ca1
+      sha256: "8101c805242016c46671a1950887b3bda3c1c98d2078f99567c587c33b393343"
       url: "https://pub.dev"
     source: hosted
-    version: "9.4.4"
+    version: "9.4.6"
   flutter_seekbar:
     dependency: "direct main"
     description:

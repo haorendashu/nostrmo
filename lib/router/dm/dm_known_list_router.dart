@@ -10,9 +10,7 @@ import 'dm_notice_item_component.dart';
 import 'dm_session_list_item_component.dart';
 
 class DMKnownListRouter extends StatefulWidget {
-  ECDHBasicAgreement agreement;
-
-  DMKnownListRouter({required this.agreement});
+  DMKnownListRouter();
 
   @override
   State<StatefulWidget> createState() {
@@ -57,7 +55,6 @@ class _DMKnownListRouter extends State<DMKnownListRouter> {
             var detail = details[index - flag];
             return DMSessionListItemComponent(
               detail: detail,
-              agreement: widget.agreement,
             );
           }
         },

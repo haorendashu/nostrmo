@@ -15,6 +15,7 @@ import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
+import '../../util/string_util.dart';
 
 class DMDetailItemComponent extends StatefulWidget {
   String sessionPubkey;
@@ -23,13 +24,10 @@ class DMDetailItemComponent extends StatefulWidget {
 
   bool isLocal;
 
-  pointycastle.ECDHBasicAgreement agreement;
-
   DMDetailItemComponent({
     required this.sessionPubkey,
     required this.event,
     required this.isLocal,
-    required this.agreement,
   });
 
   @override
@@ -42,6 +40,8 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
   static const double IMAGE_WIDTH = 34;
 
   static const double BLANK_WIDTH = 50;
+
+  String? plainContent;
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +63,23 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
         DateTime.fromMillisecondsSinceEpoch(widget.event.createdAt * 1000));
 
     var content = widget.event.content;
-    if (widget.event.kind == EventKind.DIRECT_MESSAGE) {
-      content = NIP04.decrypt(
-          widget.event.content, widget.agreement, widget.sessionPubkey);
+    if (widget.event.kind == EventKind.DIRECT_MESSAGE &&
+        StringUtil.isBlank(plainContent)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        var pc = await nostr!.nostrSigner
+            .decrypt(widget.sessionPubkey, widget.event.content);
+        if (StringUtil.isNotBlank(pc)) {
+          setState(() {
+            plainContent = pc;
+          });
+        }
+      });
     }
+    if (StringUtil.isNotBlank(plainContent)) {
+      content = plainContent!;
+    }
+    content = content.replaceAll("\r", " ");
+    content = content.replaceAll("\n", " ");
 
     var timeWidget = Text(
       timeStr,

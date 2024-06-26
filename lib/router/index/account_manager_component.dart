@@ -158,8 +158,9 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
     return true;
   }
 
-  void doLogin() {
-    nostr = relayProvider.genNostr(settingProvider.privateKey!);
+  Future<void> doLogin() async {
+    nostr =
+        await relayProvider.genNostrWithPrivateKey(settingProvider.privateKey!);
   }
 
   void onLoginTap(int index) {
@@ -180,8 +181,8 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
     }
   }
 
-  static void onLogoutTap(int index,
-      {bool routerBack = true, BuildContext? context}) {
+  static Future<void> onLogoutTap(int index,
+      {bool routerBack = true, BuildContext? context}) async {
     var oldIndex = settingProvider.privateKeyIndex;
     clearLocalData(index);
 
@@ -193,7 +194,8 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
       // signOut complete
       if (settingProvider.privateKey != null) {
         // use next privateKey to login
-        nostr = relayProvider.genNostr(settingProvider.privateKey!);
+        nostr = await relayProvider
+            .genNostrWithPrivateKey(settingProvider.privateKey!);
       }
     }
 

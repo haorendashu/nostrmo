@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bech32/bech32.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:nostrmo/main.dart';
 
 import '../event.dart';
 import '../event_kind.dart' as kind;
@@ -104,9 +105,12 @@ class Zap {
     if (StringUtil.isNotBlank(pollOption)) {
       tags.add(["poll_option", pollOption!]);
     }
-    var event = Event(
+    Event? event = Event(
         targetNostr.publicKey, kind.EventKind.ZAP_REQUEST, tags, eventContent);
-    event.sign(targetNostr.privateKey!);
+    event = await nostr!.nostrSigner.signEvent(event);
+    if (event == null) {
+      return null;
+    }
     log(jsonEncode(event));
     var eventStr = Uri.encodeQueryComponent(jsonEncode(event));
     callback += "&nostr=$eventStr";

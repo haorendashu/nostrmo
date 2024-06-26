@@ -120,7 +120,7 @@ class RelayPool {
     return false;
   }
 
-  void _onEvent(Relay relay, List<dynamic> json) {
+  Future<void> _onEvent(Relay relay, List<dynamic> json) async {
     final messageType = json[0];
     if (messageType == 'EVENT') {
       try {
@@ -212,20 +212,18 @@ class RelayPool {
         log("AUTH result not right.");
         return;
       }
-      if (StringUtil.isBlank(localNostr.privateKey)) {
-        log("Relay auth fail due to privateKey absent.");
-        return;
-      }
 
       final challenge = json[1] as String;
       var tags = [
         ["relay", relay.relayStatus.addr],
         ["challenge", challenge]
       ];
-      var event =
+      Event? event =
           Event(localNostr.publicKey, EventKind.AUTHENTICATION, tags, "");
-      event.sign(localNostr.privateKey!);
-      relay.send(["AUTH", event.toJson()], forceSend: true);
+      event = await localNostr.nostrSigner.signEvent(event);
+      if (event != null) {
+        relay.send(["AUTH", event.toJson()], forceSend: true);
+      }
     }
   }
 

@@ -50,7 +50,7 @@ class GiftWrapProvider extends ChangeNotifier {
     if (box.add(e)) {
       // This is an new event.
       // decode this event.
-      var sourceEvent = await GiftWrapUtil.getRumorEvent(e, nostr!.privateKey!);
+      var sourceEvent = await GiftWrapUtil.getRumorEvent(e);
 
       // some event need some handle
       if (sourceEvent != null) {

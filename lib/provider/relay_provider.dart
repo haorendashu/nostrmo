@@ -14,6 +14,8 @@ import '../client/nostr.dart';
 import '../client/relay/relay.dart';
 import '../client/relay/relay_base.dart';
 import '../client/relay/relay_isolate.dart';
+import '../client/signer/local_nostr_signer.dart';
+import '../client/signer/nostr_signer.dart';
 import '../consts/client_connected.dart';
 import '../data/relay_status.dart';
 import '../main.dart';
@@ -112,8 +114,18 @@ class RelayProvider extends ChangeNotifier {
     return relayAddrs.length;
   }
 
-  Nostr genNostr(String pk) {
-    var _nostr = Nostr(privateKey: pk);
+  Future<Nostr?> genNostrWithPrivateKey(String privateKey) async {
+    var nostrSigner = LocalNostrSigner(privateKey);
+    return await genNostr(nostrSigner);
+  }
+
+  Future<Nostr?> genNostr(NostrSigner signer) async {
+    var pubkey = await signer.getPublicKey();
+    if (pubkey == null) {
+      return null;
+    }
+
+    var _nostr = Nostr(signer, pubkey);
     log("nostr init over");
 
     // add initQuery

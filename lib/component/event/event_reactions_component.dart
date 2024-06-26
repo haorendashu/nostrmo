@@ -135,7 +135,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         );
 
         Widget? showMoreZapWidget;
-        if (eventReactions!.zaps.isNotEmpty) {
+        if (eventReactions != null && eventReactions.zaps.isNotEmpty) {
           var iconData = Icons.keyboard_double_arrow_up_rounded;
           if (showMoreZap) {
             iconData = Icons.keyboard_double_arrow_down_rounded;
@@ -325,7 +325,9 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
         List<Widget> mainList = [];
 
-        if (showMoreZap && eventReactions!.zaps.isNotEmpty) {
+        if (showMoreZap &&
+            eventReactions != null &&
+            eventReactions.zaps.isNotEmpty) {
           mainList.add(Container(
             margin: const EdgeInsets.only(
               top: Base.BASE_PADDING,
@@ -556,7 +558,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         return;
       }
 
-      var likeEvent = nostr!.sendLike(widget.event.id, content: emojiText);
+      var likeEvent =
+          await nostr!.sendLike(widget.event.id, content: emojiText);
       if (likeEvent != null) {
         eventReactionsProvider.addLike(widget.event.id, likeEvent);
       }

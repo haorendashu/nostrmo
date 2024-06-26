@@ -763,7 +763,7 @@ mixin EditorMixin {
     return e;
   }
 
-  Event? _handleSendingEvent(Event e, List<String> extralRelays) {
+  Future<Event?> _handleSendingEvent(Event e, List<String> extralRelays) async {
     List<String> list = [...extralRelays];
     for (var tag in e.tags) {
       if (tag is List && tag.length > 1) {
@@ -779,7 +779,7 @@ mixin EditorMixin {
     if (StringUtil.isNotBlank(e.sig)) {
       return nostr!.broadcase(e, tempRelays: list);
     } else {
-      return nostr!.sendEvent(e, tempRelays: list);
+      return await nostr!.sendEvent(e, tempRelays: list);
     }
   }
 

@@ -7,35 +7,22 @@ import 'event_kind.dart';
 import 'nip02/cust_contact_list.dart';
 import 'relay/relay.dart';
 import 'relay/relay_pool.dart';
+import 'signer/nostr_signer.dart';
 
 class Nostr {
-  String? _privateKey;
-
-  late String _publicKey;
-
   late RelayPool _pool;
 
-  Nostr({
-    String? privateKey,
-    String? publicKey,
-  }) {
-    if (StringUtil.isNotBlank(privateKey)) {
-      _privateKey = privateKey!;
-      _publicKey = getPublicKey(privateKey);
-    } else {
-      assert(publicKey != null);
+  NostrSigner nostrSigner;
 
-      _privateKey = privateKey;
-      _publicKey = publicKey!;
-    }
+  String _publicKey;
+
+  Nostr(this.nostrSigner, this._publicKey) {
     _pool = RelayPool(this);
   }
 
-  String? get privateKey => _privateKey;
-
   String get publicKey => _publicKey;
 
-  Event? sendLike(String id, {String? pubkey, String? content}) {
+  Future<Event?> sendLike(String id, {String? pubkey, String? content}) async {
     List<String> tempRelays = [];
     if (pubkey != null) {
       tempRelays.addAll(metadataProvider.getExtralRelays(pubkey, false));
@@ -50,10 +37,10 @@ class Nostr {
           ["e", id]
         ],
         content);
-    return sendEvent(event, tempRelays: tempRelays);
+    return await sendEvent(event, tempRelays: tempRelays);
   }
 
-  Event? deleteEvent(String eventId) {
+  Future<Event?> deleteEvent(String eventId) async {
     Event event = Event(
         _publicKey,
         EventKind.EVENT_DELETION,
@@ -61,54 +48,54 @@ class Nostr {
           ["e", eventId]
         ],
         "delete");
-    return sendEvent(event);
+    return await sendEvent(event);
   }
 
-  Event? deleteEvents(List<String> eventIds) {
+  Future<Event?> deleteEvents(List<String> eventIds) async {
     List<List<dynamic>> tags = [];
     for (var eventId in eventIds) {
       tags.add(["e", eventId]);
     }
 
     Event event = Event(_publicKey, EventKind.EVENT_DELETION, tags, "delete");
-    return sendEvent(event);
+    return await sendEvent(event);
   }
 
-  Event? sendRepost(String id, {String? relayAddr, String content = ""}) {
+  Future<Event?> sendRepost(String id,
+      {String? relayAddr, String content = ""}) async {
     List<dynamic> tag = ["e", id];
     if (StringUtil.isNotBlank(relayAddr)) {
       tag.add(relayAddr);
     }
     Event event = Event(_publicKey, EventKind.REPOST, [tag], content);
-    return sendEvent(event);
+    return await sendEvent(event);
   }
 
-  Event? sendTextNote(String text, [List<dynamic> tags = const []]) {
+  Future<Event?> sendTextNote(String text,
+      [List<dynamic> tags = const []]) async {
     Event event = Event(_publicKey, EventKind.TEXT_NOTE, tags, text);
-    return sendEvent(event);
+    return await sendEvent(event);
   }
 
-  Event? recommendServer(String url) {
+  Future<Event?> recommendServer(String url) async {
     if (!url.contains(RegExp(
         r'^(wss?:\/\/)([0-9]{1,3}(?:\.[0-9]{1,3}){3}|[^:]+):?([0-9]{1,5})?$'))) {
       throw ArgumentError.value(url, 'url', 'Not a valid relay URL');
     }
     final event = Event(_publicKey, EventKind.RECOMMEND_SERVER, [], url);
-    return sendEvent(event);
+    return await sendEvent(event);
   }
 
-  Event? sendContactList(CustContactList contacts, String content) {
+  Future<Event?> sendContactList(
+      CustContactList contacts, String content) async {
     final tags = contacts.toJson();
     final event = Event(_publicKey, EventKind.CONTACT_LIST, tags, content);
-    return sendEvent(event);
+    return await sendEvent(event);
   }
 
-  Event? sendEvent(Event event, {List<String>? tempRelays}) {
-    if (StringUtil.isBlank(_privateKey)) {
-      // TODO to show Notice
-      throw StateError("Private key is missing. Message can't be signed.");
-    }
-    signEvent(event);
+  Future<Event?> sendEvent(Event event, {List<String>? tempRelays}) async {
+    await signEvent(event);
+
     var result = _pool.send(["EVENT", event.toJson()], tempRelays: tempRelays);
     if (result) {
       return event;
@@ -116,8 +103,18 @@ class Nostr {
     return null;
   }
 
-  void signEvent(Event event) {
-    event.sign(_privateKey!);
+  void checkEventSign(Event event) {
+    if (StringUtil.isBlank(event.sig)) {
+      throw StateError("Event is not signed");
+    }
+  }
+
+  Future<void> signEvent(Event event) async {
+    var ne = await nostrSigner.signEvent(event);
+    if (ne != null) {
+      event.id = ne.id;
+      event.sig = ne.sig;
+    }
   }
 
   Event? broadcase(Event event,

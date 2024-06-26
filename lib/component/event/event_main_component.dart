@@ -128,6 +128,17 @@ class _EventMainComponent extends State<EventMainComponent> {
 
   @override
   Widget build(BuildContext context) {
+    try {
+      return doBuild(context);
+    } catch (e, stacktrace) {
+      print(e.toString());
+      print(stacktrace.toString());
+      return Container();
+    }
+  }
+
+  @override
+  Widget doBuild(BuildContext context) {
     var s = S.of(context);
     var _settingProvider = Provider.of<SettingProvider>(context);
     if (eventRelation.id != widget.event.id) {

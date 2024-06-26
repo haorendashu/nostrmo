@@ -7,13 +7,16 @@ import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nostr.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/util/string_util.dart';
 
 import '../nip44/nip44_v2.dart';
 
 class GiftWrapUtil {
-  static Future<Event?> getRumorEvent(Event e, String privateKey) async {
-    var sealKey = NIP44V2.shareSecret(nostr!.privateKey!, e.pubkey);
-    var rumorText = await NIP44V2.decrypt(e.content, sealKey);
+  static Future<Event?> getRumorEvent(Event e) async {
+    var rumorText = await nostr!.nostrSigner.nip44Decrypt(e.pubkey, e.content);
+    if (rumorText == null) {
+      return null;
+    }
 
     var rumorJson = jsonDecode(rumorText);
     var rumorEvent = Event.fromJson(rumorJson);
@@ -23,8 +26,11 @@ class GiftWrapUtil {
       return null;
     }
 
-    var sourceKey = NIP44V2.shareSecret(nostr!.privateKey!, rumorEvent.pubkey);
-    var sourceText = await NIP44V2.decrypt(rumorEvent.content, sourceKey);
+    var sourceText =
+        await nostr!.nostrSigner.decrypt(rumorEvent.pubkey, rumorEvent.content);
+    if (sourceText == null) {
+      return null;
+    }
 
     var jsonObj = jsonDecode(sourceText);
     return Event.fromJson(jsonObj);
@@ -37,10 +43,11 @@ class GiftWrapUtil {
     var rumorEventMap = e.toJson();
     rumorEventMap.remove("sig");
 
-    var conversationKey =
-        NIP44V2.shareSecret(targetNostr.privateKey!, receiverPublicKey);
-    var sealEventContent =
-        await NIP44V2.encrypt(jsonEncode(rumorEventMap), conversationKey);
+    var sealEventContent = await nostr!.nostrSigner
+        .encrypt(receiverPublicKey, jsonEncode(rumorEventMap));
+    if (sealEventContent == null) {
+      return null;
+    }
     var sealEvent = Event(
         targetNostr.publicKey, EventKind.SEAL_EVENT_KIND, [], sealEventContent);
     targetNostr.signEvent(sealEvent);

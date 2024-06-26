@@ -6,9 +6,7 @@ import '../../provider/dm_provider.dart';
 import 'dm_session_list_item_component.dart';
 
 class DMUnknownListRouter extends StatefulWidget {
-  ECDHBasicAgreement agreement;
-
-  DMUnknownListRouter({required this.agreement});
+  DMUnknownListRouter();
 
   @override
   State<StatefulWidget> createState() {
@@ -32,7 +30,6 @@ class _DMUnknownListRouter extends State<DMUnknownListRouter> {
           var detail = details[index];
           return DMSessionListItemComponent(
             detail: detail,
-            agreement: widget.agreement,
           );
         },
         itemCount: details.length,

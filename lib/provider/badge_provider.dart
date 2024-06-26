@@ -12,7 +12,7 @@ import '../main.dart';
 class BadgeProvider extends ChangeNotifier {
   Event? badgeEvent;
 
-  void wear(String badgeId, String eventId, {String? relayAddr}) {
+  void wear(String badgeId, String eventId, {String? relayAddr}) async {
     String content = "";
     List<dynamic> tags = [];
 
@@ -35,7 +35,7 @@ class BadgeProvider extends ChangeNotifier {
     var newEvent =
         Event(nostr!.publicKey, kind.EventKind.BADGE_ACCEPT, tags, content);
 
-    var result = nostr!.sendEvent(newEvent);
+    var result = await nostr!.sendEvent(newEvent);
     if (result != null) {
       badgeEvent = result;
       _parseProfileBadge();

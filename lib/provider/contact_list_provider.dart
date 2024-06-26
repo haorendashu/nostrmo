@@ -29,8 +29,6 @@ class ContactListProvider extends ChangeNotifier {
 
   Map<String, FollowSet> followSetMap = {};
 
-  ECDHBasicAgreement? nip04Agreement;
-
   static ContactListProvider getInstance() {
     if (_contactListProvider == null) {
       _contactListProvider = ContactListProvider();
@@ -46,7 +44,6 @@ class ContactListProvider extends ChangeNotifier {
     if (targetNostr != null) {
       pubkey = targetNostr.publicKey;
     }
-    nip04Agreement = NIP04.getAgreement(targetNostr!.privateKey!);
 
     var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
     if (StringUtil.isNotBlank(str)) {
@@ -108,7 +105,7 @@ class ContactListProvider extends ChangeNotifier {
     ], _onEvent, id: subscriptId);
   }
 
-  void _onEvent(Event e) {
+  void _onEvent(Event e) async {
     if (e.kind == kind.EventKind.CONTACT_LIST) {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
@@ -119,8 +116,8 @@ class ContactListProvider extends ChangeNotifier {
         relayProvider.relayUpdateByContactListEvent(e);
       }
     } else if (e.kind == kind.EventKind.FOLLOW_SETS) {
-      var followSet = FollowSet.fromEvent(e, nip04Agreement!);
-      if (StringUtil.isBlank(followSet.dTag)) {
+      var followSet = await FollowSet.genFollowSet(e);
+      if (followSet == null || StringUtil.isBlank(followSet.dTag)) {
         return;
       }
 
@@ -165,23 +162,23 @@ class ContactListProvider extends ChangeNotifier {
     return _contactList!.total();
   }
 
-  void addContact(Contact contact) {
+  void addContact(Contact contact) async {
     _contactList!.add(contact);
-    _event = nostr!.sendContactList(_contactList!, content);
+    _event = await nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
-  void removeContact(String pubkey) {
+  void removeContact(String pubkey) async {
     _contactList!.remove(pubkey);
-    _event = nostr!.sendContactList(_contactList!, content);
+    _event = await nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
-  void updateContacts(CustContactList contactList) {
+  void updateContacts(CustContactList contactList) async {
     _contactList = contactList;
-    _event = nostr!.sendContactList(contactList, content);
+    _event = await nostr!.sendContactList(contactList, content);
 
     _saveAndNotify();
   }
@@ -221,16 +218,16 @@ class ContactListProvider extends ChangeNotifier {
     }
   }
 
-  void addTag(String tag) {
+  void addTag(String tag) async {
     _contactList!.addTag(tag);
-    _event = nostr!.sendContactList(_contactList!, content);
+    _event = await nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
-  void removeTag(String tag) {
+  void removeTag(String tag) async {
     _contactList!.removeTag(tag);
-    _event = nostr!.sendContactList(_contactList!, content);
+    _event = await nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
@@ -247,16 +244,16 @@ class ContactListProvider extends ChangeNotifier {
     return _contactList!.containsCommunity(id);
   }
 
-  void addCommunity(String tag) {
+  void addCommunity(String tag) async {
     _contactList!.addCommunity(tag);
-    _event = nostr!.sendContactList(_contactList!, content);
+    _event = await nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
 
-  void removeCommunity(String tag) {
+  void removeCommunity(String tag) async {
     _contactList!.removeCommunity(tag);
-    _event = nostr!.sendContactList(_contactList!, content);
+    _event = await nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify();
   }
@@ -269,9 +266,9 @@ class ContactListProvider extends ChangeNotifier {
     return _contactList!.followedCommunitiesList();
   }
 
-  void updateRelaysContent(String relaysContent) {
+  void updateRelaysContent(String relaysContent) async {
     content = relaysContent;
-    _event = nostr!.sendContactList(_contactList!, content);
+    _event = await nostr!.sendContactList(_contactList!, content);
 
     _saveAndNotify(notify: false);
   }
@@ -298,10 +295,12 @@ class ContactListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFollowSet(FollowSet followSet) {
+  void addFollowSet(FollowSet followSet) async {
     followSetMap[followSet.dTag] = followSet;
-    var event = followSet.toEventMap(nip04Agreement!, nostr!.publicKey);
-    nostr!.sendEvent(event);
-    notifyListeners();
+    var event = await followSet.toEventMap(nostr!.publicKey);
+    if (event != null) {
+      nostr!.sendEvent(event);
+      notifyListeners();
+    }
   }
 }

@@ -434,9 +434,12 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
           try {
             var eventObj = jsonDecode(content);
             var tags = eventObj["tags"];
-            Event event = Event(nostr!.publicKey, eventObj["kind"], tags ?? [],
+            Event? event = Event(nostr!.publicKey, eventObj["kind"], tags ?? [],
                 eventObj["content"]);
-            event.sign(nostr!.privateKey!);
+            event = await nostr!.nostrSigner.signEvent(event);
+            if (event == null) {
+              return;
+            }
 
             var eventResultStr = jsonEncode(event.toJson());
             // TODO this method to handle " may be error
@@ -494,8 +497,10 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
               context, NIP07Methods.nip04_encrypt,
               content: plaintext);
           if (comfirmResult == true) {
-            var agreement = NIP04.getAgreement(nostr!.privateKey!);
-            var resultStr = NIP04.encrypt(plaintext, agreement, pubkey);
+            var resultStr = await nostr!.nostrSigner.encrypt(pubkey, plaintext);
+            if (StringUtil.isBlank(resultStr)) {
+              return;
+            }
             var script =
                 "window.nostr.callback(\"$resultId\", \"$resultStr\");";
             webViewController!.evaluateJavascript(source: script);
@@ -521,8 +526,12 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
               context, NIP07Methods.nip04_decrypt,
               content: ciphertext);
           if (comfirmResult == true) {
-            var agreement = NIP04.getAgreement(nostr!.privateKey!);
-            var resultStr = NIP04.decrypt(ciphertext, agreement, pubkey);
+            var resultStr =
+                await nostr!.nostrSigner.decrypt(pubkey, ciphertext);
+            if (StringUtil.isBlank(resultStr)) {
+              return;
+            }
+
             var script =
                 "window.nostr.callback(\"$resultId\", \"$resultStr\");";
             webViewController!.evaluateJavascript(source: script);
