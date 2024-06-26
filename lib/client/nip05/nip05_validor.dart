@@ -21,6 +21,15 @@ class Nip05Validor {
   }
 
   static Future<bool> _doValid(String nip05Address, String pubkey) async {
+    var remotePubkey = await getPubkey(nip05Address);
+    if (remotePubkey == pubkey) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static Future<String?> getPubkey(String nip05Address) async {
     var name = "_";
     var address = nip05Address;
     var strs = nip05Address.split("@");
@@ -40,8 +49,8 @@ class Nip05Validor {
 
         if (map is Map && map["names"] != null) {
           var dataPubkey = map["names"][name];
-          if (dataPubkey != null && dataPubkey == pubkey) {
-            return true;
+          if (dataPubkey != null && dataPubkey is String) {
+            return dataPubkey;
           }
         }
       }
@@ -49,6 +58,6 @@ class Nip05Validor {
       print(e);
     }
 
-    return false;
+    return null;
   }
 }

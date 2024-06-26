@@ -9,6 +9,7 @@ import '../client/event_kind.dart';
 import '../client/filter.dart';
 import '../client/nip44/nip44_v2.dart';
 import '../client/nostr.dart';
+import '../client/signer/local_nostr_signer.dart';
 import '../data/event_db.dart';
 import '../data/event_mem_box.dart';
 import '../main.dart';
@@ -19,14 +20,16 @@ class GiftWrapProvider extends ChangeNotifier {
   EventMemBox box = EventMemBox(sortAfterAdd: false);
 
   Future<void> init() async {
-    var keyIndex = settingProvider.privateKeyIndex!;
-    var events =
-        await EventDB.list(keyIndex, [EventKind.GIFT_WRAP], 0, 10000000);
+    if (nostr != null && nostr!.nostrSigner is LocalNostrSigner) {
+      var keyIndex = settingProvider.privateKeyIndex!;
+      var events =
+          await EventDB.list(keyIndex, [EventKind.GIFT_WRAP], 0, 10000000);
 
-    for (var event in events) {
-      box.add(event);
+      for (var event in events) {
+        box.add(event);
+      }
+      box.sort();
     }
-    box.sort();
   }
 
   void query({Nostr? targetNostr, int? since}) {
@@ -60,8 +63,10 @@ class GiftWrapProvider extends ChangeNotifier {
         }
       }
 
-      var keyIndex = settingProvider.privateKeyIndex!;
-      EventDB.insert(keyIndex, e);
+      if (nostr!.nostrSigner is LocalNostrSigner) {
+        var keyIndex = settingProvider.privateKeyIndex!;
+        EventDB.insert(keyIndex, e);
+      }
     }
   }
 }

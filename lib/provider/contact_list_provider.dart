@@ -164,14 +164,14 @@ class ContactListProvider extends ChangeNotifier {
 
   void addContact(Contact contact) async {
     _contactList!.add(contact);
-    _event = await nostr!.sendContactList(_contactList!, content);
+    await sendContactList();
 
     _saveAndNotify();
   }
 
   void removeContact(String pubkey) async {
     _contactList!.remove(pubkey);
-    _event = await nostr!.sendContactList(_contactList!, content);
+    await sendContactList();
 
     _saveAndNotify();
   }
@@ -218,16 +218,23 @@ class ContactListProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> sendContactList() async {
+    var newEvent = await nostr!.sendContactList(_contactList!, content);
+    if (newEvent != null) {
+      _event = newEvent;
+    }
+  }
+
   void addTag(String tag) async {
     _contactList!.addTag(tag);
-    _event = await nostr!.sendContactList(_contactList!, content);
+    await sendContactList();
 
     _saveAndNotify();
   }
 
   void removeTag(String tag) async {
     _contactList!.removeTag(tag);
-    _event = await nostr!.sendContactList(_contactList!, content);
+    await sendContactList();
 
     _saveAndNotify();
   }
@@ -246,14 +253,14 @@ class ContactListProvider extends ChangeNotifier {
 
   void addCommunity(String tag) async {
     _contactList!.addCommunity(tag);
-    _event = await nostr!.sendContactList(_contactList!, content);
+    await sendContactList();
 
     _saveAndNotify();
   }
 
   void removeCommunity(String tag) async {
     _contactList!.removeCommunity(tag);
-    _event = await nostr!.sendContactList(_contactList!, content);
+    await sendContactList();
 
     _saveAndNotify();
   }
@@ -268,7 +275,7 @@ class ContactListProvider extends ChangeNotifier {
 
   void updateRelaysContent(String relaysContent) async {
     content = relaysContent;
-    _event = await nostr!.sendContactList(_contactList!, content);
+    await sendContactList();
 
     _saveAndNotify(notify: false);
   }

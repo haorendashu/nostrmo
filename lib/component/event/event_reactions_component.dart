@@ -535,9 +535,11 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         relayAddr = widget.event.sources[0];
       }
       var content = jsonEncode(widget.event.toJson());
-      nostr!
+      var repostEvent = await nostr!
           .sendRepost(widget.event.id, relayAddr: relayAddr, content: content);
-      eventReactionsProvider.addRepost(widget.event.id);
+      if (repostEvent != null) {
+        eventReactionsProvider.addRepost(widget.event.id);
+      }
 
       if (settingProvider.broadcaseWhenBoost == OpenStatus.OPEN) {
         nostr!.broadcase(widget.event);
@@ -565,10 +567,16 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       }
     } else {
       // delete like
+      bool deleted = false;
       for (var event in myLikeEvents!) {
-        nostr!.deleteEvent(event.id);
+        var deleteEvent = await nostr!.deleteEvent(event.id);
+        if (deleteEvent != null) {
+          deleted = true;
+        }
       }
-      eventReactionsProvider.deleteLike(widget.event.id);
+      if (deleted) {
+        eventReactionsProvider.deleteLike(widget.event.id);
+      }
     }
   }
 

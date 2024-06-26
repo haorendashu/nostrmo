@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
+import 'package:nostrmo/client/signer/local_nostr_signer.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/string_util.dart';
@@ -195,9 +196,11 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
       return;
     }
 
-    var pk = settingProvider.privateKey;
-    var nip19Key = Nip19.encodePrivateKey(pk!);
-    doCopy(nip19Key);
+    if (nostr!.nostrSigner is LocalNostrSigner) {
+      var pk = settingProvider.privateKey;
+      var nip19Key = Nip19.encodePrivateKey(pk!);
+      doCopy(nip19Key);
+    }
   }
 
   void doCopy(String? key) {

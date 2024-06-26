@@ -1,11 +1,13 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:nostrmo/client/nip05/nip05_validor.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/util/platform_util.dart';
 
 import '../../client/client_utils/keys.dart';
 import '../../client/nip19/nip19.dart';
+import '../../client/signer/pubkey_only_nostr_signer.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -81,7 +83,7 @@ class _LoginRouter extends State<LoginRouter>
     mainList.add(TextField(
       controller: controller,
       decoration: InputDecoration(
-        hintText: "nsec / hex private key",
+        hintText: "nsec / hex private key / npub / NIP-05 Address",
         fillColor: Colors.white,
         suffixIcon: suffixIcon,
       ),
@@ -197,21 +199,41 @@ class _LoginRouter extends State<LoginRouter>
 
     var pk = controller.text;
     if (StringUtil.isBlank(pk)) {
-      BotToast.showText(text: S.of(context).Private_key_is_null);
+      BotToast.showText(text: S.of(context).Input_can_not_be_null);
       return;
     }
 
-    // var cancelFunc = BotToast.showLoading();
-    // try {
-    if (Nip19.isPrivateKey(pk)) {
-      pk = Nip19.decode(pk);
+    if (Nip19.isPubkey(pk) || pk.indexOf("@") > 0) {
+      String? pubkey;
+      if (Nip19.isPubkey(pk)) {
+        pubkey = Nip19.decode(pk);
+      } else if (pk.indexOf("@") > 0) {
+        // try to find pubkey first.
+        var cancelFunc = BotToast.showLoading();
+        try {
+          pubkey = await Nip05Validor.getPubkey(pk);
+        } catch (e) {
+          print("doLogin error ${e.toString()}");
+        } finally {
+          cancelFunc.call();
+        }
+      }
+
+      if (StringUtil.isBlank(pubkey)) {
+        BotToast.showText(text: "pubkey not found!");
+        return;
+      }
+
+      var pubkeyOnlySigner = PubkeyOnlyNostrSigner(pubkey!);
+      nostr = await relayProvider.genNostr(pubkeyOnlySigner);
+      BotToast.showText(text: "You are logged in in read-only mode.");
+    } else {
+      if (Nip19.isPrivateKey(pk)) {
+        pk = Nip19.decode(pk);
+      }
+      settingProvider.addAndChangePrivateKey(pk, updateUI: false);
+      nostr = await relayProvider.genNostrWithPrivateKey(pk);
     }
-    settingProvider.addAndChangePrivateKey(pk, updateUI: false);
-    nostr = await relayProvider.genNostrWithPrivateKey(pk);
-    //   await Future.delayed(Duration(seconds: 5));
-    // } finally {
-    //   cancelFunc.call();
-    // }
 
     settingProvider.notifyListeners();
     firstLogin = true;

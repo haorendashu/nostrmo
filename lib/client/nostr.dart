@@ -95,6 +95,9 @@ class Nostr {
 
   Future<Event?> sendEvent(Event event, {List<String>? tempRelays}) async {
     await signEvent(event);
+    if (StringUtil.isBlank(event.sig)) {
+      return null;
+    }
 
     var result = _pool.send(["EVENT", event.toJson()], tempRelays: tempRelays);
     if (result) {

@@ -7,8 +7,8 @@ class PubkeyOnlyNostrSigner implements NostrSigner {
   PubkeyOnlyNostrSigner(this.pubkey);
 
   @override
-  Future<String?> decrypt(pubkey, ciphertext) {
-    return pubkey;
+  Future<String?> decrypt(pubkey, ciphertext) async {
+    return null;
   }
 
   @override
@@ -18,7 +18,7 @@ class PubkeyOnlyNostrSigner implements NostrSigner {
 
   @override
   Future<String?> getPublicKey() async {
-    return null;
+    return pubkey;
   }
 
   @override
