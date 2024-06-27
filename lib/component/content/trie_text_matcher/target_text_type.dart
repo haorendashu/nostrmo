@@ -19,7 +19,7 @@ class TargetTextType {
   // md highlight: ==xxx==
   static const int MD_HIGHLIGHT = 106;
 
-  // md italic: `xxx`
+  // md italic: `xxx` or ```xxx```
   static const int MD_INLINE_CODE = 107;
 
   // md All bold and italic: ***xx***

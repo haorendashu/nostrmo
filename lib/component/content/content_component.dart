@@ -476,7 +476,18 @@ class _ContentComponent extends State<ContentComponent> {
               break;
             }
           } else if (j == 0 && str.startsWith("----")) {
+            bufferToList(buffer, currentList, images);
             currentList.add(const WidgetSpan(child: Divider()));
+            if (j == strsLength - 1 && i < lineLength) {
+              // current line is over and has next line, check if next line is NL only
+              var nextStrs = lineStrs[i + 1];
+              if (nextStrs.length == 1 && nextStrs[0] == "") {
+                // next line is NL only, add this Widget span can help the display don't ignore the NLs after Divider
+                currentList.add(const WidgetSpan(child: Text("")));
+                // ignore the next NL
+                i++;
+              }
+            }
             continue;
           } else if (j == 0) {
             if (currentTextStyle != null) {

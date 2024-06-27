@@ -26,6 +26,8 @@ class TrieTextMatcherBuilder {
         [..."==".codeUnits, -1, ..."==".codeUnits]);
     matcher.addNodes(TargetTextType.MD_INLINE_CODE,
         [..."`".codeUnits, -1, ..."`".codeUnits]);
+    matcher.addNodes(TargetTextType.MD_INLINE_CODE,
+        [..."```".codeUnits, -1, ..."```".codeUnits]);
     matcher.addNodes(TargetTextType.MD_BOLD_AND_ITALIC,
         [..."***".codeUnits, -1, ..."***".codeUnits]);
 
