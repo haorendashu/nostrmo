@@ -46,7 +46,11 @@ class EventDB {
     jsonObj["tags"] = tags;
     jsonObj.remove("sig");
     jsonObj["key_index"] = keyIndex;
-    return await db.insert("event", jsonObj);
+    try {
+      return await db.insert("event", jsonObj);
+    } catch (e) {
+      return 0;
+    }
   }
 
   static Future<Event?> get(int keyIndex, String id,

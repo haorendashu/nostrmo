@@ -72,7 +72,7 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
       }
       list.add(AccountManagerItemComponent(
         index: index,
-        privateKey: value,
+        accountKey: value,
         isCurrent: _settingProvider.privateKeyIndex == index,
         onLoginTap: onLoginTap,
         onLogoutTap: (index) {
@@ -159,8 +159,7 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
   }
 
   Future<void> doLogin() async {
-    nostr =
-        await relayProvider.genNostrWithPrivateKey(settingProvider.privateKey!);
+    nostr = await relayProvider.genNostrWithKey(settingProvider.privateKey!);
   }
 
   void onLoginTap(int index) {
@@ -194,8 +193,8 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
       // signOut complete
       if (settingProvider.privateKey != null) {
         // use next privateKey to login
-        nostr = await relayProvider
-            .genNostrWithPrivateKey(settingProvider.privateKey!);
+        nostr =
+            await relayProvider.genNostrWithKey(settingProvider.privateKey!);
       }
     }
 
@@ -235,7 +234,7 @@ class AccountManagerItemComponent extends StatefulWidget {
 
   int index;
 
-  String privateKey;
+  String accountKey;
 
   Function(int)? onLoginTap;
 
@@ -244,7 +243,7 @@ class AccountManagerItemComponent extends StatefulWidget {
   AccountManagerItemComponent({
     required this.isCurrent,
     required this.index,
-    required this.privateKey,
+    required this.accountKey,
     this.onLoginTap,
     this.onLogoutTap,
   });
@@ -265,7 +264,11 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
   @override
   void initState() {
     super.initState();
-    pubkey = getPublicKey(widget.privateKey);
+    if (Nip19.isPubkey(widget.accountKey)) {
+      pubkey = Nip19.decode(widget.accountKey);
+    } else {
+      pubkey = getPublicKey(widget.accountKey);
+    }
   }
 
   @override

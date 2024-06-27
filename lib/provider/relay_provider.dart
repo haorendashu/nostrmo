@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/relay_local/relay_local.dart';
+import 'package:nostrmo/client/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/relay_mode.dart';
 import 'package:nostrmo/util/platform_util.dart';
@@ -114,8 +116,13 @@ class RelayProvider extends ChangeNotifier {
     return relayAddrs.length;
   }
 
-  Future<Nostr?> genNostrWithPrivateKey(String privateKey) async {
-    var nostrSigner = LocalNostrSigner(privateKey);
+  Future<Nostr?> genNostrWithKey(String key) async {
+    NostrSigner? nostrSigner;
+    if (Nip19.isPubkey(key)) {
+      nostrSigner = PubkeyOnlyNostrSigner(Nip19.decode(key));
+    } else {
+      nostrSigner = LocalNostrSigner(key);
+    }
     return await genNostr(nostrSigner);
   }
 

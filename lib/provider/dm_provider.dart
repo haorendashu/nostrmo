@@ -98,58 +98,53 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     _unknownList.clear();
 
     this.localPubkey = localPubkey;
-    if (nostr!.nostrSigner is LocalNostrSigner) {
-      var keyIndex = settingProvider.privateKeyIndex!;
-      var events = await EventDB.list(
-          keyIndex,
-          [
-            kind.EventKind.DIRECT_MESSAGE,
-            kind.EventKind.PRIVATE_DIRECT_MESSAGE
-          ],
-          0,
-          10000000);
-      if (events.isNotEmpty) {
-        // find the newest event, subscribe behind the new newest event
-        _initSince = events.first.createdAt;
-      }
+    var keyIndex = settingProvider.privateKeyIndex!;
+    var events = await EventDB.list(
+        keyIndex,
+        [kind.EventKind.DIRECT_MESSAGE, kind.EventKind.PRIVATE_DIRECT_MESSAGE],
+        0,
+        10000000);
+    if (events.isNotEmpty) {
+      // find the newest event, subscribe behind the new newest event
+      _initSince = events.first.createdAt;
+    }
 
-      Map<String, List<Event>> eventListMap = {};
-      for (var event in events) {
-        // print("dmEvent");
-        // print(event.toJson());
-        var pubkey = _getPubkey(localPubkey, event);
-        if (StringUtil.isNotBlank(pubkey)) {
-          var list = eventListMap[pubkey!];
-          if (list == null) {
-            list = [];
-            eventListMap[pubkey] = list;
-          }
-          list.add(event);
+    Map<String, List<Event>> eventListMap = {};
+    for (var event in events) {
+      // print("dmEvent");
+      // print(event.toJson());
+      var pubkey = _getPubkey(localPubkey, event);
+      if (StringUtil.isNotBlank(pubkey)) {
+        var list = eventListMap[pubkey!];
+        if (list == null) {
+          list = [];
+          eventListMap[pubkey] = list;
         }
+        list.add(event);
       }
+    }
 
-      infoMap = {};
-      var infos = await DMSessionInfoDB.all(keyIndex);
-      for (var info in infos) {
-        infoMap[info.pubkey!] = info;
-      }
+    infoMap = {};
+    var infos = await DMSessionInfoDB.all(keyIndex);
+    for (var info in infos) {
+      infoMap[info.pubkey!] = info;
+    }
 
-      for (var entry in eventListMap.entries) {
-        var pubkey = entry.key;
-        var list = entry.value;
+    for (var entry in eventListMap.entries) {
+      var pubkey = entry.key;
+      var list = entry.value;
 
-        var session = DMSession(pubkey: pubkey);
-        session.addEvents(list);
+      var session = DMSession(pubkey: pubkey);
+      session.addEvents(list);
 
-        _sessions[pubkey] = session;
+      _sessions[pubkey] = session;
 
-        var info = infoMap[pubkey];
-        var detail = DMSessionDetail(session, info: info);
-        if (info != null) {
-          _knownList.add(detail);
-        } else {
-          _unknownList.add(detail);
-        }
+      var info = infoMap[pubkey];
+      var detail = DMSessionDetail(session, info: info);
+      if (info != null) {
+        _knownList.add(detail);
+      } else {
+        _unknownList.add(detail);
       }
     }
 
@@ -245,11 +240,9 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     for (var event in events) {
       var addResult = _addEvent(localPubkey!, event);
       // save to local
-      if (addResult && nostr!.nostrSigner is LocalNostrSigner) {
-        updated = true;
-        var keyIndex = settingProvider.privateKeyIndex!;
-        EventDB.insert(keyIndex, event);
-      }
+      updated = true;
+      var keyIndex = settingProvider.privateKeyIndex!;
+      EventDB.insert(keyIndex, event);
     }
 
     if (updated) {

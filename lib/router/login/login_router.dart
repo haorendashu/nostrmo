@@ -224,7 +224,10 @@ class _LoginRouter extends State<LoginRouter>
         return;
       }
 
-      var pubkeyOnlySigner = PubkeyOnlyNostrSigner(pubkey!);
+      var npubKey = Nip19.encodePubKey(pubkey!);
+      settingProvider.addAndChangePrivateKey(npubKey, updateUI: false);
+
+      var pubkeyOnlySigner = PubkeyOnlyNostrSigner(pubkey);
       nostr = await relayProvider.genNostr(pubkeyOnlySigner);
       BotToast.showText(text: "You are logged in in read-only mode.");
     } else {
@@ -232,7 +235,7 @@ class _LoginRouter extends State<LoginRouter>
         pk = Nip19.decode(pk);
       }
       settingProvider.addAndChangePrivateKey(pk, updateUI: false);
-      nostr = await relayProvider.genNostrWithPrivateKey(pk);
+      nostr = await relayProvider.genNostrWithKey(pk);
     }
 
     settingProvider.notifyListeners();

@@ -26,8 +26,8 @@ class GiftWrapUtil {
       return null;
     }
 
-    var sourceText =
-        await nostr!.nostrSigner.decrypt(rumorEvent.pubkey, rumorEvent.content);
+    var sourceText = await nostr!.nostrSigner
+        .nip44Decrypt(rumorEvent.pubkey, rumorEvent.content);
     if (sourceText == null) {
       return null;
     }
@@ -44,7 +44,7 @@ class GiftWrapUtil {
     rumorEventMap.remove("sig");
 
     var sealEventContent = await nostr!.nostrSigner
-        .encrypt(receiverPublicKey, jsonEncode(rumorEventMap));
+        .nip44Encrypt(receiverPublicKey, jsonEncode(rumorEventMap));
     if (sealEventContent == null) {
       return null;
     }

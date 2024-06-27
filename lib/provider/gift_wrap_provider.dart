@@ -20,16 +20,14 @@ class GiftWrapProvider extends ChangeNotifier {
   EventMemBox box = EventMemBox(sortAfterAdd: false);
 
   Future<void> init() async {
-    if (nostr != null && nostr!.nostrSigner is LocalNostrSigner) {
-      var keyIndex = settingProvider.privateKeyIndex!;
-      var events =
-          await EventDB.list(keyIndex, [EventKind.GIFT_WRAP], 0, 10000000);
+    var keyIndex = settingProvider.privateKeyIndex!;
+    var events =
+        await EventDB.list(keyIndex, [EventKind.GIFT_WRAP], 0, 10000000);
 
-      for (var event in events) {
-        box.add(event);
-      }
-      box.sort();
+    for (var event in events) {
+      box.add(event);
     }
+    box.sort();
   }
 
   void query({Nostr? targetNostr, int? since}) {
@@ -63,10 +61,8 @@ class GiftWrapProvider extends ChangeNotifier {
         }
       }
 
-      if (nostr!.nostrSigner is LocalNostrSigner) {
-        var keyIndex = settingProvider.privateKeyIndex!;
-        EventDB.insert(keyIndex, e);
-      }
+      var keyIndex = settingProvider.privateKeyIndex!;
+      EventDB.insert(keyIndex, e);
     }
   }
 }

@@ -282,8 +282,7 @@ Future<void> main() async {
   }
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
-    nostr =
-        await relayProvider.genNostrWithPrivateKey(settingProvider.privateKey!);
+    nostr = await relayProvider.genNostrWithKey(settingProvider.privateKey!);
   }
 
   FlutterNativeSplash.remove();

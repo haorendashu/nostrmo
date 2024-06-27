@@ -164,21 +164,31 @@ class ContactListProvider extends ChangeNotifier {
 
   void addContact(Contact contact) async {
     _contactList!.add(contact);
-    await sendContactList();
+    var result = await sendContactList();
+    if (!result) {
+      _contactList!.remove(contact.publicKey);
+    }
 
     _saveAndNotify();
   }
 
   void removeContact(String pubkey) async {
     _contactList!.remove(pubkey);
-    await sendContactList();
+    var result = await sendContactList();
+    if (!result) {
+      _contactList!.add(Contact(publicKey: pubkey));
+    }
 
     _saveAndNotify();
   }
 
   void updateContacts(CustContactList contactList) async {
+    var oldContactList = _contactList;
     _contactList = contactList;
-    _event = await nostr!.sendContactList(contactList, content);
+    var result = await sendContactList();
+    if (!result) {
+      _contactList = oldContactList;
+    }
 
     _saveAndNotify();
   }
@@ -218,23 +228,32 @@ class ContactListProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> sendContactList() async {
+  Future<bool> sendContactList() async {
     var newEvent = await nostr!.sendContactList(_contactList!, content);
     if (newEvent != null) {
       _event = newEvent;
+      return true;
     }
+
+    return false;
   }
 
   void addTag(String tag) async {
     _contactList!.addTag(tag);
-    await sendContactList();
+    var result = await sendContactList();
+    if (!result) {
+      _contactList!.removeTag(tag);
+    }
 
     _saveAndNotify();
   }
 
   void removeTag(String tag) async {
     _contactList!.removeTag(tag);
-    await sendContactList();
+    var result = await sendContactList();
+    if (!result) {
+      _contactList!.addTag(tag);
+    }
 
     _saveAndNotify();
   }
@@ -253,14 +272,20 @@ class ContactListProvider extends ChangeNotifier {
 
   void addCommunity(String tag) async {
     _contactList!.addCommunity(tag);
-    await sendContactList();
+    var result = await sendContactList();
+    if (!result) {
+      _contactList!.removeCommunity(tag);
+    }
 
     _saveAndNotify();
   }
 
   void removeCommunity(String tag) async {
     _contactList!.removeCommunity(tag);
-    await sendContactList();
+    var result = await sendContactList();
+    if (!result) {
+      _contactList!.addCommunity(tag);
+    }
 
     _saveAndNotify();
   }
@@ -274,8 +299,12 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void updateRelaysContent(String relaysContent) async {
+    var oldContent = content;
     content = relaysContent;
-    await sendContactList();
+    var result = await sendContactList();
+    if (!result) {
+      content = oldContent;
+    }
 
     _saveAndNotify(notify: false);
   }
