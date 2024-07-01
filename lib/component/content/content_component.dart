@@ -534,7 +534,8 @@ class _ContentComponent extends State<ContentComponent> {
         },
       ),
     );
-    if (widget.imageListMode &&
+    if (widget.showImage &&
+        widget.imageListMode &&
         (contentDecoderInfo != null && contentDecoderInfo!.imageNum > 1)) {
       List<Widget> mainList = [main];
       // showImageList in bottom
