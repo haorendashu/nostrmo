@@ -68,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Zamknij prywatne wiadomości"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Zatrzymaj się na"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("potwierdź"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("potwierdź"),
         "Contact": MessageLookupByLibrary.simpleMessage("kontakty"),
         "Content": MessageLookupByLibrary.simpleMessage("treść"),
         "Content_warning":

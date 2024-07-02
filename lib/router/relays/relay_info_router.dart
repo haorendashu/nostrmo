@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/relay_local/relay_local.dart';
 import 'package:nostrmo/client/relay_local/relay_local_db.dart';
-import 'package:nostrmo/component/comfirm_dialog.dart';
+import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/sync_upload_dialog.dart';
@@ -330,7 +330,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
   }
 
   Future<void> doClearData({String? pubkey}) async {
-    var result = await ComfirmDialog.show(
+    var result = await ConfirmDialog.show(
         context, S.of(context).This_operation_cannot_be_undo);
     if (result != true) {
       return;

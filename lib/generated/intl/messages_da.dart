@@ -69,7 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Luk private beskeder"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Stop ved"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("bekræft"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("bekræft"),
         "Contact": MessageLookupByLibrary.simpleMessage("kontakter"),
         "Content": MessageLookupByLibrary.simpleMessage("indhold"),
         "Content_warning":

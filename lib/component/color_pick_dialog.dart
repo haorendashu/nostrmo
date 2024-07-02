@@ -56,7 +56,7 @@ class ColorPickDialog extends StatelessWidget {
             height: 40,
             alignment: Alignment.center,
             child: Text(
-              S.of(context).Comfirm,
+              S.of(context).Confirm,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,

@@ -105,14 +105,14 @@ class _NwcSettingRouter extends CustState<NwcSettingRouter> {
       child: Ink(
         decoration: BoxDecoration(color: mainColor),
         child: InkWell(
-          onTap: _onComfirm,
+          onTap: _onConfirm,
           highlightColor: mainColor.withOpacity(0.2),
           child: Container(
             color: mainColor,
             height: 40,
             alignment: Alignment.center,
             child: Text(
-              S.of(context).Comfirm,
+              S.of(context).Confirm,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -160,7 +160,7 @@ class _NwcSettingRouter extends CustState<NwcSettingRouter> {
     );
   }
 
-  void _onComfirm() {
+  void _onConfirm() {
     var result = textEditingController.text;
     if (StringUtil.isNotBlank(result)) {
       var nwc = NWCInfo.loadFromUrl(result);

@@ -67,7 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Đóng tin nhắn riêng tư"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Dừng lại ở"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("Xác nhận"),
         "Contact": MessageLookupByLibrary.simpleMessage("Liên hệ"),
         "Content": MessageLookupByLibrary.simpleMessage("Nội dung"),
         "Content_warning":

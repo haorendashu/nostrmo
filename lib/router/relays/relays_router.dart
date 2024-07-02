@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/relay/relay.dart';
-import 'package:nostrmo/component/comfirm_dialog.dart';
+import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
@@ -220,7 +220,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
   // if (remoteRelayEvent != null &&
   //     (relaysUpdatedTime == null ||
   //         remoteRelayEvent!.createdAt - relaysUpdatedTime > 60 * 5)) {
-  //   var result = await ComfirmDialog.show(context,
+  //   var result = await ConfirmDialog.show(context,
   //       S.of(context).Find_clouded_relay_list_do_you_want_to_download);
   //   if (result == true) {
   //     List<String> list = [];

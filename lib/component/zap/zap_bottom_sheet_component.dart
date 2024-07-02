@@ -128,7 +128,7 @@ class _ZapBottomSheetComponent extends CustState<ZapBottomSheetComponent> {
         decoration: BoxDecoration(color: mainColor),
         child: InkWell(
           onTap: () {
-            _onComfirm();
+            _onConfirm();
           },
           highlightColor: mainColor.withOpacity(0.2),
           child: Container(
@@ -136,7 +136,7 @@ class _ZapBottomSheetComponent extends CustState<ZapBottomSheetComponent> {
             height: 50,
             alignment: Alignment.center,
             child: Text(
-              S.of(context).Comfirm,
+              S.of(context).Confirm,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -230,7 +230,7 @@ class _ZapBottomSheetComponent extends CustState<ZapBottomSheetComponent> {
     );
   }
 
-  Future<void> _onComfirm() async {
+  Future<void> _onConfirm() async {
     var num = zapNum;
     if (num == null) {
       var text = numberController.text;

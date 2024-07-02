@@ -54,7 +54,7 @@ class _NIP07Dialog extends State<NIP07Dialog> {
     List<Widget> list = [];
     list.add(Container(
       child: Text(
-        "NIP-07 ${s.Comfirm}",
+        "NIP-07 ${s.Confirm}",
         style: TextStyle(
           fontSize: titleFontSize! + 4,
           fontWeight: FontWeight.bold,
@@ -156,7 +156,7 @@ class _NIP07Dialog extends State<NIP07Dialog> {
             color: hintColor.withOpacity(0.3),
             alignment: Alignment.center,
             child: Text(
-              s.Comfirm,
+              s.Confirm,
               style: TextStyle(
                 fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,

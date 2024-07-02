@@ -60,7 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cancel": MessageLookupByLibrary.simpleMessage("キャンセル"),
         "Close_Private_DM": MessageLookupByLibrary.simpleMessage("私信を閉鎖する"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止中"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("確認"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("確認"),
         "Contact": MessageLookupByLibrary.simpleMessage("連絡先"),
         "Content": MessageLookupByLibrary.simpleMessage("内容"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("コンテンツの警告"),

@@ -68,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Sulje yksityiset viestit"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Pysähdy"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("Vahvista"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("Vahvista"),
         "Contact": MessageLookupByLibrary.simpleMessage("yhteystiedot"),
         "Content": MessageLookupByLibrary.simpleMessage("sisältö"),
         "Content_warning":

@@ -69,7 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM": MessageLookupByLibrary.simpleMessage(
             "Κλείσιμο ιδιωτικών μηνυμάτων"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Σταματήστε στο"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("επιβεβαίωση"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("επιβεβαίωση"),
         "Contact": MessageLookupByLibrary.simpleMessage("επαφές"),
         "Content": MessageLookupByLibrary.simpleMessage("περιεχόμενο"),
         "Content_warning":

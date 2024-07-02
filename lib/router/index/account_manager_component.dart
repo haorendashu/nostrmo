@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../client/client_utils/keys.dart';
 import '../../client/nip19/nip19.dart';
-import '../../component/comfirm_dialog.dart';
+import '../../component/confirm_dialog.dart';
 import '../../component/image_component.dart';
 import '../../consts/base.dart';
 import '../../data/dm_session_info_db.dart';
@@ -122,7 +122,7 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
         context, S.of(context).Input_account_private_key,
         valueCheck: addAccountCheck);
     if (StringUtil.isNotBlank(privateKey)) {
-      var result = await ComfirmDialog.show(
+      var result = await ConfirmDialog.show(
           context, S.of(context).Add_account_and_login);
       if (result == true) {
         if (Nip19.isPrivateKey(privateKey!)) {

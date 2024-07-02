@@ -68,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Privát üzenetek bezárása"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Állj meg"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("megerősítés"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("megerősítés"),
         "Contact": MessageLookupByLibrary.simpleMessage("kapcsolatok"),
         "Content": MessageLookupByLibrary.simpleMessage("tartalom"),
         "Content_warning":

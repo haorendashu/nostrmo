@@ -25,7 +25,7 @@ import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/colors_selector_component.dart';
-import '../../component/comfirm_dialog.dart';
+import '../../component/confirm_dialog.dart';
 import '../../component/editor/text_input_dialog.dart';
 import '../../component/enum_multi_selector_component.dart';
 import '../../component/enum_selector_component.dart';
@@ -910,7 +910,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
   askToDeleteAccount() async {
     var result =
-        await ComfirmDialog.show(context, S.of(context).Delete_Account_Tips);
+        await ConfirmDialog.show(context, S.of(context).Delete_Account_Tips);
     if (result == true) {
       deleteAccountLoadingCancel = BotToast.showLoading();
       try {

@@ -60,7 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("개인 정보 를 폐쇄 하다"),
         "Close_at": MessageLookupByLibrary.simpleMessage("중지"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("확인"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("확인"),
         "Contact": MessageLookupByLibrary.simpleMessage("연락처"),
         "Content": MessageLookupByLibrary.simpleMessage("내용"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("컨텐츠 경고"),

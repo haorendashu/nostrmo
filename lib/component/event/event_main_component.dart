@@ -34,7 +34,7 @@ import '../../provider/replaceable_event_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/string_util.dart';
-import '../comfirm_dialog.dart';
+import '../confirm_dialog.dart';
 import '../content/content_component.dart';
 import '../content/content_decoder.dart';
 import '../content/content_image_component.dart';
@@ -715,7 +715,7 @@ class _EventMainComponent extends State<EventMainComponent> {
             } else if (NIP19Tlv.isNrelay(link)) {
               var nrelay = NIP19Tlv.decodeNrelay(link);
               if (nrelay != null) {
-                var result = await ComfirmDialog.show(
+                var result = await ConfirmDialog.show(
                     context, S.of(context).Add_this_relay_to_local);
                 if (result == true) {
                   relayProvider.addRelay(nrelay.addr);

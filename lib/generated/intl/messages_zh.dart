@@ -66,7 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM": MessageLookupByLibrary.simpleMessage("关闭私密私信"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
         "Color": MessageLookupByLibrary.simpleMessage("颜色"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("确认"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("确认"),
         "Contact": MessageLookupByLibrary.simpleMessage("联系人"),
         "Content": MessageLookupByLibrary.simpleMessage("内容"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("内容警告"),

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
 import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
-import 'package:nostrmo/component/comfirm_dialog.dart';
+import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
 import 'package:nostrmo/component/webview_router.dart';
@@ -302,7 +302,7 @@ mixin EditorMixin {
   Future<void> changePrivateDM() async {
     if (!openPrivateDM) {
       var context = getContext();
-      var result = await ComfirmDialog.show(
+      var result = await ConfirmDialog.show(
           getContext(), S.of(context).Private_DM_Notice);
       if (result == false || result == null) {
         return;

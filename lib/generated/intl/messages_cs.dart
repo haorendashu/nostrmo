@@ -67,7 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Zavřít soukromé zprávy"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Zastavte se na"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("potvrdit"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("potvrdit"),
         "Contact": MessageLookupByLibrary.simpleMessage("kontakty"),
         "Content": MessageLookupByLibrary.simpleMessage("obsah"),
         "Content_warning":

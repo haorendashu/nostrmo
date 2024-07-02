@@ -131,7 +131,7 @@
 "Block": "Restrictions"
 "Input_Sats_num_to_gen_lightning_invoice": "Entrez la quantité de Stas pour générer une facture Lightning Network"
 "Users": "Les gens"
-"Comfirm": "Soumettre"
+"Confirm": "Soumettre"
 "Empty_text_may_be_ban_by_relays": "Les blancs d'entrée peuvent être interdits par le relais."
 "Translate": "Traduction"
 "The_key_is_a_random_string_that_resembles_": "La clé est une chaîne aléatoire, similaire au mot de passe de votre compte. Toute personne possédant cette clé peut accéder et contrôler votre compte."

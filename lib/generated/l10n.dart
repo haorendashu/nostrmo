@@ -50,11 +50,11 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Comfirm`
-  String get Comfirm {
+  /// `Confirm`
+  String get Confirm {
     return Intl.message(
-      'Comfirm',
-      name: 'Comfirm',
+      'Confirm',
+      name: 'Confirm',
       desc: '',
       args: [],
     );

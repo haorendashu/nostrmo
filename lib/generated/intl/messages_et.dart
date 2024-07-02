@@ -66,7 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM":
             MessageLookupByLibrary.simpleMessage("Sulge privaatsed kirjad"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Peatu"),
-        "Comfirm": MessageLookupByLibrary.simpleMessage("kinnita"),
+        "Confirm": MessageLookupByLibrary.simpleMessage("kinnita"),
         "Contact": MessageLookupByLibrary.simpleMessage("kontaktid"),
         "Content": MessageLookupByLibrary.simpleMessage("sisu"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("Sisu hoiatus"),

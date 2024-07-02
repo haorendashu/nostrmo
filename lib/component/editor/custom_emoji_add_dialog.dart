@@ -97,7 +97,7 @@ class _CustomEmojiAddDialog extends State<CustomEmojiAddDialog> {
         decoration: BoxDecoration(color: mainColor),
         child: InkWell(
           onTap: () {
-            _onComfirm();
+            _onConfirm();
           },
           highlightColor: mainColor.withOpacity(0.2),
           child: Container(
@@ -105,7 +105,7 @@ class _CustomEmojiAddDialog extends State<CustomEmojiAddDialog> {
             height: 40,
             alignment: Alignment.center,
             child: Text(
-              S.of(context).Comfirm,
+              S.of(context).Confirm,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -164,7 +164,7 @@ class _CustomEmojiAddDialog extends State<CustomEmojiAddDialog> {
 
   String? filepath;
 
-  Future<void> _onComfirm() async {
+  Future<void> _onConfirm() async {
     var s = S.of(context);
     var text = controller.text;
     if (StringUtil.isBlank(text)) {
