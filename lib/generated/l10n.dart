@@ -3079,6 +3079,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Login fail`
+  String get Login_fail {
+    return Intl.message(
+      'Login fail',
+      name: 'Login_fail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are logged in in read-only mode.`
+  String get Readonly_login_tip {
+    return Intl.message(
+      'You are logged in in read-only mode.',
+      name: 'Readonly_login_tip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login By Android Signer`
+  String get Login_By_Android_Signer {
+    return Intl.message(
+      'Login By Android Signer',
+      name: 'Login_By_Android_Signer',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

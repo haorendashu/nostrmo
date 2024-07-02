@@ -225,6 +225,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Lnurl and Lud16 can\'t found."),
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Local Relay"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
+        "Login_By_Android_Signer":
+            MessageLookupByLibrary.simpleMessage("Login By Android Signer"),
+        "Login_fail": MessageLookupByLibrary.simpleMessage("Login fail"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Main_Font_Color":
             MessageLookupByLibrary.simpleMessage("Main Font Color"),
@@ -330,6 +333,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Public": MessageLookupByLibrary.simpleMessage("Public"),
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
+        "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
+            "You are logged in in read-only mode."),
         "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
         "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay Info"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relay Mode"),

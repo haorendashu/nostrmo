@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:nostrmo/client/android_plugin/android_plugin_intent.dart';
 import 'package:nostrmo/client/nip05/nip05_validor.dart';
+import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/util/platform_util.dart';
 
+import '../../client/android_plugin/android_plugin.dart';
 import '../../client/client_utils/keys.dart';
 import '../../client/nip19/nip19.dart';
 import '../../client/signer/pubkey_only_nostr_signer.dart';
@@ -30,16 +35,28 @@ class _LoginRouter extends State<LoginRouter>
 
   late AnimationController animationController;
 
+  bool existAndroidNostrSigner = false;
+
   @override
   void initState() {
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    // animation = ;
+    if (Platform.isAndroid) {
+      AndroidPlugin.existAndroidNostrSigner().then((exist) {
+        if (exist == true) {
+          setState(() {
+            existAndroidNostrSigner = true;
+          });
+        }
+      });
+    }
   }
+
+  late S s;
 
   @override
   Widget build(BuildContext context) {
-    var s = S.of(context);
+    s = S.of(context);
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
     var maxWidth = mediaDataCache.size.width;
@@ -111,7 +128,7 @@ class _LoginRouter extends State<LoginRouter>
     ));
 
     mainList.add(Container(
-      margin: EdgeInsets.only(bottom: 100),
+      margin: EdgeInsets.only(bottom: 25),
       child: GestureDetector(
         onTap: generatePK,
         child: Text(
@@ -125,6 +142,32 @@ class _LoginRouter extends State<LoginRouter>
       ),
     ));
 
+    if (Platform.isAndroid && existAndroidNostrSigner) {
+      mainList.add(Container(
+        child: Text(s.or),
+      ));
+
+      mainList.add(Container(
+        margin: const EdgeInsets.all(Base.BASE_PADDING * 2),
+        child: InkWell(
+          onTap: loginByAndroidSigner,
+          child: Container(
+            height: 36,
+            color: mainColor,
+            alignment: Alignment.center,
+            child: Text(
+              s.Login_By_Android_Signer,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ));
+    }
+
     var termsWiget = Container(
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -136,7 +179,7 @@ class _LoginRouter extends State<LoginRouter>
                   checkTerms = val;
                 });
               }),
-          Text(s.I_accept_the + " "),
+          Text("${s.I_accept_the} "),
           Container(
             child: GestureDetector(
               onTap: () {
@@ -220,7 +263,7 @@ class _LoginRouter extends State<LoginRouter>
       }
 
       if (StringUtil.isBlank(pubkey)) {
-        BotToast.showText(text: "pubkey not found!");
+        BotToast.showText(text: "${s.Pubkey} ${s.not_found}");
         return;
       }
 
@@ -229,7 +272,7 @@ class _LoginRouter extends State<LoginRouter>
 
       var pubkeyOnlySigner = PubkeyOnlyNostrSigner(pubkey);
       nostr = await relayProvider.genNostr(pubkeyOnlySigner);
-      BotToast.showText(text: "You are logged in in read-only mode.");
+      BotToast.showText(text: s.Readonly_login_tip);
     } else {
       if (Nip19.isPrivateKey(pk)) {
         pk = Nip19.decode(pk);
@@ -247,5 +290,27 @@ class _LoginRouter extends State<LoginRouter>
     BotToast.showText(text: S.of(context).Please_accept_the_terms);
     animationController.reset();
     animationController.forward();
+  }
+
+  Future<void> loginByAndroidSigner() async {
+    if (checkTerms != true) {
+      tipAcceptTerm();
+      return;
+    }
+
+    var androidNostrSigner = AndroidNostrSigner();
+    var pubkey = await androidNostrSigner.getPublicKey();
+    if (StringUtil.isBlank(pubkey)) {
+      BotToast.showText(text: s.Login_fail);
+      return;
+    }
+
+    var key = "${AndroidNostrSigner.URI_PRE}:$pubkey";
+    settingProvider.addAndChangePrivateKey(key, updateUI: false);
+    nostr = await relayProvider.genNostr(androidNostrSigner);
+
+    settingProvider.notifyListeners();
+    firstLogin = true;
+    indexProvider.setCurrentTap(1);
   }
 }

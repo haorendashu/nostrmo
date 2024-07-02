@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
@@ -266,6 +267,8 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
     super.initState();
     if (Nip19.isPubkey(widget.accountKey)) {
       pubkey = Nip19.decode(widget.accountKey);
+    } else if (AndroidNostrSigner.isAndroidNostrSignerKey(widget.accountKey)) {
+      pubkey = AndroidNostrSigner.getPubkey(widget.accountKey);
     } else {
       pubkey = getPublicKey(widget.accountKey);
     }

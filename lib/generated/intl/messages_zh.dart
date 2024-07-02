@@ -175,6 +175,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lnurl 和 Lud16 无法找到。"),
         "LocalRelay": MessageLookupByLibrary.simpleMessage("本地中继"),
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
+        "Login_By_Android_Signer":
+            MessageLookupByLibrary.simpleMessage("通过安卓签名者登录"),
+        "Login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Main_Font_Color": MessageLookupByLibrary.simpleMessage("主文字颜色"),
         "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("最大子动态数量"),
@@ -256,6 +259,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Public": MessageLookupByLibrary.simpleMessage("公开"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),
+        "Readonly_login_tip":
+            MessageLookupByLibrary.simpleMessage("你正在以只读模式登录。"),
         "Relay_Info": MessageLookupByLibrary.simpleMessage("中继信息"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("中继类型"),
         "Relays": MessageLookupByLibrary.simpleMessage("中继"),

@@ -4,7 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
-import 'package:media_kit/ffi/ffi.dart';
 import 'package:nostrmo/client/cashu/cashu_tokens.dart';
 import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
