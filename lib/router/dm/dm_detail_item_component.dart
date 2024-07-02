@@ -41,6 +41,8 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
 
   static const double BLANK_WIDTH = 50;
 
+  String? currentPlainEventId;
+
   String? plainContent;
 
   @override
@@ -62,6 +64,10 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
     String timeStr = GetTimeAgo.parse(
         DateTime.fromMillisecondsSinceEpoch(widget.event.createdAt * 1000));
 
+    if (currentPlainEventId != widget.event.id) {
+      plainContent = null;
+    }
+
     var content = widget.event.content;
     if (widget.event.kind == EventKind.DIRECT_MESSAGE &&
         StringUtil.isBlank(plainContent)) {
@@ -71,6 +77,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
         if (StringUtil.isNotBlank(pc)) {
           setState(() {
             plainContent = pc;
+            currentPlainEventId = widget.event.id;
           });
         }
       });
