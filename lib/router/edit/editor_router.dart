@@ -34,9 +34,6 @@ class EditorRouter extends StatefulWidget {
   static double appbarHeight = 56;
 
   // dm arg
-  ECDHBasicAgreement? agreement;
-
-  // dm arg
   String? pubkey;
 
   List<dynamic> tags = [];
@@ -51,7 +48,6 @@ class EditorRouter extends StatefulWidget {
     required this.tags,
     required this.tagsAddedWhenSend,
     required this.tagPs,
-    this.agreement,
     this.pubkey,
     this.initEmbeds,
   });
@@ -61,7 +57,6 @@ class EditorRouter extends StatefulWidget {
     List<dynamic>? tags,
     List<dynamic>? tagsAddedWhenSend,
     List<dynamic>? tagPs,
-    ECDHBasicAgreement? agreement,
     String? pubkey,
     List<BlockEmbed>? initEmbeds,
   }) {
@@ -73,7 +68,6 @@ class EditorRouter extends StatefulWidget {
       tags: tags,
       tagsAddedWhenSend: tagsAddedWhenSend,
       tagPs: tagPs,
-      agreement: agreement,
       pubkey: pubkey,
       initEmbeds: initEmbeds,
     );
@@ -423,11 +417,6 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   }
 
   @override
-  ECDHBasicAgreement? getAgreement() {
-    return widget.agreement;
-  }
-
-  @override
   String? getPubkey() {
     return widget.pubkey;
   }
@@ -464,5 +453,10 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     }
 
     return list;
+  }
+
+  @override
+  bool isDM() {
+    return false;
   }
 }

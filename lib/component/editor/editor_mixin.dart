@@ -67,8 +67,8 @@ mixin EditorMixin {
 
   bool openZapSplit = false;
 
-  // dm arg
-  ECDHBasicAgreement? getAgreement();
+  // is dm
+  bool isDM();
 
   // dm arg
   String? getPubkey();
@@ -102,7 +102,7 @@ mixin EditorMixin {
     var mainColor = themeData.primaryColor;
 
     List<Widget> inputBtnList = [];
-    if (getAgreement() != null) {
+    if (isDM()) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: changePrivateDM,
         icon: Icon(Icons.enhanced_encryption,
@@ -181,7 +181,7 @@ mixin EditorMixin {
       // Expanded(child: Container())
     ]);
 
-    if (getAgreement() == null) {
+    if (!isDM()) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: openZapSplitTap,
         icon: ZapSplitIconComponent(
@@ -217,9 +217,7 @@ mixin EditorMixin {
         )
       ]);
     }
-    if (getAgreement() == null &&
-        getTags().isEmpty &&
-        getTagsAddedWhenSend().isEmpty) {
+    if (!isDM() && getTags().isEmpty && getTagsAddedWhenSend().isEmpty) {
       // isn't dm and reply
 
       inputBtnList.add(quill.QuillToolbarIconButton(
@@ -482,8 +480,6 @@ mixin EditorMixin {
 
   Future<Event?> doDocumentSave() async {
     var context = getContext();
-    // dm agreement
-    var agreement = getAgreement();
     // dm pubkey
     var pubkey = getPubkey();
 
@@ -672,7 +668,7 @@ mixin EditorMixin {
 
     Event? event;
     List<Event> extralEvents = [];
-    if (agreement != null && StringUtil.isNotBlank(pubkey)) {
+    if (isDM() && StringUtil.isNotBlank(pubkey)) {
       if (openPrivateDM) {
         // Private dm message
         var rumorEvent = Event(nostr!.publicKey,
@@ -696,7 +692,11 @@ mixin EditorMixin {
         }
       } else {
         // dm message
-        result = NIP04.encrypt(result, agreement, pubkey!);
+        var encryptedResult = await nostr!.nostrSigner.encrypt(pubkey, result);
+        if (encryptedResult == null) {
+          return null;
+        }
+        result = encryptedResult;
         event = Event(
             nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result,
             publishAt: publishAt);
