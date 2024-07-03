@@ -55,9 +55,11 @@ class EventKind {
 
   static const int NWC_RESPONSE_EVENT = 23195;
 
-  static const int HTTP_AUTH = 27235;
+  static const int NOSTR_REMOTE_SIGNING = 24133;
 
   static const int BLOSSOM_HTTP_AUTH = 24242;
+
+  static const int HTTP_AUTH = 27235;
 
   static const int FOLLOW_SETS = 30000;
 

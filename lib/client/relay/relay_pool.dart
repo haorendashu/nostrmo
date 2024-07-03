@@ -126,8 +126,11 @@ class RelayPool {
       try {
         if (relayLocal != null && relay is! RelayLocal) {
           var event = Map<String, dynamic>.from(json[2]);
-          event["sources"] = [relay.url];
-          relayLocal!.broadcaseToLocal(event);
+          var kind = event["kind"];
+          if (kind != EventKind.NOSTR_REMOTE_SIGNING) {
+            event["sources"] = [relay.url];
+            relayLocal!.broadcaseToLocal(event);
+          }
         }
 
         final event = Event.fromJson(json[2]);
