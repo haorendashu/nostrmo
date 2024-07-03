@@ -1,5 +1,6 @@
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip75/zap_goals_info.dart';
 import 'package:nostrmo/component/event/event_reactions_component.dart';
@@ -12,12 +13,18 @@ import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';
 import '../../provider/event_reactions_provider.dart';
 import '../../util/number_format_util.dart';
+import '../zap/zap_bottom_sheet_component.dart';
 import 'event_quote_component.dart';
 
 class EventZapGoalsComponent extends StatefulWidget {
   Event event;
 
-  EventZapGoalsComponent({required this.event});
+  EventRelation eventRelation;
+
+  EventZapGoalsComponent({
+    required this.event,
+    required this.eventRelation,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -113,7 +120,8 @@ class _EventZapGoalsComponent extends State<EventZapGoalsComponent> {
 
         list.add(GestureDetector(
           onTap: () {
-            // tapZap(selectKey);
+            ZapBottomSheetComponent.show(
+                context, widget.event, widget.eventRelation);
           },
           child: pollItemWidget,
         ));

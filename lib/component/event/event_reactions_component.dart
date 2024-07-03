@@ -625,32 +625,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   }
 
   void openZapDialog() {
-    List<EventZapInfo> list = [];
-    var zapInfos = widget.eventRelation.zapInfos;
-    if (zapInfos.isEmpty) {
-      String relayAddr = "";
-      var relayListMetadata =
-          metadataProvider.getRelayListMetadata(widget.event.pubkey);
-      if (relayListMetadata != null &&
-          relayListMetadata.writeAbleRelays.isNotEmpty) {
-        relayAddr = relayListMetadata.writeAbleRelays.first;
-      }
-      list.add(EventZapInfo(widget.event.pubkey, relayAddr, 1));
-    } else {
-      list.addAll(zapInfos);
-    }
-
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (BuildContext _context) {
-        return ZapBottomSheetComponent(
-          context,
-          list,
-          eventId: widget.event.id,
-        );
-      },
-    );
+    ZapBottomSheetComponent.show(context, widget.event, widget.eventRelation);
   }
 }
 

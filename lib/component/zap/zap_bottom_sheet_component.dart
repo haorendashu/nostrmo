@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/zap/zaps_send_dialog.dart';
@@ -7,10 +8,41 @@ import 'package:nostrmo/generated/l10n.dart';
 
 import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';
+import '../../main.dart';
 import '../../util/router_util.dart';
 import 'zap_bottom_sheet_user_component.dart';
 
 class ZapBottomSheetComponent extends StatefulWidget {
+  static void show(
+      BuildContext context, Event event, EventRelation eventRelation) {
+    List<EventZapInfo> list = [];
+    var zapInfos = eventRelation.zapInfos;
+    if (zapInfos.isEmpty) {
+      String relayAddr = "";
+      var relayListMetadata =
+          metadataProvider.getRelayListMetadata(event.pubkey);
+      if (relayListMetadata != null &&
+          relayListMetadata.writeAbleRelays.isNotEmpty) {
+        relayAddr = relayListMetadata.writeAbleRelays.first;
+      }
+      list.add(EventZapInfo(event.pubkey, relayAddr, 1));
+    } else {
+      list.addAll(zapInfos);
+    }
+
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext _context) {
+        return ZapBottomSheetComponent(
+          context,
+          list,
+          eventId: event.id,
+        );
+      },
+    );
+  }
+
   String? eventId;
 
   List<EventZapInfo> zapInfos;

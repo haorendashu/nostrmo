@@ -406,6 +406,7 @@ class _EventMainComponent extends State<EventMainComponent> {
             StringUtil.isNotBlank(eventRelation.zapraiser)) {
           list.add(EventZapGoalsComponent(
             event: widget.event,
+            eventRelation: eventRelation,
           ));
         }
 
