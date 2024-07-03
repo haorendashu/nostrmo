@@ -24,16 +24,18 @@ class SystemTimer {
 
   static void runTask() {
     // log("SystemTimer runTask");
-    if (counter % 2 == 0 && nostr != null) {
-      // relayProvider.checkAndReconnect();
-      if (counter > 4) {
-        mentionMeNewProvider.queryNew();
-        dmProvider.query();
-      }
-    } else {
-      if (counter > 4) {
-        followNewEventProvider.queryNew();
-        giftWrapProvider.query();
+    if (nostr != null) {
+      if (counter % 2 == 0) {
+        // relayProvider.checkAndReconnect();
+        if (counter > 4) {
+          mentionMeNewProvider.queryNew();
+          dmProvider.query();
+        }
+      } else {
+        if (counter > 4) {
+          followNewEventProvider.queryNew();
+          giftWrapProvider.query();
+        }
       }
     }
 
