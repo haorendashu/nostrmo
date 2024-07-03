@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:nostrmo/client/android_plugin/android_plugin_intent.dart';
 import 'package:nostrmo/client/nip05/nip05_validor.dart';
+import 'package:nostrmo/client/nip46/nostr_remote_signer.dart';
+import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
 import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
+import 'package:nostrmo/client/signer/signer_test.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/util/platform_util.dart';
 
@@ -100,7 +103,7 @@ class _LoginRouter extends State<LoginRouter>
     mainList.add(TextField(
       controller: controller,
       decoration: InputDecoration(
-        hintText: "nsec / hex private key / npub / NIP-05 Address",
+        hintText: "nsec / hex private key / npub / NIP-05 Address / bunker://",
         fillColor: Colors.white,
         suffixIcon: suffixIcon,
       ),
@@ -273,6 +276,24 @@ class _LoginRouter extends State<LoginRouter>
       var pubkeyOnlySigner = PubkeyOnlyNostrSigner(pubkey);
       nostr = await relayProvider.genNostr(pubkeyOnlySigner);
       BotToast.showText(text: s.Readonly_login_tip);
+    } else if (NostrRemoteSignerInfo.isBunkerUrl(pk)) {
+      var cancel = BotToast.showLoading();
+      try {
+        var info = NostrRemoteSignerInfo.parseBunkerUrl(pk);
+        if (info == null) {
+          return;
+        }
+
+        var bunkerLink = info.toString();
+        settingProvider.addAndChangePrivateKey(bunkerLink, updateUI: false);
+
+        // var nostrRemoteSigner = NostrRemoteSigner(info);
+        // await nostrRemoteSigner.connect();
+        // signerTest(nostrRemoteSigner);
+        nostr = await relayProvider.genNostrWithKey(bunkerLink);
+      } finally {
+        cancel.call();
+      }
     } else {
       if (Nip19.isPrivateKey(pk)) {
         pk = Nip19.decode(pk);

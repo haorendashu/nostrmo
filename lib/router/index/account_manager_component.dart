@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
 import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/user/name_component.dart';
@@ -269,6 +270,13 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
       pubkey = Nip19.decode(widget.accountKey);
     } else if (AndroidNostrSigner.isAndroidNostrSignerKey(widget.accountKey)) {
       pubkey = AndroidNostrSigner.getPubkey(widget.accountKey);
+    } else if (NostrRemoteSignerInfo.isBunkerUrl(widget.accountKey)) {
+      var info = NostrRemoteSignerInfo.parseBunkerUrl(widget.accountKey);
+      if (info != null) {
+        pubkey = info.remoteUserPubkey;
+      } else {
+        pubkey = "";
+      }
     } else {
       pubkey = getPublicKey(widget.accountKey);
     }

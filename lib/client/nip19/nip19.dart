@@ -75,8 +75,8 @@ class Nip19 {
     return isKey(Hrps.PRIVATE_KEY, str);
   }
 
-  static String encodePrivateKey(String pubkey) {
-    return _encodeKey(Hrps.PRIVATE_KEY, pubkey);
+  static String encodePrivateKey(String privateKey) {
+    return _encodeKey(Hrps.PRIVATE_KEY, privateKey);
   }
 
   static bool isNoteId(String str) {

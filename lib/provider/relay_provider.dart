@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
+import 'package:nostrmo/client/nip46/nostr_remote_signer.dart';
+import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
 import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
 import 'package:nostrmo/client/relay_local/relay_local.dart';
 import 'package:nostrmo/client/signer/pubkey_only_nostr_signer.dart';
@@ -123,6 +125,13 @@ class RelayProvider extends ChangeNotifier {
       nostrSigner = PubkeyOnlyNostrSigner(Nip19.decode(key));
     } else if (AndroidNostrSigner.isAndroidNostrSignerKey(key)) {
       nostrSigner = AndroidNostrSigner();
+    } else if (NostrRemoteSignerInfo.isBunkerUrl(key)) {
+      var info = NostrRemoteSignerInfo.parseBunkerUrl(key);
+      if (info == null) {
+        return null;
+      }
+      nostrSigner = NostrRemoteSigner(info);
+      await (nostrSigner as NostrRemoteSigner).connect();
     } else {
       nostrSigner = LocalNostrSigner(key);
     }
