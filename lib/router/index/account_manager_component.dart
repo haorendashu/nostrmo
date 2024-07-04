@@ -183,7 +183,7 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
     nostr = await relayProvider.genNostrWithKey(settingProvider.privateKey!);
   }
 
-  void onLoginTap(int index) {
+  Future<void> onLoginTap(int index) async {
     if (settingProvider.privateKeyIndex != index) {
       clearCurrentMemInfo();
       nostr!.close();
@@ -194,7 +194,12 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
       // signOut complete
       if (settingProvider.privateKey != null) {
         // use next privateKey to login
-        doLogin();
+        var cancelFunc = BotToast.showLoading();
+        try {
+          await doLogin();
+        } finally {
+          cancelFunc.call();
+        }
         settingProvider.notifyListeners();
         RouterUtil.back(context);
       }
