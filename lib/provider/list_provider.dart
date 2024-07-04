@@ -335,5 +335,6 @@ class ListProvider extends ChangeNotifier {
 
   void clear() {
     _holder.clear();
+    _bookmarks = Bookmarks();
   }
 }
