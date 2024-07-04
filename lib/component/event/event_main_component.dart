@@ -417,6 +417,7 @@ class _EventMainComponent extends State<EventMainComponent> {
           String? url;
           List? imeta;
           String? previewImage;
+          List<String> tagList = [];
           for (var tag in widget.event.tags) {
             if (tag.length > 1) {
               var key = tag[0];
@@ -427,6 +428,8 @@ class _EventMainComponent extends State<EventMainComponent> {
                 m = value;
               } else if (key == "imeta") {
                 imeta = tag;
+              } else if (key == "t") {
+                tagList.add(value);
               }
             }
           }
@@ -488,6 +491,22 @@ class _EventMainComponent extends State<EventMainComponent> {
                 }
               }
             }
+          }
+
+          if (tagList.isNotEmpty) {
+            List<Widget> topicWidgets = [];
+            for (var topic in tagList) {
+              topicWidgets.add(ContentTagComponent(tag: "#$topic"));
+            }
+
+            list.add(Container(
+              margin: const EdgeInsets.only(top: Base.BASE_PADDING_HALF),
+              child: Wrap(
+                spacing: Base.BASE_PADDING_HALF,
+                runSpacing: Base.BASE_PADDING_HALF / 2,
+                children: topicWidgets,
+              ),
+            ));
           }
         }
 
