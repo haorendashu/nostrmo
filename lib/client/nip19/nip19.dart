@@ -9,6 +9,29 @@ class Nip19 {
   //   return Bech32.encode(Hrps.PUBLIC_KEY, data);
   // }
 
+  static Map<String, int>? charMap;
+
+  // sometimes bech32 is mix with some other chat at the end
+  static int? checkBech32End(String text) {
+    if (charMap == null) {
+      charMap = <String, int>{};
+      for (var chat in charset) {
+        charMap![chat] = 1;
+      }
+    }
+
+    var startIndex = text.indexOf("1");
+    var length = text.length;
+    for (var i = startIndex + 1; i < length; i++) {
+      var char = text.substring(i, i + 1);
+      if (charMap![char] == null) {
+        return i;
+      }
+    }
+
+    return null;
+  }
+
   static bool isKey(String hrp, String str) {
     if (str.indexOf(hrp) == 0) {
       return true;

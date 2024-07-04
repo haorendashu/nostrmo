@@ -740,6 +740,12 @@ class _ContentComponent extends State<ContentComponent> {
 
         return otherStr;
       } else if (NIP19Tlv.isNprofile(key)) {
+        var index = Nip19.checkBech32End(key);
+        if (index != null) {
+          otherStr = key.substring(index);
+          key = key.substring(0, index);
+        }
+
         var nprofile = NIP19Tlv.decodeNprofile(key);
         if (nprofile != null) {
           // inline
@@ -748,11 +754,17 @@ class _ContentComponent extends State<ContentComponent> {
           currentList.add(WidgetSpan(
               child: ContentMentionUserComponent(pubkey: nprofile.pubkey)));
 
-          return null;
+          return otherStr;
         } else {
           return str;
         }
       } else if (NIP19Tlv.isNrelay(key)) {
+        var index = Nip19.checkBech32End(key);
+        if (index != null) {
+          otherStr = key.substring(index);
+          key = key.substring(0, index);
+        }
+
         var nrelay = NIP19Tlv.decodeNrelay(key);
         if (nrelay != null) {
           // inline
@@ -760,11 +772,17 @@ class _ContentComponent extends State<ContentComponent> {
           currentList
               .add(WidgetSpan(child: ContentRelayComponent(nrelay.addr)));
 
-          return null;
+          return otherStr;
         } else {
           return str;
         }
       } else if (NIP19Tlv.isNevent(key)) {
+        var index = Nip19.checkBech32End(key);
+        if (index != null) {
+          otherStr = key.substring(index);
+          key = key.substring(0, index);
+        }
+
         var nevent = NIP19Tlv.decodeNevent(key);
         if (nevent != null) {
           // block
@@ -779,11 +797,17 @@ class _ContentComponent extends State<ContentComponent> {
           currentList.add(WidgetSpan(child: w));
           counterAddLines(fake_event_counter);
 
-          return null;
+          return otherStr;
         } else {
           return str;
         }
       } else if (NIP19Tlv.isNaddr(key)) {
+        var index = Nip19.checkBech32End(key);
+        if (index != null) {
+          otherStr = key.substring(index);
+          key = key.substring(0, index);
+        }
+
         var naddr = NIP19Tlv.decodeNaddr(key);
         if (naddr != null) {
           if (StringUtil.isNotBlank(naddr.id) &&
@@ -800,7 +824,7 @@ class _ContentComponent extends State<ContentComponent> {
             currentList.add(WidgetSpan(child: w));
             counterAddLines(fake_event_counter);
 
-            return null;
+            return otherStr;
           } else if (StringUtil.isNotBlank(naddr.author) &&
               naddr.kind == EventKind.METADATA) {
             // inline
@@ -808,7 +832,7 @@ class _ContentComponent extends State<ContentComponent> {
             currentList.add(WidgetSpan(
                 child: ContentMentionUserComponent(pubkey: naddr.author)));
 
-            return null;
+            return otherStr;
           }
         }
       }
