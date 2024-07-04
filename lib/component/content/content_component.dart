@@ -475,7 +475,8 @@ class _ContentComponent extends State<ContentComponent> {
               break;
             }
           } else if (j == 0 &&
-              (str.startsWith("---") || str.startsWith("***"))) {
+              (str.startsWith("---") ||
+                  (str.startsWith("***") && strsLength == 1))) {
             bufferToList(buffer, currentList, images);
             currentList.add(const WidgetSpan(child: Divider()));
             if (j == strsLength - 1 && i < lineLength) {
