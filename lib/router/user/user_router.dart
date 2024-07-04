@@ -51,6 +51,7 @@ class _UserRouter extends CustState<UserRouter>
   @override
   void initState() {
     super.initState();
+    bindLoadMoreScroll(_controller);
 
     whenStopMS = 1500;
     // queryLimit = 200;
