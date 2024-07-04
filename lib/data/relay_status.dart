@@ -42,6 +42,8 @@ class RelayStatus {
     }
   }
 
+  DateTime connectTime = DateTime.now();
+
   DateTime? lastNoteTime;
 
   DateTime? lastErrorTime;

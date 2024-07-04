@@ -371,9 +371,10 @@ class RelayProvider extends ChangeNotifier {
       var addr = entry.key;
       var status = entry.value;
 
-      if (status.lastNoteTime == null ||
-          ((now - status.lastNoteTime!.millisecondsSinceEpoch) >
-              1000 * 60 * 10)) {
+      if (now - status.connectTime.millisecondsSinceEpoch > 1000 * 60 * 10 &&
+          (status.lastNoteTime == null ||
+              ((now - status.lastNoteTime!.millisecondsSinceEpoch) >
+                  1000 * 60 * 10))) {
         needRemoveList.add(addr);
       }
     }
