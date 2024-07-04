@@ -1,3 +1,4 @@
+import 'package:nostrmo/client/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/string_util.dart';
 
@@ -219,5 +220,9 @@ class Nostr {
 
   bool writable() {
     return _pool.writable();
+  }
+
+  bool isReadOnly() {
+    return nostrSigner is PubkeyOnlyNostrSigner;
   }
 }

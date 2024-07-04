@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostrmo/client/upload/blossom_uploader.dart';
 import 'package:nostrmo/client/upload/uploader.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
@@ -45,6 +46,8 @@ class _IndexDrawerContentComponnent
 
   double profileEditBtnWidth = 40;
 
+  bool readOnly = false;
+
   @override
   Widget build(BuildContext context) {
     var _indexProvider = Provider.of<IndexProvider>(context);
@@ -57,6 +60,7 @@ class _IndexDrawerContentComponnent
     var cardColor = themeData.cardColor;
     var hintColor = themeData.hintColor;
     List<Widget> list = [];
+    readOnly = nostr!.isReadOnly();
 
     if (widget.smallMode) {
       list.add(Container(
@@ -91,18 +95,21 @@ class _IndexDrawerContentComponnent
           Positioned(
             top: paddingTop + Base.BASE_PADDING_HALF,
             right: Base.BASE_PADDING,
-            child: Container(
-              height: profileEditBtnWidth,
-              width: profileEditBtnWidth,
-              decoration: BoxDecoration(
-                color: cardColor,
-                borderRadius: BorderRadius.circular(profileEditBtnWidth / 2),
-              ),
-              child: IconButton(
-                icon: Icon(Icons.edit_square),
-                onPressed: jumpToProfileEdit,
-              ),
-            ),
+            child: readOnly
+                ? Container()
+                : Container(
+                    height: profileEditBtnWidth,
+                    width: profileEditBtnWidth,
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius:
+                          BorderRadius.circular(profileEditBtnWidth / 2),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.edit_square),
+                      onPressed: jumpToProfileEdit,
+                    ),
+                  ),
           ),
         ]),
       ));
@@ -187,14 +194,16 @@ class _IndexDrawerContentComponnent
       ));
     }
 
-    centerList.add(IndexDrawerItem(
-      iconData: Icons.key_rounded,
-      name: s.Key_Backup,
-      onTap: () {
-        RouterUtil.router(context, RouterPath.KEY_BACKUP);
-      },
-      smallMode: widget.smallMode,
-    ));
+    if (!readOnly) {
+      centerList.add(IndexDrawerItem(
+        iconData: Icons.key_rounded,
+        name: s.Key_Backup,
+        onTap: () {
+          RouterUtil.router(context, RouterPath.KEY_BACKUP);
+        },
+        smallMode: widget.smallMode,
+      ));
+    }
 
     centerList.add(IndexDrawerItem(
       iconData: Icons.bookmarks_rounded,
@@ -261,7 +270,7 @@ class _IndexDrawerContentComponnent
       ),
     ));
 
-    if (PlatformUtil.isTableMode()) {
+    if (PlatformUtil.isTableMode() && !readOnly) {
       list.add(IndexDrawerItem(
         iconData: Icons.add_rounded,
         name: s.Add_a_Note,

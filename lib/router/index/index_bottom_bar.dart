@@ -50,15 +50,17 @@ class _IndexBottomBar extends State<IndexBottomBar> {
     ));
     current++;
 
-    list.add(IndexBottomBarButton(
-      iconData: Icons.add_circle_outline_rounded, // notifications_active
-      index: -1,
-      selected: false,
-      bigFont: true,
-      onTap: (value) {
-        EditorRouter.open(context);
-      },
-    ));
+    if (!nostr!.isReadOnly()) {
+      list.add(IndexBottomBarButton(
+        iconData: Icons.add_circle_outline_rounded, // notifications_active
+        index: -1,
+        selected: false,
+        bigFont: true,
+        onTap: (value) {
+          EditorRouter.open(context);
+        },
+      ));
+    }
 
     list.add(IndexBottomBarButton(
       iconData: Icons.search_rounded,

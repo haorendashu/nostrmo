@@ -61,6 +61,8 @@ class EventReactionsComponent extends StatefulWidget {
 class _EventReactionsComponent extends State<EventReactionsComponent> {
   List<Event>? myLikeEvents;
 
+  bool readOnly = false;
+
   @override
   Widget build(BuildContext context) {
     var s = S.of(context);
@@ -72,6 +74,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     var popFontStyle = TextStyle(
       fontSize: mediumFontSize,
     );
+    readOnly = nostr!.isReadOnly();
 
     return Selector<EventReactionsProvider, EventReactions?>(
       builder: (context, eventReactions, child) {
@@ -187,31 +190,33 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 child: Text(s.Share, style: popFontStyle),
               ));
               list.add(PopupMenuDivider());
-              if (listProvider.checkPrivateBookmark(bookmarkItem)) {
-                list.add(PopupMenuItem(
-                  value: "removeFromPrivateBookmark",
-                  child:
-                      Text(s.Remove_from_private_bookmark, style: popFontStyle),
-                ));
-              } else {
-                list.add(PopupMenuItem(
-                  value: "addToPrivateBookmark",
-                  child: Text(s.Add_to_private_bookmark, style: popFontStyle),
-                ));
+              if (!readOnly) {
+                if (listProvider.checkPrivateBookmark(bookmarkItem)) {
+                  list.add(PopupMenuItem(
+                    value: "removeFromPrivateBookmark",
+                    child: Text(s.Remove_from_private_bookmark,
+                        style: popFontStyle),
+                  ));
+                } else {
+                  list.add(PopupMenuItem(
+                    value: "addToPrivateBookmark",
+                    child: Text(s.Add_to_private_bookmark, style: popFontStyle),
+                  ));
+                }
+                if (listProvider.checkPublicBookmark(bookmarkItem)) {
+                  list.add(PopupMenuItem(
+                    value: "removeFromPublicBookmark",
+                    child: Text(s.Remove_from_public_bookmark,
+                        style: popFontStyle),
+                  ));
+                } else {
+                  list.add(PopupMenuItem(
+                    value: "addToPublicBookmark",
+                    child: Text(s.Add_to_public_bookmark, style: popFontStyle),
+                  ));
+                }
+                list.add(PopupMenuDivider());
               }
-              if (listProvider.checkPublicBookmark(bookmarkItem)) {
-                list.add(PopupMenuItem(
-                  value: "removeFromPublicBookmark",
-                  child:
-                      Text(s.Remove_from_public_bookmark, style: popFontStyle),
-                ));
-              } else {
-                list.add(PopupMenuItem(
-                  value: "addToPublicBookmark",
-                  child: Text(s.Add_to_public_bookmark, style: popFontStyle),
-                ));
-              }
-              list.add(PopupMenuDivider());
               list.add(PopupMenuItem(
                 value: "source",
                 child: Text(s.Source, style: popFontStyle),
@@ -297,6 +302,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 alignment: Alignment.center,
                 child: PopupMenuButton<String>(
                   tooltip: s.Boost,
+                  enabled: !readOnly,
                   itemBuilder: (context) {
                     return [
                       PopupMenuItem(
@@ -482,6 +488,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   }
 
   Future<void> onCommmentTap() async {
+    if (readOnly) {
+      return;
+    }
+
     var er = widget.eventRelation;
     List<dynamic> tags = [];
     List<dynamic> tagsAddedWhenSend = [];
@@ -552,6 +562,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   }
 
   Future<void> onLikeTap() async {
+    if (readOnly) {
+      return;
+    }
+
     if (myLikeEvents == null || myLikeEvents!.isEmpty) {
       // like
       // get emoji text
