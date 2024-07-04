@@ -16,6 +16,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../client/client_utils/keys.dart';
+import '../../client/nip05/nip05_validor.dart';
 import '../../client/nip19/nip19.dart';
 import '../../component/confirm_dialog.dart';
 import '../../component/image_component.dart';
@@ -128,10 +129,24 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
       if (result == true) {
         if (Nip19.isPrivateKey(privateKey!)) {
           privateKey = Nip19.decode(privateKey);
+        } else if (privateKey.indexOf("@") > 0) {
+          // try to find pubkey first.
+          var cancelFunc = BotToast.showLoading();
+          try {
+            privateKey = await Nip05Validor.getPubkey(privateKey);
+            if (privateKey == null) {
+              return;
+            }
+            privateKey = Nip19.encodePubKey(privateKey);
+          } catch (e) {
+            print("doLogin error ${e.toString()}");
+          } finally {
+            cancelFunc.call();
+          }
         }
         // logout current and login new
         var oldIndex = settingProvider.privateKeyIndex;
-        var newIndex = settingProvider.addAndChangePrivateKey(privateKey);
+        var newIndex = settingProvider.addAndChangePrivateKey(privateKey!);
         if (oldIndex != newIndex) {
           clearCurrentMemInfo();
           doLogin();
@@ -144,16 +159,20 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
 
   bool addAccountCheck(BuildContext p1, String privateKey) {
     if (StringUtil.isNotBlank(privateKey)) {
-      if (Nip19.isPrivateKey(privateKey)) {
-        privateKey = Nip19.decode(privateKey);
-      }
+      if (Nip19.isPubkey(privateKey) || privateKey.indexOf("@") > 0) {
+      } else if (NostrRemoteSignerInfo.isBunkerUrl(privateKey)) {
+      } else {
+        if (Nip19.isPrivateKey(privateKey)) {
+          privateKey = Nip19.decode(privateKey);
+        }
 
-      // try to gen publicKey check the formate
-      try {
-        getPublicKey(privateKey);
-      } catch (e) {
-        BotToast.showText(text: S.of(context).Wrong_Private_Key_format);
-        return false;
+        // try to gen publicKey check the formate
+        try {
+          getPublicKey(privateKey);
+        } catch (e) {
+          BotToast.showText(text: S.of(context).Wrong_Private_Key_format);
+          return false;
+        }
       }
     }
 
@@ -263,13 +282,17 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
 
   late String pubkey;
 
+  String? loginTag;
+
   @override
   void initState() {
     super.initState();
     if (Nip19.isPubkey(widget.accountKey)) {
       pubkey = Nip19.decode(widget.accountKey);
+      loginTag = "ReadOnly";
     } else if (AndroidNostrSigner.isAndroidNostrSignerKey(widget.accountKey)) {
       pubkey = AndroidNostrSigner.getPubkey(widget.accountKey);
+      loginTag = "NIP-55";
     } else if (NostrRemoteSignerInfo.isBunkerUrl(widget.accountKey)) {
       var info = NostrRemoteSignerInfo.parseBunkerUrl(widget.accountKey);
       if (info != null) {
@@ -277,6 +300,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
       } else {
         pubkey = "";
       }
+      loginTag = "NIP-46";
     } else {
       pubkey = getPublicKey(widget.accountKey);
     }
@@ -325,6 +349,25 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
           metadata: metadata,
         ),
       ));
+
+      if (StringUtil.isNotBlank(loginTag)) {
+        list.add(Container(
+          margin: const EdgeInsets.only(right: Base.BASE_PADDING_HALF),
+          padding: const EdgeInsets.only(
+            left: Base.BASE_PADDING_HALF,
+            right: Base.BASE_PADDING_HALF,
+            top: 4,
+            bottom: 4,
+          ),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            loginTag!,
+          ),
+        ));
+      }
 
       list.add(Expanded(
           child: Container(
