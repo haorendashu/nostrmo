@@ -293,5 +293,6 @@
     "Color": "颜色",
     "Login_fail": "登录失败",
     "Readonly_login_tip": "你正在以只读模式登录。",
-    "Login_By_Android_Signer": "通过安卓签名者登录"
+    "Login_By_Android_Signer": "通过安卓签名者登录",
+    "Read_Only": "只读"
 }

@@ -333,6 +333,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Public": MessageLookupByLibrary.simpleMessage("Public"),
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
+        "Read_Only": MessageLookupByLibrary.simpleMessage("Read Only"),
         "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
             "You are logged in in read-only mode."),
         "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),

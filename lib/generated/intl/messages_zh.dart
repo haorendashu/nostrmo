@@ -259,6 +259,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Public": MessageLookupByLibrary.simpleMessage("公开"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),
+        "Read_Only": MessageLookupByLibrary.simpleMessage("只读"),
         "Readonly_login_tip":
             MessageLookupByLibrary.simpleMessage("你正在以只读模式登录。"),
         "Relay_Info": MessageLookupByLibrary.simpleMessage("中继信息"),

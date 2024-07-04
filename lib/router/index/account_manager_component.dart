@@ -314,6 +314,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
     if (cardColor == Colors.white) {
       cardColor = Colors.grey[300];
     }
+    var s = S.of(context);
 
     return Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
@@ -364,7 +365,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            loginTag!,
+            loginTag == "ReadOnly" ? s.Read_Only : loginTag!,
           ),
         ));
       }
