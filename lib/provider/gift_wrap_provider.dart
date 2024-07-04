@@ -1,15 +1,10 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
 
 import '../client/event.dart';
 import '../client/event_kind.dart';
 import '../client/filter.dart';
-import '../client/nip44/nip44_v2.dart';
 import '../client/nostr.dart';
-import '../client/signer/local_nostr_signer.dart';
 import '../data/event_db.dart';
 import '../data/event_mem_box.dart';
 import '../main.dart';
@@ -30,11 +25,21 @@ class GiftWrapProvider extends ChangeNotifier {
     box.sort();
   }
 
+  bool initQuery = true;
+
+  int TIME_FLAG = 60 * 60 * 24 * 2;
+
   void query({Nostr? targetNostr, int? since}) {
     targetNostr ??= nostr;
     if (since == null && !box.isEmpty()) {
-      var oldestEvent = box.oldestEvent;
-      since = oldestEvent!.createdAt - 60 * 60 * 24 * 7;
+      if (initQuery) {
+        // haven't query before
+        var oldestEvent = box.oldestEvent;
+        since = oldestEvent!.createdAt - TIME_FLAG;
+      } else {
+        // queried before, since change to two days before now avoid query too much event
+        since = DateTime.now().millisecondsSinceEpoch ~/ 1000 - TIME_FLAG;
+      }
     }
 
     var filter = Filter(
