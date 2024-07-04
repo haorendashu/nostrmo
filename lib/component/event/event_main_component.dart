@@ -415,6 +415,8 @@ class _EventMainComponent extends State<EventMainComponent> {
             widget.event.kind == kind.EventKind.VIDEO_VERTICAL) {
           String? m;
           String? url;
+          List? imeta;
+          String? previewImage;
           for (var tag in widget.event.tags) {
             if (tag.length > 1) {
               var key = tag[0];
@@ -423,6 +425,29 @@ class _EventMainComponent extends State<EventMainComponent> {
                 url = value;
               } else if (key == "m") {
                 m = value;
+              } else if (key == "imeta") {
+                imeta = tag;
+              }
+            }
+          }
+
+          if (imeta != null) {
+            for (var tagItem in imeta) {
+              if (!(tagItem is String)) {
+                continue;
+              }
+
+              var strs = tagItem.split(" ");
+              if (strs.length > 1) {
+                var key = strs[0];
+                var value = strs[1];
+                if (key == "url" && url == null) {
+                  url = value;
+                } else if (key == "m" && url == null) {
+                  m = value;
+                } else if (key == "image" && previewImage == null) {
+                  previewImage = value;
+                }
               }
             }
           }
@@ -430,7 +455,12 @@ class _EventMainComponent extends State<EventMainComponent> {
           if (StringUtil.isNotBlank(url)) {
             if (widget.event.kind == kind.EventKind.VIDEO_HORIZONTAL ||
                 widget.event.kind == kind.EventKind.VIDEO_VERTICAL) {
-              list.add(ContentVideoComponent(url: url!));
+              if (settingProvider.videoPreview == OpenStatus.OPEN &&
+                  widget.showVideo) {
+                list.add(ContentVideoComponent(url: url!));
+              } else {
+                list.add(ContentLinkComponent(link: url!));
+              }
             } else {
               //  show and decode depend m
               if (StringUtil.isNotBlank(m)) {
@@ -567,6 +597,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: list,
       ),
     ));
