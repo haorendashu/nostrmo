@@ -251,7 +251,6 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
     // clear local db
     DMSessionInfoDB.deleteAll(index);
     EventDB.deleteAll(index);
-    // MetadataDB.deleteAll(); // MetadataDB don't delete here, but delete in setting
   }
 }
 

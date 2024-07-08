@@ -36,29 +36,34 @@ class _DMKnownListRouter extends State<DMKnownListRouter> {
     }
 
     return Container(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          if (index >= allLength) {
-            return null;
-          }
+      child: RefreshIndicator(
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            if (index >= allLength) {
+              return null;
+            }
 
-          if (index == 0 && flag > 0) {
-            if (_settingProvider.hideRelayNotices != OpenStatus.CLOSE) {
-              return Container();
+            if (index == 0 && flag > 0) {
+              if (_settingProvider.hideRelayNotices != OpenStatus.CLOSE) {
+                return Container();
+              } else {
+                return DMNoticeItemComponent(
+                  newestNotice: notices.last,
+                  hasNewMessage: hasNewNotice,
+                );
+              }
             } else {
-              return DMNoticeItemComponent(
-                newestNotice: notices.last,
-                hasNewMessage: hasNewNotice,
+              var detail = details[index - flag];
+              return DMSessionListItemComponent(
+                detail: detail,
               );
             }
-          } else {
-            var detail = details[index - flag];
-            return DMSessionListItemComponent(
-              detail: detail,
-            );
-          }
+          },
+          itemCount: allLength,
+        ),
+        onRefresh: () async {
+          _dmProvider.query(queryAll: true);
         },
-        itemCount: allLength,
       ),
     );
   }

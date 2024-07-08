@@ -21,18 +21,23 @@ class _DMUnknownListRouter extends State<DMUnknownListRouter> {
     var details = _dmProvider.unknownList;
 
     return Container(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          if (index >= details.length) {
-            return null;
-          }
+      child: RefreshIndicator(
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            if (index >= details.length) {
+              return null;
+            }
 
-          var detail = details[index];
-          return DMSessionListItemComponent(
-            detail: detail,
-          );
+            var detail = details[index];
+            return DMSessionListItemComponent(
+              detail: detail,
+            );
+          },
+          itemCount: details.length,
+        ),
+        onRefresh: () async {
+          _dmProvider.query(queryAll: true);
         },
-        itemCount: details.length,
       ),
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/signer/local_nostr_signer.dart';
 
 import '../../client/event_kind.dart' as kind;
 import '../client/event.dart';
@@ -205,18 +204,22 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     return addResult;
   }
 
-  void query({Nostr? targetNostr, bool initQuery = false}) {
+  void query(
+      {Nostr? targetNostr, bool initQuery = false, bool queryAll = false}) {
     targetNostr ??= nostr;
     var filter0 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
       authors: [targetNostr!.publicKey],
-      since: _initSince + 1,
     );
     var filter1 = Filter(
       kinds: [kind.EventKind.DIRECT_MESSAGE],
       p: [targetNostr.publicKey],
-      since: _initSince + 1,
     );
+
+    if (!queryAll) {
+      filter0.since = _initSince + 1;
+      filter1.since = _initSince + 1;
+    }
 
     if (initQuery) {
       targetNostr.addInitQuery([filter0.toJson(), filter1.toJson()], onEvent);
@@ -257,6 +260,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     _sessions.clear();
     _knownList.clear();
     _unknownList.clear();
+    infoMap.clear();
 
     notifyListeners();
   }
