@@ -27,12 +27,12 @@ class SystemTimer {
     if (nostr != null) {
       if (counter % 2 == 0) {
         // relayProvider.checkAndReconnect();
-        if (counter > 4) {
+        if (counter > 8) {
           mentionMeNewProvider.queryNew();
           dmProvider.query();
         }
       } else {
-        if (counter > 4) {
+        if (counter > 8) {
           followNewEventProvider.queryNew();
           giftWrapProvider.query();
         }

@@ -19,9 +19,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
   List<DMSessionDetail> _unknownList = [];
 
-  Map<String, DMSession> _sessions = {};
-
-  Map<String, DMSessionInfo> infoMap = {};
+  Map<String, DMSessionDetail> _sessionDetails = {};
 
   String? localPubkey;
 
@@ -29,8 +27,8 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
   List<DMSessionDetail> get unknownList => _unknownList;
 
-  DMSession? getSession(String pubkey) {
-    return _sessions[pubkey];
+  DMSessionDetail? getSessionDetail(String pubkey) {
+    return _sessionDetails[pubkey];
   }
 
   DMSessionDetail findOrNewADetail(String pubkey) {
@@ -77,7 +75,6 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     o.readedTime = detail.dmSession.newestEvent!.createdAt;
     await DMSessionInfoDB.insert(o);
 
-    dmProvider.infoMap[pubkey] = o;
     detail.info = o;
 
     unknownList.remove(detail);
@@ -92,7 +89,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
   int _initSince = 0;
 
   Future<void> initDMSessions(String localPubkey) async {
-    _sessions.clear();
+    _sessionDetails.clear();
     _knownList.clear();
     _unknownList.clear();
 
@@ -123,7 +120,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       }
     }
 
-    infoMap = {};
+    Map<String, DMSessionInfo> infoMap = {};
     var infos = await DMSessionInfoDB.all(keyIndex);
     for (var info in infos) {
       infoMap[info.pubkey!] = info;
@@ -136,8 +133,6 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       var session = DMSession(pubkey: pubkey);
       session.addEvents(list);
 
-      _sessions[pubkey] = session;
-
       var info = infoMap[pubkey];
       var detail = DMSessionDetail(session, info: info);
       if (info != null) {
@@ -145,6 +140,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       } else {
         _unknownList.add(detail);
       }
+      _sessionDetails[pubkey] = detail;
     }
 
     _sortDetailList();
@@ -189,16 +185,19 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       return false;
     }
 
-    var session = _sessions[pubkey];
-    if (session == null) {
-      session = DMSession(pubkey: pubkey!);
-      _sessions[pubkey] = session;
-    }
-    var addResult = session.addEvent(event);
+    var sessionDetail = _sessionDetails[pubkey];
+    if (sessionDetail == null) {
+      var session = DMSession(pubkey: pubkey!);
+      sessionDetail = DMSessionDetail(session);
+      _sessionDetails[pubkey] = sessionDetail;
 
+      _unknownList.add(sessionDetail);
+    }
+
+    var addResult = sessionDetail.dmSession.addEvent(event);
     if (addResult) {
-      session = session.clone();
-      _sessions[pubkey!] = session;
+      _sortDetailList();
+      // TODO
     }
 
     return addResult;
@@ -216,7 +215,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       p: [targetNostr.publicKey],
     );
 
-    if (!queryAll) {
+    if (!queryAll || _initSince == 0) {
       filter0.since = _initSince + 1;
       filter1.since = _initSince + 1;
     }
@@ -243,9 +242,11 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     for (var event in events) {
       var addResult = _addEvent(localPubkey!, event);
       // save to local
-      updated = true;
-      var keyIndex = settingProvider.privateKeyIndex!;
-      EventDB.insert(keyIndex, event);
+      if (addResult) {
+        updated = true;
+        var keyIndex = settingProvider.privateKeyIndex!;
+        EventDB.insert(keyIndex, event);
+      }
     }
 
     if (updated) {
@@ -257,10 +258,9 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
   }
 
   void clear() {
-    _sessions.clear();
+    _sessionDetails.clear();
     _knownList.clear();
     _unknownList.clear();
-    infoMap.clear();
 
     notifyListeners();
   }

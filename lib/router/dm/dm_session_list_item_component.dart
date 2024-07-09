@@ -23,6 +23,7 @@ class DMSessionListItemComponent extends StatefulWidget {
   DMSessionDetail detail;
 
   DMSessionListItemComponent({
+    super.key,
     required this.detail,
   });
 

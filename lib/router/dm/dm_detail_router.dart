@@ -70,6 +70,12 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     }
     detail = arg as DMSessionDetail;
 
+    var _dmProvider = Provider.of<DMProvider>(context);
+    var newDetail = _dmProvider.getSessionDetail(detail!.dmSession.pubkey);
+    if (newDetail != null) {
+      detail = newDetail;
+    }
+
     var nameComponnet = Selector<MetadataProvider, Metadata?>(
       builder: (context, metadata, child) {
         return NameComponent(
@@ -86,36 +92,25 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
 
     List<Widget> list = [];
 
-    var listWidget = Selector<DMProvider, DMSession?>(
-      builder: (context, session, child) {
-        if (session == null) {
-          return Container();
+    var newestEvent = detail!.dmSession.newestEvent;
+    handleDefaultPrivateDMSetting(newestEvent);
+
+    var listWidget = ListView.builder(
+      itemBuilder: (context, index) {
+        var event = detail!.dmSession.get(index);
+        if (event == null) {
+          return null;
         }
 
-        var newestEvent = session.newestEvent;
-        handleDefaultPrivateDMSetting(newestEvent);
-
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            var event = session.get(index);
-            if (event == null) {
-              return null;
-            }
-
-            return DMDetailItemComponent(
-              sessionPubkey: detail!.dmSession.pubkey,
-              event: event,
-              isLocal: localPubkey == event.pubkey,
-            );
-          },
-          reverse: true,
-          itemCount: session.length(),
-          dragStartBehavior: DragStartBehavior.down,
+        return DMDetailItemComponent(
+          sessionPubkey: detail!.dmSession.pubkey,
+          event: event,
+          isLocal: localPubkey == event.pubkey,
         );
       },
-      selector: (context, _provider) {
-        return _provider.getSession(detail!.dmSession.pubkey);
-      },
+      reverse: true,
+      itemCount: detail!.dmSession.length(),
+      dragStartBehavior: DragStartBehavior.down,
     );
 
     list.add(Expanded(

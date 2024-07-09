@@ -30,6 +30,8 @@ class _DMUnknownListRouter extends State<DMUnknownListRouter> {
 
             var detail = details[index];
             return DMSessionListItemComponent(
+              key: Key(
+                  "${detail.dmSession.pubkey}${detail.dmSession.lastTime()}"),
               detail: detail,
             );
           },
