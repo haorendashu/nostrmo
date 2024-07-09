@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 
 import '../../util/string_util.dart';
+import 'dm_plaintext_handle.dart';
 
 class DMSessionListItemComponent extends StatefulWidget {
   DMSessionDetail detail;
@@ -33,12 +34,11 @@ class DMSessionListItemComponent extends StatefulWidget {
   }
 }
 
-class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
+class _DMSessionListItemComponent extends State<DMSessionListItemComponent>
+    with DMPlaintextHandle {
   static const double IMAGE_WIDTH = 34;
 
   static const double HALF_IMAGE_WIDTH = 17;
-
-  String? plainContent;
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +54,7 @@ class _DMSessionListItemComponent extends State<DMSessionListItemComponent> {
         var content = dmSession.newestEvent!.content;
         if (dmSession.newestEvent!.kind == EventKind.DIRECT_MESSAGE &&
             StringUtil.isBlank(plainContent)) {
-          WidgetsBinding.instance.addPostFrameCallback((_) async {
-            var pc = await nostr!.nostrSigner
-                .decrypt(dmSession.pubkey, dmSession.newestEvent!.content);
-            if (StringUtil.isNotBlank(pc)) {
-              setState(() {
-                plainContent = pc;
-              });
-            }
-          });
+          handleEncryptedText(dmSession.newestEvent!, dmSession.pubkey);
         }
         if (StringUtil.isNotBlank(plainContent)) {
           content = plainContent!;

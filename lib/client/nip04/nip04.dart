@@ -114,4 +114,8 @@ class NIP04 {
     final randomBytes = List<int>.generate(16, (i) => random.nextInt(256));
     return hex.encode(randomBytes);
   }
+
+  static bool isEncrypted(String text) {
+    return text.indexOf("?iv=") > 0;
+  }
 }

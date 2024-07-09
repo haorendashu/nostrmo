@@ -16,6 +16,7 @@ import '../../consts/base_consts.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/string_util.dart';
+import 'dm_plaintext_handle.dart';
 
 class DMDetailItemComponent extends StatefulWidget {
   String sessionPubkey;
@@ -36,14 +37,11 @@ class DMDetailItemComponent extends StatefulWidget {
   }
 }
 
-class _DMDetailItemComponent extends State<DMDetailItemComponent> {
+class _DMDetailItemComponent extends State<DMDetailItemComponent>
+    with DMPlaintextHandle {
   static const double IMAGE_WIDTH = 34;
 
   static const double BLANK_WIDTH = 50;
-
-  String? currentPlainEventId;
-
-  String? plainContent;
 
   @override
   Widget build(BuildContext context) {
@@ -71,16 +69,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent> {
     var content = widget.event.content;
     if (widget.event.kind == EventKind.DIRECT_MESSAGE &&
         StringUtil.isBlank(plainContent)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        var pc = await nostr!.nostrSigner
-            .decrypt(widget.sessionPubkey, widget.event.content);
-        if (StringUtil.isNotBlank(pc)) {
-          setState(() {
-            plainContent = pc;
-            currentPlainEventId = widget.event.id;
-          });
-        }
-      });
+      handleEncryptedText(widget.event, widget.sessionPubkey);
     }
     if (StringUtil.isNotBlank(plainContent)) {
       content = plainContent!;

@@ -93,6 +93,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
     List<Widget> list = [];
 
     var newestEvent = detail!.dmSession.newestEvent;
+
     handleDefaultPrivateDMSetting(newestEvent);
 
     var listWidget = ListView.builder(
