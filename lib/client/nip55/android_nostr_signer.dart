@@ -32,7 +32,7 @@ class AndroidNostrSigner implements NostrSigner {
 
   var _lock = new Lock();
 
-  Duration TIMEOUT = const Duration(seconds: 10);
+  Duration TIMEOUT = const Duration(seconds: 60);
 
   String? _pubkey;
 
@@ -153,7 +153,7 @@ class AndroidNostrSigner implements NostrSigner {
     //     await _lock.synchronized<AndroidPluginActivityResult?>(() async {
     //   return await AndroidPlugin.startForResult(intent);
     // }, timeout: TIMEOUT);
-    var result = await AndroidPlugin.startForResult(intent);
+    var result = await AndroidPlugin.startForResult(intent).timeout(TIMEOUT);
     if (result != null) {
       var signature = result.data.getExtra("signature");
       if (signature != null && signature is String) {
