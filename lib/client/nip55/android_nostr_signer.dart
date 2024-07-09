@@ -32,7 +32,7 @@ class AndroidNostrSigner implements NostrSigner {
 
   var _lock = new Lock();
 
-  Duration TIMEOUT = const Duration(seconds: 60);
+  Duration TIMEOUT = const Duration(seconds: 300);
 
   String? _pubkey;
 
