@@ -165,7 +165,7 @@ class NostrRemoteSigner extends NostrSigner {
           relay.send(json, forceSend: true);
         }
 
-        return await completer.future.timeout(Duration(seconds: 10));
+        return await completer.future.timeout(const Duration(seconds: 60));
       }
     }
     return null;
