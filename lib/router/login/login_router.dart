@@ -42,9 +42,10 @@ class _LoginRouter extends State<LoginRouter>
 
   @override
   void initState() {
+    super.initState();
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    if (Platform.isAndroid) {
+    if (PlatformUtil.isAndroid()) {
       AndroidPlugin.existAndroidNostrSigner().then((exist) {
         if (exist == true) {
           setState(() {
@@ -145,7 +146,7 @@ class _LoginRouter extends State<LoginRouter>
       ),
     ));
 
-    if (Platform.isAndroid && existAndroidNostrSigner) {
+    if (PlatformUtil.isAndroid() && existAndroidNostrSigner) {
       mainList.add(Container(
         child: Text(s.or),
       ));
