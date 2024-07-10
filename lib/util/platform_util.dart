@@ -44,6 +44,14 @@ class PlatformUtil {
     return isTableModeWithoutSetting();
   }
 
+  static bool isAndroid() {
+    if (isWeb()) {
+      return false;
+    }
+
+    return Platform.isAndroid;
+  }
+
   static bool isIOS() {
     if (isWeb()) {
       return false;

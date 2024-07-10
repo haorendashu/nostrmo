@@ -304,6 +304,7 @@
     "Color": "Color",
     "Login_fail": "Login fail",
     "Readonly_login_tip": "You are logged in in read-only mode.",
-    "Login_By_Android_Signer": "Login By Android Signer",
-    "Read_Only": "Read Only"
+    "Login_With_Android_Signer": "Login With Android Signer",
+    "Read_Only": "Read Only",
+    "Login_With_NIP07_Extension": "Login With NIP07 Extension"
 }

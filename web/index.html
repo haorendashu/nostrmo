@@ -112,6 +112,46 @@
       document.body.style.background = "transparent";
     }
   </script>
+  <script id="nip07Script">
+    function nip07Support() {
+      if (window.nostr) {
+        return true;
+      }
+      return false;
+    }
+    function nip07GetPublicKey() {
+      return window.nostr.getPublicKey();
+    }
+    async function nip07SignEvent(eventStr) {
+      var event = JSON.parse(eventStr);
+      var result = await window.nostr.signEvent(event);
+      if (result) {
+        return JSON.stringify(result);
+      }
+
+      return null;
+    }
+    async function nip07GetRelays() {
+      var relays = await window.nostr.getRelays();
+      if (relays) {
+        return JSON.stringify(relays);
+      }
+
+      return null;
+    }
+    async function nip07Nip04Encrypt(pubkey, plaintext) {
+      return await window.nostr.nip04.encrypt(pubkey, plaintext);
+    }
+    async function nip07Nip04Decrypt(pubkey, ciphertext) {
+      return await window.nostr.nip04.decrypt(pubkey, ciphertext);
+    }
+    async function nip07Nip44Encrypt(pubkey, plaintext) {
+      return await window.nostr.nip44.encrypt(pubkey, plaintext);
+    }
+    async function nip07Nip44Decrypt(pubkey, ciphertext) {
+      return await window.nostr.nip44.decrypt(pubkey, ciphertext);
+    }
+  </script>
 </head>
 
 <body>
@@ -128,7 +168,7 @@
   <script>
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
-      _flutter.loader.load({
+      _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },

@@ -3100,11 +3100,11 @@ class S {
     );
   }
 
-  /// `Login By Android Signer`
-  String get Login_By_Android_Signer {
+  /// `Login With Android Signer`
+  String get Login_With_Android_Signer {
     return Intl.message(
-      'Login By Android Signer',
-      name: 'Login_By_Android_Signer',
+      'Login With Android Signer',
+      name: 'Login_With_Android_Signer',
       desc: '',
       args: [],
     );
@@ -3115,6 +3115,16 @@ class S {
     return Intl.message(
       'Read Only',
       name: 'Read_Only',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login With NIP07 Extension`
+  String get Login_With_NIP07_Extension {
+    return Intl.message(
+      'Login With NIP07 Extension',
+      name: 'Login_With_NIP07_Extension',
       desc: '',
       args: [],
     );

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip07/nip07_signer.dart';
 import 'package:nostrmo/client/nip19/nip19.dart';
 import 'package:nostrmo/client/nip46/nostr_remote_signer.dart';
 import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
@@ -125,6 +126,8 @@ class RelayProvider extends ChangeNotifier {
       nostrSigner = PubkeyOnlyNostrSigner(Nip19.decode(key));
     } else if (AndroidNostrSigner.isAndroidNostrSignerKey(key)) {
       nostrSigner = AndroidNostrSigner();
+    } else if (NIP07Signer.isWebNostrSignerKey(key)) {
+      nostrSigner = NIP07Signer();
     } else if (NostrRemoteSignerInfo.isBunkerUrl(key)) {
       var info = NostrRemoteSignerInfo.parseBunkerUrl(key);
       if (info == null) {

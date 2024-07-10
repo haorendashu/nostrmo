@@ -175,8 +175,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Lnurl 和 Lud16 无法找到。"),
         "LocalRelay": MessageLookupByLibrary.simpleMessage("本地中继"),
         "Login": MessageLookupByLibrary.simpleMessage("登录"),
-        "Login_By_Android_Signer":
-            MessageLookupByLibrary.simpleMessage("通过安卓签名者登录"),
+        "Login_With_Android_Signer":
+            MessageLookupByLibrary.simpleMessage("使用安卓签名者登录"),
+        "Login_With_NIP07_Extension":
+            MessageLookupByLibrary.simpleMessage("使用 NIP07 插件登录"),
         "Login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Main_Font_Color": MessageLookupByLibrary.simpleMessage("主文字颜色"),

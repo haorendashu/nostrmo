@@ -225,8 +225,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Lnurl and Lud16 can\'t found."),
         "LocalRelay": MessageLookupByLibrary.simpleMessage("Local Relay"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
-        "Login_By_Android_Signer":
-            MessageLookupByLibrary.simpleMessage("Login By Android Signer"),
+        "Login_With_Android_Signer":
+            MessageLookupByLibrary.simpleMessage("Login With Android Signer"),
+        "Login_With_NIP07_Extension":
+            MessageLookupByLibrary.simpleMessage("Login With NIP07 Extension"),
         "Login_fail": MessageLookupByLibrary.simpleMessage("Login fail"),
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Main_Font_Color":

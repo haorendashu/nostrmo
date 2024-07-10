@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:nostrmo/client/android_plugin/android_plugin_intent.dart';
 import 'package:nostrmo/client/nip05/nip05_validor.dart';
+import 'package:nostrmo/client/nip07/nip07_signer.dart';
 import 'package:nostrmo/client/nip46/nostr_remote_signer.dart';
 import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
 import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
@@ -40,6 +41,8 @@ class _LoginRouter extends State<LoginRouter>
 
   bool existAndroidNostrSigner = false;
 
+  bool existWebNostrSigner = false;
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +56,12 @@ class _LoginRouter extends State<LoginRouter>
           });
         }
       });
+    } else if (PlatformUtil.isWeb()) {
+      if (NIP07Signer.support()) {
+        setState(() {
+          existWebNostrSigner = true;
+        });
+      }
     }
   }
 
@@ -160,7 +169,31 @@ class _LoginRouter extends State<LoginRouter>
             color: mainColor,
             alignment: Alignment.center,
             child: Text(
-              s.Login_By_Android_Signer,
+              s.Login_With_Android_Signer,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ));
+    } else if (PlatformUtil.isWeb() && existWebNostrSigner) {
+      mainList.add(Container(
+        child: Text(s.or),
+      ));
+
+      mainList.add(Container(
+        margin: const EdgeInsets.all(Base.BASE_PADDING * 2),
+        child: InkWell(
+          onTap: loginWithWebSigner,
+          child: Container(
+            height: 36,
+            color: mainColor,
+            alignment: Alignment.center,
+            child: Text(
+              s.Login_With_NIP07_Extension,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -330,6 +363,28 @@ class _LoginRouter extends State<LoginRouter>
     var key = "${AndroidNostrSigner.URI_PRE}:$pubkey";
     settingProvider.addAndChangePrivateKey(key, updateUI: false);
     nostr = await relayProvider.genNostr(androidNostrSigner);
+
+    settingProvider.notifyListeners();
+    firstLogin = true;
+    indexProvider.setCurrentTap(1);
+  }
+
+  Future<void> loginWithWebSigner() async {
+    if (checkTerms != true) {
+      tipAcceptTerm();
+      return;
+    }
+
+    var signer = NIP07Signer();
+    var pubkey = await signer.getPublicKey();
+    if (StringUtil.isBlank(pubkey)) {
+      BotToast.showText(text: s.Login_fail);
+      return;
+    }
+
+    var key = "${NIP07Signer.URI_PRE}:$pubkey";
+    settingProvider.addAndChangePrivateKey(key, updateUI: false);
+    nostr = await relayProvider.genNostr(signer);
 
     settingProvider.notifyListeners();
     firstLogin = true;
