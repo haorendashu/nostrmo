@@ -94,19 +94,19 @@ class NIP07Signer extends NostrSigner {
 
   @override
   Future<String?> encrypt(pubkey, plaintext) async {
-    var promise = nip07Nip04Decrypt(pubkey, plaintext);
+    var promise = nip07Nip04Encrypt(pubkey, plaintext);
     return await promiseToFuture(promise);
   }
 
   @override
   Future<String?> nip44Decrypt(pubkey, ciphertext) async {
-    var promise = nip07Nip04Decrypt(pubkey, ciphertext);
+    var promise = nip07Nip44Decrypt(pubkey, ciphertext);
     return await promiseToFuture(promise);
   }
 
   @override
   Future<String?> nip44Encrypt(pubkey, plaintext) async {
-    var promise = nip07Nip04Decrypt(pubkey, plaintext);
+    var promise = nip07Nip44Encrypt(pubkey, plaintext);
     return await promiseToFuture(promise);
   }
 
