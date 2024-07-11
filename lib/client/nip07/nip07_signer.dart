@@ -1,36 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:js_interop';
 
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/signer/nostr_signer.dart';
-import 'package:nostrmo/util/platform_util.dart';
 
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:js' as js;
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:js_util';
-
-@JS()
-external JSPromise nip07GetPublicKey();
-
-@JS()
-external JSPromise nip07GetRelays();
-
-@JS()
-external JSPromise nip07Nip04Decrypt(String pubkey, String ciphertext);
-
-@JS()
-external JSPromise nip07Nip04Encrypt(String pubkey, String plaintext);
-
-@JS()
-external JSPromise nip07Nip44Decrypt(String pubkey, String ciphertext);
-
-@JS()
-external JSPromise nip07Nip44Encrypt(String pubkey, String plaintext);
-
-@JS()
-external JSPromise nip07SignEvent(String eventStr);
+import 'nip07_signer_method.dart'
+    if (dart.library.io) 'nip07_signer_method_io.dart'
+    if (dart.library.js) 'nip07_signer_method_web.dart';
 
 class NIP07Signer extends NostrSigner {
   static String URI_PRE = "websigner";
@@ -52,10 +27,7 @@ class NIP07Signer extends NostrSigner {
   }
 
   static bool support() {
-    if (PlatformUtil.isWeb()) {
-      return js.context.callMethod("nip07Support");
-    }
-    return false;
+    return nip07SignerMethodSupport();
   }
 
   String? _pubkey;
@@ -66,8 +38,7 @@ class NIP07Signer extends NostrSigner {
       return _pubkey!;
     }
 
-    var promise = nip07GetPublicKey();
-    var stringResult = await promiseToFuture(promise);
+    var stringResult = await nip07SignerMethodGetPublicKey();
     if (stringResult != null && stringResult is String) {
       _pubkey = stringResult;
     }
@@ -77,47 +48,31 @@ class NIP07Signer extends NostrSigner {
 
   @override
   Future<Map?> getRelays() async {
-    var promise = nip07GetRelays();
-    var stringResult = await promiseToFuture(promise);
-    if (stringResult != null) {
-      return jsonDecode(stringResult);
-    }
-
-    return null;
+    return nip07SignerMethodGetRelays();
   }
 
   @override
   Future<String?> decrypt(pubkey, ciphertext) async {
-    var promise = nip07Nip04Decrypt(pubkey, ciphertext);
-    return await promiseToFuture(promise);
+    return nip07SignerMethodDecrypt(pubkey, ciphertext);
   }
 
   @override
   Future<String?> encrypt(pubkey, plaintext) async {
-    var promise = nip07Nip04Encrypt(pubkey, plaintext);
-    return await promiseToFuture(promise);
+    return nip07SignerMethodEncrypt(pubkey, plaintext);
   }
 
   @override
   Future<String?> nip44Decrypt(pubkey, ciphertext) async {
-    var promise = nip07Nip44Decrypt(pubkey, ciphertext);
-    return await promiseToFuture(promise);
+    return nip07SignerMethodNip44Decrypt(pubkey, ciphertext);
   }
 
   @override
   Future<String?> nip44Encrypt(pubkey, plaintext) async {
-    var promise = nip07Nip44Encrypt(pubkey, plaintext);
-    return await promiseToFuture(promise);
+    return nip07SignerMethodNip44Encrypt(pubkey, plaintext);
   }
 
   @override
   Future<Event?> signEvent(Event event) async {
-    var promise = nip07SignEvent(jsonEncode(event.toJson()));
-    var stringResult = await promiseToFuture(promise);
-    if (stringResult != null) {
-      return Event.fromJson(jsonDecode(stringResult));
-    }
-
-    return null;
+    return nip07SignerMethodSignEvent(event);
   }
 }

@@ -1,8 +1,10 @@
-import 'package:blurhash_ffi/blurhash_ffi.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip94/file_metadata.dart';
+import 'package:nostrmo/component/blurhash_image_component/blurhash_image_component.dart'
+    if (dart.library.io) 'package:nostrmo/component/blurhash_image_component/blurhash_image_component_io.dart'
+    if (dart.library.js) 'package:nostrmo/component/blurhash_image_component/blurhash_image_component_web.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/main.dart';
@@ -58,27 +60,8 @@ class _ContentImageComponent extends CustState<ContentImageComponent> {
         (widget.fileMetadata != null &&
             StringUtil.isNotBlank(widget.fileMetadata!.blurhash)) &&
         !PlatformUtil.isWeb()) {
-      int? width = widget.fileMetadata!.getImageWidth();
-      int? height = widget.fileMetadata!.getImageHeight();
-
-      width ??= 80;
-      height ??= 80;
-
-      final imageProvider = BlurhashFfiImage(widget.fileMetadata!.blurhash!,
-          decodingHeight: height, decodingWidth: width);
-
-      placeholder = Container(
-        color: themeData.hintColor.withOpacity(0.2),
-        child: AspectRatio(
-          aspectRatio: 1.6,
-          child: Image(
-            fit: widget.imageBoxFix,
-            width: widget.width,
-            height: widget.height,
-            image: imageProvider,
-          ),
-        ),
-      );
+      placeholder = genBlurhashImageComponent(
+          widget.fileMetadata!, themeData.hintColor, widget.imageBoxFix);
     }
     main = GestureDetector(
       onTap: () {
