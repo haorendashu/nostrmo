@@ -56,6 +56,7 @@ class AndroidNostrSigner implements NostrSigner {
     if (result != null) {
       var signature = result.data.getExtra("signature");
       if (signature != null && signature is String) {
+        print(signature);
         return signature;
       }
     }
@@ -95,7 +96,7 @@ class AndroidNostrSigner implements NostrSigner {
     }
 
     List<Map<String, dynamic>> permissions = [];
-    permissions.add({'type': 'sign_event'});
+    permissions.add({'type': 'sign_event', 'kind': 22242});
     permissions.add({'type': 'nip04_encrypt'});
     permissions.add({'type': 'nip44_encrypt'});
     permissions.add({'type': 'nip04_decrypt'});

@@ -44,6 +44,21 @@ class FollowSet extends CustContactList {
           followedCommunitys: followedCommunitys,
         );
 
+  static String? getDTag(Event e) {
+    for (var tag in e.tags) {
+      if (tag is List && tag.length > 1) {
+        var k = tag[0];
+        var v = tag[1];
+
+        if (k == "d") {
+          return v;
+        }
+      }
+    }
+
+    return null;
+  }
+
   static Future<FollowSet?> genFollowSet(Event e) async {
     Map<String, Contact> contacts = {};
     Map<String, int> followedTags = {};

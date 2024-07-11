@@ -24,6 +24,7 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
   @override
   Widget doBuild(BuildContext context) {
     var s = S.of(context);
+    var _contactListProvider = Provider.of<ContactListProvider>(context);
 
     var themeData = Theme.of(context);
     var textColor = themeData.textTheme.bodyMedium!.color;
@@ -31,31 +32,25 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
     var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
     var appbarColor = themeData.appBarTheme.titleTextStyle!.color;
 
-    var main = Selector<ContactListProvider, Map<String, FollowSet>>(
-        builder: (context, map, child) {
-      var followSets = map.values;
-      var followSetList = followSets.toList();
-      return ListView.builder(
-        itemBuilder: (context, index) {
-          var followSet = followSetList[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-            child: GestureDetector(
-              onTap: () {
-                RouterUtil.router(
-                    context, RouterPath.FOLLOW_SET_FEED, followSet);
-              },
-              child: FollowSetListItem(followSet, () {
-                setState(() {});
-              }),
-            ),
-          );
-        },
-        itemCount: followSetList.length,
-      );
-    }, selector: (context, provider) {
-      return provider.followSetMap;
-    });
+    var followSets = _contactListProvider.followSetMap.values;
+    var followSetList = followSets.toList();
+    var main = ListView.builder(
+      itemBuilder: (context, index) {
+        var followSet = followSetList[index];
+        return Container(
+          margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+          child: GestureDetector(
+            onTap: () {
+              RouterUtil.router(context, RouterPath.FOLLOW_SET_FEED, followSet);
+            },
+            child: FollowSetListItem(followSet, () {
+              setState(() {});
+            }),
+          ),
+        );
+      },
+      itemCount: followSetList.length,
+    );
 
     return Scaffold(
       appBar: AppBar(

@@ -117,7 +117,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
               RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
             });
       }, selector: (context, _provider) {
-        return _provider.followSetMap.length;
+        return _provider.followSetEventMap.length;
       }));
     }
 

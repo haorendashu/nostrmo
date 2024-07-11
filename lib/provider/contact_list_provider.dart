@@ -27,7 +27,9 @@ class ContactListProvider extends ChangeNotifier {
 
   CustContactList? _contactList;
 
-  Map<String, FollowSet> followSetMap = {};
+  Map<String, Event> followSetEventMap = {};
+
+  Map<String, FollowSet> _followSetMap = {};
 
   static ContactListProvider getInstance() {
     if (_contactListProvider == null) {
@@ -116,20 +118,19 @@ class ContactListProvider extends ChangeNotifier {
         relayProvider.relayUpdateByContactListEvent(e);
       }
     } else if (e.kind == kind.EventKind.FOLLOW_SETS) {
-      var followSet = await FollowSet.genFollowSet(e);
-      if (followSet == null || StringUtil.isBlank(followSet.dTag)) {
-        return;
-      }
-
-      var oldFollowSet = followSetMap[followSet.dTag];
-      if (oldFollowSet != null) {
-        if (followSet.createdAt > oldFollowSet.createdAt) {
-          followSetMap[followSet.dTag] = followSet;
+      var dTag = FollowSet.getDTag(e);
+      if (dTag != null) {
+        var oldFollowSet = _followSetMap[dTag];
+        if (oldFollowSet != null) {
+          if (e.createdAt > oldFollowSet.createdAt) {
+            _followSetMap.remove(dTag);
+            followSetEventMap[dTag] = e;
+            notifyListeners();
+          }
+        } else {
+          followSetEventMap[dTag] = e;
           notifyListeners();
         }
-      } else {
-        followSetMap[followSet.dTag] = followSet;
-        notifyListeners();
       }
     }
   }
@@ -208,7 +209,8 @@ class ContactListProvider extends ChangeNotifier {
     _contactList!.clear();
     content = "";
     clearCurrentContactList();
-    followSetMap.clear();
+    _followSetMap.clear();
+    followSetEventMap.clear;
 
     notifyListeners();
   }
@@ -310,7 +312,8 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void deleteFollowSet(String dTag) {
-    followSetMap.remove(dTag);
+    _followSetMap.remove(dTag);
+    followSetEventMap.remove(dTag);
 
     var filter =
         Filter(authors: [nostr!.publicKey], kinds: [EventKind.FOLLOW_SETS]);
@@ -332,11 +335,41 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void addFollowSet(FollowSet followSet) async {
-    followSetMap[followSet.dTag] = followSet;
     var event = await followSet.toEventMap(nostr!.publicKey);
     if (event != null) {
+      _followSetMap[followSet.dTag] = followSet;
+      followSetEventMap[followSet.dTag] = event;
       nostr!.sendEvent(event);
       notifyListeners();
     }
+  }
+
+  Map<String, FollowSet> get followSetMap {
+    if (followSetEventMap.length > _followSetMap.length) {
+      List<Future<FollowSet?>> futures = [];
+      for (var entry in followSetEventMap.entries) {
+        var key = entry.key;
+        var value = entry.value;
+
+        if (_followSetMap[key] == null) {
+          var future = FollowSet.genFollowSet(value);
+          futures.add(future);
+        }
+      }
+
+      if (futures.isNotEmpty) {
+        Future.wait(futures).then((followSets) {
+          for (var followSet in followSets) {
+            if (followSet != null) {
+              _followSetMap[followSet.dTag] = followSet;
+            }
+          }
+
+          notifyListeners();
+        });
+      }
+    }
+
+    return _followSetMap;
   }
 }
