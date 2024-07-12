@@ -30,6 +30,10 @@ class NIP07Signer extends NostrSigner {
     return nip07SignerMethodSupport();
   }
 
+  NIP07Signer({String? pubkey}) {
+    _pubkey = pubkey;
+  }
+
   String? _pubkey;
 
   @override

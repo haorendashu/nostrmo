@@ -30,6 +30,13 @@ class AndroidNostrSigner implements NostrSigner {
     return key;
   }
 
+  AndroidNostrSigner({String? pubkey}) {
+    _pubkey = pubkey;
+    if (pubkey != null) {
+      _npub = Nip19.encodePubKey(pubkey);
+    }
+  }
+
   var _lock = new Lock();
 
   Duration TIMEOUT = const Duration(seconds: 300);
@@ -56,7 +63,7 @@ class AndroidNostrSigner implements NostrSigner {
     if (result != null) {
       var signature = result.data.getExtra("signature");
       if (signature != null && signature is String) {
-        print(signature);
+        // print(signature);
         return signature;
       }
     }

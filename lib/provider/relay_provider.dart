@@ -125,9 +125,11 @@ class RelayProvider extends ChangeNotifier {
     if (Nip19.isPubkey(key)) {
       nostrSigner = PubkeyOnlyNostrSigner(Nip19.decode(key));
     } else if (AndroidNostrSigner.isAndroidNostrSignerKey(key)) {
-      nostrSigner = AndroidNostrSigner();
+      var pubkey = AndroidNostrSigner.getPubkey(key);
+      nostrSigner = AndroidNostrSigner(pubkey: pubkey);
     } else if (NIP07Signer.isWebNostrSignerKey(key)) {
-      nostrSigner = NIP07Signer();
+      var pubkey = NIP07Signer.getPubkey(key);
+      nostrSigner = NIP07Signer(pubkey: pubkey);
     } else if (NostrRemoteSignerInfo.isBunkerUrl(key)) {
       var info = NostrRemoteSignerInfo.parseBunkerUrl(key);
       if (info == null) {
