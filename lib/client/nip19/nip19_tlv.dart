@@ -190,7 +190,7 @@ class NIP19Tlv {
       }
     }
     if (o.author != null) {
-      TLVUtil.writeTLVEntry(buf, TLVType.Author, utf8.encode(o.author!));
+      TLVUtil.writeTLVEntry(buf, TLVType.Author, HEX.decode(o.author!));
     }
 
     buf = Nip19.convertBits(buf, 8, 5, true);
