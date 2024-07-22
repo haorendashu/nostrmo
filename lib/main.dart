@@ -21,9 +21,12 @@ import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
+import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/nwc_provider.dart';
+import 'package:nostrmo/router/group/group_detail_router.dart';
+import 'package:nostrmo/router/group/group_list_rotuer.dart';
 import 'package:nostrmo/router/thread_trace_router/thread_trace_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_feed_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_list_router.dart';
@@ -59,6 +62,7 @@ import 'provider/dm_provider.dart';
 import 'provider/event_reactions_provider.dart';
 import 'provider/filter_provider.dart';
 import 'provider/follow_event_provider.dart';
+import 'provider/group_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/link_preview_data_provider.dart';
 import 'provider/list_provider.dart';
@@ -170,6 +174,8 @@ late UrlSpeedProvider urlSpeedProvider;
 
 late NWCProvider nwcProvider;
 
+late GroupProvider groupProvider;
+
 MusicInfoCache musicInfoCache = MusicInfoCache();
 
 RelayLocalDB? relayLocalDB;
@@ -272,6 +278,7 @@ Future<void> main() async {
   musicProvider = MusicProvider()..init();
   urlSpeedProvider = UrlSpeedProvider();
   nwcProvider = NWCProvider()..init();
+  groupProvider = GroupProvider();
 
   defaultTrieTextMatcher = TrieTextMatcherBuilder.build();
 
@@ -366,6 +373,8 @@ class _MyApp extends State<MyApp> {
       RouterPath.FOLLOW_SET_DETAIL: (context) => FollowSetDetailRouter(),
       RouterPath.FOLLOW_SET_FEED: (context) => FollowSetFeedRouter(),
       RouterPath.NWC_SETTING: (context) => NwcSettingRouter(),
+      RouterPath.GROUP_LIST: (context) => GroupListRouter(),
+      RouterPath.GROUP_DETAIL: (context) => GroupDetailRouter(),
     };
 
     return MultiProvider(
@@ -450,6 +459,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<UrlSpeedProvider>.value(
           value: urlSpeedProvider,
+        ),
+        ListenableProvider<GroupProvider>.value(
+          value: groupProvider,
         ),
       ],
       child: HomeComponent(

@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/nip29/group_identifier.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
+import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -118,6 +120,19 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
             });
       }, selector: (context, _provider) {
         return _provider.followSetEventMap.length;
+      }));
+    }
+
+    if (isLocal) {
+      list.add(Selector<ListProvider, int>(builder: (context, num, child) {
+        return UserStatisticsItemComponent(
+            num: num,
+            name: "Groups",
+            onTap: () {
+              RouterUtil.router(context, RouterPath.GROUP_LIST);
+            });
+      }, selector: (context, _provider) {
+        return _provider.groupIdentifiers.length;
       }));
     }
 

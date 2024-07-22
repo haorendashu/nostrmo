@@ -58,7 +58,7 @@ class RelayPool {
       }
       if (init) {
         for (Subscription subscription in _initQuery.values) {
-          relayDoQuery(relay, subscription);
+          relayDoQuery(relay, subscription, false);
         }
       }
 
@@ -102,8 +102,10 @@ class RelayPool {
     return _relays[url];
   }
 
-  bool relayDoQuery(Relay relay, Subscription subscription) {
-    if (relay.relayStatus.connected != ClientConneccted.CONNECTED ||
+  bool relayDoQuery(Relay relay, Subscription subscription, bool sendAfterAuth,
+      {bool runBeforeConnected = false}) {
+    if ((!runBeforeConnected &&
+            relay.relayStatus.connected != ClientConneccted.CONNECTED) ||
         !relay.relayStatus.readAccess) {
       return false;
     }
@@ -111,7 +113,19 @@ class RelayPool {
     relay.saveQuery(subscription);
 
     try {
-      return relay.send(subscription.toJson());
+      var message = subscription.toJson();
+      if (sendAfterAuth && !relay.relayStatus.authed) {
+        relay.pendingAuthedMessages.add(message);
+        return true;
+      } else {
+        if (relay.relayStatus.connected == ClientConneccted.CONNECTED) {
+          return relay.send(message);
+        } else {
+          print("add pendingMessages");
+          relay.pendingMessages.add(message);
+          return true;
+        }
+      }
     } catch (err) {
       log(err.toString());
       relay.relayStatus.onError();
@@ -226,6 +240,17 @@ class RelayPool {
       event = await localNostr.nostrSigner.signEvent(event);
       if (event != null) {
         relay.send(["AUTH", event.toJson()], forceSend: true);
+
+        relay.relayStatus.authed = true;
+
+        if (relay.pendingAuthedMessages.isNotEmpty) {
+          Future.delayed(const Duration(seconds: 1), () {
+            for (var message in relay.pendingAuthedMessages) {
+              relay.send(message);
+            }
+            relay.pendingAuthedMessages.clear();
+          });
+        }
       }
     }
   }
@@ -291,7 +316,7 @@ class RelayPool {
       var relay = _relays[url];
       if (relay != null) {
         Subscription subscription = Subscription(filters, onEvent, id);
-        relayDoQuery(relay, subscription);
+        relayDoQuery(relay, subscription, false);
       }
     }
     return id;
@@ -302,12 +327,18 @@ class RelayPool {
   /// query info will hold in relay and close in relay when EOSE message be received.
   /// if onlyTempRelays is true and tempRelays is not empty, it will only query throw tempRelays.
   /// if onlyTempRelays is false and tempRelays is not empty, it will query bath myRelays and tempRelays.
-  String query(List<Map<String, dynamic>> filters, Function(Event) onEvent,
-      {String? id,
-      Function? onComplete,
-      List<String>? tempRelays,
-      bool onlyTempRelays = true,
-      bool queryLocal = true}) {
+  String query(
+    List<Map<String, dynamic>> filters,
+    Function(Event) onEvent, {
+    String? id,
+    Function? onComplete,
+    List<String>? tempRelays,
+    bool onlyTempRelays = true,
+    bool queryLocal = true,
+    bool sendAfterAuth =
+        false, // if relay not connected, it will send after auth
+    bool? runBeforeConnected,
+  }) {
     if (filters.isEmpty) {
       throw ArgumentError("No filters given", "filters");
     }
@@ -324,12 +355,8 @@ class RelayPool {
         }
 
         var tempRelay = checkAndGenTempRelay(tempRelayAddr);
-        tempRelay.saveQuery(subscription);
-        if (tempRelay.relayStatus.connected == ClientConneccted.CONNECTED) {
-          tempRelay.send(subscription.toJson());
-        } else {
-          tempRelay.pendingMessages.add(subscription.toJson());
-        }
+        relayDoQuery(tempRelay, subscription, sendAfterAuth,
+            runBeforeConnected: true);
       }
     }
 
@@ -339,7 +366,7 @@ class RelayPool {
         if (relay is RelayLocal && !queryLocal) {
           continue;
         }
-        relayDoQuery(relay, subscription);
+        relayDoQuery(relay, subscription, sendAfterAuth);
       }
     }
     return subscription.id;
@@ -381,8 +408,10 @@ class RelayPool {
         var tempRelay = checkAndGenTempRelay(tempRelayAddr);
         if (tempRelay.relayStatus.connected == ClientConneccted.CONNECTED) {
           tempRelay.send(message);
+          hadSubmitSend = true;
         } else {
           tempRelay.pendingMessages.add(message);
+          hadSubmitSend = true;
         }
       }
     }

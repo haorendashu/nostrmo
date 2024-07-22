@@ -9,7 +9,7 @@ import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../client/event_kind.dart';
-import '../client/nip04/nip04.dart';
+import '../client/nip29/group_identifier.dart';
 import '../client/nip51/bookmarks.dart';
 import '../client/nostr.dart';
 import '../data/custom_emoji.dart';
@@ -30,14 +30,20 @@ class ListProvider extends ChangeNotifier {
   }) {
     targetNostr ??= nostr;
 
-    Filter filter = Filter();
-    filter.kinds = kinds;
-    filter.authors = [pubkey];
+    List<Map<String, dynamic>> filters = [];
+    for (var kind in kinds) {
+      Filter filter = Filter();
+      filter.kinds = [kind];
+      filter.authors = [pubkey];
+      filter.limit = 1;
+
+      filters.add(filter.toJson());
+    }
 
     if (initQuery) {
-      targetNostr!.addInitQuery([filter.toJson()], onEvent);
+      targetNostr!.addInitQuery(filters, onEvent);
     } else {
-      targetNostr!.query([filter.toJson()], onEvent);
+      targetNostr!.query(filters, onEvent);
     }
   }
 
@@ -82,6 +88,20 @@ class ListProvider extends ChangeNotifier {
       var bm = await parseBookmarks();
       if (bm != null) {
         _bookmarks = bm;
+      }
+    } else if (event.kind == EventKind.GROUP_LIST) {
+      _groupIdentifiers.clear();
+
+      for (var tag in event.tags) {
+        if (tag is List && tag.length > 2) {
+          var k = tag[0];
+          var groupId = tag[1];
+          var host = tag[2];
+          if (k == "group") {
+            var gi = GroupIdentifier(host, groupId);
+            _groupIdentifiers.add(gi);
+          }
+        }
       }
     }
     notifyListeners();
@@ -333,8 +353,52 @@ class ListProvider extends ChangeNotifier {
     return false;
   }
 
+  List<GroupIdentifier> _groupIdentifiers = [];
+
+  get groupIdentifiers => _groupIdentifiers;
+
+  void addGroup(GroupIdentifier gi) {
+    // try to send join message
+    var event = Event(
+        nostr!.publicKey,
+        EventKind.GROUP_JOIN,
+        [
+          ["h", gi.groupId]
+        ],
+        "");
+    nostr!.sendEvent(event, tempRelays: [gi.host], targetRelays: [gi.host]);
+
+    _groupIdentifiers.add(gi);
+    _updateGroups();
+  }
+
+  void removeGroup(GroupIdentifier gi) {
+    _groupIdentifiers.removeWhere((groupIdentifier) {
+      if (gi.groupId == groupIdentifier.groupId &&
+          gi.host == groupIdentifier.host) {
+        return true;
+      }
+
+      return false;
+    });
+    _updateGroups();
+  }
+
+  void _updateGroups() async {
+    List tags = [];
+    for (var item in _groupIdentifiers) {
+      tags.add(item.toJson());
+    }
+
+    var event = Event(nostr!.publicKey, EventKind.GROUP_LIST, tags, "");
+    var resultEvent = await nostr!.sendEvent(event);
+
+    notifyListeners();
+  }
+
   void clear() {
     _holder.clear();
     _bookmarks = Bookmarks();
+    _groupIdentifiers.clear();
   }
 }

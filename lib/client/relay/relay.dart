@@ -16,6 +16,9 @@ abstract class Relay {
   // to hold the message when the ws havn't connected and should be send after connected.
   List<List<dynamic>> pendingMessages = [];
 
+  // to hold the message when the ws havn't authed and should be send after auth.
+  List<List<dynamic>> pendingAuthedMessages = [];
+
   Function(Relay, List<dynamic>)? onMessage;
 
   // quries
@@ -26,6 +29,7 @@ abstract class Relay {
   /// The method to call connect function by framework.
   Future<bool> connect() async {
     try {
+      relayStatus.authed = false;
       var result = await doConnect();
       if (result) {
         try {
@@ -48,7 +52,9 @@ abstract class Relay {
 
   /// The medhod called after relay connect success.
   Future onConnected() async {
+    print("onConnected");
     for (var message in pendingMessages) {
+      print(message);
       // TODO To check result? and how to handle if send fail?
       var result = send(message);
       if (!result) {

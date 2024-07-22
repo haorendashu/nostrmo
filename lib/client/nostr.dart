@@ -94,13 +94,18 @@ class Nostr {
     return await sendEvent(event);
   }
 
-  Future<Event?> sendEvent(Event event, {List<String>? tempRelays}) async {
+  Future<Event?> sendEvent(Event event,
+      {List<String>? tempRelays, List<String>? targetRelays}) async {
     await signEvent(event);
     if (StringUtil.isBlank(event.sig)) {
       return null;
     }
 
-    var result = _pool.send(["EVENT", event.toJson()], tempRelays: tempRelays);
+    var result = _pool.send(
+      ["EVENT", event.toJson()],
+      tempRelays: tempRelays,
+      targetRelays: targetRelays,
+    );
     if (result) {
       return event;
     }
@@ -152,12 +157,17 @@ class Nostr {
     _pool.unsubscribe(id);
   }
 
-  String query(List<Map<String, dynamic>> filters, Function(Event) onEvent,
-      {String? id,
-      Function? onComplete,
-      List<String>? tempRelays,
-      bool onlyTempRelays = false,
-      bool queryLocal = true}) {
+  String query(
+    List<Map<String, dynamic>> filters,
+    Function(Event) onEvent, {
+    String? id,
+    Function? onComplete,
+    List<String>? tempRelays,
+    bool onlyTempRelays = false,
+    bool queryLocal = true,
+    bool sendAfterAuth = false,
+    bool? runBeforeConnected,
+  }) {
     return _pool.query(
       filters,
       onEvent,
@@ -166,6 +176,8 @@ class Nostr {
       tempRelays: tempRelays,
       onlyTempRelays: onlyTempRelays,
       queryLocal: queryLocal,
+      sendAfterAuth: sendAfterAuth,
+      runBeforeConnected: runBeforeConnected,
     );
   }
 

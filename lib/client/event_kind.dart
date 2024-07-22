@@ -17,6 +17,14 @@ class EventKind {
 
   static const int BADGE_AWARD = 8;
 
+  static const int GROUP_CHAT_MESSAGE = 9;
+
+  static const int GROUP_CHAT_REPLY = 10;
+
+  static const int GROUP_NOTE = 11;
+
+  static const int GROUP_NOTE_REPLY = 12;
+
   static const int SEAL_EVENT_KIND = 13;
 
   static const int PRIVATE_DIRECT_MESSAGE = 14;
@@ -35,6 +43,10 @@ class EventKind {
 
   static const int POLL = 6969;
 
+  static const int GROUP_EDIT_METADATA = 9002;
+
+  static const int GROUP_JOIN = 9021;
+
   static const int ZAP_GOALS = 9041;
 
   static const int ZAP_REQUEST = 9734;
@@ -44,6 +56,8 @@ class EventKind {
   static const int RELAY_LIST_METADATA = 10002;
 
   static const int BOOKMARKS_LIST = 10003;
+
+  static const int GROUP_LIST = 10009;
 
   static const int EMOJIS_LIST = 10030;
 
@@ -76,6 +90,12 @@ class EventKind {
   static const int VIDEO_HORIZONTAL = 34235;
 
   static const int VIDEO_VERTICAL = 34236;
+
+  static const int GROUP_METADATA = 39000;
+
+  static const int GROUP_ADMINS = 39001;
+
+  static const int GROUP_MEMBERS = 39002;
 
   static List<int> SUPPORTED_EVENTS = [
     TEXT_NOTE,

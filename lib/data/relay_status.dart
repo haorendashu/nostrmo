@@ -20,6 +20,8 @@ class RelayStatus {
 
   int get noteReceived => _noteReceived;
 
+  bool authed = false;
+
   void noteReceive({DateTime? dt}) {
     _noteReceived++;
     if (dt != null) {
@@ -43,6 +45,8 @@ class RelayStatus {
   }
 
   DateTime connectTime = DateTime.now();
+
+  DateTime? lastQueryTime;
 
   DateTime? lastNoteTime;
 

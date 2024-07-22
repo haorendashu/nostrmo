@@ -15,7 +15,7 @@ import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 
 import '../client/event.dart';
-import '../client/event_kind.dart' as kind;
+import '../client/event_kind.dart';
 import '../client/nostr.dart';
 import '../client/relay/relay.dart';
 import '../client/relay/relay_base.dart';
@@ -169,7 +169,7 @@ class RelayProvider extends ChangeNotifier {
 
     loadRelayAddrs(contactListProvider.content);
     listProvider.load(_nostr.publicKey,
-        [kind.EventKind.BOOKMARKS_LIST, kind.EventKind.EMOJIS_LIST],
+        [EventKind.BOOKMARKS_LIST, EventKind.EMOJIS_LIST, EventKind.GROUP_LIST],
         targetNostr: _nostr, initQuery: true);
     badgeProvider.reload(targetNostr: _nostr, initQuery: true);
 
@@ -255,8 +255,7 @@ class RelayProvider extends ChangeNotifier {
       tags.add(tag);
     }
 
-    var e =
-        Event(nostr!.publicKey, kind.EventKind.RELAY_LIST_METADATA, tags, "");
+    var e = Event(nostr!.publicKey, EventKind.RELAY_LIST_METADATA, tags, "");
     nostr!.sendEvent(e);
   }
 
