@@ -106,8 +106,6 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
   }
 
   void query(GroupIdentifier groupIdentifier) {
-    var key = groupIdentifier.toString();
-
     var metadataJsonMap =
         _genFilter(groupIdentifier.groupId, EventKind.GROUP_METADATA);
     var adminsJsonMap =
@@ -126,15 +124,12 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
         if (e.kind == EventKind.GROUP_METADATA) {
           updated = handleEvent(
               groupMetadatas, groupIdentifier, GroupMetadata.loadFromEvent(e));
-          // _handlingMetadataIds.remove(key);
         } else if (e.kind == EventKind.GROUP_ADMINS) {
           updated = handleEvent(
               groupAdmins, groupIdentifier, GroupAdmins.loadFromEvent(e));
-          // _handlingAdminsIds.remove(key);
         } else if (e.kind == EventKind.GROUP_MEMBERS) {
           updated = handleEvent(
               groupMembers, groupIdentifier, GroupMembers.loadFromEvent(e));
-          // _handlingMembersIds.remove(key);
         }
 
         if (updated) {
@@ -144,7 +139,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       tempRelays: [groupIdentifier.host],
       onlyTempRelays: true,
       queryLocal: false,
-      sendAfterAuth: true,
+      // sendAfterAuth: true,
     );
   }
 

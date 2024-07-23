@@ -9,6 +9,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
+import 'package:nostrmo/client/nip29/group_identifier.dart';
 import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
@@ -23,6 +24,7 @@ import 'package:image/image.dart' as img;
 
 import '../../client/event.dart';
 import '../../client/event_kind.dart' as kind;
+import '../../client/event_kind.dart';
 import '../../client/event_relation.dart';
 import '../../client/nip04/nip04.dart';
 import '../../client/nip19/nip19.dart';
@@ -73,6 +75,12 @@ mixin EditorMixin {
   // dm arg
   String? getPubkey();
 
+  // group arg
+  GroupIdentifier? getGroupIdentifier() {}
+
+  // group event kind
+  int? getGroupEventKind() {}
+
   BuildContext getContext();
 
   void updateUI();
@@ -100,9 +108,11 @@ mixin EditorMixin {
     var cardColor = themeData.cardColor;
     var hintColor = themeData.hintColor;
     var mainColor = themeData.primaryColor;
+    var groupIdentifier = getGroupIdentifier();
+    var groupEventKind = getGroupEventKind();
 
     List<Widget> inputBtnList = [];
-    if (isDM()) {
+    if (isDM() && groupIdentifier == null) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: changePrivateDM,
         icon: Icon(Icons.enhanced_encryption,
@@ -207,17 +217,23 @@ mixin EditorMixin {
           iconTheme: null,
           tooltip: s.Subject,
         ),
-        quill.QuillToolbarIconButton(
+      ]);
+
+      if (groupIdentifier == null) {
+        inputBtnList.add(quill.QuillToolbarIconButton(
           onPressed: selectedTime,
           icon: Icon(Icons.timer_outlined,
               color: publishAt != null ? mainColor : null),
           isSelected: false,
           iconTheme: null,
           tooltip: s.Delay_Send,
-        )
-      ]);
+        ));
+      }
     }
-    if (!isDM() && getTags().isEmpty && getTagsAddedWhenSend().isEmpty) {
+    if (!isDM() &&
+        getTags().isEmpty &&
+        getTagsAddedWhenSend().isEmpty &&
+        groupIdentifier == null) {
       // isn't dm and reply
 
       inputBtnList.add(quill.QuillToolbarIconButton(
@@ -482,6 +498,7 @@ mixin EditorMixin {
     var context = getContext();
     // dm pubkey
     var pubkey = getPubkey();
+    var groupIdentifier = getGroupIdentifier();
 
     // customEmoji map
     Map<String, int> customEmojiMap = {};
@@ -701,6 +718,19 @@ mixin EditorMixin {
             nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result,
             publishAt: publishAt);
       }
+    } else if (groupIdentifier != null) {
+      var eventKind = getGroupEventKind();
+      eventKind ??= EventKind.GROUP_NOTE;
+      // group event
+      event = Event(
+          nostr!.publicKey,
+          eventKind,
+          [
+            ["h", groupIdentifier.groupId],
+            ...allTags
+          ],
+          result,
+          publishAt: publishAt);
     } else if (inputPoll) {
       // poll event
       // get poll tag from PollInputComponentn
@@ -725,7 +755,12 @@ mixin EditorMixin {
     }
 
     log(jsonEncode(event.toJson()));
-    if (publishAt != null) {
+    if (groupIdentifier != null) {
+      var groupRelays = [groupIdentifier.host];
+      print(groupRelays);
+      return nostr!
+          .sendEvent(event, targetRelays: groupRelays, tempRelays: groupRelays);
+    } else if (publishAt != null) {
       for (var extralEvent in extralEvents) {
         _handleSendingSendBoxEvent(extralEvent, extralRelays);
       }

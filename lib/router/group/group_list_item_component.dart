@@ -65,7 +65,7 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
       }
 
       return GestureDetector(
-        onTap: () {},
+        onTap: editGroupMetadata,
         child: Container(
           margin: const EdgeInsets.only(right: Base.BASE_PADDING),
           child: const Icon(Icons.edit),
@@ -99,12 +99,17 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
 
   void delGroup() {
     listProvider.removeGroup(widget.groupIdentifier);
-    // GroupMetadata groupMetadata = GroupMetadata(
-    //   name: "Test NIP29 Group",
-    //   picture:
-    //       "https://image.nostr.build/9cf7e57fee80522b05c14e13c24ec7332d1c4d567953ce87d5617520cbc5dbaf.jpg",
-    //   about: "This is the group about.",
-    // );
-    // groupMetadataProvider.udpateMetadata(widget.groupIdentifier, groupMetadata);
+  }
+
+  void editGroupMetadata() {
+    GroupMetadata groupMetadata = GroupMetadata(
+      widget.groupIdentifier.groupId,
+      0,
+      name: "Test NIP29 Group2",
+      picture:
+          "https://image.nostr.build/9cf7e57fee80522b05c14e13c24ec7332d1c4d567953ce87d5617520cbc5dbaf.jpg",
+      about: "Hello...\nThis is the group about.",
+    );
+    groupProvider.udpateMetadata(widget.groupIdentifier, groupMetadata);
   }
 }

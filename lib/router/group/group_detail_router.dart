@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_kind.dart';
@@ -6,6 +9,8 @@ import 'package:nostrmo/component/image_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/group_provider.dart';
+import 'package:nostrmo/router/edit/editor_router.dart';
+import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +18,8 @@ import 'package:provider/provider.dart';
 import '../../client/filter.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
+import 'group_detail_chat_component.dart';
+import 'group_detail_note_list_component.dart';
 
 class GroupDetailRouter extends StatefulWidget {
   @override
@@ -25,6 +32,13 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
   GroupIdentifier? groupIdentifier;
 
   static const APP_BAR_HEIGHT = 40.0;
+
+  GroupDetailProvider groupDetailProvider = GroupDetailProvider();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +54,8 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
       RouterUtil.back(context);
       return Container();
     }
-    if (groupIdentifier == null ||
-        groupIdentifier.toString() != (argIntf as GroupIdentifier).toString()) {
-      loadData();
-    }
     groupIdentifier = argIntf as GroupIdentifier?;
+    groupDetailProvider.updateGroupIdentifier(groupIdentifier!);
 
     var _groupMetadataProvider = Provider.of<GroupProvider>(context);
     var groupMetadata = _groupMetadataProvider.getMetadata(groupIdentifier!);
@@ -121,7 +132,7 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
       ),
       actions: [
         GestureDetector(
-          onTap: () {},
+          onTap: jumpToAddNote,
           child: Container(
             padding: const EdgeInsets.only(
               left: Base.BASE_PADDING_HALF,
@@ -137,17 +148,18 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
     );
 
     var main = SliverFillRemaining(
-      child: TabBarView(
-        children: [
-          Container(
-            color: Colors.pink.withOpacity(0.2),
-            child: Text("Notes"),
-          ),
-          Container(
-            color: Colors.redAccent.withOpacity(0.2),
-            child: Text("Chat"),
+      child: MultiProvider(
+        providers: [
+          ListenableProvider<GroupDetailProvider>.value(
+            value: groupDetailProvider,
           ),
         ],
+        child: TabBarView(
+          children: [
+            GroupDetailNoteListComponent(groupIdentifier!),
+            GroupDetailChatComponent(groupIdentifier!),
+          ],
+        ),
       ),
     );
 
@@ -164,26 +176,8 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
     );
   }
 
-  void loadData() {
-    if (groupIdentifier != null) {
-      var relays = [groupIdentifier!.host];
-      var filter = Filter(kinds: [
-        EventKind.GROUP_NOTE,
-        EventKind.GROUP_NOTE_REPLY,
-        EventKind.GROUP_CHAT_MESSAGE,
-        EventKind.GROUP_CHAT_REPLY,
-      ]);
-      nostr!.query(
-        [filter.toJson()],
-        onEvent,
-        tempRelays: relays,
-        onlyTempRelays: true,
-        queryLocal: false,
-      );
-    }
-  }
-
-  onEvent(Event e) {
-    print(e.toJson());
+  void jumpToAddNote() {
+    EditorRouter.open(context,
+        groupIdentifier: groupIdentifier, groupEventKind: EventKind.GROUP_NOTE);
   }
 }

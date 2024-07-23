@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:intl/intl.dart';
 import 'package:nostrmo/client/aid.dart';
+import 'package:nostrmo/client/nip29/group_identifier.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
@@ -36,6 +37,10 @@ class EditorRouter extends StatefulWidget {
   // dm arg
   String? pubkey;
 
+  GroupIdentifier? groupIdentifier;
+
+  int? groupEventKind;
+
   List<dynamic> tags = [];
 
   List<dynamic> tagsAddedWhenSend = [];
@@ -50,6 +55,8 @@ class EditorRouter extends StatefulWidget {
     required this.tagPs,
     this.pubkey,
     this.initEmbeds,
+    this.groupIdentifier,
+    this.groupEventKind,
   });
 
   static Future<Event?> open(
@@ -59,6 +66,8 @@ class EditorRouter extends StatefulWidget {
     List<dynamic>? tagPs,
     String? pubkey,
     List<BlockEmbed>? initEmbeds,
+    GroupIdentifier? groupIdentifier,
+    int? groupEventKind,
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
@@ -70,6 +79,8 @@ class EditorRouter extends StatefulWidget {
       tagPs: tagPs,
       pubkey: pubkey,
       initEmbeds: initEmbeds,
+      groupIdentifier: groupIdentifier,
+      groupEventKind: groupEventKind,
     );
 
     return RouterUtil.push(context, MaterialPageRoute(builder: (context) {
@@ -95,6 +106,16 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   void initState() {
     super.initState();
     handleFocusInit();
+  }
+
+  @override
+  GroupIdentifier? getGroupIdentifier() {
+    return widget.groupIdentifier;
+  }
+
+  @override
+  int? getGroupEventKind() {
+    return widget.groupEventKind;
   }
 
   @override

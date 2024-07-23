@@ -121,7 +121,6 @@ class RelayPool {
         if (relay.relayStatus.connected == ClientConneccted.CONNECTED) {
           return relay.send(message);
         } else {
-          print("add pendingMessages");
           relay.pendingMessages.add(message);
           return true;
         }

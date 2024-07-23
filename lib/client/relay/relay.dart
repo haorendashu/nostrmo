@@ -52,9 +52,7 @@ abstract class Relay {
 
   /// The medhod called after relay connect success.
   Future onConnected() async {
-    print("onConnected");
     for (var message in pendingMessages) {
-      print(message);
       // TODO To check result? and how to handle if send fail?
       var result = send(message);
       if (!result) {
