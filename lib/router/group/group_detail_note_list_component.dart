@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/data/event_mem_box.dart';
-import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -75,7 +74,7 @@ class _GroupDetailNoteListComponent
   @override
   void doQuery() {
     preQuery();
-    followEventProvider.doQuery(until: until, forceUserLimit: forceUserLimit);
+    groupDetailProvider!.doQuery(until);
   }
 
   @override
