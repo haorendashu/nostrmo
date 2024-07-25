@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import '../../client/nip29/group_identifier.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/keep_alive_cust_state.dart';
+import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
+import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
@@ -27,6 +29,8 @@ class _GroupDetailNoteListComponent
     extends KeepAliveCustState<GroupDetailNoteListComponent>
     with LoadMoreEvent, PenddingEventsLaterFunction {
   final ScrollController _controller = ScrollController();
+
+  ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -50,10 +54,11 @@ class _GroupDetailNoteListComponent
     }
     preBuild();
 
-    return Container(
+    var main = Container(
       child: RefreshIndicator(
         onRefresh: onRefresh,
         child: ListView.builder(
+          controller: scrollController,
           itemBuilder: (context, index) {
             var event = events[index];
             return EventListComponent(
@@ -64,6 +69,30 @@ class _GroupDetailNoteListComponent
           },
           itemCount: events.length,
         ),
+      ),
+    );
+
+    var newNotesLength = groupDetailProvider!.newNotesBox.length();
+    if (newNotesLength <= 0) {
+      return main;
+    }
+
+    List<Widget> stackList = [main];
+    stackList.add(Positioned(
+      top: Base.BASE_PADDING,
+      child: NewNotesUpdatedComponent(
+        num: newNotesLength,
+        onTap: () {
+          groupDetailProvider!.mergeNewEvent();
+          scrollController.jumpTo(0);
+        },
+      ),
+    ));
+
+    return Container(
+      child: Stack(
+        alignment: Alignment.center,
+        children: stackList,
       ),
     );
   }

@@ -1,14 +1,14 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:nostrmo/client/event_kind.dart';
+import 'package:nostrmo/client/nip29/group_identifier.dart';
 import 'package:nostrmo/client/nip51/bookmarks.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
+import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/component/like_text_select_bottom_sheet.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +18,6 @@ import 'package:share_plus/share_plus.dart';
 import '../../client/event.dart';
 import '../../client/event_relation.dart';
 import '../../client/nip19/nip19.dart';
-import '../../client/zap/zap_action.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../data/event_reactions.dart';
@@ -463,7 +462,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     } else if (value == "block") {
       filterProvider.addBlock(widget.event.pubkey);
     } else if (value == "delete") {
-      nostr!.deleteEvent(widget.event.id);
+      List<String>? relayAddrs = getGroupRelays();
+      nostr!.deleteEvent(widget.event.id,
+          tempRelays:
+              relayAddrs); // delete event send to groupRelays and myRelays
       followEventProvider.deleteEvent(widget.event.id);
       mentionMeProvider.deleteEvent(widget.event.id);
       var deleteCallback = EventDeleteCallback.of(context);
@@ -526,9 +528,26 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       tags.add(["e", er.rootId, relayAddr, "root"]);
     }
 
+    GroupIdentifier? groupIdentifier;
+    int? groupEventKind;
+    if (widget.event.kind == EventKind.GROUP_NOTE ||
+        widget.event.kind == EventKind.GROUP_NOTE_REPLY) {
+      groupIdentifier =
+          GroupIdentifierInheritedWidget.getGroupIdentifier(context);
+      if (groupIdentifier != null) {
+        groupEventKind = EventKind.GROUP_NOTE_REPLY;
+      }
+    }
+
     // TODO reply maybe change the placeholder in editor router.
-    var event = await EditorRouter.open(context,
-        tags: tags, tagsAddedWhenSend: tagsAddedWhenSend, tagPs: tagPs);
+    var event = await EditorRouter.open(
+      context,
+      tags: tags,
+      tagsAddedWhenSend: tagsAddedWhenSend,
+      tagPs: tagPs,
+      groupIdentifier: groupIdentifier,
+      groupEventKind: groupEventKind,
+    );
     if (event != null) {
       eventReactionsProvider.addEventAndHandle(event);
       var callback = EventReplyCallback.of(context);
@@ -544,9 +563,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       if (widget.event.sources.isNotEmpty) {
         relayAddr = widget.event.sources[0];
       }
+
+      List<String>? relayAddrs = getGroupRelays();
+
       var content = jsonEncode(widget.event.toJson());
-      var repostEvent = await nostr!
-          .sendRepost(widget.event.id, relayAddr: relayAddr, content: content);
+      var repostEvent = await nostr!.sendRepost(widget.event.id,
+          relayAddr: relayAddr,
+          content: content,
+          tempRelays: relayAddrs,
+          targetRelays: relayAddrs);
       if (repostEvent != null) {
         eventReactionsProvider.addRepost(widget.event.id);
       }
@@ -566,6 +591,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       return;
     }
 
+    List<String>? relayAddrs = getGroupRelays();
+
     if (myLikeEvents == null || myLikeEvents!.isEmpty) {
       // like
       // get emoji text
@@ -574,8 +601,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         return;
       }
 
-      var likeEvent =
-          await nostr!.sendLike(widget.event.id, content: emojiText);
+      var likeEvent = await nostr!.sendLike(widget.event.id,
+          content: emojiText, tempRelays: relayAddrs, targetRelays: relayAddrs);
       if (likeEvent != null) {
         eventReactionsProvider.addLike(widget.event.id, likeEvent);
       }
@@ -583,7 +610,9 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       // delete like
       bool deleted = false;
       for (var event in myLikeEvents!) {
-        var deleteEvent = await nostr!.deleteEvent(event.id);
+        var deleteEvent = await nostr!.deleteEvent(event.id,
+            tempRelays:
+                relayAddrs); // delete event send to groupRelay and myRelays
         if (deleteEvent != null) {
           deleted = true;
         }
@@ -640,6 +669,20 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
   void openZapDialog() {
     ZapBottomSheetComponent.show(context, widget.event, widget.eventRelation);
+  }
+
+  List<String>? getGroupRelays() {
+    List<String>? relayAddrs;
+    if (widget.event.kind == EventKind.GROUP_NOTE ||
+        widget.event.kind == EventKind.GROUP_NOTE_REPLY) {
+      var groupIdentifier =
+          GroupIdentifierInheritedWidget.getGroupIdentifier(context);
+      if (groupIdentifier != null) {
+        relayAddrs = [groupIdentifier.host];
+      }
+    }
+
+    return relayAddrs;
   }
 }
 

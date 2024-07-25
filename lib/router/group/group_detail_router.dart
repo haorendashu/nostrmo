@@ -1,13 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip29/group_identifier.dart';
-import 'package:nostrmo/component/image_component.dart';
+import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/consts/base.dart';
-import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/router/edit/editor_router.dart';
 import 'package:nostrmo/router/group/group_detail_provider.dart';
@@ -15,7 +10,6 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/filter.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
 import 'group_detail_chat_component.dart';
@@ -38,6 +32,13 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
   @override
   void initState() {
     super.initState();
+    groupDetailProvider.startQueryTask();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    groupDetailProvider.dispose();
   }
 
   @override
@@ -166,11 +167,15 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
     return Scaffold(
       body: DefaultTabController(
         length: 2,
-        child: CustomScrollView(
-          slivers: [
-            appbar,
-            main,
-          ],
+        child: GroupIdentifierInheritedWidget(
+          key: Key("GD_${groupIdentifier.toString()}"),
+          groupIdentifier: groupIdentifier!,
+          child: CustomScrollView(
+            slivers: [
+              appbar,
+              main,
+            ],
+          ),
         ),
       ),
     );

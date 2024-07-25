@@ -23,9 +23,13 @@ class Nostr {
 
   String get publicKey => _publicKey;
 
-  Future<Event?> sendLike(String id, {String? pubkey, String? content}) async {
-    List<String> tempRelays = [];
+  Future<Event?> sendLike(String id,
+      {String? pubkey,
+      String? content,
+      List<String>? tempRelays,
+      List<String>? targetRelays}) async {
     if (pubkey != null) {
+      tempRelays ??= [];
       tempRelays.addAll(metadataProvider.getExtralRelays(pubkey, false));
     }
 
@@ -38,10 +42,12 @@ class Nostr {
           ["e", id]
         ],
         content);
-    return await sendEvent(event, tempRelays: tempRelays);
+    return await sendEvent(event,
+        tempRelays: tempRelays, targetRelays: targetRelays);
   }
 
-  Future<Event?> deleteEvent(String eventId) async {
+  Future<Event?> deleteEvent(String eventId,
+      {List<String>? tempRelays, List<String>? targetRelays}) async {
     Event event = Event(
         _publicKey,
         EventKind.EVENT_DELETION,
@@ -49,49 +55,42 @@ class Nostr {
           ["e", eventId]
         ],
         "delete");
-    return await sendEvent(event);
+    return await sendEvent(event,
+        tempRelays: tempRelays, targetRelays: targetRelays);
   }
 
-  Future<Event?> deleteEvents(List<String> eventIds) async {
+  Future<Event?> deleteEvents(List<String> eventIds,
+      {List<String>? tempRelays, List<String>? targetRelays}) async {
     List<List<dynamic>> tags = [];
     for (var eventId in eventIds) {
       tags.add(["e", eventId]);
     }
 
     Event event = Event(_publicKey, EventKind.EVENT_DELETION, tags, "delete");
-    return await sendEvent(event);
+    return await sendEvent(event,
+        tempRelays: tempRelays, targetRelays: targetRelays);
   }
 
   Future<Event?> sendRepost(String id,
-      {String? relayAddr, String content = ""}) async {
+      {String? relayAddr,
+      String content = "",
+      List<String>? tempRelays,
+      List<String>? targetRelays}) async {
     List<dynamic> tag = ["e", id];
     if (StringUtil.isNotBlank(relayAddr)) {
       tag.add(relayAddr);
     }
     Event event = Event(_publicKey, EventKind.REPOST, [tag], content);
-    return await sendEvent(event);
+    return await sendEvent(event,
+        tempRelays: tempRelays, targetRelays: targetRelays);
   }
 
-  Future<Event?> sendTextNote(String text,
-      [List<dynamic> tags = const []]) async {
-    Event event = Event(_publicKey, EventKind.TEXT_NOTE, tags, text);
-    return await sendEvent(event);
-  }
-
-  Future<Event?> recommendServer(String url) async {
-    if (!url.contains(RegExp(
-        r'^(wss?:\/\/)([0-9]{1,3}(?:\.[0-9]{1,3}){3}|[^:]+):?([0-9]{1,5})?$'))) {
-      throw ArgumentError.value(url, 'url', 'Not a valid relay URL');
-    }
-    final event = Event(_publicKey, EventKind.RECOMMEND_SERVER, [], url);
-    return await sendEvent(event);
-  }
-
-  Future<Event?> sendContactList(
-      CustContactList contacts, String content) async {
+  Future<Event?> sendContactList(CustContactList contacts, String content,
+      {List<String>? tempRelays, List<String>? targetRelays}) async {
     final tags = contacts.toJson();
     final event = Event(_publicKey, EventKind.CONTACT_LIST, tags, content);
-    return await sendEvent(event);
+    return await sendEvent(event,
+        tempRelays: tempRelays, targetRelays: targetRelays);
   }
 
   Future<Event?> sendEvent(Event event,
