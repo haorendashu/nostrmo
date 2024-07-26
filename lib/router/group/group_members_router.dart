@@ -49,14 +49,14 @@ class _GroupMembersRouter extends State<GroupMembersRouter> {
 
       list.add(buildHeader("Admins", bodyLargeFontSize!));
       for (var groupAdminUser in groupAdmins.users) {
-        list.add(
-            GroupMemberItemComponent(groupAdminUser.pubkey!, groupAdminUser));
+        list.add(GroupMemberItemComponent(
+            groupAdminUser.pubkey!, isAdmin, groupAdminUser));
       }
     }
     if (groupMembers != null && groupMembers.members != null) {
       list.add(buildHeader("Members", bodyLargeFontSize!));
       for (var pubkey in groupMembers.members!) {
-        list.add(GroupMemberItemComponent(pubkey, null));
+        list.add(GroupMemberItemComponent(pubkey, isAdmin, null));
       }
     }
 
@@ -95,11 +95,14 @@ class _GroupMembersRouter extends State<GroupMembersRouter> {
 }
 
 class GroupMemberItemComponent extends StatefulWidget {
-  String pubkey;
+  final String pubkey;
+
+  final bool isAdmin;
 
   GroupAdminUser? groupAdminUser;
 
-  GroupMemberItemComponent(this.pubkey, this.groupAdminUser);
+  GroupMemberItemComponent(this.pubkey, this.isAdmin, this.groupAdminUser,
+      {super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -117,19 +120,22 @@ class _GroupMemberItemComponent extends State<GroupMemberItemComponent> {
 
     List<Widget> list = [];
     list.add(Container(
-      margin: EdgeInsets.only(right: Base.BASE_PADDING_HALF),
+      margin: const EdgeInsets.only(right: Base.BASE_PADDING_HALF),
       child: UserPicComponent(pubkey: widget.pubkey, width: USER_PIC_WIDTH),
     ));
     list.add(NameComponent(pubkey: widget.pubkey));
 
     list.add(Expanded(child: Container()));
-    list.add(GestureDetector(
-      onTap: doDeleteMember,
-      child: Icon(
-        Icons.delete,
-        color: Colors.red,
-      ),
-    ));
+
+    if (widget.isAdmin) {
+      list.add(GestureDetector(
+        onTap: doDeleteMember,
+        child: const Icon(
+          Icons.delete,
+          color: Colors.red,
+        ),
+      ));
+    }
 
     return Container(
       alignment: Alignment.centerLeft,

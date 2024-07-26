@@ -43,9 +43,8 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
       },
     )));
 
-    list.add(
-        Selector<GroupProvider, GroupAdmins?>(builder: (context, value, child) {
-      if (value == null || value.contains(nostr!.publicKey) == null) {
+    list.add(Selector<GroupProvider, int>(builder: (context, value, child) {
+      if (value <= 0) {
         return Container();
       }
 
@@ -53,11 +52,19 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
         onTap: editGroupMembers,
         child: Container(
           margin: const EdgeInsets.only(right: Base.BASE_PADDING),
-          child: const Icon(Icons.people),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [const Icon(Icons.people), Text(" $value")],
+          ),
         ),
       );
     }, selector: (context, _provider) {
-      return _provider.getAdmins(widget.groupIdentifier);
+      var admins = _provider.getAdmins(widget.groupIdentifier);
+      var members = _provider.getMembers(widget.groupIdentifier);
+      return (admins != null ? admins.users.length : 0) +
+          (members != null && members.members != null
+              ? members.members!.length
+              : 0);
     }));
 
     list.add(
