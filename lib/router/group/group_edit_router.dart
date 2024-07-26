@@ -21,6 +21,9 @@ class GroupEditRouter extends StatefulWidget {
 }
 
 class _GroupEditRouter extends State<GroupEditRouter> {
+  TextEditingController hostController = TextEditingController();
+  TextEditingController groupIdController = TextEditingController();
+
   TextEditingController nameController = TextEditingController();
   TextEditingController pictureController = TextEditingController();
   TextEditingController aboutController = TextEditingController();
@@ -47,6 +50,9 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       pictureController.text = getText(groupMetadata.picture);
       aboutController.text = getText(groupMetadata.about);
     }
+
+    hostController.text = groupIdentifier!.host;
+    groupIdController.text = groupIdentifier!.groupId;
 
     var s = S.of(context);
     var themeData = Theme.of(context);
@@ -82,6 +88,28 @@ class _GroupEditRouter extends State<GroupEditRouter> {
         height: 30,
       ));
     }
+
+    list.add(Container(
+      margin: margin,
+      padding: padding,
+      child: TextField(
+        controller: hostController,
+        decoration: InputDecoration(labelText: "Host"),
+        readOnly: true,
+        // enabled: false,
+      ),
+    ));
+
+    list.add(Container(
+      margin: margin,
+      padding: padding,
+      child: TextField(
+        controller: groupIdController,
+        decoration: InputDecoration(labelText: "GroupId"),
+        readOnly: true,
+        // enabled: false,
+      ),
+    ));
 
     list.add(Container(
       margin: margin,
