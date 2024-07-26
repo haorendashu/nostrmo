@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/client/nip29/group_admins.dart';
 import 'package:nostrmo/client/nip29/group_identifier.dart';
 import 'package:nostrmo/client/nip29/group_metadata.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/group_provider.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +50,7 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
       }
 
       return GestureDetector(
-        onTap: () {},
+        onTap: editGroupMembers,
         child: Container(
           margin: const EdgeInsets.only(right: Base.BASE_PADDING),
           child: const Icon(Icons.people),
@@ -102,14 +104,11 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
   }
 
   void editGroupMetadata() {
-    GroupMetadata groupMetadata = GroupMetadata(
-      widget.groupIdentifier.groupId,
-      0,
-      name: "Test NIP29 Group2",
-      picture:
-          "https://image.nostr.build/9cf7e57fee80522b05c14e13c24ec7332d1c4d567953ce87d5617520cbc5dbaf.jpg",
-      about: "Hello...\nThis is the group about.",
-    );
-    groupProvider.udpateMetadata(widget.groupIdentifier, groupMetadata);
+    RouterUtil.router(context, RouterPath.GROUP_EDIT, widget.groupIdentifier);
+  }
+
+  void editGroupMembers() {
+    RouterUtil.router(
+        context, RouterPath.GROUP_MEMBERS, widget.groupIdentifier);
   }
 }

@@ -186,8 +186,11 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     }
 
     var e = Event(nostr!.publicKey, EventKind.GROUP_EDIT_METADATA, tags, "");
-    // print(e.toJson());
     var result =
         await nostr!.sendEvent(e, tempRelays: relays, targetRelays: relays);
+    if (result != null) {
+      handleEvent(
+          groupMetadatas, groupIdentifier, GroupMetadata.loadFromEvent(e));
+    }
   }
 }

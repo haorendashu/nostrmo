@@ -36,6 +36,8 @@ class RouterPath {
   static const String NWC_SETTING = "/nwcSetting";
   static const String GROUP_LIST = "/groupList";
   static const String GROUP_DETAIL = "/groupDetail";
+  static const String GROUP_EDIT = "/groupEdit";
+  static const String GROUP_MEMBERS = "/groupMembers";
 
   static String getThreadDetailPath() {
     if (settingProvider.threadMode == ThreadMode.FULL_MODE) {
