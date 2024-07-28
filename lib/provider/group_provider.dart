@@ -49,6 +49,44 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     _handlingMembersIds.remove(key);
   }
 
+  void deleteEvent(GroupIdentifier groupIdentifier, String eventId) {
+    var relays = [groupIdentifier.host];
+    var event = Event(
+        nostr!.publicKey,
+        EventKind.GROUP_DELETE_EVENT,
+        [
+          ["e", eventId]
+        ],
+        "");
+    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+  }
+
+  void editStatus(GroupIdentifier groupIdentifier, bool? public, bool? open) {
+    if (public == null && open == null) {
+      return;
+    }
+
+    var tags = [];
+    if (public != null) {
+      if (public) {
+        tags.add(["public"]);
+      } else {
+        tags.add(["private"]);
+      }
+    }
+    if (open != null) {
+      if (open) {
+        tags.add(["open"]);
+      } else {
+        tags.add(["closed"]);
+      }
+    }
+
+    var relays = [groupIdentifier.host];
+    var event = Event(nostr!.publicKey, EventKind.GROUP_EDIT_STATUS, tags, "");
+    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+  }
+
   GroupMetadata? getMetadata(GroupIdentifier groupIdentifier) {
     var key = groupIdentifier.toString();
     var m = groupMetadatas[key];
@@ -94,6 +132,68 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     return null;
   }
 
+  void _updateMember(GroupIdentifier groupIdentifier) {
+    var membersJsonMap =
+        _genFilter(groupIdentifier.groupId, EventKind.GROUP_MEMBERS);
+
+    nostr!.query(
+      [membersJsonMap],
+      (e) {
+        onEvent(groupIdentifier, e);
+      },
+      tempRelays: [groupIdentifier.host],
+      onlyTempRelays: true,
+      queryLocal: false,
+      // sendAfterAuth: true,
+    );
+  }
+
+  void addMember(GroupIdentifier groupIdentifier, String pubkey) {
+    var relays = [groupIdentifier.host];
+    var event = Event(
+        nostr!.publicKey,
+        EventKind.GROUP_ADD_USER,
+        [
+          ["p", pubkey]
+        ],
+        "");
+    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+
+    // try to add to mem
+    var key = groupIdentifier.toString();
+    var members = groupMembers[key];
+    if (members != null) {
+      members.add(pubkey);
+    }
+
+    _updateMember(groupIdentifier);
+
+    notifyListeners();
+  }
+
+  void removeMember(GroupIdentifier groupIdentifier, String pubkey) {
+    var relays = [groupIdentifier.host];
+    var event = Event(
+        nostr!.publicKey,
+        EventKind.GROUP_REMOVE_USER,
+        [
+          ["p", pubkey]
+        ],
+        "");
+    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+
+    // try to delete from mem
+    var key = groupIdentifier.toString();
+    var members = groupMembers[key];
+    if (members != null) {
+      members.remove(pubkey);
+    }
+
+    _updateMember(groupIdentifier);
+
+    notifyListeners();
+  }
+
   Map<String, dynamic> _genFilter(String groupId, int eventKind) {
     var filter = Filter(
       kinds: [eventKind],
@@ -118,29 +218,31 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     nostr!.query(
       [metadataJsonMap, adminsJsonMap, membersJsonMap],
       (e) {
-        // log(jsonEncode(e.toJson()));
-
-        bool updated = false;
-        if (e.kind == EventKind.GROUP_METADATA) {
-          updated = handleEvent(
-              groupMetadatas, groupIdentifier, GroupMetadata.loadFromEvent(e));
-        } else if (e.kind == EventKind.GROUP_ADMINS) {
-          updated = handleEvent(
-              groupAdmins, groupIdentifier, GroupAdmins.loadFromEvent(e));
-        } else if (e.kind == EventKind.GROUP_MEMBERS) {
-          updated = handleEvent(
-              groupMembers, groupIdentifier, GroupMembers.loadFromEvent(e));
-        }
-
-        if (updated) {
-          notifyListeners();
-        }
+        onEvent(groupIdentifier, e);
       },
       tempRelays: [groupIdentifier.host],
       onlyTempRelays: true,
       queryLocal: false,
       // sendAfterAuth: true,
     );
+  }
+
+  void onEvent(GroupIdentifier groupIdentifier, Event e) {
+    bool updated = false;
+    if (e.kind == EventKind.GROUP_METADATA) {
+      updated = handleEvent(
+          groupMetadatas, groupIdentifier, GroupMetadata.loadFromEvent(e));
+    } else if (e.kind == EventKind.GROUP_ADMINS) {
+      updated = handleEvent(
+          groupAdmins, groupIdentifier, GroupAdmins.loadFromEvent(e));
+    } else if (e.kind == EventKind.GROUP_MEMBERS) {
+      updated = handleEvent(
+          groupMembers, groupIdentifier, GroupMembers.loadFromEvent(e));
+    }
+
+    if (updated) {
+      notifyListeners();
+    }
   }
 
   bool handleEvent(

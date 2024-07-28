@@ -48,4 +48,16 @@ class GroupMembers extends GroupObject {
 
     return false;
   }
+
+  void remove(String pubkey) {
+    if (members != null) {
+      members!.remove(pubkey);
+    }
+  }
+
+  void add(String pubkey) {
+    if (members != null) {
+      members!.add(pubkey);
+    }
+  }
 }

@@ -43,7 +43,21 @@ class EventKind {
 
   static const int POLL = 6969;
 
+  static const int GROUP_ADD_USER = 9000;
+
+  static const int GROUP_REMOVE_USER = 9001;
+
   static const int GROUP_EDIT_METADATA = 9002;
+
+  static const int GROUP_ADD_PERMISSION = 9003;
+
+  static const int GROUP_REMOVE_PERMISSION = 9004;
+
+  static const int GROUP_DELETE_EVENT = 9005;
+
+  static const int GROUP_EDIT_STATUS = 9006;
+
+  static const int GROUP_CREATE_GROUP = 9007;
 
   static const int GROUP_JOIN = 9021;
 
