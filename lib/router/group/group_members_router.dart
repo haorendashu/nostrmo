@@ -138,12 +138,12 @@ class GroupMemberItemComponent extends StatefulWidget {
 
   final String pubkey;
 
-  final bool isAdmin;
+  final bool canManger;
 
   GroupAdminUser? groupAdminUser;
 
   GroupMemberItemComponent(
-      this.groupIdentifier, this.pubkey, this.isAdmin, this.groupAdminUser,
+      this.groupIdentifier, this.pubkey, this.canManger, this.groupAdminUser,
       {super.key});
 
   @override
@@ -167,9 +167,33 @@ class _GroupMemberItemComponent extends State<GroupMemberItemComponent> {
     ));
     list.add(NameComponent(pubkey: widget.pubkey));
 
-    list.add(Expanded(child: Container()));
+    if (widget.groupAdminUser != null &&
+        widget.groupAdminUser!.permissions != null &&
+        widget.groupAdminUser!.permissions!.isNotEmpty) {
+      var text = widget.groupAdminUser!.permissions!.join(",");
+      list.add(Expanded(
+        child: Container(
+          margin: const EdgeInsets.only(
+            left: Base.BASE_PADDING_HALF,
+            right: Base.BASE_PADDING_HALF,
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: themeData.textTheme.bodySmall!.fontSize,
+                color: themeData.hintColor,
+              ),
+            ),
+          ),
+        ),
+      ));
+    } else {
+      list.add(Expanded(child: Container()));
+    }
 
-    if (widget.isAdmin) {
+    if (widget.canManger && widget.groupAdminUser == null) {
       list.add(GestureDetector(
         onTap: doDeleteMember,
         child: const Icon(

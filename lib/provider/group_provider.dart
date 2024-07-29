@@ -55,6 +55,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
         nostr!.publicKey,
         EventKind.GROUP_DELETE_EVENT,
         [
+          ["h", groupIdentifier.groupId],
           ["e", eventId]
         ],
         "");
@@ -67,6 +68,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     }
 
     var tags = [];
+    tags.add(["h", groupIdentifier.groupId]);
     if (public != null) {
       if (public) {
         tags.add(["public"]);
@@ -154,6 +156,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
         nostr!.publicKey,
         EventKind.GROUP_ADD_USER,
         [
+          ["h", groupIdentifier.groupId],
           ["p", pubkey]
         ],
         "");
@@ -171,16 +174,19 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     notifyListeners();
   }
 
-  void removeMember(GroupIdentifier groupIdentifier, String pubkey) {
+  Future<void> removeMember(
+      GroupIdentifier groupIdentifier, String pubkey) async {
     var relays = [groupIdentifier.host];
     var event = Event(
         nostr!.publicKey,
         EventKind.GROUP_REMOVE_USER,
         [
+          ["h", groupIdentifier.groupId],
           ["p", pubkey]
         ],
         "");
-    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+
+    await nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
 
     // try to delete from mem
     var key = groupIdentifier.toString();
