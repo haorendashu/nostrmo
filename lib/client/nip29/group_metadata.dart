@@ -32,22 +32,29 @@ class GroupMetadata extends GroupObject {
     bool? open;
     int createdAt = event.createdAt;
     for (var tag in event.tags) {
-      if (tag is List && tag.length > 1) {
+      if (tag is List && tag.isNotEmpty) {
         var key = tag[0];
-        var value = tag[1];
 
-        if (key == "d") {
-          groupId = value;
-        } else if (key == "name") {
-          name = value;
-        } else if (key == "picture") {
-          picture = value;
-        } else if (key == "about") {
-          about = value;
-        } else if (key == "public") {
-          public = value;
+        if (key == "public") {
+          public = true;
+        } else if (key == "private") {
+          public = false;
         } else if (key == "open") {
-          open = value;
+          open = true;
+        } else if (key == "closed") {
+          open = false;
+        } else if (tag.length > 1) {
+          var value = tag[1];
+
+          if (key == "d") {
+            groupId = value;
+          } else if (key == "name") {
+            name = value;
+          } else if (key == "picture") {
+            picture = value;
+          } else if (key == "about") {
+            about = value;
+          }
         }
       }
     }

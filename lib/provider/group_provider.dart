@@ -229,7 +229,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       tempRelays: [groupIdentifier.host],
       onlyTempRelays: true,
       queryLocal: false,
-      // sendAfterAuth: true,
+      sendAfterAuth: true,
     );
   }
 

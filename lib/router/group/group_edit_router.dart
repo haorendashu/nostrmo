@@ -30,6 +30,12 @@ class _GroupEditRouter extends State<GroupEditRouter> {
 
   GroupIdentifier? groupIdentifier;
 
+  bool publicValue = false;
+
+  bool openValue = false;
+
+  GroupMetadata? oldGroupMetadata;
+
   @override
   Widget build(BuildContext context) {
     var arg = RouterUtil.routerArgs(context);
@@ -46,10 +52,20 @@ class _GroupEditRouter extends State<GroupEditRouter> {
     var groupMetadata = groupProvider.getMetadata(groupIdentifier!);
 
     if (groupMetadata != null) {
-      nameController.text = getText(groupMetadata.name);
-      pictureController.text = getText(groupMetadata.picture);
-      aboutController.text = getText(groupMetadata.about);
+      if (oldGroupMetadata == null ||
+          groupMetadata.groupId != oldGroupMetadata!.groupId) {
+        nameController.text = getText(groupMetadata.name);
+        pictureController.text = getText(groupMetadata.picture);
+        aboutController.text = getText(groupMetadata.about);
+        if (groupMetadata.public != null) {
+          publicValue = groupMetadata.public!;
+        }
+        if (groupMetadata.open != null) {
+          openValue = groupMetadata.open!;
+        }
+      }
     }
+    oldGroupMetadata = groupMetadata;
 
     hostController.text = groupIdentifier!.host;
     groupIdController.text = groupIdentifier!.groupId;
@@ -146,6 +162,58 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       ),
     ));
 
+    list.add(Container(
+      margin: margin,
+      padding: padding,
+      child: DropdownButton<bool>(
+        isExpanded: true,
+        items: const [
+          DropdownMenuItem(
+            value: true,
+            child: Text("public"),
+          ),
+          DropdownMenuItem(
+            value: false,
+            child: Text("private"),
+          ),
+        ],
+        value: publicValue,
+        onChanged: (bool? value) {
+          if (value != null) {
+            setState(() {
+              publicValue = value;
+            });
+          }
+        },
+      ),
+    ));
+
+    list.add(Container(
+      margin: margin,
+      padding: padding,
+      child: DropdownButton<bool>(
+        isExpanded: true,
+        items: const [
+          DropdownMenuItem(
+            value: true,
+            child: Text("open"),
+          ),
+          DropdownMenuItem(
+            value: false,
+            child: Text("closed"),
+          ),
+        ],
+        value: publicValue,
+        onChanged: (bool? value) {
+          if (value != null) {
+            setState(() {
+              openValue = value;
+            });
+          }
+        },
+      ),
+    ));
+
     return Scaffold(
       body: Stack(
         children: [
@@ -213,5 +281,21 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       about: aboutController.text,
     );
     groupProvider.udpateMetadata(groupIdentifier!, groupMetadata);
+
+    if (oldGroupMetadata != null) {
+      bool updateStatus = false;
+      if (oldGroupMetadata!.public != publicValue) {
+        updateStatus = true;
+      }
+      if (oldGroupMetadata!.open != openValue) {
+        updateStatus = true;
+      }
+
+      if (updateStatus) {
+        groupProvider.editStatus(groupIdentifier!, publicValue, openValue);
+      }
+    }
+
+    RouterUtil.back(context);
   }
 }
