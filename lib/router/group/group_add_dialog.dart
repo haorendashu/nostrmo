@@ -30,6 +30,10 @@ class _GroupAddDailog extends State<GroupAddDailog> {
 
   late S s;
 
+  // bool joinGroup = true;
+
+  // String crateGroupRelay = "wss://groups.fiatjaf.com";
+
   @override
   Widget build(BuildContext context) {
     s = S.of(context);
@@ -40,32 +44,97 @@ class _GroupAddDailog extends State<GroupAddDailog> {
     var hintColor = themeData.hintColor;
 
     List<Widget> list = [];
+
     list.add(Text(
-      "Add Group",
+      "${s.Add} ${s.Group}",
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: titleFontSize,
       ),
     ));
 
+    // list.add(
+    //   Container(
+    //     child: Row(
+    //       children: [
+    //         Checkbox(
+    //           value: joinGroup,
+    //           onChanged: (v) {
+    //             setState(() {
+    //               joinGroup = v!;
+    //             });
+    //           },
+    //         ),
+    //         Text(s.Join_Group),
+    //         Container(
+    //           width: Base.BASE_PADDING,
+    //         ),
+    //         Checkbox(
+    //           value: !joinGroup,
+    //           onChanged: (v) {
+    //             setState(() {
+    //               joinGroup = !v!;
+    //             });
+    //           },
+    //         ),
+    //         Text(s.Create_Group),
+    //       ],
+    //     ),
+    //   ),
+    // );
+
+    // if (joinGroup) {
     list.add(Container(
       margin: EdgeInsets.only(top: Base.BASE_PADDING),
       child: TextField(
         controller: hostController,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: "Please input host",
+          hintText: "${s.Please_input} ${s.Relay}",
           border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
         ),
       ),
     ));
+    // } else {
+    //   list.add(Container(
+    //     margin: EdgeInsets.only(top: Base.BASE_PADDING),
+    //     child: Row(
+    //       children: [
+    //         Text("${s.Relay} :  "),
+    //         Expanded(
+    //           child: DropdownButton<String>(
+    //             isExpanded: true,
+    //             items: const [
+    //               DropdownMenuItem(
+    //                 value: "wss://groups.fiatjaf.com",
+    //                 child: Text("wss://groups.fiatjaf.com"),
+    //               ),
+    //               DropdownMenuItem(
+    //                 value: "wss://groups.0xchat.com",
+    //                 child: Text("wss://groups.0xchat.com"),
+    //               ),
+    //             ],
+    //             value: crateGroupRelay,
+    //             onChanged: (String? value) {
+    //               if (value != null) {
+    //                 setState(() {
+    //                   crateGroupRelay = value;
+    //                 });
+    //               }
+    //             },
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ));
+    // }
 
     list.add(Container(
       margin: EdgeInsets.only(top: Base.BASE_PADDING),
       child: TextField(
         controller: groupIdController,
         decoration: InputDecoration(
-          hintText: "Please input group id",
+          hintText: "${s.Please_input} ${s.GroupId}",
           border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
         ),
       ),

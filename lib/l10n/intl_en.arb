@@ -306,5 +306,18 @@
     "Readonly_login_tip": "You are logged in in read-only mode.",
     "Login_With_Android_Signer": "Login With Android Signer",
     "Read_Only": "Read Only",
-    "Login_With_NIP07_Extension": "Login With NIP07 Extension"
+    "Login_With_NIP07_Extension": "Login With NIP07 Extension",
+    "Group": "Group",
+    "Groups": "Groups",
+    "Admins": "Admins",
+    "Members": "Members",
+    "Relay": "Relay",
+    "GroupId": "GroupId",
+    "public": "public",
+    "private": "private",
+    "closed": "closed",
+    "Chat": "Chat",
+    "Add": "Add",
+    "Join_Group": "Join Group",
+    "Create_Group": "Create Group"
 }

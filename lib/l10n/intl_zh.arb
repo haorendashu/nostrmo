@@ -295,5 +295,15 @@
     "Readonly_login_tip": "你正在以只读模式登录。",
     "Login_With_Android_Signer": "使用安卓签名者登录",
     "Read_Only": "只读",
-    "Login_With_NIP07_Extension": "使用 NIP07 插件登录"
+    "Login_With_NIP07_Extension": "使用 NIP07 插件登录",
+    "Group": "群组",
+    "Groups": "群组",
+    "Admins": "管理员",
+    "Members": "成员",
+    "Relay": "中继",
+    "GroupId": "群组Id",
+    "Chat": "聊天",
+    "Add": "添加",
+    "Join_Group": "假如群组",
+    "Create_Group": "创建群组"
 }

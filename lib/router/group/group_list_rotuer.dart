@@ -58,7 +58,7 @@ class _GroupListRouter extends State<GroupListRouter> {
       appBar: AppBar(
         leading: AppbarBackBtnComponent(),
         title: Text(
-          "Groups",
+          s.Groups,
           style: TextStyle(
             fontSize: bodyLargeFontSize,
           ),

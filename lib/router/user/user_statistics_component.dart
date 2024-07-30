@@ -127,7 +127,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       list.add(Selector<ListProvider, int>(builder: (context, num, child) {
         return UserStatisticsItemComponent(
             num: num,
-            name: "Groups",
+            name: s.Groups,
             onTap: () {
               RouterUtil.router(context, RouterPath.GROUP_LIST);
             });

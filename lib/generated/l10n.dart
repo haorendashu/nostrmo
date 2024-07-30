@@ -3129,6 +3129,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Group`
+  String get Group {
+    return Intl.message(
+      'Group',
+      name: 'Group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Groups`
+  String get Groups {
+    return Intl.message(
+      'Groups',
+      name: 'Groups',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Admins`
+  String get Admins {
+    return Intl.message(
+      'Admins',
+      name: 'Admins',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Members`
+  String get Members {
+    return Intl.message(
+      'Members',
+      name: 'Members',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Relay`
+  String get Relay {
+    return Intl.message(
+      'Relay',
+      name: 'Relay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GroupId`
+  String get GroupId {
+    return Intl.message(
+      'GroupId',
+      name: 'GroupId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `public`
+  String get public {
+    return Intl.message(
+      'public',
+      name: 'public',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `private`
+  String get private {
+    return Intl.message(
+      'private',
+      name: 'private',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `closed`
+  String get closed {
+    return Intl.message(
+      'closed',
+      name: 'closed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chat`
+  String get Chat {
+    return Intl.message(
+      'Chat',
+      name: 'Chat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get Add {
+    return Intl.message(
+      'Add',
+      name: 'Add',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join Group`
+  String get Join_Group {
+    return Intl.message(
+      'Join Group',
+      name: 'Join_Group',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Group`
+  String get Create_Group {
+    return Intl.message(
+      'Create Group',
+      name: 'Create_Group',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

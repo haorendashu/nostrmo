@@ -60,7 +60,7 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
 
     var _groupMetadataProvider = Provider.of<GroupProvider>(context);
     var groupMetadata = _groupMetadataProvider.getMetadata(groupIdentifier!);
-    String title = "GroupDetail";
+    String title = "${s.Group} ${s.Detail}";
     Widget flexBackground = Container(
       color: themeData.hintColor.withOpacity(0.3),
     );
@@ -98,12 +98,12 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
       Container(
         height: APP_BAR_HEIGHT,
         alignment: Alignment.center,
-        child: Text("Notes"),
+        child: Text(s.Notes),
       ),
       Container(
         height: APP_BAR_HEIGHT,
         alignment: Alignment.center,
-        child: Text("Chat"),
+        child: Text(s.Chat),
       ),
     ];
 

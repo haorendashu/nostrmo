@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "About": MessageLookupByLibrary.simpleMessage("About"),
         "Account_Manager":
             MessageLookupByLibrary.simpleMessage("Account Manager"),
+        "Add": MessageLookupByLibrary.simpleMessage("Add"),
         "Add_Account": MessageLookupByLibrary.simpleMessage("Add Account"),
         "Add_Custom_Emoji":
             MessageLookupByLibrary.simpleMessage("Add Custom Emoji"),
@@ -44,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Address": MessageLookupByLibrary.simpleMessage("Address"),
         "Address_can_t_be_null":
             MessageLookupByLibrary.simpleMessage("Address can\'t be null."),
+        "Admins": MessageLookupByLibrary.simpleMessage("Admins"),
         "Any": MessageLookupByLibrary.simpleMessage("Any"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Authenticat need"),
@@ -73,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Buy me a coffee!"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "Card_Color": MessageLookupByLibrary.simpleMessage("Card Color"),
+        "Chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "Clear_All_Data":
             MessageLookupByLibrary.simpleMessage("Clear All Data"),
         "Clear_Not_My_Data":
@@ -97,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copy current Url"),
         "Copy_init_Url": MessageLookupByLibrary.simpleMessage("Copy init Url"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("Copy success!"),
+        "Create_Group": MessageLookupByLibrary.simpleMessage("Create Group"),
         "Creator": MessageLookupByLibrary.simpleMessage("Creator"),
         "Custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Custom Color"),
@@ -170,6 +174,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Globals": MessageLookupByLibrary.simpleMessage("Globals"),
         "Goal_Amount_In_Sats":
             MessageLookupByLibrary.simpleMessage("Goal Amount In Sats"),
+        "Group": MessageLookupByLibrary.simpleMessage("Group"),
+        "GroupId": MessageLookupByLibrary.simpleMessage("GroupId"),
+        "Groups": MessageLookupByLibrary.simpleMessage("Groups"),
         "Hashtag": MessageLookupByLibrary.simpleMessage("Hashtag"),
         "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "Hide_Relay_Notices":
@@ -211,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Input parse error"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("Input relay address."),
+        "Join_Group": MessageLookupByLibrary.simpleMessage("Join Group"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Key Backup"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
@@ -234,6 +242,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Main_Font_Color":
             MessageLookupByLibrary.simpleMessage("Main Font Color"),
         "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
+        "Members": MessageLookupByLibrary.simpleMessage("Members"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("Mention User"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
         "Metadata_can_not_be_found":
@@ -339,6 +348,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
             "You are logged in in read-only mode."),
         "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
+        "Relay": MessageLookupByLibrary.simpleMessage("Relay"),
         "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay Info"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relay Mode"),
         "Relays": MessageLookupByLibrary.simpleMessage("Relays"),
@@ -453,6 +463,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "auto": MessageLookupByLibrary.simpleMessage("Auto"),
         "boosted": MessageLookupByLibrary.simpleMessage("boosted"),
         "close": MessageLookupByLibrary.simpleMessage("Close"),
+        "closed": MessageLookupByLibrary.simpleMessage("closed"),
         "is_sending": MessageLookupByLibrary.simpleMessage("is sending"),
         "key_has_been_copy":
             MessageLookupByLibrary.simpleMessage("key has been copy!"),
@@ -468,6 +479,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "or": MessageLookupByLibrary.simpleMessage("or"),
         "poll_option_info":
             MessageLookupByLibrary.simpleMessage("poll option info"),
+        "private": MessageLookupByLibrary.simpleMessage("private"),
+        "public": MessageLookupByLibrary.simpleMessage("public"),
         "replied": MessageLookupByLibrary.simpleMessage("replied"),
         "terms_of_user": MessageLookupByLibrary.simpleMessage("terms of user")
       };

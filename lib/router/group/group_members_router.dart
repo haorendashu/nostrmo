@@ -51,7 +51,7 @@ class _GroupMembersRouter extends State<GroupMembersRouter> {
         isAdmin = true;
       }
 
-      list.add(buildHeader("Admins", bodyLargeFontSize!, null));
+      list.add(buildHeader(s.Admins, bodyLargeFontSize!, null));
       for (var groupAdminUser in groupAdmins.users) {
         list.add(GroupMemberItemComponent(
             groupIdentifier!, groupAdminUser.pubkey!, isAdmin, groupAdminUser));
@@ -59,7 +59,7 @@ class _GroupMembersRouter extends State<GroupMembersRouter> {
     }
     if (groupMembers != null && groupMembers.members != null) {
       list.add(buildHeader(
-          "Members", bodyLargeFontSize!, isAdmin ? addMember : null));
+          s.Members, bodyLargeFontSize!, isAdmin ? addMember : null));
       for (var pubkey in groupMembers.members!) {
         list.add(
             GroupMemberItemComponent(groupIdentifier!, pubkey, isAdmin, null));
@@ -70,7 +70,7 @@ class _GroupMembersRouter extends State<GroupMembersRouter> {
       appBar: AppBar(
         leading: AppbarBackBtnComponent(),
         title: Text(
-          "Members",
+          s.Members,
           style: TextStyle(
             fontSize: bodyLargeFontSize,
             fontWeight: FontWeight.bold,

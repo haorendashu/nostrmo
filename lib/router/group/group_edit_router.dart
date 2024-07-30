@@ -36,6 +36,8 @@ class _GroupEditRouter extends State<GroupEditRouter> {
 
   GroupMetadata? oldGroupMetadata;
 
+  late S s;
+
   @override
   Widget build(BuildContext context) {
     var arg = RouterUtil.routerArgs(context);
@@ -48,6 +50,7 @@ class _GroupEditRouter extends State<GroupEditRouter> {
     var padding = const EdgeInsets.only(left: 20, right: 20);
 
     GroupProvider groupProvider = Provider.of<GroupProvider>(context);
+    s = S.of(context);
 
     var groupMetadata = groupProvider.getMetadata(groupIdentifier!);
 
@@ -70,7 +73,6 @@ class _GroupEditRouter extends State<GroupEditRouter> {
     hostController.text = groupIdentifier!.host;
     groupIdController.text = groupIdentifier!.groupId;
 
-    var s = S.of(context);
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var mainColor = themeData.primaryColor;
@@ -110,7 +112,7 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       padding: padding,
       child: TextField(
         controller: hostController,
-        decoration: InputDecoration(labelText: "Host"),
+        decoration: InputDecoration(labelText: s.Relay),
         readOnly: true,
         // enabled: false,
       ),
@@ -121,7 +123,7 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       padding: padding,
       child: TextField(
         controller: groupIdController,
-        decoration: InputDecoration(labelText: "GroupId"),
+        decoration: InputDecoration(labelText: s.GroupId),
         readOnly: true,
         // enabled: false,
       ),
@@ -167,14 +169,14 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       padding: padding,
       child: DropdownButton<bool>(
         isExpanded: true,
-        items: const [
+        items: [
           DropdownMenuItem(
             value: true,
-            child: Text("public"),
+            child: Text(s.public),
           ),
           DropdownMenuItem(
             value: false,
-            child: Text("private"),
+            child: Text(s.private),
           ),
         ],
         value: publicValue,
@@ -193,17 +195,17 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       padding: padding,
       child: DropdownButton<bool>(
         isExpanded: true,
-        items: const [
+        items: [
           DropdownMenuItem(
             value: true,
-            child: Text("open"),
+            child: Text(s.open),
           ),
           DropdownMenuItem(
             value: false,
-            child: Text("closed"),
+            child: Text(s.closed),
           ),
         ],
-        value: publicValue,
+        value: openValue,
         onChanged: (bool? value) {
           if (value != null) {
             setState(() {
