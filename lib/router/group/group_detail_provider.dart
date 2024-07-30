@@ -79,6 +79,7 @@ class GroupDetailProvider extends ChangeNotifier
         tempRelays: relays,
         onlyTempRelays: true,
         queryLocal: false,
+        sendAfterAuth: true,
       );
     }
   }
@@ -133,6 +134,7 @@ class GroupDetailProvider extends ChangeNotifier
         tempRelays: relays,
         onlyTempRelays: true,
         queryLocal: false,
+        sendAfterAuth: true,
       );
     }
   }
