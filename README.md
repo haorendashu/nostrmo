@@ -43,7 +43,7 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 - [ ] NIP-26 (Delegated Event Signing)
 - [x] NIP-27 (Text Note References)
 - [ ] NIP-28 (Public Chat)
-- [ ] NIP-29 (Relay-based Groups)
+- [x] NIP-29 (Relay-based Groups)
 - [x] NIP-30 (Custom Emoji)
 - [ ] NIP-31 (Dealing with Unknown Events)
 - [ ] NIP-32 (Labeling)
