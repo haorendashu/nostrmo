@@ -836,7 +836,7 @@ class _EventMainComponent extends State<EventMainComponent> {
     var type = eventRelation.type;
 
     if (!content.startsWith(BASE64.PREFIX)) {
-      content = BASE64.PREFIX + content;
+      content = BASE64.PNG_PREFIX + content;
     }
 
     if (type != null && type.startsWith("image")) {

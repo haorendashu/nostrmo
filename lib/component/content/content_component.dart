@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
@@ -12,8 +10,8 @@ import 'package:nostrmo/component/content/trie_text_matcher/target_text_type.dar
 import 'package:nostrmo/component/content/trie_text_matcher/trie_text_matcher.dart';
 import 'package:nostrmo/component/content/trie_text_matcher/trie_text_matcher_builder.dart';
 import 'package:nostrmo/component/music/wavlake/wavlake_track_music_info_builder.dart';
+import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/consts/base_consts.dart';
-import 'package:nostrmo/data/event_reactions.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +23,6 @@ import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../util/platform_util.dart';
 import '../event/event_quote_component.dart';
 import '../music/blank_link_music_info_builder.dart';
 import '../music/wavlake/wavlake_album_music_info_builder.dart';
@@ -593,7 +590,9 @@ class _ContentComponent extends State<ContentComponent> {
 
   String? checkAndHandleStr(String str, StringBuffer buffer,
       List<InlineSpan> currentList, List<String> images) {
-    if (str.indexOf(HTTPS_PRE) == 0 || str.indexOf(HTTP_PRE) == 0) {
+    if (str.indexOf(HTTPS_PRE) == 0 ||
+        str.indexOf(HTTP_PRE) == 0 ||
+        str.indexOf(BASE64.PREFIX) == 0) {
       // http style, get path style
       var pathType = ContentDecoder.getPathType(str);
       if (pathType == "image") {
