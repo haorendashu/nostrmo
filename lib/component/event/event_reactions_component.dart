@@ -11,6 +11,7 @@ import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/component/like_text_select_bottom_sheet.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/provider/group_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
@@ -229,7 +230,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
                 child: Text(s.Block, style: popFontStyle),
               ));
 
-              if (widget.event.pubkey == nostr!.publicKey) {
+              var groupAdmins =
+                  GroupIdentifierInheritedWidget.getGroupAdmins(context);
+              var isGroupEvent = (widget.event.kind == EventKind.GROUP_NOTE ||
+                  widget.event.kind == EventKind.GROUP_NOTE_REPLY);
+              var pubkey = nostr!.publicKey;
+              if ((!isGroupEvent && widget.event.pubkey == pubkey) ||
+                  (isGroupEvent &&
+                      groupAdmins != null &&
+                      groupAdmins.contains(pubkey) != null)) {
                 list.add(PopupMenuDivider());
                 list.add(PopupMenuItem(
                   value: "delete",
@@ -462,17 +471,29 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     } else if (value == "block") {
       filterProvider.addBlock(widget.event.pubkey);
     } else if (value == "delete") {
-      List<String>? relayAddrs = getGroupRelays();
-      nostr!.deleteEvent(widget.event.id,
-          tempRelays:
-              relayAddrs); // delete event send to groupRelays and myRelays
-      followEventProvider.deleteEvent(widget.event.id);
-      mentionMeProvider.deleteEvent(widget.event.id);
-      var deleteCallback = EventDeleteCallback.of(context);
-      if (deleteCallback != null) {
-        deleteCallback.onDelete(widget.event);
+      if (widget.event.kind == EventKind.GROUP_NOTE ||
+          widget.event.kind == EventKind.GROUP_NOTE_REPLY) {
+        var groupIdentifier =
+            GroupIdentifierInheritedWidget.getGroupIdentifier(context);
+        if (groupIdentifier != null) {
+          groupProvider.deleteEvent(groupIdentifier, widget.event.id);
+          var deleteCallback = EventDeleteCallback.of(context);
+          if (deleteCallback != null) {
+            deleteCallback.onDelete(widget.event);
+          }
+        }
+      } else {
+        List<String>? relayAddrs = getGroupRelays();
+        nostr!.deleteEvent(widget.event.id,
+            tempRelays:
+                relayAddrs); // delete event send to groupRelays and myRelays
+        followEventProvider.deleteEvent(widget.event.id);
+        mentionMeProvider.deleteEvent(widget.event.id);
+        var deleteCallback = EventDeleteCallback.of(context);
+        if (deleteCallback != null) {
+          deleteCallback.onDelete(widget.event);
+        }
       }
-      // BotToast.showText(text: "Delete success!");
     }
   }
 

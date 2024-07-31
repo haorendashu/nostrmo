@@ -145,13 +145,11 @@ class GroupDetailProvider extends ChangeNotifier
       bool chatAdded = false;
 
       for (var e in list) {
-        if (e.kind == EventKind.GROUP_NOTE ||
-            e.kind == EventKind.GROUP_NOTE_REPLY) {
+        if (isGroupNote(e)) {
           if (notesBox.add(e)) {
             noteAdded = true;
           }
-        } else if (e.kind == EventKind.GROUP_CHAT_MESSAGE ||
-            e.kind == EventKind.GROUP_CHAT_REPLY) {
+        } else if (isGroupChat(e)) {
           if (chatsBox.add(e)) {
             chatAdded = true;
           }
@@ -170,6 +168,30 @@ class GroupDetailProvider extends ChangeNotifier
         notifyListeners();
       }
     }, null);
+  }
+
+  bool isGroupNote(Event e) {
+    return e.kind == EventKind.GROUP_NOTE ||
+        e.kind == EventKind.GROUP_NOTE_REPLY;
+  }
+
+  bool isGroupChat(Event e) {
+    return e.kind == EventKind.GROUP_CHAT_MESSAGE ||
+        e.kind == EventKind.GROUP_CHAT_REPLY;
+  }
+
+  void deleteEvent(Event e) {
+    var id = e.id;
+    if (isGroupNote(e)) {
+      newNotesBox.delete(id);
+      notesBox.delete(id);
+      notesBox.sort();
+      notifyListeners();
+    } else if (isGroupChat(e)) {
+      chatsBox.delete(id);
+      chatsBox.sort();
+      notifyListeners();
+    }
   }
 
   void updateGroupIdentifier(GroupIdentifier groupIdentifier) {

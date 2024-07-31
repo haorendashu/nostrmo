@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/client/event_kind.dart';
 import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/provider/group_provider.dart';
@@ -58,8 +60,9 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
     groupIdentifier = argIntf as GroupIdentifier?;
     groupDetailProvider.updateGroupIdentifier(groupIdentifier!);
 
-    var _groupMetadataProvider = Provider.of<GroupProvider>(context);
-    var groupMetadata = _groupMetadataProvider.getMetadata(groupIdentifier!);
+    var _groupProvider = Provider.of<GroupProvider>(context);
+    var groupMetadata = _groupProvider.getMetadata(groupIdentifier!);
+    var groupAdmins = _groupProvider.getAdmins(groupIdentifier!);
     String title = "${s.Group} ${s.Detail}";
     Widget flexBackground = Container(
       color: themeData.hintColor.withOpacity(0.3),
@@ -165,16 +168,20 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
     );
 
     return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: GroupIdentifierInheritedWidget(
-          key: Key("GD_${groupIdentifier.toString()}"),
-          groupIdentifier: groupIdentifier!,
-          child: CustomScrollView(
-            slivers: [
-              appbar,
-              main,
-            ],
+      body: EventDeleteCallback(
+        onDeleteCallback: onEventDelete,
+        child: DefaultTabController(
+          length: 2,
+          child: GroupIdentifierInheritedWidget(
+            key: Key("GD_${groupIdentifier.toString()}"),
+            groupIdentifier: groupIdentifier!,
+            groupAdmins: groupAdmins,
+            child: CustomScrollView(
+              slivers: [
+                appbar,
+                main,
+              ],
+            ),
           ),
         ),
       ),
@@ -184,5 +191,9 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
   void jumpToAddNote() {
     EditorRouter.open(context,
         groupIdentifier: groupIdentifier, groupEventKind: EventKind.GROUP_NOTE);
+  }
+
+  void onEventDelete(Event e) {
+    groupDetailProvider.deleteEvent(e);
   }
 }
