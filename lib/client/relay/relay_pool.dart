@@ -111,6 +111,7 @@ class RelayPool {
     }
 
     relay.saveQuery(subscription);
+    relay.relayStatus.onQuery();
 
     try {
       var message = subscription.toJson();

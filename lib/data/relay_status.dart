@@ -24,11 +24,18 @@ class RelayStatus {
 
   void noteReceive({DateTime? dt}) {
     _noteReceived++;
-    if (dt != null) {
-      lastNoteTime = dt;
-    } else {
-      lastNoteTime = DateTime.now();
-    }
+    dt ??= DateTime.now();
+    lastNoteTime = dt;
+  }
+
+  int _queryNum = 0;
+
+  int get queryNum => _queryNum;
+
+  void onQuery({DateTime? dt}) {
+    _queryNum++;
+    dt ??= DateTime.now();
+    lastQueryTime = dt;
   }
 
   int _error = 0;
@@ -37,11 +44,8 @@ class RelayStatus {
 
   void onError({DateTime? dt}) {
     _error++;
-    if (dt != null) {
-      lastErrorTime = dt;
-    } else {
-      lastErrorTime = DateTime.now();
-    }
+    dt ??= DateTime.now();
+    lastErrorTime = dt;
   }
 
   DateTime connectTime = DateTime.now();
