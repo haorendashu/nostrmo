@@ -379,7 +379,13 @@ class RelayProvider extends ChangeNotifier {
       if (now - status.connectTime.millisecondsSinceEpoch > 1000 * 60 * 10 &&
           (status.lastNoteTime == null ||
               ((now - status.lastNoteTime!.millisecondsSinceEpoch) >
+                  1000 * 60 * 10)) &&
+          (status.lastQueryTime == null ||
+              ((now - status.lastQueryTime!.millisecondsSinceEpoch) >
                   1000 * 60 * 10))) {
+        // init time over 10 min
+        // last note time over 10 min
+        // last query time over 10 min
         needRemoveList.add(addr);
       }
     }
