@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:bech32/bech32.dart';
 import 'package:hex/hex.dart';
@@ -73,6 +74,7 @@ class NIP19Tlv {
 
     String? id;
     List<String> relays = [];
+    int? kind;
     String? author;
 
     int startIndex = 0;
@@ -88,13 +90,17 @@ class NIP19Tlv {
       } else if (tlvData.typ == TLVType.Relay) {
         var relay = utf8.decode(tlvData.data);
         relays.add(relay);
+      } else if (tlvData.typ == TLVType.Kind) {
+        Uint8List byteList = Uint8List.fromList(tlvData.data);
+        var byteData = ByteData.sublistView(byteList);
+        kind = byteData.getInt32(0, Endian.big);
       } else if (tlvData.typ == TLVType.Author) {
         author = HEX.encode(tlvData.data);
       }
     }
 
     if (id != null) {
-      return Nevent(id: id, relays: relays, author: author);
+      return Nevent(id: id, relays: relays, kind: kind, author: author);
     }
 
     return null;
@@ -148,7 +154,9 @@ class NIP19Tlv {
         var relay = utf8.decode(tlvData.data);
         relays.add(relay);
       } else if (tlvData.typ == TLVType.Kind) {
-        kind = tlvData.data[0];
+        Uint8List byteList = Uint8List.fromList(tlvData.data);
+        var byteData = ByteData.sublistView(byteList);
+        kind = byteData.getInt32(0, Endian.big);
       } else if (tlvData.typ == TLVType.Author) {
         author = HEX.encode(tlvData.data);
       }
@@ -237,9 +245,11 @@ class Nevent {
 
   List<String>? relays;
 
+  int? kind;
+
   String? author;
 
-  Nevent({required this.id, this.relays, this.author});
+  Nevent({required this.id, this.relays, this.kind, this.author});
 }
 
 class Nrelay {
