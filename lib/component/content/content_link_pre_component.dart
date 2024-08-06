@@ -10,6 +10,7 @@ import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';
+import '../link_router_util.dart';
 
 class ContentLinkPreComponent extends StatefulWidget {
   String link;
@@ -65,7 +66,7 @@ class _ContentLinkPreComponent extends State<ContentLinkPreComponent> {
             text: widget.link,
             width: mediaDataCache.size.width,
             onLinkPressed: (link) {
-              WebViewRouter.open(context, link);
+              LinkRouterUtil.router(context, link);
             },
           ),
         );
