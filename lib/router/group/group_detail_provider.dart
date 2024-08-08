@@ -12,6 +12,8 @@ import '../../util/peddingevents_later_function.dart';
 
 class GroupDetailProvider extends ChangeNotifier
     with PenddingEventsLaterFunction {
+  static const int PREVIOUS_LENGTH = 5;
+
   late int _initTime;
 
   GroupIdentifier? _groupIdentifier;
@@ -210,5 +212,36 @@ class GroupDetailProvider extends ChangeNotifier
     clearData();
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     doQuery(null);
+  }
+
+  List<String> notesPrevious() {
+    return timelinePrevious(notesBox);
+  }
+
+  List<String> chatsPrevious() {
+    return timelinePrevious(chatsBox);
+  }
+
+  List<String> timelinePrevious(
+    EventMemBox box, {
+    int length = PREVIOUS_LENGTH,
+  }) {
+    var list = box.all();
+    var listLength = list.length;
+
+    List<String> previous = [];
+
+    for (var i = 0; i < PREVIOUS_LENGTH; i++) {
+      var index = listLength - i - 1;
+      if (index < 0) {
+        break;
+      }
+
+      var event = list[index];
+      var idSubStr = event.id.substring(0, 8);
+      previous.add(idSubStr);
+    }
+
+    return previous;
   }
 }

@@ -189,8 +189,13 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
   }
 
   void jumpToAddNote() {
+    List<dynamic> tags = [];
+    var previousTag = ["previous", ...groupDetailProvider.notesPrevious()];
+    tags.add(previousTag);
     EditorRouter.open(context,
-        groupIdentifier: groupIdentifier, groupEventKind: EventKind.GROUP_NOTE);
+        groupIdentifier: groupIdentifier,
+        groupEventKind: EventKind.GROUP_NOTE,
+        tagsAddedWhenSend: tags);
   }
 
   void onEventDelete(Event e) {
