@@ -728,6 +728,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         a: TextStyle(
           color: themeData.primaryColor,
           decoration: TextDecoration.underline,
+          decorationColor: themeData.primaryColor,
         ),
       ),
       onTapLink: (String text, String? href, String title) async {
