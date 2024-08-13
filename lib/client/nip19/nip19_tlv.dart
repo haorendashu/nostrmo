@@ -273,4 +273,9 @@ class Naddr {
     required this.kind,
     this.relays,
   });
+
+  @override
+  String toString() {
+    return "$kind $id $author ${relays != null ? relays!.join(",") : ""}";
+  }
 }

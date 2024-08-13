@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
+import 'package:nostrmo/client/aid.dart';
 import 'package:nostrmo/client/cashu/cashu_tokens.dart';
 import 'package:nostrmo/client/event_relation.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
@@ -834,6 +835,26 @@ class _ContentComponent extends State<ContentComponent> {
             bufferToList(buffer, currentList, images);
             currentList.add(WidgetSpan(
                 child: ContentMentionUserComponent(pubkey: naddr.author)));
+
+            return otherStr;
+          } else if (naddr.kind == EventKind.LONG_FORM &&
+              StringUtil.isNotBlank(naddr.id) &&
+              StringUtil.isNotBlank(naddr.author)) {
+            var aid = AId(
+                kind: EventKind.LONG_FORM,
+                pubkey: naddr.author,
+                title: naddr.id);
+            // block
+            bufferToList(buffer, currentList, images, removeLastSpan: true);
+            var w = EventQuoteComponent(
+              aId: aid,
+              eventRelayAddr: naddr.relays != null && naddr.relays!.isNotEmpty
+                  ? naddr.relays![0]
+                  : null,
+              showVideo: widget.showVideo,
+            );
+            currentList.add(WidgetSpan(child: w));
+            counterAddLines(fake_event_counter);
 
             return otherStr;
           }
