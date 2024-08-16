@@ -560,6 +560,16 @@ class S {
     );
   }
 
+  /// `Forbid profile picture`
+  String get Forbid_profile_picture {
+    return Intl.message(
+      'Forbid profile picture',
+      name: 'Forbid_profile_picture',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Please input`
   String get Please_input {
     return Intl.message(

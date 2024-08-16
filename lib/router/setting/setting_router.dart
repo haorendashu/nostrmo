@@ -244,6 +244,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickLimitNoteHeight,
     ));
     list.add(SettingGroupItemComponent(
+      name: s.Forbid_profile_picture,
+      value: getOpenList(settingProvider.profilePicturePreview).name,
+      onTap: pickProfilePicturePreview,
+    ));
+    list.add(SettingGroupItemComponent(
       name: s.Forbid_image,
       value: getOpenList(settingProvider.imagePreview).name,
       onTap: pickImagePreview,
@@ -885,6 +890,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.limitNoteHeight = resultEnumObj.value;
+    }
+  }
+
+  pickProfilePicturePreview() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.profilePicturePreview = resultEnumObj.value;
     }
   }
 

@@ -232,6 +232,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get imagePreview => _settingData!.imagePreview;
 
+  int? get profilePicturePreview => _settingData!.profilePicturePreview;
+
   /// i18n
   String? get i18n => _settingData!.i18n;
 
@@ -385,6 +387,11 @@ class SettingProvider extends ChangeNotifier {
 
   set imagePreview(int? o) {
     _settingData!.imagePreview = o;
+    saveAndNotifyListeners();
+  }
+
+  set profilePicturePreview(int? o) {
+    _settingData!.profilePicturePreview = o;
     saveAndNotifyListeners();
   }
 
@@ -571,6 +578,8 @@ class SettingData {
 
   int? imagePreview;
 
+  int? profilePicturePreview;
+
   /// i18n
   String? i18n;
 
@@ -651,6 +660,7 @@ class SettingData {
     this.imageServiceAddr,
     this.videoPreview,
     this.imagePreview,
+    this.profilePicturePreview,
     this.i18n,
     this.i18nCC,
     this.imgCompress = 50,
@@ -700,6 +710,7 @@ class SettingData {
     imageServiceAddr = json['imageServiceAddr'];
     videoPreview = json['videoPreview'];
     imagePreview = json['imagePreview'];
+    profilePicturePreview = json['profilePicturePreview'];
     i18n = json['i18n'];
     i18nCC = json['i18nCC'];
     if (json['imgCompress'] != null) {
@@ -759,6 +770,7 @@ class SettingData {
     data['imageServiceAddr'] = this.imageServiceAddr;
     data['videoPreview'] = this.videoPreview;
     data['imagePreview'] = this.imagePreview;
+    data['profilePicturePreview'] = this.profilePicturePreview;
     data['i18n'] = this.i18n;
     data['i18nCC'] = this.i18nCC;
     data['imgCompress'] = this.imgCompress;

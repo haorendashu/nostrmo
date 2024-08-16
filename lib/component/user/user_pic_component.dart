@@ -55,7 +55,8 @@ class _UserPicComponent extends State<UserPicComponent> {
       double imageBorder = widget.width / 14;
       Widget? imageWidget;
       if (metadata != null) {
-        if (StringUtil.isNotBlank(metadata.picture)) {
+        if (_settingProvider.profilePicturePreview != OpenStatus.CLOSE &&
+            StringUtil.isNotBlank(metadata.picture)) {
           imageWidget = ImageComponent(
             imageUrl: metadata.picture!,
             width: widget.width - imageBorder * 2,
@@ -90,7 +91,8 @@ class _UserPicComponent extends State<UserPicComponent> {
 
     Widget? imageWidget;
     if (metadata != null) {
-      if (StringUtil.isNotBlank(metadata.picture)) {
+      if (_settingProvider.profilePicturePreview != OpenStatus.CLOSE &&
+          StringUtil.isNotBlank(metadata.picture)) {
         imageWidget = ImageComponent(
           imageUrl: metadata.picture!,
           width: widget.width,
