@@ -12,7 +12,17 @@ class MarkdownMentionUserElementBuilder implements MarkdownElementBuilder {
   static const String TAG = "mentionUser";
 
   @override
-  Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {
+  Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {}
+
+  @override
+  void visitElementBefore(md.Element element) {}
+
+  @override
+  Widget? visitText(md.Text text, TextStyle? preferredStyle) {}
+
+  @override
+  Widget? visitElementAfterWithContext(BuildContext context, md.Element element,
+      TextStyle? preferredStyle, TextStyle? parentStyle) {
     var pureText = element.textContent;
     var nip19Text = pureText.replaceFirst("nostr:", "");
 
@@ -29,18 +39,6 @@ class MarkdownMentionUserElementBuilder implements MarkdownElementBuilder {
     if (key != null) {
       return ContentMentionUserComponent(pubkey: key);
     }
-  }
-
-  @override
-  void visitElementBefore(md.Element element) {}
-
-  @override
-  Widget? visitText(md.Text text, TextStyle? preferredStyle) {}
-
-  @override
-  Widget? visitElementAfterWithContext(BuildContext context, md.Element element,
-      TextStyle? preferredStyle, TextStyle? parentStyle) {
-    return null;
   }
 
   @override

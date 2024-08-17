@@ -13,7 +13,17 @@ class MarkdownNrelayElementBuilder implements MarkdownElementBuilder {
   static const String TAG = "relay";
 
   @override
-  Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {
+  Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {}
+
+  @override
+  void visitElementBefore(md.Element element) {}
+
+  @override
+  Widget? visitText(md.Text text, TextStyle? preferredStyle) {}
+
+  @override
+  Widget? visitElementAfterWithContext(BuildContext context, md.Element element,
+      TextStyle? preferredStyle, TextStyle? parentStyle) {
     var pureText = element.textContent;
     var nip19Text = pureText.replaceFirst("nostr:", "");
 
@@ -28,18 +38,6 @@ class MarkdownNrelayElementBuilder implements MarkdownElementBuilder {
     if (key != null) {
       return ContentRelayComponent(key);
     }
-  }
-
-  @override
-  void visitElementBefore(md.Element element) {}
-
-  @override
-  Widget? visitText(md.Text text, TextStyle? preferredStyle) {}
-
-  @override
-  Widget? visitElementAfterWithContext(BuildContext context, md.Element element,
-      TextStyle? preferredStyle, TextStyle? parentStyle) {
-    return null;
   }
 
   @override

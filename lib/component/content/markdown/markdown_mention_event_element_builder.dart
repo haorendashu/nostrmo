@@ -13,7 +13,17 @@ class MarkdownMentionEventElementBuilder implements MarkdownElementBuilder {
   static const String TAG = "mentionEvent";
 
   @override
-  Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {
+  Widget? visitElementAfter(md.Element element, TextStyle? preferredStyle) {}
+
+  @override
+  void visitElementBefore(md.Element element) {}
+
+  @override
+  Widget? visitText(md.Text text, TextStyle? preferredStyle) {}
+
+  @override
+  Widget? visitElementAfterWithContext(BuildContext context, md.Element element,
+      TextStyle? preferredStyle, TextStyle? parentStyle) {
     var pureText = element.textContent;
     var nip19Text = pureText.replaceFirst("nostr:", "");
 
@@ -46,18 +56,6 @@ class MarkdownMentionEventElementBuilder implements MarkdownElementBuilder {
         eventRelayAddr: relayAddr,
       );
     }
-  }
-
-  @override
-  void visitElementBefore(md.Element element) {}
-
-  @override
-  Widget? visitText(md.Text text, TextStyle? preferredStyle) {}
-
-  @override
-  Widget? visitElementAfterWithContext(BuildContext context, md.Element element,
-      TextStyle? preferredStyle, TextStyle? parentStyle) {
-    return null;
   }
 
   @override
