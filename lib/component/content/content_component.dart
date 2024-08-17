@@ -477,10 +477,15 @@ class _ContentComponent extends State<ContentComponent> {
             }
           } else if (j == 0 &&
               (str.startsWith("---") ||
-                  (str.startsWith("***") && strsLength == 1))) {
+                  (str.startsWith("***") && strsLength == 1)) &&
+              (str.replaceAll("-", "") == "" ||
+                  str.replaceAll("*", "") == "")) {
+            // is line start
+            // str is start with --- or ***
+            // str in only * or -
             bufferToList(buffer, currentList, images);
             currentList.add(const WidgetSpan(child: Divider()));
-            if (j == strsLength - 1 && i < lineLength) {
+            if (j == strsLength - 1 && i + 1 < lineLength) {
               // current line is over and has next line, check if next line is NL only
               var nextStrs = lineStrs[i + 1];
               if (nextStrs.length == 1 && nextStrs[0] == "") {
