@@ -134,6 +134,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Font_Size": MessageLookupByLibrary.simpleMessage("字体大小"),
         "Forbid": MessageLookupByLibrary.simpleMessage("禁止"),
         "Forbid_image": MessageLookupByLibrary.simpleMessage("禁止图片"),
+        "Forbid_profile_picture":
+            MessageLookupByLibrary.simpleMessage("禁止头像图片"),
         "Forbid_video": MessageLookupByLibrary.simpleMessage("禁止视频"),
         "From": MessageLookupByLibrary.simpleMessage("来自"),
         "Full_Mode": MessageLookupByLibrary.simpleMessage("全量模式"),

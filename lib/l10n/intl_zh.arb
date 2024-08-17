@@ -50,6 +50,7 @@
     "Image_service": "图片服务",
     "Forbid_image": "禁止图片",
     "Forbid_video": "禁止视频",
+    "Forbid_profile_picture": "禁止头像图片",
     "Please_input": "请输入",
     "Notice": "提示",
     "Write_a_message": "写一个消息",
