@@ -54,10 +54,10 @@ class _SearchMentionEventComponent extends State<SearchMentionEventComponent>
 
   List<Event> events = [];
 
-  void handleSearch(String? text) {
+  Future<void> handleSearch(String? text) async {
     events.clear();
     if (StringUtil.isNotBlank(text)) {
-      var list = EventFindUtil.findEvent(text!, limit: searchMemLimit);
+      var list = await EventFindUtil.findEvent(text!, limit: searchMemLimit);
       setState(() {
         events = list;
       });

@@ -405,14 +405,14 @@ class _SearchRouter extends CustState<SearchRouter>
 
   List<Event> events = [];
 
-  searchEventFromCache() {
+  searchEventFromCache() async {
     hideKeyBoard();
     events.clear();
     searchAction = SearchActions.searchEventFromCache;
 
     var text = controller.text;
     if (StringUtil.isNotBlank(text)) {
-      var list = EventFindUtil.findEvent(text, limit: searchMemLimit);
+      var list = await EventFindUtil.findEvent(text, limit: searchMemLimit);
       setState(() {
         events = list;
       });
