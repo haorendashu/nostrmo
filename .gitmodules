@@ -1,0 +1,3 @@
+[submodule "packages/nostr_sdk"]
+	path = packages/nostr_sdk
+	url = git@github.com:haorendashu/nostr_sdk.git
