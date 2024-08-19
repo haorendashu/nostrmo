@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/router/filter/filter_block_component.dart';
 import 'package:nostrmo/router/filter/filter_dirtyword_component.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
-import '../../util/platform_util.dart';
-import '../../util/router_util.dart';
 import '../index/index_app_bar.dart';
 
 class FilterRouter extends StatefulWidget {
@@ -35,7 +34,7 @@ class _FilterRouter extends State<FilterRouter>
       color: titleTextColor,
     );
     Color? indicatorColor = titleTextColor;
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       indicatorColor = themeData.primaryColor;
     }
 

@@ -1,4 +1,4 @@
-import 'package:nostrmo/client/event.dart';
+import 'package:nostr_sdk/event.dart';
 
 class ContentEventTagInfos {
   Map<String, String> emojiMap = {};

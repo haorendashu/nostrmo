@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip04/nip04.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/nip04/nip04.dart';
 import 'package:nostrmo/data/event_db.dart';
 
-import '../../client/event.dart';
 import '../../main.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 mixin DMPlaintextHandle<T extends StatefulWidget> on State<T> {
   String? currentPlainEventId;

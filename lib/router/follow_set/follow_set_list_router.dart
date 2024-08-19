@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/nip51/follow_set.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip51/follow_set.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/editor/text_input_dialog.dart';
 import '../../generated/l10n.dart';

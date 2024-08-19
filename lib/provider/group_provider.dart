@@ -2,18 +2,17 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/client/nip29/group_admins.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
-import 'package:nostrmo/client/nip29/group_members.dart';
-import 'package:nostrmo/client/nip29/group_metadata.dart';
-import 'package:nostrmo/client/nip29/group_object.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip29/group_admins.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip29/group_members.dart';
+import 'package:nostr_sdk/nip29/group_metadata.dart';
+import 'package:nostr_sdk/nip29/group_object.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/later_function.dart';
-import 'package:nostrmo/util/string_util.dart';
-
-import '../client/filter.dart';
 
 class GroupProvider extends ChangeNotifier with LaterFunction {
   Map<String, GroupMetadata> groupMetadatas = {};

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event_relation.dart';
+import 'package:nostr_sdk/event_relation.dart';
 import 'package:nostrmo/component/user/simple_metadata_component.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';

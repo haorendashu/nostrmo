@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/community_approved_provider.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../../client/event.dart';
-import '../../client/event_relation.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../util/router_util.dart';
@@ -83,7 +83,7 @@ class _EventListComponent extends State<EventListComponent> {
       ),
     );
 
-    if (widget.event.kind == kind.EventKind.ZAP) {
+    if (widget.event.kind == EventKind.ZAP) {
       main = EventBitcionIconComponent.wrapper(main);
     }
 
@@ -110,7 +110,7 @@ class _EventListComponent extends State<EventListComponent> {
   }
 
   void jumpToThread() {
-    if (widget.event.kind == kind.EventKind.REPOST) {
+    if (widget.event.kind == EventKind.REPOST) {
       // try to find target event
       if (widget.event.content.contains("\"pubkey\"")) {
         try {

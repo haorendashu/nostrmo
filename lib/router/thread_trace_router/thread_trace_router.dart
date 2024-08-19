@@ -2,26 +2,26 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/filter.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/thread_trace_router/event_trace_info.dart';
 import 'package:nostrmo/router/thread_trace_router/thread_trace_event_component.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../client/aid.dart';
-import '../../client/event.dart';
-import '../../client/event_kind.dart';
-import '../../client/event_relation.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/event_bitcion_icon_component.dart';
 import '../../component/event_reply_callback.dart';
 import '../../consts/base.dart';
 import '../../util/peddingevents_later_function.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
+import '../../util/table_mode_util.dart';
 import '../../util/when_stop_function.dart';
 import '../thread/thread_detail_event_main_component.dart';
 import '../thread/thread_detail_item_component.dart';
@@ -170,7 +170,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       children: mainList,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       main = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);

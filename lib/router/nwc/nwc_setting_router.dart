@@ -1,19 +1,20 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip47/nwc_info.dart';
+import 'package:nostr_sdk/nip47/nwc_info.dart';
 import 'package:nostrmo/component/appbar_back_btn_component.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/colors_util.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+
+import '../../util/table_mode_util.dart';
 
 class NwcSettingRouter extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _NwcSettingRouter extends CustState<NwcSettingRouter> {
           Expanded(
             child: Container(),
           ),
-          PlatformUtil.isTableMode()
+          TableModeUtil.isTableMode()
               ? Container()
               : GestureDetector(
                   onTap: scanQrCode,
@@ -191,7 +192,7 @@ class _NwcSettingRouter extends CustState<NwcSettingRouter> {
     FocusScope.of(context).unfocus();
 
     var link = "https://nwc.getalby.com/apps/new?c=Nostrmo";
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       launchUrl(Uri.parse(link));
       return;
     } else {

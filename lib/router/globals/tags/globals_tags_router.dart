@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/router_util.dart';
 
@@ -11,7 +12,6 @@ import '../../../component/placeholder/tap_list_placeholder.dart';
 import '../../../component/tag_component.dart';
 import '../../../consts/base.dart';
 import '../../../util/dio_util.dart';
-import '../../../util/string_util.dart';
 
 class GlobalsTagsRouter extends StatefulWidget {
   @override

@@ -2,18 +2,17 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/client/nip04/nip04.dart';
-import 'package:nostrmo/client/nip47/nwc_info.dart';
-import 'package:nostrmo/client/relay/relay.dart';
-import 'package:nostrmo/client/relay/relay_base.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/nip04/nip04.dart';
+import 'package:nostr_sdk/nip47/nwc_info.dart';
+import 'package:nostr_sdk/relay/relay.dart';
+import 'package:nostr_sdk/relay/relay_base.dart';
+import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/client_connected.dart';
-import 'package:nostrmo/data/relay_status.dart';
 import 'package:nostrmo/main.dart';
 import 'package:pointycastle/impl.dart';
-
-import '../util/string_util.dart';
 
 class NWCProvider extends ChangeNotifier {
   Relay? _relay;

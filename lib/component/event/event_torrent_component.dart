@@ -1,10 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nostrmo/client/nip35/torrent_info.dart';
+import 'package:nostr_sdk/nip35/torrent_info.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/tag_info_component.dart';
 import 'package:nostrmo/util/store_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../consts/base.dart';

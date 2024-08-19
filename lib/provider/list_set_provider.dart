@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/filter.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/filter.dart';
 import 'package:nostrmo/main.dart';
 
-import '../client/event.dart';
 import '../util/later_function.dart';
 
 class ListSetProvider extends ChangeNotifier with LaterFunction {

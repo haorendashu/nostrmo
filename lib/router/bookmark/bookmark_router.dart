@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/nip51/bookmarks.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/nip51/bookmarks.dart';
 import 'package:nostrmo/provider/list_provider.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';
@@ -11,7 +12,6 @@ import '../../component/event/event_quote_component.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../provider/setting_provider.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../index/index_app_bar.dart';
 
@@ -33,7 +33,7 @@ class _BookmarkRouter extends CustState<BookmarkRouter> {
       color: titleTextColor,
     );
     Color? indicatorColor = titleTextColor;
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       indicatorColor = themeData.primaryColor;
     }
     var s = S.of(context);

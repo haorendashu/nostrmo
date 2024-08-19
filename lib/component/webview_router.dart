@@ -8,6 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/nip07/nip07_methods.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/nip07_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
@@ -15,16 +19,11 @@ import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/provider/webview_provider.dart';
 import 'package:nostrmo/util/lightning_util.dart';
-import 'package:nostrmo/util/platform_util.dart';
-import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../client/event.dart';
-import '../client/nip04/nip04.dart';
-import '../client/nip07/nip07_methods.dart';
 import '../generated/l10n.dart';
 import '../main.dart';
 
@@ -34,7 +33,7 @@ class WebViewRouter extends StatefulWidget {
   WebViewRouter({super.key, required this.url});
 
   static void open(BuildContext context, String link) {
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       launchUrl(Uri.parse(link));
       return;
     }

@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/nip69/poll_info.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostr_sdk/zap/zap_info_util.dart';
 import 'package:nostrmo/component/content/content_component.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/nip69/poll_info.dart';
-import '../../client/zap/zap_action.dart';
-import '../../client/zap/zap_info_util.dart';
 import '../../consts/base.dart';
 import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';
@@ -18,7 +18,7 @@ import '../../main.dart';
 import '../../provider/event_reactions_provider.dart';
 import '../../util/number_format_util.dart';
 import '../../util/spider_util.dart';
-import '../../util/string_util.dart';
+import '../../util/zap_action.dart';
 import '../content/content_decoder.dart';
 import '../editor/text_input_dialog.dart';
 

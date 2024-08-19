@@ -1,9 +1,9 @@
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 
 import '../consts/base.dart';
 import '../generated/l10n.dart';
-import '../util/platform_util.dart';
 
 class EmojiPickerComponent extends StatefulWidget {
   Function(String) onEmojiPick;

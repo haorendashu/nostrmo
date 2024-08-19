@@ -1,10 +1,9 @@
-import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/client/filter.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/find_event_interface.dart';
 import 'package:nostrmo/main.dart';
-
-import '../client/event.dart';
-import '../util/find_event_interface.dart';
-import 'event_mem_box.dart';
 
 class EventFindUtil {
   static Future<List<Event>> findEvent(String str, {int limit = 5}) async {

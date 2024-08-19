@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
+import 'package:nostr_sdk/event.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../component/event/event_main_component.dart';

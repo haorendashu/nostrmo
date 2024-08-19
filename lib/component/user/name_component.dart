@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/data/metadata.dart';
 
-import '../../client/nip19/nip19.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class NameComponent extends StatefulWidget {
   String pubkey;

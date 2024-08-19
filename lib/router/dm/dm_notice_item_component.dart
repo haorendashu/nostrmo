@@ -7,7 +7,7 @@ import '../../component/point_component.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class DMNoticeItemComponent extends StatelessWidget {
   static const double IMAGE_WIDTH = 34;

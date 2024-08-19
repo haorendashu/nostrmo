@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/util/string_util.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event/event_load_list_component.dart';
@@ -14,7 +15,6 @@ import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';
 import '../../provider/event_reactions_provider.dart';
 import '../../provider/single_event_provider.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
 import '../thread/thread_detail_router.dart';
 
@@ -145,14 +145,14 @@ class _EventDetailRouter extends State<EventDetailRouter> {
             }
 
             var event = allEvent[index - 1];
-            if (event.kind == kind.EventKind.ZAP) {
+            if (event.kind == EventKind.ZAP) {
               return ZapEventListComponent(event: event);
-            } else if (event.kind == kind.EventKind.TEXT_NOTE) {
+            } else if (event.kind == EventKind.TEXT_NOTE) {
               return ReactionEventListComponent(event: event, text: s.replied);
-            } else if (event.kind == kind.EventKind.REPOST ||
-                event.kind == kind.EventKind.GENERIC_REPOST) {
+            } else if (event.kind == EventKind.REPOST ||
+                event.kind == EventKind.GENERIC_REPOST) {
               return ReactionEventListComponent(event: event, text: s.boosted);
-            } else if (event.kind == kind.EventKind.REACTION) {
+            } else if (event.kind == EventKind.REACTION) {
               return ReactionEventListComponent(
                   event: event,
                   text: s.liked + " " + EventReactions.getLikeText(event));
@@ -163,7 +163,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
           itemCount: allEvent.length + 1,
         );
 
-        if (PlatformUtil.isTableMode()) {
+        if (TableModeUtil.isTableMode()) {
           main = GestureDetector(
             onVerticalDragUpdate: (detail) {
               _controller.jumpTo(_controller.offset - detail.delta.dy);

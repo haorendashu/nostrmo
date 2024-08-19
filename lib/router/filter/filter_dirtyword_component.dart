@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class FilterDirtywordComponent extends StatefulWidget {
   @override

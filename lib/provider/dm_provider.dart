@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip04/dm_session.dart';
+import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../client/event.dart';
-import '../client/filter.dart';
-import '../client/nip04/dm_session.dart';
-import '../client/nostr.dart';
 import '../data/dm_session_info.dart';
 import '../data/dm_session_info_db.dart';
 import '../data/event_db.dart';
 import '../main.dart';
 import '../util/peddingevents_later_function.dart';
-import '../util/string_util.dart';
 
 class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
   static DMProvider? _dmProvider;
@@ -97,7 +97,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     var keyIndex = settingProvider.privateKeyIndex!;
     var events = await EventDB.list(
         keyIndex,
-        [kind.EventKind.DIRECT_MESSAGE, kind.EventKind.PRIVATE_DIRECT_MESSAGE],
+        [EventKind.DIRECT_MESSAGE, EventKind.PRIVATE_DIRECT_MESSAGE],
         0,
         10000000);
     if (events.isNotEmpty) {
@@ -207,11 +207,11 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       {Nostr? targetNostr, bool initQuery = false, bool queryAll = false}) {
     targetNostr ??= nostr;
     var filter0 = Filter(
-      kinds: [kind.EventKind.DIRECT_MESSAGE],
+      kinds: [EventKind.DIRECT_MESSAGE],
       authors: [targetNostr!.publicKey],
     );
     var filter1 = Filter(
-      kinds: [kind.EventKind.DIRECT_MESSAGE],
+      kinds: [EventKind.DIRECT_MESSAGE],
       p: [targetNostr.publicKey],
     );
 

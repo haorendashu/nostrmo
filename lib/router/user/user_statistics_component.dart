@@ -3,7 +3,12 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/zap/zap_info_util.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
@@ -11,20 +16,14 @@ import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../client/nip02/cust_contact_list.dart';
-import '../../client/filter.dart';
-import '../../client/zap/zap_info_util.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
-import '../../data/event_mem_box.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/number_format_util.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class UserStatisticsComponent extends StatefulWidget {
   String pubkey;
@@ -227,8 +226,8 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     if (fetchLocalContactsId == null) {
       fetchLocalContactsId = StringUtil.rndNameStr(16);
       localContactBox = EventMemBox(sortAfterAdd: false);
-      var filter = Filter(
-          authors: [widget.pubkey], kinds: [kind.EventKind.CONTACT_LIST]);
+      var filter =
+          Filter(authors: [widget.pubkey], kinds: [EventKind.CONTACT_LIST]);
       nostr!.query([filter.toJson()], (event) {
         localContactBox!.add(event);
       }, id: fetchLocalContactsId);
@@ -279,9 +278,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     {
       queryId = StringUtil.rndNameStr(16);
       var filter = Filter(
-          authors: [widget.pubkey],
-          limit: 1,
-          kinds: [kind.EventKind.CONTACT_LIST]);
+          authors: [widget.pubkey], limit: 1, kinds: [EventKind.CONTACT_LIST]);
       nostr!.query([filter.toJson()], (event) {
         if (((contactListEvent != null &&
                     event.createdAt > contactListEvent!.createdAt) ||
@@ -300,7 +297,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       var filter = Filter(
           authors: [widget.pubkey],
           limit: 1,
-          kinds: [kind.EventKind.RELAY_LIST_METADATA]);
+          kinds: [EventKind.RELAY_LIST_METADATA]);
       nostr!.query([filter.toJson()], (event) {
         if (((relaysEvent != null &&
                     event.createdAt > relaysEvent!.createdAt) ||
@@ -345,7 +342,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       followedMap = {};
       // pull zap event
       Map<String, dynamic> filter = {};
-      filter["kinds"] = [kind.EventKind.CONTACT_LIST];
+      filter["kinds"] = [EventKind.CONTACT_LIST];
       filter["#p"] = [widget.pubkey];
       followedSubscribeId = StringUtil.rndNameStr(12);
       nostr!.query([filter], (e) {
@@ -381,7 +378,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     if (zapEventBox == null) {
       zapEventBox = EventMemBox(sortAfterAdd: false);
       // pull zap event
-      var filter = Filter(kinds: [kind.EventKind.ZAP], p: [widget.pubkey]);
+      var filter = Filter(kinds: [EventKind.ZAP], p: [widget.pubkey]);
       zapSubscribeId = StringUtil.rndNameStr(12);
       // print(filter);
       nostr!.query([filter.toJson()], onZapEvent, id: zapSubscribeId);
@@ -397,7 +394,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
   onZapEvent(Event event) {
     // print(event.toJson());
-    if (event.kind == kind.EventKind.ZAP && zapEventBox!.add(event)) {
+    if (event.kind == EventKind.ZAP && zapEventBox!.add(event)) {
       setState(() {
         zapNum = zapNum! + ZapInfoUtil.getNumFromZapEvent(event);
       });

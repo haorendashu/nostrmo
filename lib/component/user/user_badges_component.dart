@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip58/badge_definition.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../../client/filter.dart';
-import '../../client/nip58/badge_definition.dart';
 import '../../consts/base.dart';
-import '../../data/event_mem_box.dart';
 import '../../main.dart';
 import '../../provider/badge_definition_provider.dart';
 import '../../util/later_function.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../badge_component.dart';
 import '../badge_detail_dialog.dart';
 import '../cust_state.dart';
@@ -100,7 +100,7 @@ class _UserBadgesComponent extends CustState<UserBadgesComponent>
   @override
   Future<void> onReady(BuildContext context) async {
     var filter =
-        Filter(authors: [widget.pubkey], kinds: [kind.EventKind.BADGE_ACCEPT]);
+        Filter(authors: [widget.pubkey], kinds: [EventKind.BADGE_ACCEPT]);
     nostr!.query([filter.toJson()], (event) {
       var result = eventMemBox.add(event);
       if (result) {

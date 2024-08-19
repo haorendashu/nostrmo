@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/relay/relay.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/relay/relay.dart';
+import 'package:nostr_sdk/relay_local/relay_local.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../client/event.dart';
-import '../client/relay_local/relay_local.dart';
 import '../consts/base.dart';
 import '../generated/l10n.dart';
 import '../main.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/nip02/contact.dart';
 import 'package:nostrmo/generated/l10n.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip02/contact.dart';
 import '../../main.dart';
 import '../../provider/contact_list_provider.dart';
 import '../follow_set_follow_bottom_sheet.dart';

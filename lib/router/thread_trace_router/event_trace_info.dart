@@ -1,6 +1,5 @@
-import 'package:nostrmo/client/event.dart';
-
-import '../../client/event_relation.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_relation.dart';
 
 class EventTraceInfo {
   Event event;

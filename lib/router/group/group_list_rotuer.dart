@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/list_provider.dart';

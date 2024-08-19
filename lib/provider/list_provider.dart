@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/filter.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip51/bookmarks.dart';
+import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/string_util.dart';
 
-import '../client/event_kind.dart';
-import '../client/nip29/group_identifier.dart';
-import '../client/nip51/bookmarks.dart';
-import '../client/nostr.dart';
 import '../data/custom_emoji.dart';
 import '../generated/l10n.dart';
 
@@ -61,15 +61,6 @@ class ListProvider extends ChangeNotifier {
       }
     }
   }
-
-  // List<String> testAIds = [
-  //   "30030:2d5b6404df532de082d9e77f7f4257a6f43fb79bb9de8dd3ac7df5e6d4b500b0:awayuki",
-  //   "30030:5b75fd5f49e78191a45e1c9438644fe5d065ea98920c63e9eef86e151e99b809:Party",
-  //   "30030:50e8ee3108cdfde4adefe93093cd38bd8692f59f250d3ee4294ef46dc102f370:Suntoshi Emoji",
-  //   "30030:03742c205cb6c8d86031c93bc4a9b3d18484c32c86563fc0e218910a2df9aa5d:Notoshi",
-  //   "30030:7fa56f5d6962ab1e3cd424e758c3002b8665f7b0d8dcee9fe9e288d7751ac194:twitch",
-  //   "30030:6e75f7972397ca3295e0f4ca0fbc6eb9cc79be85bafdd56bd378220ca8eee74e:TheGrinder #ZapStream",
-  // ];
 
   void _handleExtraAndNotify(Event event) async {
     if (event.kind == EventKind.EMOJIS_LIST) {

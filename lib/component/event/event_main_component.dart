@@ -4,7 +4,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:nostrmo/client/nip35/torrent_info.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/nip23/long_form_info.dart';
+import 'package:nostr_sdk/nip35/torrent_info.dart';
+import 'package:nostr_sdk/utils/path_type_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
 import 'package:nostrmo/component/event/event_torrent_component.dart';
@@ -13,16 +21,9 @@ import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base64.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../client/event_relation.dart';
-import '../../client/nip23/long_form_info.dart';
-import '../../client/nip19/nip19.dart';
-import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
@@ -33,7 +34,6 @@ import '../../provider/metadata_provider.dart';
 import '../../provider/replaceable_event_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
 import '../confirm_dialog.dart';
 import '../content/content_component.dart';
 import '../content/content_decoder.dart';
@@ -160,8 +160,8 @@ class _EventMainComponent extends State<EventMainComponent> {
     var mainColor = themeData.primaryColor;
 
     Event? repostEvent;
-    if ((widget.event.kind == kind.EventKind.REPOST ||
-            widget.event.kind == kind.EventKind.GENERIC_REPOST) &&
+    if ((widget.event.kind == EventKind.REPOST ||
+            widget.event.kind == EventKind.GENERIC_REPOST) &&
         widget.event.content.contains("\"pubkey\"")) {
       try {
         var jsonMap = jsonDecode(widget.event.content);
@@ -186,7 +186,7 @@ class _EventMainComponent extends State<EventMainComponent> {
 
     List<Widget> list = [];
     if (showWarning || !eventRelation.warning) {
-      if (widget.event.kind == kind.EventKind.LONG_FORM) {
+      if (widget.event.kind == EventKind.LONG_FORM) {
         var longFormMargin = EdgeInsets.only(bottom: Base.BASE_PADDING_HALF);
 
         List<Widget> subList = [];
@@ -275,8 +275,8 @@ class _EventMainComponent extends State<EventMainComponent> {
           eventRelation: eventRelation,
           showDetailBtn: widget.showDetailBtn,
         ));
-      } else if (widget.event.kind == kind.EventKind.REPOST ||
-          widget.event.kind == kind.EventKind.GENERIC_REPOST) {
+      } else if (widget.event.kind == EventKind.REPOST ||
+          widget.event.kind == EventKind.GENERIC_REPOST) {
         list.add(Container(
           alignment: Alignment.centerLeft,
           child: Text("${s.Boost}:"),
@@ -326,7 +326,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         //   eventRelation: eventRelation,
         //   showDetailBtn: widget.showDetailBtn,
         // ));
-      } else if (widget.event.kind == kind.EventKind.STORAGE_SHARED_FILE) {
+      } else if (widget.event.kind == EventKind.STORAGE_SHARED_FILE) {
         list.add(buildStorageSharedFileWidget());
         if (!widget.inQuote) {
           if (eventRelation.zapInfos.isNotEmpty) {
@@ -398,11 +398,11 @@ class _EventMainComponent extends State<EventMainComponent> {
           buildContentWidget(_settingProvider, imagePreview, videoPreview),
         );
 
-        if (widget.event.kind == kind.EventKind.POLL) {
+        if (widget.event.kind == EventKind.POLL) {
           list.add(EventPollComponent(
             event: widget.event,
           ));
-        } else if (widget.event.kind == kind.EventKind.ZAP_GOALS ||
+        } else if (widget.event.kind == EventKind.ZAP_GOALS ||
             StringUtil.isNotBlank(eventRelation.zapraiser)) {
           list.add(EventZapGoalsComponent(
             event: widget.event,
@@ -410,9 +410,9 @@ class _EventMainComponent extends State<EventMainComponent> {
           ));
         }
 
-        if (widget.event.kind == kind.EventKind.FILE_HEADER ||
-            widget.event.kind == kind.EventKind.VIDEO_HORIZONTAL ||
-            widget.event.kind == kind.EventKind.VIDEO_VERTICAL) {
+        if (widget.event.kind == EventKind.FILE_HEADER ||
+            widget.event.kind == EventKind.VIDEO_HORIZONTAL ||
+            widget.event.kind == EventKind.VIDEO_VERTICAL) {
           String? m;
           String? url;
           List? imeta;
@@ -456,8 +456,8 @@ class _EventMainComponent extends State<EventMainComponent> {
           }
 
           if (StringUtil.isNotBlank(url)) {
-            if (widget.event.kind == kind.EventKind.VIDEO_HORIZONTAL ||
-                widget.event.kind == kind.EventKind.VIDEO_VERTICAL) {
+            if (widget.event.kind == EventKind.VIDEO_HORIZONTAL ||
+                widget.event.kind == EventKind.VIDEO_VERTICAL) {
               if (settingProvider.videoPreview == OpenStatus.OPEN &&
                   widget.showVideo) {
                 list.add(ContentVideoComponent(url: url!));
@@ -475,7 +475,7 @@ class _EventMainComponent extends State<EventMainComponent> {
                   list.add(ContentLinkComponent(link: url!));
                 }
               } else {
-                var fileType = ContentDecoder.getPathType(url!);
+                var fileType = PathTypeUtil.getPathType(url!);
                 if (fileType == "image") {
                   list.add(ContentImageComponent(imageUrl: url));
                 } else if (fileType == "video") {
@@ -511,14 +511,14 @@ class _EventMainComponent extends State<EventMainComponent> {
         }
 
         if (eventRelation.aId != null &&
-            eventRelation.aId!.kind == kind.EventKind.LONG_FORM &&
+            eventRelation.aId!.kind == EventKind.LONG_FORM &&
             widget.showLinkedLongForm) {
           list.add(EventQuoteComponent(
             aId: eventRelation.aId!,
           ));
         }
 
-        if (widget.event.kind == kind.EventKind.TORRENTS) {
+        if (widget.event.kind == EventKind.TORRENTS) {
           var torrentInfo = TorrentInfo.fromEvent(widget.event);
           if (torrentInfo != null) {
             list.add(EventTorrentComponent(torrentInfo));
@@ -529,9 +529,8 @@ class _EventMainComponent extends State<EventMainComponent> {
           list.add(buildZapInfoWidgets(themeData));
         }
 
-        if (widget.event.kind != kind.EventKind.ZAP &&
-            !(widget.event.kind == kind.EventKind.FILE_HEADER &&
-                widget.inQuote)) {
+        if (widget.event.kind != EventKind.ZAP &&
+            !(widget.event.kind == EventKind.FILE_HEADER && widget.inQuote)) {
           list.add(EventReactionsComponent(
             screenshotController: widget.screenshotController,
             event: widget.event,
@@ -551,7 +550,7 @@ class _EventMainComponent extends State<EventMainComponent> {
     List<Widget> eventAllList = [];
 
     if (eventRelation.aId != null &&
-        eventRelation.aId!.kind == kind.EventKind.COMMUNITY_DEFINITION &&
+        eventRelation.aId!.kind == EventKind.COMMUNITY_DEFINITION &&
         widget.showCommunity) {
       var communityTitle = Row(
         children: [
@@ -600,8 +599,8 @@ class _EventMainComponent extends State<EventMainComponent> {
     }
 
     if (!(widget.inQuote &&
-        (widget.event.kind == kind.EventKind.FILE_HEADER ||
-            widget.event.kind == kind.EventKind.STORAGE_SHARED_FILE))) {
+        (widget.event.kind == EventKind.FILE_HEADER ||
+            widget.event.kind == EventKind.STORAGE_SHARED_FILE))) {
       eventAllList.add(EventTopComponent(
         event: widget.event,
         pagePubkey: widget.pagePubkey,
@@ -638,7 +637,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       SettingProvider _settingProvider, bool imagePreview, bool videoPreview) {
     var content = widget.event.content;
     if (StringUtil.isBlank(content) &&
-        widget.event.kind == kind.EventKind.ZAP &&
+        widget.event.kind == EventKind.ZAP &&
         StringUtil.isNotBlank(eventRelation.innerZapContent)) {
       content = eventRelation.innerZapContent!;
     }

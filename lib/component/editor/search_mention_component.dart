@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../util/string_util.dart';
 import '../../util/when_stop_function.dart';
 
 typedef ResultBuildFunc = Widget Function();

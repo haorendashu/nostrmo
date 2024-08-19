@@ -2,16 +2,16 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/zap/zap_info_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/zap/zap_info_util.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/number_format_util.dart';
 import '../../util/spider_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'reaction_event_item_component.dart';
 
 class ZapEventMainComponent extends StatefulWidget {

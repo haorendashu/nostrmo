@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../image_component.dart';
 
 class UserPicComponent extends StatefulWidget {

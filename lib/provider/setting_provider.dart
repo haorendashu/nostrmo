@@ -2,15 +2,15 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/util/encrypt_util.dart';
-import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../consts/base.dart';
 import '../consts/base_consts.dart';
-import '../consts/relay_mode.dart';
 import '../consts/theme_style.dart';
-import '../util/string_util.dart';
 import 'data_util.dart';
 
 class SettingProvider extends ChangeNotifier {
@@ -296,7 +296,7 @@ class SettingProvider extends ChangeNotifier {
 
   double get fontSize =>
       _settingData!.fontSize ??
-      (PlatformUtil.isTableMode()
+      (TableModeUtil.isTableMode()
           ? Base.BASE_FONT_SIZE_PC
           : Base.BASE_FONT_SIZE);
 

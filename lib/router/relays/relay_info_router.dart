@@ -6,9 +6,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/relay_local/relay_local.dart';
-import 'package:nostrmo/client/relay_local/relay_local_db.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/relay/relay.dart';
+import 'package:nostr_sdk/relay_local/relay_local.dart';
+import 'package:nostr_sdk/relay_local/relay_local_db.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/user/name_component.dart';
@@ -22,14 +23,12 @@ import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/util/store_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip19/nip19.dart';
-import '../../client/relay/relay.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/image_component.dart';
 import '../../component/webview_router.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class RelayInfoRouter extends StatefulWidget {
   @override

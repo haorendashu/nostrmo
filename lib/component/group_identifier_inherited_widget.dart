@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip29/group_admins.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip29/group_admins.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
 
 class GroupIdentifierInheritedWidget extends InheritedWidget {
   GroupIdentifier groupIdentifier;

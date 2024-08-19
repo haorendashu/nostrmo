@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nostr.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../client/filter.dart';
-import '../client/nostr.dart';
 import '../main.dart';
 
 class BadgeProvider extends ChangeNotifier {
@@ -33,7 +33,7 @@ class BadgeProvider extends ChangeNotifier {
     tags.add(eList);
 
     var newEvent =
-        Event(nostr!.publicKey, kind.EventKind.BADGE_ACCEPT, tags, content);
+        Event(nostr!.publicKey, EventKind.BADGE_ACCEPT, tags, content);
 
     var result = await nostr!.sendEvent(newEvent);
     if (result != null) {
@@ -55,8 +55,7 @@ class BadgeProvider extends ChangeNotifier {
       return;
     }
 
-    var filter =
-        Filter(authors: [pubkey], kinds: [kind.EventKind.BADGE_ACCEPT]);
+    var filter = Filter(authors: [pubkey], kinds: [EventKind.BADGE_ACCEPT]);
     if (initQuery) {
       targetNostr!.addInitQuery([filter.toJson()], onEvent);
     } else {

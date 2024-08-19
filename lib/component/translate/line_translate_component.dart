@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../consts/base_consts.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../cust_state.dart';
 
 class LineTranslateComponent extends StatefulWidget {

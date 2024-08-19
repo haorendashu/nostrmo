@@ -9,8 +9,16 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:image_picker/image_picker.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
-import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip59/gift_wrap_util.dart';
+import 'package:nostr_sdk/utils/path_type_util.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
@@ -22,21 +30,12 @@ import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 import 'package:image/image.dart' as img;
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../client/event_kind.dart';
-import '../../client/event_relation.dart';
-import '../../client/nip04/nip04.dart';
-import '../../client/nip19/nip19.dart';
-import '../../client/nip19/nip19_tlv.dart';
-import '../../client/upload/uploader.dart';
 import '../../consts/base.dart';
 import '../../data/custom_emoji.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/uploader.dart';
 import '../../router/index/index_app_bar.dart';
-import '../../util/platform_util.dart';
-import '../../util/string_util.dart';
 import '../content/content_decoder.dart';
 import '../emoji_picker_component.dart';
 import '../image_component.dart';
@@ -339,7 +338,7 @@ mixin EditorMixin {
       final index = editorController.selection.baseOffset;
       final length = editorController.selection.extentOffset - index;
 
-      var fileType = ContentDecoder.getPathType(value);
+      var fileType = PathTypeUtil.getPathType(value);
       if (fileType == "image") {
         editorController.replaceText(
             index, length, quill.BlockEmbed.image(value), null);
@@ -688,19 +687,19 @@ mixin EditorMixin {
     if (isDM() && StringUtil.isNotBlank(pubkey)) {
       if (openPrivateDM) {
         // Private dm message
-        var rumorEvent = Event(nostr!.publicKey,
-            kind.EventKind.PRIVATE_DIRECT_MESSAGE, allTags, result,
+        var rumorEvent = Event(
+            nostr!.publicKey, EventKind.PRIVATE_DIRECT_MESSAGE, allTags, result,
             publishAt: publishAt);
         // this is the event send to sender, should return after send and set into giftWrapProvider and dmProvider
         event = await GiftWrapUtil.getGiftWrapEvent(
-            rumorEvent, nostr!, nostr!.publicKey);
+            nostr!, rumorEvent, nostr!, nostr!.publicKey);
 
         // private dm need to send message to all receiver. (sender and other receivers)
         for (var tags in allTags) {
           if (tags is List && tags.length > 1) {
             if (tags[0] == "p") {
               var extralEvent = await GiftWrapUtil.getGiftWrapEvent(
-                  rumorEvent, nostr!, tags[1]);
+                  nostr!, rumorEvent, nostr!, tags[1]);
               if (extralEvent != null) {
                 extralEvents.add(extralEvent);
               }
@@ -715,7 +714,7 @@ mixin EditorMixin {
         }
         result = encryptedResult;
         event = Event(
-            nostr!.publicKey, kind.EventKind.DIRECT_MESSAGE, allTags, result,
+            nostr!.publicKey, EventKind.DIRECT_MESSAGE, allTags, result,
             publishAt: publishAt);
       }
     } else if (groupIdentifier != null) {
@@ -736,17 +735,17 @@ mixin EditorMixin {
       // get poll tag from PollInputComponentn
       var pollTags = pollInputController.getTags();
       allTags.addAll(pollTags);
-      event = Event(nostr!.publicKey, kind.EventKind.POLL, allTags, result,
+      event = Event(nostr!.publicKey, EventKind.POLL, allTags, result,
           publishAt: publishAt);
     } else if (inputZapGoal) {
       // zap goal event
       var extralTags = zapGoalInputController.getTags();
       allTags.addAll(extralTags);
-      event = Event(nostr!.publicKey, kind.EventKind.ZAP_GOALS, allTags, result,
+      event = Event(nostr!.publicKey, EventKind.ZAP_GOALS, allTags, result,
           publishAt: publishAt);
     } else {
       // text note
-      event = Event(nostr!.publicKey, kind.EventKind.TEXT_NOTE, allTags, result,
+      event = Event(nostr!.publicKey, EventKind.TEXT_NOTE, allTags, result,
           publishAt: publishAt);
     }
 

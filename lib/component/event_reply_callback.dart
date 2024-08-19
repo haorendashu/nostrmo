@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../client/event.dart';
+import 'package:nostr_sdk/event.dart';
 
 class EventReplyCallback extends InheritedWidget {
   Function(Event) onReplyCallback;

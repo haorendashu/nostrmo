@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/pc_router_fake.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 
 import '../provider/pc_router_fake_provider.dart';
 
 class RouterUtil {
   static Future<T?> router<T>(BuildContext context, String pageName,
       [Object? arguments]) async {
-    if (!PlatformUtil.isTableMode()) {
+    if (!TableModeUtil.isTableMode()) {
       return Navigator.of(context).pushNamed<T>(pageName, arguments: arguments);
     } else {
       bool clear = false;
@@ -29,7 +30,7 @@ class RouterUtil {
 
   static Future<T?> push<T extends Object?>(
       BuildContext context, MaterialPageRoute<T> route) {
-    if (!PlatformUtil.isTableMode()) {
+    if (!TableModeUtil.isTableMode()) {
       return Navigator.of(context).push(route);
     } else {
       bool clear = false;
@@ -48,7 +49,7 @@ class RouterUtil {
   static Object? routerArgs(BuildContext context) {
     RouteSettings? setting = ModalRoute.of(context)?.settings;
     if (setting != null) {
-      if (!PlatformUtil.isTableMode()) {
+      if (!TableModeUtil.isTableMode()) {
         return setting.arguments;
       } else {
         var fake = PcRouterFake.of(context);

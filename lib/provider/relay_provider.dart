@@ -2,28 +2,28 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip07/nip07_signer.dart';
-import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/client/nip46/nostr_remote_signer.dart';
-import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
-import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
-import 'package:nostrmo/client/relay_local/relay_local.dart';
-import 'package:nostrmo/client/signer/pubkey_only_nostr_signer.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/nip07/nip07_signer.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip46/nostr_remote_signer.dart';
+import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
+import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
+import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/relay/relay.dart';
+import 'package:nostr_sdk/relay/relay_base.dart';
+import 'package:nostr_sdk/relay/relay_isolate.dart';
+import 'package:nostr_sdk/relay/relay_mode.dart';
+import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/relay_local/relay_local.dart';
+import 'package:nostr_sdk/signer/local_nostr_signer.dart';
+import 'package:nostr_sdk/signer/nostr_signer.dart';
+import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/base_consts.dart';
-import 'package:nostrmo/consts/relay_mode.dart';
-import 'package:nostrmo/util/platform_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 
-import '../client/event.dart';
-import '../client/event_kind.dart';
-import '../client/nostr.dart';
-import '../client/relay/relay.dart';
-import '../client/relay/relay_base.dart';
-import '../client/relay/relay_isolate.dart';
-import '../client/signer/local_nostr_signer.dart';
-import '../client/signer/nostr_signer.dart';
 import '../consts/client_connected.dart';
-import '../data/relay_status.dart';
 import '../main.dart';
 import 'data_util.dart';
 
@@ -135,7 +135,11 @@ class RelayProvider extends ChangeNotifier {
       if (info == null) {
         return null;
       }
-      nostrSigner = NostrRemoteSigner(info);
+      nostrSigner = NostrRemoteSigner(
+          settingProvider.relayMode != null
+              ? settingProvider.relayMode!
+              : RelayMode.FAST_MODE,
+          info);
       await (nostrSigner as NostrRemoteSigner).connect();
     } else {
       nostrSigner = LocalNostrSigner(key);
@@ -149,7 +153,8 @@ class RelayProvider extends ChangeNotifier {
       return null;
     }
 
-    var _nostr = Nostr(signer, pubkey);
+    var _nostr = Nostr(signer, pubkey, [filterProvider], genTempRelay,
+        onNotice: noticeProvider.onNotice);
     log("nostr init over");
 
     // add initQuery
@@ -311,6 +316,8 @@ class RelayProvider extends ChangeNotifier {
         return RelayIsolate(
           relayAddr,
           relayStatus,
+          eventSignCheck: settingProvider.eventSignCheck == OpenStatus.OPEN,
+          relayNetwork: settingProvider.network,
         )..relayStatusCallback = onRelayStatusChange;
       }
     }

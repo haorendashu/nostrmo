@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/event_kind.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostrmo/provider/replaceable_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../../client/event.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';

@@ -1,8 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';

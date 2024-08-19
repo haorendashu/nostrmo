@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/component/placeholder/event_placeholder.dart';
 import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/follow_event_provider.dart';
-import 'package:nostrmo/util/platform_util.dart';
-import 'package:nostrmo/util/router_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/event/event_list_component.dart';
@@ -78,7 +77,7 @@ class _FollowRouter extends KeepAliveCustState<FollowRouter>
       child: main,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       ri = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);

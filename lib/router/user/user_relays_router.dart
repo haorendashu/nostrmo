@@ -1,13 +1,13 @@
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/data/relay_status.dart';
+import 'package:nostr_sdk/relay/relay_metadata.dart';
+import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:nostrmo/router/relays/relay_speed_component.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/relay/relay_metadata.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';

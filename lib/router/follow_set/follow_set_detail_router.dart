@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip02/contact.dart';
-import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/client/nip51/follow_set.dart';
+import 'package:nostr_sdk/nip02/contact.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostrmo/component/user/simple_metadata_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/generated/l10n.dart';
@@ -9,8 +9,8 @@ import 'package:nostrmo/main.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../consts/router_path.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
+import '../../util/table_mode_util.dart';
 import '../index/index_app_bar.dart';
 
 class FollowSetDetailRouter extends StatefulWidget {
@@ -44,7 +44,7 @@ class _FollowSetDetailRouter extends State<FollowSetDetailRouter> {
       color: titleTextColor,
     );
     Color? indicatorColor = titleTextColor;
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       indicatorColor = themeData.primaryColor;
     }
 

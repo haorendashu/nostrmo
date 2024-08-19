@@ -1,14 +1,14 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:nostrmo/util/load_more_event.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
-import '../../client/nip29/group_identifier.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
 import '../../component/editor/lnbc_embed_builder.dart';

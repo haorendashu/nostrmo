@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/relay/event_filter.dart';
 import 'package:nostrmo/provider/data_util.dart';
 
 import '../main.dart';
 import '../util/dirtywords_util.dart';
 
-class FilterProvider extends ChangeNotifier {
+class FilterProvider extends ChangeNotifier implements EventFilter {
   static FilterProvider? _instance;
 
   Map<String, int> blocks = {};
@@ -89,5 +91,17 @@ class FilterProvider extends ChangeNotifier {
     var list = blocks.keys.toList();
     sharedPreferences.setStringList(DataKey.BLOCK_LIST, list);
     notifyListeners();
+  }
+
+  @override
+  bool check(Event e) {
+    if (checkBlock(e.pubkey)) {
+      return true;
+    }
+    if (checkDirtyword(e.content)) {
+      return true;
+    }
+
+    return false;
   }
 }

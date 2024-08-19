@@ -6,7 +6,6 @@ import 'package:nostrmo/component/emoji_picker_component.dart';
 import '../consts/base.dart';
 import '../generated/l10n.dart';
 import '../router/index/index_drawer_content.dart';
-import '../util/platform_util.dart';
 import '../util/router_util.dart';
 import '../util/theme_util.dart';
 

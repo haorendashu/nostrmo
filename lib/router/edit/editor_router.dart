@@ -4,8 +4,10 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:intl/intl.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_user_embed_builder.dart';
@@ -19,8 +21,6 @@ import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/ecc/api.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
@@ -28,7 +28,7 @@ import '../../component/editor/editor_mixin.dart';
 import '../../component/editor/poll_input_component.dart';
 import '../../component/editor/zap_split_input_component.dart';
 import '../../generated/l10n.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'editor_notify_item_component.dart';
 
 class EditorRouter extends StatefulWidget {
@@ -150,8 +150,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
           if (tagName == "a") {
             // this note is add to community
             var aid = AId.fromString(tagValue);
-            if (aid != null &&
-                aid.kind == kind.EventKind.COMMUNITY_DEFINITION) {
+            if (aid != null && aid.kind == EventKind.COMMUNITY_DEFINITION) {
               list.add(Container(
                 padding: const EdgeInsets.only(
                   left: Base.BASE_PADDING,

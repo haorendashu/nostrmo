@@ -1,4 +1,4 @@
-import '../client/event.dart';
+import 'package:nostr_sdk/event.dart';
 
 mixin PenddingEventsLaterFunction {
   int laterTimeMS = 200;

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip58/badge_definition.dart';
+import 'package:nostr_sdk/nip58/badge_definition.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 
 import '../consts/base.dart';
 import '../util/router_util.dart';
@@ -41,7 +42,7 @@ class _BadgeDetailDialog extends State<BadgeDetailDialog> {
     Widget main = BadgeDetailComponent(
       badgeDefinition: widget.badgeDefinition,
     );
-    if (PlatformUtil.isPC() || PlatformUtil.isTableMode()) {
+    if (PlatformUtil.isPC() || TableModeUtil.isTableMode()) {
       main = Container(
         width: mediaDataCache.size.width / 2,
         child: main,

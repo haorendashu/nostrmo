@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/nip02/cust_contact_list.dart';
 import 'package:nostrmo/main.dart';
 
-import '../../client/nip02/cust_contact_list.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';

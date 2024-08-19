@@ -3,24 +3,23 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:nostrmo/client/android_plugin/android_plugin_intent.dart';
-import 'package:nostrmo/client/nip05/nip05_validor.dart';
-import 'package:nostrmo/client/nip07/nip07_signer.dart';
-import 'package:nostrmo/client/nip46/nostr_remote_signer.dart';
-import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
-import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
-import 'package:nostrmo/client/signer/signer_test.dart';
+import 'package:nostr_sdk/android_plugin/android_plugin.dart';
+import 'package:nostr_sdk/client_utils/keys.dart';
+import 'package:nostr_sdk/nip05/nip05_validor.dart';
+import 'package:nostr_sdk/nip07/nip07_signer.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
+import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
+import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/webview_router.dart';
-import 'package:nostrmo/util/platform_util.dart';
 
-import '../../client/android_plugin/android_plugin.dart';
-import '../../client/client_utils/keys.dart';
-import '../../client/nip19/nip19.dart';
-import '../../client/signer/pubkey_only_nostr_signer.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+
+import '../../util/table_mode_util.dart';
 
 class LoginRouter extends StatefulWidget {
   @override
@@ -74,7 +73,7 @@ class _LoginRouter extends State<LoginRouter>
     var mainColor = themeData.primaryColor;
     var maxWidth = mediaDataCache.size.width;
     var mainWidth = maxWidth * 0.8;
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       if (mainWidth > 550) {
         mainWidth = 550;
       }

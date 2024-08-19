@@ -3,7 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/follow_set_follow_bottom_sheet.dart';
 import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/component/qrcode_dialog.dart';
@@ -13,17 +16,13 @@ import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/generated/l10n.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event_relation.dart';
-import '../../client/nip02/contact.dart';
-import '../../client/nip19/nip19.dart';
-import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../confirm_dialog.dart';
 import '../image_component.dart';
 import '../image_preview_dialog.dart';
@@ -92,7 +91,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
     var largeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
     var bannerHeight = maxWidth / 3;
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       bannerHeight =
           MetadataTopComponent.getPcBannerHeight(mediaDataCache.size.height);
     }
@@ -128,7 +127,7 @@ class _MetadataTopComponent extends State<MetadataTopComponent> {
       )
     ];
 
-    if (!PlatformUtil.isTableMode() && widget.pubkey == nostr!.publicKey) {
+    if (!TableModeUtil.isTableMode() && widget.pubkey == nostr!.publicKey) {
       // is phont and local
       topBtnList.add(wrapBtn(MetadataIconBtn(
         iconData: Icons.qr_code_scanner,

@@ -3,16 +3,16 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nostrmo/client/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/relays/relay_speed_component.dart';
 import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
 import '../../consts/client_connected.dart';
-import '../../data/relay_status.dart';
 import '../../generated/l10n.dart';
 
 class RelaysItemComponent extends StatefulWidget {

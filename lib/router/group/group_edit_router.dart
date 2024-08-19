@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip29/group_metadata.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip29/group_metadata.dart';
-import '../../client/upload/uploader.dart';
 import '../../component/appbar4stack.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../util/platform_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+
+import '../../provider/uploader.dart';
+import '../../util/table_mode_util.dart';
 
 class GroupEditRouter extends StatefulWidget {
   @override
@@ -101,7 +103,7 @@ class _GroupEditRouter extends State<GroupEditRouter> {
 
     List<Widget> list = [];
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       list.add(Container(
         height: 30,
       ));

@@ -1,12 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/component/content/content_decoder.dart';
+import 'package:nostr_sdk/nip172/community_info.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../client/nip172/community_info.dart';
 import '../main.dart';
 import 'content/content_component.dart';
 import 'image_component.dart';

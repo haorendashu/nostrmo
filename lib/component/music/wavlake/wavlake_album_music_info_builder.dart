@@ -1,11 +1,11 @@
 import 'dart:developer';
 
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/music/music_info_builder.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 
 import '../../../util/dio_util.dart';
 import '../../../util/spider_util.dart';
-import '../../../util/string_util.dart';
 
 WavlakeAlbumMusicInfoBuilder wavlakeAlbumMusicInfoBuilder =
     WavlakeAlbumMusicInfoBuilder();

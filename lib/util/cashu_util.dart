@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../component/lightning_qrcode_dialog.dart';
-import 'platform_util.dart';
 
 class CashuUtil {
   static Future<void> goTo(BuildContext context, String cashuStr) async {

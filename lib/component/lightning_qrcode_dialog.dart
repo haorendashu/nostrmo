@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nostrmo/util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../consts/base.dart';

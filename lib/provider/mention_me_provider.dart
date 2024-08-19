@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../client/event.dart';
-import '../client/filter.dart';
-import '../client/nostr.dart';
-import '../data/event_mem_box.dart';
 import '../main.dart';
 import '../util/peddingevents_later_function.dart';
-import '../util/string_util.dart';
 
 class MentionMeProvider extends ChangeNotifier
     with PenddingEventsLaterFunction {
@@ -43,12 +43,12 @@ class MentionMeProvider extends ChangeNotifier
 
   List<int> queryEventKinds() {
     return [
-      kind.EventKind.TEXT_NOTE,
-      kind.EventKind.REPOST,
-      kind.EventKind.BADGE_AWARD,
-      kind.EventKind.GENERIC_REPOST,
-      kind.EventKind.ZAP,
-      kind.EventKind.LONG_FORM,
+      EventKind.TEXT_NOTE,
+      EventKind.REPOST,
+      EventKind.BADGE_AWARD,
+      EventKind.GENERIC_REPOST,
+      EventKind.ZAP,
+      EventKind.LONG_FORM,
     ];
   }
 
@@ -101,7 +101,7 @@ class MentionMeProvider extends ChangeNotifier
 
   void onEvent(Event event) {
     // filter the zap send by myself.
-    if (event.kind == kind.EventKind.ZAP) {
+    if (event.kind == EventKind.ZAP) {
       for (var tag in event.tags) {
         if (tag is List && tag.length > 1) {
           var k = tag[0];

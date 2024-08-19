@@ -1,21 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip05/nip05_validor.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip05/nip05_validor.dart';
+import 'package:nostr_sdk/nip65/relay_list_metadata.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/nip05status.dart';
 import 'package:nostrmo/data/event_db.dart';
-import 'package:nostrmo/util/platform_util.dart';
 
-import '../client/event.dart';
-import '../client/event_kind.dart' as kind;
-import '../client/filter.dart';
-import '../client/nip65/relay_list_metadata.dart';
 import '../data/metadata.dart';
 import '../data/metadata_db.dart';
 import '../main.dart';
 import '../util/later_function.dart';
-import '../util/string_util.dart';
 
 class MetadataProvider extends ChangeNotifier with LaterFunction {
   Map<String, RelayListMetadata> _relayListMetadataCache = {};
@@ -40,7 +40,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
       var relayListMetadataEvents = await EventDB.list(
           Base.RELAY_LIST_METADATA_KEY_INDEX,
-          [kind.EventKind.RELAY_LIST_METADATA],
+          [EventKind.RELAY_LIST_METADATA],
           0,
           1000000);
       for (var relayListMetadataEvent in relayListMetadataEvents) {
@@ -191,10 +191,10 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   }
 
   void onEvent(Event event) {
-    if (event.kind == kind.EventKind.METADATA) {
+    if (event.kind == EventKind.METADATA) {
       _penddingEvents.add(event);
       later(_laterCallback);
-    } else if (event.kind == kind.EventKind.RELAY_LIST_METADATA) {
+    } else if (event.kind == EventKind.RELAY_LIST_METADATA) {
       // this is relayInfoMetadata, only set to cache, not update UI
       var oldRelayListMetadata = _relayListMetadataCache[event.pubkey];
       if (oldRelayListMetadata == null) {
@@ -223,7 +223,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     List<Map<String, dynamic>> filters = [];
     for (var pubkey in _needUpdatePubKeys) {
       var filter = Filter(
-          kinds: [kind.EventKind.METADATA, kind.EventKind.RELAY_LIST_METADATA],
+          kinds: [EventKind.METADATA, EventKind.RELAY_LIST_METADATA],
           authors: [pubkey]);
       filters.add(filter.toJson());
       if (filters.length > 11) {

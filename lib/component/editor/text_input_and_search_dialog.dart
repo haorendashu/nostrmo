@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostrmo/util/table_mode_util.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../router/index/index_app_bar.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
 import '../../util/theme_util.dart';
 import 'search_mention_user_component.dart';
 import 'text_input_dialog_inner_component.dart';
@@ -76,7 +77,7 @@ class _TextInputAndSearchDialog extends State<TextInputAndSearchDialog>
     var mainColor = themeData.primaryColor;
 
     double mainHeight = 266;
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       mainHeight = mediaDataCache.size.height / 2;
     }
 

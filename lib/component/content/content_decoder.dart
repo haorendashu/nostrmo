@@ -5,18 +5,19 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
-import 'package:nostrmo/client/event_kind.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/utils/path_type_util.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/content_event_tag_infos.dart';
 import 'package:string_validator/string_validator.dart';
 
-import '../../client/event.dart';
-import '../../client/nip19/nip19.dart';
-import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
 import '../../consts/base64.dart';
 import '../../main.dart';
-import '../../util/platform_util.dart';
-import '../../util/string_util.dart';
 import '../event/event_quote_component.dart';
 import '../translate/line_translate_component.dart';
 import 'content_custom_emoji_component.dart';
@@ -124,7 +125,7 @@ class ContentDecoder {
       for (var subStr in subStrs) {
         if (subStr.indexOf("http") == 0) {
           // link, image, video etc
-          var pathType = getPathType(subStr);
+          var pathType = PathTypeUtil.getPathType(subStr);
           if (pathType == "image") {
             info.imageNum++;
           }
@@ -172,7 +173,7 @@ class ContentDecoder {
       for (var subStr in subStrs) {
         if (subStr.indexOf("http") == 0) {
           // link, image, video etc
-          var pathType = getPathType(subStr);
+          var pathType = PathTypeUtil.getPathType(subStr);
           if (pathType == "image") {
             if (showImage) {
               imageList.add(subStr);
@@ -539,44 +540,6 @@ class ContentDecoder {
   }
 
   static const double CONTENT_IMAGE_LIST_HEIGHT = 90;
-
-  static String? getPathType(String path) {
-    if (path.indexOf(BASE64.PREFIX) == 0) {
-      return "image";
-    }
-
-    var strs = path.split("?");
-    strs = strs[0].split("#");
-    var index = strs[0].lastIndexOf(".");
-    if (index == -1) {
-      return null;
-    }
-
-    path = strs[0];
-    var n = path.substring(index);
-    n = n.toLowerCase();
-
-    if (n == ".png" ||
-        n == ".jpg" ||
-        n == ".jpeg" ||
-        n == ".gif" ||
-        n == ".webp") {
-      return "image";
-    } else if (n == ".mp4" ||
-        n == ".mov" ||
-        n == ".m4v" ||
-        n == ".wmv" ||
-        n == ".m3u8") {
-      return "video";
-    } else if (n == ".mp3" || n == ".m4a" || n == ".wav" || n == ".midi") {
-      return "audio";
-    } else {
-      if (path.contains("void.cat/d/")) {
-        return "image";
-      }
-      return "link";
-    }
-  }
 }
 
 class ContentDecoderInfo {

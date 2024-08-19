@@ -1,9 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/client/nip04/dm_session.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/editor/editor_mixin.dart';
 import 'package:nostrmo/consts/router_path.dart';
@@ -15,7 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
-import '../../client/nip04/nip04.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/lnbc_embed_builder.dart';

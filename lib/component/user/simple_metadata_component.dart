@@ -7,7 +7,7 @@ import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../image_component.dart';
 
 class SimpleMetadataComponent extends StatefulWidget {

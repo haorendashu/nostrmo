@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/nip02/contact.dart';
+import 'package:nostr_sdk/nip02/cust_contact_list.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip02/contact.dart';
-import '../../client/nip02/cust_contact_list.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
+import '../../util/table_mode_util.dart';
 
 class UserContactListComponent extends StatefulWidget {
   CustContactList contactList;
@@ -61,7 +61,7 @@ class _UserContactListComponent extends State<UserContactListComponent> {
       itemCount: list!.length,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       main = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);

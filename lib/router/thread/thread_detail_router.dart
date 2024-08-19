@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/filter.dart';
 import 'package:nostrmo/provider/replaceable_event_provider.dart';
 import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
-import '../../client/aid.dart';
-import '../../client/event.dart';
-import '../../client/event_relation.dart';
-import '../../client/filter.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
@@ -15,14 +17,12 @@ import '../../component/event/event_load_list_component.dart';
 import '../../component/event_reply_callback.dart';
 import '../../component/user/simple_name_component.dart';
 import '../../consts/base.dart';
-import '../../data/event_mem_box.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/peddingevents_later_function.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+import '../../util/table_mode_util.dart';
 import '../../util/when_stop_function.dart';
 import 'thread_detail_event.dart';
 import 'thread_detail_event_main_component.dart';
@@ -106,7 +106,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     rootId = eventRelation.rootId;
     rootEventRelayAddr = eventRelation.rootRelayAddr;
     if (eventRelation.aId != null &&
-        eventRelation.aId!.kind == kind.EventKind.LONG_FORM) {
+        eventRelation.aId!.kind == EventKind.LONG_FORM) {
       aId = eventRelation.aId;
     }
     if (rootId == null) {
@@ -335,7 +335,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       children: mainList,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       main = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);
@@ -370,10 +370,10 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       //   nostr!.query([filter.toJson()], onRootEvent);
       // }
 
-      List<int> replyKinds = [...kind.EventKind.SUPPORTED_EVENTS]
-        ..remove(kind.EventKind.REPOST)
-        ..remove(kind.EventKind.LONG_FORM)
-        ..add(kind.EventKind.ZAP);
+      List<int> replyKinds = [...EventKind.SUPPORTED_EVENTS]
+        ..remove(EventKind.REPOST)
+        ..remove(EventKind.LONG_FORM)
+        ..add(EventKind.ZAP);
 
       // query sub events
       var filter = Filter(e: [rootId!], kinds: replyKinds);

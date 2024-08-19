@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_link_previewer/flutter_link_previewer.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/content_image_component.dart';
 import 'package:nostrmo/component/image_component.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/link_preview_data_provider.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';

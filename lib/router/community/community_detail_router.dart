@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip172/community_info.dart';
 import 'package:nostrmo/component/community_info_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
-import '../../client/event.dart';
-import '../../client/filter.dart';
-import '../../client/nip172/community_info.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event_delete_callback.dart';
 import '../../consts/base_consts.dart';
-import '../../data/event_mem_box.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/peddingevents_later_function.dart';
 import '../../util/router_util.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../edit/editor_router.dart';
 
 class CommunityDetailRouter extends StatefulWidget {
@@ -180,7 +180,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
   }
 
   void queryEvents() {
-    var filter = Filter(kinds: kind.EventKind.SUPPORTED_EVENTS, limit: 100);
+    var filter = Filter(kinds: EventKind.SUPPORTED_EVENTS, limit: 100);
     var queryArg = filter.toJson();
     queryArg["#a"] = [aId!.toAString()];
     nostr!.query([queryArg], onEvent, id: subscribeId);

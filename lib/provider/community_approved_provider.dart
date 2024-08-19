@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/event.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/later_function.dart';
-import '../client/event_kind.dart' as kind;
 
 class CommunityApprovedProvider extends ChangeNotifier with LaterFunction {
   Map<String, int> _approvedMap = {};
@@ -33,7 +33,7 @@ class CommunityApprovedProvider extends ChangeNotifier with LaterFunction {
     if (eids.isNotEmpty) {
       // load
       Map<String, dynamic> filter = {};
-      filter["kinds"] = [kind.EventKind.COMMUNITY_APPROVED];
+      filter["kinds"] = [EventKind.COMMUNITY_APPROVED];
       List<String> ids = [];
       ids.addAll(eids);
       filter["#e"] = ids;

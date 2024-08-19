@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip58/badge_definition.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
-import '../client/event.dart';
-import '../client/event_kind.dart' as kind;
-import '../client/filter.dart';
-import '../client/nip58/badge_definition.dart';
 import '../main.dart';
 import '../util/later_function.dart';
-import '../util/string_util.dart';
 
 class BadgeDefinitionProvider extends ChangeNotifier with LaterFunction {
   Map<String, BadgeDefinition> map = {};
@@ -45,7 +45,7 @@ class BadgeDefinitionProvider extends ChangeNotifier with LaterFunction {
     List<Map<String, dynamic>> filters = [];
     for (var pubkey in _needUpdatePubKeys) {
       var filter =
-          Filter(kinds: [kind.EventKind.BADGE_DEFINITION], authors: [pubkey]);
+          Filter(kinds: [EventKind.BADGE_DEFINITION], authors: [pubkey]);
       filters.add(filter.toJson());
     }
     var subscriptId = StringUtil.rndNameStr(16);

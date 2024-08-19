@@ -2,24 +2,20 @@ import 'dart:convert';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/relay/relay.dart';
+import 'package:nostr_sdk/relay/relay_status.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../client/filter.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
-import '../../data/relay_status.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/relay_provider.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'relays_item_component.dart';
 
 class RelaysRouter extends StatefulWidget {

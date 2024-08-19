@@ -1,32 +1,25 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:mime/mime.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/upload/blossom_uploader.dart';
-import 'package:nostrmo/client/upload/nip95_uploader.dart';
-import 'package:nostrmo/client/upload/nip96_uploader.dart';
-import 'package:nostrmo/client/upload/void_cat.dart';
-import 'package:nostrmo/consts/base_consts.dart';
-import 'package:nostrmo/generated/l10n.dart';
-import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/platform_util.dart';
-import 'package:nostrmo/util/store_util.dart';
-import 'package:nostrmo/util/string_util.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/upload/blossom_uploader.dart';
+import 'package:nostr_sdk/upload/nip95_uploader.dart';
+import 'package:nostr_sdk/upload/nip96_uploader.dart';
+import 'package:nostr_sdk/upload/nostr_build_uploader.dart';
+import 'package:nostr_sdk/upload/pomf2_lain_la.dart';
+import 'package:nostr_sdk/upload/void_cat.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../consts/base64.dart';
-import '../../consts/image_services.dart';
-import 'nostr_build_uploader.dart';
-import 'nostrfiles_dev_uploader.dart';
-import 'nostrimg_com_uploader.dart';
-import 'pomf2_lain_la.dart';
+import '../consts/base64.dart';
+import '../consts/image_services.dart';
+import '../generated/l10n.dart';
+import '../main.dart';
+import '../util/store_util.dart';
 
 class Uploader {
   static int NIP95_MAX_LENGTH = 80000;
@@ -47,19 +40,10 @@ class Uploader {
   //   return null;
   // }
 
-  static String getFileType(String filePath) {
-    var fileType = lookupMimeType(filePath);
-    if (StringUtil.isBlank(fileType)) {
-      fileType = "image/jpeg";
-    }
-
-    return fileType!;
-  }
-
   static Future<Event?> pickAndUpload2NIP95(BuildContext context) async {
     var filePath = await pick(context);
     if (StringUtil.isNotBlank(filePath)) {
-      return NIP95Uploader.uploadForEvent(filePath!);
+      return NIP95Uploader.uploadForEvent(nostr!, filePath!);
     }
 
     return null;
@@ -70,7 +54,7 @@ class Uploader {
     if (StringUtil.isNotBlank(filePath)) {
       // var result = await Pomf2LainLa.upload(filePath!);
       var result =
-          await NIP96Uploader.upload("https://nostr.build/", filePath!);
+          await NIP96Uploader.upload(nostr!, "https://nostr.build/", filePath!);
       print("result $result");
     }
   }
@@ -153,25 +137,27 @@ class Uploader {
     } else if (imageService == ImageServices.NOSTR_BUILD) {
       return await NostrBuildUploader.upload(localPath, fileName: fileName);
     } else if (imageService == ImageServices.NOSTO_RE) {
-      return await BolssomUploader.upload("https://nosto.re/", localPath,
+      return await BolssomUploader.upload(
+          nostr!, "https://nosto.re/", localPath,
           fileName: fileName);
     } else if (imageService == ImageServices.NIP_95) {
-      return await NIP95Uploader.upload(localPath, fileName: fileName);
+      return await NIP95Uploader.upload(nostr!, localPath, fileName: fileName);
     } else if (imageService == ImageServices.NIP_96 &&
         StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
       return await NIP96Uploader.upload(
-          settingProvider.imageServiceAddr!, localPath,
+          nostr!, settingProvider.imageServiceAddr!, localPath,
           fileName: fileName);
     } else if (imageService == ImageServices.BLOSSOM &&
         StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
       return await BolssomUploader.upload(
-          settingProvider.imageServiceAddr!, localPath,
+          nostr!, settingProvider.imageServiceAddr!, localPath,
           fileName: fileName);
     } else if (imageService == ImageServices.VOID_CAT) {
       return await VoidCatUploader.upload(localPath);
     }
     if (PlatformUtil.isWeb()) {
-      return await BolssomUploader.upload("https://nosto.re/", localPath,
+      return await BolssomUploader.upload(
+          nostr!, "https://nosto.re/", localPath,
           fileName: fileName);
     }
     return await NostrBuildUploader.upload(localPath, fileName: fileName);

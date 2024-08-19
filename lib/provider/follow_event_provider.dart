@@ -2,19 +2,19 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip02/contact.dart';
+import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/utils/find_event_interface.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../client/event.dart';
-import '../client/nip02/contact.dart';
-import '../client/nip02/cust_contact_list.dart';
-import '../client/filter.dart';
-import '../client/nostr.dart';
-import '../data/event_mem_box.dart';
 import '../main.dart';
 import '../router/tag/topic_map.dart';
-import '../util/find_event_interface.dart';
 import '../util/peddingevents_later_function.dart';
-import '../util/string_util.dart';
 
 class FollowEventProvider extends ChangeNotifier
     with PenddingEventsLaterFunction
@@ -64,7 +64,7 @@ class FollowEventProvider extends ChangeNotifier
   }
 
   List<int> queryEventKinds() {
-    return kind.EventKind.SUPPORTED_EVENTS;
+    return EventKind.SUPPORTED_EVENTS;
   }
 
   void doQuery(

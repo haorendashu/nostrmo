@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../image_component.dart';
 import '../user/user_pic_component.dart';
 

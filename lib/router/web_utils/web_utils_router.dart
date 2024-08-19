@@ -8,7 +8,7 @@ import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../util/dio_util.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'web_util_item_component.dart';
 
 class WebUtilsRouter extends StatefulWidget {

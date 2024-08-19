@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip59/gift_wrap_util.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip59/gift_wrap_util.dart';
+import 'package:nostr_sdk/nostr.dart';
 
-import '../client/event.dart';
-import '../client/event_kind.dart';
-import '../client/filter.dart';
-import '../client/nostr.dart';
 import '../data/event_db.dart';
-import '../data/event_mem_box.dart';
 import '../main.dart';
 
 class GiftWrapProvider extends ChangeNotifier {
@@ -56,7 +56,7 @@ class GiftWrapProvider extends ChangeNotifier {
     if (box.add(e)) {
       // This is an new event.
       // decode this event.
-      var sourceEvent = await GiftWrapUtil.getRumorEvent(e);
+      var sourceEvent = await GiftWrapUtil.getRumorEvent(nostr!, e);
 
       // some event need some handle
       if (sourceEvent != null) {

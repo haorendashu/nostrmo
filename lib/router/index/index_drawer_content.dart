@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/signer/pubkey_only_nostr_signer.dart';
-import 'package:nostrmo/client/upload/blossom_uploader.dart';
-import 'package:nostrmo/client/upload/uploader.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base.dart';
@@ -14,9 +13,7 @@ import 'package:nostrmo/provider/webview_provider.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
 import 'package:nostrmo/router/user/user_statistics_component.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/user/metadata_component.dart';
@@ -24,6 +21,8 @@ import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
+import '../../provider/uploader.dart';
+import '../../util/table_mode_util.dart';
 import '../edit/editor_router.dart';
 import 'account_manager_component.dart';
 
@@ -129,7 +128,7 @@ class _IndexDrawerContentComponnent
     }
 
     List<Widget> centerList = [];
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       centerList.add(IndexDrawerItem(
         iconData: Icons.home_rounded,
         name: s.Home,
@@ -183,7 +182,7 @@ class _IndexDrawerContentComponnent
       smallMode: widget.smallMode,
     ));
 
-    if (!PlatformUtil.isTableMode()) {
+    if (!TableModeUtil.isTableMode()) {
       centerList.add(IndexDrawerItem(
         iconData: Icons.cloud_rounded,
         name: s.Relays,
@@ -270,7 +269,7 @@ class _IndexDrawerContentComponnent
       ),
     ));
 
-    if (PlatformUtil.isTableMode() && !readOnly) {
+    if (TableModeUtil.isTableMode() && !readOnly) {
       list.add(IndexDrawerItem(
         iconData: Icons.add_rounded,
         name: s.Add_a_Note,
@@ -306,7 +305,7 @@ class _IndexDrawerContentComponnent
     } else {
       Widget versionWidget = Text("V " + Base.VERSION_NAME);
 
-      if (PlatformUtil.isTableMode()) {
+      if (TableModeUtil.isTableMode()) {
         List<Widget> subList = [];
         subList.add(GestureDetector(
           onTap: toggleSmallMode,
@@ -345,7 +344,7 @@ class _IndexDrawerContentComponnent
     return Container(
       color: themeData.cardColor,
       margin:
-          PlatformUtil.isTableMode() ? const EdgeInsets.only(right: 1) : null,
+          TableModeUtil.isTableMode() ? const EdgeInsets.only(right: 1) : null,
       child: Column(
         children: list,
       ),

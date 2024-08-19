@@ -1,13 +1,12 @@
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event_relation.dart';
-import 'package:nostrmo/client/nip19/nip19.dart';
-import 'package:nostrmo/client/nip75/zap_goals_info.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/nip75/zap_goals_info.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/event/event_reactions_component.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
 import '../../consts/base.dart';
 import '../../data/event_reactions.dart';
 import '../../generated/l10n.dart';

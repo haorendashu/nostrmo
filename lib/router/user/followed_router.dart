@@ -8,9 +8,10 @@ import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../provider/metadata_provider.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+
+import '../../util/table_mode_util.dart';
 
 class FollowedRouter extends StatefulWidget {
   @override
@@ -88,7 +89,7 @@ class _FollowedRouter extends State<FollowedRouter> {
       body: listView,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       return GestureDetector(
         onVerticalDragUpdate: (detail) {
           scrollController.jumpTo(scrollController.offset - detail.delta.dy);

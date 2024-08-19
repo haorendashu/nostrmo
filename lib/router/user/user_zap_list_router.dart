@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/nip02/cust_contact_list.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../component/user/metadata_component.dart';

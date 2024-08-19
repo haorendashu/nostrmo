@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class ContentStrLinkComponent extends StatelessWidget {
   bool showUnderline;

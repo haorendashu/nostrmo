@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip04/nip04.dart';
 import '../../main.dart';
 import '../../provider/dm_provider.dart';
 import 'dm_known_list_router.dart';

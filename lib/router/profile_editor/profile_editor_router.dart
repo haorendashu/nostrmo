@@ -2,20 +2,21 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/upload/uploader.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/data/metadata.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../client/filter.dart';
 import '../../component/appbar4stack.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/uploader.dart';
+import '../../util/table_mode_util.dart';
 import '../index/index_app_bar.dart';
 
 class ProfileEditorRouter extends StatefulWidget {
@@ -95,7 +96,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
 
     List<Widget> list = [];
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       list.add(Container(
         height: 30,
       ));
@@ -295,8 +296,8 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
       tags = profileEvent!.tags;
     }
 
-    var updateEvent = Event(nostr!.publicKey, kind.EventKind.METADATA, tags,
-        jsonEncode(metadataMap));
+    var updateEvent = Event(
+        nostr!.publicKey, EventKind.METADATA, tags, jsonEncode(metadataMap));
     nostr!.sendEvent(updateEvent);
 
     RouterUtil.back(context);
@@ -307,9 +308,7 @@ class _ProfileEditorRouter extends CustState<ProfileEditorRouter> {
   @override
   Future<void> onReady(BuildContext context) async {
     var filter = Filter(
-        kinds: [kind.EventKind.METADATA],
-        authors: [nostr!.publicKey],
-        limit: 1);
+        kinds: [EventKind.METADATA], authors: [nostr!.publicKey], limit: 1);
     nostr!.query([filter.toJson()], (event) {
       if (profileEvent == null) {
         profileEvent = event;

@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/data/custom_emoji.dart';
 
-import '../../client/upload/uploader.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/uploader.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
 import '../../util/theme_util.dart';
 import '../content/content_custom_emoji_component.dart';
 

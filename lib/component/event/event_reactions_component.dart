@@ -4,9 +4,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
-import 'package:nostrmo/client/nip51/bookmarks.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip51/bookmarks.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/component/like_text_select_bottom_sheet.dart';
@@ -16,9 +19,6 @@ import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../client/event.dart';
-import '../../client/event_relation.dart';
-import '../../client/nip19/nip19.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../data/event_reactions.dart';
@@ -29,7 +29,7 @@ import '../../router/edit/editor_router.dart';
 import '../../util/number_format_util.dart';
 import '../../util/router_util.dart';
 import '../../util/store_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../editor/cust_embed_types.dart';
 import '../event_delete_callback.dart';
 import '../event_reply_callback.dart';
@@ -613,6 +613,10 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     }
 
     List<String>? relayAddrs = getGroupRelays();
+
+    relayAddrs ??= [];
+    relayAddrs
+        .addAll(metadataProvider.getExtralRelays(widget.event.pubkey, false));
 
     if (myLikeEvents == null || myLikeEvents!.isEmpty) {
       // like

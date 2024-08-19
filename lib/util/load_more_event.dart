@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
 
 mixin LoadMoreEvent {
   // load more where still left 20 item.

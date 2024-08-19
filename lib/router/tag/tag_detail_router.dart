@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/router/tag/topic_map.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/filter.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/tag_info_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
-import '../../data/event_mem_box.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/peddingevents_later_function.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+
+import '../../util/table_mode_util.dart';
 
 class TagDetailRouter extends StatefulWidget {
   @override
@@ -118,7 +119,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
       ),
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       main = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);
@@ -148,7 +149,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
   void doQuery() {
     // tag query
     // https://github.com/nostr-protocol/nips/blob/master/12.md
-    var filter = Filter(kinds: kind.EventKind.SUPPORTED_EVENTS, limit: 100);
+    var filter = Filter(kinds: EventKind.SUPPORTED_EVENTS, limit: 100);
     var queryArg = filter.toJson();
     var plainTag = tag!.replaceFirst("#", "");
     // this place set #t not #r ???

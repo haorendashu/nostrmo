@@ -1,15 +1,15 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/event_relation.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_relation.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/zap/zaps_send_dialog.dart';
 import 'package:nostrmo/generated/l10n.dart';
 
-import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';
 import '../../main.dart';
 import '../../util/router_util.dart';
+import '../../util/zap_action.dart';
 import 'zap_bottom_sheet_user_component.dart';
 
 class ZapBottomSheetComponent extends StatefulWidget {

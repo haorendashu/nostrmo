@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip02/contact.dart';
-import 'package:nostrmo/client/nip51/follow_set.dart';
+import 'package:nostr_sdk/nip02/contact.dart';
+import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:provider/provider.dart';

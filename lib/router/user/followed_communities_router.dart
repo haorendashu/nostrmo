@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/nip02/cust_contact_list.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip02/cust_contact_list.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';

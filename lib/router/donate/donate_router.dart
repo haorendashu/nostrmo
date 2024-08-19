@@ -7,7 +7,7 @@ import '../../consts/base.dart';
 import '../../consts/coffee_ids.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class DonateRouter extends StatefulWidget {
   @override

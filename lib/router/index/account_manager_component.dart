@@ -3,9 +3,12 @@ import 'dart:developer';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip07/nip07_signer.dart';
-import 'package:nostrmo/client/nip46/nostr_remote_signer_info.dart';
-import 'package:nostrmo/client/nip55/android_nostr_signer.dart';
+import 'package:nostr_sdk/client_utils/keys.dart';
+import 'package:nostr_sdk/nip05/nip05_validor.dart';
+import 'package:nostr_sdk/nip07/nip07_signer.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
+import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
@@ -16,9 +19,6 @@ import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/client_utils/keys.dart';
-import '../../client/nip05/nip05_validor.dart';
-import '../../client/nip19/nip19.dart';
 import '../../component/confirm_dialog.dart';
 import '../../component/image_component.dart';
 import '../../consts/base.dart';
@@ -26,7 +26,7 @@ import '../../data/dm_session_info_db.dart';
 import '../../data/event_db.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'index_drawer_content.dart';
 
 class AccountManagerComponent extends StatefulWidget {

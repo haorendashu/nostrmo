@@ -1,8 +1,9 @@
+import 'package:nostr_sdk/utils/path_type_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/music/music_component.dart';
 import 'package:nostrmo/component/music/music_info_builder.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/music_provider.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../content/content_decoder.dart';
 
@@ -31,6 +32,6 @@ class BlankLinkMusicInfoBuilder extends MusicInfoBuilder {
 
   @override
   bool check(String content) {
-    return ContentDecoder.getPathType(content) == "audio";
+    return PathTypeUtil.getPathType(content) == "audio";
   }
 }

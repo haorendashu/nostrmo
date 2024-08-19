@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/string_util.dart';
 
-import '../../client/event_relation.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../zap/zap_split_icon_component.dart';

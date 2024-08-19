@@ -2,21 +2,20 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event_relation.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/event/zap_event_main_component.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/mention_me_provider.dart';
 import 'package:nostrmo/util/load_more_event.dart';
 import 'package:nostrmo/util/spider_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../../client/filter.dart';
 import '../../component/badge_award_component.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event/zap_event_list_component.dart';
@@ -27,8 +26,8 @@ import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
 import '../../provider/setting_provider.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
+import '../../util/table_mode_util.dart';
 
 class MentionMeRouter extends StatefulWidget {
   @override
@@ -67,10 +66,10 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       controller: _controller,
       itemBuilder: (BuildContext context, int index) {
         var event = events[index];
-        if (event.kind == kind.EventKind.BADGE_AWARD) {
+        if (event.kind == EventKind.BADGE_AWARD) {
           return BadgeAwardComponent(event: event);
         } else {
-          if (event.kind == kind.EventKind.ZAP) {
+          if (event.kind == EventKind.ZAP) {
             if (StringUtil.isBlank(event.content)) {
               var innerZapContent = EventRelation.getInnerZapContent(event);
               if (StringUtil.isBlank(innerZapContent)) {
@@ -95,7 +94,7 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
       child: main,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       ri = GestureDetector(
         onVerticalDragUpdate: (detail) {
           _controller.jumpTo(_controller.offset - detail.delta.dy);

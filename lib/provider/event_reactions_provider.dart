@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
 
-import '../client/event.dart';
-import '../client/event_kind.dart';
-import '../client/filter.dart';
 import '../data/event_reactions.dart';
 import '../main.dart';
 import '../util/when_stop_function.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
 import '../../util/theme_util.dart';
 import 'text_input_dialog_inner_component.dart';
 

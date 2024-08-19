@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/zap/zap_action.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
@@ -12,7 +12,7 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import '../../util/zap_action.dart';
 import '../content/content_str_link_component.dart';
 
 class GenLnbcComponent extends StatefulWidget {

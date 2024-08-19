@@ -2,20 +2,18 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip04/nip04.dart';
-import 'package:nostrmo/client/nip51/follow_set.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip02/contact.dart';
+import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip51/follow_set.dart';
+import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/router/tag/topic_map.dart';
 import 'package:pointycastle/pointycastle.dart';
 
-import '../../client/event_kind.dart' as kind;
-import '../client/event.dart';
-import '../client/event_kind.dart';
-import '../client/nip02/contact.dart';
-import '../client/nip02/cust_contact_list.dart';
-import '../client/filter.dart';
-import '../client/nostr.dart';
 import '../main.dart';
-import '../util/string_util.dart';
 import 'data_util.dart';
 
 class ContactListProvider extends ChangeNotifier {
@@ -94,11 +92,11 @@ class ContactListProvider extends ChangeNotifier {
     targetNostr ??= nostr;
     subscriptId = StringUtil.rndNameStr(16);
     var filter = Filter(
-        kinds: [kind.EventKind.CONTACT_LIST],
+        kinds: [EventKind.CONTACT_LIST],
         limit: 1,
         authors: [targetNostr!.publicKey]);
     var filter1 = Filter(
-        kinds: [kind.EventKind.FOLLOW_SETS],
+        kinds: [EventKind.FOLLOW_SETS],
         limit: 100,
         authors: [targetNostr.publicKey]);
     targetNostr.addInitQuery([
@@ -108,7 +106,7 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void _onEvent(Event e) async {
-    if (e.kind == kind.EventKind.CONTACT_LIST) {
+    if (e.kind == EventKind.CONTACT_LIST) {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
         _contactList = CustContactList.fromJson(e.tags);
@@ -117,7 +115,7 @@ class ContactListProvider extends ChangeNotifier {
 
         relayProvider.relayUpdateByContactListEvent(e);
       }
-    } else if (e.kind == kind.EventKind.FOLLOW_SETS) {
+    } else if (e.kind == EventKind.FOLLOW_SETS) {
       var dTag = FollowSet.getDTag(e);
       if (dTag != null) {
         var oldFollowSet = _followSetMap[dTag];
@@ -335,7 +333,7 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void addFollowSet(FollowSet followSet) async {
-    var event = await followSet.toEventMap(nostr!.publicKey);
+    var event = await followSet.toEventMap(nostr!, nostr!.publicKey);
     if (event != null) {
       _followSetMap[followSet.dTag] = followSet;
       followSetEventMap[followSet.dTag] = event;
@@ -352,7 +350,7 @@ class ContactListProvider extends ChangeNotifier {
         var value = entry.value;
 
         if (_followSetMap[key] == null) {
-          var future = FollowSet.genFollowSet(value);
+          var future = FollowSet.genFollowSet(nostr!, value);
           futures.add(future);
         }
       }

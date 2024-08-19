@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quill/translations.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/provider/webview_provider.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/l10n.dart';
-import 'util/string_util.dart';
 
 class HomeComponent extends StatefulWidget {
   Widget child;

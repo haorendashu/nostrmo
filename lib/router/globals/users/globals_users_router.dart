@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/util/platform_util.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../../component/keep_alive_cust_state.dart';
@@ -15,7 +16,7 @@ import '../../../main.dart';
 import '../../../provider/metadata_provider.dart';
 import '../../../util/dio_util.dart';
 import '../../../util/router_util.dart';
-import '../../../util/string_util.dart';
+import '../../../util/table_mode_util.dart';
 
 class GlobalsUsersRouter extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _GlobalsUsersRouter extends KeepAliveCustState<GlobalsUsersRouter> {
       itemCount: pubkeys.length,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       return GestureDetector(
         onVerticalDragUpdate: (detail) {
           scrollController.jumpTo(scrollController.offset - detail.delta.dy);

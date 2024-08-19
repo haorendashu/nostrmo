@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
 import 'package:nostrmo/component/content/content_component.dart';
 
-import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../content/content_decoder.dart';
 import 'metadata_top_component.dart';
 import 'user_badges_component.dart';

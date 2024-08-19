@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip94/file_metadata.dart';
+import 'package:nostr_sdk/nip94/file_metadata.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/blurhash_image_component/blurhash_image_component.dart'
     if (dart.library.io) 'package:nostrmo/component/blurhash_image_component/blurhash_image_component_io.dart'
     if (dart.library.js) 'package:nostrmo/component/blurhash_image_component/blurhash_image_component_web.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/platform_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base.dart';
 import '../image_component.dart';

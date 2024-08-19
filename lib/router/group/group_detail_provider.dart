@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart';
-import '../../client/filter.dart';
-import '../../data/event_mem_box.dart';
 import '../../main.dart';
 import '../../util/peddingevents_later_function.dart';
 

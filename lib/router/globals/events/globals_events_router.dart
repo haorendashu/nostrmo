@@ -1,25 +1,25 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:provider/provider.dart';
 
-import '../../../client/event.dart';
-import '../../../client/event_kind.dart' as kind;
-import '../../../client/filter.dart';
 import '../../../component/cust_state.dart';
 import '../../../component/event/event_list_component.dart';
 import '../../../component/placeholder/event_list_placeholder.dart';
 import '../../../consts/base.dart';
 import '../../../consts/base_consts.dart';
-import '../../../data/event_mem_box.dart';
 import '../../../main.dart';
 import '../../../provider/setting_provider.dart';
 import '../../../util/dio_util.dart';
 import '../../../util/peddingevents_later_function.dart';
-import '../../../util/platform_util.dart';
-import '../../../util/string_util.dart';
+import '../../../util/table_mode_util.dart';
 import 'globals_event_item_component.dart';
 
 class GlobalsEventsRouter extends StatefulWidget {
@@ -63,7 +63,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
       ),
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       return GestureDetector(
         onVerticalDragUpdate: (detail) {
           scrollController.jumpTo(scrollController.offset - detail.delta.dy);
@@ -99,7 +99,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
       }
     }
 
-    var filter = Filter(ids: ids, kinds: [kind.EventKind.TEXT_NOTE]);
+    var filter = Filter(ids: ids, kinds: [EventKind.TEXT_NOTE]);
     nostr!.subscribe([filter.toJson()], (event) {
       if (eventBox.isEmpty()) {
         laterTimeMS = 200;

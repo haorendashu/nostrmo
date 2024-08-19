@@ -7,22 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_picker/flutter_font_picker.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:nostrmo/client/nip02/cust_contact_list.dart';
-import 'package:nostrmo/client/filter.dart';
-import 'package:nostrmo/client/upload/uploader.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/relay/relay_mode.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/color_pick_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/consts/thread_mode.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/router/index/account_manager_component.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/store_util.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart' as kind;
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/colors_selector_component.dart';
 import '../../component/confirm_dialog.dart';
@@ -30,18 +30,17 @@ import '../../component/editor/text_input_dialog.dart';
 import '../../component/enum_multi_selector_component.dart';
 import '../../component/enum_selector_component.dart';
 import '../../component/translate/translate_model_manager.dart';
-import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/image_services.dart';
-import '../../consts/relay_mode.dart';
 import '../../consts/theme_style.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
+import '../../provider/uploader.dart';
 import '../../util/auth_util.dart';
 import '../../util/locale_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'setting_group_item_component.dart';
 import 'setting_group_title_component.dart';
 
@@ -933,7 +932,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
         // use a blank metadata to update it
         var blankMetadata = Metadata();
-        var updateEvent = Event(nostr!.publicKey, kind.EventKind.METADATA, [],
+        var updateEvent = Event(nostr!.publicKey, EventKind.METADATA, [],
             jsonEncode(blankMetadata));
         nostr!.sendEvent(updateEvent);
 
@@ -944,9 +943,9 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         var filter = Filter(authors: [
           nostr!.publicKey
         ], kinds: [
-          kind.EventKind.TEXT_NOTE,
-          kind.EventKind.REPOST,
-          kind.EventKind.GENERIC_REPOST,
+          EventKind.TEXT_NOTE,
+          EventKind.REPOST,
+          EventKind.GENERIC_REPOST,
         ]);
         nostr!.query([filter.toJson()], onDeletedEventReceive);
       } catch (e) {

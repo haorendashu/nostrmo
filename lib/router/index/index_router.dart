@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/music/music_component.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/pc_router_fake.dart';
@@ -13,9 +15,6 @@ import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/pc_router_fake_provider.dart';
 import 'package:nostrmo/router/follow_suggest/follow_suggest_router.dart';
 import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
-import 'package:nostrmo/util/platform_util.dart';
-import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
@@ -23,6 +22,7 @@ import '../../main.dart';
 import '../../provider/index_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/auth_util.dart';
+import '../../util/table_mode_util.dart';
 import '../dm/dm_router.dart';
 import '../edit/editor_router.dart';
 import '../follow/follow_index_router.dart';
@@ -293,7 +293,7 @@ class _IndexRouter extends CustState<IndexRouter>
       children: mainIndexList,
     );
 
-    if (PlatformUtil.isTableMode()) {
+    if (TableModeUtil.isTableMode()) {
       var maxWidth = mediaDataCache.size.width;
       double column0Width = maxWidth * 1 / 5;
       double column1Width = maxWidth * 2 / 5;

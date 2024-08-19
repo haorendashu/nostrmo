@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostr_sdk/zap/zap.dart';
 
-import '../../generated/l10n.dart';
-import '../../main.dart';
-import '../../util/lightning_util.dart';
-import '../../util/string_util.dart';
-import 'zap.dart';
+import '../generated/l10n.dart';
+import '../main.dart';
+import 'lightning_util.dart';
 
 class ZapAction {
   /// zap to single pubkey.

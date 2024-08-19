@@ -3,6 +3,12 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/client_utils/keys.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/data/event_find_util.dart';
 import 'package:nostrmo/data/metadata.dart';
@@ -11,25 +17,20 @@ import 'package:nostrmo/router/search/search_actions.dart';
 import 'package:nostrmo/util/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/client_utils/keys.dart';
-import '../../client/event.dart';
-import '../../client/nip19/nip19.dart';
 import '../../component/cust_state.dart';
-import '../../client/event_kind.dart' as kind;
-import '../../client/filter.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event_delete_callback.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/router_path.dart';
-import '../../data/event_mem_box.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
-import '../../util/platform_util.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+
+import '../../util/table_mode_util.dart';
 
 class SearchRouter extends StatefulWidget {
   @override
@@ -184,7 +185,7 @@ class _SearchRouter extends CustState<SearchRouter>
       }
     }
     if (body != null) {
-      if (loadable != null && PlatformUtil.isTableMode()) {
+      if (loadable != null && TableModeUtil.isTableMode()) {
         body = GestureDetector(
           onVerticalDragUpdate: (detail) {
             if (loadable == true) {
@@ -230,7 +231,7 @@ class _SearchRouter extends CustState<SearchRouter>
     );
   }
 
-  List<int> searchEventKinds = kind.EventKind.SUPPORTED_EVENTS;
+  List<int> searchEventKinds = EventKind.SUPPORTED_EVENTS;
 
   String? subscribeId;
 

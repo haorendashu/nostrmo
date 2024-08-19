@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/event.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
-import '../client/filter.dart';
 import '../main.dart';
 import '../util/later_function.dart';
-import '../util/string_util.dart';
 
 class ReplaceableEventProvider extends ChangeNotifier with LaterFunction {
   Map<String, Event> _eventsMap = {};

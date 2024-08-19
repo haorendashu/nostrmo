@@ -5,12 +5,12 @@ import 'dart:typed_data';
 
 import 'package:flutter_cache_manager/src/web/file_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/hash_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 
 import '../../consts/base64.dart';
-import '../platform_util.dart';
 
 class RetryHttpFileServcie extends FileService {
   final http.Client _httpClient;

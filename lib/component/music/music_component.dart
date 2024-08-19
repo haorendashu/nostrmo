@@ -3,11 +3,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/duartion_tool.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 

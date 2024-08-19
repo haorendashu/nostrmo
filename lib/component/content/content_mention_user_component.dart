@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/nip19/nip19.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
 import '../user/name_component.dart';
 import 'content_str_link_component.dart';
 

@@ -1,17 +1,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/nip51/follow_set.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostrmo/component/appbar4stack.dart';
 import 'package:nostrmo/component/cust_state.dart';
-import 'package:nostrmo/data/event_mem_box.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart';
-import '../../client/filter.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
@@ -20,7 +20,7 @@ import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 import '../../util/peddingevents_later_function.dart';
-import '../../util/string_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import '../../util/when_stop_function.dart';
 
 class FollowSetFeedRouter extends StatefulWidget {

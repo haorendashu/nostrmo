@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/user/user_pic_component.dart';
@@ -9,6 +8,7 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/relay_provider.dart';
 import '../../util/router_util.dart';
+import '../../util/table_mode_util.dart';
 
 class IndexAppBar extends StatefulWidget {
   static const double height = 56;
@@ -34,7 +34,7 @@ class _IndexAppBar extends State<IndexAppBar> {
     var appBarBackgroundColor = themeData.appBarTheme.backgroundColor;
 
     Widget? userPicWidget;
-    if (!PlatformUtil.isTableMode()) {
+    if (!TableModeUtil.isTableMode()) {
       userPicWidget = GestureDetector(
         onTap: () {
           Scaffold.of(context).openDrawer();

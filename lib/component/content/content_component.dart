@@ -2,9 +2,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_language_id/google_mlkit_language_id.dart';
 import 'package:google_mlkit_translation/google_mlkit_translation.dart';
-import 'package:nostrmo/client/aid.dart';
-import 'package:nostrmo/client/cashu/cashu_tokens.dart';
-import 'package:nostrmo/client/event_relation.dart';
+import 'package:nostr_sdk/aid.dart';
+import 'package:nostr_sdk/cashu/cashu_tokens.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/utils/path_type_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
 import 'package:nostrmo/component/content/content_music_component.dart';
 import 'package:nostrmo/component/content/trie_text_matcher/target_text_type.dart';
@@ -16,13 +22,8 @@ import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event.dart';
-import '../../client/event_kind.dart';
-import '../../client/nip19/nip19.dart';
-import '../../client/nip19/nip19_tlv.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -603,7 +604,7 @@ class _ContentComponent extends State<ContentComponent> {
         str.indexOf(HTTP_PRE) == 0 ||
         str.indexOf(BASE64.PREFIX) == 0) {
       // http style, get path style
-      var pathType = ContentDecoder.getPathType(str);
+      var pathType = PathTypeUtil.getPathType(str);
       if (pathType == "image") {
         images.add(str);
         if (!widget.showImage) {
@@ -1027,7 +1028,7 @@ class _ContentComponent extends State<ContentComponent> {
             if (linkArg.textType == TargetTextType.PURE_TEXT) {
               var str =
                   codeUnitsToString(codeUnits, linkArg.start, linkArg.end);
-              var pathType = ContentDecoder.getPathType(str);
+              var pathType = PathTypeUtil.getPathType(str);
 
               if (pathType != "link" || !widget.showLinkPreview) {
                 // inline
@@ -1180,7 +1181,7 @@ class _ContentComponent extends State<ContentComponent> {
       for (var subStr in subStrs) {
         if (subStr.indexOf("http") == 0) {
           // link, image, video etc
-          var pathType = ContentDecoder.getPathType(subStr);
+          var pathType = PathTypeUtil.getPathType(subStr);
           if (pathType == "image") {
             info.imageNum++;
           }

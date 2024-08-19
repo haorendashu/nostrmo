@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/event.dart';
-import 'package:nostrmo/client/event_kind.dart';
-import 'package:nostrmo/client/nip29/group_identifier.dart';
+import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/consts/base.dart';
@@ -9,7 +10,6 @@ import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/router/edit/editor_router.dart';
 import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';

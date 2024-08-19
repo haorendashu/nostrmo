@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:nostrmo/client/zap/zap_action.dart';
+import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
-import 'package:nostrmo/util/string_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../client/event_relation.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../util/lightning_util.dart';
 import '../../util/router_util.dart';
 import '../../util/theme_util.dart';
+import '../../util/zap_action.dart';
 import '../user/metadata_top_component.dart';
 
 class ZapsSendDialog extends StatefulWidget {

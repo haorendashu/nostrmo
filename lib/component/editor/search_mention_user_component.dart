@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/nip05_valid_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
 
-import '../../client/nip19/nip19.dart';
 import '../../consts/base.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/router_util.dart';
-import '../../util/string_util.dart';
 import '../../util/when_stop_function.dart';
 import '../image_component.dart';
 import 'search_mention_component.dart';

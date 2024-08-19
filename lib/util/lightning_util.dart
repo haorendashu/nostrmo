@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/lightning_qrcode_dialog.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/number_format_util.dart';
-import 'package:nostrmo/util/platform_util.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../generated/l10n.dart';
