@@ -1,14 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:js_interop';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/nip02/nip02.dart';
 import 'package:nostr_sdk/nip07/nip07_signer.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
 import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
+import 'package:nostr_sdk/nip65/nip65.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/relay/relay.dart';
 import 'package:nostr_sdk/relay/relay_base.dart';
@@ -74,25 +77,17 @@ class RelayProvider extends ChangeNotifier {
       return relays;
     }
 
-    var jsonObj = jsonDecode(content!);
-    Map<dynamic, dynamic> jsonMap =
-        jsonObj.map((key, value) => MapEntry(key, true));
+    var relayStatuses = NIP02.parseContenToRelays(content!);
+    for (var relayStatus in relayStatuses) {
+      var addr = relayStatus.addr;
+      relays.add(addr);
 
-    for (var entry in jsonMap.entries) {
-      var key = entry.key.toString();
-      relays.add(key);
-
-      var value = jsonObj[key];
-
-      var readAcccess = value["read"] == true;
-      var writeAcccess = value["write"] == true;
-
-      var relayStatus = relayStatusMap[key];
-      if (relayStatus == null) {
-        relayStatus = RelayStatus(key);
-        relayStatus.readAccess = readAcccess;
-        relayStatus.writeAccess = writeAcccess;
-        relayStatusMap[key] = relayStatus;
+      var oldRelayStatus = relayStatusMap[addr];
+      if (oldRelayStatus != null) {
+        oldRelayStatus.readAccess = relayStatus.readAccess;
+        oldRelayStatus.writeAccess = relayStatus.writeAccess;
+      } else {
+        relayStatusMap[addr] = relayStatus;
       }
     }
 
@@ -237,54 +232,26 @@ class RelayProvider extends ChangeNotifier {
     _updateRelayToContactList();
 
     // save to NIP-65
-    List tags = [];
-    for (var addr in relayAddrs) {
-      var readAccess = true;
-      var writeAccess = true;
-
-      var relayStatus = relayStatusMap[addr];
-      if (relayStatus != null) {
-        readAccess = relayStatus.readAccess;
-        writeAccess = relayStatus.writeAccess;
-      }
-
-      List<String> tag = ["r", addr];
-      if (readAccess != true || writeAccess != true) {
-        if (readAccess) {
-          tag.add("read");
-        }
-        if (writeAccess) {
-          tag.add("write");
-        }
-      }
-      tags.add(tag);
-    }
-
-    var e = Event(nostr!.publicKey, EventKind.RELAY_LIST_METADATA, tags, "");
-    nostr!.sendEvent(e);
+    var relayStatuses = _getRelayStatuses();
+    NIP65.save(nostr!, relayStatuses);
   }
 
   void _updateRelayToContactList() {
-    Map<String, dynamic> relaysContentMap = {};
-    for (var addr in relayAddrs) {
-      var readAccess = true;
-      var writeAccess = true;
+    var relayStatuses = _getRelayStatuses();
+    var relaysContent = NIP02.relaysToContent(relayStatuses);
+    contactListProvider.updateRelaysContent(relaysContent);
+    notifyListeners();
+  }
 
+  List<RelayStatus> _getRelayStatuses() {
+    List<RelayStatus> relayStatuses = [];
+    for (var addr in relayAddrs) {
       var relayStatus = relayStatusMap[addr];
       if (relayStatus != null) {
-        readAccess = relayStatus.readAccess;
-        writeAccess = relayStatus.writeAccess;
+        relayStatuses.add(relayStatus);
       }
-
-      relaysContentMap[addr] = {
-        "read": readAccess,
-        "write": writeAccess,
-      };
     }
-    var relaysContent = jsonEncode(relaysContentMap);
-    contactListProvider.updateRelaysContent(relaysContent);
-
-    notifyListeners();
+    return relayStatuses;
   }
 
   Relay genRelay(String relayAddr) {

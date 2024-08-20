@@ -7,7 +7,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
-import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/zap/zap_info_util.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/consts/base_consts.dart';
@@ -39,7 +39,7 @@ class UserStatisticsComponent extends StatefulWidget {
 class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   Event? contactListEvent;
 
-  CustContactList? contactList;
+  ContactList? contactList;
 
   Event? relaysEvent;
 
@@ -247,7 +247,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
       List<EnumObj> enumList = [];
       for (var event in list) {
-        var _contactList = CustContactList.fromJson(event.tags);
+        var _contactList = ContactList.fromJson(event.tags);
         var dt = DateTime.fromMillisecondsSinceEpoch(event.createdAt * 1000);
         enumList.add(
             EnumObj(event, "${format.encode(dt)} (${_contactList.total()})"));
@@ -256,7 +256,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       var result = await EnumSelectorComponent.show(context, enumList);
       if (result != null) {
         var event = result.value as Event;
-        var _contactList = CustContactList.fromJson(event.tags);
+        var _contactList = ContactList.fromJson(event.tags);
         RouterUtil.router(
             context, RouterPath.USER_HISTORY_CONTACT_LIST, _contactList);
       }
@@ -286,7 +286,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
             !_disposed) {
           setState(() {
             contactListEvent = event;
-            contactList = CustContactList.fromJson(event.tags);
+            contactList = ContactList.fromJson(event.tags);
           });
         }
       }, id: queryId);

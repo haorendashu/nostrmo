@@ -6,7 +6,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip02/contact.dart';
-import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
@@ -23,7 +23,7 @@ class ContactListProvider extends ChangeNotifier {
 
   String content = "";
 
-  CustContactList? _contactList;
+  ContactList? _contactList;
 
   Map<String, Event> followSetEventMap = {};
 
@@ -61,7 +61,7 @@ class ContactListProvider extends ChangeNotifier {
           var eventMap = jsonDecode(eventStr);
           _contactListProvider!._event = Event.fromJson(eventMap);
           _contactListProvider!._contactList =
-              CustContactList.fromJson(_contactListProvider!._event!.tags);
+              ContactList.fromJson(_contactListProvider!._event!.tags);
           _contactListProvider!.content = _contactListProvider!._event!.content;
 
           return;
@@ -69,7 +69,7 @@ class ContactListProvider extends ChangeNotifier {
       }
     }
 
-    _contactListProvider!._contactList = CustContactList();
+    _contactListProvider!._contactList = ContactList();
   }
 
   void clearCurrentContactList() {
@@ -109,7 +109,7 @@ class ContactListProvider extends ChangeNotifier {
     if (e.kind == EventKind.CONTACT_LIST) {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
-        _contactList = CustContactList.fromJson(e.tags);
+        _contactList = ContactList.fromJson(e.tags);
         content = e.content;
         _saveAndNotify();
 
@@ -181,7 +181,7 @@ class ContactListProvider extends ChangeNotifier {
     _saveAndNotify();
   }
 
-  void updateContacts(CustContactList contactList) async {
+  void updateContacts(ContactList contactList) async {
     var oldContactList = _contactList;
     _contactList = contactList;
     var result = await sendContactList();
@@ -192,7 +192,7 @@ class ContactListProvider extends ChangeNotifier {
     _saveAndNotify();
   }
 
-  CustContactList? get contactList => _contactList;
+  ContactList? get contactList => _contactList;
 
   Iterable<Contact> list() {
     return _contactList!.list();

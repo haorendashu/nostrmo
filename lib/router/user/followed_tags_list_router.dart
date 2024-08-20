@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostrmo/component/tag_info_component.dart';
 import 'package:nostrmo/consts/base.dart';
 
@@ -15,14 +15,14 @@ class FollowedTagsListRouter extends StatefulWidget {
 }
 
 class _FollowedTagsListRouter extends State<FollowedTagsListRouter> {
-  CustContactList? contactList;
+  ContactList? contactList;
 
   @override
   Widget build(BuildContext context) {
     if (contactList == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null) {
-        contactList = arg as CustContactList;
+        contactList = arg as ContactList;
       }
     }
     if (contactList == null) {

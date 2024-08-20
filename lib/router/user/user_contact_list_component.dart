@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/nip02/contact.dart';
-import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/user/metadata_component.dart';
@@ -12,7 +12,7 @@ import '../../util/router_util.dart';
 import '../../util/table_mode_util.dart';
 
 class UserContactListComponent extends StatefulWidget {
-  CustContactList contactList;
+  ContactList contactList;
 
   UserContactListComponent({required this.contactList});
 

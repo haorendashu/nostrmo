@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/aid.dart';
-import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,14 +19,14 @@ class FollowedCommunitiesRouter extends StatefulWidget {
 }
 
 class _FollowedCommunitiesRouter extends State<FollowedCommunitiesRouter> {
-  CustContactList? contactList;
+  ContactList? contactList;
 
   @override
   Widget build(BuildContext context) {
     if (contactList == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null) {
-        contactList = arg as CustContactList;
+        contactList = arg as ContactList;
       }
     }
     if (contactList == null) {

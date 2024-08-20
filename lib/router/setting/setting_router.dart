@@ -11,7 +11,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
-import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/relay/relay_mode.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/color_pick_dialog.dart';
@@ -937,7 +937,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         nostr!.sendEvent(updateEvent);
 
         // use a blank contact list to update it
-        var blankContactList = CustContactList();
+        var blankContactList = ContactList();
         nostr!.sendContactList(blankContactList, "");
 
         var filter = Filter(authors: [

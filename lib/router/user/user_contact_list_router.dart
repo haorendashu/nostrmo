@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nostr_sdk/nip02/cust_contact_list.dart';
+import 'package:nostr_sdk/nip02/contact_list.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
@@ -14,7 +14,7 @@ class UserContactListRouter extends StatefulWidget {
 }
 
 class _UserContactListRouter extends State<UserContactListRouter> {
-  CustContactList? contactList;
+  ContactList? contactList;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _UserContactListRouter extends State<UserContactListRouter> {
     if (contactList == null) {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null) {
-        contactList = arg as CustContactList;
+        contactList = arg as ContactList;
       }
     }
     if (contactList == null) {
