@@ -19,7 +19,6 @@ import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/trie_text_matcher/trie_text_matcher_builder.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
-import 'package:nostrmo/provider/custom_emoji_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
 import 'package:nostrmo/provider/gift_wrap_provider.dart';
 import 'package:nostrmo/provider/group_provider.dart';

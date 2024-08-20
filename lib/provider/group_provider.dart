@@ -10,6 +10,7 @@ import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/nip29/group_members.dart';
 import 'package:nostr_sdk/nip29/group_metadata.dart';
 import 'package:nostr_sdk/nip29/group_object.dart';
+import 'package:nostr_sdk/nip29/nip29.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/util/later_function.dart';
@@ -49,43 +50,11 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
   }
 
   void deleteEvent(GroupIdentifier groupIdentifier, String eventId) {
-    var relays = [groupIdentifier.host];
-    var event = Event(
-        nostr!.publicKey,
-        EventKind.GROUP_DELETE_EVENT,
-        [
-          ["h", groupIdentifier.groupId],
-          ["e", eventId]
-        ],
-        "");
-    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+    NIP29.deleteEvent(nostr!, groupIdentifier, eventId);
   }
 
   void editStatus(GroupIdentifier groupIdentifier, bool? public, bool? open) {
-    if (public == null && open == null) {
-      return;
-    }
-
-    var tags = [];
-    tags.add(["h", groupIdentifier.groupId]);
-    if (public != null) {
-      if (public) {
-        tags.add(["public"]);
-      } else {
-        tags.add(["private"]);
-      }
-    }
-    if (open != null) {
-      if (open) {
-        tags.add(["open"]);
-      } else {
-        tags.add(["closed"]);
-      }
-    }
-
-    var relays = [groupIdentifier.host];
-    var event = Event(nostr!.publicKey, EventKind.GROUP_EDIT_STATUS, tags, "");
-    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+    NIP29.editStatus(nostr!, groupIdentifier, public, open);
   }
 
   GroupMetadata? getMetadata(GroupIdentifier groupIdentifier) {
@@ -150,16 +119,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
   }
 
   void addMember(GroupIdentifier groupIdentifier, String pubkey) {
-    var relays = [groupIdentifier.host];
-    var event = Event(
-        nostr!.publicKey,
-        EventKind.GROUP_ADD_USER,
-        [
-          ["h", groupIdentifier.groupId],
-          ["p", pubkey]
-        ],
-        "");
-    nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+    NIP29.addMember(nostr!, groupIdentifier, pubkey);
 
     // try to add to mem
     var key = groupIdentifier.toString();
@@ -175,17 +135,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
 
   Future<void> removeMember(
       GroupIdentifier groupIdentifier, String pubkey) async {
-    var relays = [groupIdentifier.host];
-    var event = Event(
-        nostr!.publicKey,
-        EventKind.GROUP_REMOVE_USER,
-        [
-          ["h", groupIdentifier.groupId],
-          ["p", pubkey]
-        ],
-        "");
-
-    await nostr!.sendEvent(event, tempRelays: relays, targetRelays: relays);
+    NIP29.removeMember(nostr!, groupIdentifier, pubkey);
 
     // try to delete from mem
     var key = groupIdentifier.toString();

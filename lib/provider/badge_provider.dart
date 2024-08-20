@@ -1,10 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip58/nip58.dart';
 import 'package:nostr_sdk/nostr.dart';
 
 import '../main.dart';
@@ -13,29 +11,13 @@ class BadgeProvider extends ChangeNotifier {
   Event? badgeEvent;
 
   void wear(String badgeId, String eventId, {String? relayAddr}) async {
-    String content = "";
-    List<dynamic> tags = [];
-
-    if (badgeEvent != null) {
-      content = badgeEvent!.content;
-      tags = badgeEvent!.tags;
-    } else {
-      tags = [
-        ["d", "profile_badges"]
-      ];
-    }
-
-    tags.add(["a", badgeId]);
-    var eList = ["e", eventId];
-    if (relayAddr != null) {
-      eList.add(relayAddr);
-    }
-    tags.add(eList);
-
-    var newEvent =
-        Event(nostr!.publicKey, EventKind.BADGE_ACCEPT, tags, content);
-
-    var result = await nostr!.sendEvent(newEvent);
+    var result = await NIP58.ware(
+      nostr!,
+      badgeId,
+      eventId,
+      relayAddr: relayAddr,
+      badgeEvent: badgeEvent,
+    );
     if (result != null) {
       badgeEvent = result;
       _parseProfileBadge();
@@ -75,7 +57,7 @@ class BadgeProvider extends ChangeNotifier {
 
   void _parseProfileBadge() {
     if (badgeEvent != null) {
-      var badgeIds = parseProfileBadge(badgeEvent!);
+      var badgeIds = NIP58.parseProfileBadge(badgeEvent!);
       _badgeIdsMap = {};
       for (var badgeId in badgeIds) {
         _badgeIdsMap[badgeId] = 1;
@@ -89,19 +71,5 @@ class BadgeProvider extends ChangeNotifier {
     }
 
     return false;
-  }
-
-  static List<String> parseProfileBadge(Event event) {
-    List<String> badgeIds = [];
-
-    for (var tag in event.tags) {
-      if (tag[0] == "a") {
-        var badgeId = tag[1];
-
-        badgeIds.add(badgeId);
-      }
-    }
-
-    return badgeIds;
   }
 }
