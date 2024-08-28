@@ -135,7 +135,10 @@ class Uploader {
     if (imageService == ImageServices.POMF2_LAIN_LA) {
       return await Pomf2LainLa.upload(localPath, fileName: fileName);
     } else if (imageService == ImageServices.NOSTR_BUILD) {
-      return await NostrBuildUploader.upload(localPath, fileName: fileName);
+      // return await NostrBuildUploader.upload(localPath, fileName: fileName);
+      return await NIP96Uploader.upload(
+          nostr!, "https://nostr.build/", localPath,
+          fileName: fileName);
     } else if (imageService == ImageServices.NOSTO_RE) {
       return await BolssomUploader.upload(
           nostr!, "https://nosto.re/", localPath,
