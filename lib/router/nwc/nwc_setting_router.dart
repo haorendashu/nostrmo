@@ -172,6 +172,11 @@ class _NwcSettingRouter extends CustState<NwcSettingRouter> {
 
       settingProvider.nwcUrl = result;
       RouterUtil.back(context);
+    } else {
+      // try to clean nwc setting
+      settingProvider.nwcUrl = null;
+      nwcProvider.clear();
+      RouterUtil.back(context);
     }
   }
 

@@ -55,6 +55,19 @@ class NWCProvider extends ChangeNotifier {
     }
   }
 
+  void clear() {
+    _nwcInfo = null;
+    agreement = null;
+
+    if (_relay != null) {
+      try {
+        _relay!.disconnect();
+        _relay!.dispose();
+        _relay = null;
+      } catch (e) {}
+    }
+  }
+
   void doConnect() {
     if (_nwcInfo == null) {
       return;
