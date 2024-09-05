@@ -689,7 +689,7 @@ mixin EditorMixin {
         // Private dm message
         var rumorEvent = Event(
             nostr!.publicKey, EventKind.PRIVATE_DIRECT_MESSAGE, allTags, result,
-            publishAt: publishAt);
+            createdAt: getCreatedAt());
         // this is the event send to sender, should return after send and set into giftWrapProvider and dmProvider
         event = await GiftWrapUtil.getGiftWrapEvent(
             nostr!, rumorEvent, nostr!, nostr!.publicKey);
@@ -715,7 +715,7 @@ mixin EditorMixin {
         result = encryptedResult;
         event = Event(
             nostr!.publicKey, EventKind.DIRECT_MESSAGE, allTags, result,
-            publishAt: publishAt);
+            createdAt: getCreatedAt());
       }
     } else if (groupIdentifier != null) {
       var eventKind = getGroupEventKind();
@@ -729,24 +729,24 @@ mixin EditorMixin {
             ...allTags
           ],
           result,
-          publishAt: publishAt);
+          createdAt: getCreatedAt());
     } else if (inputPoll) {
       // poll event
       // get poll tag from PollInputComponentn
       var pollTags = pollInputController.getTags();
       allTags.addAll(pollTags);
       event = Event(nostr!.publicKey, EventKind.POLL, allTags, result,
-          publishAt: publishAt);
+          createdAt: getCreatedAt());
     } else if (inputZapGoal) {
       // zap goal event
       var extralTags = zapGoalInputController.getTags();
       allTags.addAll(extralTags);
       event = Event(nostr!.publicKey, EventKind.ZAP_GOALS, allTags, result,
-          publishAt: publishAt);
+          createdAt: getCreatedAt());
     } else {
       // text note
       event = Event(nostr!.publicKey, EventKind.TEXT_NOTE, allTags, result,
-          publishAt: publishAt);
+          createdAt: getCreatedAt());
     }
 
     if (event == null) {
@@ -1099,6 +1099,14 @@ mixin EditorMixin {
   }
 
   DateTime? publishAt;
+
+  int? getCreatedAt() {
+    if (publishAt != null) {
+      return publishAt!.millisecondsSinceEpoch ~/ 1000;
+    }
+
+    return null;
+  }
 
   Future<void> selectedTime() async {
     var dt = await DatetimePickerComponent.show(getContext(),
