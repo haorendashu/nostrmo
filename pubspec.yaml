@@ -56,7 +56,8 @@ dependencies:
   emoji_picker_flutter: ^2.2.0
   widget_size: ^1.0.0
   # webview_flutter: ^4.4.2
-  flutter_inappwebview: ^6.0.0-rc.3
+  # if build a web version, should remove the package flutter_inappwebview
+  flutter_inappwebview: ^6.0.0
   screenshot: ^3.0.0
   share_plus: ^9.0.0
   # video_player: ^2.8.2
