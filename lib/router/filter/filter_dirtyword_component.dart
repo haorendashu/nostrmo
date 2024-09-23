@@ -63,7 +63,6 @@ class _FilterDirtywordComponent extends State<FilterDirtywordComponent> {
 
   void addDirtyWord() {
     var word = controller.text;
-    word = word.trim();
     if (StringUtil.isBlank(word)) {
       BotToast.showText(text: S.of(context).Word_can_t_be_null);
       return;
