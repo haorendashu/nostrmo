@@ -300,8 +300,12 @@ mixin EditorMixin {
 
   void emojiBeginToSelect() {
     FocusScope.of(getContext()).unfocus();
-    emojiShow = true;
-    customEmojiShow = false;
+    if (emojiShow) {
+      emojiShow = false;
+    } else {
+      emojiShow = true;
+      customEmojiShow = false;
+    }
     updateUI();
   }
 
@@ -883,8 +887,12 @@ mixin EditorMixin {
 
   void customEmojiSelect() {
     FocusScope.of(getContext()).unfocus();
-    customEmojiShow = true;
-    emojiShow = false;
+    if (customEmojiShow) {
+      customEmojiShow = false;
+    } else {
+      customEmojiShow = true;
+      emojiShow = false;
+    }
     updateUI();
   }
 

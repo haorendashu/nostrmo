@@ -40,6 +40,12 @@ class _GroupDetailChatComponent
   GroupDetailProvider? groupDetailProvider;
 
   @override
+  void initState() {
+    super.initState();
+    handleFocusInit();
+  }
+
+  @override
   Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
     var textColor = themeData.textTheme.bodyMedium!.color;
