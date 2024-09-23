@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/relay/event_filter.dart';
 import 'package:nostrmo/provider/data_util.dart';
 
@@ -98,8 +99,10 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
     if (checkBlock(e.pubkey)) {
       return true;
     }
-    if (checkDirtyword(e.content)) {
-      return true;
+    if (EventKind.SUPPORTED_EVENTS.contains(e.kind)) {
+      if (checkDirtyword(e.content)) {
+        return true;
+      }
     }
 
     return false;
