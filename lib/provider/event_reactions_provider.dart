@@ -144,7 +144,8 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
 
         var filter = Filter(e: [id], kinds: SUPPORT_EVENT_KINDS);
         var eventMaps = await relayLocalDB!.doQueryEvent(filter.toJson());
-        var events = relayLocalDB!.loadEventFromMaps(eventMaps);
+        var events = relayLocalDB!
+            .loadEventFromMaps(eventMaps, eventFilter: filterProvider);
         if (events.isNotEmpty) {
           // print("Event Reactions load from relayDB $id");
           onEvents(events);
