@@ -43,6 +43,7 @@ import '../content/content_tag_component.dart';
 import '../content/markdown/markdown_mention_event_inline_syntax.dart';
 import '../content/markdown/markdown_mention_user_element_builder.dart';
 import '../content/markdown/markdown_mention_user_inline_syntax.dart';
+import '../content/markdown/markdown_naddr_inline_syntax.dart';
 import '../content/markdown/markdown_nevent_inline_syntax.dart';
 import '../content/markdown/markdown_nprofile_inline_syntax.dart';
 import '../content/markdown/markdown_nrelay_element_builder.dart';
@@ -256,9 +257,9 @@ class _EventMainComponent extends State<EventMainComponent> {
           ),
         );
 
-        if (widget.showLongContent) {
+        if (widget.showLongContent &&
+            StringUtil.isNotBlank(widget.event.content)) {
           var markdownWidget = buildMarkdownWidget(themeData);
-
           list.add(Container(
             width: double.infinity,
             child: RepaintBoundary(child: markdownWidget),
@@ -710,6 +711,7 @@ class _EventMainComponent extends State<EventMainComponent> {
       inlineSyntaxes: [
         MarkdownMentionEventInlineSyntax(),
         MarkdownMentionUserInlineSyntax(),
+        MarkdownNaddrInlineSyntax(),
         MarkdownNeventInlineSyntax(),
         MarkdownNprofileInlineSyntax(),
         MarkdownNrelayInlineSyntax(),

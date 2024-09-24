@@ -820,22 +820,19 @@ class _ContentComponent extends State<ContentComponent> {
 
         var naddr = NIP19Tlv.decodeNaddr(key);
         if (naddr != null) {
-          if (StringUtil.isNotBlank(naddr.id) &&
-              naddr.kind == EventKind.TEXT_NOTE) {
-            // block
-            bufferToList(buffer, currentList, images, removeLastSpan: true);
-            var w = EventQuoteComponent(
-              id: naddr.id,
-              eventRelayAddr: naddr.relays != null && naddr.relays!.isNotEmpty
+          String? eventRelayAddr =
+              naddr.relays != null && naddr.relays!.isNotEmpty
                   ? naddr.relays![0]
-                  : null,
-              showVideo: widget.showVideo,
-            );
-            currentList.add(WidgetSpan(child: w));
-            counterAddLines(fake_event_counter);
+                  : null;
+          if (StringUtil.isBlank(eventRelayAddr) && widget.event != null) {
+            var ownerReadRelays =
+                metadataProvider.getExtralRelays(widget.event!.pubkey, false);
+            if (ownerReadRelays.isNotEmpty) {
+              eventRelayAddr = ownerReadRelays.first;
+            }
+          }
 
-            return otherStr;
-          } else if (StringUtil.isNotBlank(naddr.author) &&
+          if (StringUtil.isNotBlank(naddr.author) &&
               naddr.kind == EventKind.METADATA) {
             // inline
             bufferToList(buffer, currentList, images);
@@ -843,20 +840,22 @@ class _ContentComponent extends State<ContentComponent> {
                 child: ContentMentionUserComponent(pubkey: naddr.author)));
 
             return otherStr;
-          } else if (naddr.kind == EventKind.LONG_FORM &&
-              StringUtil.isNotBlank(naddr.id) &&
-              StringUtil.isNotBlank(naddr.author)) {
-            var aid = AId(
-                kind: EventKind.LONG_FORM,
-                pubkey: naddr.author,
-                title: naddr.id);
+          } else if (StringUtil.isNotBlank(naddr.id) &&
+              EventKind.SUPPORTED_EVENTS.contains(naddr.kind)) {
             // block
+            String? id = naddr.id;
+            AId? aid;
+            if (id.length > 64 && StringUtil.isNotBlank(naddr.author)) {
+              aid =
+                  AId(kind: naddr.kind, pubkey: naddr.author, title: naddr.id);
+              id = null;
+            }
+
             bufferToList(buffer, currentList, images, removeLastSpan: true);
             var w = EventQuoteComponent(
+              id: id,
               aId: aid,
-              eventRelayAddr: naddr.relays != null && naddr.relays!.isNotEmpty
-                  ? naddr.relays![0]
-                  : null,
+              eventRelayAddr: eventRelayAddr,
               showVideo: widget.showVideo,
             );
             currentList.add(WidgetSpan(child: w));
