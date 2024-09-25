@@ -106,6 +106,7 @@ class _UserRouter extends CustState<UserRouter>
 
           pubkey = arg;
           doQuery();
+          updateUserdata();
         }
       }
     }
@@ -255,10 +256,18 @@ class _UserRouter extends CustState<UserRouter>
       });
     }
 
+    updateUserdata();
+  }
+
+  void updateUserdata() {
     metadataProvider.update(pubkey!);
   }
 
   void onEvent(event) {
+    if (event.pubkey != pubkey) {
+      return;
+    }
+
     later(event, (list) {
       box.addList(list);
       setState(() {});

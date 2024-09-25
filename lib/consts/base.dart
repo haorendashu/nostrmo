@@ -42,5 +42,5 @@ class Base {
 
   static double TABBAR_HEIGHT = 46;
 
-  static int RELAY_LIST_METADATA_KEY_INDEX = 0;
+  static int DEFAULT_DATA_INDEX = -1;
 }

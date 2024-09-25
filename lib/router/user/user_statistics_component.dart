@@ -13,6 +13,7 @@ import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/contact_list_provider.dart';
 import 'package:nostrmo/provider/list_provider.dart';
+import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -82,47 +83,26 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       doQuery();
     }
     pubkey = widget.pubkey;
-
     isLocal = widget.pubkey == nostr!.publicKey;
 
-    List<Widget> list = [];
-
     if (isLocal) {
-      list.add(
-          Selector<ContactListProvider, int>(builder: (context, num, child) {
-        return UserStatisticsItemComponent(
-          num: num,
-          name: s.Following,
-          onTap: onFollowingTap,
-          onLongPressStart: onLongPressStart,
-          onLongPressEnd: onLongPressEnd,
-        );
-      }, selector: (context, _provider) {
-        return _provider.total();
-      }));
-    } else {
-      if (contactList != null) {
-        length = contactList!.list().length;
-      }
+      var _provider = Provider.of<ContactListProvider>(context);
+      List<Widget> list = [];
       list.add(UserStatisticsItemComponent(
-          num: length, name: s.Following, onTap: onFollowingTap));
-    }
+        num: _provider.total(),
+        name: s.Following,
+        onTap: onFollowingTap,
+        onLongPressStart: onLongPressStart,
+        onLongPressEnd: onLongPressEnd,
+      ));
 
-    if (isLocal) {
-      list.add(
-          Selector<ContactListProvider, int>(builder: (context, num, child) {
-        return UserStatisticsItemComponent(
-            num: num,
-            name: s.Follow_set,
-            onTap: () {
-              RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
-            });
-      }, selector: (context, _provider) {
-        return _provider.followSetEventMap.length;
-      }));
-    }
+      list.add(UserStatisticsItemComponent(
+          num: _provider.followSetEventMap.length,
+          name: s.Follow_set,
+          onTap: () {
+            RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
+          }));
 
-    if (isLocal) {
       list.add(Selector<ListProvider, int>(builder: (context, num, child) {
         return UserStatisticsItemComponent(
             num: num,
@@ -133,49 +113,81 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       }, selector: (context, _provider) {
         return _provider.groupIdentifiers.length;
       }));
-    }
 
-    if (isLocal) {
       list.add(Selector<RelayProvider, int>(builder: (context, num, child) {
         return UserStatisticsItemComponent(
             num: num, name: s.Relays, onTap: onRelaysTap);
       }, selector: (context, _provider) {
         return _provider.total();
       }));
+
+      list.add(UserStatisticsItemComponent(
+        num: followedNum,
+        name: s.Followed,
+        onTap: onFollowedTap,
+        formatNum: true,
+      ));
+
+      list.add(UserStatisticsItemComponent(
+        num: zapNum,
+        name: "Zap",
+        onTap: onZapTap,
+        formatNum: true,
+      ));
+
+      list.add(UserStatisticsItemComponent(
+        num: _provider.totalFollowedTags(),
+        name: s.Followed_Tags,
+        onTap: onFollowedTagsTap,
+      ));
+
+      list.add(UserStatisticsItemComponent(
+        num: _provider.totalfollowedCommunities(),
+        name: s.Followed_Communities,
+        onTap: onFollowedCommunitiesTap,
+      ));
+
+      return Container(
+        // color: Colors.red,
+        height: 18,
+        margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: list,
+        ),
+      );
     } else {
+      var _provider = Provider.of<MetadataProvider>(context);
+      contactList = _provider.getContactList(pubkey!);
+
+      List<Widget> list = [];
+
+      if (contactList != null) {
+        length = contactList!.list().length;
+      }
+      list.add(UserStatisticsItemComponent(
+          num: length, name: s.Following, onTap: onFollowingTap));
+
       if (relaysTags != null) {
         relaysNum = relaysTags!.length;
       }
       list.add(UserStatisticsItemComponent(
           num: relaysNum, name: s.Relays, onTap: onRelaysTap));
-    }
 
-    list.add(UserStatisticsItemComponent(
-      num: followedNum,
-      name: s.Followed,
-      onTap: onFollowedTap,
-      formatNum: true,
-    ));
+      list.add(UserStatisticsItemComponent(
+        num: followedNum,
+        name: s.Followed,
+        onTap: onFollowedTap,
+        formatNum: true,
+      ));
 
-    list.add(UserStatisticsItemComponent(
-      num: zapNum,
-      name: "Zap",
-      onTap: onZapTap,
-      formatNum: true,
-    ));
+      list.add(UserStatisticsItemComponent(
+        num: zapNum,
+        name: "Zap",
+        onTap: onZapTap,
+        formatNum: true,
+      ));
 
-    if (isLocal) {
-      list.add(
-          Selector<ContactListProvider, int>(builder: (context, num, child) {
-        return UserStatisticsItemComponent(
-          num: num,
-          name: s.Followed_Tags,
-          onTap: onFollowedTagsTap,
-        );
-      }, selector: (context, _provider) {
-        return _provider.totalFollowedTags();
-      }));
-    } else {
       if (contactList != null) {
         followedTagsLength = contactList!.tagList().length;
       }
@@ -183,20 +195,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
           num: followedTagsLength,
           name: s.Followed_Tags,
           onTap: onFollowedTagsTap));
-    }
 
-    if (isLocal) {
-      list.add(
-          Selector<ContactListProvider, int>(builder: (context, num, child) {
-        return UserStatisticsItemComponent(
-          num: num,
-          name: s.Followed_Communities,
-          onTap: onFollowedCommunitiesTap,
-        );
-      }, selector: (context, _provider) {
-        return _provider.totalfollowedCommunities();
-      }));
-    } else {
       if (contactList != null) {
         followedCommunitiesLength =
             contactList!.followedCommunitiesList().length;
@@ -205,17 +204,17 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
           num: followedCommunitiesLength,
           name: s.Followed_Communities,
           onTap: onFollowedCommunitiesTap));
-    }
 
-    return Container(
-      // color: Colors.red,
-      height: 18,
-      margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: list,
-      ),
-    );
+      return Container(
+        // color: Colors.red,
+        height: 18,
+        margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: list,
+        ),
+      );
+    }
   }
 
   String? fetchLocalContactsId;
@@ -247,7 +246,7 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
 
       List<EnumObj> enumList = [];
       for (var event in list) {
-        var _contactList = ContactList.fromJson(event.tags);
+        var _contactList = ContactList.fromJson(event.tags, event.createdAt);
         var dt = DateTime.fromMillisecondsSinceEpoch(event.createdAt * 1000);
         enumList.add(
             EnumObj(event, "${format.encode(dt)} (${_contactList.total()})"));
@@ -256,14 +255,12 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
       var result = await EnumSelectorComponent.show(context, enumList);
       if (result != null) {
         var event = result.value as Event;
-        var _contactList = ContactList.fromJson(event.tags);
+        var _contactList = ContactList.fromJson(event.tags, event.createdAt);
         RouterUtil.router(
             context, RouterPath.USER_HISTORY_CONTACT_LIST, _contactList);
       }
     }
   }
-
-  String queryId = "";
 
   String queryId2 = "";
 
@@ -275,23 +272,6 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   }
 
   void doQuery() {
-    {
-      queryId = StringUtil.rndNameStr(16);
-      var filter = Filter(
-          authors: [widget.pubkey], limit: 1, kinds: [EventKind.CONTACT_LIST]);
-      nostr!.query([filter.toJson()], (event) {
-        if (((contactListEvent != null &&
-                    event.createdAt > contactListEvent!.createdAt) ||
-                contactListEvent == null) &&
-            !_disposed) {
-          setState(() {
-            contactListEvent = event;
-            contactList = ContactList.fromJson(event.tags);
-          });
-        }
-      }, id: queryId);
-    }
-
     {
       queryId2 = StringUtil.rndNameStr(16);
       var filter = Filter(
@@ -313,12 +293,15 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
   }
 
   onFollowingTap() {
-    if (contactList != null) {
-      RouterUtil.router(context, RouterPath.USER_CONTACT_LIST, contactList);
-    } else if (isLocal) {
+    if (isLocal) {
       var cl = contactListProvider.contactList;
       if (cl != null) {
         RouterUtil.router(context, RouterPath.USER_CONTACT_LIST, cl);
+      }
+    } else {
+      var contactList = metadataProvider.getContactList(pubkey!);
+      if (contactList != null) {
+        RouterUtil.router(context, RouterPath.USER_CONTACT_LIST, contactList);
       }
     }
   }
@@ -406,7 +389,6 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
     super.dispose();
 
     _disposed = true;
-    checkAndUnsubscribe(queryId);
     checkAndUnsubscribe(queryId2);
     checkAndUnsubscribe(zapSubscribeId);
   }

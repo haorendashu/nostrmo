@@ -79,6 +79,7 @@ import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'provider/url_speed_provider.dart';
 import 'provider/webview_provider.dart';
+import 'provider/wot_provider.dart';
 import 'router/bookmark/bookmark_router.dart';
 import 'router/community/community_detail_router.dart';
 import 'router/dm/dm_detail_router.dart';
@@ -190,6 +191,8 @@ bool firstLogin = false;
 bool newUser = false;
 
 late TrieTextMatcher defaultTrieTextMatcher;
+
+late WotProvider wotProvider;
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

@@ -60,8 +60,9 @@ class ContactListProvider extends ChangeNotifier {
         if (eventStr != null) {
           var eventMap = jsonDecode(eventStr);
           _contactListProvider!._event = Event.fromJson(eventMap);
-          _contactListProvider!._contactList =
-              ContactList.fromJson(_contactListProvider!._event!.tags);
+          _contactListProvider!._contactList = ContactList.fromJson(
+              _contactListProvider!._event!.tags,
+              _contactListProvider!._event!.createdAt);
           _contactListProvider!.content = _contactListProvider!._event!.content;
 
           return;
@@ -109,7 +110,7 @@ class ContactListProvider extends ChangeNotifier {
     if (e.kind == EventKind.CONTACT_LIST) {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
-        _contactList = ContactList.fromJson(e.tags);
+        _contactList = ContactList.fromJson(e.tags, _event!.createdAt);
         content = e.content;
         _saveAndNotify();
 

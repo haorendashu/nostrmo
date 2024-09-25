@@ -63,6 +63,19 @@ class EventDB {
     }
   }
 
+  static Future<Event?> execute(String sql, List<Object?> arguments,
+      {DatabaseExecutor? db}) async {
+    db = await DB.getDB(db);
+    await db.execute(sql, arguments);
+  }
+
+  static Future<Event?> delete(int keyIndex, String id,
+      {DatabaseExecutor? db}) async {
+    db = await DB.getDB(db);
+    await db.execute(
+        "delete from event where key_index = ? and id = ?", [keyIndex, id]);
+  }
+
   static Future<void> deleteAll(int keyIndex, {DatabaseExecutor? db}) async {
     db = await DB.getDB(db);
     db.execute("delete from event where key_index = ?", [keyIndex]);
