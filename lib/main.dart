@@ -12,11 +12,13 @@ import 'package:flutter_cache_manager/src/cache_store.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:nostr_sdk/client_utils/keys.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/relay_local/relay_local_db.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/trie_text_matcher/trie_text_matcher_builder.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/badge_definition_provider.dart';
 import 'package:nostrmo/provider/community_info_provider.dart';
 import 'package:nostrmo/provider/follow_new_event_provider.dart';
@@ -282,6 +284,7 @@ Future<void> main() async {
   urlSpeedProvider = UrlSpeedProvider();
   nwcProvider = NWCProvider()..init();
   groupProvider = GroupProvider();
+  wotProvider = WotProvider();
 
   defaultTrieTextMatcher = TrieTextMatcherBuilder.build();
 
@@ -293,6 +296,11 @@ Future<void> main() async {
 
   if (StringUtil.isNotBlank(settingProvider.privateKey)) {
     nostr = await relayProvider.genNostrWithKey(settingProvider.privateKey!);
+
+    if (nostr != null && settingProvider.wotFilter == OpenStatus.OPEN) {
+      var pubkey = getPublicKey(settingProvider.privateKey!);
+      wotProvider.init(pubkey);
+    }
   }
 
   FlutterNativeSplash.remove();

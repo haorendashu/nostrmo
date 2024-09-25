@@ -150,6 +150,11 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
     if (rootEvent == null) {
       box.add(sourceEvent!);
     }
+
+    // try to handle temp wot filter
+    wotProvider.addTempFromEvents(box.all());
+
+    // make list to tree
     listToTree(refresh: false);
   }
 

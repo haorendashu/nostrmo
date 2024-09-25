@@ -141,6 +141,12 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       },
     ));
 
+    list.add(SettingGroupItemComponent(
+      name: "Wot ${s.Filter}",
+      value: getOpenListDefault(settingProvider.wotFilter).name,
+      onTap: pickWotFilter,
+    ));
+
     list.add(SettingGroupTitleComponent(iconData: Icons.palette, title: "UI"));
     list.add(
       SettingGroupItemComponent(
@@ -1277,6 +1283,21 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.pubkeyColor = resultEnumObj.value;
+    }
+  }
+
+  pickWotFilter() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.wotFilter = resultEnumObj.value;
+
+      if (settingProvider.wotFilter == OpenStatus.OPEN) {
+        var pubkey = nostr!.publicKey;
+        wotProvider.init(pubkey);
+      } else {
+        wotProvider.clear();
+      }
     }
   }
 }

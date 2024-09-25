@@ -199,6 +199,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     forceParentId = null;
     sourceEventKey = GlobalKey();
 
+    wotProvider.addTempFromEvent(sourceEvent!);
+
     // find parent data
     var eventRelation = EventRelation.fromEvent(sourceEvent!);
     var replyId = eventRelation.replyOrRootId;

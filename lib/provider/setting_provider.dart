@@ -324,6 +324,8 @@ class SettingProvider extends ChangeNotifier {
 
   int? get pubkeyColor => _settingData!.pubkeyColor;
 
+  int? get wotFilter => _settingData!.wotFilter;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -536,6 +538,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set wotFilter(int? o) {
+    _settingData!.wotFilter = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -644,6 +651,8 @@ class SettingData {
 
   int? pubkeyColor;
 
+  int? wotFilter;
+
   /// updated time
   late int updatedTime;
 
@@ -689,6 +698,7 @@ class SettingData {
     this.nwcUrlMap,
     this.openBlurhashImage,
     this.pubkeyColor,
+    this.wotFilter,
     this.updatedTime = 0,
   });
 
@@ -748,6 +758,7 @@ class SettingData {
     nwcUrlMap = json['nwcUrlMap'];
     openBlurhashImage = json['openBlurhashImage'];
     pubkeyColor = json['pubkeyColor'];
+    wotFilter = json['wotFilter'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -799,6 +810,7 @@ class SettingData {
     data['nwcUrlMap'] = this.nwcUrlMap;
     data['openBlurhashImage'] = this.openBlurhashImage;
     data['pubkeyColor'] = this.pubkeyColor;
+    data['wotFilter'] = this.wotFilter;
     data['updatedTime'] = this.updatedTime;
     return data;
   }

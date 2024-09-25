@@ -99,7 +99,14 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
     if (checkBlock(e.pubkey)) {
       return true;
     }
-    if (EventKind.SUPPORTED_EVENTS.contains(e.kind)) {
+
+    if (EventKind.SUPPORTED_EVENTS.contains(e.kind) ||
+        e.kind == EventKind.DIRECT_MESSAGE ||
+        e.kind == EventKind.GIFT_WRAP) {
+      if (e.kind != EventKind.ZAP_GOALS && !wotProvider.check(e.pubkey)) {
+        return true;
+      }
+
       if (checkDirtyword(e.content)) {
         return true;
       }
