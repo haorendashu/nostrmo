@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/provider/data_util.dart';
 
 import '../main.dart';
 
@@ -37,16 +40,43 @@ class WotProvider extends ChangeNotifier {
     return _tempPubkeys.containsKey(pubkey);
   }
 
-  void init(String pubkey) async {
-    clear();
+  String genKey(String pubkey) {
+    return "${DataKey.WOT_PRE}$pubkey";
+  }
 
+  void init(String pubkey) async {
+    var wotText = sharedPreferences.getString(genKey(pubkey));
+    if (StringUtil.isNotBlank(wotText)) {
+      var pubkeys = wotText!.split(",");
+      clear();
+      for (var pubkey in pubkeys) {
+        _pubkeys[pubkey] = 1;
+      }
+
+      Future.delayed(const Duration(minutes: 2), () {
+        reload(pubkey, pullNow: true);
+      });
+    } else {
+      reload(pubkey);
+    }
+  }
+
+  void reload(String pubkey, {bool pullNow = false}) async {
     _pubkeys[pubkey] = 1;
 
     Map<String, int> tempPubkeyMap = {};
 
     // The pubkeys you had mentioned. (Trust !)
     if (relayLocalDB != null) {
-      var eventMapList = await relayLocalDB!.queryEventByPubkey(pubkey);
+      var eventMapList =
+          await relayLocalDB!.queryEventByPubkey(pubkey, eventKinds: [
+        EventKind.TEXT_NOTE,
+        EventKind.DIRECT_MESSAGE,
+        EventKind.REPOST,
+        EventKind.REACTION,
+        EventKind.GENERIC_REPOST,
+        EventKind.FOLLOW_SETS,
+      ]);
       if (eventMapList.isNotEmpty) {
         var events = relayLocalDB!.loadEventFromMaps(eventMapList);
         if (events.isNotEmpty) {
@@ -101,14 +131,25 @@ class WotProvider extends ChangeNotifier {
       }
     }
 
-    Future.delayed(const Duration(minutes: 2), () {
+    doPullNotFound() {
       if (nostr != null) {
         var tempPubkeys = notFoundContactListPubkeys.keys;
         for (var pubkey in tempPubkeys) {
           metadataProvider.update(pubkey);
         }
       }
-    });
+    }
+
+    if (pullNow) {
+      doPullNotFound();
+    } else {
+      Future.delayed(const Duration(minutes: 2), () {
+        doPullNotFound();
+      });
+    }
+
+    var wotText = _pubkeys.keys.join(",");
+    sharedPreferences.setString(genKey(pubkey), wotText);
   }
 
   void clear() {

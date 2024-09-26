@@ -29,4 +29,6 @@ class DataKey {
   static final String DIRTYWORD_LIST = "dirtywordList";
 
   static final String CUSTOM_EMOJI_LIST = "customEmojiList";
+
+  static final String WOT_PRE = "wot_";
 }
