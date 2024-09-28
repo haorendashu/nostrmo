@@ -57,7 +57,7 @@ dependencies:
   widget_size: ^1.0.0
   # webview_flutter: ^4.4.2
   # if build a web version, should remove the package flutter_inappwebview
-  flutter_inappwebview: ^6.0.0
+  flutter_inappwebview: ^6.1.1
   screenshot: ^3.0.0
   share_plus: ^9.0.0
   # video_player: ^2.8.2
@@ -73,7 +73,8 @@ dependencies:
     path: ../flutter_link_previewer
   easy_image_viewer: ^1.5.0
   # android_intent_plus: ^4.0.1
-  url_launcher: ^6.2.6
+  # url_launcher: ^6.3.0
+  url_launcher_ios: ^6.3.1
   flutter_placeholder_textlines: ^1.2.0
   # google_fonts: 5.1.0
   google_fonts: ^6.2.1
@@ -138,6 +139,9 @@ dev_dependencies:
 dependency_overrides:
   extended_image: ^8.2.0
   google_fonts: ^6.2.1
+  web: ^1.1.0
+  win32: ^5.5.4
+  archive: ^3.6.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

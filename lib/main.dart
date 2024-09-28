@@ -298,7 +298,7 @@ Future<void> main() async {
     nostr = await relayProvider.genNostrWithKey(settingProvider.privateKey!);
 
     if (nostr != null && settingProvider.wotFilter == OpenStatus.OPEN) {
-      var pubkey = getPublicKey(settingProvider.privateKey!);
+      var pubkey = nostr!.publicKey;
       wotProvider.init(pubkey);
     }
   }
