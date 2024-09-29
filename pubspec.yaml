@@ -61,6 +61,9 @@ dependencies:
   screenshot: ^3.0.0
   share_plus: ^9.0.0
   # video_player: ^2.8.2
+  # media_kit: ^1.1.11
+  # media_kit_video: ^1.2.5
+  # media_kit_libs_video: ^1.0.5
   media_kit: ^1.1.11
   media_kit_video: ^1.2.5
   media_kit_libs_video: ^1.0.5
