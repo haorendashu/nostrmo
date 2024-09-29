@@ -59,7 +59,7 @@ dependencies:
   # if build a web version, should remove the package flutter_inappwebview
   flutter_inappwebview: ^6.1.1
   screenshot: ^3.0.0
-  share_plus: ^9.0.0
+  share_plus: ^10.0.2
   # video_player: ^2.8.2
   # media_kit: ^1.1.11
   # media_kit_video: ^1.2.5
@@ -145,6 +145,9 @@ dependency_overrides:
   web: ^1.1.0
   win32: ^5.5.4
   archive: ^3.6.1
+  http: ^1.2.2
+  video_player: ^2.9.1
+  video_player_web: ^2.3.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
