@@ -62,6 +62,7 @@ class WotProvider extends ChangeNotifier {
   }
 
   void reload(String pubkey, {bool pullNow = false}) async {
+    print("begin to reload wot infos");
     _pubkeys[pubkey] = 1;
 
     Map<String, int> tempPubkeyMap = {};
@@ -118,7 +119,8 @@ class WotProvider extends ChangeNotifier {
           _pubkeys[contact.publicKey] = 1;
 
           // your friend's friend's contactList. (Half Trust, don't pull if not exist!)
-          var ffContactList = metadataProvider.getContactList(pubkey);
+          var ffContactList =
+              metadataProvider.getContactList(contact.publicKey);
           if (ffContactList != null) {
             var ffContacts = ffContactList.list();
             for (var ffcontact in ffContacts) {
