@@ -85,6 +85,15 @@ A flutter nostr client for all platforms.<br/> <a href="https://github.com/haore
 - [x] NIP-98 (HTTP Auth)
 - [ ] NIP-99 (Classified Listings)
 
+## Git Module
+
+Since version 2.9.1, Nostrmo begin a multi module project, after you clone this project, please run git module scrpit to init the module git repos.
+
+``` bash
+git submodule init
+git submodule update
+```
+
 ## Build Script
 
 ### Android
