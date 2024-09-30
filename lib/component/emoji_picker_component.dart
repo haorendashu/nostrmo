@@ -44,7 +44,6 @@ class _EmojiPickerComponent extends State<EmojiPickerComponent> {
             tabIndicatorAnimDuration: kTabScrollDuration,
             initCategory: Category.RECENT,
             recentTabBehavior: RecentTabBehavior.RECENT,
-            showBackspaceButton: false,
             backgroundColor: bgColor,
             indicatorColor: mainColor,
             iconColor: themeData.hintColor,
