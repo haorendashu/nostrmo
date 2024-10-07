@@ -118,8 +118,9 @@ class RelayProvider extends ChangeNotifier {
     if (Nip19.isPubkey(key)) {
       nostrSigner = PubkeyOnlyNostrSigner(Nip19.decode(key));
     } else if (AndroidNostrSigner.isAndroidNostrSignerKey(key)) {
-      var pubkey = AndroidNostrSigner.getPubkey(key);
-      nostrSigner = AndroidNostrSigner(pubkey: pubkey);
+      var pubkey = AndroidNostrSigner.getPubkeyFromKey(key);
+      var package = AndroidNostrSigner.getPackageFromKey(key);
+      nostrSigner = AndroidNostrSigner(pubkey: pubkey, package: package);
     } else if (NIP07Signer.isWebNostrSignerKey(key)) {
       var pubkey = NIP07Signer.getPubkey(key);
       nostrSigner = NIP07Signer(pubkey: pubkey);

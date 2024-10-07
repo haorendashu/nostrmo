@@ -296,7 +296,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
       pubkey = Nip19.decode(widget.accountKey);
       loginTag = "ReadOnly";
     } else if (AndroidNostrSigner.isAndroidNostrSignerKey(widget.accountKey)) {
-      pubkey = AndroidNostrSigner.getPubkey(widget.accountKey);
+      pubkey = AndroidNostrSigner.getPubkeyFromKey(widget.accountKey);
       loginTag = "NIP-55";
     } else if (NIP07Signer.isWebNostrSignerKey(widget.accountKey)) {
       pubkey = NIP07Signer.getPubkey(widget.accountKey);

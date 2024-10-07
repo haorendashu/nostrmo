@@ -360,6 +360,9 @@ class _LoginRouter extends State<LoginRouter>
     }
 
     var key = "${AndroidNostrSigner.URI_PRE}:$pubkey";
+    if (StringUtil.isNotBlank(androidNostrSigner.getPackage())) {
+      key = "$key?package=${androidNostrSigner.getPackage()}";
+    }
     settingProvider.addAndChangePrivateKey(key, updateUI: false);
     nostr = await relayProvider.genNostr(androidNostrSigner);
 
