@@ -53,6 +53,7 @@
             <data android:scheme="nostrsigner" />
         </intent>
         <package android:name="com.greenart7c3.nostrsigner"/>
+        <package android:name="com.github.haorendashu.nowser"/>
     </queries>
 
 </manifest>
