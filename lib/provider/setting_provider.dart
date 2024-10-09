@@ -738,6 +738,7 @@ class SettingData {
     hintFontColor = json['hintFontColor'];
     cardColor = json['cardColor'];
     backgroundImage = json['backgroundImage'];
+    fontFamily = json['fontFamily'];
     openTranslate = json['openTranslate'];
     translateTarget = json['translateTarget'];
     translateSourceArgs = json['translateSourceArgs'];
