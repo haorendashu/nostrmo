@@ -862,6 +862,15 @@ class _ContentComponent extends State<ContentComponent> {
             counterAddLines(fake_event_counter);
 
             return otherStr;
+          } else if (naddr.kind == EventKind.LIVE_EVENT) {
+            bufferToList(buffer, currentList, images, removeLastSpan: true);
+            var w = ContentLinkPreComponent(
+              link: "https://zap.stream/$key",
+            );
+            currentList.add(WidgetSpan(child: w));
+            counterAddLines(fake_link_pre_counter);
+
+            return otherStr;
           }
         }
       }
