@@ -794,7 +794,9 @@ class _ContentComponent extends State<ContentComponent> {
         }
 
         var nevent = NIP19Tlv.decodeNevent(key);
-        if (nevent != null) {
+        if (nevent != null &&
+            nevent.kind != null &&
+            EventKind.SUPPORTED_EVENTS.contains(nevent.kind)) {
           // block
           bufferToList(buffer, currentList, images, removeLastSpan: true);
           var w = EventQuoteComponent(
