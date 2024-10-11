@@ -6,9 +6,9 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 
 import '../../main.dart';
-import '../../util/peddingevents_later_function.dart';
 
 class GroupDetailProvider extends ChangeNotifier
     with PenddingEventsLaterFunction {

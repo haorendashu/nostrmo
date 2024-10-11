@@ -3,10 +3,10 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip02/contact.dart';
+import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../main.dart';
-import '../util/peddingevents_later_function.dart';
 import 'follow_event_provider.dart';
 
 class FollowNewEventProvider extends ChangeNotifier

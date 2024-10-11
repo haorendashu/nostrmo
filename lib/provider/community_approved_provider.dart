@@ -3,7 +3,7 @@ import 'package:nostr_sdk/aid.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/later_function.dart';
+import 'package:nostr_sdk/utils/later_function.dart';
 
 class CommunityApprovedProvider extends ChangeNotifier with LaterFunction {
   Map<String, int> _approvedMap = {};

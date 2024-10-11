@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostr_sdk/utils/when_stop_function.dart';
 
 import '../../consts/base.dart';
 import '../../data/event_find_util.dart';
 import '../../util/router_util.dart';
-import '../../util/when_stop_function.dart';
 import '../event/event_list_component.dart';
 import 'search_mention_component.dart';
 

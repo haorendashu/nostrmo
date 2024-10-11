@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,6 @@ import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
-import '../../util/peddingevents_later_function.dart';
 
 class GroupDetailNoteListComponent extends StatefulWidget {
   final GroupIdentifier groupIdentifier;

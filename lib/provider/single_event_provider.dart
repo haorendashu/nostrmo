@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../main.dart';
-import '../util/later_function.dart';
 
 class SingleEventProvider extends ChangeNotifier with LaterFunction {
   Map<String, Event> _eventsMap = {};

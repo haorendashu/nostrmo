@@ -20,7 +20,7 @@ import 'package:nostrmo/consts/thread_mode.dart';
 import 'package:nostrmo/router/index/account_manager_component.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/store_util.dart';
-import 'package:nostrmo/util/when_stop_function.dart';
+import 'package:nostr_sdk/utils/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';

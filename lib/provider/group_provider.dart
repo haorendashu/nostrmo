@@ -13,7 +13,7 @@ import 'package:nostr_sdk/nip29/group_object.dart';
 import 'package:nostr_sdk/nip29/nip29.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
-import 'package:nostrmo/util/later_function.dart';
+import 'package:nostr_sdk/utils/later_function.dart';
 
 class GroupProvider extends ChangeNotifier with LaterFunction {
   Map<String, GroupMetadata> groupMetadatas = {};

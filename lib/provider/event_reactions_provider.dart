@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/when_stop_function.dart';
 
 import '../data/event_reactions.dart';
 import '../main.dart';
-import '../util/when_stop_function.dart';
 
 class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   int update_time = 1000 * 60 * 10;

@@ -8,6 +8,7 @@ import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/nip05/nip05_validor.dart';
 import 'package:nostr_sdk/nip65/relay_list_metadata.dart';
+import 'package:nostr_sdk/utils/later_function.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/base.dart';
@@ -17,7 +18,6 @@ import 'package:nostrmo/data/event_db.dart';
 import '../data/metadata.dart';
 import '../data/metadata_db.dart';
 import '../main.dart';
-import '../util/later_function.dart';
 
 class MetadataProvider extends ChangeNotifier with LaterFunction {
   Map<String, RelayListMetadata> _relayListMetadataCache = {};

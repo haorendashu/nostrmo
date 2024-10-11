@@ -4,13 +4,13 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip04/dm_session.dart';
 import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../data/dm_session_info.dart';
 import '../data/dm_session_info_db.dart';
 import '../data/event_db.dart';
 import '../main.dart';
-import '../util/peddingevents_later_function.dart';
 
 class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
   static DMProvider? _dmProvider;

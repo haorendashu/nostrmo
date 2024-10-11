@@ -10,11 +10,11 @@ import 'package:nostr_sdk/nip02/contact.dart';
 import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/utils/find_event_interface.dart';
+import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../main.dart';
 import '../router/tag/topic_map.dart';
-import '../util/peddingevents_later_function.dart';
 
 class FollowEventProvider extends ChangeNotifier
     with PenddingEventsLaterFunction

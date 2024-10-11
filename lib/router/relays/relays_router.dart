@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/relay/relay_status.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
-import 'package:nostrmo/util/when_stop_function.dart';
+import 'package:nostr_sdk/utils/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';

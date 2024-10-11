@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../main.dart';
-import '../util/peddingevents_later_function.dart';
 
 class MentionMeNewProvider extends ChangeNotifier
     with PenddingEventsLaterFunction {

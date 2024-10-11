@@ -3,10 +3,10 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip58/badge_definition.dart';
+import 'package:nostr_sdk/utils/later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../main.dart';
-import '../util/later_function.dart';
 
 class BadgeDefinitionProvider extends ChangeNotifier with LaterFunction {
   Map<String, BadgeDefinition> map = {};
