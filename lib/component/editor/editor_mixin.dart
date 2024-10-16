@@ -661,6 +661,9 @@ mixin EditorMixin {
     // log(result);
     // print(tags);
     // print(tagsAddWhenSend);
+    if (StringUtil.isBlank(result)) {
+      return null;
+    }
 
     List<dynamic> allTags = [];
     allTags.addAll(tags);
