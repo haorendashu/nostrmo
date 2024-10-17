@@ -44,7 +44,7 @@ class GroupDetailProvider extends ChangeNotifier
   void startQueryTask() {
     clearTimer();
 
-    timer = Timer.periodic(const Duration(seconds: 20), (t) {
+    timer = Timer.periodic(const Duration(seconds: 8), (t) {
       try {
         _queryNewEvent();
       } catch (e) {}
