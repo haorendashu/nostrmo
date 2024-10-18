@@ -3,6 +3,7 @@ import 'package:nostrmo/main.dart';
 
 class RouterPath {
   static const String INDEX = "/";
+  static const String LOGIN = "/login";
   static const String EDITOR = "/editor";
   static const String DONATE = "/donate";
   static const String NOTICES = "/notices";

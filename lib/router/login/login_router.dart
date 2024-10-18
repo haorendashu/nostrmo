@@ -13,6 +13,7 @@ import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/webview_router.dart';
+import 'package:nostrmo/util/router_util.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
@@ -20,6 +21,7 @@ import '../../main.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../../util/table_mode_util.dart';
+import '../index/account_manager_component.dart';
 
 class LoginRouter extends StatefulWidget {
   @override
@@ -64,6 +66,8 @@ class _LoginRouter extends State<LoginRouter>
     }
   }
 
+  bool backAfterLogin = false;
+
   late S s;
 
   @override
@@ -84,6 +88,11 @@ class _LoginRouter extends State<LoginRouter>
       width: 100,
       height: 100,
     );
+
+    var arg = RouterUtil.routerArgs(context);
+    if (arg != null && arg is bool) {
+      backAfterLogin = arg;
+    }
 
     List<Widget> mainList = [];
     mainList.add(logoWiget);
@@ -303,6 +312,8 @@ class _LoginRouter extends State<LoginRouter>
         return;
       }
 
+      doPreLogin();
+
       var npubKey = Nip19.encodePubKey(pubkey!);
       settingProvider.addAndChangePrivateKey(npubKey, updateUI: false);
 
@@ -331,8 +342,15 @@ class _LoginRouter extends State<LoginRouter>
       if (Nip19.isPrivateKey(pk)) {
         pk = Nip19.decode(pk);
       }
+
+      doPreLogin();
+
       settingProvider.addAndChangePrivateKey(pk, updateUI: false);
       nostr = await relayProvider.genNostrWithKey(pk);
+    }
+
+    if (backAfterLogin) {
+      RouterUtil.back(context);
     }
 
     settingProvider.notifyListeners();
@@ -359,12 +377,18 @@ class _LoginRouter extends State<LoginRouter>
       return;
     }
 
+    doPreLogin();
+
     var key = "${AndroidNostrSigner.URI_PRE}:$pubkey";
     if (StringUtil.isNotBlank(androidNostrSigner.getPackage())) {
       key = "$key?package=${androidNostrSigner.getPackage()}";
     }
     settingProvider.addAndChangePrivateKey(key, updateUI: false);
     nostr = await relayProvider.genNostr(androidNostrSigner);
+
+    if (backAfterLogin) {
+      RouterUtil.back(context);
+    }
 
     settingProvider.notifyListeners();
     firstLogin = true;
@@ -384,12 +408,24 @@ class _LoginRouter extends State<LoginRouter>
       return;
     }
 
+    doPreLogin();
+
     var key = "${NIP07Signer.URI_PRE}:$pubkey";
     settingProvider.addAndChangePrivateKey(key, updateUI: false);
     nostr = await relayProvider.genNostr(signer);
 
+    if (backAfterLogin) {
+      RouterUtil.back(context);
+    }
+
     settingProvider.notifyListeners();
     firstLogin = true;
     indexProvider.setCurrentTap(1);
+  }
+
+  void doPreLogin() {
+    AccountManagerComponentState.clearCurrentMemInfo();
+    nostr!.close();
+    nostr = null;
   }
 }

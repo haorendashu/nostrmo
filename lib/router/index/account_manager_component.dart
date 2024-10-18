@@ -13,6 +13,7 @@ import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
@@ -121,41 +122,9 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
   }
 
   Future<void> addAccount() async {
-    var privateKey = await TextInputDialog.show(
-        context, S.of(context).Input_account_private_key,
-        valueCheck: addAccountCheck);
-    if (StringUtil.isNotBlank(privateKey)) {
-      var result = await ConfirmDialog.show(
-          context, S.of(context).Add_account_and_login);
-      if (result == true) {
-        if (Nip19.isPrivateKey(privateKey!)) {
-          privateKey = Nip19.decode(privateKey);
-        } else if (privateKey.indexOf("@") > 0) {
-          // try to find pubkey first.
-          var cancelFunc = BotToast.showLoading();
-          try {
-            privateKey = await Nip05Validor.getPubkey(privateKey);
-            if (privateKey == null) {
-              return;
-            }
-            privateKey = Nip19.encodePubKey(privateKey);
-          } catch (e) {
-            print("doLogin error ${e.toString()}");
-          } finally {
-            cancelFunc.call();
-          }
-        }
-        // logout current and login new
-        var oldIndex = settingProvider.privateKeyIndex;
-        var newIndex = settingProvider.addAndChangePrivateKey(privateKey!);
-        if (oldIndex != newIndex) {
-          clearCurrentMemInfo();
-          doLogin();
-          settingProvider.notifyListeners();
-          RouterUtil.back(context);
-        }
-      }
-    }
+    RouterUtil.back(context);
+    await RouterUtil.router(context, RouterPath.LOGIN, true);
+    settingProvider.notifyListeners();
   }
 
   bool addAccountCheck(BuildContext p1, String privateKey) {

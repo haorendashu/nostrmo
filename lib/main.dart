@@ -31,6 +31,7 @@ import 'package:nostrmo/router/group/group_detail_router.dart';
 import 'package:nostrmo/router/group/group_edit_router.dart';
 import 'package:nostrmo/router/group/group_list_rotuer.dart';
 import 'package:nostrmo/router/group/group_members_router.dart';
+import 'package:nostrmo/router/login/login_router.dart';
 import 'package:nostrmo/router/thread_trace_router/thread_trace_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_feed_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_list_router.dart';
@@ -353,6 +354,7 @@ class _MyApp extends State<MyApp> {
 
     routes = {
       RouterPath.INDEX: (context) => IndexRouter(reload: reload),
+      RouterPath.LOGIN: (context) => LoginRouter(),
       RouterPath.DONATE: (context) => DonateRouter(),
       RouterPath.USER: (context) => UserRouter(),
       RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
