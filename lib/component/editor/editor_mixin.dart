@@ -333,8 +333,10 @@ mixin EditorMixin {
   }
 
   Future<void> pickImage() async {
-    var filepath = await Uploader.pick(getContext());
-    _imageSubmitted(filepath);
+    var files = await Uploader.pickFiles(getContext());
+    for (var file in files) {
+      _imageSubmitted(file);
+    }
   }
 
   void _imageSubmitted(String? value) {

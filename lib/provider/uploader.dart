@@ -125,6 +125,83 @@ class Uploader {
     return null;
   }
 
+  static Future<List<String>> pickFiles(BuildContext context) async {
+    List<String> resultFiles = [];
+
+    if (PlatformUtil.isPC() || PlatformUtil.isWeb()) {
+      FilePickerResult? result =
+          await FilePicker.platform.pickFiles(allowMultiple: true);
+
+      if (result != null) {
+        for (var file in result.files) {
+          var size = file.size;
+          if (settingProvider.imageService == ImageServices.NIP_95 &&
+              size > NIP95_MAX_LENGTH) {
+            BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+            return [];
+          }
+
+          if (PlatformUtil.isWeb() && file.bytes != null) {
+            resultFiles.add(BASE64.toBase64(result.files.single.bytes!));
+          } else if (StringUtil.isNotBlank(file.path)) {
+            resultFiles.add(file.path!);
+          }
+        }
+      }
+
+      return resultFiles;
+    }
+
+    var assets = await AssetPicker.pickAssets(
+      context,
+      pickerConfig: const AssetPickerConfig(maxAssets: 20),
+    );
+
+    if (assets != null && assets.isNotEmpty) {
+      for (var asset in assets) {
+        var file = await asset.file;
+
+        if (settingProvider.imgCompress >= 30 &&
+            settingProvider.imgCompress < 100) {
+          var fileExtension = StoreUtil.getFileExtension(file!.path);
+          fileExtension ??= ".jpg";
+          var tempDir = await getTemporaryDirectory();
+          var tempFilePath =
+              "${tempDir.path}/${StringUtil.rndNameStr(12)}$fileExtension";
+          FlutterImageCompress.validator.ignoreCheckExtName = true;
+          var result = await FlutterImageCompress.compressAndGetFile(
+            file.path,
+            tempFilePath,
+            quality: settingProvider.imgCompress,
+          );
+
+          if (result != null) {
+            if (settingProvider.imageService == ImageServices.NIP_95 &&
+                (await result.length()) > NIP95_MAX_LENGTH) {
+              BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+              return [];
+            }
+
+            resultFiles.add(result.path);
+            continue;
+          }
+        }
+
+        if (settingProvider.imageService == ImageServices.NIP_95) {
+          var fileSize = StoreUtil.getFileSize(file!.path);
+          if (fileSize != null && fileSize > NIP95_MAX_LENGTH) {
+            BotToast.showText(text: S.of(context).File_is_too_big_for_NIP_95);
+            return [];
+          }
+        }
+
+        resultFiles.add(file!.path);
+      }
+    }
+
+    return resultFiles;
+  }
+
   static Future<String?> upload(String localPath,
       {String? imageService, String? fileName}) async {
     // if (imageService == ImageServices.NOSTRIMG_COM) {
