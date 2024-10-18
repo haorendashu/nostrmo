@@ -424,8 +424,10 @@ class _LoginRouter extends State<LoginRouter>
   }
 
   void doPreLogin() {
-    AccountManagerComponentState.clearCurrentMemInfo();
-    nostr!.close();
-    nostr = null;
+    if (backAfterLogin) {
+      AccountManagerComponentState.clearCurrentMemInfo();
+      nostr!.close();
+      nostr = null;
+    }
   }
 }
