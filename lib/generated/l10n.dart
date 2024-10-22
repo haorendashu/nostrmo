@@ -3269,6 +3269,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Cache Relay`
+  String get Cache_Relay {
+    return Intl.message(
+      'Cache Relay',
+      name: 'Cache_Relay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Normal`
+  String get Normal {
+    return Intl.message(
+      'Normal',
+      name: 'Normal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cache`
+  String get Cache {
+    return Intl.message(
+      'Cache',
+      name: 'Cache',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

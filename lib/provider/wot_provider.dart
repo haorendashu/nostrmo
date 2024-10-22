@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/provider/data_util.dart';
 
@@ -68,9 +70,10 @@ class WotProvider extends ChangeNotifier {
     Map<String, int> tempPubkeyMap = {};
 
     // The pubkeys you had mentioned. (Trust !)
-    if (relayLocalDB != null) {
-      var eventMapList =
-          await relayLocalDB!.queryEventByPubkey(pubkey, eventKinds: [
+    {
+      var filter = Filter(authors: [
+        pubkey
+      ], kinds: [
         EventKind.TEXT_NOTE,
         EventKind.DIRECT_MESSAGE,
         EventKind.REPOST,
@@ -78,16 +81,16 @@ class WotProvider extends ChangeNotifier {
         EventKind.GENERIC_REPOST,
         EventKind.FOLLOW_SETS,
       ]);
-      if (eventMapList.isNotEmpty) {
-        var events = relayLocalDB!.loadEventFromMaps(eventMapList);
-        if (events.isNotEmpty) {
-          for (var event in events) {
-            var tags = event.tags;
-            for (var tag in tags) {
-              if (tag is List && tag.length > 1) {
-                if (tag[0] == "p") {
-                  tempPubkeyMap[tag[1]] = 1;
-                }
+      var events = await nostr!.queryEvents([filter.toJson()],
+          relayTypes: RelayType.CACHE_AND_LOCAL);
+
+      if (events.isNotEmpty) {
+        for (var event in events) {
+          var tags = event.tags;
+          for (var tag in tags) {
+            if (tag is List && tag.length > 1) {
+              if (tag[0] == "p") {
+                tempPubkeyMap[tag[1]] = 1;
               }
             }
           }

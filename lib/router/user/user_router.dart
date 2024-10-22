@@ -337,7 +337,7 @@ class _UserRouter extends CustState<UserRouter>
       // the init page set to very small, due to open user page very often
       filter.limit = 10;
       nostr!.query([filter.toJson()], onEventFunc,
-          id: subscribeId, tempRelays: tempRelays, onlyTempRelays: false);
+          id: subscribeId, tempRelays: tempRelays);
     }
 
     readyComplete = true;

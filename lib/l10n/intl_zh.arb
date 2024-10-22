@@ -306,5 +306,8 @@
     "Chat": "聊天",
     "Add": "添加",
     "Join_Group": "假如群组",
-    "Create_Group": "创建群组"
+    "Create_Group": "创建群组",
+    "Cache_Relay": "缓存中继",
+    "Normal": "普通",
+    "Cache": "缓存"
 }

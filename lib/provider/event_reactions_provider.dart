@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/when_stop_function.dart';
 
 import '../data/event_reactions.dart';
@@ -137,15 +138,14 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
   ];
 
   Future<bool> _loadFromRelayLocal(String id) async {
-    if (relayLocalDB != null && localQueringCache[id] == null) {
+    if (localQueringCache[id] == null) {
       try {
         // stop other quering
         localQueringCache[id] = 1;
 
         var filter = Filter(e: [id], kinds: SUPPORT_EVENT_KINDS);
-        var eventMaps = await relayLocalDB!.doQueryEvent(filter.toJson());
-        var events = relayLocalDB!
-            .loadEventFromMaps(eventMaps, eventFilter: filterProvider);
+        var events = await nostr!.queryEvents([filter.toJson()],
+            relayTypes: RelayType.CACHE_AND_LOCAL);
         if (events.isNotEmpty) {
           // print("Event Reactions load from relayDB $id");
           onEvents(events);
@@ -192,7 +192,7 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
       filters.add(filter.toJson());
     }
     _needHandleIds.clear();
-    nostr!.query(filters, onEvent, queryLocal: false);
+    nostr!.query(filters, onEvent, relayTypes: RelayType.ONLY_NORMAL);
   }
 
   void addEventAndHandle(Event event) {

@@ -6,6 +6,7 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 
 import '../../main.dart';
@@ -79,8 +80,7 @@ class GroupDetailProvider extends ChangeNotifier
         [jsonMap],
         _onNewEvent,
         tempRelays: relays,
-        onlyTempRelays: true,
-        queryLocal: false,
+        relayTypes: RelayType.ONLY_TEMP,
         sendAfterAuth: true,
       );
     }
@@ -134,8 +134,7 @@ class GroupDetailProvider extends ChangeNotifier
         [jsonMap],
         onEvent,
         tempRelays: relays,
-        onlyTempRelays: true,
-        queryLocal: false,
+        relayTypes: RelayType.ONLY_TEMP,
         sendAfterAuth: true,
       );
     }

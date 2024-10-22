@@ -30,5 +30,7 @@ class DataKey {
 
   static final String CUSTOM_EMOJI_LIST = "customEmojiList";
 
+  static final String CACHE_RELAYS = "cacheRelays";
+
   static final String WOT_PRE = "wot_";
 }

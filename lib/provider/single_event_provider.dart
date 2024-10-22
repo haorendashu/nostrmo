@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
@@ -21,7 +22,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       return event;
     }
 
-    _getEventFromLocalRelay(id);
+    _getEventFromCacheRelay(id);
 
     if (!queryData) {
       return null;
@@ -38,14 +39,16 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
 
   Map<String, int> _localRelayQuering = {};
 
-  void _getEventFromLocalRelay(String id) async {
-    if (relayLocalDB != null && _localRelayQuering[id] == null) {
+  void _getEventFromCacheRelay(String id) async {
+    if (_localRelayQuering[id] == null) {
       _localRelayQuering[id] = 1;
       try {
-        var event = await relayLocalDB!.queryById(id);
-        if (event != null) {
+        var filter = Filter(ids: [id]);
+        var events = await nostr!.queryEvents([filter.toJson()],
+            relayTypes: RelayType.CACHE_AND_LOCAL);
+        if (events.isNotEmpty) {
           // print("get event from relayDB $id");
-          _eventsMap[id] = event;
+          _eventsMap[id] = events.first;
           _needUpdateIds.remove(id);
           notifyListeners();
         }
@@ -111,7 +114,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
                 "single event ${id} not found! begin to query again from ${eventRelayAddr}.");
             var filter = Filter(ids: [id]);
             nostr!.query([filter.toJson()], onEvent,
-                tempRelays: [eventRelayAddr!], onlyTempRelays: true);
+                tempRelays: [eventRelayAddr!], relayTypes: RelayType.ONLY_TEMP);
           }
         }
       }
@@ -119,7 +122,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       nostr!.query([filter.toJson()], onEvent, id: subscriptId, onComplete: () {
         // print("singleEventProvider onComplete $tempIds");
         onCompete();
-      }, queryLocal: false);
+      }, relayTypes: RelayType.ONLY_NORMAL);
       Future.delayed(const Duration(seconds: 2), onCompete);
 
       for (var entry in _needUpdateIds.entries) {

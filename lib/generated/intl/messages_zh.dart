@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Broadcast": MessageLookupByLibrary.simpleMessage("广播"),
         "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
         "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("给我买一杯咖啡！"),
+        "Cache": MessageLookupByLibrary.simpleMessage("缓存"),
+        "Cache_Relay": MessageLookupByLibrary.simpleMessage("缓存中继"),
         "Cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "Card_Color": MessageLookupByLibrary.simpleMessage("卡片颜色"),
         "Chat": MessageLookupByLibrary.simpleMessage("聊天"),
@@ -211,6 +213,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Name": MessageLookupByLibrary.simpleMessage("名称"),
         "Network": MessageLookupByLibrary.simpleMessage("网络"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
+        "Normal": MessageLookupByLibrary.simpleMessage("普通"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage("Nostrmo开发人员永远不会向你索要密钥。"),
         "Note_Id": MessageLookupByLibrary.simpleMessage("动态 Id"),

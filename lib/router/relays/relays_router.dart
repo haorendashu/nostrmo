@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostr_sdk/utils/when_stop_function.dart';
@@ -27,6 +28,9 @@ class RelaysRouter extends StatefulWidget {
 
 class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
   TextEditingController controller = TextEditingController();
+
+  int relayType = RelayType.NORMAL;
+
   @override
   Widget doBuild(BuildContext context) {
     var s = S.of(context);
@@ -89,6 +93,41 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
         relayStatus: relayStatus,
         rwText: rwText,
       ));
+    }
+
+    if (_relayProvider.cacheRelayAddrs.isNotEmpty) {
+      list.add(Container(
+        padding: EdgeInsets.only(
+          left: Base.BASE_PADDING,
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        child: Text(
+          s.Cache_Relay,
+          style: TextStyle(
+            fontSize: titleFontSize,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ));
+
+      for (var i = 0; i < _relayProvider.cacheRelayAddrs.length; i++) {
+        var addr = _relayProvider.cacheRelayAddrs[i];
+        var relayStatus = relayStatusMap[addr];
+        relayStatus ??= RelayStatus(addr);
+
+        var rwText = "W R";
+        if (relayStatus.readAccess && !relayStatus.writeAccess) {
+          rwText = "R";
+        } else if (!relayStatus.readAccess && relayStatus.writeAccess) {
+          rwText = "W";
+        }
+
+        list.add(RelaysItemComponent(
+          addr: addr,
+          relayStatus: relayStatus,
+          rwText: rwText,
+        ));
+      }
     }
 
     var tempRelayStatus = _relayProvider.tempRelayStatus();
@@ -162,17 +201,51 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
           ),
         ),
         Container(
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              prefixIcon: Icon(Icons.cloud),
-              hintText: s.Input_relay_address,
-              suffixIcon: IconButton(
-                icon: Icon(Icons.add),
-                onPressed: addRelay,
+          child: Row(children: [
+            Container(
+              padding: EdgeInsets.only(left: Base.BASE_PADDING),
+              child: const Icon(Icons.cloud),
+            ),
+            Container(
+              child: DropdownButton(
+                underline: Container(
+                  height: 0,
+                ),
+                value: relayType,
+                padding: const EdgeInsets.only(
+                    left: Base.BASE_PADDING, right: Base.BASE_PADDING_HALF),
+                items: [
+                  DropdownMenuItem(
+                    value: RelayType.NORMAL,
+                    child: Text(s.Normal),
+                  ),
+                  DropdownMenuItem(
+                    value: RelayType.CACHE,
+                    child: Text(s.Cache),
+                  ),
+                ],
+                onChanged: (v) {
+                  if (v != null) {
+                    setState(() {
+                      relayType = v;
+                    });
+                  }
+                },
               ),
             ),
-          ),
+            Expanded(
+              child: TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  hintText: s.Input_relay_address,
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: addRelay,
+                  ),
+                ),
+              ),
+            ),
+          ]),
         ),
       ]),
     );
@@ -186,53 +259,20 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
       return;
     }
 
-    relayProvider.addRelay(addr);
+    if (relayType == RelayType.NORMAL) {
+      relayProvider.addRelay(addr);
+    } else if (relayType == RelayType.CACHE) {
+      relayProvider.addCacheRelay(addr);
+    } else {
+      return;
+    }
+
     controller.clear();
     FocusScope.of(context).unfocus();
   }
 
-  // Event? remoteRelayEvent;
-
   @override
-  Future<void> onReady(BuildContext context) async {
-    // var filter = Filter(
-    //     authors: [nostr!.publicKey],
-    //     limit: 1,
-    //     kinds: [kind.EventKind.RELAY_LIST_METADATA]);
-    // nostr!.query([filter.toJson()], (event) {
-    //   if ((remoteRelayEvent != null &&
-    //           event.createdAt > remoteRelayEvent!.createdAt) ||
-    //       remoteRelayEvent == null) {
-    //     setState(() {
-    //       remoteRelayEvent = event;
-    //     });
-    //     whenStop(handleRemoteRelays);
-    //   }
-    // });
-  }
-
-  // Future<void> handleRemoteRelays() async {
-  // var relaysUpdatedTime = relayProvider.updatedTime();
-  // if (remoteRelayEvent != null &&
-  //     (relaysUpdatedTime == null ||
-  //         remoteRelayEvent!.createdAt - relaysUpdatedTime > 60 * 5)) {
-  //   var result = await ConfirmDialog.show(context,
-  //       S.of(context).Find_clouded_relay_list_do_you_want_to_download);
-  //   if (result == true) {
-  //     List<String> list = [];
-  //     for (var tag in remoteRelayEvent!.tags) {
-  //       if (tag.length > 1) {
-  //         var key = tag[0];
-  //         var value = tag[1];
-  //         if (key == "r") {
-  //           list.add(value);
-  //         }
-  //       }
-  //     }
-  //     relayProvider.setRelayListAndUpdate(list);
-  //   }
-  // }
-  // }
+  Future<void> onReady(BuildContext context) async {}
 
   void testAllMyRelaysSpeed() {
     var relayAddrs = relayProvider.relayAddrs;

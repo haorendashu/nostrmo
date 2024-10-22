@@ -2,6 +2,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/find_event_interface.dart';
 import 'package:nostrmo/main.dart';
 
@@ -22,14 +23,14 @@ class EventFindUtil {
       }
     }
 
-    if (eventBox.length() < limit && relayLocalDB != null) {
+    if (eventBox.length() < limit) {
       // try to find something from localRelay
       var filter = Filter(kinds: EventKind.SUPPORTED_EVENTS, limit: 5);
       var filterMap = filter.toJson();
       filterMap["search"] = str;
 
-      var eventMaps = await relayLocalDB!.doQueryEvent(filterMap);
-      var events = relayLocalDB!.loadEventFromMaps(eventMaps);
+      var events = await nostr!
+          .queryEvents([filterMap], relayTypes: RelayType.CACHE_AND_LOCAL);
       eventBox.addList(events);
     }
 

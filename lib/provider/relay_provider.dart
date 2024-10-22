@@ -16,6 +16,7 @@ import 'package:nostr_sdk/relay/relay_base.dart';
 import 'package:nostr_sdk/relay/relay_isolate.dart';
 import 'package:nostr_sdk/relay/relay_mode.dart';
 import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/relay_local/relay_local.dart';
 import 'package:nostr_sdk/signer/local_nostr_signer.dart';
 import 'package:nostr_sdk/signer/nostr_signer.dart';
@@ -35,6 +36,8 @@ class RelayProvider extends ChangeNotifier {
 
   Map<String, RelayStatus> relayStatusMap = {};
 
+  List<String> cacheRelayAddrs = [];
+
   RelayStatus? relayStatusLocal;
 
   Map<String, RelayStatus> _tempRelayStatusMap = {};
@@ -43,6 +46,11 @@ class RelayProvider extends ChangeNotifier {
     if (_relayProvider == null) {
       _relayProvider = RelayProvider();
       // _relayProvider!._load();
+      var l = sharedPreferences.getStringList(DataKey.CACHE_RELAYS);
+      if (l != null) {
+        _relayProvider!.cacheRelayAddrs.clear();
+        _relayProvider!.cacheRelayAddrs.addAll(l);
+      }
     }
     return _relayProvider!;
   }
@@ -97,7 +105,8 @@ class RelayProvider extends ChangeNotifier {
   }
 
   String relayNumStr() {
-    var total = relayAddrs.length;
+    var normalLength = relayAddrs.length;
+    var cacheLength = cacheRelayAddrs.length;
 
     int connectedNum = 0;
     var it = relayStatusMap.values;
@@ -106,7 +115,7 @@ class RelayProvider extends ChangeNotifier {
         connectedNum++;
       }
     }
-    return "$connectedNum / $total";
+    return "$connectedNum / ${normalLength + cacheLength}";
   }
 
   int total() {
@@ -192,6 +201,16 @@ class RelayProvider extends ChangeNotifier {
       }
     }
 
+    for (var relayAddr in cacheRelayAddrs) {
+      log("begin to init $relayAddr");
+      var custRelay = genRelay(relayAddr, relayType: RelayType.CACHE);
+      try {
+        _nostr.addRelay(custRelay, init: true, relayType: RelayType.CACHE);
+      } catch (e) {
+        log("relay $relayAddr add to pool error ${e.toString()}");
+      }
+    }
+
     return _nostr;
   }
 
@@ -207,10 +226,21 @@ class RelayProvider extends ChangeNotifier {
     }
   }
 
-  void _doAddRelay(String relayAddr, {bool init = false}) {
-    var custRelay = genRelay(relayAddr);
+  void addCacheRelay(String relayAddr) {
+    if (!cacheRelayAddrs.contains(relayAddr)) {
+      cacheRelayAddrs.add(relayAddr);
+      _doAddRelay(relayAddr, relayType: RelayType.CACHE);
+      saveCacheRelay();
+      notifyListeners();
+    }
+  }
+
+  void _doAddRelay(String relayAddr,
+      {bool init = false, int relayType = RelayType.NORMAL}) {
+    var custRelay = genRelay(relayAddr, relayType: relayType);
     log("begin to init $relayAddr");
-    nostr!.addRelay(custRelay, autoSubscribe: true, init: init);
+    nostr!.addRelay(custRelay,
+        autoSubscribe: true, init: init, relayType: relayType);
   }
 
   void removeRelay(String relayAddr) {
@@ -220,12 +250,15 @@ class RelayProvider extends ChangeNotifier {
       nostr!.removeRelay(relayAddr);
 
       saveRelay();
+    } else if (cacheRelayAddrs.contains(relayAddr)) {
+      cacheRelayAddrs.remove(relayAddr);
+      relayStatusMap.remove(relayAddr);
+      nostr!.removeRelay(relayAddr, relayType: RelayType.CACHE);
+
+      saveCacheRelay();
+      notifyListeners();
     }
   }
-
-  // bool containRelay(String relayAddr) {
-  //   return relayAddrs.contains(relayAddr);
-  // }
 
   void saveRelay() {
     _updateRelayToContactList();
@@ -233,6 +266,10 @@ class RelayProvider extends ChangeNotifier {
     // save to NIP-65
     var relayStatuses = _getRelayStatuses();
     NIP65.save(nostr!, relayStatuses);
+  }
+
+  void saveCacheRelay() {
+    sharedPreferences.setStringList(DataKey.CACHE_RELAYS, cacheRelayAddrs);
   }
 
   void _updateRelayToContactList() {
@@ -253,10 +290,10 @@ class RelayProvider extends ChangeNotifier {
     return relayStatuses;
   }
 
-  Relay genRelay(String relayAddr) {
+  Relay genRelay(String relayAddr, {int relayType = RelayType.NORMAL}) {
     var relayStatus = relayStatusMap[relayAddr];
     if (relayStatus == null) {
-      relayStatus = RelayStatus(relayAddr);
+      relayStatus = RelayStatus(relayAddr, relayType: relayType);
       relayStatusMap[relayAddr] = relayStatus;
     }
 

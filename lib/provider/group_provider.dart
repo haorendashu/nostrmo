@@ -11,6 +11,7 @@ import 'package:nostr_sdk/nip29/group_members.dart';
 import 'package:nostr_sdk/nip29/group_metadata.dart';
 import 'package:nostr_sdk/nip29/group_object.dart';
 import 'package:nostr_sdk/nip29/nip29.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostr_sdk/utils/later_function.dart';
@@ -112,9 +113,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
         onEvent(groupIdentifier, e);
       },
       tempRelays: [groupIdentifier.host],
-      onlyTempRelays: true,
-      queryLocal: false,
-      // sendAfterAuth: true,
+      relayTypes: RelayType.ONLY_TEMP,
     );
   }
 
@@ -176,8 +175,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
         onEvent(groupIdentifier, e);
       },
       tempRelays: [groupIdentifier.host],
-      onlyTempRelays: true,
-      queryLocal: false,
+      relayTypes: RelayType.ONLY_TEMP,
       sendAfterAuth: true,
     );
   }

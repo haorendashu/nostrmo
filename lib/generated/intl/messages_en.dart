@@ -73,6 +73,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Broadcast When Boost"),
         "Buy_me_a_coffee":
             MessageLookupByLibrary.simpleMessage("Buy me a coffee!"),
+        "Cache": MessageLookupByLibrary.simpleMessage("Cache"),
+        "Cache_Relay": MessageLookupByLibrary.simpleMessage("Cache Relay"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "Card_Color": MessageLookupByLibrary.simpleMessage("Card Color"),
         "Chat": MessageLookupByLibrary.simpleMessage("Chat"),
@@ -267,6 +269,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
+        "Normal": MessageLookupByLibrary.simpleMessage("Normal"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
                 "Nostrmo developers will never require a key from you."),
