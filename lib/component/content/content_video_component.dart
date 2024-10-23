@@ -30,6 +30,20 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
   void initState() {
     super.initState();
     bool autoPlay = true;
+    player.stream.height.listen((v) {
+      if (v != null && videoHeight == null) {
+        setState(() {
+          videoHeight = v;
+        });
+      }
+    });
+    player.stream.width.listen((v) {
+      if (v != null && videoWidth == null) {
+        setState(() {
+          videoWidth = v;
+        });
+      }
+    });
     if (widget.url.indexOf("http") == 0) {
       player.open(Media(widget.url), play: autoPlay);
     } else if (widget.url.startsWith(BASE64.PREFIX)) {
@@ -43,6 +57,10 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
     player.setVolume(0);
   }
 
+  int? videoWidth;
+
+  int? videoHeight;
+
   @override
   void dispose() {
     super.dispose();
@@ -54,9 +72,21 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
 
   @override
   Widget build(BuildContext context) {
-    var currentwidth = MediaQuery.of(context).size.width;
+    var currentWidth = MediaQuery.of(context).size.width;
     if (width != null) {
-      currentwidth = width!;
+      currentWidth = width!;
+    }
+    var currentHeight = currentWidth * 9.0 / 16.0;
+
+    videoWidth = player.state.width;
+    videoHeight = player.state.height;
+
+    if (videoWidth != null && videoHeight != null) {
+      if (videoHeight! > videoWidth!) {
+        currentWidth = currentWidth * 0.6;
+      }
+      currentHeight =
+          currentWidth / videoWidth!.toDouble() * videoHeight!.toDouble();
     }
 
     Widget videoWidget = Video(
@@ -90,8 +120,8 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
         }),
         child: Center(
           child: SizedBox(
-            width: currentwidth,
-            height: currentwidth * 9.0 / 16.0,
+            width: currentWidth,
+            height: currentHeight,
             child: videoWidget,
           ),
         ),
