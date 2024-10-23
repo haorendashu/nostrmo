@@ -103,7 +103,7 @@ git submodule update
 flutter build appbundle --release
 
 -- build for apk
-flutter build apk --release
+flutter build apk --release --split-per-abi
 ```
 
 ### IOS and MacOS
