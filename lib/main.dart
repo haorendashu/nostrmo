@@ -281,7 +281,7 @@ Future<void> main() async {
   listSetProvider = ListSetProvider();
   badgeProvider = BadgeProvider();
   giftWrapProvider = GiftWrapProvider();
-  musicProvider = MusicProvider()..init();
+  musicProvider = MusicProvider();
   urlSpeedProvider = UrlSpeedProvider();
   nwcProvider = NWCProvider()..init();
   groupProvider = GroupProvider();

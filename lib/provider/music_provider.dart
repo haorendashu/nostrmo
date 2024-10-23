@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 
 class MusicProvider extends ChangeNotifier {
-  Player player = Player();
+  Player? _player;
+
+  Player get player {
+    if (_player == null) {
+      _player = Player();
+      init();
+    }    
+    return _player!;
+  }
 
   MusicInfo? _musicInfo;
 
