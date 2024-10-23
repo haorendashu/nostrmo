@@ -372,7 +372,7 @@ class _IndexRouter extends CustState<IndexRouter>
 
       return PopScope(
         canPop: false,
-        onPopInvoked: (didPop) {
+        onPopInvokedWithResult: (didPop, result) {
           if (pcRouterFakeProvider.routerFakeInfos.isNotEmpty) {
             pcRouterFakeProvider.removeLast();
           }

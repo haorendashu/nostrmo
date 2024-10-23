@@ -17,6 +17,7 @@ class EnumSelectorComponent extends StatelessWidget {
   static Future<EnumObj?> show(BuildContext context, List<EnumObj> list) async {
     return await showDialog<EnumObj?>(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return EnumSelectorComponent(
           list: list,
