@@ -145,8 +145,15 @@ class RelayProvider extends ChangeNotifier {
           info);
       await (nostrSigner as NostrRemoteSigner).connect();
     } else {
-      nostrSigner = LocalNostrSigner(key);
+      try {
+        nostrSigner = LocalNostrSigner(key);
+      } catch (e) {}
     }
+
+    if (nostrSigner == null) {
+      return null;
+    }
+
     return await genNostr(nostrSigner);
   }
 

@@ -254,7 +254,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
 
   static const double LINE_HEIGHT = 44;
 
-  late String pubkey;
+  String pubkey = "";
 
   String? loginTag;
 
@@ -274,12 +274,12 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
       var info = NostrRemoteSignerInfo.parseBunkerUrl(widget.accountKey);
       if (info != null) {
         pubkey = info.remoteUserPubkey;
-      } else {
-        pubkey = "";
       }
       loginTag = "NIP-46";
     } else {
-      pubkey = getPublicKey(widget.accountKey);
+      try {
+        pubkey = getPublicKey(widget.accountKey);
+      } catch (e) {}
       loginTag = "";
     }
   }

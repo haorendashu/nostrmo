@@ -343,6 +343,14 @@ class _LoginRouter extends State<LoginRouter>
         pk = Nip19.decode(pk);
       }
 
+      try {
+        getPublicKey(pk);
+      } catch (e) {
+        // is not a private key
+        BotToast.showText(text: S.of(context).Wrong_Private_Key_format);
+        return;
+      }
+
       doPreLogin();
 
       settingProvider.addAndChangePrivateKey(pk, updateUI: false);
