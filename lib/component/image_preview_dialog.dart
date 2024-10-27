@@ -67,6 +67,7 @@ class ImagePreviewDialog extends StatefulWidget {
     return showDialog(
         context: context,
         useSafeArea: useSafeArea,
+        useRootNavigator: false,
         builder: (context) {
           return ImagePreviewDialog(imageProvider,
               immersive: immersive,

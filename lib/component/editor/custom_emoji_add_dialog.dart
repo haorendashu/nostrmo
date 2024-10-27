@@ -22,6 +22,7 @@ class CustomEmojiAddDialog extends StatefulWidget {
   static Future<CustomEmoji?> show(BuildContext context) async {
     return await showDialog<CustomEmoji>(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return CustomEmojiAddDialog();
       },

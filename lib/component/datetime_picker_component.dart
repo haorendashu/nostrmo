@@ -28,6 +28,7 @@ class DatetimePickerComponent extends StatefulWidget {
   }) async {
     return await showDialog(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return DatetimePickerComponent(
           dateTime: dateTime,

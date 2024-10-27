@@ -15,6 +15,7 @@ class ColorPickDialog extends StatelessWidget {
   static Future<Color?> show(BuildContext context, Color? color) async {
     return await showDialog<Color>(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return ColorPickDialog(color);
       },

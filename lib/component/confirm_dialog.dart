@@ -8,6 +8,7 @@ class ConfirmDialog {
     var s = S.of(context);
     return await showDialog<bool>(
         context: context,
+        useRootNavigator: false,
         builder: (context) {
           return AlertDialog(
             title: Text(s.Notice),

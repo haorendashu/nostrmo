@@ -20,6 +20,7 @@ class EventIdRouterComponent extends StatefulWidget {
   }) async {
     var event = await showDialog(
       context: context,
+      useRootNavigator: false,
       builder: (context) {
         return EventIdRouterComponent(eventId, relayAddr);
       },

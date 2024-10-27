@@ -10,6 +10,7 @@ class ColorSelectorComponent extends StatelessWidget {
   static Future<Color?> show(BuildContext context) async {
     return await showDialog(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return ColorSelectorComponent();
       },

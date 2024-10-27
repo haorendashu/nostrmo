@@ -41,6 +41,7 @@ class TextInputAndSearchDialog extends StatefulWidget {
       bool Function(BuildContext, String)? valueCheck}) async {
     return await showDialog<String>(
         context: context,
+        useRootNavigator: false,
         builder: (_context) {
           return TextInputAndSearchDialog(
             searchTabName,

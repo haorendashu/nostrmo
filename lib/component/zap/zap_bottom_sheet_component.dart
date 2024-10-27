@@ -305,6 +305,7 @@ class _ZapBottomSheetComponent extends CustState<ZapBottomSheetComponent> {
       RouterUtil.back(context);
       showDialog(
           context: widget.parentContext,
+          useRootNavigator: false,
           builder: (context) {
             return ZapsSendDialog(
               zapInfos: widget.zapInfos,

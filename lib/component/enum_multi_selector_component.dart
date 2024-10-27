@@ -19,6 +19,7 @@ class EnumMultiSelectorComponent extends StatefulWidget {
       BuildContext context, List<EnumObj> list, List<EnumObj> values) async {
     return await showDialog<List<EnumObj>?>(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return EnumMultiSelectorComponent(
           list: list,

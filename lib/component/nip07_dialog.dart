@@ -25,6 +25,7 @@ class NIP07Dialog extends StatefulWidget {
       {String? content}) async {
     return await showDialog<bool>(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return NIP07Dialog(
           method: method,

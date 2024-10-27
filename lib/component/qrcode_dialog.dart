@@ -31,6 +31,7 @@ class QrcodeDialog extends StatefulWidget {
   static Future<String?> show(BuildContext context, String pubkey) async {
     return await showDialog<String>(
         context: context,
+        useRootNavigator: false,
         builder: (_context) {
           return QrcodeDialog(
             pubkey: pubkey,

@@ -22,6 +22,7 @@ class SyncUploadDialog extends StatefulWidget {
   static Future<void> show(BuildContext context, List<Event> events) async {
     await showDialog(
       context: context,
+      useRootNavigator: false,
       builder: (context) {
         return SyncUploadDialog(
           events: events,

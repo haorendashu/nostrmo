@@ -20,6 +20,7 @@ class BadgeDetailDialog extends StatefulWidget {
       BuildContext context, BadgeDefinition badgeDefinition) async {
     return await showDialog<bool>(
       context: context,
+      useRootNavigator: false,
       builder: (_context) {
         return BadgeDetailDialog(
           badgeDefinition: badgeDefinition,
