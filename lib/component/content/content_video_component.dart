@@ -82,7 +82,7 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
     videoHeight = player.state.height;
 
     if (videoWidth != null && videoHeight != null) {
-      if (videoHeight! > videoWidth!) {
+      if (videoHeight! / videoWidth! > 1.2) {
         currentWidth = currentWidth * 0.6;
       }
       currentHeight =
