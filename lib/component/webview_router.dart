@@ -293,12 +293,12 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
     }
 
     if (_webViewProvider.showable) {
-      bodyWidget = WillPopScope(
-        child: bodyWidget,
-        onWillPop: () async {
+      bodyWidget = PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
           await handleBack();
-          return false;
         },
+        child: bodyWidget,
       );
     }
 
