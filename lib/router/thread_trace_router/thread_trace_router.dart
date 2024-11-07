@@ -241,8 +241,21 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       filters.add(m);
     }
 
+    List<String> tempRelays = [];
+    if (StringUtil.isNotBlank(eventRelation.replyOrRootRelayAddr)) {
+      var eventRelays = nostr!
+          .getExtralReadableRelays([eventRelation.replyOrRootRelayAddr!], 1);
+      tempRelays.addAll(eventRelays);
+    }
+    if (StringUtil.isNotBlank(eventRelation.pubkey)) {
+      var subEventPubkeyRelays =
+          metadataProvider.getExtralRelays(eventRelation.pubkey, false);
+      tempRelays.addAll(subEventPubkeyRelays);
+    }
+
     beginQueryParentFlag = false;
-    nostr!.query(filters, onEvent, onComplete: beginQueryParent);
+    nostr!.query(filters, onEvent,
+        onComplete: beginQueryParent, tempRelays: tempRelays);
     Future.delayed(const Duration(seconds: 1)).then((value) {
       // avoid query onComplete no callback.
       beginQueryParent();
