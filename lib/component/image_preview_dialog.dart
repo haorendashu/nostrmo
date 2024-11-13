@@ -214,11 +214,15 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
       _doSaveImage();
     } else if (Platform.isAndroid) {
       PermissionStatus permission = await Permission.storage.request();
-      if (permission == PermissionStatus.granted) {
+      // if (permission == PermissionStatus.granted) {
+      try {
         _doSaveImage();
-      } else {
-        print("Permission not found");
+      } catch (e) {
+        print(e);
       }
+      // } else {
+      //   print("Permission not found");
+      // }
     } else {
       _doSaveImage(isPc: true);
     }
@@ -237,13 +241,11 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
           BotToast.showText(text: S.of(context).Image_save_success);
         }
       } else {
-        // var result = await FileSaver.instance.saveFile(
-        //   name: DateTime.now().millisecondsSinceEpoch.toString(),
-        //   bytes: imageAsBytes,
-        //   ext: ".png",
-        // );
-        var result = "Good!";
-        print(result);
+        var result = await FileSaver.instance.saveFile(
+          name: DateTime.now().millisecondsSinceEpoch.toString(),
+          bytes: imageAsBytes,
+          ext: ".png",
+        );
         BotToast.showText(
           text: "${S.of(context).Image_save_success} $result",
           crossPage: true,
