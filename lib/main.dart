@@ -272,7 +272,7 @@ Future<void> main() async {
   mediaDataCache = MediaDataCache();
   CacheManagerBuilder.build();
   pcRouterFakeProvider = PcRouterFakeProvider();
-  webViewProvider = WebViewProvider();
+  webViewProvider = WebViewProvider.getInstance();
   // customEmojiProvider = CustomEmojiProvider.load();
   communityApprovedProvider = CommunityApprovedProvider();
   communityInfoProvider = CommunityInfoProvider();
@@ -484,7 +484,11 @@ class _MyApp extends State<MyApp> {
         theme: defaultTheme,
         child: MaterialApp(
           builder: BotToastInit(),
-          navigatorObservers: [BotToastNavigatorObserver()],
+          // navigatorKey: navigatorKey,
+          navigatorObservers: [
+            BotToastNavigatorObserver(),
+            webViewProvider.webviewNavigatorObserver,
+          ],
           // showPerformanceOverlay: true,
           debugShowCheckedModeBanner: false,
           locale: _locale,
