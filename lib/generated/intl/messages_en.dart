@@ -91,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Content": MessageLookupByLibrary.simpleMessage("Content"),
         "Content_warning":
             MessageLookupByLibrary.simpleMessage("Content warning"),
+        "Copy": MessageLookupByLibrary.simpleMessage("Copy"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("Copy Hex Key"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("Copy Key"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("Copy Note Id"),

@@ -94,6 +94,7 @@ dependencies:
   flutter_colorpicker: ^1.1.0
   blurhash_ffi: ^1.2.6
   blurhash_dart: ^1.2.1
+  flutter_json_view: ^1.1.5
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1

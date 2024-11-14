@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Contact": MessageLookupByLibrary.simpleMessage("联系人"),
         "Content": MessageLookupByLibrary.simpleMessage("内容"),
         "Content_warning": MessageLookupByLibrary.simpleMessage("内容警告"),
+        "Copy": MessageLookupByLibrary.simpleMessage("复制"),
         "Copy_Hex_Key": MessageLookupByLibrary.simpleMessage("复制原始密钥"),
         "Copy_Key": MessageLookupByLibrary.simpleMessage("复制密钥"),
         "Copy_Note_Id": MessageLookupByLibrary.simpleMessage("复制动态Id"),

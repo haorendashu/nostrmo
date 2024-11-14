@@ -323,5 +323,6 @@
     "Create_Group": "Create Group",
     "Cache_Relay": "Cache Relay",
     "Normal": "Normal",
-    "Cache": "Cache"
+    "Cache": "Cache",
+    "Copy": "Copy"
 }

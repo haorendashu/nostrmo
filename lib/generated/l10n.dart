@@ -3299,6 +3299,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Copy`
+  String get Copy {
+    return Intl.message(
+      'Copy',
+      name: 'Copy',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

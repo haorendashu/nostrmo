@@ -12,6 +12,7 @@ import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/nip51/bookmarks.dart';
 import 'package:nostrmo/component/enum_selector_component.dart';
 import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
+import 'package:nostrmo/component/json_view_dialog.dart';
 import 'package:nostrmo/component/like_text_select_bottom_sheet.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/provider/group_provider.dart';
@@ -437,7 +438,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   void onPopupSelected(String value) {
     if (value == "copyEvent") {
       var text = jsonEncode(widget.event.toJson());
-      _doCopy(text);
+      JsonViewDialog.show(context, text);
     } else if (value == "copyPubkey") {
       var text = Nip19.encodePubKey(widget.event.pubkey);
       _doCopy(text);
