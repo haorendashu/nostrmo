@@ -323,6 +323,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please input lnbc text"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("Please input search content"),
+        "Please_input_summary":
+            MessageLookupByLibrary.simpleMessage("Please input summary"),
         "Please_input_the_max_sub_notes_number":
             MessageLookupByLibrary.simpleMessage(
                 "Please input the max sub notes number"),

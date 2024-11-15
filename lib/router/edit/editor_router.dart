@@ -49,6 +49,8 @@ class EditorRouter extends StatefulWidget {
 
   List<BlockEmbed>? initEmbeds;
 
+  bool isLongForm;
+
   EditorRouter({
     required this.tags,
     required this.tagsAddedWhenSend,
@@ -57,6 +59,7 @@ class EditorRouter extends StatefulWidget {
     this.initEmbeds,
     this.groupIdentifier,
     this.groupEventKind,
+    this.isLongForm = false,
   });
 
   static Future<Event?> open(
@@ -68,6 +71,7 @@ class EditorRouter extends StatefulWidget {
     List<BlockEmbed>? initEmbeds,
     GroupIdentifier? groupIdentifier,
     int? groupEventKind,
+    bool isLongForm = false,
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
@@ -81,14 +85,12 @@ class EditorRouter extends StatefulWidget {
       initEmbeds: initEmbeds,
       groupIdentifier: groupIdentifier,
       groupEventKind: groupEventKind,
+      isLongForm: isLongForm,
     );
 
     return RouterUtil.push(context, MaterialPageRoute(builder: (context) {
       return editor;
     }));
-    // return Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //   return editor;
-    // }));
   }
 
   @override
@@ -116,6 +118,11 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   @override
   int? getGroupEventKind() {
     return widget.groupEventKind;
+  }
+
+  @override
+  bool isLongForm() {
+    return widget.isLongForm;
   }
 
   @override
@@ -214,6 +221,14 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
     if (showTitle) {
       list.add(buildTitleWidget());
+    }
+
+    if (isLongForm()) {
+      list.add(buildTitleWidget());
+
+      list.add(buildLongFormImageWidget());
+
+      list.add(buildSummaryWidget());
     }
 
     if (publishAt != null) {

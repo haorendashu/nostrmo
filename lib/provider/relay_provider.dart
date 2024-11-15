@@ -286,6 +286,17 @@ class RelayProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<String> getWritableRelays() {
+    List<String> list = [];
+    for (var addr in relayAddrs) {
+      var relayStatus = relayStatusMap[addr];
+      if (relayStatus != null && relayStatus.writeAccess) {
+        list.add(addr);
+      }
+    }
+    return list;
+  }
+
   List<RelayStatus> _getRelayStatuses() {
     List<RelayStatus> relayStatuses = [];
     for (var addr in relayAddrs) {

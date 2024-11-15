@@ -255,6 +255,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入闪电网络发票"),
         "Please_input_search_content":
             MessageLookupByLibrary.simpleMessage("请输入搜索内容"),
+        "Please_input_summary": MessageLookupByLibrary.simpleMessage("请输入简述"),
         "Please_input_the_max_sub_notes_number":
             MessageLookupByLibrary.simpleMessage("请输入最大的子动态数量"),
         "Please_input_title": MessageLookupByLibrary.simpleMessage("请输入标题"),

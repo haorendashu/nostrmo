@@ -3309,6 +3309,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please input summary`
+  String get Please_input_summary {
+    return Intl.message(
+      'Please input summary',
+      name: 'Please_input_summary',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

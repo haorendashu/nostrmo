@@ -310,5 +310,6 @@
     "Cache_Relay": "缓存中继",
     "Normal": "普通",
     "Cache": "缓存",
-    "Copy": "复制"
+    "Copy": "复制",
+    "Please_input_summary": "请输入简述"
 }

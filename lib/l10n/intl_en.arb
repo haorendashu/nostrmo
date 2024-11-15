@@ -324,5 +324,6 @@
     "Cache_Relay": "Cache Relay",
     "Normal": "Normal",
     "Cache": "Cache",
-    "Copy": "Copy"
+    "Copy": "Copy",
+    "Please_input_summary": "Please input summary"
 }

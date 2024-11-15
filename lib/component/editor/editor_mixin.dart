@@ -68,6 +68,10 @@ mixin EditorMixin {
 
   bool openZapSplit = false;
 
+  bool isLongForm() {
+    return false;
+  }
+
   // is dm
   bool isDM();
 
@@ -144,21 +148,25 @@ mixin EditorMixin {
         tooltip: s.Take_video,
       ));
     }
+    if (!isLongForm()) {
+      inputBtnList.addAll([
+        quill.QuillToolbarIconButton(
+          onPressed: customEmojiSelect,
+          icon: Icon(Icons.add_reaction_outlined),
+          isSelected: false,
+          iconTheme: null,
+          tooltip: s.Custom_Emoji,
+        ),
+        quill.QuillToolbarIconButton(
+          onPressed: emojiBeginToSelect,
+          icon: Icon(Icons.tag_faces),
+          isSelected: false,
+          iconTheme: null,
+          tooltip: s.Emoji,
+        ),
+      ]);
+    }
     inputBtnList.addAll([
-      quill.QuillToolbarIconButton(
-        onPressed: customEmojiSelect,
-        icon: Icon(Icons.add_reaction_outlined),
-        isSelected: false,
-        iconTheme: null,
-        tooltip: s.Custom_Emoji,
-      ),
-      quill.QuillToolbarIconButton(
-        onPressed: emojiBeginToSelect,
-        icon: Icon(Icons.tag_faces),
-        isSelected: false,
-        iconTheme: null,
-        tooltip: s.Emoji,
-      ),
       quill.QuillToolbarIconButton(
         onPressed: _inputMentionUser,
         icon: Icon(Icons.alternate_email_sharp),
@@ -173,22 +181,23 @@ mixin EditorMixin {
         iconTheme: null,
         tooltip: s.Quote,
       ),
-      quill.QuillToolbarIconButton(
-        onPressed: _inputTag,
-        icon: Icon(Icons.tag),
-        isSelected: false,
-        iconTheme: null,
-        tooltip: s.Hashtag,
-      ),
-      quill.QuillToolbarIconButton(
-        onPressed: _inputLnbc,
-        icon: Icon(Icons.bolt),
-        isSelected: false,
-        iconTheme: null,
-        tooltip: s.Lightning_Invoice,
-      ),
-      // Expanded(child: Container())
     ]);
+
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: _inputTag,
+      icon: Icon(Icons.tag),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: s.Hashtag,
+    ));
+
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: _inputLnbc,
+      icon: Icon(Icons.bolt),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: s.Lightning_Invoice,
+    ));
 
     if (!isDM()) {
       inputBtnList.add(quill.QuillToolbarIconButton(
@@ -201,7 +210,8 @@ mixin EditorMixin {
         iconTheme: null,
         tooltip: s.Split_and_Transfer_Zap,
       ));
-      inputBtnList.addAll([
+
+      inputBtnList.add(
         quill.QuillToolbarIconButton(
           onPressed: _addWarning,
           icon: Icon(Icons.warning, color: showWarning ? Colors.red : null),
@@ -209,16 +219,18 @@ mixin EditorMixin {
           iconTheme: null,
           tooltip: s.Sensitive_Content,
         ),
-        quill.QuillToolbarIconButton(
+      );
+      if (!isLongForm()) {
+        inputBtnList.add(quill.QuillToolbarIconButton(
           onPressed: _addTitle,
           icon: Icon(Icons.title, color: showTitle ? mainColor : null),
           isSelected: false,
           iconTheme: null,
           tooltip: s.Subject,
-        ),
-      ]);
+        ));
+      }
 
-      if (groupIdentifier == null) {
+      if (groupIdentifier == null && !isLongForm()) {
         inputBtnList.add(quill.QuillToolbarIconButton(
           onPressed: selectedTime,
           icon: Icon(Icons.timer_outlined,
@@ -232,8 +244,9 @@ mixin EditorMixin {
     if (!isDM() &&
         getTags().isEmpty &&
         getTagsAddedWhenSend().isEmpty &&
-        groupIdentifier == null) {
-      // isn't dm and reply
+        groupIdentifier == null &&
+        !isLongForm()) {
+      // isn't dm and reply and longForm
 
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: _inputPoll,
@@ -579,6 +592,12 @@ mixin EditorMixin {
                 return null;
               }
             }
+
+            if (isLongForm()) {
+              // transfer url to markdown
+              value = "![]($value)";
+            }
+
             result = handleBlockValue(result, value);
             continue;
           }
@@ -673,7 +692,11 @@ mixin EditorMixin {
 
     var subject = subjectController.text;
     if (StringUtil.isNotBlank(subject)) {
-      allTags.add(["subject", subject]);
+      if (isLongForm()) {
+        allTags.add(["title", subject]);
+      } else {
+        allTags.add(["subject", subject]);
+      }
     }
 
     if (showWarning) {
@@ -751,6 +774,34 @@ mixin EditorMixin {
       var extralTags = zapGoalInputController.getTags();
       allTags.addAll(extralTags);
       event = Event(nostr!.publicKey, EventKind.ZAP_GOALS, allTags, result,
+          createdAt: getCreatedAt());
+    } else if (isLongForm()) {
+      // long form
+
+      // handle other long form info
+      if (StringUtil.isNotBlank(longFormImage)) {
+        allTags.add(["image", longFormImage]);
+      }
+      var summary = summaryController.text;
+      if (StringUtil.isNotBlank(summary)) {
+        if (StringUtil.isNotBlank(longFormImage)) {
+          allTags.add(["summary", summary]);
+        }
+      }
+
+      var id = DateTime.now().millisecondsSinceEpoch.toString();
+      var writableRelays = relayProvider.getWritableRelays();
+      String oneWriteRelay =
+          writableRelays.isNotEmpty ? writableRelays.first : "";
+
+      allTags.add(["d", id]);
+      allTags.add([
+        "a",
+        "${EventKind.LONG_FORM}:${nostr!.publicKey}:$id",
+        oneWriteRelay
+      ]);
+
+      event = Event(nostr!.publicKey, EventKind.LONG_FORM, allTags, result,
           createdAt: getCreatedAt());
     } else {
       // text note
@@ -1099,6 +1150,91 @@ mixin EditorMixin {
         ),
         decoration: InputDecoration(
           hintText: s.Please_input_title,
+          border: InputBorder.none,
+          hintStyle: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.normal,
+            color: hintColor.withOpacity(0.8),
+          ),
+          counterText: "",
+        ),
+      ),
+    );
+  }
+
+  String? longFormImage;
+
+  Future<void> pickAndUploadLongFormImage() async {
+    longFormImage = null;
+    var filepath = await Uploader.pick(getContext());
+    if (StringUtil.isNotBlank(filepath)) {
+      var cancelFunc = BotToast.showLoading();
+      try {
+        var fileUrl = await Uploader.upload(
+          filepath!,
+          imageService: settingProvider.imageService,
+        );
+        longFormImage = fileUrl;
+      } catch (e) {
+        print("image upload fail");
+        print(e);
+      } finally {
+        cancelFunc();
+      }
+    }
+    updateUI();
+  }
+
+  Widget buildLongFormImageWidget() {
+    Widget main = Icon(Icons.image);
+
+    if (StringUtil.isBlank(longFormImage)) {
+      main = GestureDetector(
+        onTap: pickAndUploadLongFormImage,
+        child: main,
+      );
+    } else {
+      main = GestureDetector(
+        onTap: pickAndUploadLongFormImage,
+        child: ImageComponent(imageUrl: longFormImage!),
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+      ),
+      alignment: Alignment.centerLeft,
+      child: main,
+    );
+  }
+
+  TextEditingController summaryController = TextEditingController();
+
+  Widget buildSummaryWidget() {
+    var themeData = Theme.of(getContext());
+    var fontSize = themeData.textTheme.bodyLarge!.fontSize;
+    var hintColor = themeData.hintColor;
+    var s = S.of(getContext());
+
+    return Container(
+      // margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+      padding: const EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+      ),
+      child: TextField(
+        maxLines: 5,
+        minLines: 1,
+        controller: summaryController,
+        textInputAction: TextInputAction.next,
+        style: TextStyle(
+          fontSize: fontSize,
+          // fontWeight: FontWeight.bold,
+        ),
+        decoration: InputDecoration(
+          hintText: s.Please_input_summary,
           border: InputBorder.none,
           hintStyle: TextStyle(
             fontSize: fontSize,
