@@ -51,6 +51,10 @@ class EditorRouter extends StatefulWidget {
 
   bool isLongForm;
 
+  bool isPoll;
+
+  bool isZapGoal;
+
   EditorRouter({
     required this.tags,
     required this.tagsAddedWhenSend,
@@ -60,6 +64,8 @@ class EditorRouter extends StatefulWidget {
     this.groupIdentifier,
     this.groupEventKind,
     this.isLongForm = false,
+    this.isPoll = false,
+    this.isZapGoal = false,
   });
 
   static Future<Event?> open(
@@ -72,6 +78,8 @@ class EditorRouter extends StatefulWidget {
     GroupIdentifier? groupIdentifier,
     int? groupEventKind,
     bool isLongForm = false,
+    bool isPoll = false,
+    bool isZapGoal = false,
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
@@ -86,6 +94,8 @@ class EditorRouter extends StatefulWidget {
       groupIdentifier: groupIdentifier,
       groupEventKind: groupEventKind,
       isLongForm: isLongForm,
+      isPoll: isPoll,
+      isZapGoal: isZapGoal,
     );
 
     return RouterUtil.push(context, MaterialPageRoute(builder: (context) {
@@ -107,6 +117,8 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   @override
   void initState() {
     super.initState();
+    inputPoll = widget.isPoll;
+    inputZapGoal = widget.isZapGoal;
     handleFocusInit();
   }
 

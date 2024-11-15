@@ -16,6 +16,7 @@ import 'package:nostrmo/router/user/user_statistics_component.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/add_btn_wrapper_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
@@ -270,16 +271,18 @@ class _IndexDrawerContentComponnent
     ));
 
     if (TableModeUtil.isTableMode() && !readOnly) {
-      list.add(IndexDrawerItem(
-        iconData: Icons.add_rounded,
-        name: s.Add_a_Note,
-        onTap: () {
-          EditorRouter.open(context);
-        },
-        onLongPress: () {
-          Uploader.pickAndUpload2NIP95(context);
-        },
-        smallMode: widget.smallMode,
+      list.add(AddBtnWrapperComponent(
+        child: IndexDrawerItem(
+          iconData: Icons.add_rounded,
+          name: s.Add,
+          onTap: () {
+            // EditorRouter.open(context);
+          },
+          onLongPress: () {
+            Uploader.pickAndUpload2NIP95(context);
+          },
+          smallMode: widget.smallMode,
+        ),
       ));
     }
 

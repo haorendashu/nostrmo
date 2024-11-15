@@ -95,6 +95,7 @@ dependencies:
   blurhash_ffi: ^1.2.6
   blurhash_dart: ^1.2.1
   flutter_json_view: ^1.1.5
+  star_menu: ^4.0.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1

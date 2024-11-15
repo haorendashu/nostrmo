@@ -40,6 +40,16 @@ class Uploader {
   //   return null;
   // }
 
+  static Future<Event?> pickAndUpload2NIP94(BuildContext context) async {
+    var filePath = await pick(context);
+    if (StringUtil.isNotBlank(filePath)) {
+      // return NIP95Uploader.uploadForEvent(nostr!, filePath!);
+      // TODO
+    }
+
+    return null;
+  }
+
   static Future<Event?> pickAndUpload2NIP95(BuildContext context) async {
     var filePath = await pick(context);
     if (StringUtil.isNotBlank(filePath)) {

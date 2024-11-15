@@ -4,6 +4,7 @@ import 'package:nostrmo/provider/index_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/add_btn_wrapper_component.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../edit/editor_router.dart';
@@ -30,49 +31,61 @@ class _IndexBottomBar extends State<IndexBottomBar> {
 
     int current = 0;
 
-    list.add(IndexBottomBarButton(
-      iconData: Icons.home_rounded,
-      index: current,
-      selected: current == currentTap,
-      onDoubleTap: () {
-        indexProvider.followScrollToTop();
-      },
+    list.add(Expanded(
+      child: IndexBottomBarButton(
+        iconData: Icons.home_rounded,
+        index: current,
+        selected: current == currentTap,
+        onDoubleTap: () {
+          indexProvider.followScrollToTop();
+        },
+      ),
     ));
     current++;
 
-    list.add(IndexBottomBarButton(
-      iconData: Icons.public_rounded, // notifications_active
-      index: current,
-      selected: current == currentTap,
-      onDoubleTap: () {
-        indexProvider.globalScrollToTop();
-      },
+    list.add(Expanded(
+      child: IndexBottomBarButton(
+        iconData: Icons.public_rounded, // notifications_active
+        index: current,
+        selected: current == currentTap,
+        onDoubleTap: () {
+          indexProvider.globalScrollToTop();
+        },
+      ),
     ));
     current++;
 
     if (!nostr!.isReadOnly()) {
-      list.add(IndexBottomBarButton(
-        iconData: Icons.add_circle_outline_rounded, // notifications_active
-        index: -1,
-        selected: false,
-        bigFont: true,
-        onTap: (value) {
-          EditorRouter.open(context);
-        },
+      list.add(Expanded(
+        child: AddBtnWrapperComponent(
+          child: IndexBottomBarButton(
+            iconData: Icons.add_circle_outline_rounded, // notifications_active
+            index: -1,
+            selected: false,
+            bigFont: true,
+            onTap: (value) {
+              // EditorRouter.open(context);
+            },
+          ),
+        ),
       ));
     }
 
-    list.add(IndexBottomBarButton(
-      iconData: Icons.search_rounded,
-      index: current,
-      selected: current == currentTap,
+    list.add(Expanded(
+      child: IndexBottomBarButton(
+        iconData: Icons.search_rounded,
+        index: current,
+        selected: current == currentTap,
+      ),
     ));
     current++;
 
-    list.add(IndexBottomBarButton(
-      iconData: Icons.mail_rounded,
-      index: current,
-      selected: current == currentTap,
+    list.add(Expanded(
+      child: IndexBottomBarButton(
+        iconData: Icons.mail_rounded,
+        index: current,
+        selected: current == currentTap,
+      ),
     ));
     current++;
 
@@ -138,27 +151,25 @@ class IndexBottomBarButton extends StatelessWidget {
 
     Color? selectedColor = mainColor;
 
-    return Expanded(
-      child: InkWell(
-        onTap: () {
-          if (onTap != null) {
-            onTap!(index);
-          } else {
-            indexProvider.setCurrentTap(index);
-          }
-        },
-        onDoubleTap: () {
-          if (onDoubleTap != null) {
-            onDoubleTap!();
-          }
-        },
-        child: Container(
-          height: IndexBottomBar.HEIGHT,
-          child: Icon(
-            iconData,
-            color: selected ? selectedColor : null,
-            size: bigFont ? 40 : null,
-          ),
+    return InkWell(
+      onTap: () {
+        if (onTap != null) {
+          onTap!(index);
+        } else {
+          indexProvider.setCurrentTap(index);
+        }
+      },
+      onDoubleTap: () {
+        if (onDoubleTap != null) {
+          onDoubleTap!();
+        }
+      },
+      child: Container(
+        height: IndexBottomBar.HEIGHT,
+        child: Icon(
+          iconData,
+          color: selected ? selectedColor : null,
+          size: bigFont ? 40 : null,
         ),
       ),
     );
