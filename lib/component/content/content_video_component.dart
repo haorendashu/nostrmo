@@ -14,7 +14,9 @@ import '../../consts/base64.dart';
 class ContentVideoComponent extends StatefulWidget {
   String url;
 
-  ContentVideoComponent({required this.url});
+  bool autoPlay;
+
+  ContentVideoComponent({required this.url, this.autoPlay = true});
 
   @override
   State<StatefulWidget> createState() {
@@ -29,7 +31,7 @@ class _ContentVideoComponent extends State<ContentVideoComponent> {
   @override
   void initState() {
     super.initState();
-    bool autoPlay = true;
+    bool autoPlay = widget.autoPlay;
     player.stream.height.listen((v) {
       if (v != null && videoHeight == null) {
         setState(() {

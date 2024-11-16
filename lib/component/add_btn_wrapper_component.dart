@@ -4,6 +4,7 @@ import 'package:star_menu/star_menu.dart';
 
 import '../consts/colors.dart';
 import '../router/edit/editor_router.dart';
+import '../router/media_edit/media_edit_router.dart';
 
 class AddBtnWrapperComponent extends StatefulWidget {
   Widget child;
@@ -62,10 +63,11 @@ class _AddBtnWrapperComponent extends State<AddBtnWrapperComponent> {
       iconData: Icons.image,
       iconBackgroundColor: ColorList.ALL_COLOR[++index],
       iconSize: iconSize,
-      name: "Media (NIP-94)",
+      name: "Media",
       backgroundColor: cardColor,
       onTap: () {
         closeMenu();
+        MediaEditRouter.pickAndUpload(context);
       },
     ));
     entries.add(AddBtnStartItemButton(
@@ -103,11 +105,6 @@ class _AddBtnWrapperComponent extends State<AddBtnWrapperComponent> {
         controller: starMenuController,
         items: entries,
         child: widget.child,
-        // onItemTapped: (index, controller) {
-        //   if (controller.closeMenu != null) {
-        //     controller.closeMenu!();
-        //   }
-        // },
       ),
     );
   }
