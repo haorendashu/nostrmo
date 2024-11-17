@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:markdown_widget/markdown_widget.dart' as mdw;
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:nostr_sdk/event.dart';
@@ -15,6 +16,7 @@ import 'package:nostr_sdk/utils/path_type_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/content_video_component.dart';
 import 'package:nostrmo/component/content/markdown/markdown_mention_event_element_builder.dart';
+import 'package:nostrmo/component/content/markdown/mdw/mdw_nrelay_node.dart';
 import 'package:nostrmo/component/event/event_torrent_component.dart';
 import 'package:nostrmo/component/event/event_zap_goals_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
@@ -48,6 +50,8 @@ import '../content/markdown/markdown_nevent_inline_syntax.dart';
 import '../content/markdown/markdown_nprofile_inline_syntax.dart';
 import '../content/markdown/markdown_nrelay_element_builder.dart';
 import '../content/markdown/markdown_nrelay_inline_syntax copy.dart';
+import '../content/markdown/mdw/mdw_mention_event_node.dart';
+import '../content/markdown/mdw/mdw_mention_user_node.dart';
 import '../image_component.dart';
 import '../zap/zap_split_icon_component.dart';
 import 'event_poll_component.dart';
@@ -675,6 +679,123 @@ class _EventMainComponent extends State<EventMainComponent> {
   }
 
   buildMarkdownWidget(ThemeData themeData) {
+    // handle old mention, replace to NIP-27 style: nostr:note1xxxx or nostr:npub1xxx
+    var content = widget.event.content;
+    var tagLength = widget.event.tags.length;
+    for (var i = 0; i < tagLength; i++) {
+      var tag = widget.event.tags[i];
+      String? link;
+
+      if (tag is List && tag.length > 1) {
+        var key = tag[0];
+        var value = tag[1];
+        if (key == "e") {
+          link = "nostr:${Nip19.encodeNoteId(value)}";
+        } else if (key == "p") {
+          link = "nostr:${Nip19.encodePubKey(value)}";
+        }
+      }
+
+      if (StringUtil.isNotBlank(link)) {
+        content = content.replaceAll("#[$i]", link!);
+      }
+    }
+
+    // TODO add hashtag support!!!
+
+    return mdw.MarkdownBlock(
+      data: content,
+      generator: mdw.MarkdownGenerator(
+        generators: [
+          mdw.SpanNodeGeneratorWithTag(
+            tag: MarkdownMentionUserElementBuilder.TAG,
+            generator: (element, config, visitor) {
+              return MdwMentionUserNode(element, config, visitor);
+            },
+          ),
+          mdw.SpanNodeGeneratorWithTag(
+            tag: MarkdownMentionEventElementBuilder.TAG,
+            generator: (element, config, visitor) {
+              return MdwMentionEventNode(element, config, visitor);
+            },
+          ),
+          mdw.SpanNodeGeneratorWithTag(
+            tag: MarkdownNrelayElementBuilder.TAG,
+            generator: (element, config, visitor) {
+              return MdwNrelayNode(element, config, visitor);
+            },
+          ),
+        ],
+        inlineSyntaxList: [
+          MarkdownMentionEventInlineSyntax(),
+          MarkdownMentionUserInlineSyntax(),
+          MarkdownNaddrInlineSyntax(),
+          MarkdownNeventInlineSyntax(),
+          MarkdownNprofileInlineSyntax(),
+          MarkdownNrelayInlineSyntax(),
+        ],
+      ),
+      config: mdw.MarkdownConfig(configs: [
+        mdw.LinkConfig(
+            style: TextStyle(
+              color: themeData.primaryColor,
+              decoration: TextDecoration.underline,
+              decorationColor: themeData.primaryColor,
+            ),
+            onTap: (href) async {
+              if (StringUtil.isNotBlank(href)) {
+                if (href.indexOf("http") == 0) {
+                  WebViewRouter.open(context, href);
+                } else if (href.indexOf("nostr:") == 0) {
+                  var link = href.replaceFirst("nostr:", "");
+                  if (Nip19.isPubkey(link)) {
+                    // jump user page
+                    var pubkey = Nip19.decode(link);
+                    if (StringUtil.isNotBlank(pubkey)) {
+                      RouterUtil.router(context, RouterPath.USER, pubkey);
+                    }
+                  } else if (NIP19Tlv.isNprofile(link)) {
+                    var nprofile = NIP19Tlv.decodeNprofile(link);
+                    if (nprofile != null) {
+                      RouterUtil.router(
+                          context, RouterPath.USER, nprofile.pubkey);
+                    }
+                  } else if (Nip19.isNoteId(link)) {
+                    var noteId = Nip19.decode(link);
+                    if (StringUtil.isNotBlank(noteId)) {
+                      RouterUtil.router(
+                          context, RouterPath.EVENT_DETAIL, noteId);
+                    }
+                  } else if (NIP19Tlv.isNevent(link)) {
+                    var nevent = NIP19Tlv.decodeNevent(link);
+                    if (nevent != null) {
+                      RouterUtil.router(
+                          context, RouterPath.EVENT_DETAIL, nevent.id);
+                    }
+                  } else if (NIP19Tlv.isNaddr(link)) {
+                    var naddr = NIP19Tlv.decodeNaddr(link);
+                    if (naddr != null) {
+                      RouterUtil.router(
+                          context, RouterPath.EVENT_DETAIL, naddr.id);
+                    }
+                  } else if (NIP19Tlv.isNrelay(link)) {
+                    var nrelay = NIP19Tlv.decodeNrelay(link);
+                    if (nrelay != null) {
+                      var result = await ConfirmDialog.show(
+                          context, S.of(context).Add_this_relay_to_local);
+                      if (result == true) {
+                        relayProvider.addRelay(nrelay.addr);
+                      }
+                    }
+                  }
+                }
+              }
+            }),
+      ]),
+    );
+  }
+
+  buildMarkdownWidgetOld(ThemeData themeData) {
     // handle old mention, replace to NIP-27 style: nostr:note1xxxx or nostr:npub1xxx
     var content = widget.event.content;
     var tagLength = widget.event.tags.length;
