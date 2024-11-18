@@ -97,6 +97,8 @@ dependencies:
   flutter_json_view: ^1.1.5
   star_menu: ^4.0.1
   markdown_widget: ^2.3.2+6
+  extended_nested_scroll_view: ^6.2.1
+  loading_more_list: ^7.1.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1

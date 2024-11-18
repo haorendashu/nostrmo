@@ -1,6 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_more_list/loading_more_list.dart';
+import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
@@ -17,6 +19,7 @@ import '../../component/editor/mention_user_embed_builder.dart';
 import '../../component/editor/pic_embed_builder.dart';
 import '../../component/editor/tag_embed_builder.dart';
 import '../../component/editor/video_embed_builder.dart';
+import '../../component/events_loading_more_repo.dart';
 import '../../component/keep_alive_cust_state.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
@@ -35,57 +38,52 @@ class GroupDetailChatComponent extends StatefulWidget {
 }
 
 class _GroupDetailChatComponent
-    extends KeepAliveCustState<GroupDetailChatComponent>
-    with LoadMoreEvent, EditorMixin {
+    extends KeepAliveCustState<GroupDetailChatComponent> with EditorMixin {
   GroupDetailProvider? groupDetailProvider;
+
+  ClampingScrollPhysics scrollPhysics = ClampingScrollPhysics();
+
+  EventsLoadingMoreRepo eventsLoadingMoreRepo = EventsLoadingMoreRepo();
 
   @override
   void initState() {
     super.initState();
     handleFocusInit();
+
+    eventsLoadingMoreRepo.getEventBox = getEventBox;
+    eventsLoadingMoreRepo.doQuery = doQuery;
   }
 
   @override
   Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
     var textColor = themeData.textTheme.bodyMedium!.color;
-    var scaffoldBackgroundColor = themeData.scaffoldBackgroundColor;
     var cardColor = themeData.cardColor;
-
-    var hintColor = themeData.hintColor;
     var s = S.of(context);
 
     groupDetailProvider = Provider.of<GroupDetailProvider>(context);
-    var eventBox = groupDetailProvider!.chatsBox;
-    var events = eventBox.all();
-    preBuild();
 
     var localPubkey = nostr!.publicKey;
 
     List<Widget> list = [];
 
-    var listWidget = ListView.builder(
-      itemBuilder: (context, index) {
-        if (index >= events.length) {
-          return null;
-        }
-
-        var event = events[index];
+    Widget listWidget = LoadingMoreList<Event>(ListConfig<Event>(
+      itemBuilder: (BuildContext context, Event event, int index) {
         return DMDetailItemComponent(
           sessionPubkey: event.pubkey, // this pubkey maybe should setto null
           event: event,
           isLocal: localPubkey == event.pubkey,
         );
       },
-      reverse: true,
-      itemCount: events.length,
+      sourceList: eventsLoadingMoreRepo,
       dragStartBehavior: DragStartBehavior.down,
-    );
-
+      reverse: true,
+    ));
     list.add(Expanded(
       child: Container(
         margin: const EdgeInsets.only(
           bottom: Base.BASE_PADDING,
+          top: Base.BASE_PADDING,
         ),
         child: listWidget,
       ),
@@ -214,13 +212,10 @@ class _GroupDetailChatComponent
     return null;
   }
 
-  @override
   void doQuery() {
-    preQuery();
-    groupDetailProvider!.doQuery(until);
+    groupDetailProvider!.doQueryChats(eventsLoadingMoreRepo.until);
   }
 
-  @override
   EventMemBox getEventBox() {
     return groupDetailProvider!.notesBox;
   }

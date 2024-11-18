@@ -1,3 +1,4 @@
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
@@ -5,6 +6,7 @@ import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/event_delete_callback.dart';
 import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
+import 'package:nostrmo/component/image_component.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/router/edit/editor_router.dart';
@@ -13,6 +15,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';
+import '../../component/cust_state.dart';
 import '../../generated/l10n.dart';
 import 'group_detail_chat_component.dart';
 import 'group_detail_note_list_component.dart';
@@ -24,7 +27,7 @@ class GroupDetailRouter extends StatefulWidget {
   }
 }
 
-class _GroupDetailRouter extends State<GroupDetailRouter> {
+class _GroupDetailRouter extends CustState<GroupDetailRouter> {
   GroupIdentifier? groupIdentifier;
 
   static const APP_BAR_HEIGHT = 40.0;
@@ -44,7 +47,12 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Future<void> onReady(BuildContext context) async {}
+
+  double imageWidth = 50;
+
+  @override
+  Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
     var bodyLargeFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var s = S.of(context);
@@ -64,14 +72,15 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
     var groupMetadata = _groupProvider.getMetadata(groupIdentifier!);
     var groupAdmins = _groupProvider.getAdmins(groupIdentifier!);
     String title = "${s.Group} ${s.Detail}";
-    Widget flexBackground = Container(
-      color: themeData.hintColor.withOpacity(0.3),
+    Widget imageWidget = Container(
+      width: imageWidth,
+      height: imageWidth,
     );
+    Widget desWidget = Container();
     if (groupMetadata != null) {
       if (StringUtil.isNotBlank(groupMetadata.name)) {
         title = groupMetadata.name!;
       }
-      Widget? desWidget;
       if (StringUtil.isNotBlank(groupMetadata.about)) {
         desWidget = Text(
           groupMetadata.about!,
@@ -80,20 +89,35 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
         );
       }
       if (StringUtil.isNotBlank(groupMetadata.picture)) {
-        flexBackground = flexBackground = Container(
+        imageWidget = Container(
+          width: imageWidth,
+          height: imageWidth,
+          margin: const EdgeInsets.only(
+            top: Base.BASE_PADDING_HALF,
+            left: Base.BASE_PADDING,
+            right: Base.BASE_PADDING,
+          ),
+          clipBehavior: Clip.hardEdge,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: themeData.hintColor.withOpacity(0.3),
-            image: DecorationImage(
-                image: NetworkImage(groupMetadata.picture!), fit: BoxFit.fill),
+            borderRadius: BorderRadius.circular(imageWidth / 2),
           ),
-          padding: EdgeInsets.only(
-            top: 14 + mediaQuery.padding.top + 46,
-            left: 20,
-            right: 20,
-            bottom: APP_BAR_HEIGHT + 14,
-          ),
-          child: desWidget,
+          child: ImageComponent(imageUrl: groupMetadata.picture!),
         );
+        // flexBackground = flexBackground = Container(
+        //   decoration: BoxDecoration(
+        //     color: themeData.hintColor.withOpacity(0.3),
+        //     image: DecorationImage(
+        //         image: NetworkImage(groupMetadata.picture!), fit: BoxFit.fill),
+        //   ),
+        //   padding: EdgeInsets.only(
+        //     top: 14 + mediaQuery.padding.top + 46,
+        //     left: 20,
+        //     right: 20,
+        //     bottom: APP_BAR_HEIGHT + 14,
+        //   ),
+        //   child: desWidget,
+        // );
       }
     }
 
@@ -111,10 +135,10 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
     ];
 
     var appbar = SliverAppBar(
-      floating: false,
-      snap: false,
+      // floating: false,
+      // snap: false,
       pinned: true,
-      primary: true,
+      // primary: true,
       expandedHeight: 200,
       leading: AppbarBackBtnComponent(),
       title: Text(
@@ -125,7 +149,14 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
         ),
       ),
       flexibleSpace: FlexibleSpaceBar(
-        background: flexBackground,
+        collapseMode: CollapseMode.pin,
+        background: Container(
+          padding: EdgeInsets.only(top: 60),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [imageWidget, Expanded(child: desWidget)],
+          ),
+        ),
       ),
       bottom: TabBar(
         tabs: tabs,
@@ -151,21 +182,28 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
       ],
     );
 
-    var main = SliverFillRemaining(
-      child: MultiProvider(
-        providers: [
-          ListenableProvider<GroupDetailProvider>.value(
-            value: groupDetailProvider,
-          ),
-        ],
-        child: TabBarView(
-          children: [
-            GroupDetailNoteListComponent(groupIdentifier!),
-            GroupDetailChatComponent(groupIdentifier!),
-          ],
-        ),
-      ),
-    );
+    // var main = SliverFillRemaining(
+    //   child: MultiProvider(
+    //     providers: [
+    //       ListenableProvider<GroupDetailProvider>.value(
+    //         value: groupDetailProvider,
+    //       ),
+    //     ],
+    //     child: TabBarView(
+    //       children: [
+    //         GroupDetailNoteListComponent(groupIdentifier!),
+    //         GroupDetailChatComponent(groupIdentifier!),
+    //       ],
+    //     ),
+    //   ),
+    // );
+
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    var pinnedHeaderHeight =
+        //statusBar height
+        statusBarHeight +
+            //pinned SliverAppBar height in header
+            kToolbarHeight;
 
     return Scaffold(
       body: EventDeleteCallback(
@@ -176,11 +214,36 @@ class _GroupDetailRouter extends State<GroupDetailRouter> {
             key: Key("GD_${groupIdentifier.toString()}"),
             groupIdentifier: groupIdentifier!,
             groupAdmins: groupAdmins,
-            child: CustomScrollView(
-              slivers: [
-                appbar,
-                main,
+            child: MultiProvider(
+              providers: [
+                ListenableProvider<GroupDetailProvider>.value(
+                  value: groupDetailProvider,
+                ),
               ],
+              child: ExtendedNestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    appbar,
+                  ];
+                },
+                // onlyOneScrollInBody: true,
+                pinnedHeaderSliverHeightBuilder: () {
+                  return pinnedHeaderHeight;
+                },
+                body: Column(
+                  children: [
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          GroupDetailNoteListComponent(groupIdentifier!),
+                          GroupDetailChatComponent(groupIdentifier!),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ),

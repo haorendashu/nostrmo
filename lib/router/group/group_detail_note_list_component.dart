@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:loading_more_list/loading_more_list.dart';
+import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
@@ -6,6 +8,7 @@ import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/events_loading_more_repo.dart';
 import '../../component/keep_alive_cust_state.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
@@ -27,15 +30,17 @@ class GroupDetailNoteListComponent extends StatefulWidget {
 
 class _GroupDetailNoteListComponent
     extends KeepAliveCustState<GroupDetailNoteListComponent>
-    with LoadMoreEvent, PenddingEventsLaterFunction {
-  final ScrollController _controller = ScrollController();
+    with PenddingEventsLaterFunction {
+  ClampingScrollPhysics scrollPhysics = ClampingScrollPhysics();
 
-  ScrollController scrollController = ScrollController();
+  EventsLoadingMoreRepo eventsLoadingMoreRepo = EventsLoadingMoreRepo();
 
   @override
   void initState() {
     super.initState();
-    bindLoadMoreScroll(_controller);
+
+    eventsLoadingMoreRepo.getEventBox = getEventBox;
+    eventsLoadingMoreRepo.doQuery = doQuery;
   }
 
   GroupDetailProvider? groupDetailProvider;
@@ -52,25 +57,16 @@ class _GroupDetailNoteListComponent
         onRefresh: onRefresh,
       );
     }
-    preBuild();
 
-    var main = Container(
-      child: RefreshIndicator(
-        onRefresh: onRefresh,
-        child: ListView.builder(
-          controller: scrollController,
-          itemBuilder: (context, index) {
-            var event = events[index];
-            return EventListComponent(
-              event: event,
-              showVideo:
-                  _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
-            );
-          },
-          itemCount: events.length,
-        ),
-      ),
-    );
+    Widget main = LoadingMoreList<Event>(ListConfig<Event>(
+      itemBuilder: (BuildContext context, Event event, int index) {
+        return EventListComponent(
+          event: event,
+          showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
+        );
+      },
+      sourceList: eventsLoadingMoreRepo,
+    ));
 
     var newNotesLength = groupDetailProvider!.newNotesBox.length();
     if (newNotesLength <= 0) {
@@ -84,7 +80,7 @@ class _GroupDetailNoteListComponent
         num: newNotesLength,
         onTap: () {
           groupDetailProvider!.mergeNewEvent();
-          scrollController.jumpTo(0);
+          // scrollController.jumpTo(0);
         },
       ),
     ));
@@ -98,15 +94,14 @@ class _GroupDetailNoteListComponent
   }
 
   @override
-  Future<void> onReady(BuildContext context) async {}
-
-  @override
-  void doQuery() {
-    preQuery();
-    groupDetailProvider!.doQuery(until);
+  Future<void> onReady(BuildContext context) async {
+    eventsLoadingMoreRepo.loadData();
   }
 
-  @override
+  Future<void> doQuery() async {
+    groupDetailProvider!.doQueryNotes(eventsLoadingMoreRepo.until);
+  }
+
   EventMemBox getEventBox() {
     return groupDetailProvider!.notesBox;
   }

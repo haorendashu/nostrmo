@@ -121,12 +121,36 @@ class GroupDetailProvider extends ChangeNotifier
     EventKind.GROUP_CHAT_REPLY,
   ];
 
-  void doQuery(int? until) {
+  static List<int> supportNoteKinds = [
+    EventKind.GROUP_NOTE,
+    EventKind.GROUP_NOTE_REPLY,
+  ];
+
+  static List<int> supportChatKinds = [
+    EventKind.GROUP_CHAT_MESSAGE,
+    EventKind.GROUP_CHAT_REPLY,
+  ];
+
+  void doQueryAll(int? until, {int limit = 100}) {
+    doQueryNotes(null, limit: limit);
+    doQueryChats(null, limit: limit);
+  }
+
+  void doQueryNotes(int? until, {int limit = 100}) {
+    _doQuery(until, supportNoteKinds, limit);
+  }
+
+  void doQueryChats(int? until, {int limit = 100}) {
+    _doQuery(until, supportChatKinds, limit);
+  }
+
+  void _doQuery(int? until, List<int> kinds, int limit) {
     if (_groupIdentifier != null) {
       var relays = [_groupIdentifier!.host];
       var filter = Filter(
         until: until ?? _initTime,
-        kinds: supportEventKinds,
+        kinds: kinds,
+        limit: limit,
       );
       var jsonMap = filter.toJson();
       jsonMap["#h"] = [_groupIdentifier!.groupId];
@@ -201,7 +225,7 @@ class GroupDetailProvider extends ChangeNotifier
       // clear and need to query data
       clearData();
       _groupIdentifier = groupIdentifier;
-      doQuery(null);
+      doQueryAll(null);
     } else {
       _groupIdentifier = groupIdentifier;
     }
@@ -210,7 +234,7 @@ class GroupDetailProvider extends ChangeNotifier
   refresh() {
     clearData();
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-    doQuery(null);
+    doQueryAll(null);
   }
 
   List<String> notesPrevious() {
