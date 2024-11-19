@@ -817,27 +817,27 @@ mixin EditorMixin {
     if (groupIdentifier != null) {
       var groupRelays = [groupIdentifier.host];
       print(groupRelays);
-      return nostr!
+      return await nostr!
           .sendEvent(event, targetRelays: groupRelays, tempRelays: groupRelays);
     } else if (publishAt != null) {
       for (var extralEvent in extralEvents) {
-        _handleSendingSendBoxEvent(extralEvent, extralRelays);
+        await _handleSendingSendBoxEvent(extralEvent, extralRelays);
       }
 
-      return _handleSendingSendBoxEvent(event, extralRelays);
+      return await _handleSendingSendBoxEvent(event, extralRelays);
     } else {
       for (var extralEvent in extralEvents) {
-        _handleSendingEvent(extralEvent, extralRelays);
+        await _handleSendingEvent(extralEvent, extralRelays);
       }
 
-      return _handleSendingEvent(event, extralRelays);
+      return await _handleSendingEvent(event, extralRelays);
     }
   }
 
   Future<Event?> _handleSendingSendBoxEvent(
       Event e, List<String> extralRelays) async {
     if (StringUtil.isBlank(e.sig)) {
-      nostr!.signEvent(e);
+      await nostr!.signEvent(e);
     }
 
     List<String> list = [...relayProvider.relayAddrs, ...extralRelays];
