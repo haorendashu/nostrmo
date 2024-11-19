@@ -102,22 +102,13 @@ class _GroupDetailRouter extends CustState<GroupDetailRouter> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(imageWidth / 2),
           ),
-          child: ImageComponent(imageUrl: groupMetadata.picture!),
+          child: ImageComponent(
+            width: imageWidth,
+            height: imageWidth,
+            imageUrl: groupMetadata.picture!,
+            fit: BoxFit.fill,
+          ),
         );
-        // flexBackground = flexBackground = Container(
-        //   decoration: BoxDecoration(
-        //     color: themeData.hintColor.withOpacity(0.3),
-        //     image: DecorationImage(
-        //         image: NetworkImage(groupMetadata.picture!), fit: BoxFit.fill),
-        //   ),
-        //   padding: EdgeInsets.only(
-        //     top: 14 + mediaQuery.padding.top + 46,
-        //     left: 20,
-        //     right: 20,
-        //     bottom: APP_BAR_HEIGHT + 14,
-        //   ),
-        //   child: desWidget,
-        // );
       }
     }
 
@@ -151,7 +142,7 @@ class _GroupDetailRouter extends CustState<GroupDetailRouter> {
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
         background: Container(
-          padding: EdgeInsets.only(top: 60),
+          padding: EdgeInsets.only(top: 60 + mediaQuery.padding.top),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [imageWidget, Expanded(child: desWidget)],
@@ -181,22 +172,6 @@ class _GroupDetailRouter extends CustState<GroupDetailRouter> {
         ),
       ],
     );
-
-    // var main = SliverFillRemaining(
-    //   child: MultiProvider(
-    //     providers: [
-    //       ListenableProvider<GroupDetailProvider>.value(
-    //         value: groupDetailProvider,
-    //       ),
-    //     ],
-    //     child: TabBarView(
-    //       children: [
-    //         GroupDetailNoteListComponent(groupIdentifier!),
-    //         GroupDetailChatComponent(groupIdentifier!),
-    //       ],
-    //     ),
-    //   ),
-    // );
 
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     var pinnedHeaderHeight =
