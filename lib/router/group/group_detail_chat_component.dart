@@ -217,7 +217,7 @@ class _GroupDetailChatComponent
   }
 
   EventMemBox getEventBox() {
-    return groupDetailProvider!.notesBox;
+    return groupDetailProvider!.chatsBox;
   }
 
   @override
