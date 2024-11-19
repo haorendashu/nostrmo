@@ -55,31 +55,18 @@ class _GroupListRouter extends State<GroupListRouter> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        leading: AppbarBackBtnComponent(),
-        title: Text(
-          s.Groups,
+      floatingActionButton: TextButton(
+        onPressed: () {
+          groupAdd();
+        },
+        style: ButtonStyle(),
+        child: Text(
+          "+",
           style: TextStyle(
-            fontSize: bodyLargeFontSize,
+            color: appbarColor,
+            fontSize: 30,
           ),
         ),
-        actions: [
-          GestureDetector(
-            onTap: groupAdd,
-            behavior: HitTestBehavior.translucent,
-            child: Container(
-              width: 50,
-              alignment: Alignment.center,
-              child: Text(
-                "+",
-                style: TextStyle(
-                  color: appbarColor,
-                  fontSize: 30,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: main,
     );

@@ -77,7 +77,7 @@ class _IndexRouter extends CustState<IndexRouter>
         TabController(initialIndex: followInitTab, length: 3, vsync: this);
     globalsTabController =
         TabController(initialIndex: globalsInitTab, length: 3, vsync: this);
-    dmTabController = TabController(length: 2, vsync: this);
+    dmTabController = TabController(length: 3, vsync: this);
 
     if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
       try {
@@ -231,6 +231,11 @@ class _IndexRouter extends CustState<IndexRouter>
             s.Request,
             titleTextStyle,
             omitText: "R",
+          ),
+          IndexTabItemComponent(
+            s.Groups,
+            titleTextStyle,
+            omitText: "G",
           ),
         ],
         controller: dmTabController,

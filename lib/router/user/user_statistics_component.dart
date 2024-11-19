@@ -103,17 +103,6 @@ class _UserStatisticsComponent extends CustState<UserStatisticsComponent> {
             RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
           }));
 
-      list.add(Selector<ListProvider, int>(builder: (context, num, child) {
-        return UserStatisticsItemComponent(
-            num: num,
-            name: s.Groups,
-            onTap: () {
-              RouterUtil.router(context, RouterPath.GROUP_LIST);
-            });
-      }, selector: (context, _provider) {
-        return _provider.groupIdentifiers.length;
-      }));
-
       list.add(Selector<RelayProvider, int>(builder: (context, num, child) {
         return UserStatisticsItemComponent(
             num: num, name: s.Relays, onTap: onRelaysTap);

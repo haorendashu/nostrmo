@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/router/group/group_list_rotuer.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
@@ -30,6 +31,7 @@ class _DMRouter extends State<DMRouter> {
         children: [
           DMKnownListRouter(),
           DMUnknownListRouter(),
+          GroupListRouter(),
         ],
       ),
     );

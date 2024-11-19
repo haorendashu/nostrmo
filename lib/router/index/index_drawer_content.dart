@@ -165,7 +165,7 @@ class _IndexDrawerContentComponnent
       ));
       centerList.add(IndexDrawerItem(
         iconData: Icons.mail_rounded,
-        name: "DMs",
+        name: s.Chat,
         color: _indexProvider.currentTap == 3 ? mainColor : null,
         onTap: () {
           indexProvider.setCurrentTap(3);
