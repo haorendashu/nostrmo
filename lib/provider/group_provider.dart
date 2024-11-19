@@ -50,12 +50,14 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     _handlingMembersIds.remove(key);
   }
 
-  void deleteEvent(GroupIdentifier groupIdentifier, String eventId) {
-    NIP29.deleteEvent(nostr!, groupIdentifier, eventId);
+  Future<void> deleteEvent(
+      GroupIdentifier groupIdentifier, String eventId) async {
+    await NIP29.deleteEvent(nostr!, groupIdentifier, eventId);
   }
 
-  void editStatus(GroupIdentifier groupIdentifier, bool? public, bool? open) {
-    NIP29.editStatus(nostr!, groupIdentifier, public, open);
+  Future<void> editStatus(
+      GroupIdentifier groupIdentifier, bool? public, bool? open) async {
+    await NIP29.editStatus(nostr!, groupIdentifier, public, open);
   }
 
   GroupMetadata? getMetadata(GroupIdentifier groupIdentifier) {
@@ -103,11 +105,11 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     return null;
   }
 
-  void _updateMember(GroupIdentifier groupIdentifier) {
+  Future<void> _updateMember(GroupIdentifier groupIdentifier) async {
     var membersJsonMap =
         _genFilter(groupIdentifier.groupId, EventKind.GROUP_MEMBERS);
 
-    nostr!.query(
+    await nostr!.query(
       [membersJsonMap],
       (e) {
         onEvent(groupIdentifier, e);
@@ -117,7 +119,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     );
   }
 
-  void addMember(GroupIdentifier groupIdentifier, String pubkey) {
+  Future<void> addMember(GroupIdentifier groupIdentifier, String pubkey) async {
     NIP29.addMember(nostr!, groupIdentifier, pubkey);
 
     // try to add to mem
@@ -127,7 +129,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       members.add(pubkey);
     }
 
-    _updateMember(groupIdentifier);
+    await _updateMember(groupIdentifier);
 
     notifyListeners();
   }
@@ -143,7 +145,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       members.remove(pubkey);
     }
 
-    _updateMember(groupIdentifier);
+    await _updateMember(groupIdentifier);
 
     notifyListeners();
   }
@@ -224,7 +226,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     return updated;
   }
 
-  void udpateMetadata(
+  Future<void> udpateMetadata(
       GroupIdentifier groupIdentifier, GroupMetadata groupMetadata) async {
     var relays = [groupIdentifier.host];
 

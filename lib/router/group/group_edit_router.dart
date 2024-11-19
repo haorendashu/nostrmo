@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/nip29/group_metadata.dart';
@@ -258,10 +259,15 @@ class _GroupEditRouter extends State<GroupEditRouter> {
 
     var filepath = await Uploader.pick(context);
     if (StringUtil.isNotBlank(filepath)) {
-      return await Uploader.upload(
-        filepath!,
-        imageService: settingProvider.imageService,
-      );
+      var cancelFunc = BotToast.showLoading();
+      try {
+        return await Uploader.upload(
+          filepath!,
+          imageService: settingProvider.imageService,
+        );
+      } finally {
+        cancelFunc.call();
+      }
     }
   }
 
@@ -276,7 +282,7 @@ class _GroupEditRouter extends State<GroupEditRouter> {
     return str != null ? str : "";
   }
 
-  void doSave() {
+  Future<void> doSave() async {
     GroupMetadata groupMetadata = GroupMetadata(
       groupIdentifier!.groupId,
       0,
@@ -284,7 +290,7 @@ class _GroupEditRouter extends State<GroupEditRouter> {
       picture: pictureController.text,
       about: aboutController.text,
     );
-    groupProvider.udpateMetadata(groupIdentifier!, groupMetadata);
+    await groupProvider.udpateMetadata(groupIdentifier!, groupMetadata);
 
     if (oldGroupMetadata != null) {
       bool updateStatus = false;
