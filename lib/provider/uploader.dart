@@ -82,6 +82,7 @@ class Uploader {
     var assets = await AssetPicker.pickAssets(
       context,
       pickerConfig: const AssetPickerConfig(maxAssets: 1),
+      useRootNavigator: false,
     );
 
     if (assets != null && assets.isNotEmpty) {
