@@ -192,8 +192,11 @@ class _GroupDetailChatComponent
   @override
   List getTagsAddedWhenSend() {
     List<dynamic> tags = [];
-    var previousTag = ["previous", ...groupDetailProvider!.chatsPrevious()];
-    tags.add(previousTag);
+    var previous = groupDetailProvider!.notesPrevious();
+    if (previous.isNotEmpty) {
+      var previousTag = ["previous", ...previous];
+      tags.add(previousTag);
+    }
     return tags;
   }
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/router/group/group_add_dialog.dart';
 import 'package:nostrmo/router/group/group_list_item_component.dart';
@@ -26,7 +28,7 @@ class _GroupListRouter extends State<GroupListRouter> {
     var s = S.of(context);
     var appbarColor = themeData.appBarTheme.titleTextStyle!.color;
 
-    var main = Selector<ListProvider, List<GroupIdentifier>>(
+    Widget main = Selector<ListProvider, List<GroupIdentifier>>(
       builder: (context, list, child) {
         return ListView.builder(itemBuilder: (context, index) {
           if (list.length <= index) {
@@ -52,6 +54,13 @@ class _GroupListRouter extends State<GroupListRouter> {
       shouldRebuild: (l1, l2) {
         return true;
       },
+    );
+
+    main = RefreshIndicator(
+      onRefresh: () async {
+        listProvider.load(nostr!.publicKey, [EventKind.GROUP_LIST]);
+      },
+      child: main,
     );
 
     return Scaffold(

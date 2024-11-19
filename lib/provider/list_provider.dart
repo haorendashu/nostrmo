@@ -348,8 +348,8 @@ class ListProvider extends ChangeNotifier {
 
   get groupIdentifiers => _groupIdentifiers;
 
-  void addGroup(GroupIdentifier gi) {
-    // try to send join message
+  Future<void> addGroup(GroupIdentifier gi) async {
+    // try to send join messages
     var event = Event(
         nostr!.publicKey,
         EventKind.GROUP_JOIN,
@@ -357,7 +357,8 @@ class ListProvider extends ChangeNotifier {
           ["h", gi.groupId]
         ],
         "");
-    nostr!.sendEvent(event, tempRelays: [gi.host], targetRelays: [gi.host]);
+    await nostr!
+        .sendEvent(event, tempRelays: [gi.host], targetRelays: [gi.host]);
 
     _groupIdentifiers.add(gi);
     _updateGroups();

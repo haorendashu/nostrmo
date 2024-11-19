@@ -248,6 +248,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     if (result != null) {
       handleEvent(
           groupMetadatas, groupIdentifier, GroupMetadata.loadFromEvent(e));
+      notifyListeners();
     }
   }
 }

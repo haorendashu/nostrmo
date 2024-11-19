@@ -119,14 +119,14 @@ class _GroupAddDailog extends State<GroupAddDailog> {
                     value: "wss://relay.highlighter.com",
                     child: Text("wss://relay.highlighter.com"),
                   ),
-                  DropdownMenuItem(
-                    value: "wss://relay.groups.nip29.com",
-                    child: Text("wss://relay.groups.nip29.com"),
-                  ),
-                  DropdownMenuItem(
-                    value: "wss://groups.fiatjaf.com",
-                    child: Text("wss://groups.fiatjaf.com"),
-                  ),
+                  // DropdownMenuItem(
+                  //   value: "wss://relay.groups.nip29.com",
+                  //   child: Text("wss://relay.groups.nip29.com"),
+                  // ),
+                  // DropdownMenuItem(
+                  //   value: "wss://groups.fiatjaf.com",
+                  //   child: Text("wss://groups.fiatjaf.com"),
+                  // ),
                 ],
                 value: crateGroupRelay,
                 onChanged: (String? value) {
@@ -222,28 +222,38 @@ class _GroupAddDailog extends State<GroupAddDailog> {
     var host = hostController.text;
     var groupId = groupIdController.text;
 
-    if (!joinGroup) {
-      host = crateGroupRelay;
-      groupId = StringUtil.rndNameStr(20);
+    var cancelFunc = BotToast.showLoading();
 
-      Event? event = Event(
-          nostr!.publicKey,
-          EventKind.GROUP_CREATE_GROUP,
-          [
-            ["h", groupId]
-          ],
-          "");
-      // log(jsonEncode(event.toJson()));
-      event = await nostr!
-          .sendEvent(event, targetRelays: [host], tempRelays: [host]);
+    try {
+      if (!joinGroup) {
+        host = crateGroupRelay;
+        groupId = StringUtil.rndNameStr(20);
+
+        Event? event = Event(
+            nostr!.publicKey,
+            EventKind.GROUP_CREATE_GROUP,
+            [
+              ["h", groupId]
+            ],
+            "");
+        // log(jsonEncode(event.toJson()));
+        event = await nostr!
+            .sendEvent(event, targetRelays: [host], tempRelays: [host]);
+
+        // wait some time here, for relay to init this relay
+        await Future.delayed(const Duration(seconds: 5));
+      }
+
+      if (StringUtil.isBlank(host) && StringUtil.isBlank(groupId)) {
+        BotToast.showText(text: s.Input_can_not_be_null);
+        return;
+      }
+
+      await listProvider.addGroup(GroupIdentifier(host, groupId));
+    } finally {
+      cancelFunc.call();
     }
 
-    if (StringUtil.isBlank(host) && StringUtil.isBlank(groupId)) {
-      BotToast.showText(text: s.Input_can_not_be_null);
-      return;
-    }
-
-    listProvider.addGroup(GroupIdentifier(host, groupId));
     RouterUtil.back(context);
   }
 }
