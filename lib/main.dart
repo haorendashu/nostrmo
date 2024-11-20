@@ -81,6 +81,7 @@ import 'provider/replaceable_event_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'provider/url_speed_provider.dart';
+import 'provider/user_data_syncer.dart';
 import 'provider/webview_provider.dart';
 import 'provider/wot_provider.dart';
 import 'router/bookmark/bookmark_router.dart';
@@ -303,6 +304,10 @@ Future<void> main() async {
       wotProvider.init(pubkey);
     }
   }
+
+  // Set task to sync data to remote.
+  Future.delayed(
+      const Duration(minutes: 3, seconds: 30), UserDataSyncer.beginToSync);
 
   FlutterNativeSplash.remove();
   runApp(MyApp());
