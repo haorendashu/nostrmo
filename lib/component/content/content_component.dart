@@ -137,6 +137,14 @@ class _ContentComponent extends State<ContentComponent> {
 
   static const String PRE_NOTE = "note1";
 
+  static const String PRE_NPROFILE = "nprofile1";
+
+  static const String PRE_NEVENT = "nevent1";
+
+  static const String PRE_NRELAY = "nrelay1";
+
+  static const String PRE_NADDR = "naddr1";
+
   static const OTHER_LIGHTNING = "lightning=";
 
   static const LIGHTNING = "lightning:";
@@ -714,7 +722,11 @@ class _ContentComponent extends State<ContentComponent> {
         str.indexOf(PRE_AT_USER) == 0 ||
         str.indexOf(PRE_AT_NOTE) == 0 ||
         str.indexOf(PRE_USER) == 0 ||
-        str.indexOf(PRE_NOTE) == 0) {
+        str.indexOf(PRE_NOTE) == 0 ||
+        str.indexOf(PRE_NADDR) == 0 ||
+        str.indexOf(PRE_NEVENT) == 0 ||
+        str.indexOf(PRE_NPROFILE) == 0 ||
+        str.indexOf(PRE_NRELAY) == 0) {
       var key = str.replaceFirst("@", "");
       key = key.replaceFirst(PRE_NOSTR_BASE, "");
 
