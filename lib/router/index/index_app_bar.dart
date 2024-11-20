@@ -10,8 +10,11 @@ import '../../provider/relay_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/table_mode_util.dart';
 
-class IndexAppBar extends StatefulWidget {
+@deprecated
+class IndexAppBar extends StatefulWidget implements PreferredSizeWidget {
   static const double height = 56;
+
+  static Size size = const Size.fromHeight(height);
 
   Widget? center;
 
@@ -20,6 +23,10 @@ class IndexAppBar extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _IndexAppBar();
+  }
+
+  Size get preferredSize {
+    return size;
   }
 }
 

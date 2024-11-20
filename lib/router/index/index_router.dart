@@ -17,11 +17,15 @@ import 'package:nostrmo/router/follow_suggest/follow_suggest_router.dart';
 import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/user/user_pic_component.dart';
+import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/index_provider.dart';
+import '../../provider/relay_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/auth_util.dart';
+import '../../util/router_util.dart';
 import '../../util/table_mode_util.dart';
 import '../dm/dm_router.dart';
 import '../edit/editor_router.dart';
@@ -242,57 +246,87 @@ class _IndexRouter extends CustState<IndexRouter>
       );
     }
 
-    var mainCenterWidget = MediaQuery.removePadding(
-      context: context,
-      removeTop: true,
-      child: Expanded(
-          child: IndexedStack(
-        index: _indexProvider.currentTap,
-        children: [
-          FollowIndexRouter(
-            tabController: followTabController,
+    var indexAppBar = AppBar(
+      leading: TableModeUtil.isTableMode()
+          ? null
+          : GestureDetector(
+              onTap: () {
+                if (mobileScaffoldKey.currentState != null) {
+                  mobileScaffoldKey.currentState!.openDrawer();
+                }
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+                alignment: Alignment.center,
+                child: UserPicComponent(
+                  pubkey: nostr!.publicKey,
+                  width: picHeight,
+                ),
+              ),
+            ),
+      title: appBarCenter,
+      actions: [
+        GestureDetector(
+          onTap: () {
+            RouterUtil.router(context, RouterPath.RELAYS);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(right: Base.BASE_PADDING),
+            child: Selector<RelayProvider, String>(
+                builder: (context, relayNum, child) {
+              return Text(
+                relayNum,
+                style: TextStyle(color: titleTextColor),
+              );
+            }, selector: (context, _provider) {
+              return _provider.relayNumStr();
+            }),
           ),
-          GlobalsIndexRouter(
-            tabController: globalsTabController,
-          ),
-          SearchRouter(),
-          DMRouter(
-            tabController: dmTabController,
-          ),
-          // NoticeRouter(),
-        ],
-      )),
+        ),
+      ],
+    );
+
+    var mainCenterWidget = IndexedStack(
+      index: _indexProvider.currentTap,
+      children: [
+        FollowIndexRouter(
+          tabController: followTabController,
+        ),
+        GlobalsIndexRouter(
+          tabController: globalsTabController,
+        ),
+        SearchRouter(),
+        DMRouter(
+          tabController: dmTabController,
+        ),
+        // NoticeRouter(),
+      ],
+    );
+
+    var musicWidget = Selector<MusicProvider, MusicInfo?>(
+      builder: ((context, musicInfo, child) {
+        if (musicInfo != null) {
+          return MusicComponent(
+            musicInfo,
+            clearAble: true,
+          );
+        }
+
+        return Container();
+      }),
+      selector: (context, _provider) {
+        return _provider.musicInfo;
+      },
     );
 
     List<Widget> mainIndexList = [
-      Column(
-        children: [
-          IndexAppBar(
-            center: appBarCenter,
-          ),
-          mainCenterWidget,
-        ],
-      ),
+      mainCenterWidget,
       Positioned(
         bottom: Base.BASE_PADDING,
         left: 0,
         right: 0,
-        child: Selector<MusicProvider, MusicInfo?>(
-          builder: ((context, musicInfo, child) {
-            if (musicInfo != null) {
-              return MusicComponent(
-                musicInfo,
-                clearAble: true,
-              );
-            }
-
-            return Container();
-          }),
-          selector: (context, _provider) {
-            return _provider.musicInfo;
-          },
-        ),
-      )
+        child: musicWidget,
+      ),
     ];
     Widget mainIndex = Stack(
       children: mainIndexList,
@@ -310,19 +344,21 @@ class _IndexRouter extends CustState<IndexRouter>
       }
 
       var mainScaffold = Scaffold(
-        // floatingActionButton: addBtn,
-        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Row(children: [
           IndexPcDrawerWrapper(
             fixWidth: column0Width,
           ),
           Container(
             width: column1Width,
-            margin: EdgeInsets.only(
-              // left: 1,
+            margin: const EdgeInsets.only(
               right: 1,
             ),
-            child: mainIndex,
+            child: Column(
+              children: [
+                indexAppBar,
+                Expanded(child: mainIndex),
+              ],
+            ),
           ),
           Expanded(
             child: Container(
@@ -386,10 +422,9 @@ class _IndexRouter extends CustState<IndexRouter>
       );
     } else {
       return Scaffold(
+        key: mobileScaffoldKey,
+        appBar: indexAppBar,
         body: mainIndex,
-        // floatingActionButton: addBtn,
-        // floatingActionButtonLocation:
-        //     FloatingActionButtonLocation.miniCenterDocked,
         drawer: Drawer(
           child: IndexDrawerContentComponnent(
             smallMode: false,
@@ -399,6 +434,10 @@ class _IndexRouter extends CustState<IndexRouter>
       );
     }
   }
+
+  GlobalKey<ScaffoldState> mobileScaffoldKey = GlobalKey();
+
+  double picHeight = 30;
 
   void doAuth() {
     AuthUtil.authenticate(context, S.of(context).Please_authenticate_to_use_app)
