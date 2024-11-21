@@ -67,8 +67,6 @@ class WotProvider extends ChangeNotifier {
     print("begin to reload wot infos");
     _pubkeys[pubkey] = 1;
 
-    Map<String, int> tempPubkeyMap = {};
-
     // The pubkeys you had mentioned. (Trust !)
     {
       var filter = Filter(authors: [
@@ -90,7 +88,7 @@ class WotProvider extends ChangeNotifier {
           for (var tag in tags) {
             if (tag is List && tag.length > 1) {
               if (tag[0] == "p") {
-                tempPubkeyMap[tag[1]] = 1;
+                _pubkeys[tag[1]] = 1;
               }
             }
           }
@@ -98,32 +96,49 @@ class WotProvider extends ChangeNotifier {
       }
     }
 
+    List<String> followedPubkeys = [];
     // The pubkeys you had followed. (Trust !)
     {
       var contactList = contactListProvider.contactList;
       if (contactList != null) {
         var contacts = contactList.list();
         for (var contact in contacts) {
-          tempPubkeyMap[contact.publicKey] = 1;
+          var pubkey = contact.publicKey;
+          followedPubkeys.add(pubkey);
+          _pubkeys[pubkey] = 1;
         }
       }
     }
 
-    Map<String, int> notFoundContactListPubkeys = {};
-    var pubkeys = tempPubkeyMap.keys;
-    for (var pubkey in pubkeys) {
-      _pubkeys[pubkey] = 1;
+    // try to load contract from your local
+    var length = followedPubkeys.length;
+    var times = length ~/ 100;
+    for (var i = 0; i < times; i++) {
+      var subFollowedPubkeys = followedPubkeys.sublist(i * 100, (i + 1) * 100);
+      var ms = DateTime.now().millisecondsSinceEpoch;
+      print("begin load");
+      await metadataProvider.load(subFollowedPubkeys);
+      print("load end ${DateTime.now().millisecondsSinceEpoch - ms}");
+      await Future.delayed(const Duration(seconds: 5));
+    }
+    if (times * 100 < length) {
+      var subFollowedPubkeys = followedPubkeys.sublist(times * 100, length);
+      await metadataProvider.load(subFollowedPubkeys);
+    }
 
+    Map<String, int> notFoundContactListPubkeys = {};
+    for (var pubkey in followedPubkeys) {
       // The pubkeys your friend had followed. (Trust !)
-      var contactList = metadataProvider.getContactList(pubkey);
+      var contactList =
+          metadataProvider.getContactList(pubkey, loadData: false);
       if (contactList != null) {
         var contacts = contactList.list();
         for (var contact in contacts) {
           _pubkeys[contact.publicKey] = 1;
 
           // your friend's friend's contactList. (Half Trust, don't pull if not exist!)
-          var ffContactList =
-              metadataProvider.getContactList(contact.publicKey);
+          var ffContactList = metadataProvider.getContactList(contact.publicKey,
+              loadData: false);
           if (ffContactList != null) {
             var ffContacts = ffContactList.list();
             for (var ffcontact in ffContacts) {
@@ -153,6 +168,7 @@ class WotProvider extends ChangeNotifier {
       });
     }
 
+    print("_pubkeys length ${_pubkeys.length}");
     var wotText = _pubkeys.keys.join(",");
     sharedPreferences.setString(genKey(pubkey), wotText);
   }

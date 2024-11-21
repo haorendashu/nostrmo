@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'db.dart';
 
+@deprecated
 class MetadataDB {
   static Future<List<Metadata>> all({DatabaseExecutor? db}) async {
     List<Metadata> objs = [];

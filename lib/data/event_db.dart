@@ -10,7 +10,7 @@ import 'db.dart';
 class EventDB {
   static Future<List<Event>> list(
       int keyIndex, List<int> kinds, int skip, limit,
-      {DatabaseExecutor? db, String? pubkey}) async {
+      {DatabaseExecutor? db, List<String>? pubkeys}) async {
     db = await DB.getDB(db);
     List<Event> l = [];
     List<dynamic> args = [];
@@ -23,10 +23,21 @@ class EventDB {
     }
     sql = sql.substring(0, sql.length - 1);
     sql += ")";
-    if (StringUtil.isNotBlank(pubkey)) {
-      sql += " and pubkey = ? ";
-      args.add(pubkey);
+    if (pubkeys != null && pubkeys.isNotEmpty) {
+      if (pubkeys.length == 1) {
+        sql += " and pubkey = ? ";
+        args.add(pubkeys.first);
+      } else {
+        sql += " and pubkey in(";
+        for (var pubkey in pubkeys) {
+          sql += "?,";
+          args.add(pubkey);
+        }
+        sql = sql.substring(0, sql.length - 1);
+        sql += ")";
+      }
     }
+
     sql += " order by created_at desc limit ?, ?";
     args.add(skip);
     args.add(limit);

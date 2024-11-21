@@ -33,29 +33,6 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   static Future<MetadataProvider> getInstance() async {
     if (_metadataProvider == null) {
       _metadataProvider = MetadataProvider();
-
-      var list = await MetadataDB.all();
-      for (var md in list) {
-        if (md.valid == Nip05Status.NIP05_NOT_VALIDED) {
-          md.valid = null;
-        }
-        _metadataProvider!._metadataCache[md.pubkey!] = md;
-      }
-
-      var events = await EventDB.list(Base.DEFAULT_DATA_INDEX,
-          [EventKind.RELAY_LIST_METADATA, EventKind.CONTACT_LIST], 0, 1000000);
-      _metadataProvider!._contactListMap.clear();
-      for (var e in events) {
-        if (e.kind == EventKind.RELAY_LIST_METADATA) {
-          var relayListMetadata = RelayListMetadata.fromEvent(e);
-          _metadataProvider!._relayListMetadataCache[relayListMetadata.pubkey] =
-              relayListMetadata;
-        } else if (e.kind == EventKind.CONTACT_LIST) {
-          var contactList = ContactList.fromJson(e.tags, e.createdAt);
-          _metadataProvider!._contactListMap[e.pubkey] = contactList;
-        }
-      }
-
       // lazyTimeMS begin bigger and request less
       _metadataProvider!.laterTimeMS = 2000;
     }
@@ -92,6 +69,8 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     }
   }
 
+  List<String> _checkingFromDBPubKeys = [];
+
   List<String> _needUpdatePubKeys = [];
 
   void update(String pubkey) {
@@ -101,18 +80,41 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     later(_laterCallback);
   }
 
-  Metadata? getMetadata(String pubkey) {
+  void _handleDataNotfound(String pubkey) {
+    if (!_checkingFromDBPubKeys.contains(pubkey) &&
+        !_needUpdatePubKeys.contains(pubkey) &&
+        !_handingPubkeys.containsKey(pubkey)) {
+      _checkingFromDBPubKeys.add(pubkey);
+      EventDB.list(
+          Base.DEFAULT_DATA_INDEX,
+          [
+            EventKind.METADATA,
+            EventKind.RELAY_LIST_METADATA,
+            EventKind.CONTACT_LIST,
+          ],
+          0,
+          100,
+          pubkeys: [pubkey]).then((eventList) {
+        // print("${eventList.length} metadata find from db.");
+        _penddingEvents.addList(eventList);
+        if (eventList.length < 3) {
+          _needUpdatePubKeys.add(pubkey);
+        }
+        _checkingFromDBPubKeys.remove(pubkey);
+        later(_laterCallback);
+      });
+    }
+  }
+
+  Metadata? getMetadata(String pubkey, {bool loadData = true}) {
     var metadata = _metadataCache[pubkey];
     if (metadata != null) {
       return metadata;
     }
 
-    if (!_needUpdatePubKeys.contains(pubkey) &&
-        !_handingPubkeys.containsKey(pubkey)) {
-      _needUpdatePubKeys.add(pubkey);
+    if (loadData) {
+      _handleDataNotfound(pubkey);
     }
-    later(_laterCallback);
-
     return null;
   }
 
@@ -164,32 +166,26 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
   void _handlePenddingEvents() {
     for (var event in _penddingEvents.all()) {
+      _handingPubkeys.remove(event.pubkey);
+
       if (event.kind == EventKind.METADATA) {
         if (StringUtil.isBlank(event.content)) {
           continue;
         }
 
-        _handingPubkeys.remove(event.pubkey);
-
-        var jsonObj = jsonDecode(event.content);
-        var md = Metadata.fromJson(jsonObj);
-        md.pubkey = event.pubkey;
-        md.updated_at = event.createdAt;
-
         // check cache
-        var oldMetadata = _metadataCache[md.pubkey];
+        var oldMetadata = _metadataCache[event.pubkey];
         if (oldMetadata == null) {
-          // db
-          MetadataDB.insert(md);
-          // cache
-          _metadataCache[md.pubkey!] = md;
-          // refresh
-        } else if (oldMetadata.updated_at! < md.updated_at!) {
-          // db
-          MetadataDB.update(md);
-          // cache
-          _metadataCache[md.pubkey!] = md;
-          // refresh
+          // insert
+          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+          _eventToMetadataCache(event);
+        } else if (oldMetadata.updated_at! < event.createdAt) {
+          // update, remote old event and insert new event
+          EventDB.execute(
+              "delete from event where key_index = ? and kind = ? and pubkey = ?",
+              [Base.DEFAULT_DATA_INDEX, EventKind.METADATA, event.pubkey]);
+          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+          _eventToMetadataCache(event);
         }
       } else if (event.kind == EventKind.RELAY_LIST_METADATA) {
         // this is relayInfoMetadata, only set to cache, not update UI
@@ -296,15 +292,89 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
 
   void clear() {
     _metadataCache.clear();
-    MetadataDB.deleteAll();
   }
 
-  ContactList? getContactList(String pubkey) {
-    return _contactListMap[pubkey];
+  ContactList? getContactList(String pubkey, {bool loadData = true}) {
+    var contactList = _contactListMap[pubkey];
+    if (contactList != null) {
+      return contactList;
+    }
+
+    if (loadData) {
+      _handleDataNotfound(pubkey);
+    }
+    return null;
   }
 
-  RelayListMetadata? getRelayListMetadata(String pubkey) {
-    return _relayListMetadataCache[pubkey];
+  RelayListMetadata? getRelayListMetadata(String pubkey,
+      {bool loadData = true}) {
+    var relayListMetadata = _relayListMetadataCache[pubkey];
+    if (relayListMetadata != null) {
+      return relayListMetadata;
+    }
+
+    if (loadData) {
+      _handleDataNotfound(pubkey);
+    }
+    return null;
+  }
+
+  Future<void> load(List<String> pubkeys) async {
+    List<String> needLoadPubkeys = [];
+    for (var pubkey in pubkeys) {
+      if (_metadataCache[pubkey] == null) {
+        needLoadPubkeys.add(pubkey);
+      }
+    }
+
+    if (needLoadPubkeys.isNotEmpty) {
+      var events = await EventDB.list(
+          Base.DEFAULT_DATA_INDEX,
+          [
+            EventKind.METADATA,
+            EventKind.RELAY_LIST_METADATA,
+            EventKind.CONTACT_LIST,
+          ],
+          pubkeys: needLoadPubkeys,
+          0,
+          100000);
+
+      if (events.isNotEmpty) {
+        for (var event in events) {
+          if (event.kind == EventKind.METADATA) {
+            if (StringUtil.isBlank(event.content)) {
+              continue;
+            }
+
+            var oldMetadata = _metadataCache[event.pubkey];
+            if (oldMetadata == null ||
+                event.createdAt > oldMetadata.updated_at!) {
+              _eventToMetadataCache(event);
+            }
+          } else if (event.kind == EventKind.RELAY_LIST_METADATA) {
+            var oldRelayListMetadata = _relayListMetadataCache[event.pubkey];
+            if (oldRelayListMetadata == null ||
+                event.createdAt > oldRelayListMetadata.createdAt) {
+              _eventToRelayListCache(event);
+            }
+          } else if (event.kind == EventKind.CONTACT_LIST) {
+            var oldContactList = _contactListMap[event.pubkey];
+            if (oldContactList == null ||
+                event.createdAt > oldContactList.createdAt) {
+              _eventToContactList(event);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  void _eventToMetadataCache(Event event) {
+    var jsonObj = jsonDecode(event.content);
+    var md = Metadata.fromJson(jsonObj);
+    md.pubkey = event.pubkey;
+    md.updated_at = event.createdAt;
+    _metadataCache[event.pubkey] = md;
   }
 
   void _eventToRelayListCache(Event event) {
