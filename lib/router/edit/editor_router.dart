@@ -137,6 +137,13 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     return widget.isLongForm;
   }
 
+  bool _showLongFormInfoInput = true;
+
+  void showLongFormInfoInput() {
+    _showLongFormInfoInput = !_showLongFormInfoInput;
+    updateUI();
+  }
+
   @override
   Widget doBuild(BuildContext context) {
     if (notifyItems == null) {
@@ -236,11 +243,22 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     }
 
     if (isLongForm()) {
-      list.add(buildTitleWidget());
+      var showIconData = Icons.expand_more;
+      if (_showLongFormInfoInput) {
+        list.add(buildTitleWidget());
+        list.add(buildLongFormImageWidget());
+        list.add(buildSummaryWidget());
 
-      list.add(buildLongFormImageWidget());
+        showIconData = Icons.expand_less;
+      }
 
-      list.add(buildSummaryWidget());
+      list.add(GestureDetector(
+        onTap: showLongFormInfoInput,
+        child: Container(
+          margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+          child: Icon(showIconData),
+        ),
+      ));
     }
 
     if (publishAt != null) {
