@@ -8,6 +8,7 @@ import 'package:nostr_sdk/client_utils/keys.dart';
 import 'package:nostr_sdk/nip05/nip05_validor.dart';
 import 'package:nostr_sdk/nip07/nip07_signer.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip46/nostr_remote_signer.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
 import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
@@ -329,12 +330,15 @@ class _LoginRouter extends State<LoginRouter>
         }
 
         var bunkerLink = info.toString();
-        settingProvider.addAndChangePrivateKey(bunkerLink, updateUI: false);
 
         // var nostrRemoteSigner = NostrRemoteSigner(info);
         // await nostrRemoteSigner.connect();
         // signerTest(nostrRemoteSigner);
         nostr = await relayProvider.genNostrWithKey(bunkerLink);
+        if (nostr is NostrRemoteSigner) {
+          bunkerLink = (nostr as NostrRemoteSigner).info.toString();
+        }
+        settingProvider.addAndChangePrivateKey(bunkerLink, updateUI: false);
       } finally {
         cancel.call();
       }

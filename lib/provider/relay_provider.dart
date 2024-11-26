@@ -144,6 +144,10 @@ class RelayProvider extends ChangeNotifier {
               : RelayMode.FAST_MODE,
           info);
       await (nostrSigner as NostrRemoteSigner).connect();
+
+      if (StringUtil.isBlank(info.userPubkey)) {
+        await nostrSigner.pullPubkey();
+      }
     } else {
       try {
         nostrSigner = LocalNostrSigner(key);
