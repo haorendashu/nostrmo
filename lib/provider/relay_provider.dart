@@ -138,12 +138,19 @@ class RelayProvider extends ChangeNotifier {
       if (info == null) {
         return null;
       }
+
+      bool hasConnected = false;
+      if (StringUtil.isNotBlank(info.userPubkey)) {
+        hasConnected = true;
+      }
+
       nostrSigner = NostrRemoteSigner(
           settingProvider.relayMode != null
               ? settingProvider.relayMode!
               : RelayMode.FAST_MODE,
           info);
-      await (nostrSigner as NostrRemoteSigner).connect();
+      await (nostrSigner as NostrRemoteSigner)
+          .connect(sendConnectRequest: !hasConnected);
 
       if (StringUtil.isBlank(info.userPubkey)) {
         await nostrSigner.pullPubkey();

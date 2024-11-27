@@ -335,8 +335,9 @@ class _LoginRouter extends State<LoginRouter>
         // await nostrRemoteSigner.connect();
         // signerTest(nostrRemoteSigner);
         nostr = await relayProvider.genNostrWithKey(bunkerLink);
-        if (nostr is NostrRemoteSigner) {
-          bunkerLink = (nostr as NostrRemoteSigner).info.toString();
+        if (nostr != null && nostr!.nostrSigner is NostrRemoteSigner) {
+          bunkerLink =
+              (nostr!.nostrSigner as NostrRemoteSigner).info.toString();
         }
         settingProvider.addAndChangePrivateKey(bunkerLink, updateUI: false);
       } finally {
