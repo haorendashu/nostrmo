@@ -155,6 +155,10 @@ class RelayProvider extends ChangeNotifier {
       if (StringUtil.isBlank(info.userPubkey)) {
         await nostrSigner.pullPubkey();
       }
+
+      if (await nostrSigner.getPublicKey() == null) {
+        return null;
+      }
     } else {
       try {
         nostrSigner = LocalNostrSigner(key);
