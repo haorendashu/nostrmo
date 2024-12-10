@@ -116,12 +116,12 @@ class _GroupDetailRouter extends CustState<GroupDetailRouter> {
       Container(
         height: APP_BAR_HEIGHT,
         alignment: Alignment.center,
-        child: Text(s.Notes),
+        child: Text(s.Chat),
       ),
       Container(
         height: APP_BAR_HEIGHT,
         alignment: Alignment.center,
-        child: Text(s.Chat),
+        child: Text(s.Notes),
       ),
     ];
 
@@ -211,8 +211,8 @@ class _GroupDetailRouter extends CustState<GroupDetailRouter> {
                     Expanded(
                       child: TabBarView(
                         children: [
-                          GroupDetailNoteListComponent(groupIdentifier!),
                           GroupDetailChatComponent(groupIdentifier!),
+                          GroupDetailNoteListComponent(groupIdentifier!),
                         ],
                       ),
                     )
