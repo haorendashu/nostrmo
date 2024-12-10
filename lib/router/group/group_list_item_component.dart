@@ -9,7 +9,9 @@ import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
+import '../../component/confirm_dialog.dart';
 import '../../consts/base.dart';
+import '../../generated/l10n.dart';
 
 class GroupListItemComponent extends StatefulWidget {
   final GroupIdentifier groupIdentifier;
@@ -106,7 +108,13 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
     );
   }
 
-  void delGroup() {
+  Future<void> delGroup() async {
+    var result = await ConfirmDialog.show(
+        context, S.of(context).This_operation_cannot_be_undo);
+    if (result != true) {
+      return;
+    }
+
     listProvider.removeGroup(widget.groupIdentifier);
   }
 
