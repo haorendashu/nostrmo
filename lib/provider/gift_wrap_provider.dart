@@ -56,7 +56,6 @@ class GiftWrapProvider extends ChangeNotifier {
   }
 
   Future<void> onEvent(Event e) async {
-    print(e.toJson());
     if (box.add(e)) {
       // This is an new event.
       // decode this event.
