@@ -194,7 +194,7 @@ class RelayProvider extends ChangeNotifier {
     //   dmProvider.query(targetNostr: _nostr, initQuery: true);
     // });
     giftWrapFuture.then((_) {
-      giftWrapProvider.query();
+      giftWrapProvider.query(initQuery: true);
     });
 
     loadRelayAddrs(contactListProvider.content);

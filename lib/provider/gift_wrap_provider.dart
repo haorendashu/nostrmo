@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
@@ -25,20 +27,22 @@ class GiftWrapProvider extends ChangeNotifier {
     box.sort();
   }
 
-  bool initQuery = true;
-
   int TIME_FLAG = 60 * 60 * 24 * 2;
 
-  void query({Nostr? targetNostr, int? since}) {
+  void query({Nostr? targetNostr, int? since, bool initQuery = false}) {
     targetNostr ??= nostr;
-    if (since == null && !box.isEmpty()) {
+    if (since == null) {
       if (initQuery) {
         // haven't query before
-        var oldestEvent = box.oldestEvent;
-        since = oldestEvent!.createdAt - TIME_FLAG;
+        if (box.isEmpty()) {
+          since = 1672502400;
+        } else {
+          var oldestEvent = box.oldestEvent;
+          since = oldestEvent!.createdAt - TIME_FLAG;
+        }
       } else {
-        // queried before, since change to two days before now avoid query too much event
-        since = DateTime.now().millisecondsSinceEpoch ~/ 1000 - TIME_FLAG;
+        // query news
+        since = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       }
     }
 
@@ -48,11 +52,11 @@ class GiftWrapProvider extends ChangeNotifier {
       p: [nostr!.publicKey],
     );
 
-    // log("query!");
     targetNostr!.query([filter.toJson()], onEvent);
   }
 
   Future<void> onEvent(Event e) async {
+    print(e.toJson());
     if (box.add(e)) {
       // This is an new event.
       // decode this event.

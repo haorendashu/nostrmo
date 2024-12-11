@@ -101,8 +101,9 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
     }
 
     if (EventKind.SUPPORTED_EVENTS.contains(e.kind) ||
-        e.kind == EventKind.DIRECT_MESSAGE ||
-        e.kind == EventKind.GIFT_WRAP) {
+            e.kind == EventKind.DIRECT_MESSAGE
+        // || e.kind == EventKind.GIFT_WRAP // GiftWrap Message don't check wot, due to these message's sender is alway temp gen.
+        ) {
       if (e.kind != EventKind.ZAP_GOALS && !wotProvider.check(e.pubkey)) {
         return true;
       }
