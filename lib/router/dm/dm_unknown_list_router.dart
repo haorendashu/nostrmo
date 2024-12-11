@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostrmo/main.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +40,7 @@ class _DMUnknownListRouter extends State<DMUnknownListRouter> {
         ),
         onRefresh: () async {
           _dmProvider.query(queryAll: true);
+          giftWrapProvider.query(initQuery: true);
         },
       ),
     );
