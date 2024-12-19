@@ -3319,6 +3319,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Show Window`
+  String get Show_Window {
+    return Intl.message(
+      'Show Window',
+      name: 'Show_Window',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exit App`
+  String get Exit_App {
+    return Intl.message(
+      'Exit App',
+      name: 'Exit_App',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note`
+  String get Note {
+    return Intl.message(
+      'Note',
+      name: 'Note',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Article`
+  String get Article {
+    return Intl.message(
+      'Article',
+      name: 'Article',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Media`
+  String get Media {
+    return Intl.message(
+      'Media',
+      name: 'Media',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Zap Goal`
+  String get Zap_Goal {
+    return Intl.message(
+      'Zap Goal',
+      name: 'Zap_Goal',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

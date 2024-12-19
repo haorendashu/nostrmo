@@ -79,7 +79,7 @@ dependencies:
   google_mlkit_translation: ^0.11.1
   google_mlkit_language_id: ^0.11.1
   flutter_markdown: ^0.7.4+1
-  window_manager: ^0.4.2
+  window_manager: ^0.4.3
   qr_code_scanner: ^1.0.1
   image_gallery_saver: ^2.0.3
   permission_handler: ^11.3.1
@@ -99,6 +99,7 @@ dependencies:
   markdown_widget: ^2.3.2+6
   extended_nested_scroll_view: ^6.2.1
   loading_more_list: ^7.1.0
+  tray_manager: ^0.3.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1
@@ -136,6 +137,7 @@ flutter:
     - assets/imgs/
     - assets/imgs/music/
     - assets/imgs/logo/logo512.png
+    - assets/imgs/logo/logo.ico
     # - assets/imgs/logo/logo_android.png
   # To add assets to your application, add an assets section, like this:
   # assets:

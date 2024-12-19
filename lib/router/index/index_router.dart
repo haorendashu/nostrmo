@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/component/add_btn_wrapper_component.dart';
 import 'package:nostrmo/component/music/music_component.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/pc_router_fake.dart';
@@ -16,6 +17,8 @@ import 'package:nostrmo/provider/pc_router_fake_provider.dart';
 import 'package:nostrmo/router/follow_suggest/follow_suggest_router.dart';
 import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
 import 'package:provider/provider.dart';
+import 'package:tray_manager/tray_manager.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../../component/user/user_pic_component.dart';
 import '../../consts/router_path.dart';
@@ -54,7 +57,11 @@ class IndexRouter extends StatefulWidget {
 }
 
 class _IndexRouter extends CustState<IndexRouter>
-    with TickerProviderStateMixin, WidgetsBindingObserver {
+    with
+        TickerProviderStateMixin,
+        WidgetsBindingObserver,
+        TrayListener,
+        WindowListener {
   late TabController followTabController;
 
   late TabController globalsTabController;
@@ -89,6 +96,31 @@ class _IndexRouter extends CustState<IndexRouter>
       } catch (e) {
         print(e);
       }
+    }
+
+    if (PlatformUtil.isPC()) {
+      trayManager.addListener(this);
+      windowManager.addListener(this);
+      _initTray();
+    }
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+
+    WidgetsBinding.instance.removeObserver(this);
+    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
+      if (_purchaseUpdatedSubscription != null) {
+        _purchaseUpdatedSubscription!.cancel();
+        _purchaseUpdatedSubscription = null;
+      }
+      await FlutterInappPurchase.instance.finalize();
+    }
+
+    if (PlatformUtil.isPC()) {
+      trayManager.removeListener(this);
+      windowManager.removeListener(this);
     }
   }
 
@@ -126,14 +158,104 @@ class _IndexRouter extends CustState<IndexRouter>
         unlock = true;
       });
     }
+
+    if (PlatformUtil.isPC()) {
+      _initTray();
+    }
+  }
+
+  @override
+  void onTrayIconRightMouseDown() {
+    trayManager.popUpContextMenu();
+  }
+
+  @override
+  Future<void> onTrayIconMouseDown() async {
+    if (await windowManager.isVisible()) {
+      windowManager.hide();
+    } else {
+      windowManager.show();
+      windowManager.focus();
+    }
+  }
+
+  @override
+  void onWindowMinimize() {
+    windowManager.hide();
+  }
+
+  @override
+  void onTrayMenuItemClick(MenuItem menuItem) {
+    if (menuItem.key == 'exit_app') {
+      windowManager.close();
+      return;
+    }
+
+    windowManager.show();
+    windowManager.focus();
+
+    if (menuItem.key == 'add_note') {
+      AddBtnWrapperComponent.addNote(context);
+    } else if (menuItem.key == 'add_article') {
+      AddBtnWrapperComponent.addArticle(context);
+    } else if (menuItem.key == 'add_media') {
+      AddBtnWrapperComponent.addMedia(context);
+    } else if (menuItem.key == 'add_poll') {
+      AddBtnWrapperComponent.addPoll(context);
+    } else if (menuItem.key == 'add_zap_goal') {
+      AddBtnWrapperComponent.addZapGoal(context);
+    }
+  }
+
+  Future<void> _initTray() async {
+    await trayManager.setIcon(
+      Platform.isWindows
+          ? "assets/imgs/logo/logo.ico"
+          : "assets/imgs/logo/logo512.png",
+    );
+    await trayManager.setToolTip("Nostrmo");
+    Menu menu = Menu(
+      items: [
+        MenuItem(
+          key: 'add_note',
+          label: "${s.Add} ${s.Note}",
+        ),
+        MenuItem(
+          key: 'add_article',
+          label: "${s.Add} ${s.Article}",
+        ),
+        MenuItem(
+          key: 'add_media',
+          label: "${s.Add} ${s.Media}",
+        ),
+        MenuItem(
+          key: 'add_poll',
+          label: "${s.Add} ${s.Poll}",
+        ),
+        MenuItem(
+          key: 'add_zap_goal',
+          label: "${s.Add} ${s.Zap_Goal}",
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: 'exit_app',
+          label: s.Exit_App,
+        ),
+      ],
+    );
+    await trayManager.setContextMenu(menu);
+    print("trayManager.setContextMenu");
   }
 
   bool unlock = false;
 
+  late S s;
+
   @override
   Widget doBuild(BuildContext context) {
     mediaDataCache.update(context);
-    var s = S.of(context);
+
+    s = S.of(context);
 
     var _settingProvider = Provider.of<SettingProvider>(context);
     if (nostr == null) {
@@ -475,18 +597,5 @@ class _IndexRouter extends CustState<IndexRouter>
       print('purchase-updated: $productItem');
       BotToast.showText(text: "Thanks yours coffee!");
     });
-  }
-
-  @override
-  void dispose() async {
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
-      if (_purchaseUpdatedSubscription != null) {
-        _purchaseUpdatedSubscription!.cancel();
-        _purchaseUpdatedSubscription = null;
-      }
-      await FlutterInappPurchase.instance.finalize();
-    }
   }
 }

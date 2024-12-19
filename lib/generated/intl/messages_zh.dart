@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("地址不能为空。"),
         "Admins": MessageLookupByLibrary.simpleMessage("管理员"),
         "Any": MessageLookupByLibrary.simpleMessage("任意"),
+        "Article": MessageLookupByLibrary.simpleMessage("文章"),
         "Authenticat_need": MessageLookupByLibrary.simpleMessage("需要身份验证"),
         "Auto_Open_Sensitive_Content":
             MessageLookupByLibrary.simpleMessage("自动打开敏感内容"),
@@ -116,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Empty_text_may_be_ban_by_relays":
             MessageLookupByLibrary.simpleMessage("输入空白可能会被中继禁止。"),
         "Event_Sign_Check": MessageLookupByLibrary.simpleMessage("Event签名校验"),
+        "Exit_App": MessageLookupByLibrary.simpleMessage("退出App"),
         "Face": MessageLookupByLibrary.simpleMessage("脸部识别"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("快速模式"),
         "File_Size": MessageLookupByLibrary.simpleMessage("文件大小"),
@@ -196,6 +198,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
         "Main_Font_Color": MessageLookupByLibrary.simpleMessage("主文字颜色"),
         "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("最大子动态数量"),
+        "Media": MessageLookupByLibrary.simpleMessage("媒体"),
         "Members": MessageLookupByLibrary.simpleMessage("成员"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("提到用户"),
         "Mentions": MessageLookupByLibrary.simpleMessage("提及"),
@@ -217,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Normal": MessageLookupByLibrary.simpleMessage("普通"),
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage("Nostrmo开发人员永远不会向你索要密钥。"),
+        "Note": MessageLookupByLibrary.simpleMessage("动态"),
         "Note_Id": MessageLookupByLibrary.simpleMessage("动态 Id"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("动态加载中"),
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
@@ -305,6 +309,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("设置"),
         "Share": MessageLookupByLibrary.simpleMessage("分享"),
         "Show": MessageLookupByLibrary.simpleMessage("显示"),
+        "Show_Window": MessageLookupByLibrary.simpleMessage("显示窗口"),
         "Show_more": MessageLookupByLibrary.simpleMessage("查看更多"),
         "Show_more_replies": MessageLookupByLibrary.simpleMessage("显示更多回复"),
         "Show_web": MessageLookupByLibrary.simpleMessage("打开网页"),
@@ -369,6 +374,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Wrong_Private_Key_format":
             MessageLookupByLibrary.simpleMessage("密钥格式错误"),
         "You_had_voted_with": MessageLookupByLibrary.simpleMessage("你已经投票了"),
+        "Zap_Goal": MessageLookupByLibrary.simpleMessage("Zap目标"),
         "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap目标"),
         "Zap_num_can_not_bigger_then":
             MessageLookupByLibrary.simpleMessage("Zap数量不能大于"),

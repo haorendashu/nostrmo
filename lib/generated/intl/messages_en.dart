@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Address can\'t be null."),
         "Admins": MessageLookupByLibrary.simpleMessage("Admins"),
         "Any": MessageLookupByLibrary.simpleMessage("Any"),
+        "Article": MessageLookupByLibrary.simpleMessage("Article"),
         "Authenticat_need":
             MessageLookupByLibrary.simpleMessage("Authenticat need"),
         "Auto_Open_Sensitive_Content":
@@ -141,6 +142,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Empty text may be ban by relays."),
         "Event_Sign_Check":
             MessageLookupByLibrary.simpleMessage("Event Sign Check"),
+        "Exit_App": MessageLookupByLibrary.simpleMessage("Exit App"),
         "Face": MessageLookupByLibrary.simpleMessage("Face"),
         "Fast_Mode": MessageLookupByLibrary.simpleMessage("Fast Mode"),
         "File_Size": MessageLookupByLibrary.simpleMessage("File Size"),
@@ -247,6 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Main_Font_Color":
             MessageLookupByLibrary.simpleMessage("Main Font Color"),
         "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
+        "Media": MessageLookupByLibrary.simpleMessage("Media"),
         "Members": MessageLookupByLibrary.simpleMessage("Members"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("Mention User"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
@@ -274,6 +277,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage(
                 "Nostrmo developers will never require a key from you."),
+        "Note": MessageLookupByLibrary.simpleMessage("Note"),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Note Id"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("Note loading..."),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
@@ -383,6 +387,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "Share": MessageLookupByLibrary.simpleMessage("Share"),
         "Show": MessageLookupByLibrary.simpleMessage("Show"),
+        "Show_Window": MessageLookupByLibrary.simpleMessage("Show Window"),
         "Show_more": MessageLookupByLibrary.simpleMessage("Show more"),
         "Show_more_replies":
             MessageLookupByLibrary.simpleMessage("Show more replies"),
@@ -459,6 +464,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Wrong Private Key format"),
         "You_had_voted_with":
             MessageLookupByLibrary.simpleMessage("You had voted with"),
+        "Zap_Goal": MessageLookupByLibrary.simpleMessage("Zap Goal"),
         "Zap_Goals": MessageLookupByLibrary.simpleMessage("Zap Goals"),
         "Zap_num_can_not_bigger_then":
             MessageLookupByLibrary.simpleMessage("Zap num can not bigger then"),

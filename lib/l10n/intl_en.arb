@@ -325,5 +325,11 @@
     "Normal": "Normal",
     "Cache": "Cache",
     "Copy": "Copy",
-    "Please_input_summary": "Please input summary"
+    "Please_input_summary": "Please input summary",
+    "Show_Window": "Show Window",
+    "Exit_App": "Exit App",
+    "Note": "Note",
+    "Article": "Article",
+    "Media": "Media",
+    "Zap_Goal": "Zap Goal"
 }

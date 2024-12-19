@@ -311,5 +311,11 @@
     "Normal": "普通",
     "Cache": "缓存",
     "Copy": "复制",
-    "Please_input_summary": "请输入简述"
+    "Please_input_summary": "请输入简述",
+    "Show_Window": "显示窗口",
+    "Exit_App": "退出App",
+    "Note": "动态",
+    "Article": "文章",
+    "Media": "媒体",
+    "Zap_Goal": "Zap目标"
 }

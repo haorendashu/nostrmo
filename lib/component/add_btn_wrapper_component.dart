@@ -3,6 +3,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:star_menu/star_menu.dart';
 
 import '../consts/colors.dart';
+import '../generated/l10n.dart';
 import '../router/edit/editor_router.dart';
 import '../router/media_edit/media_edit_router.dart';
 
@@ -16,6 +17,26 @@ class AddBtnWrapperComponent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _AddBtnWrapperComponent();
+  }
+
+  static void addNote(BuildContext context) {
+    EditorRouter.open(context);
+  }
+
+  static void addArticle(BuildContext context) {
+    EditorRouter.open(context, isLongForm: true);
+  }
+
+  static void addMedia(BuildContext context) {
+    MediaEditRouter.pickAndUpload(context);
+  }
+
+  static void addPoll(BuildContext context) {
+    EditorRouter.open(context, isPoll: true);
+  }
+
+  static void addZapGoal(BuildContext context) {
+    EditorRouter.open(context, isZapGoal: true);
   }
 }
 
@@ -33,6 +54,7 @@ class _AddBtnWrapperComponent extends State<AddBtnWrapperComponent> {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var iconSize = themeData.textTheme.bodyMedium!.fontSize;
+    var s = S.of(context);
 
     List<Widget> entries = [];
     var index = 0;
@@ -41,55 +63,55 @@ class _AddBtnWrapperComponent extends State<AddBtnWrapperComponent> {
       iconData: Icons.note,
       iconBackgroundColor: ColorList.ALL_COLOR[++index],
       iconSize: iconSize,
-      name: "Note",
+      name: s.Note,
       backgroundColor: cardColor,
       onTap: () {
         closeMenu();
-        EditorRouter.open(context);
+        AddBtnWrapperComponent.addNote(context);
       },
     ));
     entries.add(AddBtnStartItemButton(
       iconData: Icons.article,
       iconBackgroundColor: ColorList.ALL_COLOR[++index],
       iconSize: iconSize,
-      name: "Article",
+      name: s.Article,
       backgroundColor: cardColor,
       onTap: () {
         closeMenu();
-        EditorRouter.open(context, isLongForm: true);
+        AddBtnWrapperComponent.addArticle(context);
       },
     ));
     entries.add(AddBtnStartItemButton(
       iconData: Icons.image,
       iconBackgroundColor: ColorList.ALL_COLOR[++index],
       iconSize: iconSize,
-      name: "Media",
+      name: s.Media,
       backgroundColor: cardColor,
       onTap: () {
         closeMenu();
-        MediaEditRouter.pickAndUpload(context);
+        AddBtnWrapperComponent.addMedia(context);
       },
     ));
     entries.add(AddBtnStartItemButton(
       iconData: Icons.poll,
       iconBackgroundColor: ColorList.ALL_COLOR[++index],
       iconSize: iconSize,
-      name: "Poll",
+      name: s.Poll,
       backgroundColor: cardColor,
       onTap: () {
         closeMenu();
-        EditorRouter.open(context, isPoll: true);
+        AddBtnWrapperComponent.addPoll(context);
       },
     ));
     entries.add(AddBtnStartItemButton(
       iconData: Icons.trending_up,
       iconBackgroundColor: ColorList.ALL_COLOR[++index],
       iconSize: iconSize,
-      name: "Zap Goal",
+      name: s.Zap_Goal,
       backgroundColor: cardColor,
       onTap: () {
         closeMenu();
-        EditorRouter.open(context, isZapGoal: true);
+        AddBtnWrapperComponent.addZapGoal(context);
       },
     ));
 
