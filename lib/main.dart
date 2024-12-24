@@ -12,6 +12,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_cache_manager/src/cache_store.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:local_notifier/local_notifier.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:nostr_sdk/client_utils/keys.dart';
 import 'package:nostr_sdk/nostr.dart';
@@ -73,6 +74,7 @@ import 'provider/index_provider.dart';
 import 'provider/link_preview_data_provider.dart';
 import 'provider/list_provider.dart';
 import 'provider/list_set_provider.dart';
+import 'provider/local_notification_builder.dart';
 import 'provider/mention_me_provider.dart';
 import 'provider/metadata_provider.dart';
 import 'provider/music_info_cache.dart';
@@ -185,6 +187,8 @@ late GroupProvider groupProvider;
 
 MusicInfoCache musicInfoCache = MusicInfoCache();
 
+LocalNotificationBuilder localNotificationBuilder = LocalNotificationBuilder();
+
 RelayLocalDB? relayLocalDB;
 
 Nostr? nostr;
@@ -199,6 +203,8 @@ bool newUser = false;
 late TrieTextMatcher defaultTrieTextMatcher;
 
 late WotProvider wotProvider;
+
+GlobalKey indexGlobalKey = GlobalKey();
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -241,6 +247,13 @@ Future<void> main() async {
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   } catch (e) {
     print(e);
+  }
+
+  if (PlatformUtil.isPC()) {
+    await localNotifier.setup(
+      appName: Base.APP_NAME,
+      shortcutPolicy: ShortcutPolicy.requireCreate,
+    );
   }
 
   var dbInitTask = DB.getCurrentDatabase();
@@ -360,7 +373,10 @@ class _MyApp extends State<MyApp> {
     }
 
     routes = {
-      RouterPath.INDEX: (context) => IndexRouter(reload: reload),
+      RouterPath.INDEX: (context) => IndexRouter(
+            reload: reload,
+            key: indexGlobalKey,
+          ),
       RouterPath.LOGIN: (context) => LoginRouter(),
       RouterPath.DONATE: (context) => DonateRouter(),
       RouterPath.USER: (context) => UserRouter(),

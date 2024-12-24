@@ -4,7 +4,9 @@ import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip02/contact.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 
 import '../main.dart';
 import 'follow_event_provider.dart';
@@ -12,7 +14,7 @@ import 'follow_event_provider.dart';
 class FollowNewEventProvider extends ChangeNotifier
     with PenddingEventsLaterFunction {
   EventMemBox eventPostMemBox = EventMemBox(sortAfterAdd: false);
-  EventMemBox eventMemBox = EventMemBox();
+  EventMemBox eventMemBox = EventMemBox(sortAfterAdd: false);
 
   int? _localSince;
 
@@ -80,7 +82,23 @@ class FollowNewEventProvider extends ChangeNotifier
   }
 
   handleEvents(List<Event> events) {
-    eventMemBox.addList(events);
+    bool hasNew = false;
+    bool shouldNotice = false;
+    if (PlatformUtil.isPC() &&
+        settingProvider.followNoteNotice != OpenStatus.CLOSE) {
+      shouldNotice = true;
+    }
+    for (var event in events) {
+      var isNew = eventMemBox.add(event);
+      if (isNew && shouldNotice) {
+        hasNew = true;
+        localNotificationBuilder.sendNotification(event);
+      }
+    }
+
+    if (hasNew) {
+      eventMemBox.sort();
+    }
     _localSince = eventMemBox.newestEvent!.createdAt;
 
     for (var event in events) {

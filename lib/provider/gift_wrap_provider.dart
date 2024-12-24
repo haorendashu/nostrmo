@@ -59,18 +59,22 @@ class GiftWrapProvider extends ChangeNotifier {
     if (box.add(e)) {
       // This is an new event.
       // decode this event.
-      var sourceEvent = await GiftWrapUtil.getRumorEvent(nostr!, e);
+      try {
+        var sourceEvent = await GiftWrapUtil.getRumorEvent(nostr!, e);
 
-      // some event need some handle
-      if (sourceEvent != null) {
-        if (sourceEvent.kind == EventKind.PRIVATE_DIRECT_MESSAGE) {
-          // private DM, handle by dmProvider
-          dmProvider.onEvent(sourceEvent);
+        // some event need some handle
+        if (sourceEvent != null) {
+          if (sourceEvent.kind == EventKind.PRIVATE_DIRECT_MESSAGE) {
+            // private DM, handle by dmProvider
+            dmProvider.onEvent(sourceEvent);
+          }
         }
-      }
 
-      var keyIndex = settingProvider.privateKeyIndex!;
-      EventDB.insert(keyIndex, e);
+        var keyIndex = settingProvider.privateKeyIndex!;
+        EventDB.insert(keyIndex, e);
+      } catch (e) {
+        print("giftwrap onEvent error $e");
+      }
     }
   }
 }

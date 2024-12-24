@@ -156,6 +156,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Find clouded relay list, do you want to download it?"),
         "Fingerprint": MessageLookupByLibrary.simpleMessage("Fingerprint"),
         "Follow_System": MessageLookupByLibrary.simpleMessage("Follow System"),
+        "Follow_note_notice":
+            MessageLookupByLibrary.simpleMessage("Follow note notice"),
         "Follow_set": MessageLookupByLibrary.simpleMessage("Follow set"),
         "Follow_set_name_edit":
             MessageLookupByLibrary.simpleMessage("Follow set name edit"),
@@ -252,7 +254,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "Media": MessageLookupByLibrary.simpleMessage("Media"),
         "Members": MessageLookupByLibrary.simpleMessage("Members"),
         "Mention_User": MessageLookupByLibrary.simpleMessage("Mention User"),
+        "Mentioned_note_notice":
+            MessageLookupByLibrary.simpleMessage("Mentioned note notice"),
         "Mentions": MessageLookupByLibrary.simpleMessage("Mentions"),
+        "Message_notice":
+            MessageLookupByLibrary.simpleMessage("Message notice"),
         "Metadata_can_not_be_found":
             MessageLookupByLibrary.simpleMessage("Metadata can not be found."),
         "Method": MessageLookupByLibrary.simpleMessage("Method"),
@@ -272,6 +278,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "NWC_TIP2": MessageLookupByLibrary.simpleMessage("NWC URL is like"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "Network": MessageLookupByLibrary.simpleMessage("Network"),
+        "New_message_receive":
+            MessageLookupByLibrary.simpleMessage("New Message receive"),
+        "New_note_receive":
+            MessageLookupByLibrary.simpleMessage("New note receive"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Normal": MessageLookupByLibrary.simpleMessage("Normal"),
         "Nostromo_developers_will_never_require_a_key_from_you":
@@ -368,6 +378,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Remove from private bookmark"),
         "Remove_from_public_bookmark":
             MessageLookupByLibrary.simpleMessage("Remove from public bookmark"),
+        "Reply": MessageLookupByLibrary.simpleMessage("Reply"),
         "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
         "Request": MessageLookupByLibrary.simpleMessage("Request"),
         "Search": MessageLookupByLibrary.simpleMessage("Search"),

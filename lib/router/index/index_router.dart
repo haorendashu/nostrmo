@@ -48,7 +48,7 @@ class IndexRouter extends StatefulWidget {
 
   Function reload;
 
-  IndexRouter({required this.reload});
+  IndexRouter({super.key, required this.reload});
 
   @override
   State<StatefulWidget> createState() {

@@ -317,5 +317,11 @@
     "Note": "动态",
     "Article": "文章",
     "Media": "媒体",
-    "Zap_Goal": "Zap目标"
+    "Zap_Goal": "Zap目标",
+    "Reply": "回复",
+    "New_note_receive": "收到新推文",
+    "New_message_receive": "收到新消息",
+    "Mentioned_note_notice": "提及推文通知",
+    "Follow_note_notice": "关注推文通知",
+    "Message_notice": "消息通知"
 }

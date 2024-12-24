@@ -3379,6 +3379,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Reply`
+  String get Reply {
+    return Intl.message(
+      'Reply',
+      name: 'Reply',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New note receive`
+  String get New_note_receive {
+    return Intl.message(
+      'New note receive',
+      name: 'New_note_receive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Message receive`
+  String get New_message_receive {
+    return Intl.message(
+      'New Message receive',
+      name: 'New_message_receive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mentioned note notice`
+  String get Mentioned_note_notice {
+    return Intl.message(
+      'Mentioned note notice',
+      name: 'Mentioned_note_notice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follow note notice`
+  String get Follow_note_notice {
+    return Intl.message(
+      'Follow note notice',
+      name: 'Follow_note_notice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Message notice`
+  String get Message_notice {
+    return Intl.message(
+      'Message notice',
+      name: 'Message_notice',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

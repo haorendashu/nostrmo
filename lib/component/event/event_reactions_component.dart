@@ -516,60 +516,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       return;
     }
 
-    var er = widget.eventRelation;
-    List<dynamic> tags = [];
-    List<dynamic> tagsAddedWhenSend = [];
-    String relayAddr = "";
-    if (widget.event.sources.isNotEmpty) {
-      relayAddr = widget.event.sources[0];
-    }
-    String directMarked = "reply";
-    if (StringUtil.isBlank(er.rootId)) {
-      directMarked = "root";
-    }
-    tagsAddedWhenSend.add(["e", widget.event.id, relayAddr, directMarked]);
-
-    List<dynamic> tagPs = [];
-    tagPs.add(["p", widget.event.pubkey]);
-    if (er.tagPList.isNotEmpty) {
-      for (var p in er.tagPList) {
-        tagPs.add(["p", p]);
-      }
-    }
-    if (StringUtil.isNotBlank(er.rootId)) {
-      String relayAddr = "";
-      if (StringUtil.isNotBlank(er.rootRelayAddr)) {
-        relayAddr = er.rootRelayAddr!;
-      }
-      if (StringUtil.isBlank(relayAddr)) {
-        var rootEvent = singleEventProvider.getEvent(er.rootId!);
-        if (rootEvent != null && rootEvent.sources.isNotEmpty) {
-          relayAddr = rootEvent.sources[0];
-        }
-      }
-      tags.add(["e", er.rootId, relayAddr, "root"]);
-    }
-
-    GroupIdentifier? groupIdentifier;
-    int? groupEventKind;
-    if (widget.event.kind == EventKind.GROUP_NOTE ||
-        widget.event.kind == EventKind.GROUP_NOTE_REPLY) {
-      groupIdentifier =
-          GroupIdentifierInheritedWidget.getGroupIdentifier(context);
-      if (groupIdentifier != null) {
-        groupEventKind = EventKind.GROUP_NOTE_REPLY;
-      }
-    }
-
-    // TODO reply maybe change the placeholder in editor router.
-    var event = await EditorRouter.open(
-      context,
-      tags: tags,
-      tagsAddedWhenSend: tagsAddedWhenSend,
-      tagPs: tagPs,
-      groupIdentifier: groupIdentifier,
-      groupEventKind: groupEventKind,
-    );
+    var event = await EditorRouter.replyEvent(context, widget.event,
+        eventRelation: widget.eventRelation);
     if (event != null) {
       eventReactionsProvider.addEventAndHandle(event);
       var callback = EventReplyCallback.of(context);

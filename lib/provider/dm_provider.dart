@@ -5,7 +5,9 @@ import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip04/dm_session.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/consts/base_consts.dart';
 
 import '../data/dm_session_info.dart';
 import '../data/dm_session_info_db.dart';
@@ -239,10 +241,16 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
 
   void eventLaterHandle(List<Event> events, {bool updateUI = true}) {
     bool updated = false;
+    List<Event> newEvents = [];
+
     for (var event in events) {
       var addResult = _addEvent(localPubkey!, event);
       // save to local
       if (addResult) {
+        if (event.pubkey != nostr!.publicKey) {
+          newEvents.add(event);
+        }
+
         updated = true;
         var keyIndex = settingProvider.privateKeyIndex!;
         EventDB.insert(keyIndex, event);
@@ -253,6 +261,16 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       _sortDetailList();
       if (updateUI) {
         notifyListeners();
+      }
+
+      if (PlatformUtil.isPC() &&
+          settingProvider.messageNotice != OpenStatus.CLOSE) {
+        var newEventsLength = newEvents.length;
+        if (newEventsLength > 1) {
+          localNotificationBuilder.sendDMsNumberNotification(newEventsLength);
+        } else if (newEventsLength == 1) {
+          localNotificationBuilder.sendNotification(newEvents.first);
+        }
       }
     }
   }

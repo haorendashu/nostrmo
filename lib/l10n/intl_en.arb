@@ -331,5 +331,11 @@
     "Note": "Note",
     "Article": "Article",
     "Media": "Media",
-    "Zap_Goal": "Zap Goal"
+    "Zap_Goal": "Zap Goal",
+    "Reply": "Reply",
+    "New_note_receive": "New note receive",
+    "New_message_receive": "New Message receive",
+    "Mentioned_note_notice": "Mentioned note notice",
+    "Follow_note_notice": "Follow note notice",
+    "Message_notice": "Message notice"
 }

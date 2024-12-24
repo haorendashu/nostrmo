@@ -326,6 +326,12 @@ class SettingProvider extends ChangeNotifier {
 
   int? get wotFilter => _settingData!.wotFilter;
 
+  int? get mentionNoteNotice => _settingData!.wotFilter;
+
+  int? get followNoteNotice => _settingData!.followNoteNotice;
+
+  int? get messageNotice => _settingData!.messageNotice;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -543,6 +549,21 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set mentionNoteNotice(int? o) {
+    _settingData!.mentionNoteNotice = o;
+    saveAndNotifyListeners();
+  }
+
+  set followNoteNotice(int? o) {
+    _settingData!.followNoteNotice = o;
+    saveAndNotifyListeners();
+  }
+
+  set messageNotice(int? o) {
+    _settingData!.messageNotice = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -653,6 +674,12 @@ class SettingData {
 
   int? wotFilter;
 
+  int? mentionNoteNotice;
+
+  int? followNoteNotice;
+
+  int? messageNotice;
+
   /// updated time
   late int updatedTime;
 
@@ -699,6 +726,9 @@ class SettingData {
     this.openBlurhashImage,
     this.pubkeyColor,
     this.wotFilter,
+    this.mentionNoteNotice,
+    this.followNoteNotice,
+    this.messageNotice,
     this.updatedTime = 0,
   });
 
@@ -760,6 +790,9 @@ class SettingData {
     openBlurhashImage = json['openBlurhashImage'];
     pubkeyColor = json['pubkeyColor'];
     wotFilter = json['wotFilter'];
+    mentionNoteNotice = json['mentionNoteNotice'];
+    followNoteNotice = json['followNoteNotice'];
+    messageNotice = json['messageNotice'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -812,7 +845,10 @@ class SettingData {
     data['openBlurhashImage'] = this.openBlurhashImage;
     data['pubkeyColor'] = this.pubkeyColor;
     data['wotFilter'] = this.wotFilter;
-    data['updatedTime'] = this.updatedTime;
+    data['mentionNoteNotice'] = this.mentionNoteNotice;
+    data['followNoteNotice'] = this.followNoteNotice;
+    data['wotFilter'] = this.wotFilter;
+    data['messageNotice'] = this.messageNotice;
     return data;
   }
 }

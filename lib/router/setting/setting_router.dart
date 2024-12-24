@@ -147,6 +147,26 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickWotFilter,
     ));
 
+    if (PlatformUtil.isPC()) {
+      list.add(SettingGroupItemComponent(
+        name: s.Mentioned_note_notice,
+        value: getOpenList(settingProvider.mentionNoteNotice).name,
+        onTap: pickMentionNoteNotice,
+      ));
+
+      list.add(SettingGroupItemComponent(
+        name: s.Follow_note_notice,
+        value: getOpenList(settingProvider.followNoteNotice).name,
+        onTap: pickFollowNoteNotice,
+      ));
+
+      list.add(SettingGroupItemComponent(
+        name: s.Message_notice,
+        value: getOpenList(settingProvider.messageNotice).name,
+        onTap: pickMessageNotice,
+      ));
+    }
+
     list.add(SettingGroupTitleComponent(iconData: Icons.palette, title: "UI"));
     list.add(
       SettingGroupItemComponent(
@@ -1298,6 +1318,30 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       } else {
         wotProvider.clear();
       }
+    }
+  }
+
+  pickMentionNoteNotice() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.mentionNoteNotice = resultEnumObj.value;
+    }
+  }
+
+  pickFollowNoteNotice() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.followNoteNotice = resultEnumObj.value;
+    }
+  }
+
+  pickMessageNotice() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.messageNotice = resultEnumObj.value;
     }
   }
 }

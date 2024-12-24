@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:nostr_sdk/aid.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/event_relation.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostrmo/component/editor/lnbc_embed_builder.dart';
 import 'package:nostrmo/component/editor/mention_event_embed_builder.dart';
@@ -27,6 +28,7 @@ import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
 import '../../component/editor/poll_input_component.dart';
 import '../../component/editor/zap_split_input_component.dart';
+import '../../component/group_identifier_inherited_widget.dart';
 import '../../generated/l10n.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'editor_notify_item_component.dart';
@@ -67,6 +69,65 @@ class EditorRouter extends StatefulWidget {
     this.isPoll = false,
     this.isZapGoal = false,
   });
+
+  static Future<Event?> replyEvent(BuildContext context, Event event,
+      {EventRelation? eventRelation}) async {
+    eventRelation ??= EventRelation.fromEvent(event);
+
+    List<dynamic> tags = [];
+    List<dynamic> tagsAddedWhenSend = [];
+    String relayAddr = "";
+    if (event.sources.isNotEmpty) {
+      relayAddr = event.sources[0];
+    }
+    String directMarked = "reply";
+    if (StringUtil.isBlank(eventRelation!.rootId)) {
+      directMarked = "root";
+    }
+    tagsAddedWhenSend.add(["e", event.id, relayAddr, directMarked]);
+
+    List<dynamic> tagPs = [];
+    tagPs.add(["p", event.pubkey]);
+    if (eventRelation.tagPList.isNotEmpty) {
+      for (var p in eventRelation.tagPList) {
+        tagPs.add(["p", p]);
+      }
+    }
+    if (StringUtil.isNotBlank(eventRelation.rootId)) {
+      String relayAddr = "";
+      if (StringUtil.isNotBlank(eventRelation.rootRelayAddr)) {
+        relayAddr = eventRelation.rootRelayAddr!;
+      }
+      if (StringUtil.isBlank(relayAddr)) {
+        var rootEvent = singleEventProvider.getEvent(eventRelation.rootId!);
+        if (rootEvent != null && rootEvent.sources.isNotEmpty) {
+          relayAddr = rootEvent.sources[0];
+        }
+      }
+      tags.add(["e", eventRelation.rootId, relayAddr, "root"]);
+    }
+
+    GroupIdentifier? groupIdentifier;
+    int? groupEventKind;
+    if (event.kind == EventKind.GROUP_NOTE ||
+        event.kind == EventKind.GROUP_NOTE_REPLY) {
+      groupIdentifier =
+          GroupIdentifierInheritedWidget.getGroupIdentifier(context);
+      if (groupIdentifier != null) {
+        groupEventKind = EventKind.GROUP_NOTE_REPLY;
+      }
+    }
+
+    // TODO reply maybe change the placeholder in editor router.
+    return await EditorRouter.open(
+      context,
+      tags: tags,
+      tagsAddedWhenSend: tagsAddedWhenSend,
+      tagPs: tagPs,
+      groupIdentifier: groupIdentifier,
+      groupEventKind: groupEventKind,
+    );
+  }
 
   static Future<Event?> open(
     BuildContext context, {
