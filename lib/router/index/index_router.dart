@@ -213,7 +213,9 @@ class _IndexRouter extends CustState<IndexRouter>
           ? "assets/imgs/logo/logo.ico"
           : "assets/imgs/logo/logo512.png",
     );
-    await trayManager.setToolTip("Nostrmo");
+    if (Platform.isMacOS || Platform.isMacOS) {
+      await trayManager.setToolTip("Nostrmo");
+    }
     Menu menu = Menu(
       items: [
         MenuItem(
