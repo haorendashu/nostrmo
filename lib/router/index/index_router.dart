@@ -158,10 +158,6 @@ class _IndexRouter extends CustState<IndexRouter>
         unlock = true;
       });
     }
-
-    if (PlatformUtil.isPC()) {
-      _initTray();
-    }
   }
 
   @override
@@ -174,25 +170,28 @@ class _IndexRouter extends CustState<IndexRouter>
     if (await windowManager.isVisible()) {
       windowManager.hide();
     } else {
-      windowManager.show();
-      windowManager.focus();
+      await windowManager.show();
+      await windowManager.focus();
     }
   }
 
   @override
   void onWindowMinimize() {
-    windowManager.hide();
+    if (Platform.isWindows || Platform.isMacOS) {
+      windowManager.hide();
+    }
   }
 
   @override
-  void onTrayMenuItemClick(MenuItem menuItem) {
+  Future<void> onTrayMenuItemClick(MenuItem menuItem) async {
     if (menuItem.key == 'exit_app') {
       windowManager.close();
       return;
     }
 
-    windowManager.show();
-    windowManager.focus();
+    await windowManager.show();
+    await windowManager.focus();
+    
 
     if (menuItem.key == 'add_note') {
       AddBtnWrapperComponent.addNote(context);

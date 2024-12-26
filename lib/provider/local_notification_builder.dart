@@ -192,8 +192,8 @@ class LocalNotificationBuilder {
     }
   }
 
-  openWindow() {
-    windowManager.show();
-    windowManager.focus();
+  openWindow() async {
+    await windowManager.show();
+    await windowManager.focus();
   }
 }
