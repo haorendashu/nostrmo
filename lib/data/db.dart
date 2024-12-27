@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:nostr_sdk/utils/platform_util.dart';
+import 'package:nostr_sdk/utils/db_util.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'package:process_run/shell_run.dart';
 
 class DB {
@@ -13,12 +12,8 @@ class DB {
   static Database? _database;
 
   static init() async {
-    String path = _dbName;
-
-    if (!PlatformUtil.isWeb()) {
-      var databasesPath = await getDatabasesPath();
-      path = join(databasesPath, _dbName);
-    }
+    String path = await DBUtil.getPath(_dbName);
+    print("path $path");
 
     try {
       _database =

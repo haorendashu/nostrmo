@@ -134,6 +134,68 @@ sudo apt-get -y install libsqlite3-0 libsqlite3-dev libmpv-dev mpv libnotify-dev
 flutter build linux --release
 ```
 
+#### About Linux package
+
+We use ```flutter_distributor``` to build linux package, so you should install ```flutter_distributor``` and add some other config.
+
+Install ```flutter_distributor``` to your system:
+
+```
+dart pub global activate flutter_distributor
+```
+
+Install some compile tools:
+
+
+```
+sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+```
+
+rpm package requirements:
+
+Debian/Ubuntu: 
+
+```
+apt install rpm patchelf
+```
+
+Fedora: 
+
+```
+dnf install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools patchelf
+```
+
+Arch:
+
+```
+yay -S rpmdevtools patchelf or pamac install rpmdevtools patchelf
+```
+
+appimage package requirements:
+
+install and update filedbs:
+
+```
+sudo apt install locate
+sudo updatedb
+```
+
+install Appimage Builder:
+
+```
+wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+chmod +x appimagetool
+sudo mv appimagetool /usr/local/bin/
+```
+
+If your config all the steps, you can run these script to package the packages:
+
+```
+flutter_distributor release --name=dev --jobs=release-dev-linux-deb
+flutter_distributor release --name=dev --jobs=release-dev-linux-rpm
+flutter_distributor release --name=dev --jobs=release-dev-linux-appimage
+```
+
 ## FAQ
 
 You can find more info from this [FAQ](https://github.com/haorendashu/nostrmo_faq)

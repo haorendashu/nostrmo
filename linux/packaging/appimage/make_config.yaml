@@ -1,0 +1,33 @@
+display_name: Nostrmo
+
+icon: assets/imgs/logo/logo512.png
+
+keywords:
+  - Nostr
+  - Nostr Client
+
+generic_name: Nostrmo
+
+categories:
+  - Network
+
+startup_notify: true
+
+# You can specify the shared libraries that you want to bundle with your app
+#
+# flutter_distributor automatically detects the shared libraries that your app
+# depends on, but you can also specify them manually here.
+#
+# The following example shows how to bundle the libcurl library with your app.
+#
+# include:
+#   - libcurl.so.4
+# The builder will copy these shared libraries to appimage, but sometimes these files are links and it will cause appimage run error.
+# So i place the file version here, you should change to file name depend on your system.
+# You can try to look at these script: ```cd /lib/x86_64-linux-gnu; ll | grep mpv```
+include:
+  - libsqlite3.so
+  - libmpv.so.2.2.0
+  - libnotify.so.4.0.0
+  - libayatana-appindicator3.so.1.0.0
+  # - libasound.so.2

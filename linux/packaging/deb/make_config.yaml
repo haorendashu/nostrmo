@@ -1,0 +1,38 @@
+display_name: Nostrmo
+package_name: nostrmo
+
+maintainer:
+  name: DASHU
+  email: haorendashu@gmail.com
+
+priority: optional
+
+section: x11
+
+installed_size: 15700
+
+dependencies:
+  - libsqlite3-0
+  - libsqlite3-dev
+  - libmpv-dev
+  - mpv
+  - libnotify-dev
+  - libayatana-appindicator3-dev
+
+essential: false
+
+icon: assets/imgs/logo/logo512.png
+
+postuninstall_scripts:
+  - echo "Sorry to see you go."
+
+keywords:
+  - Nostr
+  - Nostr Client
+
+generic_name: Nostr Client
+
+categories:
+  - Network
+
+startup_notify: true

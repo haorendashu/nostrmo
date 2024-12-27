@@ -1,0 +1,28 @@
+display_name: Nostrmo
+icon: assets/imgs/logo/logo512.png
+summary: A Nostr Client
+group: Applications/Sociality
+vendor: DASHU
+packager: DASHU
+packagerEmail: haorendashu@gmail.com
+license: GNU General Public License v3.0
+url: https://github.com/haorendashu/nostrmo
+
+requires:
+  - libsqlite3-0
+  - libsqlite3-dev
+  - libmpv-dev
+  - mpv
+  - libnotify-dev
+  - libayatana-appindicator3-dev
+
+keywords:
+  - API
+  - API Client
+
+generic_name: Nostrmo
+
+categories:
+  - Network
+
+startup_notify: true
