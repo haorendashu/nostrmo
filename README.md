@@ -173,6 +173,12 @@ yay -S rpmdevtools patchelf or pamac install rpmdevtools patchelf
 
 appimage package requirements:
 
+install ```flutter_distriutor```
+
+```
+dart pub global activate flutter_distributor
+```
+
 install and update filedbs:
 
 ```

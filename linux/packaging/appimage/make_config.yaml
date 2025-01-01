@@ -27,7 +27,8 @@ startup_notify: true
 # You can try to look at these script: ```cd /lib/x86_64-linux-gnu; ll | grep mpv```
 include:
   - libsqlite3.so
-  - libmpv.so.2.2.0
-  - libnotify.so.4.0.0
-  - libayatana-appindicator3.so.1.0.0
-  # - libasound.so.2
+  - libmpv.so
+  - libnotify.so
+  - libayatana-appindicator3.so
+  - libjpeg.so
+  - libasound.so
