@@ -19,6 +19,7 @@ class DB {
       _database =
           await openDatabase(path, version: _VERSION, onCreate: _onCreate);
     } catch (e) {
+      print(e);
       if (Platform.isLinux) {
         // maybe it need install sqlite first, but this command need run by root.
         await run('sudo apt-get -y install libsqlite3-0 libsqlite3-dev');
