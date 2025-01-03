@@ -30,5 +30,5 @@ include:
   - libmpv.so
   - libnotify.so
   - libayatana-appindicator3.so
-  - libjpeg.so
+  - libjpeg.so.8
   - libasound.so
