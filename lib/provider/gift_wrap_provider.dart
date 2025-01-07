@@ -7,6 +7,7 @@ import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip59/gift_wrap_util.dart';
 import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../data/event_db.dart';
 import '../main.dart';
@@ -35,7 +36,8 @@ class GiftWrapProvider extends ChangeNotifier {
       if (initQuery) {
         // haven't query before
         if (box.isEmpty()) {
-          since = 1672502400;
+          // since = 1672502400;
+          since = null;
         } else {
           var oldestEvent = box.oldestEvent;
           since = oldestEvent!.createdAt - TIME_FLAG;
@@ -51,8 +53,13 @@ class GiftWrapProvider extends ChangeNotifier {
       since: since,
       p: [nostr!.publicKey],
     );
+    var queryId = StringUtil.rndNameStr(10);
 
-    targetNostr!.query([filter.toJson()], onEvent);
+    // the targetNostr maybe haven't complete init, so with a same queryId, the last query will not works.
+    if (initQuery) {
+      targetNostr!.addInitQuery([filter.toJson()], onEvent, id: queryId);
+    }
+    targetNostr!.query([filter.toJson()], onEvent, id: queryId);
   }
 
   Future<void> onEvent(Event e) async {
