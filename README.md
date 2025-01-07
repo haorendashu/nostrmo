@@ -126,8 +126,16 @@ flutter build web --release --web-renderer canvaskit
 
 Linux depend on ```libsqlite```, ```libmpv```, ```libnotify``` and ```appindicator3```, you can try to run this script to install before it run: 
 
+Ubuntu:
+
 ```
 sudo apt-get -y install libsqlite3-0 libsqlite3-dev libmpv-dev mpv libnotify-dev libayatana-appindicator3-dev
+```
+
+Fedora:
+
+```
+sudo dnf install sqlite3 mpv mpv-devel libnotify libnotify-devel libappindicator-gtk3-devel
 ```
 
 ```

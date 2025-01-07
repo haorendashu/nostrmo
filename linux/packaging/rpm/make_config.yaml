@@ -9,12 +9,12 @@ license: GNU General Public License v3.0
 url: https://github.com/haorendashu/nostrmo
 
 requires:
-  - libsqlite3-0
-  - libsqlite3-dev
-  - libmpv-dev
+  - sqlite3
   - mpv
-  - libnotify-dev
-  - libayatana-appindicator3-dev
+  - mpv-devel
+  - libnotify
+  - libnotify-devel
+  - libappindicator-gtk3-devel
 
 keywords:
   - API
