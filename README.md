@@ -135,7 +135,7 @@ sudo apt-get -y install libsqlite3-0 libsqlite3-dev libmpv-dev mpv libnotify-dev
 Fedora:
 
 ```
-sudo dnf install sqlite3 mpv mpv-devel libnotify libnotify-devel libappindicator-gtk3-devel
+sudo dnf install sqlite3 sqlite-devel mpv mpv-devel libnotify libnotify-devel libappindicator-gtk3-devel
 ```
 
 ```

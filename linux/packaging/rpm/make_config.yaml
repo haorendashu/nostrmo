@@ -10,6 +10,7 @@ url: https://github.com/haorendashu/nostrmo
 
 requires:
   - sqlite3
+  - sqlite-devel
   - mpv
   - mpv-devel
   - libnotify
