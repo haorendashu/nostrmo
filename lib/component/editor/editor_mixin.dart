@@ -714,6 +714,10 @@ mixin EditorMixin {
       }
     }
 
+    if (StringUtil.isNotBlank(settingProvider.noteClientTag)) {
+      allTags.add(["client", settingProvider.noteClientTag]);
+    }
+
     Event? event;
     List<Event> extralEvents = [];
     if (isDM() && StringUtil.isNotBlank(pubkey)) {
