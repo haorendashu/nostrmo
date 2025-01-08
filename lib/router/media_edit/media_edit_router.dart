@@ -189,6 +189,8 @@ class _MediaEditRouter extends State<MediaEditRouter> {
     Event? event;
     var cancelFunc = BotToast.showLoading();
     try {
+      var eventKind = EventKind.FILE_HEADER;
+
       var file = File(widget.filePath);
       var bytes = await file.readAsBytes();
       var size = bytes.length;
@@ -198,18 +200,7 @@ class _MediaEditRouter extends State<MediaEditRouter> {
 
       tags.add(["m", mimeType]);
       tags.add(["ox", ox]);
-      tags.add(["size", size]);
-
-      if (mimeType!.contains("image")) {
-        final image = img.decodeImage(bytes);
-        final blurHash = BlurHash.encode(image!, numCompX: 4, numCompY: 3);
-
-        tags.add(["blurhash", blurHash.hash]);
-        tags.add(["dim", "${image.width}x${image.height}"]);
-      }
-
-      // This oper can clear the mem ??
-      bytes = Uint8List(0);
+      tags.add(["size", size.toString()]);
 
       var url = await Uploader.upload(
         widget.filePath,
@@ -218,8 +209,31 @@ class _MediaEditRouter extends State<MediaEditRouter> {
 
       tags.add(["url", url]);
 
+      if (mimeType!.contains("image")) {
+        final image = img.decodeImage(bytes);
+        final blurHash = BlurHash.encode(image!, numCompX: 4, numCompY: 3);
+
+        var blurhashText = blurHash.hash;
+        tags.add(["blurhash", blurhashText]);
+        var dim = "${image.width}x${image.height}";
+        tags.add(["dim", dim]);
+
+        eventKind = EventKind.PICTURE;
+        tags.add([
+          "imeta",
+          "url $url",
+          "m $mimeType",
+          "blurhash $blurhashText",
+          "dim $dim",
+          "ox $ox"
+        ]);
+      }
+
+      // This oper can clear the mem ??
+      bytes = Uint8List(0);
+
       var content = textEditingController.text;
-      event = Event(nostr!.publicKey, EventKind.FILE_HEADER, tags, content);
+      event = Event(nostr!.publicKey, eventKind, tags, content);
       event = await nostr!.sendEvent(event);
     } finally {
       cancelFunc.call();

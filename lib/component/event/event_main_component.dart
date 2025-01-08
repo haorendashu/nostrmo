@@ -416,6 +416,7 @@ class _EventMainComponent extends State<EventMainComponent> {
         }
 
         if (widget.event.kind == EventKind.FILE_HEADER ||
+            widget.event.kind == EventKind.PICTURE ||
             widget.event.kind == EventKind.VIDEO_HORIZONTAL ||
             widget.event.kind == EventKind.VIDEO_VERTICAL) {
           String? m;
