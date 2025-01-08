@@ -227,6 +227,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Input parse error"),
         "Input_relay_address":
             MessageLookupByLibrary.simpleMessage("Input relay address."),
+        "Input_too_long":
+            MessageLookupByLibrary.simpleMessage("Input too long"),
         "Join_Group": MessageLookupByLibrary.simpleMessage("Join Group"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Key Backup"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
@@ -288,7 +290,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Nostrmo developers will never require a key from you."),
         "Note": MessageLookupByLibrary.simpleMessage("Note"),
+        "Note_Client_Tag":
+            MessageLookupByLibrary.simpleMessage("Note Client Tag"),
+        "Note_Client_Tag_Des": MessageLookupByLibrary.simpleMessage(
+            "Which added with client tag in your notes, you can not see it but someone can"),
         "Note_Id": MessageLookupByLibrary.simpleMessage("Note Id"),
+        "Note_Tail": MessageLookupByLibrary.simpleMessage("Note Tail"),
+        "Note_Tail_Des": MessageLookupByLibrary.simpleMessage(
+            "Which will auto added when you sending notes."),
         "Note_loading": MessageLookupByLibrary.simpleMessage("Note loading..."),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),

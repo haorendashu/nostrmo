@@ -14,6 +14,8 @@ class TextInputDialog extends StatefulWidget {
 
   String? value;
 
+  String? des;
+
   bool Function(BuildContext, String)? valueCheck;
 
   TextInputDialog(
@@ -21,6 +23,7 @@ class TextInputDialog extends StatefulWidget {
     this.hintText,
     this.value,
     this.valueCheck,
+    this.des,
   });
 
   @override
@@ -31,6 +34,7 @@ class TextInputDialog extends StatefulWidget {
   static Future<String?> show(BuildContext context, String title,
       {String? value,
       String? hintText,
+      String? des,
       bool Function(BuildContext, String)? valueCheck}) async {
     return await showDialog<String>(
         context: context,
@@ -41,6 +45,7 @@ class TextInputDialog extends StatefulWidget {
             hintText: hintText,
             value: value,
             valueCheck: valueCheck,
+            des: des,
           );
         });
   }
@@ -55,6 +60,7 @@ class _TextInputDialog extends State<TextInputDialog> {
       hintText: widget.hintText,
       value: widget.value,
       valueCheck: widget.valueCheck,
+      des: widget.des,
     );
 
     return Scaffold(

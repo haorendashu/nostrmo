@@ -179,6 +179,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("输入跟随集名称"),
         "Input_parse_error": MessageLookupByLibrary.simpleMessage("输入解析失败"),
         "Input_relay_address": MessageLookupByLibrary.simpleMessage("请输入中继地址。"),
+        "Input_too_long": MessageLookupByLibrary.simpleMessage("输入太长"),
         "Join_Group": MessageLookupByLibrary.simpleMessage("假如群组"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
@@ -226,7 +227,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Nostromo_developers_will_never_require_a_key_from_you":
             MessageLookupByLibrary.simpleMessage("Nostrmo开发人员永远不会向你索要密钥。"),
         "Note": MessageLookupByLibrary.simpleMessage("动态"),
+        "Note_Client_Tag": MessageLookupByLibrary.simpleMessage("推文客户端标签"),
+        "Note_Client_Tag_Des": MessageLookupByLibrary.simpleMessage(
+            "使用 client 标签添加到你的动态中，您看不到，但有人可以"),
         "Note_Id": MessageLookupByLibrary.simpleMessage("动态 Id"),
+        "Note_Tail": MessageLookupByLibrary.simpleMessage("动态尾巴"),
+        "Note_Tail_Des": MessageLookupByLibrary.simpleMessage("当您发送笔记时它将自动添加。"),
         "Note_loading": MessageLookupByLibrary.simpleMessage("动态加载中"),
         "Notes": MessageLookupByLibrary.simpleMessage("动态"),
         "Notice": MessageLookupByLibrary.simpleMessage("提示"),

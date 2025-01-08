@@ -323,5 +323,10 @@
     "New_message_receive": "收到新消息",
     "Mentioned_note_notice": "提及推文通知",
     "Follow_note_notice": "关注推文通知",
-    "Message_notice": "消息通知"
+    "Message_notice": "消息通知",
+    "Note_Client_Tag": "推文客户端标签",
+    "Note_Client_Tag_Des": "使用 client 标签添加到你的动态中，您看不到，但有人可以",
+    "Note_Tail": "动态尾巴",
+    "Note_Tail_Des": "当您发送笔记时它将自动添加。",
+    "Input_too_long": "输入太长"
 }

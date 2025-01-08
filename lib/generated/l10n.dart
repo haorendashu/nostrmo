@@ -3439,6 +3439,56 @@ class S {
       args: [],
     );
   }
+
+  /// `Note Client Tag`
+  String get Note_Client_Tag {
+    return Intl.message(
+      'Note Client Tag',
+      name: 'Note_Client_Tag',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which added with client tag in your notes, you can not see it but someone can`
+  String get Note_Client_Tag_Des {
+    return Intl.message(
+      'Which added with client tag in your notes, you can not see it but someone can',
+      name: 'Note_Client_Tag_Des',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note Tail`
+  String get Note_Tail {
+    return Intl.message(
+      'Note Tail',
+      name: 'Note_Tail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Which will auto added when you sending notes.`
+  String get Note_Tail_Des {
+    return Intl.message(
+      'Which will auto added when you sending notes.',
+      name: 'Note_Tail_Des',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input too long`
+  String get Input_too_long {
+    return Intl.message(
+      'Input too long',
+      name: 'Input_too_long',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

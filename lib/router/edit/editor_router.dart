@@ -205,6 +205,8 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     updateUI();
   }
 
+  bool firstTap = true;
+
   @override
   Widget doBuild(BuildContext context) {
     if (notifyItems == null) {
@@ -346,27 +348,38 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     }
 
     Widget quillWidget = QuillEditor(
+      controller: editorController,
       configurations: QuillEditorConfigurations(
-        placeholder: s.What_s_happening,
-        embedBuilders: [
-          MentionUserEmbedBuilder(),
-          MentionEventEmbedBuilder(),
-          PicEmbedBuilder(),
-          VideoEmbedBuilder(),
-          LnbcEmbedBuilder(),
-          TagEmbedBuilder(),
-          CustomEmojiEmbedBuilder(),
-        ],
-        scrollable: true,
-        autoFocus: false,
-        expands: false,
-        // padding: EdgeInsets.zero,
-        padding: EdgeInsets.only(
-          left: Base.BASE_PADDING,
-          right: Base.BASE_PADDING,
-        ),
-        controller: editorController,
-      ),
+          placeholder: s.What_s_happening,
+          embedBuilders: [
+            MentionUserEmbedBuilder(),
+            MentionEventEmbedBuilder(),
+            PicEmbedBuilder(),
+            VideoEmbedBuilder(),
+            LnbcEmbedBuilder(),
+            TagEmbedBuilder(),
+            CustomEmojiEmbedBuilder(),
+          ],
+          scrollable: true,
+          autoFocus: false,
+          expands: false,
+          // padding: EdgeInsets.zero,
+          padding: const EdgeInsets.only(
+            left: Base.BASE_PADDING,
+            right: Base.BASE_PADDING,
+          ),
+          onTapUp: (details, offset) {
+            if (firstTap && StringUtil.isNotBlank(settingProvider.noteTail)) {
+              final index = editorController.selection.baseOffset;
+              final length = editorController.selection.extentOffset - index;
+
+              editorController.replaceText(
+                  index, length, settingProvider.noteTail, null);
+            }
+
+            firstTap = false;
+            return true;
+          }),
       scrollController: ScrollController(),
       focusNode: focusNode,
     );

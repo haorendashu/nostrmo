@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
@@ -11,12 +12,15 @@ class TextInputDialogInnerComponent extends StatefulWidget {
 
   String? value;
 
+  String? des;
+
   bool Function(BuildContext, String)? valueCheck;
 
   TextInputDialogInnerComponent(
     this.title, {
     this.hintText,
     this.value,
+    this.des,
     this.valueCheck,
   });
 
@@ -42,11 +46,11 @@ class _TextInputDialogInnerComponent
     Color cardColor = themeData.cardColor;
     var mainColor = themeData.primaryColor;
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
+    var desFontSize = themeData.textTheme.bodySmall!.fontSize;
 
     List<Widget> list = [];
 
     list.add(Container(
-      margin: EdgeInsets.only(bottom: Base.BASE_PADDING),
       child: Text(
         widget.title,
         style: TextStyle(
@@ -56,7 +60,19 @@ class _TextInputDialogInnerComponent
       ),
     ));
 
+    if (StringUtil.isNotBlank(widget.des)) {
+      list.add(Container(
+        child: Text(
+          widget.des!,
+          style: TextStyle(
+            fontSize: desFontSize,
+          ),
+        ),
+      ));
+    }
+
     list.add(Container(
+      margin: EdgeInsets.only(top: Base.BASE_PADDING),
       child: TextField(
         controller: controller,
         minLines: 4,

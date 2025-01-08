@@ -329,6 +329,16 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: "${settingProvider.maxSubEventLevel ?? ""}",
       onTap: inputMaxSubNotesNumber,
     ));
+    list.add(SettingGroupItemComponent(
+      name: s.Note_Client_Tag,
+      value: limitText(settingProvider.noteClientTag ?? "", 20),
+      onTap: inputNoteClientTag,
+    ));
+    list.add(SettingGroupItemComponent(
+      name: s.Note_Tail,
+      value: limitText(settingProvider.noteTail ?? "", 20),
+      onTap: inputNoteTail,
+    ));
 
     list.add(
         SettingGroupTitleComponent(iconData: Icons.cloud, title: s.Network));
@@ -1343,5 +1353,42 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     if (resultEnumObj != null) {
       settingProvider.messageNotice = resultEnumObj.value;
     }
+  }
+
+  inputNoteClientTag() async {
+    var text = await TextInputDialog.show(context, s.Note_Client_Tag,
+        value: settingProvider.noteClientTag ?? "",
+        des: s.Note_Client_Tag_Des, valueCheck: (context, text) {
+      if (StringUtil.isNotBlank(text) && text.length > 20) {
+        BotToast.showText(text: s.Input_too_long);
+        return false;
+      }
+
+      return true;
+    });
+    settingProvider.noteClientTag = text;
+  }
+
+  inputNoteTail() async {
+    var text = await TextInputDialog.show(context, s.Note_Tail,
+        value: settingProvider.noteTail ?? "",
+        des: s.Note_Tail_Des, valueCheck: (context, text) {
+      if (StringUtil.isNotBlank(text) && text.length > 200) {
+        BotToast.showText(text: s.Input_too_long);
+        return false;
+      }
+
+      return true;
+    });
+    settingProvider.noteTail = text;
+  }
+
+  String limitText(String text, int length) {
+    text = text.replaceAll("\n", " ");
+    if (text.length > length) {
+      return "${text.substring(0, 18)} ...";
+    }
+
+    return text;
   }
 }
