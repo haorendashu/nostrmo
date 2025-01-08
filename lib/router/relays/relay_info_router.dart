@@ -92,9 +92,28 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
       child: Text(relayInfo.description),
     ));
 
+    Widget urlWidget = Container(
+      margin: EdgeInsets.only(right: Base.BASE_PADDING),
+      child: SelectableText(relay.url),
+    );
+    if (relay.url != "Local Relay") {
+      urlWidget = Row(
+        children: [
+          urlWidget,
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              webViewProvider.open(
+                  "https://jumble.social/?r=${Uri.encodeComponent(relay.url)}");
+            },
+            child: Icon(Icons.arrow_circle_right_outlined),
+          ),
+        ],
+      );
+    }
     list.add(RelayInfoItemComponent(
       title: s.Url,
-      child: SelectableText(relay.url),
+      child: urlWidget,
     ));
 
     list.add(RelayInfoItemComponent(
