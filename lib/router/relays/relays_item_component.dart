@@ -125,11 +125,22 @@ class _RelaysItemComponent extends State<RelaysItemComponent> {
     }
 
     Widget main = GestureDetector(
-      onTap: () {
+      onTap: () async {
         var relay = nostr!.getRelay(widget.addr);
         relay ??= nostr!.getTempRelay(widget.addr);
-        if (relay != null && relay.info != null) {
-          RouterUtil.router(context, RouterPath.RELAY_INFO, relay);
+        if (relay != null) {
+          if (relay.info == null) {
+            var cancelFunc = BotToast.showLoading();
+            try {
+              await relay.getRelayInfo(widget.addr);
+            } finally {
+              cancelFunc.call();
+            }
+          }
+
+          if (relay.info != null) {
+            RouterUtil.router(context, RouterPath.RELAY_INFO, relay);
+          }
         }
       },
       child: Container(
