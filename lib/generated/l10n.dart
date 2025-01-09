@@ -3470,10 +3470,10 @@ class S {
     );
   }
 
-  /// `Which will auto added when you sending notes.`
+  /// `Which will auto added when you are sending notes.`
   String get Note_Tail_Des {
     return Intl.message(
-      'Which will auto added when you sending notes.',
+      'Which will auto added when you are sending notes.',
       name: 'Note_Tail_Des',
       desc: '',
       args: [],

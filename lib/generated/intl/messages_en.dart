@@ -297,7 +297,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Note_Id": MessageLookupByLibrary.simpleMessage("Note Id"),
         "Note_Tail": MessageLookupByLibrary.simpleMessage("Note Tail"),
         "Note_Tail_Des": MessageLookupByLibrary.simpleMessage(
-            "Which will auto added when you sending notes."),
+            "Which will auto added when you are sending notes."),
         "Note_loading": MessageLookupByLibrary.simpleMessage("Note loading..."),
         "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
         "Notice": MessageLookupByLibrary.simpleMessage("Notice"),
