@@ -374,15 +374,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
             right: Base.BASE_PADDING,
           ),
           onTapUp: (details, offset) {
-            if (firstTap && StringUtil.isNotBlank(settingProvider.noteTail)) {
-              final index = editorController.selection.baseOffset;
-              final length = editorController.selection.extentOffset - index;
-
-              editorController.replaceText(
-                  index, length, settingProvider.noteTail, null);
-            }
-
-            firstTap = false;
+            checkAndInsertNoteTail();
             return true;
           }),
       scrollController: ScrollController(),
@@ -414,6 +406,8 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
         onTap: () {
           // focus to eidtor input widget
           focusNode.requestFocus();
+
+          checkAndInsertNoteTail();
         },
         child: Container(
           constraints: BoxConstraints(
@@ -602,5 +596,16 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   @override
   bool isDM() {
     return false;
+  }
+
+  void checkAndInsertNoteTail() {
+    if (firstTap && StringUtil.isNotBlank(settingProvider.noteTail)) {
+      final index = editorController.selection.baseOffset;
+      final length = editorController.selection.extentOffset - index;
+
+      editorController.replaceText(
+          index, length, settingProvider.noteTail, null);
+    }
+    firstTap = false;
   }
 }
