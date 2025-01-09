@@ -81,10 +81,11 @@ class EditorRouter extends StatefulWidget {
       relayAddr = event.sources[0];
     }
     String directMarked = "reply";
-    if (StringUtil.isBlank(eventRelation!.rootId)) {
+    if (StringUtil.isBlank(eventRelation.rootId)) {
       directMarked = "root";
     }
-    tagsAddedWhenSend.add(["e", event.id, relayAddr, directMarked]);
+    tagsAddedWhenSend
+        .add(["e", event.id, relayAddr, directMarked, event.pubkey]);
 
     List<dynamic> tagPs = [];
     tagPs.add(["p", event.pubkey]);
@@ -104,7 +105,11 @@ class EditorRouter extends StatefulWidget {
           relayAddr = rootEvent.sources[0];
         }
       }
-      tags.add(["e", eventRelation.rootId, relayAddr, "root"]);
+      var tag = ["e", eventRelation.rootId, relayAddr, "root"];
+      if (eventRelation.rootPubkey != null) {
+        tag.add(eventRelation.pubkey);
+      }
+      tags.add(tag);
     }
 
     GroupIdentifier? groupIdentifier;
