@@ -17,6 +17,7 @@ import '../../consts/base_consts.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
 
+@Deprecated("Use GroupNoteListRouter instead")
 class GroupDetailNoteListComponent extends StatefulWidget {
   final GroupIdentifier groupIdentifier;
 

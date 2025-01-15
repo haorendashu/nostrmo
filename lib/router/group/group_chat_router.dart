@@ -1,16 +1,19 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_more_list/loading_more_list.dart';
-import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
-import 'package:nostrmo/router/group/group_detail_provider.dart';
-import 'package:nostrmo/util/load_more_event.dart';
+import 'package:nostr_sdk/nip29/group_metadata.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/provider/group_details_provider.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 
+import '../../component/appbar_back_btn_component.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
 import '../../component/editor/lnbc_embed_builder.dart';
@@ -19,41 +22,36 @@ import '../../component/editor/mention_user_embed_builder.dart';
 import '../../component/editor/pic_embed_builder.dart';
 import '../../component/editor/tag_embed_builder.dart';
 import '../../component/editor/video_embed_builder.dart';
-import '../../component/events_loading_more_repo.dart';
-import '../../component/keep_alive_cust_state.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/group_provider.dart';
+import '../../util/load_more_event.dart';
 import '../dm/dm_detail_item_component.dart';
 
-@Deprecated("Use GroupNoteListRouter instead")
-class GroupDetailChatComponent extends StatefulWidget {
-  GroupIdentifier groupIdentifier;
-
-  GroupDetailChatComponent(this.groupIdentifier);
-
+class GroupChatRouter extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _GroupDetailChatComponent();
+    return _GroupChatRouter();
   }
 }
 
-class _GroupDetailChatComponent
-    extends KeepAliveCustState<GroupDetailChatComponent> with EditorMixin {
-  GroupDetailProvider? groupDetailProvider;
+class _GroupChatRouter extends CustState<GroupChatRouter>
+    with EditorMixin, LoadMoreEvent {
+  ScrollController _controller = ScrollController();
 
-  ClampingScrollPhysics scrollPhysics = ClampingScrollPhysics();
+  GroupIdentifier? groupIdentifier;
 
-  EventsLoadingMoreRepo eventsLoadingMoreRepo = EventsLoadingMoreRepo();
+  EventMemBox? eventBox;
 
   @override
   void initState() {
     super.initState();
-    handleFocusInit();
-
-    eventsLoadingMoreRepo.getEventBox = getEventBox;
-    eventsLoadingMoreRepo.doQuery = doQuery;
+    bindLoadMoreScroll(_controller);
   }
+
+  @override
+  Future<void> onReady(BuildContext context) async {}
 
   @override
   Widget doBuild(BuildContext context) {
@@ -62,29 +60,70 @@ class _GroupDetailChatComponent
     var cardColor = themeData.cardColor;
     var s = S.of(context);
 
-    groupDetailProvider = Provider.of<GroupDetailProvider>(context);
+    var groupIdentifierItf = RouterUtil.routerArgs(context);
+    if (groupIdentifierItf == null && groupIdentifierItf is! GroupIdentifier) {
+      return Container();
+    }
+    groupIdentifier = groupIdentifierItf as GroupIdentifier;
+
+    var nameComponnet = Selector<GroupProvider, GroupMetadata?>(
+      builder: (BuildContext context, GroupMetadata? value, Widget? child) {
+        String text = groupIdentifier!.groupId;
+        if (value != null && StringUtil.isNotBlank(value.name)) {
+          text = value.name!;
+        }
+
+        return Text(
+          text,
+          style: TextStyle(
+            fontSize: themeData.textTheme.bodyLarge!.fontSize,
+            fontWeight: FontWeight.bold,
+          ),
+        );
+      },
+      selector: (context, _provider) {
+        return _provider.getMetadata(groupIdentifier!);
+      },
+    );
 
     var localPubkey = nostr!.publicKey;
 
     List<Widget> list = [];
 
-    Widget listWidget = LoadingMoreList<Event>(ListConfig<Event>(
-      itemBuilder: (BuildContext context, Event event, int index) {
-        return DMDetailItemComponent(
-          sessionPubkey: event.pubkey, // this pubkey maybe should setto null
-          event: event,
-          isLocal: localPubkey == event.pubkey,
-        );
-      },
-      sourceList: eventsLoadingMoreRepo,
-      dragStartBehavior: DragStartBehavior.down,
-      reverse: true,
-    ));
+    var listWidget = Selector<GroupDetailsProvider, EventMemBox?>(
+        builder: (context, _eventBox, child) {
+      if (_eventBox == null) {
+        return Container();
+      }
+      eventBox = _eventBox;
+      preBuild();
+
+      return ListView.builder(
+        itemBuilder: (context, index) {
+          var event = eventBox!.get(index);
+          if (event == null) {
+            return null;
+          }
+
+          return DMDetailItemComponent(
+            sessionPubkey: event.pubkey,
+            event: event,
+            isLocal: localPubkey == event.pubkey,
+          );
+        },
+        reverse: true,
+        itemCount: eventBox!.length(),
+        dragStartBehavior: DragStartBehavior.down,
+        controller: _controller,
+      );
+    }, selector: (context, provider) {
+      return provider.getChatsEventBox(groupIdentifier!);
+    });
+
     list.add(Expanded(
       child: Container(
-        margin: const EdgeInsets.only(
+        margin: EdgeInsets.only(
           bottom: Base.BASE_PADDING,
-          top: Base.BASE_PADDING,
         ),
         child: listWidget,
       ),
@@ -154,10 +193,35 @@ class _GroupDetailChatComponent
       list.add(buildEmojiListsWidget());
     }
 
-    return Container(
+    Widget main = Container(
       width: double.maxFinite,
       height: double.maxFinite,
       child: Column(children: list),
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: AppbarBackBtnComponent(),
+        title: nameComponnet,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              RouterUtil.router(
+                  context, RouterPath.GROUP_NOTE_LIST, groupIdentifier);
+            },
+            behavior: HitTestBehavior.translucent,
+            child: Container(
+              margin: const EdgeInsets.only(right: Base.BASE_PADDING),
+              child: Image.asset(
+                "assets/imgs/nostr.png",
+                width: 23,
+                height: 23,
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: main,
     );
   }
 
@@ -178,11 +242,23 @@ class _GroupDetailChatComponent
   }
 
   @override
-  Future<void> onReady(BuildContext context) async {}
+  GroupIdentifier? getGroupIdentifier() {
+    return groupIdentifier;
+  }
+
+  @override
+  int? getGroupEventKind() {
+    return EventKind.GROUP_CHAT_MESSAGE;
+  }
 
   @override
   BuildContext getContext() {
     return context;
+  }
+
+  @override
+  String? getPubkey() {
+    return null;
   }
 
   @override
@@ -192,8 +268,12 @@ class _GroupDetailChatComponent
 
   @override
   List getTagsAddedWhenSend() {
+    if (eventBox == null) {
+      return [];
+    }
+
     List<dynamic> tags = [];
-    var previous = groupDetailProvider!.notesPrevious();
+    var previous = GroupDetailsProvider.getTimelinePrevious(eventBox!);
     if (previous.isNotEmpty) {
       var previousTag = ["previous", ...previous];
       tags.add(previousTag);
@@ -202,35 +282,27 @@ class _GroupDetailChatComponent
   }
 
   @override
-  void updateUI() {
-    setState(() {});
-  }
-
-  @override
   bool isDM() {
     return false;
   }
 
   @override
-  String? getPubkey() {
-    return null;
+  void updateUI() {
+    setState(() {});
   }
 
-  void doQuery() {
-    groupDetailProvider!.doQueryChats(eventsLoadingMoreRepo.until);
+  @override
+  void doQuery() async {
+    preQuery();
+
+    if (eventBox != null && groupIdentifier != null && until != null) {
+      groupDetailsProvider.queryGroupEvents(
+          groupIdentifier!, until!, GroupDetailsProvider.supportChatKinds);
+    }
   }
 
+  @override
   EventMemBox getEventBox() {
-    return groupDetailProvider!.chatsBox;
-  }
-
-  @override
-  GroupIdentifier? getGroupIdentifier() {
-    return widget.groupIdentifier;
-  }
-
-  @override
-  int? getGroupEventKind() {
-    return EventKind.GROUP_CHAT_MESSAGE;
+    return eventBox!;
   }
 }

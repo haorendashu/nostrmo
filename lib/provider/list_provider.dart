@@ -94,6 +94,8 @@ class ListProvider extends ChangeNotifier {
           }
         }
       }
+
+      groupDetailsProvider.beginPull(_groupIdentifiers);
     }
     notifyListeners();
   }
@@ -362,6 +364,8 @@ class ListProvider extends ChangeNotifier {
 
     _groupIdentifiers.add(gi);
     _updateGroups();
+
+    groupDetailsProvider.beginPull([gi]);
   }
 
   void removeGroup(GroupIdentifier gi) {

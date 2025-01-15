@@ -29,10 +29,12 @@ import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/nwc_provider.dart';
+import 'package:nostrmo/router/group/group_chat_router.dart';
 import 'package:nostrmo/router/group/group_detail_router.dart';
 import 'package:nostrmo/router/group/group_edit_router.dart';
 import 'package:nostrmo/router/group/group_list_rotuer.dart';
 import 'package:nostrmo/router/group/group_members_router.dart';
+import 'package:nostrmo/router/group/group_note_list_router.dart';
 import 'package:nostrmo/router/login/login_router.dart';
 import 'package:nostrmo/router/thread_trace_router/thread_trace_router.dart';
 import 'package:nostrmo/router/follow_set/follow_set_feed_router.dart';
@@ -69,6 +71,7 @@ import 'provider/dm_provider.dart';
 import 'provider/event_reactions_provider.dart';
 import 'provider/filter_provider.dart';
 import 'provider/follow_event_provider.dart';
+import 'provider/group_details_provider.dart';
 import 'provider/group_provider.dart';
 import 'provider/index_provider.dart';
 import 'provider/link_preview_data_provider.dart';
@@ -184,6 +187,8 @@ late UrlSpeedProvider urlSpeedProvider;
 late NWCProvider nwcProvider;
 
 late GroupProvider groupProvider;
+
+late GroupDetailsProvider groupDetailsProvider;
 
 MusicInfoCache musicInfoCache = MusicInfoCache();
 
@@ -302,6 +307,7 @@ Future<void> main() async {
   nwcProvider = NWCProvider()..init();
   groupProvider = GroupProvider();
   wotProvider = WotProvider();
+  groupDetailsProvider = GroupDetailsProvider();
 
   defaultTrieTextMatcher = TrieTextMatcherBuilder.build();
 
@@ -412,7 +418,8 @@ class _MyApp extends State<MyApp> {
       RouterPath.GROUP_LIST: (context) => GroupListRouter(),
       RouterPath.GROUP_DETAIL: (context) => GroupDetailRouter(),
       RouterPath.GROUP_EDIT: (context) => GroupEditRouter(),
-      RouterPath.GROUP_MEMBERS: (context) => GroupMembersRouter(),
+      RouterPath.GROUP_CHAT: (context) => GroupChatRouter(),
+      RouterPath.GROUP_NOTE_LIST: (context) => GroupNoteListRouter(),
     };
 
     return MultiProvider(
@@ -500,6 +507,9 @@ class _MyApp extends State<MyApp> {
         ),
         ListenableProvider<GroupProvider>.value(
           value: groupProvider,
+        ),
+        ListenableProvider<GroupDetailsProvider>.value(
+          value: groupDetailsProvider,
         ),
       ],
       child: HomeComponent(

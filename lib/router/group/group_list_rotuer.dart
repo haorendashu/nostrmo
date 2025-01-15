@@ -39,7 +39,7 @@ class _GroupListRouter extends State<GroupListRouter> {
           return GestureDetector(
             onTap: () {
               RouterUtil.router(
-                  context, RouterPath.GROUP_DETAIL, groupIdentifier);
+                  context, RouterPath.GROUP_CHAT, groupIdentifier);
             },
             child: Container(
               margin: const EdgeInsets.only(top: Base.BASE_PADDING_HALF),

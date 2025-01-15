@@ -11,6 +11,7 @@ import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 
 import '../../main.dart';
 
+@Deprecated("")
 class GroupDetailProvider extends ChangeNotifier
     with PenddingEventsLaterFunction {
   static const int PREVIOUS_LENGTH = 5;

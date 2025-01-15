@@ -20,6 +20,7 @@ import '../../generated/l10n.dart';
 import 'group_detail_chat_component.dart';
 import 'group_detail_note_list_component.dart';
 
+@Deprecated("")
 class GroupDetailRouter extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
