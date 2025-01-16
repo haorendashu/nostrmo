@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
@@ -8,6 +9,8 @@ import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/event_list_component.dart';
+import '../../component/event_delete_callback.dart';
+import '../../component/group_identifier_inherited_widget.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
 import '../../generated/l10n.dart';
@@ -52,6 +55,9 @@ class _GroupNoteListRouter extends State<GroupNoteListRouter>
       return Container();
     }
     groupIdentifier = groupIdentifierItf as GroupIdentifier;
+
+    var _groupProvider = Provider.of<GroupProvider>(context);
+    var groupAdmins = _groupProvider.getAdmins(groupIdentifier!);
 
     var _settingProvider = Provider.of<SettingProvider>(context);
 
@@ -135,7 +141,18 @@ class _GroupNoteListRouter extends State<GroupNoteListRouter>
           )
         ],
       ),
-      body: main,
+      body: EventDeleteCallback(
+        onDeleteCallback: onEventDelete,
+        child: DefaultTabController(
+          length: 2,
+          child: GroupIdentifierInheritedWidget(
+            key: Key("GD_${groupIdentifier.toString()}"),
+            groupIdentifier: groupIdentifier!,
+            groupAdmins: groupAdmins,
+            child: main,
+          ),
+        ),
+      ),
     );
   }
 
@@ -169,5 +186,11 @@ class _GroupNoteListRouter extends State<GroupNoteListRouter>
   @override
   EventMemBox getEventBox() {
     return eventBox!;
+  }
+
+  void onEventDelete(Event e) {
+    if (eventBox != null) {
+      eventBox!.delete(e.id);
+    }
   }
 }
