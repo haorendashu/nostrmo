@@ -211,7 +211,7 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
             },
             behavior: HitTestBehavior.translucent,
             child: Container(
-              margin: const EdgeInsets.only(right: Base.BASE_PADDING),
+              margin: const EdgeInsets.only(right: 20),
               child: Image.asset(
                 "assets/imgs/nostr.png",
                 width: 23,
