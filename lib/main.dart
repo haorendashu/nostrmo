@@ -416,8 +416,8 @@ class _MyApp extends State<MyApp> {
       RouterPath.FOLLOW_SET_FEED: (context) => FollowSetFeedRouter(),
       RouterPath.NWC_SETTING: (context) => NwcSettingRouter(),
       RouterPath.GROUP_LIST: (context) => GroupListRouter(),
-      RouterPath.GROUP_DETAIL: (context) => GroupDetailRouter(),
       RouterPath.GROUP_EDIT: (context) => GroupEditRouter(),
+      RouterPath.GROUP_MEMBERS: (context) => GroupMembersRouter(),
       RouterPath.GROUP_CHAT: (context) => GroupChatRouter(),
       RouterPath.GROUP_NOTE_LIST: (context) => GroupNoteListRouter(),
     };

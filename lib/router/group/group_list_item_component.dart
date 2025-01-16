@@ -52,6 +52,7 @@ class _GroupListItemComponent extends State<GroupListItemComponent> {
 
       return GestureDetector(
         onTap: editGroupMembers,
+        behavior: HitTestBehavior.translucent,
         child: Container(
           margin: const EdgeInsets.only(right: Base.BASE_PADDING),
           child: Row(
