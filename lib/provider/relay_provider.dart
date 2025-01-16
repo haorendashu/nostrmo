@@ -434,8 +434,11 @@ class RelayProvider extends ChangeNotifier {
     }
 
     for (var addr in needRemoveList) {
-      _tempRelayStatusMap.remove(addr);
-      nostr!.removeTempRelay(addr);
+      if (!nostr!.tempRelayHasSubscription(addr)) {
+        // don't contain subscription, remote!
+        _tempRelayStatusMap.remove(addr);
+        nostr!.removeTempRelay(addr);
+      }
     }
   }
 }
