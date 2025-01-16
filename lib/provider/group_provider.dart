@@ -156,7 +156,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       limit: 1,
     );
     var jsonMap = filter.toJson();
-    jsonMap["d"] = [groupId];
+    jsonMap["#d"] = [groupId];
 
     return jsonMap;
   }
