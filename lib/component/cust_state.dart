@@ -7,6 +7,8 @@ abstract class CustState<T extends StatefulWidget> extends State<T> {
 
   bool readyComplete = false;
 
+  bool disposed = false;
+
   @override
   Widget build(BuildContext context) {
     Widget w = doBuild(context);
@@ -26,10 +28,11 @@ abstract class CustState<T extends StatefulWidget> extends State<T> {
 
   Future<void> onReady(BuildContext context);
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+    disposed = true;
+  }
 
   // @override
   // void initState() {

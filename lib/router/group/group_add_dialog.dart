@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
+import 'package:nostr_sdk/nip29/group_metadata.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/router/group/group_search_dialog.dart';
 
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
@@ -92,13 +94,26 @@ class _GroupAddDailog extends State<GroupAddDailog> {
     if (joinGroup) {
       list.add(Container(
         margin: EdgeInsets.only(top: Base.BASE_PADDING),
-        child: TextField(
-          controller: hostController,
-          autofocus: true,
-          decoration: InputDecoration(
-            hintText: "${s.Please_input} ${s.Relay}",
-            border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
-          ),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: hostController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: "${s.Please_input} ${s.Relay}",
+                  border: OutlineInputBorder(borderSide: BorderSide(width: 1)),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: Base.BASE_PADDING_HALF),
+              child: IconButton(
+                onPressed: searchGroup,
+                icon: const Icon(Icons.search),
+              ),
+            ),
+          ],
         ),
       ));
     } else {
@@ -249,11 +264,36 @@ class _GroupAddDailog extends State<GroupAddDailog> {
         return;
       }
 
-      await listProvider.addGroup(GroupIdentifier(host, groupId));
+      var groupIdentifier = GroupIdentifier(host, groupId);
+      await listProvider.addGroup(groupIdentifier);
+
+      groupDetailsProvider.beginPull([groupIdentifier]);
     } finally {
       cancelFunc.call();
     }
 
     RouterUtil.back(context);
+  }
+
+  Future<void> searchGroup() async {
+    var relayAddr = hostController.text;
+    if (StringUtil.isBlank(relayAddr)) {
+      BotToast.showText(text: "${s.Please_input} ${s.Relay}");
+      return;
+    }
+
+    Uri? uri;
+    try {
+      uri = Uri.parse(relayAddr);
+    } catch (e) {}
+    if (uri == null || (uri.scheme != "ws" && uri.scheme != "wss")) {
+      BotToast.showText(text: s.Input_parse_error);
+      return;
+    }
+
+    var metadata = await GroupSearchDialog.show(context, relayAddr);
+    if (metadata != null && metadata is GroupMetadata) {
+      groupIdController.text = (metadata as GroupMetadata).groupId;
+    }
   }
 }

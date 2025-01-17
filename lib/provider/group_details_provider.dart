@@ -99,8 +99,8 @@ class GroupDetailsProvider extends ChangeNotifier {
   }
 
   void relayUnsubscribe(RelayGroupDetail relayGroupDetail) {
-    relayGroupDetail.pullId = null;
     nostr!.unsubscribe(relayGroupDetail.pullId!);
+    relayGroupDetail.pullId = null;
   }
 
   void queryGroupEvents(
