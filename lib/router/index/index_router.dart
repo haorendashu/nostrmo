@@ -167,11 +167,13 @@ class _IndexRouter extends CustState<IndexRouter>
 
   @override
   Future<void> onTrayIconMouseDown() async {
-    if (await windowManager.isVisible()) {
-      windowManager.hide();
-    } else {
-      await windowManager.show();
-      await windowManager.focus();
+    if (!Platform.isMacOS) {
+      if (await windowManager.isVisible()) {
+        windowManager.hide();
+      } else {
+        await windowManager.show();
+        await windowManager.focus();
+      }
     }
   }
 
