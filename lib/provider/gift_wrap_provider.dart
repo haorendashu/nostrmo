@@ -44,7 +44,7 @@ class GiftWrapProvider extends ChangeNotifier {
         }
       } else {
         // query news
-        since = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+        since = DateTime.now().millisecondsSinceEpoch ~/ 1000 - TIME_FLAG;
       }
     }
 
