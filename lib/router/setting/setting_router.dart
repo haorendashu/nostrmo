@@ -1380,7 +1380,10 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
       return true;
     });
-    settingProvider.noteTail = text;
+
+    if (text != null) {
+      settingProvider.noteTail = text;
+    }
   }
 
   String limitText(String text, int length) {
