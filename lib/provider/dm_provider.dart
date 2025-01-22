@@ -102,10 +102,6 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
         [EventKind.DIRECT_MESSAGE, EventKind.PRIVATE_DIRECT_MESSAGE],
         0,
         10000000);
-    if (events.isNotEmpty) {
-      // find the newest event, subscribe behind the new newest event
-      _initSince = events.first.createdAt;
-    }
 
     Map<String, List<Event>> eventListMap = {};
     for (var event in events) {
@@ -119,6 +115,11 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
           eventListMap[pubkey] = list;
         }
         list.add(event);
+
+        if (event.kind == EventKind.DIRECT_MESSAGE &&
+            event.createdAt > _initSince) {
+          _initSince = event.createdAt;
+        }
       }
     }
 
@@ -226,6 +227,8 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       targetNostr.addInitQuery([filter0.toJson(), filter1.toJson()], onEvent);
     } else {
       // targetNostr.pool.subscribe([filter0.toJson(), filter1.toJson()], onEvent);
+      // print(filter0.toJson());
+      // print(filter1.toJson());
       targetNostr.query([filter0.toJson(), filter1.toJson()], onEvent);
     }
   }
@@ -249,6 +252,11 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
       if (addResult) {
         if (event.pubkey != nostr!.publicKey) {
           newEvents.add(event);
+        }
+
+        if (event.kind == EventKind.DIRECT_MESSAGE &&
+            event.createdAt > _initSince) {
+          _initSince = event.createdAt;
         }
 
         updated = true;
