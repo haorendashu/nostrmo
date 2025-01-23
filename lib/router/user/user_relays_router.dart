@@ -2,6 +2,7 @@ import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/relay/relay_metadata.dart';
 import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/utils/relay_addr_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
@@ -113,10 +114,10 @@ class RelayMetadataComponent extends StatelessWidget {
       return Container();
     }
 
+    relayAddr = RelayAddrUtil.handle(relayAddr!);
+
     List<Widget> rightList = [];
-    if (relayAddr != null) {
-      rightList.add(RelaySpeedComponent(relayAddr));
-    }
+    rightList.add(RelaySpeedComponent(relayAddr));
     Widget rightBtn = Row(
       children: rightList,
     );
