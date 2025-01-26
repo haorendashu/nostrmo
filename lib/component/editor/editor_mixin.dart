@@ -728,14 +728,14 @@ mixin EditorMixin {
             createdAt: getCreatedAt());
         // this is the event send to sender, should return after send and set into giftWrapProvider and dmProvider
         event = await GiftWrapUtil.getGiftWrapEvent(
-            nostr!, rumorEvent, nostr!, nostr!.publicKey);
+            nostr!, rumorEvent, nostr!.publicKey);
 
         // private dm need to send message to all receiver. (sender and other receivers)
         for (var tags in allTags) {
           if (tags is List && tags.length > 1) {
             if (tags[0] == "p") {
               var extralEvent = await GiftWrapUtil.getGiftWrapEvent(
-                  nostr!, rumorEvent, nostr!, tags[1]);
+                  nostr!, rumorEvent, tags[1]);
               if (extralEvent != null) {
                 extralEvents.add(extralEvent);
               }
