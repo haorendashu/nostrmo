@@ -873,8 +873,8 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           .add(EnumObj(ImageServices.NOSTR_BUILD, ImageServices.NOSTR_BUILD));
       imageServcieList!.add(
           EnumObj(ImageServices.POMF2_LAIN_LA, ImageServices.POMF2_LAIN_LA));
-      imageServcieList!
-          .add(EnumObj(ImageServices.NOSTO_RE, ImageServices.NOSTO_RE));
+      // imageServcieList!
+      //     .add(EnumObj(ImageServices.NOSTO_RE, ImageServices.NOSTO_RE));
       imageServcieList!
           .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
       imageServcieList!
