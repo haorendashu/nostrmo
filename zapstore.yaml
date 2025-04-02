@@ -1,0 +1,15 @@
+nostrmo:
+  android:
+    identifier: com.github.haorendashu.nostrmo
+    name: Nostrmo
+    description: A flutter nostr client for Android, IOS, MacOS, Windows, Web and Linux.
+    repository: https://github.com/haorendashu/nostrmo
+    license: GPL-3.0
+    builder: npub19yeqjawls407xjnmgkk6yss7936pcd7qzd5srlj8wye6j8433vrsjazqwk
+    artifacts:
+      app-armeabi-v7a-release.apk:
+        platform: armeabi-v7a
+      app-arm64-v8a-release.apk:
+        platform: arm64-v8a
+      app-x86_64-release.apk:
+        platform: x86_64
