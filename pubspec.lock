@@ -213,10 +213,10 @@ packages:
     dependency: "direct main"
     description:
       name: crypto
-      sha256: ec30d999af904f33454ba22ed9a86162b35e52b44ac4807d1d93c288041d7d27
+      sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.5"
+    version: "3.0.6"
   cryptography:
     dependency: transitive
     description:
@@ -321,6 +321,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  dylib:
+    dependency: transitive
+    description:
+      name: dylib
+      sha256: bf609b3eb6492a3309b3d1dbe8f83a4031de5535dd7686be33487051cc760bb0
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3"
   dynamic_height_grid_view:
     dependency: "direct main"
     description:
@@ -413,10 +421,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "493f37e7df1804778ff3a53bd691d8692ddf69702cf4c1c1096a2e41b4779e21"
+      sha256: "289279317b4b16eb2bb7e271abccd4bf84ec9bdcbe999e278a94b804f5630418"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.4"
   file:
     dependency: transitive
     description:
@@ -710,6 +718,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.14.1"
+  flutter_libserialport:
+    dependency: transitive
+    description:
+      name: flutter_libserialport
+      sha256: d193b5ac819db6540d20cc8d20d9f5ec9e3396edb4d2c4a23c97863fa9132336
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   flutter_link_previewer:
     dependency: "direct main"
     description:
@@ -754,6 +770,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  flutter_nesigner_sdk:
+    dependency: "direct main"
+    description:
+      path: "packages/flutter_nesigner_sdk"
+      relative: true
+    source: path
+    version: "0.0.1"
   flutter_placeholder_textlines:
     dependency: "direct main"
     description:
@@ -1052,6 +1075,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  libserialport:
+    dependency: transitive
+    description:
+      name: libserialport
+      sha256: "392e1592def65282429832ec66fa25e9e163d3b37716b97691482e2406720727"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0+1"
+  libusb:
+    dependency: transitive
+    description:
+      path: "packages/libusb_ffi"
+      relative: true
+    source: path
+    version: "0.4.23-dev.1+1"
   linkify:
     dependency: transitive
     description:
@@ -2193,5 +2231,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.7.0-0 <4.0.0"
+  dart: ">=3.7.0 <4.0.0"
   flutter: ">=3.24.0"

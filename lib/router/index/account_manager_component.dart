@@ -9,6 +9,7 @@ import 'package:nostr_sdk/nip07/nip07_signer.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
 import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
+import 'package:nostr_sdk/signer/nesigner.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';
@@ -280,6 +281,17 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
         }
       }
       loginTag = "NIP-46";
+    } else if (Nesigner.isNesignerKey(widget.accountKey)) {
+      var aesKey = Nesigner.getAesKeyFromKey(widget.accountKey);
+      print("aesKey $aesKey");
+
+      var _pubkey = Nesigner.getPubkeyFromKey(widget.accountKey);
+      if (StringUtil.isNotBlank(_pubkey)) {
+        pubkey = _pubkey!;
+      } else {
+        pubkey = "unknow";
+      }
+      loginTag = "NESIGNER";
     } else {
       try {
         pubkey = getPublicKey(widget.accountKey);

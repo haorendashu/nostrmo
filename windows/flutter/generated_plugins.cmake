@@ -7,6 +7,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   file_saver
   file_selector_windows
   flutter_inappwebview_windows
+  flutter_libserialport
+  flutter_nesigner_sdk
   local_auth_windows
   local_notifier
   media_kit_libs_windows_video

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:nostr_sdk/android_plugin/android_plugin.dart';
 import 'package:nostr_sdk/client_utils/keys.dart';
@@ -11,11 +12,15 @@ import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
 import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
+import 'package:nostr_sdk/signer/nesigner.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/util/router_util.dart';
+import 'package:flutter_nesigner_sdk/flutter_nesigner_sdk.dart';
+import 'package:hex/hex.dart';
 
+import '../../component/nesigner_login_dialog.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -45,6 +50,8 @@ class _LoginRouter extends State<LoginRouter>
 
   bool existWebNostrSigner = false;
 
+  bool existNesigner = false;
+
   @override
   void initState() {
     super.initState();
@@ -64,6 +71,15 @@ class _LoginRouter extends State<LoginRouter>
           existWebNostrSigner = true;
         });
       }
+    }
+
+    if (!PlatformUtil.isIOS()) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        var exist = UsbTransport.existNesigner();
+        setState(() {
+          existNesigner = exist;
+        });
+      });
     }
   }
 
@@ -203,6 +219,31 @@ class _LoginRouter extends State<LoginRouter>
             alignment: Alignment.center,
             child: Text(
               s.Login_With_NIP07_Extension,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ));
+    }
+    if (existNesigner) {
+      mainList.add(Container(
+        child: Text(s.or),
+      ));
+
+      mainList.add(Container(
+        margin: const EdgeInsets.all(Base.BASE_PADDING * 2),
+        child: InkWell(
+          onTap: loginByNesigner,
+          child: Container(
+            height: 36,
+            color: mainColor,
+            alignment: Alignment.center,
+            child: Text(
+              "Login with Nesigner",
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -436,11 +477,66 @@ class _LoginRouter extends State<LoginRouter>
     indexProvider.setCurrentTap(1);
   }
 
+  Future<void> loginByNesigner() async {
+    if (checkTerms != true) {
+      tipAcceptTerm();
+      return;
+    }
+
+    var nesignerInputStr = await NesignerLoginDialog.show(context);
+    if (nesignerInputStr == null) {
+      return;
+    }
+
+    print(nesignerInputStr);
+
+    var strs = nesignerInputStr.split(":");
+    var aesKey = strs[0];
+
+    var nesigner = Nesigner(aesKey);
+    if (!(await nesigner.start())) {
+      BotToast.showText(text: "Connect to nesigner fail.");
+      return;
+    }
+
+    if (strs.length > 1) {
+      var privateKey = strs[1];
+      var espService = nesigner.getEspService();
+      if (espService != null) {
+        var aesKeyBin = HEX.decode(aesKey);
+        var updateResult = await espService.updateKey(
+            Uint8List.fromList(aesKeyBin), privateKey);
+        print("update result $updateResult");
+      }
+    }
+
+    var pubkey = await nesigner.getPublicKey();
+    if (StringUtil.isBlank(pubkey)) {
+      BotToast.showText(text: s.Login_fail);
+      return;
+    }
+
+    doPreLogin();
+
+    var key = "${Nesigner.URI_PRE}:$aesKey?pubkey=$pubkey";
+    settingProvider.addAndChangePrivateKey(key, updateUI: false);
+    nostr = await relayProvider.genNostr(nesigner);
+
+    if (backAfterLogin) {
+      RouterUtil.back(context);
+    }
+
+    settingProvider.notifyListeners();
+    indexProvider.setCurrentTap(1);
+  }
+
   void doPreLogin() {
     if (backAfterLogin) {
       AccountManagerComponentState.clearCurrentMemInfo();
-      nostr!.close();
-      nostr = null;
+      if (nostr != null) {
+        nostr!.close();
+        nostr = null;
+      }
     }
   }
 }

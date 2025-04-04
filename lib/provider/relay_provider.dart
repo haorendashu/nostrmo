@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
@@ -19,6 +20,7 @@ import 'package:nostr_sdk/relay/relay_status.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/relay_local/relay_local.dart';
 import 'package:nostr_sdk/signer/local_nostr_signer.dart';
+import 'package:nostr_sdk/signer/nesigner.dart';
 import 'package:nostr_sdk/signer/nostr_signer.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
@@ -157,6 +159,14 @@ class RelayProvider extends ChangeNotifier {
       }
 
       if (await nostrSigner.getPublicKey() == null) {
+        return null;
+      }
+    } else if (Nesigner.isNesignerKey(key)) {
+      var aesKey = Nesigner.getAesKeyFromKey(key);
+      print("aesKey $aesKey");
+      var pubkey = Nesigner.getPubkeyFromKey(key);
+      nostrSigner = Nesigner(aesKey, pubkey: pubkey);
+      if (!(await (nostrSigner as Nesigner).start())) {
         return null;
       }
     } else {

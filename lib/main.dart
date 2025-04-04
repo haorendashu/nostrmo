@@ -553,6 +553,10 @@ class _MyApp extends State<MyApp> {
   void dispose() {
     super.dispose();
     SystemTimer.stopTask();
+
+    if (nostr != null) {
+      nostr!.close();
+    }
   }
 
   ThemeData getLightTheme() {

@@ -12,6 +12,8 @@ import file_saver
 import file_selector_macos
 import flutter_image_compress_macos
 import flutter_inappwebview_macos
+import flutter_libserialport
+import flutter_nesigner_sdk
 import local_auth_darwin
 import local_notifier
 import media_kit_libs_macos_video
@@ -38,6 +40,8 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
   FlutterImageCompressMacosPlugin.register(with: registry.registrar(forPlugin: "FlutterImageCompressMacosPlugin"))
   InAppWebViewFlutterPlugin.register(with: registry.registrar(forPlugin: "InAppWebViewFlutterPlugin"))
+  FlutterLibserialportPlugin.register(with: registry.registrar(forPlugin: "FlutterLibserialportPlugin"))
+  FlutterNesignerSdkPlugin.register(with: registry.registrar(forPlugin: "FlutterNesignerSdkPlugin"))
   FLALocalAuthPlugin.register(with: registry.registrar(forPlugin: "FLALocalAuthPlugin"))
   LocalNotifierPlugin.register(with: registry.registrar(forPlugin: "LocalNotifierPlugin"))
   MediaKitLibsMacosVideoPlugin.register(with: registry.registrar(forPlugin: "MediaKitLibsMacosVideoPlugin"))

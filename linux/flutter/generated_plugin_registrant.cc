@@ -9,6 +9,8 @@
 #include <emoji_picker_flutter/emoji_picker_flutter_plugin.h>
 #include <file_saver/file_saver_plugin.h>
 #include <file_selector_linux/file_selector_plugin.h>
+#include <flutter_libserialport/flutter_libserialport_plugin.h>
+#include <flutter_nesigner_sdk/flutter_nesigner_sdk_plugin.h>
 #include <local_notifier/local_notifier_plugin.h>
 #include <media_kit_libs_linux/media_kit_libs_linux_plugin.h>
 #include <media_kit_video/media_kit_video_plugin.h>
@@ -27,6 +29,12 @@ void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) file_selector_linux_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "FileSelectorPlugin");
   file_selector_plugin_register_with_registrar(file_selector_linux_registrar);
+  g_autoptr(FlPluginRegistrar) flutter_libserialport_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "FlutterLibserialportPlugin");
+  flutter_libserialport_plugin_register_with_registrar(flutter_libserialport_registrar);
+  g_autoptr(FlPluginRegistrar) flutter_nesigner_sdk_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "FlutterNesignerSdkPlugin");
+  flutter_nesigner_sdk_plugin_register_with_registrar(flutter_nesigner_sdk_registrar);
   g_autoptr(FlPluginRegistrar) local_notifier_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "LocalNotifierPlugin");
   local_notifier_plugin_register_with_registrar(local_notifier_registrar);
