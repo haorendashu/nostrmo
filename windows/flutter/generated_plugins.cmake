@@ -13,6 +13,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   local_notifier
   media_kit_libs_windows_video
   media_kit_video
+  nesigner_adapter
   permission_handler_windows
   screen_brightness_windows
   screen_retriever_windows

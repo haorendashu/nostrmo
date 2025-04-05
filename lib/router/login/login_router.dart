@@ -12,7 +12,7 @@ import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
 import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
-import 'package:nostr_sdk/signer/nesigner.dart';
+import 'package:nesigner_adapter/nesigner_adapter.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/webview_router.dart';

@@ -11,6 +11,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   local_notifier
   media_kit_libs_linux
   media_kit_video
+  nesigner_adapter
   screen_retriever_linux
   tray_manager
   url_launcher_linux

@@ -20,7 +20,7 @@ import 'package:nostr_sdk/relay/relay_status.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/relay_local/relay_local.dart';
 import 'package:nostr_sdk/signer/local_nostr_signer.dart';
-import 'package:nostr_sdk/signer/nesigner.dart';
+import 'package:nesigner_adapter/nesigner_adapter.dart';
 import 'package:nostr_sdk/signer/nostr_signer.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';

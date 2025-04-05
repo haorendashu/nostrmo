@@ -9,7 +9,7 @@ import 'package:nostr_sdk/nip07/nip07_signer.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip46/nostr_remote_signer_info.dart';
 import 'package:nostr_sdk/nip55/android_nostr_signer.dart';
-import 'package:nostr_sdk/signer/nesigner.dart';
+import 'package:nesigner_adapter/nesigner_adapter.dart';
 import 'package:nostrmo/component/editor/text_input_dialog.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/point_component.dart';

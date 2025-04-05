@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_json_view/flutter_json_view.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
-import 'package:nostr_sdk/signer/nesigner.dart';
+import 'package:nesigner_adapter/nesigner_adapter.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
