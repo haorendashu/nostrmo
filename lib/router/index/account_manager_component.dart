@@ -157,7 +157,9 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
   Future<void> onLoginTap(int index) async {
     if (settingProvider.privateKeyIndex != index) {
       clearCurrentMemInfo();
-      nostr!.close();
+      if (nostr != null) {
+        nostr!.close();
+      }
       nostr = null;
 
       settingProvider.privateKeyIndex = index;
@@ -184,7 +186,9 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
 
     if (oldIndex == index) {
       clearCurrentMemInfo();
-      nostr!.close();
+      if (nostr != null) {
+        nostr!.close();
+      }
       nostr = null;
 
       // signOut complete
@@ -283,8 +287,6 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
       loginTag = "NIP-46";
     } else if (Nesigner.isNesignerKey(widget.accountKey)) {
       var aesKey = Nesigner.getAesKeyFromKey(widget.accountKey);
-      print("aesKey $aesKey");
-
       var _pubkey = Nesigner.getPubkeyFromKey(widget.accountKey);
       if (StringUtil.isNotBlank(_pubkey)) {
         pubkey = _pubkey!;

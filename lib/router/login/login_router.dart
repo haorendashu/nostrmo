@@ -488,39 +488,43 @@ class _LoginRouter extends State<LoginRouter>
       return;
     }
 
-    print(nesignerInputStr);
-
     var strs = nesignerInputStr.split(":");
     var aesKey = strs[0];
 
-    var nesigner = Nesigner(aesKey);
-    if (!(await nesigner.start())) {
-      BotToast.showText(text: "Connect to nesigner fail.");
-      return;
-    }
+    var cancelFunc = BotToast.showLoading();
 
-    if (strs.length > 1) {
-      var privateKey = strs[1];
-      var espService = nesigner.getEspService();
-      if (espService != null) {
-        var aesKeyBin = HEX.decode(aesKey);
-        var updateResult = await espService.updateKey(
-            Uint8List.fromList(aesKeyBin), privateKey);
-        print("update result $updateResult");
+    try {
+      var nesigner = Nesigner(aesKey);
+      if (!(await nesigner.start())) {
+        BotToast.showText(text: "Connect to nesigner fail.");
+        return;
       }
+
+      if (strs.length > 1) {
+        var privateKey = strs[1];
+        var espService = nesigner.getEspService();
+        if (espService != null) {
+          var aesKeyBin = HEX.decode(aesKey);
+          var updateResult = await espService.updateKey(
+              Uint8List.fromList(aesKeyBin), privateKey);
+          print("update result $updateResult");
+        }
+      }
+
+      var pubkey = await nesigner.getPublicKey();
+      if (StringUtil.isBlank(pubkey)) {
+        BotToast.showText(text: s.Login_fail);
+        return;
+      }
+
+      doPreLogin();
+
+      var key = "${Nesigner.URI_PRE}:$aesKey?pubkey=$pubkey";
+      settingProvider.addAndChangePrivateKey(key, updateUI: false);
+      nostr = await relayProvider.genNostr(nesigner);
+    } finally {
+      cancelFunc.call();
     }
-
-    var pubkey = await nesigner.getPublicKey();
-    if (StringUtil.isBlank(pubkey)) {
-      BotToast.showText(text: s.Login_fail);
-      return;
-    }
-
-    doPreLogin();
-
-    var key = "${Nesigner.URI_PRE}:$aesKey?pubkey=$pubkey";
-    settingProvider.addAndChangePrivateKey(key, updateUI: false);
-    nostr = await relayProvider.genNostr(nesigner);
 
     if (backAfterLogin) {
       RouterUtil.back(context);
@@ -535,8 +539,8 @@ class _LoginRouter extends State<LoginRouter>
       AccountManagerComponentState.clearCurrentMemInfo();
       if (nostr != null) {
         nostr!.close();
-        nostr = null;
       }
+      nostr = null;
     }
   }
 }

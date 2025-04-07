@@ -163,7 +163,6 @@ class RelayProvider extends ChangeNotifier {
       }
     } else if (Nesigner.isNesignerKey(key)) {
       var aesKey = Nesigner.getAesKeyFromKey(key);
-      print("aesKey $aesKey");
       var pubkey = Nesigner.getPubkeyFromKey(key);
       nostrSigner = Nesigner(aesKey, pubkey: pubkey);
       if (!(await (nostrSigner as Nesigner).start())) {

@@ -1019,6 +1019,9 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
             routerBack: true, context: context);
         metadataProvider.clear();
       } else {
+        if (nostr != null) {
+          nostr!.close();
+        }
         nostr = null;
       }
       if (deleteAccountLoadingCancel != null) {
