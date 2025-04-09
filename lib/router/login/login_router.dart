@@ -74,12 +74,17 @@ class _LoginRouter extends State<LoginRouter>
     }
 
     if (!PlatformUtil.isIOS()) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        var exist = UsbTransport.existNesigner();
-        setState(() {
-          existNesigner = exist;
+      try {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          var exist = UsbTransport.existNesigner();
+          print("exist nesigner $exist");
+          setState(() {
+            existNesigner = exist;
+          });
         });
-      });
+      } catch (e) {
+        print(e);
+      }
     }
   }
 

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_nesigner_sdk/flutter_nesigner_sdk.dart';
 import 'package:flutter_quill/translations.dart';
 import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -212,6 +213,7 @@ late WotProvider wotProvider;
 GlobalKey indexGlobalKey = GlobalKey();
 
 Future<void> main() async {
+  print("nostrmo start");
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // init video package
@@ -259,6 +261,11 @@ Future<void> main() async {
       appName: Base.APP_NAME,
       shortcutPolicy: ShortcutPolicy.requireCreate,
     );
+  }
+
+  if (Platform.isMacOS) {
+    // Nostrmo using X86_64 with MacOS .
+    UsbTransport.setMacOSArchIsArm(false);
   }
 
   var dbInitTask = DB.getCurrentDatabase();
