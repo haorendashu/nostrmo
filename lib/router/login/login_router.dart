@@ -521,6 +521,12 @@ class _LoginRouter extends State<LoginRouter>
 
       var pubkey = await nesigner.getPublicKey();
       if (StringUtil.isBlank(pubkey)) {
+        try {
+          // login fail, should close the signer.
+          nesigner.close();
+        } catch (e) {
+          print("getPublicKey error $e");
+        }
         BotToast.showText(text: s.Login_fail);
         return;
       }
