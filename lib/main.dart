@@ -17,6 +17,7 @@ import 'package:local_notifier/local_notifier.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:nostr_sdk/client_utils/keys.dart';
 import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/relay_local/relay_db_extral.dart';
 import 'package:nostr_sdk/relay_local/relay_local_db.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
@@ -195,7 +196,7 @@ MusicInfoCache musicInfoCache = MusicInfoCache();
 
 LocalNotificationBuilder localNotificationBuilder = LocalNotificationBuilder();
 
-RelayLocalDB? relayLocalDB;
+RelayDBExtral? localRelayDB;
 
 Nostr? nostr;
 
@@ -270,10 +271,12 @@ Future<void> main() async {
 
   var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
-  var relayLocalDBTask = RelayLocalDB.init();
+  var localRelayDBTask = RelayLocalDB.init();
   var dataFutureResultList =
-      await Future.wait([dbInitTask, dataUtilTask, relayLocalDBTask]);
-  relayLocalDB = dataFutureResultList[2] as RelayLocalDB?;
+      await Future.wait([dbInitTask, dataUtilTask, localRelayDBTask]);
+  localRelayDB = dataFutureResultList[2] is RelayLocalDB
+      ? dataFutureResultList[2] as RelayDBExtral
+      : null;
   sharedPreferences = dataFutureResultList[1] as SharedPreferences;
 
   var settingTask = SettingProvider.getInstance();

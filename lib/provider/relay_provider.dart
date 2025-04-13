@@ -165,7 +165,11 @@ class RelayProvider extends ChangeNotifier {
       var aesKey = Nesigner.getAesKeyFromKey(key);
       var pubkey = Nesigner.getPubkeyFromKey(key);
       nostrSigner = Nesigner(aesKey, pubkey: pubkey);
-      if (!(await (nostrSigner as Nesigner).start())) {
+      try {
+        if (!(await (nostrSigner as Nesigner).start())) {
+          return null;
+        }
+      } catch (e) {
         return null;
       }
     } else {
@@ -213,11 +217,11 @@ class RelayProvider extends ChangeNotifier {
     badgeProvider.reload(targetNostr: _nostr, initQuery: true);
 
     // add local relay
-    if (relayLocalDB != null &&
+    if (localRelayDB != null &&
         settingProvider.relayLocal != OpenStatus.CLOSE) {
       relayStatusLocal = RelayStatus(RelayLocal.URL);
       var relayLocal =
-          RelayLocal(RelayLocal.URL, relayStatusLocal!, relayLocalDB!)
+          RelayLocal(RelayLocal.URL, relayStatusLocal!, localRelayDB!)
             ..relayStatusCallback = onRelayStatusChange;
       _nostr.addRelay(relayLocal, init: true);
     }

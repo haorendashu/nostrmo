@@ -289,7 +289,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
   }
 
   void backMyNotes() async {
-    var eventDatas = await relayLocalDB!.queryEventByPubkey(nostr!.publicKey);
+    var eventDatas = await localRelayDB!.queryEventByPubkey(nostr!.publicKey);
     var jsonStr = jsonEncode(eventDatas);
     var result = await FileSaver.instance.saveFile(
       name: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -334,8 +334,8 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
   }
 
   Future<void> updateMyRelayData() async {
-    dataLength = await relayLocalDB!.allDataCount();
-    dbFileSize = await RelayLocalDB.getDBFileSize();
+    dataLength = await localRelayDB!.allDataCount();
+    dbFileSize = await localRelayDB!.getDBFileSize();
     setState(() {});
   }
 
@@ -358,7 +358,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
     try {
       dataLength = null;
       dbFileSize = null;
-      await relayLocalDB!.deleteData(pubkey: pubkey);
+      await localRelayDB!.deleteData(pubkey: pubkey);
     } finally {
       updateMyRelayData();
       cancelFunc.call();
