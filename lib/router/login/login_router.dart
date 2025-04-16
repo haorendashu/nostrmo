@@ -73,12 +73,12 @@ class _LoginRouter extends State<LoginRouter>
       }
     }
 
-    if (!PlatformUtil.isIOS()) {
+    if (!PlatformUtil.isIOS() && !Platform.isAndroid) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         checkNesigner();
       });
     }
-  } 
+  }
 
   void checkNesigner() {
     try {
@@ -86,7 +86,7 @@ class _LoginRouter extends State<LoginRouter>
       setState(() {
         existNesigner = exist;
       });
-    } catch (e)  {
+    } catch (e) {
       print("checkNesigner error $e");
     }
   }
