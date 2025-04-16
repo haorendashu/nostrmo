@@ -49,6 +49,7 @@ import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
 import 'package:nostrmo/router/web_utils/web_utils_router.dart';
 import 'package:provider/provider.dart';
+import 'package:relay_isar_db/relay_isar_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
@@ -214,7 +215,6 @@ late WotProvider wotProvider;
 GlobalKey indexGlobalKey = GlobalKey();
 
 Future<void> main() async {
-  print("nostrmo start");
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // init video package
@@ -271,10 +271,11 @@ Future<void> main() async {
 
   var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
-  var localRelayDBTask = RelayLocalDB.init();
+  // var localRelayDBTask = RelayLocalDB.init();
+  var localRelayDBTask = RelayIsarDb.init();
   var dataFutureResultList =
       await Future.wait([dbInitTask, dataUtilTask, localRelayDBTask]);
-  localRelayDB = dataFutureResultList[2] is RelayLocalDB
+  localRelayDB = dataFutureResultList[2] is RelayDBExtral
       ? dataFutureResultList[2] as RelayDBExtral
       : null;
   sharedPreferences = dataFutureResultList[1] as SharedPreferences;

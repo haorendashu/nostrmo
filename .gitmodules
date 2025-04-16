@@ -10,3 +10,6 @@
 [submodule "packages/nesigner_adapter"]
 	path = packages/nesigner_adapter
 	url = git@github.com:haorendashu/nesigner_adapter.git
+[submodule "packages/relay_isar_db"]
+	path = packages/relay_isar_db
+	url = git@github.com:haorendashu/relay_isar_db.git
