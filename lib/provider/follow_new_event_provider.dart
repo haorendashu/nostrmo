@@ -89,6 +89,10 @@ class FollowNewEventProvider extends ChangeNotifier
       shouldNotice = true;
     }
     for (var event in events) {
+      if (followEventProvider.existEvent(event.id)) {
+        continue;
+      }
+
       var isNew = eventMemBox.add(event);
       if (isNew && shouldNotice) {
         hasNew = true;

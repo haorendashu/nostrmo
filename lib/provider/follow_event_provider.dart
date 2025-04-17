@@ -40,6 +40,10 @@ class FollowEventProvider extends ChangeNotifier
     return eventBox.listByPubkey(pubkey);
   }
 
+  bool existEvent(String id) {
+    return eventBox.getById(id) != null;
+  }
+
   void refresh() {
     _initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     eventBox.clear();
