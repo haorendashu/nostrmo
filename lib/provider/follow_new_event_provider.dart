@@ -103,7 +103,10 @@ class FollowNewEventProvider extends ChangeNotifier
     if (hasNew) {
       eventMemBox.sort();
     }
-    _localSince = eventMemBox.newestEvent!.createdAt;
+    var newestEvent = eventMemBox.newestEvent;
+    if (newestEvent != null) {
+      _localSince = newestEvent.createdAt;
+    }
 
     for (var event in events) {
       bool isPosts = FollowEventProvider.eventIsPost(event);
