@@ -7,7 +7,7 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:flutter_image_gallery_saver/flutter_image_gallery_saver.dart';
 import 'package:nostrmo/util/image_tool.dart';
 import 'package:nostrmo/util/store_util.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -235,11 +235,15 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
         await imageProvider.getBytes(context, format: ImageByteFormat.png);
     if (imageAsBytes != null) {
       if (!isPc) {
-        var result =
-            await ImageGallerySaver.saveImage(imageAsBytes, quality: 100);
-        if (result != null && result is Map && result["isSuccess"]) {
+        try {
+          FlutterImageGallerySaver.saveImage(imageAsBytes);
           BotToast.showText(text: S.of(context).Image_save_success);
-        }
+        } catch (e) {}
+        // var result = await FlutterImageGallerySaver.saveImage(imageAsBytes,
+        //     quality: 100);
+        // if (result != null && result is Map && result["isSuccess"]) {
+        //   BotToast.showText(text: S.of(context).Image_save_success);
+        // }
       } else {
         var result = await FileSaver.instance.saveFile(
           name: DateTime.now().millisecondsSinceEpoch.toString(),

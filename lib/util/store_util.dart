@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:flutter_image_gallery_saver/flutter_image_gallery_saver.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/util/hash_util.dart';
 import 'package:path_provider/path_provider.dart';
@@ -159,9 +159,10 @@ class StoreUtil {
     }
   }
 
-  static Future saveBS2Gallery(String extension, Uint8List uint8list) async {
+  static Future<void> saveBS2Gallery(
+      String extension, Uint8List uint8list) async {
     var tempPath = await StoreUtil.saveBS2TempFile(extension, uint8list);
-    return await ImageGallerySaver.saveFile(tempPath);
+    await FlutterImageGallerySaver.saveFile(tempPath);
   }
 
   static int? getFileSize(String filepath) {

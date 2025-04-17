@@ -47,3 +47,5 @@ app.*.map.json
 
 # Release dir
 /dist/
+
+/android_bak/

@@ -272,7 +272,7 @@ Future<void> main() async {
   var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
   // var localRelayDBTask = RelayLocalDB.init();
-  var localRelayDBTask = RelayIsarDb.init();
+  var localRelayDBTask = RelayIsarDB.init();
   var dataFutureResultList =
       await Future.wait([dbInitTask, dataUtilTask, localRelayDBTask]);
   localRelayDB = dataFutureResultList[2] is RelayDBExtral

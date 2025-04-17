@@ -6,7 +6,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   emoji_picker_flutter
   file_saver
   file_selector_linux
-  flutter_libserialport
   flutter_nesigner_sdk
   isar_flutter_libs
   local_notifier

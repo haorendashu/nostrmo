@@ -86,8 +86,10 @@ dependencies:
   google_mlkit_language_id: ^0.11.1
   flutter_markdown: ^0.7.4+1
   window_manager: ^0.4.3
-  qr_code_scanner: ^1.0.1
-  image_gallery_saver: ^2.0.3
+  # qr_code_scanner: ^1.0.1
+  qr_code_scanner_plus: ^2.0.10+1
+  # image_gallery_saver: ^2.0.3
+  flutter_image_gallery_saver: ^0.0.2
   permission_handler: ^11.3.1
   file_saver: ^0.2.14
   auto_size_text_field: ^2.2.4
@@ -121,15 +123,16 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 dependency_overrides:
-  photo_manager: ^3.5.0
+  photo_manager: ^3.6.4
   extended_image: ^8.3.0
   google_fonts: ^6.2.1
   web: ^1.1.0
   win32: ^5.5.4
   archive: ^3.6.1
   http: ^1.2.2
-  video_player: ^2.9.1
-  video_player_web: ^2.3.2
+  video_player: ^2.9.5
+  video_player_web: ^2.3.4
+  video_player_android: ^2.8.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
