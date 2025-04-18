@@ -14,6 +14,7 @@ import '../../component/event/event_list_component.dart';
 import '../../component/tag_info_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';
+import '../../consts/event_kind_type.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
@@ -149,7 +150,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
   void doQuery() {
     // tag query
     // https://github.com/nostr-protocol/nips/blob/master/12.md
-    var filter = Filter(kinds: EventKind.SUPPORTED_EVENTS, limit: 100);
+    var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, limit: 100);
     var queryArg = filter.toJson();
     var plainTag = tag!.replaceFirst("#", "");
     // this place set #t not #r ???

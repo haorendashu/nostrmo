@@ -22,6 +22,7 @@ import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event_delete_callback.dart';
 import '../../consts/base_consts.dart';
+import '../../consts/event_kind_type.dart';
 import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -231,7 +232,7 @@ class _SearchRouter extends CustState<SearchRouter>
     );
   }
 
-  List<int> searchEventKinds = EventKind.SUPPORTED_EVENTS;
+  List<int> searchEventKinds = EventKindType.SUPPORTED_EVENTS;
 
   String? subscribeId;
 

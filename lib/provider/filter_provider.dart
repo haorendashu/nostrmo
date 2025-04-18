@@ -4,6 +4,7 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/relay/event_filter.dart';
 import 'package:nostrmo/provider/data_util.dart';
 
+import '../consts/event_kind_type.dart';
 import '../main.dart';
 import '../util/dirtywords_util.dart';
 
@@ -100,7 +101,7 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
       return true;
     }
 
-    if (EventKind.SUPPORTED_EVENTS.contains(e.kind) ||
+    if (EventKindType.SUPPORTED_EVENTS.contains(e.kind) ||
             e.kind == EventKind.DIRECT_MESSAGE
         // || e.kind == EventKind.GIFT_WRAP // GiftWrap Message don't check wot, due to these message's sender is alway temp gen.
         ) {

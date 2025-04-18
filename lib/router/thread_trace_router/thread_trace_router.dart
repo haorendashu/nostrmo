@@ -21,6 +21,7 @@ import '../../component/appbar_back_btn_component.dart';
 import '../../component/event/event_bitcion_icon_component.dart';
 import '../../component/event_reply_callback.dart';
 import '../../consts/base.dart';
+import '../../consts/event_kind_type.dart';
 import '../../util/router_util.dart';
 import '../../util/table_mode_util.dart';
 import '../thread/thread_detail_event_main_component.dart';
@@ -219,7 +220,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       aId = eventRelation.aId;
     }
 
-    List<int> replyKinds = [...EventKind.SUPPORTED_EVENTS]
+    List<int> replyKinds = [...EventKindType.SUPPORTED_EVENTS]
       ..remove(EventKind.REPOST)
       ..remove(EventKind.LONG_FORM)
       ..add(EventKind.ZAP);

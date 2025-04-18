@@ -18,6 +18,7 @@ import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base_consts.dart';
+import '../../consts/event_kind_type.dart';
 import '../../data/metadata.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
@@ -309,7 +310,7 @@ class _UserRouter extends CustState<UserRouter>
 
     // load event from relay
     var filter = Filter(
-      kinds: EventKind.SUPPORTED_EVENTS,
+      kinds: EventKindType.SUPPORTED_EVENTS,
       until: until,
       authors: [pubkey!],
       limit: queryLimit,

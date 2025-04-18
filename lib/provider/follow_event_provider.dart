@@ -13,6 +13,7 @@ import 'package:nostr_sdk/utils/find_event_interface.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
+import '../consts/event_kind_type.dart';
 import '../main.dart';
 import '../router/tag/topic_map.dart';
 
@@ -68,7 +69,7 @@ class FollowEventProvider extends ChangeNotifier
   }
 
   List<int> queryEventKinds() {
-    return EventKind.SUPPORTED_EVENTS;
+    return EventKindType.SUPPORTED_EVENTS;
   }
 
   void doQuery(

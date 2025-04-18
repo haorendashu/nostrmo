@@ -6,6 +6,8 @@ import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/find_event_interface.dart';
 import 'package:nostrmo/main.dart';
 
+import '../consts/event_kind_type.dart';
+
 class EventFindUtil {
   static Future<List<Event>> findEvent(String str, {int limit = 5}) async {
     List<FindEventInterface> finders = [followEventProvider];
@@ -25,7 +27,7 @@ class EventFindUtil {
 
     if (eventBox.length() < limit) {
       // try to find something from localRelay
-      var filter = Filter(kinds: EventKind.SUPPORTED_EVENTS, limit: 5);
+      var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, limit: 5);
       var filterMap = filter.toJson();
       filterMap["search"] = str;
 

@@ -19,6 +19,7 @@ import '../../component/event/event_load_list_component.dart';
 import '../../component/event_reply_callback.dart';
 import '../../component/user/simple_name_component.dart';
 import '../../consts/base.dart';
+import '../../consts/event_kind_type.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../util/router_util.dart';
@@ -375,7 +376,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
       //   nostr!.query([filter.toJson()], onRootEvent);
       // }
 
-      List<int> replyKinds = [...EventKind.SUPPORTED_EVENTS]
+      List<int> replyKinds = [...EventKindType.SUPPORTED_EVENTS]
         ..remove(EventKind.REPOST)
         ..remove(EventKind.LONG_FORM)
         ..add(EventKind.ZAP);

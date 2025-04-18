@@ -25,6 +25,7 @@ import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/base.dart';
+import '../../consts/event_kind_type.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../event/event_quote_component.dart';
@@ -808,7 +809,7 @@ class _ContentComponent extends State<ContentComponent> {
         var nevent = NIP19Tlv.decodeNevent(key);
         if (nevent != null &&
             (nevent.kind == null ||
-                EventKind.SUPPORTED_EVENTS.contains(nevent.kind))) {
+                EventKindType.SUPPORTED_EVENTS.contains(nevent.kind))) {
           // block
           bufferToList(buffer, currentList, images, removeLastSpan: true);
           var w = EventQuoteComponent(
@@ -855,7 +856,7 @@ class _ContentComponent extends State<ContentComponent> {
 
             return otherStr;
           } else if (StringUtil.isNotBlank(naddr.id) &&
-              EventKind.SUPPORTED_EVENTS.contains(naddr.kind)) {
+              EventKindType.SUPPORTED_EVENTS.contains(naddr.kind)) {
             // block
             String? id = naddr.id;
             AId? aid;

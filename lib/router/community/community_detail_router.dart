@@ -17,6 +17,7 @@ import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event_delete_callback.dart';
 import '../../consts/base_consts.dart';
+import '../../consts/event_kind_type.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/router_util.dart';
@@ -180,7 +181,7 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
   }
 
   void queryEvents() {
-    var filter = Filter(kinds: EventKind.SUPPORTED_EVENTS, limit: 100);
+    var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, limit: 100);
     var queryArg = filter.toJson();
     queryArg["#a"] = [aId!.toAString()];
     nostr!.query([queryArg], onEvent, id: subscribeId);
