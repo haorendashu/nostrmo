@@ -227,6 +227,10 @@ class FollowEventProvider extends ChangeNotifier
 
   // check if is posts (no tag e and not Mentions, TODO handle NIP27)
   static bool eventIsPost(Event event) {
+    if (event.kind == EventKind.COMMENT) {
+      return false;
+    }
+
     bool isPosts = true;
     var tagLength = event.tags.length;
     for (var i = 0; i < tagLength; i++) {
