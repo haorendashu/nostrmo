@@ -99,7 +99,7 @@ class _RelaysItemComponent extends State<RelaysItemComponent> {
 
       list.add(GestureDetector(
         onTap: () {
-          var text = NIP19Tlv.encodeNrelay(Nrelay(widget.addr));
+          var text = "nostr:${NIP19Tlv.encodeNrelay(Nrelay(widget.addr))}";
           Clipboard.setData(ClipboardData(text: text)).then((_) {
             BotToast.showText(text: S.of(context).Copy_success);
           });
