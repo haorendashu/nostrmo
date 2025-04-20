@@ -1,4 +1,8 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
@@ -153,6 +157,15 @@ class FollowSetListItem extends StatelessWidget {
             itemBuilder: (context) {
               List<PopupMenuItem> list = [
                 PopupMenuItem(
+                  value: "copyNaddr",
+                  child: Row(
+                    children: [
+                      Icon(Icons.copy),
+                      Text(" ${s.Copy} ${s.Address}")
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
                   value: "editTitle",
                   child: Row(
                     children: [Icon(Icons.edit), Text(" ${s.Edit_name}")],
@@ -216,7 +229,14 @@ class FollowSetListItem extends StatelessWidget {
   }
 
   void onSelect(BuildContext context, value) {
-    if (value == "editTitle") {
+    if (value == "copyNaddr") {
+      var naddr = contactListProvider.getFollowSetNaddr(followSet.dTag);
+      if (naddr != null) {
+        print(naddr.toString());
+        Clipboard.setData(ClipboardData(text: NIP19Tlv.encodeNaddr(naddr)));
+        BotToast.showText(text: S.of(context).Copy_success);
+      }
+    } else if (value == "editTitle") {
       titleEdit(context);
     } else if (value == "edit") {
       RouterUtil.router(context, RouterPath.FOLLOW_SET_DETAIL, followSet);

@@ -7,6 +7,7 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip02/contact.dart';
 import 'package:nostr_sdk/nip02/contact_list.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
@@ -351,7 +352,7 @@ class ContactListProvider extends ChangeNotifier {
         var value = entry.value;
 
         if (_followSetMap[key] == null) {
-          var future = FollowSet.genFollowSet(nostr!, value);
+          var future = FollowSet.getFollowSet(nostr!, value);
           futures.add(future);
         }
       }
@@ -370,5 +371,28 @@ class ContactListProvider extends ChangeNotifier {
     }
 
     return _followSetMap;
+  }
+
+  Naddr? getFollowSetNaddr(String dTag) {
+    var event = followSetEventMap[dTag];
+    if (event != null) {
+      return Naddr(
+        id: dTag,
+        author: event.pubkey,
+        kind: EventKind.FOLLOW_SETS,
+        relays: event.sources,
+      );
+    }
+
+    var followSet = _followSetMap[dTag];
+    if (followSet != null) {
+      return Naddr(
+        id: dTag,
+        author: nostr!.publicKey,
+        kind: EventKind.FOLLOW_SETS,
+      );
+    }
+
+    return null;
   }
 }

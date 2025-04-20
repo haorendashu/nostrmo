@@ -886,6 +886,25 @@ class _ContentComponent extends State<ContentComponent> {
             counterAddLines(fake_link_pre_counter);
 
             return otherStr;
+          } else if (naddr.kind != null &&
+              StringUtil.isNotBlank(naddr.author) &&
+              StringUtil.isNotBlank(naddr.id) &&
+              (naddr.kind == EventKind.FOLLOW_SETS)) {
+            // block
+            AId aid =
+                AId(kind: naddr.kind, pubkey: naddr.author, title: naddr.id);
+
+            var w = EventQuoteComponent(
+              id: null,
+              aId: aid,
+              eventRelayAddr: eventRelayAddr,
+              showVideo: widget.showVideo,
+              relays: naddr.relays,
+            );
+            currentList.add(WidgetSpan(child: w));
+            counterAddLines(fake_event_counter);
+
+            return otherStr;
           }
         }
       }

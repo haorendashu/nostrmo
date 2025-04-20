@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/aid.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
+import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostrmo/provider/replaceable_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -14,6 +15,7 @@ import '../../generated/l10n.dart';
 import '../../provider/single_event_provider.dart';
 import '../../util/router_util.dart';
 import '../cust_state.dart';
+import 'event_follow_set_public_contacts_component.dart';
 import 'event_main_component.dart';
 
 class EventQuoteComponent extends StatefulWidget {
@@ -27,12 +29,15 @@ class EventQuoteComponent extends StatefulWidget {
 
   bool showVideo;
 
+  List<String>? relays;
+
   EventQuoteComponent({
     this.event,
     this.id,
     this.aId,
     this.eventRelayAddr,
     this.showVideo = false,
+    this.relays,
   });
 
   @override
@@ -74,7 +79,7 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
           return buildEventWidget(event, cardColor, boxDecoration);
         },
         selector: (context, _provider) {
-          return _provider.getEvent(widget.aId!);
+          return _provider.getEvent(widget.aId!, relays: widget.relays);
         },
       );
     }
@@ -108,6 +113,15 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
         showVideo: widget.showVideo,
         imageListMode: true,
         inQuote: true,
+      );
+    } else if (event.kind == EventKind.FOLLOW_SETS) {
+      var followSet = FollowSet.getPublicFollowSet(event);
+
+      return Container(
+        padding: const EdgeInsets.all(Base.BASE_PADDING),
+        margin: const EdgeInsets.all(Base.BASE_PADDING),
+        decoration: boxDecoration,
+        child: EventFollowSetPublicContactsComponent(followSet, event.pubkey),
       );
     }
 
