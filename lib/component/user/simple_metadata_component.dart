@@ -95,9 +95,13 @@ class _SimpleMetadataComponent extends State<SimpleMetadataComponent> {
         child: Row(
           children: [
             userImageWidget,
-            NameComponent(
-              pubkey: metadata.pubkey!,
-              metadata: metadata,
+            Expanded(
+              child: NameComponent(
+                pubkey: metadata.pubkey!,
+                metadata: metadata,
+                maxLines: 1,
+                textOverflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),
