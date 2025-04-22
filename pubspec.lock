@@ -853,7 +853,7 @@ packages:
     source: hosted
     version: "6.2.1"
   google_mlkit_commons:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: google_mlkit_commons
       sha256: "8f40fbac10685cad4715d11e6a0d86837d9ad7168684dfcad29610282a88e67a"
