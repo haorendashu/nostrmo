@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Add_User": MessageLookupByLibrary.simpleMessage("添加用户"),
     "Add_a_Note": MessageLookupByLibrary.simpleMessage("发布动态"),
     "Add_account_and_login": MessageLookupByLibrary.simpleMessage("添加并且登录？"),
+    "Add_group_notice": MessageLookupByLibrary.simpleMessage("你没有添加该群组，请先添加！"),
     "Add_now": MessageLookupByLibrary.simpleMessage("现在添加"),
     "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
       "添加该中继到本地？",
@@ -180,6 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Input_relay_address": MessageLookupByLibrary.simpleMessage("请输入中继地址。"),
     "Input_too_long": MessageLookupByLibrary.simpleMessage("输入太长"),
     "Join_Group": MessageLookupByLibrary.simpleMessage("假如群组"),
+    "Join_group_notice": MessageLookupByLibrary.simpleMessage(
+      "你还不是该群组的成员，请先加入！",
+    ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),
     "Language": MessageLookupByLibrary.simpleMessage("语言"),
     "Light": MessageLookupByLibrary.simpleMessage("浅色"),

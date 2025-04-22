@@ -9,6 +9,7 @@ import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/group_details_provider.dart';
+import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
@@ -51,7 +52,16 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
   }
 
   @override
-  Future<void> onReady(BuildContext context) async {}
+  Future<void> onReady(BuildContext context) async {
+    if (groupIdentifier != null) {
+      if (groupDetailsProvider.getChatsEventBox(groupIdentifier!) == null) {
+        groupDetailsProvider.queryGroupEvents(
+            groupIdentifier!,
+            DateTime.now().millisecondsSinceEpoch ~/ 1000,
+            GroupDetailsProvider.supportChatKinds);
+      }
+    }
+  }
 
   @override
   Widget doBuild(BuildContext context) {
@@ -122,10 +132,51 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
 
     list.add(Expanded(
       child: Container(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           bottom: Base.BASE_PADDING,
         ),
-        child: listWidget,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: listWidget,
+            ),
+            Selector<GroupProvider, int>(builder: (context, memberShip, child) {
+              if (memberShip == GroupMembership.MEMBER) {
+                return Container();
+              }
+
+              return Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: GestureDetector(
+                  onTap: joinGroup,
+                  child: buildTopAlertWidget(s.Join_group_notice),
+                ),
+              );
+            }, selector: (context, _provider) {
+              return _provider.checkMembership(
+                  groupIdentifier!, nostr!.publicKey);
+            }),
+            Selector<ListProvider, bool>(builder: (context, value, child) {
+              if (value) {
+                return Container();
+              }
+
+              return Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: GestureDetector(
+                  onTap: addGroup,
+                  child: buildTopAlertWidget(s.Add_group_notice),
+                ),
+              );
+            }, selector: (context, _provider) {
+              return _provider.containGroups(groupIdentifier!);
+            }),
+          ],
+        ),
       ),
     ));
 
@@ -225,6 +276,33 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
     );
   }
 
+  Widget buildTopAlertWidget(String title) {
+    return Container(
+      height: 30,
+      width: double.infinity,
+      margin: const EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+        top: Base.BASE_PADDING,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.orange,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          decoration: TextDecoration.underline,
+          decorationColor: Colors.white,
+        ),
+      ),
+    );
+  }
+
   Future<void> send() async {
     var cancelFunc = BotToast.showLoading();
     try {
@@ -304,5 +382,17 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
   @override
   EventMemBox getEventBox() {
     return eventBox!;
+  }
+
+  void joinGroup() {
+    if (groupIdentifier != null) {
+      listProvider.joinAndAddGroup(groupIdentifier!);
+    }
+  }
+
+  void addGroup() {
+    if (groupIdentifier != null) {
+      listProvider.addGroup(groupIdentifier!);
+    }
   }
 }

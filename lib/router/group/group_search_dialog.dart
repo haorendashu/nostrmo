@@ -46,7 +46,7 @@ class _GroupSearchDialog extends CustState<GroupSearchDialog> {
 
   int oldestCreatedTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-  int queryLimit = 1000;
+  int queryLimit = 100;
 
   int currentQueryEventCounter = 0;
 
@@ -64,7 +64,7 @@ class _GroupSearchDialog extends CustState<GroupSearchDialog> {
       limit: queryLimit,
     );
 
-    // print(filter.toJson());
+    print(filter.toJson());
 
     List<String> relays = [widget.relayAddr];
 
@@ -110,10 +110,10 @@ class _GroupSearchDialog extends CustState<GroupSearchDialog> {
     }
 
     // TODO There must be something wrong here, don't load more here.
-    // if (currentQueryEventCounter > queryLimit * 2 / 3) {
-    //   // there maybe still some other events
-    //   doQuery(until: oldestCreatedTime);
-    // }
+    if (currentQueryEventCounter > queryLimit * 2 / 3) {
+      // there maybe still some other events
+      doQuery(until: oldestCreatedTime);
+    }
   }
 
   @override

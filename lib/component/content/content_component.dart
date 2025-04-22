@@ -9,6 +9,7 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_relation.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
+import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/utils/path_type_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
@@ -21,6 +22,7 @@ import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
+import 'package:nostrmo/router/group/group_search_dialog.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +31,7 @@ import '../../consts/event_kind_type.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../event/event_quote_component.dart';
+import '../groups/simple_group_metadata_component.dart';
 import '../link_router_util.dart';
 import '../music/blank_link_music_info_builder.dart';
 import '../music/wavlake/wavlake_album_music_info_builder.dart';
@@ -834,6 +837,7 @@ class _ContentComponent extends State<ContentComponent> {
         }
 
         var naddr = NIP19Tlv.decodeNaddr(key);
+        print(naddr.toString());
         if (naddr != null) {
           String? eventRelayAddr =
               naddr.relays != null && naddr.relays!.isNotEmpty
@@ -901,6 +905,18 @@ class _ContentComponent extends State<ContentComponent> {
               showVideo: widget.showVideo,
               relays: naddr.relays,
             );
+            currentList.add(WidgetSpan(child: w));
+            counterAddLines(1);
+
+            return otherStr;
+          } else if (naddr.kind == EventKind.GROUP_METADATA &&
+              StringUtil.isNotBlank(naddr.id) &&
+              naddr.relays != null &&
+              naddr.relays!.isNotEmpty) {
+            var groupIdentifier =
+                GroupIdentifier(naddr.relays!.first, naddr.id);
+            var w = SimpleGroupMetadataComponent(groupIdentifier);
+
             currentList.add(WidgetSpan(child: w));
             counterAddLines(fake_event_counter);
 

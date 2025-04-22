@@ -342,5 +342,7 @@
     "Note_Client_Tag_Des": "Which added with client tag in your notes, you can not see it but someone can",
     "Note_Tail": "Note Tail",
     "Note_Tail_Des": "Which will auto added when you are sending notes.",
-    "Input_too_long": "Input too long"
+    "Input_too_long": "Input too long",
+    "Join_group_notice": "You are not in this group, please join it first!",
+    "Add_group_notice": "You haven't added this group, please add it first!"
 }

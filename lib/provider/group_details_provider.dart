@@ -105,11 +105,13 @@ class GroupDetailsProvider extends ChangeNotifier {
 
   void queryGroupEvents(
       GroupIdentifier groupIdentifier, int until, List<int> supportKinds) {
-    var relayGroupDetail = relayGroupDetailMap[groupIdentifier.host];
+    var host = groupIdentifier.host;
+    var relayGroupDetail = relayGroupDetailMap[host];
     if (relayGroupDetail == null) {
-      return;
+      relayGroupDetail = RelayGroupDetail(host);
+      relayGroupDetailMap[host] = relayGroupDetail;
     }
-    var relays = [relayGroupDetail.host];
+    var relays = [host];
 
     var filter = Filter(
       kinds: supportKinds,
@@ -122,7 +124,7 @@ class GroupDetailsProvider extends ChangeNotifier {
     nostr!.subscribe(
       [filterJsonMap],
       (e) {
-        onEvent(relayGroupDetail, e);
+        onEvent(relayGroupDetail!, e);
       },
       id: relayGroupDetail.pullId,
       tempRelays: relays,

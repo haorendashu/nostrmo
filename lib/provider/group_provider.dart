@@ -251,4 +251,34 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       notifyListeners();
     }
   }
+
+  int checkMembership(
+    GroupIdentifier groupIdentifier,
+    String pubkey,
+  ) {
+    var key = groupIdentifier.toString();
+    var members = groupMembers[key];
+    if (members == null) {
+      return GroupMembership.NOT_MEMBER;
+    }
+
+    if (members.isMember(pubkey)) {
+      var adminMember = groupAdmins[key];
+      if (adminMember != null) {
+        if (adminMember.contains(pubkey) != null) {
+          return GroupMembership.ADMIN;
+        }
+      }
+
+      return GroupMembership.MEMBER;
+    } else {
+      return GroupMembership.NOT_MEMBER;
+    }
+  }
+}
+
+class GroupMembership {
+  static const int NOT_MEMBER = 0;
+  static const int MEMBER = 1;
+  static const int ADMIN = 2;
 }

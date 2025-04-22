@@ -265,7 +265,7 @@ class _GroupAddDailog extends State<GroupAddDailog> {
       }
 
       var groupIdentifier = GroupIdentifier(host, groupId);
-      await listProvider.addGroup(groupIdentifier);
+      await listProvider.joinAndAddGroup(groupIdentifier);
 
       groupDetailsProvider.beginPull([groupIdentifier]);
     } finally {

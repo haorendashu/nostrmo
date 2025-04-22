@@ -328,5 +328,7 @@
     "Note_Client_Tag_Des": "使用 client 标签添加到你的动态中，您看不到，但有人可以",
     "Note_Tail": "动态尾巴",
     "Note_Tail_Des": "当您发送动态时它将自动添加。",
-    "Input_too_long": "输入太长"
+    "Input_too_long": "输入太长",
+    "Join_group_notice": "你还不是该群组的成员，请先加入！",
+    "Add_group_notice": "你没有添加该群组，请先添加！"
 }

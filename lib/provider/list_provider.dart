@@ -350,7 +350,7 @@ class ListProvider extends ChangeNotifier {
 
   get groupIdentifiers => _groupIdentifiers;
 
-  Future<void> addGroup(GroupIdentifier gi) async {
+  Future<void> joinAndAddGroup(GroupIdentifier gi) async {
     // try to send join messages
     var event = Event(
         nostr!.publicKey,
@@ -362,6 +362,10 @@ class ListProvider extends ChangeNotifier {
     await nostr!
         .sendEvent(event, tempRelays: [gi.host], targetRelays: [gi.host]);
 
+    addGroup(gi);
+  }
+
+  void addGroup(GroupIdentifier gi) {
     _groupIdentifiers.add(gi);
     _updateGroups();
 
@@ -396,5 +400,18 @@ class ListProvider extends ChangeNotifier {
     _holder.clear();
     _bookmarks = Bookmarks();
     _groupIdentifiers.clear();
+  }
+
+  bool containGroups(GroupIdentifier groupIdentifier) {
+    if (_groupIdentifiers.isNotEmpty) {
+      for (var _groupIdentifier in _groupIdentifiers) {
+        if (_groupIdentifier.groupId == groupIdentifier.groupId &&
+            _groupIdentifier.host == groupIdentifier.host) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }

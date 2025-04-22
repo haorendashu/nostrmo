@@ -34,6 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Add_account_and_login": MessageLookupByLibrary.simpleMessage(
       "Add account and login?",
     ),
+    "Add_group_notice": MessageLookupByLibrary.simpleMessage(
+      "You haven\'t added this group, please add it first!",
+    ),
     "Add_now": MessageLookupByLibrary.simpleMessage("Add now"),
     "Add_this_relay_to_local": MessageLookupByLibrary.simpleMessage(
       "Add this relay to local?",
@@ -257,6 +260,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Input_too_long": MessageLookupByLibrary.simpleMessage("Input too long"),
     "Join_Group": MessageLookupByLibrary.simpleMessage("Join Group"),
+    "Join_group_notice": MessageLookupByLibrary.simpleMessage(
+      "You are not in this group, please join it first!",
+    ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("Key Backup"),
     "Language": MessageLookupByLibrary.simpleMessage("Language"),
     "Light": MessageLookupByLibrary.simpleMessage("Light"),

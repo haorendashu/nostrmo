@@ -2629,6 +2629,26 @@ class S {
       args: [],
     );
   }
+
+  /// `You are not in this group, please join it first!`
+  String get Join_group_notice {
+    return Intl.message(
+      'You are not in this group, please join it first!',
+      name: 'Join_group_notice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You haven't added this group, please add it first!`
+  String get Add_group_notice {
+    return Intl.message(
+      'You haven\'t added this group, please add it first!',
+      name: 'Add_group_notice',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
