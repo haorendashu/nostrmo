@@ -242,6 +242,8 @@ class Uploader {
           nostr!, "https://nosto.re/", localPath,
           fileName: fileName);
     }
-    return await NostrBuildUploader.upload(localPath, fileName: fileName);
+    // return await NostrBuildUploader.upload(localPath, fileName: fileName);
+    return await NIP96Uploader.upload(nostr!, "https://nostr.build/", localPath,
+        fileName: fileName);
   }
 }
