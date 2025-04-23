@@ -72,7 +72,7 @@ class _LoginRouter extends State<LoginRouter>
       }
     }
 
-    if (!PlatformUtil.isIOS() && !Platform.isAndroid) {
+    if (!PlatformUtil.isIOS() && !PlatformUtil.isAndroid()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         checkNesigner();
       });

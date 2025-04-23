@@ -264,7 +264,7 @@ Future<void> main() async {
     );
   }
 
-  if (Platform.isMacOS) {
+  if (PlatformUtil.isMacOS()) {
     // Nostrmo using X86_64 with MacOS .
     NesignerUtil.setMacOSArchIsArm(false);
   }
@@ -613,7 +613,7 @@ class _MyApp extends State<MyApp> {
     }
 
     return ThemeData(
-      platform: TargetPlatform.iOS,
+      // platform: TargetPlatform.iOS,
       primarySwatch: themeColor,
       colorScheme: ColorScheme.fromSeed(
         seedColor: themeColor[500]!,
@@ -693,7 +693,7 @@ class _MyApp extends State<MyApp> {
     }
 
     return ThemeData(
-      platform: TargetPlatform.iOS,
+      // platform: TargetPlatform.iOS,
       primarySwatch: themeColor,
       colorScheme: ColorScheme.fromSeed(
         seedColor: themeColor[500]!,

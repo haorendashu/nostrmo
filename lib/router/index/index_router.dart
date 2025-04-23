@@ -167,7 +167,7 @@ class _IndexRouter extends CustState<IndexRouter>
 
   @override
   Future<void> onTrayIconMouseDown() async {
-    if (!Platform.isMacOS) {
+    if (!PlatformUtil.isMacOS()) {
       if (await windowManager.isVisible()) {
         windowManager.hide();
       } else {
@@ -179,7 +179,7 @@ class _IndexRouter extends CustState<IndexRouter>
 
   @override
   void onWindowMinimize() {
-    if (Platform.isWindows || Platform.isMacOS) {
+    if (PlatformUtil.isWindows() || PlatformUtil.isMacOS()) {
       windowManager.hide();
     }
   }
@@ -193,7 +193,6 @@ class _IndexRouter extends CustState<IndexRouter>
 
     await windowManager.show();
     await windowManager.focus();
-    
 
     if (menuItem.key == 'add_note') {
       AddBtnWrapperComponent.addNote(context);
@@ -210,11 +209,11 @@ class _IndexRouter extends CustState<IndexRouter>
 
   Future<void> _initTray() async {
     await trayManager.setIcon(
-      Platform.isWindows
+      PlatformUtil.isWindows()
           ? "assets/imgs/logo/logo.ico"
           : "assets/imgs/logo/logo512.png",
     );
-    if (Platform.isMacOS || Platform.isMacOS) {
+    if (PlatformUtil.isMacOS() || PlatformUtil.isWindows()) {
       await trayManager.setToolTip("Nostrmo");
     }
     Menu menu = Menu(
@@ -588,9 +587,9 @@ class _IndexRouter extends CustState<IndexRouter>
       }
 
       try {
-        if (Platform.isAndroid) {
+        if (PlatformUtil.isAndroid()) {
           await FlutterInappPurchase.instance.finishTransaction(productItem);
-        } else if (Platform.isIOS) {
+        } else if (PlatformUtil.isIOS()) {
           await FlutterInappPurchase.instance
               .finishTransactionIOS(productItem.transactionId!);
         }
