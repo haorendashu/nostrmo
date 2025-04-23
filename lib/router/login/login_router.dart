@@ -17,7 +17,6 @@ import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/util/router_util.dart';
-import 'package:flutter_nesigner_sdk/flutter_nesigner_sdk.dart';
 import 'package:hex/hex.dart';
 
 import '../../component/nesigner_login_dialog.dart';
@@ -82,7 +81,7 @@ class _LoginRouter extends State<LoginRouter>
 
   void checkNesigner() {
     try {
-      var exist = UsbTransport.existNesigner();
+      var exist = NesignerUtil.nesignerExist();
       setState(() {
         existNesigner = exist;
       });
@@ -510,13 +509,10 @@ class _LoginRouter extends State<LoginRouter>
 
       if (strs.length > 1) {
         var privateKey = strs[1];
-        var espService = nesigner.getEspService();
-        if (espService != null) {
-          var aesKeyBin = HEX.decode(aesKey);
-          var updateResult = await espService.updateKey(
-              Uint8List.fromList(aesKeyBin), privateKey);
-          print("update result $updateResult");
-        }
+        var aesKeyBin = HEX.decode(aesKey);
+        var updateResult =
+            await nesigner.updateKey(Uint8List.fromList(aesKeyBin), privateKey);
+        print("update result $updateResult");
       }
 
       var pubkey = await nesigner.getPublicKey();

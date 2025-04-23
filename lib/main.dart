@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:flutter_nesigner_sdk/flutter_nesigner_sdk.dart';
 import 'package:flutter_quill/translations.dart';
 import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -15,6 +14,7 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:nesigner_adapter/nesigner_adapter.dart';
 import 'package:nostr_sdk/client_utils/keys.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/relay_local/relay_db_extral.dart';
@@ -266,7 +266,7 @@ Future<void> main() async {
 
   if (Platform.isMacOS) {
     // Nostrmo using X86_64 with MacOS .
-    UsbTransport.setMacOSArchIsArm(false);
+    NesignerUtil.setMacOSArchIsArm(false);
   }
 
   var dbInitTask = DB.getCurrentDatabase();

@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:nesigner_adapter/nesigner.dart';
+import 'package:nesigner_adapter/nesigner_util.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/nip02/nip02.dart';
@@ -20,7 +22,6 @@ import 'package:nostr_sdk/relay/relay_status.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/relay_local/relay_local.dart';
 import 'package:nostr_sdk/signer/local_nostr_signer.dart';
-import 'package:nesigner_adapter/nesigner_adapter.dart';
 import 'package:nostr_sdk/signer/nostr_signer.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
