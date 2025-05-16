@@ -81,7 +81,7 @@ class _LoginRouter extends State<LoginRouter>
 
   void checkNesigner() {
     try {
-      var exist = NesignerUtil.nesignerExist();
+      var exist = NesignerUtil.checkNesignerExist();
       setState(() {
         existNesigner = exist;
       });

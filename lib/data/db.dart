@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:nostr_sdk/utils/db_util.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:process_run/shell_run.dart';
 
@@ -12,7 +13,7 @@ class DB {
   static Database? _database;
 
   static init() async {
-    String path = await DBUtil.getPath(_dbName);
+    String path = await DBUtil.getPath(_dbName, Base.APP_NAME);
     print("path $path");
 
     try {
