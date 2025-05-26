@@ -207,8 +207,6 @@ class _MediaEditRouter extends State<MediaEditRouter> {
         imageService: settingProvider.imageService,
       );
 
-      tags.add(["url", url]);
-
       if (mimeType!.contains("image")) {
         final image = img.decodeImage(bytes);
         final blurHash = BlurHash.encode(image!, numCompX: 4, numCompY: 3);
@@ -227,6 +225,9 @@ class _MediaEditRouter extends State<MediaEditRouter> {
           "dim $dim",
           "ox $ox"
         ]);
+      } else {
+        // the kind 20 picture event add url in imeta tag.
+        tags.add(["url", url]);
       }
 
       // This oper can clear the mem ??
