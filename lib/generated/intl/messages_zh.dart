@@ -345,6 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Submit": MessageLookupByLibrary.simpleMessage("提交"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage("同步上传"),
     "Table_Mode": MessageLookupByLibrary.simpleMessage("平板模式"),
+    "Tags_Spam_Filter": MessageLookupByLibrary.simpleMessage("标签垃圾过滤"),
     "Take_photo": MessageLookupByLibrary.simpleMessage("拍照"),
     "TempRelays": MessageLookupByLibrary.simpleMessage("临时中继"),
     "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(

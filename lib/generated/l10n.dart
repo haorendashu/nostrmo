@@ -2689,6 +2689,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Tags Spam Filter`
+  String get Tags_Spam_Filter {
+    return Intl.message(
+      'Tags Spam Filter',
+      name: 'Tags_Spam_Filter',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

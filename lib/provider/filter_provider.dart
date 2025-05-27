@@ -15,6 +15,8 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
 
   List<String> dirtywordList = [];
 
+  int tagsSpamNum = -1;
+
   late TrieTree trieTree;
 
   static FilterProvider getInstance() {
@@ -39,6 +41,11 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
         return word.codeUnits;
       });
       _instance!.trieTree = buildTrieTree(words, null);
+
+      var tagsSpamNum = sharedPreferences.getInt(DataKey.TAGS_SPAM_NUM);
+      if (tagsSpamNum != null) {
+        _instance!.tagsSpamNum = tagsSpamNum;
+      }
     }
 
     return _instance!;
@@ -95,6 +102,12 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
     notifyListeners();
   }
 
+  void updateTagsSpamNum(int num) {
+    tagsSpamNum = num;
+    sharedPreferences.setInt(DataKey.TAGS_SPAM_NUM, num);
+    notifyListeners();
+  }
+
   @override
   bool check(Event e) {
     if (checkBlock(e.pubkey)) {
@@ -111,6 +124,20 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
 
       if (checkDirtyword(e.content)) {
         return true;
+      }
+
+      if (tagsSpamNum > 0) {
+        var tagsNum = 0;
+        for (var tag in e.tags) {
+          if (tag.isNotEmpty && tag[0] == "t") {
+            tagsNum++;
+          }
+        }
+
+        if (tagsNum >= tagsSpamNum) {
+          print("tagsSpamNum $tagsSpamNum tagsNum $tagsNum");
+          return true;
+        }
       }
     }
 

@@ -348,5 +348,6 @@
     "Remove_Cache": "Remove Cache",
     "Remove_media_cache": "Remove media cache",
     "Remove_meta_cache": "Remove meta cache",
-    "Remove_relay_cache": "Remove relay cache"
+    "Remove_relay_cache": "Remove relay cache",
+    "Tags_Spam_Filter": "Tags Spam Filter"
 }

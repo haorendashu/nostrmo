@@ -37,6 +37,7 @@ import '../../consts/theme_style.dart';
 import '../../data/metadata.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/filter_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../provider/uploader.dart';
 import '../../util/auth_util.dart';
@@ -71,6 +72,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
     var _settingProvider = Provider.of<SettingProvider>(context);
     var valueFontSize = themeData.textTheme.bodyMedium!.fontSize;
+    var filterProvider = Provider.of<FilterProvider>(context);
 
     var mainColor = themeData.primaryColor;
     var hintColor = themeData.hintColor;
@@ -146,6 +148,16 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       name: "Wot ${s.Filter}",
       value: getOpenListDefault(settingProvider.wotFilter).name,
       onTap: pickWotFilter,
+    ));
+
+    list.add(SettingGroupItemComponent(
+      name: s.Tags_Spam_Filter,
+      value: getOpenListDefault(filterProvider.tagsSpamNum > 0
+              ? OpenStatus.OPEN
+              : OpenStatus.CLOSE)
+          .name,
+      onTap: pickTagsSpamFilter,
+      onLongPress: pickTagsSpamFilterNumber,
     ));
 
     if (PlatformUtil.isPC()) {
@@ -1405,5 +1417,38 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
 
   removeCache() {
     CacheRemoveDialog.show(context);
+  }
+
+  pickTagsSpamFilter() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      if (resultEnumObj.value == OpenStatus.OPEN) {
+        filterProvider.updateTagsSpamNum(8);
+      } else {
+        filterProvider.updateTagsSpamNum(-1);
+      }
+    }
+  }
+
+  pickTagsSpamFilterNumber() async {
+    List<EnumObj>? list = [
+      EnumObj(3, "3"),
+      EnumObj(4, "4"),
+      EnumObj(5, "5"),
+      EnumObj(6, "6"),
+      EnumObj(7, "7"),
+      EnumObj(8, "8"),
+      EnumObj(9, "9"),
+      EnumObj(10, "10"),
+      EnumObj(11, "11"),
+      EnumObj(12, "12"),
+      EnumObj(13, "13"),
+      EnumObj(14, "14"),
+    ];
+    EnumObj? resultEnumObj = await EnumSelectorComponent.show(context, list);
+    if (resultEnumObj != null) {
+      filterProvider.updateTagsSpamNum(resultEnumObj.value);
+    }
   }
 }

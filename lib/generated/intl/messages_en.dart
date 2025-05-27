@@ -510,6 +510,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage("Sync Upload"),
     "Table_Mode": MessageLookupByLibrary.simpleMessage("Table Mode"),
+    "Tags_Spam_Filter": MessageLookupByLibrary.simpleMessage(
+      "Tags Spam Filter",
+    ),
     "Take_photo": MessageLookupByLibrary.simpleMessage("Take photo"),
     "Take_video": MessageLookupByLibrary.simpleMessage("Take video"),
     "TempRelays": MessageLookupByLibrary.simpleMessage("Temp Relays"),

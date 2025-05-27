@@ -334,5 +334,6 @@
     "Remove_Cache": "清空缓存",
     "Remove_media_cache": "清空媒体缓存",
     "Remove_meta_cache": "情况元数据缓存",
-    "Remove_relay_cache": "清空中继缓存"
+    "Remove_relay_cache": "清空中继缓存",
+    "Tags_Spam_Filter": "标签垃圾过滤"
 }

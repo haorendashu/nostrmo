@@ -14,12 +14,15 @@ class SettingGroupItemComponent extends StatelessWidget {
 
   Function? onTap;
 
+  Function? onLongPress;
+
   SettingGroupItemComponent({
     required this.name,
     this.nameColor,
     this.value,
     this.child,
     this.onTap,
+    this.onLongPress,
   });
 
   @override
@@ -63,6 +66,11 @@ class SettingGroupItemComponent extends StatelessWidget {
           onTap: () {
             if (onTap != null) {
               onTap!();
+            }
+          },
+          onLongPress: () {
+            if (onLongPress != null) {
+              onLongPress!();
             }
           },
           behavior: HitTestBehavior.opaque,
