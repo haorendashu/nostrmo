@@ -194,5 +194,6 @@ class _CacheRemoveDialog extends State<CacheRemoveDialog> {
     } finally {
       cancelFunc();
     }
+    RouterUtil.back(context);
   }
 }
