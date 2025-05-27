@@ -24,6 +24,7 @@ import 'package:nostr_sdk/utils/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';
+import '../../component/cache_remove_dialog.dart';
 import '../../component/colors_selector_component.dart';
 import '../../component/confirm_dialog.dart';
 import '../../component/editor/text_input_dialog.dart';
@@ -386,6 +387,10 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     ));
 
     list.add(SettingGroupTitleComponent(iconData: Icons.source, title: s.Data));
+    list.add(SettingGroupItemComponent(
+      name: s.Remove_Cache,
+      onTap: removeCache,
+    ));
     list.add(SettingGroupItemComponent(
       name: s.Delete_Account,
       nameColor: Colors.red,
@@ -1396,5 +1401,9 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     }
 
     return text;
+  }
+
+  removeCache() {
+    CacheRemoveDialog.show(context);
   }
 }

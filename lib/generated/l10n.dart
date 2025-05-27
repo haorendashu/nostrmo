@@ -2649,6 +2649,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Remove Cache`
+  String get Remove_Cache {
+    return Intl.message(
+      'Remove Cache',
+      name: 'Remove_Cache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove media cache`
+  String get Remove_media_cache {
+    return Intl.message(
+      'Remove media cache',
+      name: 'Remove_media_cache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove meta cache`
+  String get Remove_meta_cache {
+    return Intl.message(
+      'Remove meta cache',
+      name: 'Remove_meta_cache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove relay cache`
+  String get Remove_relay_cache {
+    return Intl.message(
+      'Remove relay cache',
+      name: 'Remove_relay_cache',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

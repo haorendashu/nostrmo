@@ -330,5 +330,9 @@
     "Note_Tail_Des": "当您发送动态时它将自动添加。",
     "Input_too_long": "输入太长",
     "Join_group_notice": "你还不是该群组的成员，请先加入！",
-    "Add_group_notice": "你没有添加该群组，请先添加！"
+    "Add_group_notice": "你没有添加该群组，请先添加！",
+    "Remove_Cache": "清空缓存",
+    "Remove_media_cache": "清空媒体缓存",
+    "Remove_meta_cache": "情况元数据缓存",
+    "Remove_relay_cache": "清空中继缓存"
 }

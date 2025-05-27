@@ -344,5 +344,9 @@
     "Note_Tail_Des": "Which will auto added when you are sending notes.",
     "Input_too_long": "Input too long",
     "Join_group_notice": "You are not in this group, please join it first!",
-    "Add_group_notice": "You haven't added this group, please add it first!"
+    "Add_group_notice": "You haven't added this group, please add it first!",
+    "Remove_Cache": "Remove Cache",
+    "Remove_media_cache": "Remove media cache",
+    "Remove_meta_cache": "Remove meta cache",
+    "Remove_relay_cache": "Remove relay cache"
 }

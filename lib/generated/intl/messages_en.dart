@@ -450,11 +450,21 @@ class MessageLookup extends MessageLookupByLibrary {
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay Info"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relay Mode"),
     "Relays": MessageLookupByLibrary.simpleMessage("Relays"),
+    "Remove_Cache": MessageLookupByLibrary.simpleMessage("Remove Cache"),
     "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
       "Remove from private bookmark",
     ),
     "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
       "Remove from public bookmark",
+    ),
+    "Remove_media_cache": MessageLookupByLibrary.simpleMessage(
+      "Remove media cache",
+    ),
+    "Remove_meta_cache": MessageLookupByLibrary.simpleMessage(
+      "Remove meta cache",
+    ),
+    "Remove_relay_cache": MessageLookupByLibrary.simpleMessage(
+      "Remove relay cache",
     ),
     "Reply": MessageLookupByLibrary.simpleMessage("Reply"),
     "Replying": MessageLookupByLibrary.simpleMessage("Replying"),

@@ -48,6 +48,11 @@ class DB {
         "create unique index dm_session_info_uindex on dm_session_info (key_index, pubkey);");
   }
 
+  static Future<void> removeCache() async {
+    var db = await getCurrentDatabase();
+    db.execute("delete from metadata where 1 = 1;");
+  }
+
   static Future<Database> getCurrentDatabase() async {
     if (_database == null) {
       await init();

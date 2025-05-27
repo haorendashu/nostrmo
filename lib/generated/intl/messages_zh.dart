@@ -303,12 +303,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "Relay_Info": MessageLookupByLibrary.simpleMessage("中继信息"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("中继类型"),
     "Relays": MessageLookupByLibrary.simpleMessage("中继"),
+    "Remove_Cache": MessageLookupByLibrary.simpleMessage("清空缓存"),
     "Remove_from_private_bookmark": MessageLookupByLibrary.simpleMessage(
       "移除私人书签",
     ),
     "Remove_from_public_bookmark": MessageLookupByLibrary.simpleMessage(
       "移除公开书签",
     ),
+    "Remove_media_cache": MessageLookupByLibrary.simpleMessage("清空媒体缓存"),
+    "Remove_meta_cache": MessageLookupByLibrary.simpleMessage("情况元数据缓存"),
+    "Remove_relay_cache": MessageLookupByLibrary.simpleMessage("清空中继缓存"),
     "Reply": MessageLookupByLibrary.simpleMessage("回复"),
     "Replying": MessageLookupByLibrary.simpleMessage("正在回复"),
     "Request": MessageLookupByLibrary.simpleMessage("请求"),
