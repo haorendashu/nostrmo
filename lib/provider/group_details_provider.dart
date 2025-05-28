@@ -179,13 +179,11 @@ class GroupDetailsProvider extends ChangeNotifier {
   }
 
   bool isGroupNote(Event e) {
-    return e.kind == EventKind.GROUP_NOTE ||
-        e.kind == EventKind.GROUP_NOTE_REPLY;
+    return e.kind == EventKind.GROUP_NOTE || e.kind == EventKind.COMMENT;
   }
 
   bool isGroupChat(Event e) {
-    return e.kind == EventKind.GROUP_CHAT_MESSAGE ||
-        e.kind == EventKind.GROUP_CHAT_REPLY;
+    return e.kind == EventKind.GROUP_CHAT_MESSAGE;
   }
 
   EventMemBox? getChatsEventBox(GroupIdentifier groupIdentifier) {
@@ -208,19 +206,17 @@ class GroupDetailsProvider extends ChangeNotifier {
 
   static List<int> supportEventKinds = [
     EventKind.GROUP_NOTE,
-    EventKind.GROUP_NOTE_REPLY,
+    EventKind.COMMENT,
     EventKind.GROUP_CHAT_MESSAGE,
-    EventKind.GROUP_CHAT_REPLY,
   ];
 
   static List<int> supportNoteKinds = [
     EventKind.GROUP_NOTE,
-    EventKind.GROUP_NOTE_REPLY,
+    EventKind.COMMENT,
   ];
 
   static List<int> supportChatKinds = [
     EventKind.GROUP_CHAT_MESSAGE,
-    EventKind.GROUP_CHAT_REPLY,
   ];
 
   static const int PREVIOUS_LENGTH = 5;

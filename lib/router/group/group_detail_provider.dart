@@ -88,16 +88,14 @@ class GroupDetailProvider extends ChangeNotifier
   }
 
   void _onNewEvent(Event e) {
-    if (e.kind == EventKind.GROUP_NOTE ||
-        e.kind == EventKind.GROUP_NOTE_REPLY) {
+    if (e.kind == EventKind.GROUP_NOTE || e.kind == EventKind.COMMENT) {
       if (newNotesBox.add(e)) {
         if (e.createdAt > _initTime) {
           _initTime = e.createdAt;
         }
         notifyListeners();
       }
-    } else if (e.kind == EventKind.GROUP_CHAT_MESSAGE ||
-        e.kind == EventKind.GROUP_CHAT_REPLY) {
+    } else if (e.kind == EventKind.GROUP_CHAT_MESSAGE) {
       if (chatsBox.add(e)) {
         chatsBox.sort();
         notifyListeners();
@@ -117,19 +115,17 @@ class GroupDetailProvider extends ChangeNotifier
 
   static List<int> supportEventKinds = [
     EventKind.GROUP_NOTE,
-    EventKind.GROUP_NOTE_REPLY,
+    EventKind.COMMENT,
     EventKind.GROUP_CHAT_MESSAGE,
-    EventKind.GROUP_CHAT_REPLY,
   ];
 
   static List<int> supportNoteKinds = [
     EventKind.GROUP_NOTE,
-    EventKind.GROUP_NOTE_REPLY,
+    EventKind.COMMENT,
   ];
 
   static List<int> supportChatKinds = [
     EventKind.GROUP_CHAT_MESSAGE,
-    EventKind.GROUP_CHAT_REPLY,
   ];
 
   void doQueryAll(int? until, {int limit = 100}) {
@@ -197,13 +193,11 @@ class GroupDetailProvider extends ChangeNotifier
   }
 
   bool isGroupNote(Event e) {
-    return e.kind == EventKind.GROUP_NOTE ||
-        e.kind == EventKind.GROUP_NOTE_REPLY;
+    return e.kind == EventKind.GROUP_NOTE || e.kind == EventKind.COMMENT;
   }
 
   bool isGroupChat(Event e) {
-    return e.kind == EventKind.GROUP_CHAT_MESSAGE ||
-        e.kind == EventKind.GROUP_CHAT_REPLY;
+    return e.kind == EventKind.GROUP_CHAT_MESSAGE;
   }
 
   void deleteEvent(Event e) {

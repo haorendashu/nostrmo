@@ -234,9 +234,9 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
               var groupAdmins =
                   GroupIdentifierInheritedWidget.getGroupAdmins(context);
               var isGroupEvent = (widget.event.kind == EventKind.GROUP_NOTE ||
-                  widget.event.kind == EventKind.GROUP_NOTE_REPLY);
+                  widget.event.kind == EventKind.COMMENT);
               var pubkey = nostr!.publicKey;
-              if ((!isGroupEvent && widget.event.pubkey == pubkey) ||
+              if ((widget.event.pubkey == pubkey) ||
                   (isGroupEvent &&
                       groupAdmins != null &&
                       groupAdmins.contains(pubkey) != null)) {
@@ -472,16 +472,15 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
     } else if (value == "block") {
       filterProvider.addBlock(widget.event.pubkey);
     } else if (value == "delete") {
-      if (widget.event.kind == EventKind.GROUP_NOTE ||
-          widget.event.kind == EventKind.GROUP_NOTE_REPLY) {
-        var groupIdentifier =
-            GroupIdentifierInheritedWidget.getGroupIdentifier(context);
-        if (groupIdentifier != null) {
-          groupProvider.deleteEvent(groupIdentifier, widget.event.id);
-          var deleteCallback = EventDeleteCallback.of(context);
-          if (deleteCallback != null) {
-            deleteCallback.onDelete(widget.event);
-          }
+      var groupIdentifier =
+          GroupIdentifierInheritedWidget.getGroupIdentifier(context);
+      if ((widget.event.kind == EventKind.GROUP_NOTE ||
+              widget.event.kind == EventKind.COMMENT) &&
+          groupIdentifier != null) {
+        groupProvider.deleteEvent(groupIdentifier, widget.event.id);
+        var deleteCallback = EventDeleteCallback.of(context);
+        if (deleteCallback != null) {
+          deleteCallback.onDelete(widget.event);
         }
       } else {
         List<String>? relayAddrs = getGroupRelays();
@@ -648,7 +647,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
   List<String>? getGroupRelays() {
     List<String>? relayAddrs;
     if (widget.event.kind == EventKind.GROUP_NOTE ||
-        widget.event.kind == EventKind.GROUP_NOTE_REPLY) {
+        widget.event.kind == EventKind.COMMENT) {
       var groupIdentifier =
           GroupIdentifierInheritedWidget.getGroupIdentifier(context);
       if (groupIdentifier != null) {

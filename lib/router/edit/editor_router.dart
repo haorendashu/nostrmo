@@ -114,12 +114,11 @@ class EditorRouter extends StatefulWidget {
 
     GroupIdentifier? groupIdentifier;
     int? groupEventKind;
-    if (event.kind == EventKind.GROUP_NOTE ||
-        event.kind == EventKind.GROUP_NOTE_REPLY) {
+    if (event.kind == EventKind.GROUP_NOTE || event.kind == EventKind.COMMENT) {
       groupIdentifier =
           GroupIdentifierInheritedWidget.getGroupIdentifier(context);
       if (groupIdentifier != null) {
-        groupEventKind = EventKind.GROUP_NOTE_REPLY;
+        groupEventKind = EventKind.COMMENT;
       }
     }
 

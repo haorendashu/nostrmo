@@ -24,10 +24,13 @@ class DMDetailItemComponent extends StatefulWidget {
 
   bool isLocal;
 
+  Function? onLongPress;
+
   DMDetailItemComponent({
     required this.sessionPubkey,
     required this.event,
     required this.isLocal,
+    this.onLongPress,
   });
 
   @override
@@ -183,11 +186,18 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
       list.add(Container(width: BLANK_WIDTH));
     }
 
-    return Container(
-      padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: list,
+    return GestureDetector(
+      onLongPress: () {
+        if (widget.onLongPress != null) {
+          widget.onLongPress!();
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: list,
+        ),
       ),
     );
   }

@@ -74,6 +74,7 @@ class _GroupDetailChatComponent
           sessionPubkey: event.pubkey, // this pubkey maybe should setto null
           event: event,
           isLocal: localPubkey == event.pubkey,
+          onLongPress: () {},
         );
       },
       sourceList: eventsLoadingMoreRepo,

@@ -135,7 +135,6 @@ class FilterProvider extends ChangeNotifier implements EventFilter {
         }
 
         if (tagsNum >= tagsSpamNum) {
-          print("tagsSpamNum $tagsSpamNum tagsNum $tagsNum");
           return true;
         }
       }
