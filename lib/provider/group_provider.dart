@@ -259,6 +259,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
     var key = groupIdentifier.toString();
     var members = groupMembers[key];
     if (members == null) {
+      print("members not fould!");
       return GroupMembership.NOT_MEMBER;
     }
 
@@ -272,6 +273,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
 
       return GroupMembership.MEMBER;
     } else {
+      print("member not fould!");
       return GroupMembership.NOT_MEMBER;
     }
   }

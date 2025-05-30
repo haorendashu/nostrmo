@@ -4,7 +4,10 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostrmo/component/content/content_component.dart';
 import 'package:nostrmo/component/content/content_decoder.dart';
+import 'package:nostrmo/component/event/simple_event_component.dart';
+import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:pointycastle/export.dart' as pointycastle;
 import 'package:provider/provider.dart';
@@ -26,11 +29,15 @@ class DMDetailItemComponent extends StatefulWidget {
 
   Function? onLongPress;
 
+  Function(String)? onRepledEventTap;
+
   DMDetailItemComponent({
+    super.key,
     required this.sessionPubkey,
     required this.event,
     required this.isLocal,
     this.onLongPress,
+    this.onRepledEventTap,
   });
 
   @override
@@ -45,8 +52,37 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
 
   static const double BLANK_WIDTH = 50;
 
+  String? replingEventId;
+
+  String? replingEventRelay;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void handleReplingInfo() {
+    replingEventId = null;
+    replingEventRelay = null;
+
+    for (var tag in widget.event.tags) {
+      if (tag is List && tag.isNotEmpty) {
+        if (tag[0] == "q") {
+          if (tag.length > 1) {
+            replingEventId = tag[1];
+          }
+          if (tag.length > 2) {
+            replingEventRelay = tag[2];
+          }
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    handleReplingInfo();
+
     var _settingProvider = Provider.of<SettingProvider>(context);
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
@@ -109,6 +145,48 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
       topList.add(enhancedIcon);
     }
 
+    late Widget replyEventWidget;
+    if (StringUtil.isNotBlank(replingEventId)) {
+      if (StringUtil.isBlank(replingEventRelay)) {
+        var groupIdentifier =
+            GroupIdentifierInheritedWidget.getGroupIdentifier(context);
+        if (groupIdentifier != null) {
+          replingEventRelay = groupIdentifier.host;
+        }
+      }
+
+      replyEventWidget = Selector<SingleEventProvider, Event?>(
+          builder: (context, event, child) {
+        if (event == null) {
+          return Container();
+        }
+
+        return GestureDetector(
+          onTap: () {
+            if (widget.onRepledEventTap != null &&
+                StringUtil.isNotBlank(replingEventId)) {
+              widget.onRepledEventTap!(replingEventId!);
+            }
+          },
+          behavior: HitTestBehavior.translucent,
+          child: Container(
+            margin: const EdgeInsets.only(top: Base.BASE_PADDING_HALF),
+            padding: const EdgeInsets.all(Base.BASE_PADDING_HALF),
+            decoration: BoxDecoration(
+              color: themeData.hintColor.withAlpha(50),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: SimpleEventComponent(event),
+          ),
+        );
+      }, selector: (context, provider) {
+        return provider.getEvent(replingEventId!,
+            eventRelayAddr: replingEventRelay);
+      });
+    } else {
+      replyEventWidget = Container();
+    }
+
     var contentWidget = Container(
       margin: const EdgeInsets.only(
         left: Base.BASE_PADDING_HALF,
@@ -138,30 +216,14 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
               color: mainColor.withOpacity(0.3),
               borderRadius: const BorderRadius.all(Radius.circular(5)),
             ),
-            // child: SelectableText(content),
-            child: Column(
-              crossAxisAlignment: widget.isLocal
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ContentComponent(
-                  content: content,
-                  event: widget.event,
-                  showLinkPreview:
-                      _settingProvider.linkPreview == OpenStatus.OPEN,
-                  smallest: true,
-                ),
-              ],
-              // children: ContentDecoder.decode(
-              //   context,
-              //   content,
-              //   widget.event,
-              //   showLinkPreview:
-              //       _settingProvider.linkPreview == OpenStatus.OPEN,
-              // ),
+            child: ContentComponent(
+              content: content,
+              event: widget.event,
+              showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
+              smallest: true,
             ),
           ),
+          replyEventWidget,
         ],
       ),
     );
@@ -188,12 +250,16 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
 
     return GestureDetector(
       onLongPress: () {
+        print("onLongPress!!!");
+        print(widget.onLongPress);
         if (widget.onLongPress != null) {
+          print("onLongPress 123");
           widget.onLongPress!();
         }
       },
+      behavior: HitTestBehavior.translucent,
       child: Container(
-        padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
+        padding: const EdgeInsets.all(Base.BASE_PADDING_HALF),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: list,

@@ -1,15 +1,19 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/nip29/group_metadata.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/component/group_identifier_inherited_widget.dart';
 import 'package:nostrmo/consts/router_path.dart';
+import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/group_details_provider.dart';
 import 'package:nostrmo/provider/list_provider.dart';
+import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
@@ -23,6 +27,9 @@ import '../../component/editor/mention_user_embed_builder.dart';
 import '../../component/editor/pic_embed_builder.dart';
 import '../../component/editor/tag_embed_builder.dart';
 import '../../component/editor/video_embed_builder.dart';
+import '../../component/event/simple_event_component.dart';
+import '../../component/user/name_component.dart';
+import '../../component/user/user_pic_component.dart';
 import '../../consts/base.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -63,6 +70,8 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
     }
   }
 
+  Event? replingEvent;
+
   @override
   Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
@@ -75,6 +84,8 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
       return Container();
     }
     groupIdentifier = groupIdentifierItf as GroupIdentifier;
+
+    var groupAdmins = groupProvider.getAdmins(groupIdentifier!);
 
     var nameComponnet = Selector<GroupProvider, GroupMetadata?>(
       builder: (BuildContext context, GroupMetadata? value, Widget? child) {
@@ -119,6 +130,12 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
             sessionPubkey: event.pubkey,
             event: event,
             isLocal: localPubkey == event.pubkey,
+            onLongPress: () {
+              setState(() {
+                replingEvent = event;
+              });
+            },
+            onRepledEventTap: (replingEventId) {},
           );
         },
         reverse: true,
@@ -141,7 +158,8 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
               child: listWidget,
             ),
             Selector<GroupProvider, int>(builder: (context, memberShip, child) {
-              if (memberShip == GroupMembership.MEMBER) {
+              if (memberShip == GroupMembership.MEMBER ||
+                  memberShip == GroupMembership.ADMIN) {
                 return Container();
               }
 
@@ -180,6 +198,93 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
       ),
     ));
 
+    Widget editorWidget = Row(
+      children: [
+        Expanded(
+          child: quill.QuillEditor(
+            configurations: quill.QuillEditorConfigurations(
+              placeholder: s.What_s_happening,
+              embedBuilders: [
+                MentionUserEmbedBuilder(),
+                MentionEventEmbedBuilder(),
+                PicEmbedBuilder(),
+                VideoEmbedBuilder(),
+                LnbcEmbedBuilder(),
+                TagEmbedBuilder(),
+                CustomEmojiEmbedBuilder(),
+              ],
+              scrollable: true,
+              autoFocus: false,
+              expands: false,
+              // padding: EdgeInsets.zero,
+              padding: EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+              ),
+              maxHeight: 300, controller: editorController,
+            ),
+            scrollController: ScrollController(),
+            focusNode: focusNode,
+          ),
+        ),
+        TextButton(
+          child: Text(
+            s.Send,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 16,
+            ),
+          ),
+          onPressed: send,
+          style: ButtonStyle(),
+        )
+      ],
+    );
+
+    if (replingEvent != null) {
+      editorWidget = Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(
+              top: Base.BASE_PADDING,
+              left: Base.BASE_PADDING,
+              right: Base.BASE_PADDING,
+            ),
+            child: Row(
+              children: [
+                Text("${s.Replying}  "),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(Base.BASE_PADDING_HALF),
+                    decoration: BoxDecoration(
+                      color: themeData.hintColor.withAlpha(100),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: SimpleEventComponent(replingEvent!),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      replingEvent = null;
+                    });
+                  },
+                  behavior: HitTestBehavior.translucent,
+                  child: Container(
+                    padding: EdgeInsets.all(Base.BASE_PADDING_HALF),
+                    child: Icon(Icons.close),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          editorWidget,
+        ],
+      );
+    }
+
     list.add(Container(
       decoration: BoxDecoration(
         color: cardColor,
@@ -192,48 +297,7 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
           ),
         ],
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: quill.QuillEditor(
-              configurations: quill.QuillEditorConfigurations(
-                placeholder: s.What_s_happening,
-                embedBuilders: [
-                  MentionUserEmbedBuilder(),
-                  MentionEventEmbedBuilder(),
-                  PicEmbedBuilder(),
-                  VideoEmbedBuilder(),
-                  LnbcEmbedBuilder(),
-                  TagEmbedBuilder(),
-                  CustomEmojiEmbedBuilder(),
-                ],
-                scrollable: true,
-                autoFocus: false,
-                expands: false,
-                // padding: EdgeInsets.zero,
-                padding: EdgeInsets.only(
-                  left: Base.BASE_PADDING,
-                  right: Base.BASE_PADDING,
-                ),
-                maxHeight: 300, controller: editorController,
-              ),
-              scrollController: ScrollController(),
-              focusNode: focusNode,
-            ),
-          ),
-          TextButton(
-            child: Text(
-              s.Send,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 16,
-              ),
-            ),
-            onPressed: send,
-            style: ButtonStyle(),
-          )
-        ],
-      ),
+      child: editorWidget,
     ));
 
     list.add(buildEditorBtns(showShadow: false, height: null));
@@ -272,7 +336,11 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
           ),
         ],
       ),
-      body: main,
+      body: GroupIdentifierInheritedWidget(
+        groupIdentifier: groupIdentifier!,
+        groupAdmins: groupAdmins,
+        child: main,
+      ),
     );
   }
 
@@ -313,10 +381,17 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
       }
 
       editorController.clear();
+      replingEvent = null;
       setState(() {});
     } finally {
       cancelFunc.call();
     }
+  }
+
+  void removeQuotingEvent() {
+    setState(() {
+      replingEvent = null;
+    });
   }
 
   @override
@@ -341,6 +416,11 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
 
   @override
   List getTags() {
+    if (replingEvent != null) {
+      return [
+        ["q", replingEvent!.id, "", replingEvent!.pubkey],
+      ];
+    }
     return [];
   }
 
