@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 mixin LoadMoreEvent {
   // load more where still left 20 item.
@@ -27,6 +28,24 @@ mixin LoadMoreEvent {
     }
   }
 
+  void bindLoadMoreItemScroll(ItemPositionsListener itemPositionsListener) {
+    itemPositionsListener.itemPositions.addListener(() {
+      if (itemLength <= 0) {
+        return;
+      }
+
+      var positions = itemPositionsListener.itemPositions.value;
+      var total = itemLength;
+      if (positions.isNotEmpty) {
+        var lastIndex = positions.last.index;
+        var leftNum = total - lastIndex;
+        if (leftNum < loadMoreItemLeftNum) {
+          loadMore();
+        }
+      }
+    });
+  }
+
   int queryInterval = 1000 * 15;
 
   int? until;
@@ -47,7 +66,6 @@ mixin LoadMoreEvent {
 
   // this function call by scroll listener
   void loadMore() {
-    // print("touch loadMore");
     var eventMemBox = getEventBox();
     var now = DateTime.now();
     // check if query just now

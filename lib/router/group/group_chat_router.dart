@@ -17,6 +17,7 @@ import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/editor/custom_emoji_embed_builder.dart';
@@ -46,7 +47,13 @@ class GroupChatRouter extends StatefulWidget {
 
 class _GroupChatRouter extends CustState<GroupChatRouter>
     with EditorMixin, LoadMoreEvent {
-  ScrollController _controller = ScrollController();
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
 
   GroupIdentifier? groupIdentifier;
 
@@ -55,7 +62,7 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
   @override
   void initState() {
     super.initState();
-    bindLoadMoreScroll(_controller);
+    bindLoadMoreItemScroll(itemPositionsListener);
   }
 
   @override
@@ -119,11 +126,11 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
       eventBox = _eventBox;
       preBuild();
 
-      return ListView.builder(
+      return ScrollablePositionedList.builder(
         itemBuilder: (context, index) {
           var event = eventBox!.get(index);
           if (event == null) {
-            return null;
+            return Container();
           }
 
           return DMDetailItemComponent(
@@ -135,13 +142,29 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
                 replingEvent = event;
               });
             },
-            onRepledEventTap: (replingEventId) {},
+            onRepledEventTap: (replingEventId) {
+              if (eventBox == null) {
+                return null;
+              }
+
+              var list = eventBox!.all();
+              for (var index = 0; index < list.length; index++) {
+                var event = list[index];
+                if (event.id == replingEventId) {
+                  itemScrollController.jumpTo(index: index);
+                }
+              }
+            },
           );
         },
         reverse: true,
         itemCount: eventBox!.length(),
-        dragStartBehavior: DragStartBehavior.down,
-        controller: _controller,
+        // dragStartBehavior: DragStartBehavior.down,
+        // controller: _controller,
+        itemScrollController: itemScrollController,
+        scrollOffsetController: scrollOffsetController,
+        itemPositionsListener: itemPositionsListener,
+        scrollOffsetListener: scrollOffsetListener,
       );
     }, selector: (context, provider) {
       return provider.getChatsEventBox(groupIdentifier!);
