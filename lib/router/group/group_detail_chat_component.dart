@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:loading_more_list/loading_more_list.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
@@ -9,7 +10,6 @@ import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:nostrmo/util/load_more_event.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 
 import '../../component/editor/custom_emoji_embed_builder.dart';
 import '../../component/editor/editor_mixin.dart';
@@ -106,8 +106,8 @@ class _GroupDetailChatComponent
       child: Row(
         children: [
           Expanded(
-            child: quill.QuillEditor(
-              configurations: quill.QuillEditorConfigurations(
+            child: QuillEditor(
+              config: QuillEditorConfig(
                 placeholder: s.What_s_happening,
                 embedBuilders: [
                   MentionUserEmbedBuilder(),
@@ -126,10 +126,11 @@ class _GroupDetailChatComponent
                   left: Base.BASE_PADDING,
                   right: Base.BASE_PADDING,
                 ),
-                maxHeight: 300, controller: editorController,
+                maxHeight: 300,
               ),
               scrollController: ScrollController(),
               focusNode: focusNode,
+              controller: editorController,
             ),
           ),
           TextButton(

@@ -353,7 +353,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
     Widget quillWidget = QuillEditor(
       controller: editorController,
-      configurations: QuillEditorConfigurations(
+      config: QuillEditorConfig(
         placeholder: s.What_s_happening,
         embedBuilders: [
           MentionUserEmbedBuilder(),
@@ -376,6 +376,12 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
           checkAndInsertNoteTail();
           return false;
         },
+        customStyleBuilder: (Attribute attribute) {
+          return TextStyle();
+        },
+        customStyles: DefaultStyles(),
+        enableInteractiveSelection: true,
+        enableSelectionToolbar: true,
       ),
       scrollController: ScrollController(),
       focusNode: focusNode,

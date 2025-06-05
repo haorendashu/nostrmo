@@ -7,9 +7,8 @@ import 'cust_embed_types.dart';
 
 class LnbcEmbedBuilder extends EmbedBuilder {
   @override
-  Widget build(BuildContext context, QuillController controller, Embed node,
-      bool readOnly, bool inline, TextStyle textStyle) {
-    var lnbcStr = node.value.data;
+  Widget build(BuildContext context, EmbedContext embedContext) {
+    var lnbcStr = embedContext.node.value.data;
     return AbsorbPointer(
       child: ContentLnbcComponent(lnbc: lnbcStr),
     );

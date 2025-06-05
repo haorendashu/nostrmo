@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
   flutter_inappwebview_windows
   flutter_nesigner_sdk
+  irondash_engine_context
   isar_flutter_libs
   local_auth_windows
   local_notifier
@@ -17,6 +18,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   permission_handler_windows
   screen_retriever_windows
   share_plus
+  super_native_extensions
   tray_manager
   url_launcher_windows
   volume_controller

@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
@@ -16,7 +17,6 @@ import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../component/appbar_back_btn_component.dart';
@@ -224,8 +224,8 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
     Widget editorWidget = Row(
       children: [
         Expanded(
-          child: quill.QuillEditor(
-            configurations: quill.QuillEditorConfigurations(
+          child: QuillEditor(
+            config: QuillEditorConfig(
               placeholder: s.What_s_happening,
               embedBuilders: [
                 MentionUserEmbedBuilder(),
@@ -244,10 +244,11 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
                 left: Base.BASE_PADDING,
                 right: Base.BASE_PADDING,
               ),
-              maxHeight: 300, controller: editorController,
+              maxHeight: 300,
             ),
             scrollController: ScrollController(),
             focusNode: focusNode,
+            controller: editorController,
           ),
         ),
         TextButton(
