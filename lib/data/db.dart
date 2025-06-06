@@ -13,7 +13,7 @@ class DB {
   static Database? _database;
 
   static init() async {
-    String path = await DBUtil.getPath(_dbName, Base.APP_NAME);
+    String path = await DBUtil.getPath(Base.APP_NAME, _dbName);
     print("path $path");
 
     try {
