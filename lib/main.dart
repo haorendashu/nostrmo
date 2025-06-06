@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill/translations.dart';
 import 'package:flutter_socks_proxy/socks_proxy.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_cache_manager/src/cache_store.dart';
@@ -49,7 +50,6 @@ import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
 import 'package:nostrmo/router/web_utils/web_utils_router.dart';
 import 'package:provider/provider.dart';
-import 'package:quill_super_clipboard/quill_super_clipboard.dart';
 import 'package:relay_isar_db/relay_isar_db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -268,10 +268,6 @@ Future<void> main() async {
   if (PlatformUtil.isMacOS()) {
     // Nostrmo using X86_64 with MacOS .
     NesignerUtil.setMacOSArchIsArm(false);
-  }
-
-  if (PlatformUtil.isWindows()) {
-    QuillSuperClipboard.use();
   }
 
   var dbInitTask = DB.getCurrentDatabase();
@@ -543,11 +539,11 @@ class _MyApp extends State<MyApp> {
           locale: _locale,
           title: Base.APP_NAME,
           localizationsDelegates: const [
+            FlutterQuillLocalizations.delegate,
             S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
-            FlutterQuillLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
           theme: defaultTheme,

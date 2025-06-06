@@ -132,7 +132,7 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
         children: [
           Expanded(
             child: QuillEditor(
-              config: QuillEditorConfig(
+              configurations: QuillEditorConfigurations(
                 placeholder: s.What_s_happening,
                 embedBuilders: [
                   MentionUserEmbedBuilder(),

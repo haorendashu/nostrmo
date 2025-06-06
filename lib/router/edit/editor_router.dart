@@ -353,7 +353,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
 
     Widget quillWidget = QuillEditor(
       controller: editorController,
-      config: QuillEditorConfig(
+      configurations: QuillEditorConfigurations(
         placeholder: s.What_s_happening,
         embedBuilders: [
           MentionUserEmbedBuilder(),

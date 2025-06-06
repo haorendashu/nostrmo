@@ -790,10 +790,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_quill
-      sha256: "7e60963632bbc8615627f0bae8e178515f69ecb378ad49fa68c43c2aabf33e21"
+      sha256: "6274834823e61291c0cedee9dd7f73fc7836ea07a12596de8f5fa08598b5eb74"
       url: "https://pub.dev"
     source: hosted
-    version: "11.4.1"
+    version: "10.8.5"
   flutter_quill_delta_from_html:
     dependency: transitive
     description:
@@ -1012,22 +1012,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.2"
-  irondash_engine_context:
-    dependency: transitive
-    description:
-      name: irondash_engine_context
-      sha256: cd7b769db11a2b5243b037c8a9b1ecaef02e1ae27a2d909ffa78c1dad747bb10
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.4"
-  irondash_message_channel:
-    dependency: transitive
-    description:
-      name: irondash_message_channel
-      sha256: b4101669776509c76133b8917ab8cfc704d3ad92a8c450b92934dd8884a2f060
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
   isar:
     dependency: transitive
     description:
@@ -1489,14 +1473,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  pixel_snap:
-    dependency: transitive
-    description:
-      name: pixel_snap
-      sha256: "677410ea37b07cd37ecb6d5e6c0d8d7615a7cf3bd92ba406fd1ac57e937d1fb0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.5"
   platform:
     dependency: transitive
     description:
@@ -1589,10 +1565,10 @@ packages:
     dependency: transitive
     description:
       name: quill_native_bridge
-      sha256: "00752aca7d67cbd3254709a47558be78427750cb81aa42cfbed354d4a079bcfa"
+      sha256: "0b3200c57bb4f1f12d6c764648d42482891f20f12024c75fe3479cafc1e132c9"
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.1"
+    version: "10.7.11"
   quill_native_bridge_android:
     dependency: transitive
     description:
@@ -1649,14 +1625,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.1"
-  quill_super_clipboard:
-    dependency: "direct main"
-    description:
-      name: quill_super_clipboard
-      sha256: "95f08a998911418b83ab07aa7edc65ec738bce407204db66d376248716a8e130"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1-alpha.2"
   quiver:
     dependency: transitive
     description:
@@ -1981,22 +1949,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  super_clipboard:
-    dependency: transitive
-    description:
-      name: super_clipboard
-      sha256: "4a6ae6dfaa282ec1f2bff750976f535517ed8ca842d5deae13985eb11c00ac1f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.24"
-  super_native_extensions:
-    dependency: transitive
-    description:
-      name: super_native_extensions
-      sha256: a433bba8186cd6b707560c42535bf284804665231c00bca86faf1aa4968b7637
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.24"
   synchronized:
     dependency: transitive
     description:
