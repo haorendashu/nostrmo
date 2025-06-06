@@ -788,9 +788,7 @@ mixin EditorMixin {
       }
       var summary = summaryController.text;
       if (StringUtil.isNotBlank(summary)) {
-        if (StringUtil.isNotBlank(longFormImage)) {
-          allTags.add(["summary", summary]);
-        }
+        allTags.add(["summary", summary]);
       }
 
       var id = DateTime.now().millisecondsSinceEpoch.toString();
