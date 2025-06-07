@@ -272,7 +272,7 @@ Future<void> main() async {
 
   var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
-  // var localRelayDBTask = RelayLocalDB.init();
+  // var localRelayDBTask = RelayLocalDB.init(Base.APP_NAME);
   var localRelayDBTask = RelayIsarDB.init(Base.APP_NAME);
   var dataFutureResultList =
       await Future.wait([dbInitTask, dataUtilTask, localRelayDBTask]);
