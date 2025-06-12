@@ -1,6 +1,6 @@
 {
     "About": "Acerca de",
-    "Account_Manager": "Adminitración de cuentas",
+    "Account_Manager": "Administración de cuentas",
     "Add": "Añadir",
     "Add_Account": "Añadir cuenta",
     "Add_User": "Añadir usuarios",
@@ -136,7 +136,7 @@
     "Input_Sats_num_to_gen_lightning_invoice": "Introduce la cantidad de Sats para generar un cobro en Lightning",
     "Input_account_private_key": "Introduce tu clave privada",
     "Input_can_not_be_null": "Este campo no puede estar vacío",
-    "Input_dirtyword": "Por favor, introduce las palabras a fitrar",
+    "Input_dirtyword": "Por favor, introduce las palabras a filtrar",
     "Input_follow_set_name": "Introduce el nombre del grupo de seguimiento",
     "Input_parse_error": "Error en la entrada",
     "Input_relay_address": "Por favor, introduce la dirección del relé.",
@@ -150,7 +150,7 @@
     "Lightning_Invoice": "Cobro en Lightning Network",
     "Limit_Note_Height": "Límite de altura de la nota",
     "Link_preview": "Vista previa del enlace",
-    "Lnurl_and_Lud16_can_t_found": "No de puedieron encontrar Lnurl y lud16 .",
+    "Lnurl_and_Lud16_can_t_found": "No se puedieron encontrar Lnurl y lud16 .",
     "LocalRelay": "Relé local",
     "Login": "Iniciar sesión",
     "Login_With_Android_Signer": "Iniciar sesión con Android Signer",
@@ -299,7 +299,7 @@
     "Use_lightning_wallet_scan_and_send_sats": "Escanear y enviar Sats con la billetera de red Lightning",
     "User_Pubkey": "Clave pública de usuario",
     "Users": "Usuarios",
-    "Verify_error": "Verificar errorn",
+    "Verify_error": "Verificar error",
     "Verify_failure": "Verificar fallo",
     "Version": "Versión",
     "Video_preview_in_list": "Vista previa del vídeo en lista",
@@ -324,7 +324,7 @@
     "boosted": "Promovido",
     "close": "Cerrar",
     "is_sending": "Enviando...",
-    "key_has_been_copy": "La clave de ha copiado",
+    "key_has_been_copy": "La clave se ha copiado",
     "liked": "Gustado",
     "loading": "Cargando",
     "max_zap_num": "Número máximo de Zap",
@@ -335,5 +335,5 @@
     "or": "O",
     "poll_option_info": "Información sobre las opciones de la encuesta",
     "replied": "Respondido",
-    "terms_of_user": "Terminos de usuario"
+    "terms_of_user": "Términos de usuario"
 }
