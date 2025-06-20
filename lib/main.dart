@@ -265,11 +265,6 @@ Future<void> main() async {
     );
   }
 
-  if (PlatformUtil.isMacOS()) {
-    // Nostrmo using X86_64 with MacOS .
-    NesignerUtil.setMacOSArchIsArm(false);
-  }
-
   var dbInitTask = DB.getCurrentDatabase();
   var dataUtilTask = DataUtil.getInstance();
   // var localRelayDBTask = RelayLocalDB.init(Base.APP_NAME);

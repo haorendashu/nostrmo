@@ -322,6 +322,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  dylib:
+    dependency: transitive
+    description:
+      name: dylib
+      sha256: bf609b3eb6492a3309b3d1dbe8f83a4031de5535dd7686be33487051cc760bb0
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3"
   dynamic_height_grid_view:
     dependency: "direct main"
     description:
@@ -719,6 +727,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.14.1"
+  flutter_libserialport:
+    dependency: transitive
+    description:
+      name: flutter_libserialport
+      sha256: d193b5ac819db6540d20cc8d20d9f5ec9e3396edb4d2c4a23c97863fa9132336
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
   flutter_link_previewer:
     dependency: "direct main"
     description:
@@ -1076,13 +1092,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  libusb:
+  libserialport:
     dependency: transitive
     description:
-      path: "packages/libusb_ffi"
-      relative: true
-    source: path
-    version: "0.4.23-dev.1+1"
+      name: libserialport
+      sha256: "392e1592def65282429832ec66fa25e9e163d3b37716b97691482e2406720727"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.0+1"
   linkify:
     dependency: transitive
     description:
@@ -2085,6 +2102,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  usb_serial:
+    dependency: transitive
+    description:
+      name: usb_serial
+      sha256: a605a600e34e7f28d4e80851ca3999ef747e42e406138887b8a88b8c382a8b07
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.2"
   uuid:
     dependency: transitive
     description:

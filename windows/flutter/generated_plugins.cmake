@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   file_saver
   file_selector_windows
   flutter_inappwebview_windows
+  flutter_libserialport
   flutter_nesigner_sdk
   isar_flutter_libs
   local_auth_windows
