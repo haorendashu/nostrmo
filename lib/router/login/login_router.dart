@@ -72,7 +72,7 @@ class _LoginRouter extends State<LoginRouter>
       }
     }
 
-    if (!PlatformUtil.isIOS() && !PlatformUtil.isAndroid()) {
+    if (!PlatformUtil.isIOS()) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         checkNesigner();
       });
@@ -82,6 +82,7 @@ class _LoginRouter extends State<LoginRouter>
   Future<void> checkNesigner() async {
     try {
       var exist = await NesignerUtil.checkNesignerExist();
+      print("checkNesigner exist $exist");
       setState(() {
         existNesigner = exist;
       });
@@ -496,12 +497,12 @@ class _LoginRouter extends State<LoginRouter>
     }
 
     var strs = nesignerInputStr.split(":");
-    var aesKey = strs[0];
+    var pinCode = strs[0];
 
     var cancelFunc = BotToast.showLoading();
 
     try {
-      var nesigner = Nesigner(aesKey);
+      var nesigner = Nesigner(pinCode);
       if (!(await nesigner.start())) {
         BotToast.showText(text: "Connect to nesigner fail.");
         return;
@@ -509,9 +510,7 @@ class _LoginRouter extends State<LoginRouter>
 
       if (strs.length > 1) {
         var privateKey = strs[1];
-        var aesKeyBin = HEX.decode(aesKey);
-        var updateResult =
-            await nesigner.updateKey(Uint8List.fromList(aesKeyBin), privateKey);
+        var updateResult = await nesigner.updateKey(pinCode, privateKey);
         print("update result $updateResult");
       }
 
@@ -529,7 +528,7 @@ class _LoginRouter extends State<LoginRouter>
 
       doPreLogin();
 
-      var key = "${Nesigner.URI_PRE}:$aesKey?pubkey=$pubkey";
+      var key = "${Nesigner.URI_PRE}:$pinCode?pubkey=$pubkey";
       settingProvider.addAndChangePrivateKey(key, updateUI: false);
       nostr = await relayProvider.genNostr(nesigner);
     } finally {

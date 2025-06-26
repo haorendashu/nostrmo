@@ -163,9 +163,9 @@ class RelayProvider extends ChangeNotifier {
         return null;
       }
     } else if (Nesigner.isNesignerKey(key)) {
-      var aesKey = Nesigner.getAesKeyFromKey(key);
+      var pinCode = Nesigner.getPinCodeFromKey(key);
       var pubkey = Nesigner.getPubkeyFromKey(key);
-      nostrSigner = Nesigner(aesKey, pubkey: pubkey);
+      nostrSigner = Nesigner(pinCode, pubkey: pubkey);
       try {
         if (!(await (nostrSigner as Nesigner).start())) {
           return null;

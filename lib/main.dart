@@ -348,7 +348,7 @@ class MyApp extends StatefulWidget {
   }
 }
 
-class _MyApp extends State<MyApp> {
+class _MyApp extends State<MyApp> with WidgetsBindingObserver {
   reload() {
     setState(() {});
   }
@@ -554,15 +554,22 @@ class _MyApp extends State<MyApp> {
   void initState() {
     super.initState();
     SystemTimer.run();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-    SystemTimer.stopTask();
+  }
 
-    if (nostr != null) {
-      nostr!.close();
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      SystemTimer.stopTask();
+      if (nostr != null) {
+        nostr!.close();
+      }
     }
   }
 

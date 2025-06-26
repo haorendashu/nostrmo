@@ -730,10 +730,11 @@ packages:
   flutter_libserialport:
     dependency: transitive
     description:
-      name: flutter_libserialport
-      sha256: d193b5ac819db6540d20cc8d20d9f5ec9e3396edb4d2c4a23c97863fa9132336
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "3d80a2612d65e0bec85a71f183b0134755ee9123"
+      url: "https://github.com/haorendashu/flutter_libserialport"
+    source: git
     version: "0.5.0"
   flutter_link_previewer:
     dependency: "direct main"

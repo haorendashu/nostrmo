@@ -225,8 +225,6 @@ class _NesignerLoginDialog extends State<NesignerLoginDialog> {
       return;
     }
 
-    var aesKey = HashUtil.md5(pin);
-
     if (bingKey) {
       if (StringUtil.isBlank(privateKey)) {
         BotToast.showText(text: s.Input_can_not_be_null);
@@ -237,9 +235,9 @@ class _NesignerLoginDialog extends State<NesignerLoginDialog> {
         privateKey = Nip19.decode(privateKey);
       }
 
-      return RouterUtil.back(context, "$aesKey:$privateKey");
+      return RouterUtil.back(context, "$pin:$privateKey");
     }
 
-    return RouterUtil.back(context, aesKey);
+    return RouterUtil.back(context, pin);
   }
 }

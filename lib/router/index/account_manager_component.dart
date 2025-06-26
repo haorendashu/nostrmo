@@ -286,7 +286,7 @@ class _AccountManagerItemComponent extends State<AccountManagerItemComponent> {
       }
       loginTag = "NIP-46";
     } else if (Nesigner.isNesignerKey(widget.accountKey)) {
-      var aesKey = Nesigner.getAesKeyFromKey(widget.accountKey);
+      var pinCode = Nesigner.getPinCodeFromKey(widget.accountKey);
       var _pubkey = Nesigner.getPubkeyFromKey(widget.accountKey);
       if (StringUtil.isNotBlank(_pubkey)) {
         pubkey = _pubkey!;
