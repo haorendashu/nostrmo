@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 0x2323 / 0x3434: Nesigner -->
+    <usb-device vendor-id="8995" product-id="13364" />
+</resources>
