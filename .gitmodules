@@ -4,9 +4,6 @@
 [submodule "packages/flutter_nesigner_sdk"]
 	path = packages/flutter_nesigner_sdk
 	url = git@github.com:haorendashu/flutter_nesigner_sdk.git
-[submodule "packages/libusb_ffi"]
-	path = packages/libusb_ffi
-	url = git@github.com:haorendashu/libusb_ffi.git
 [submodule "packages/nesigner_adapter"]
 	path = packages/nesigner_adapter
 	url = git@github.com:haorendashu/nesigner_adapter.git

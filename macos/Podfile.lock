@@ -16,11 +16,15 @@ PODS:
   - flutter_inappwebview_macos (0.0.1):
     - FlutterMacOS
     - OrderedSet (~> 6.0.3)
+  - flutter_libserialport (0.0.1):
+    - FlutterMacOS
+    - libserialport
   - flutter_nesigner_sdk (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - isar_flutter_libs (1.0.0):
     - FlutterMacOS
+  - libserialport (0.1.1)
   - local_auth_darwin (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -76,6 +80,7 @@ DEPENDENCIES:
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - flutter_image_compress_macos (from `Flutter/ephemeral/.symlinks/plugins/flutter_image_compress_macos/macos`)
   - flutter_inappwebview_macos (from `Flutter/ephemeral/.symlinks/plugins/flutter_inappwebview_macos/macos`)
+  - flutter_libserialport (from `Flutter/ephemeral/.symlinks/plugins/flutter_libserialport/macos`)
   - flutter_nesigner_sdk (from `Flutter/ephemeral/.symlinks/plugins/flutter_nesigner_sdk/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - isar_flutter_libs (from `Flutter/ephemeral/.symlinks/plugins/isar_flutter_libs/macos`)
@@ -101,6 +106,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - libserialport
     - OrderedSet
 
 EXTERNAL SOURCES:
@@ -120,6 +126,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_image_compress_macos/macos
   flutter_inappwebview_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_inappwebview_macos/macos
+  flutter_libserialport:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_libserialport/macos
   flutter_nesigner_sdk:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_nesigner_sdk/macos
   FlutterMacOS:
@@ -174,9 +182,11 @@ SPEC CHECKSUMS:
   file_selector_macos: 660f7672ee62dad6df1bb0cbdb90a10ce3f946df
   flutter_image_compress_macos: e68daf54bb4bf2144c580fd4d151c949cbf492f0
   flutter_inappwebview_macos: c2d68649f9f8f1831bfcd98d73fd6256366d9d1d
-  flutter_nesigner_sdk: 2dc526a8ea15d1574c80e3c6ce86ab8c3142a94e
+  flutter_libserialport: 2c523cb8d8203fc6d1b0da88190da31ac970eb93
+  flutter_nesigner_sdk: 939e2a7f606071466d3e8158c745818abe62d266
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   isar_flutter_libs: a65381780401f81ad6bf3f2e7cd0de5698fb98c4
+  libserialport: 1cb25e66ef3c92a8e59c2ea3820302c3fa2268cd
   local_auth_darwin: 553ce4f9b16d3fdfeafce9cf042e7c9f77c1c391
   local_notifier: ebf072651e35ae5e47280ad52e2707375cb2ae4e
   media_kit_libs_macos_video: 85a23e549b5f480e72cae3e5634b5514bc692f65
