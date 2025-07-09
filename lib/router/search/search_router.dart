@@ -9,6 +9,7 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostrmo/component/user/metadata_top_component.dart';
 import 'package:nostrmo/data/event_find_util.dart';
@@ -21,6 +22,7 @@ import 'package:provider/provider.dart';
 import '../../component/cust_state.dart';
 import '../../component/event/event_list_component.dart';
 import '../../component/event_delete_callback.dart';
+import '../../component/link_router_util.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/event_kind_type.dart';
 import '../../consts/router_path.dart';
@@ -97,9 +99,18 @@ class _SearchRouter extends CustState<SearchRouter>
         if (action == SearchActions.openPubkey) {
           list.add(SearchActionItemComponent(
               title: s.Open_User_page, onTap: openPubkey));
+        } else if (action == SearchActions.openNprofile) {
+          list.add(SearchActionItemComponent(
+              title: s.Open_User_page, onTap: openNostrLink));
         } else if (action == SearchActions.openNoteId) {
           list.add(SearchActionItemComponent(
               title: s.Open_Note_detail, onTap: openNoteId));
+        } else if (action == SearchActions.openNevent) {
+          list.add(SearchActionItemComponent(
+              title: s.Open_Note_detail, onTap: openNostrLink));
+        } else if (action == SearchActions.openNaddr) {
+          list.add(SearchActionItemComponent(
+              title: s.Open_Note_detail, onTap: openNostrLink));
         } else if (action == SearchActions.openHashtag) {
           list.add(SearchActionItemComponent(
               title: "${s.open} ${s.Hashtag}", onTap: openHashtag));
@@ -380,6 +391,14 @@ class _SearchRouter extends CustState<SearchRouter>
     }
   }
 
+  openNostrLink() {
+    hideKeyBoard();
+    var text = controller.text;
+    if (StringUtil.isNotBlank(text)) {
+      LinkRouterUtil.router(context, text);
+    }
+  }
+
   openHashtag() {
     hideKeyBoard();
     var text = controller.text;
@@ -440,8 +459,17 @@ class _SearchRouter extends CustState<SearchRouter>
       if (Nip19.isPubkey(text)) {
         searchAbles.add(SearchActions.openPubkey);
       }
+      if (NIP19Tlv.isNprofile(text)) {
+        searchAbles.add(SearchActions.openNprofile);
+      }
       if (Nip19.isNoteId(text)) {
         searchAbles.add(SearchActions.openNoteId);
+      }
+      if (NIP19Tlv.isNevent(text)) {
+        searchAbles.add(SearchActions.openNevent);
+      }
+      if (NIP19Tlv.isNaddr(text)) {
+        searchAbles.add(SearchActions.openNaddr);
       }
       if (searchAbles.isEmpty) {
         searchAbles.add(SearchActions.openHashtag);

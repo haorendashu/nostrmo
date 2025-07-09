@@ -1,7 +1,13 @@
 class SearchActions {
   static const String openPubkey = "openPubkey";
 
+  static const String openNprofile = "openNprofile";
+
   static const String openNoteId = "openNoteId";
+
+  static const String openNevent = "openNevent";
+
+  static const String openNaddr = "openNaddr";
 
   static const String openHashtag = "openHashtag";
 
