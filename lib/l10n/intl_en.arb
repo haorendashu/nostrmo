@@ -349,5 +349,9 @@
     "Remove_media_cache": "Remove media cache",
     "Remove_meta_cache": "Remove meta cache",
     "Remove_relay_cache": "Remove relay cache",
-    "Tags_Spam_Filter": "Tags Spam Filter"
+    "Tags_Spam_Filter": "Tags Spam Filter",
+    "Wallet": "Wallet",
+    "Receive": "Receive",
+    "Balance": "Balance",
+    "Last_Transactions": "Last Transactions"
 }

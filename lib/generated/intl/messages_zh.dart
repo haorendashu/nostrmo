@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Backup_and_Safety_tips":
             MessageLookupByLibrary.simpleMessage("备份和安全提示"),
         "Backup_my_notes": MessageLookupByLibrary.simpleMessage("备份我的数据"),
+        "Balance": MessageLookupByLibrary.simpleMessage("余额"),
         "Banner": MessageLookupByLibrary.simpleMessage("横幅"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("基本模式"),
         "Begin_to_download_translate_model":
@@ -187,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("你还不是该群组的成员，请先加入！"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("密钥备份"),
         "Language": MessageLookupByLibrary.simpleMessage("语言"),
+        "Last_Transactions": MessageLookupByLibrary.simpleMessage("最近交易"),
         "Light": MessageLookupByLibrary.simpleMessage("浅色"),
         "Lightning_Address": MessageLookupByLibrary.simpleMessage("闪电地址"),
         "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("闪电发票"),
@@ -299,6 +301,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Read_Only": MessageLookupByLibrary.simpleMessage("只读"),
         "Readonly_login_tip":
             MessageLookupByLibrary.simpleMessage("你正在以只读模式登录。"),
+        "Receive": MessageLookupByLibrary.simpleMessage("接收"),
         "Relay": MessageLookupByLibrary.simpleMessage("中继"),
         "Relay_Info": MessageLookupByLibrary.simpleMessage("中继信息"),
         "Relay_Mode": MessageLookupByLibrary.simpleMessage("中继类型"),
@@ -383,6 +386,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Verify_failure": MessageLookupByLibrary.simpleMessage("验证失败"),
         "Version": MessageLookupByLibrary.simpleMessage("版本"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage("列表视频预览"),
+        "Wallet": MessageLookupByLibrary.simpleMessage("钱包"),
         "Wear": MessageLookupByLibrary.simpleMessage("穿戴"),
         "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("WebRTC权限"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("网页导航栏"),

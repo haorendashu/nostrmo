@@ -3559,6 +3559,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Wallet`
+  String get Wallet {
+    return Intl.message(
+      'Wallet',
+      name: 'Wallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Receive`
+  String get Receive {
+    return Intl.message(
+      'Receive',
+      name: 'Receive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Balance`
+  String get Balance {
+    return Intl.message(
+      'Balance',
+      name: 'Balance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Transactions`
+  String get Last_Transactions {
+    return Intl.message(
+      'Last Transactions',
+      name: 'Last_Transactions',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

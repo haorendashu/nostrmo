@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Backup and Safety tips"),
         "Backup_my_notes":
             MessageLookupByLibrary.simpleMessage("Backup my notes"),
+        "Balance": MessageLookupByLibrary.simpleMessage("Balance"),
         "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
         "Base_Mode": MessageLookupByLibrary.simpleMessage("Base Mode"),
         "Begin_to_download_translate_model":
@@ -236,6 +237,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "You are not in this group, please join it first!"),
         "Key_Backup": MessageLookupByLibrary.simpleMessage("Key Backup"),
         "Language": MessageLookupByLibrary.simpleMessage("Language"),
+        "Last_Transactions":
+            MessageLookupByLibrary.simpleMessage("Last Transactions"),
         "Light": MessageLookupByLibrary.simpleMessage("Light"),
         "Lightning_Address":
             MessageLookupByLibrary.simpleMessage("Lightning Address"),
@@ -382,6 +385,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Read_Only": MessageLookupByLibrary.simpleMessage("Read Only"),
         "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
             "You are logged in in read-only mode."),
+        "Receive": MessageLookupByLibrary.simpleMessage("Receive"),
         "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
         "Relay": MessageLookupByLibrary.simpleMessage("Relay"),
         "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay Info"),
@@ -480,6 +484,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Version": MessageLookupByLibrary.simpleMessage("Version"),
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
+        "Wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
         "Wear": MessageLookupByLibrary.simpleMessage("Wear"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("WebRTC Permission"),

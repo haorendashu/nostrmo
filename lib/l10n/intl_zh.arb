@@ -335,5 +335,9 @@
     "Remove_media_cache": "清空媒体缓存",
     "Remove_meta_cache": "情况元数据缓存",
     "Remove_relay_cache": "清空中继缓存",
-    "Tags_Spam_Filter": "标签垃圾过滤"
+    "Tags_Spam_Filter": "标签垃圾过滤",
+    "Wallet": "钱包",
+    "Receive": "接收",
+    "Balance": "余额",
+    "Last_Transactions": "最近交易"
 }

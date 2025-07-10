@@ -41,6 +41,7 @@ class RouterPath {
   static const String GROUP_NOTE_LIST = "/groupNoteList";
   static const String GROUP_EDIT = "/groupEdit";
   static const String GROUP_MEMBERS = "/groupMembers";
+  static const String WALLET = "/wallet";
 
   static String getThreadDetailPath() {
     if (settingProvider.threadMode == ThreadMode.FULL_MODE) {

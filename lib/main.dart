@@ -48,6 +48,7 @@ import 'package:nostrmo/router/user/followed_router.dart';
 import 'package:nostrmo/router/user/followed_tags_list_router.dart';
 import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
+import 'package:nostrmo/router/wallet/wallet_router.dart';
 import 'package:nostrmo/router/web_utils/web_utils_router.dart';
 import 'package:provider/provider.dart';
 import 'package:relay_isar_db/relay_isar_db.dart';
@@ -311,7 +312,7 @@ Future<void> main() async {
   giftWrapProvider = GiftWrapProvider();
   musicProvider = MusicProvider();
   urlSpeedProvider = UrlSpeedProvider();
-  nwcProvider = NWCProvider()..init();
+  nwcProvider = NWCProvider()..reload();
   groupProvider = GroupProvider();
   wotProvider = WotProvider();
   groupDetailsProvider = GroupDetailsProvider();
@@ -427,6 +428,7 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
       RouterPath.GROUP_MEMBERS: (context) => GroupMembersRouter(),
       RouterPath.GROUP_CHAT: (context) => GroupChatRouter(),
       RouterPath.GROUP_NOTE_LIST: (context) => GroupNoteListRouter(),
+      RouterPath.WALLET: (context) => WalletRouter(),
     };
 
     return MultiProvider(
@@ -517,6 +519,9 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
         ),
         ListenableProvider<GroupDetailsProvider>.value(
           value: groupDetailsProvider,
+        ),
+        ListenableProvider<NWCProvider>.value(
+          value: nwcProvider,
         ),
       ],
       child: HomeComponent(

@@ -175,6 +175,15 @@ class _IndexDrawerContentComponnent
     }
 
     centerList.add(IndexDrawerItem(
+      iconData: Icons.wallet,
+      name: s.Wallet,
+      onTap: () {
+        RouterUtil.router(context, RouterPath.WALLET);
+      },
+      smallMode: widget.smallMode,
+    ));
+
+    centerList.add(IndexDrawerItem(
       iconData: Icons.block_rounded,
       name: s.Filter,
       onTap: () {

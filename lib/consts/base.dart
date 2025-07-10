@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:nostrmo/util/hash_util.dart';
 
 class Base {
@@ -43,4 +46,6 @@ class Base {
   static double TABBAR_HEIGHT = 46;
 
   static int DEFAULT_DATA_INDEX = -1;
+
+  static Color BTC_COLOR = Colors.orange;
 }

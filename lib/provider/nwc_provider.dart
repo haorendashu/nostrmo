@@ -21,11 +21,26 @@ class NWCProvider extends ChangeNotifier {
 
   ECDHBasicAgreement? agreement;
 
-  void init() {
+  int balance = 0;
+
+  String? lud16() {
+    if (_nwcInfo != null) {
+      return _nwcInfo!.lud16;
+    }
+
+    return null;
+  }
+
+  void reload() {
     var nwcUrl = settingProvider.nwcUrl;
     if (StringUtil.isNotBlank(nwcUrl)) {
       var ni = NWCInfo.loadFromUrl(nwcUrl);
       setNWCInfo(ni);
+    } else {
+      // nwc not set, clear it.
+      if (_nwcInfo != null) {
+        clear();
+      }
     }
   }
 
@@ -78,7 +93,13 @@ class NWCProvider extends ChangeNotifier {
     var relayAddr = _nwcInfo!.relay;
     _relay = RelayBase(relayAddr, RelayStatus(relayAddr));
     log("nwc relay begin to connect");
-    _relay!.connect();
+    _relay!.connect().then((connected) {
+      if (connected) {
+        update();
+      }
+
+      notifyListeners();
+    });
 
     _relay!.onMessage = onMessage;
   }
@@ -98,6 +119,7 @@ class NWCProvider extends ChangeNotifier {
     final messageType = json[0];
     if (messageType == 'EVENT' && jsonLength > 2) {
       final event = Event.fromJson(json[2]);
+      print(event);
       if (event.kind == EventKind.NWC_RESPONSE_EVENT) {
         var encryptedContent = event.content;
         var sourceConent =
@@ -115,6 +137,7 @@ class NWCProvider extends ChangeNotifier {
           //   }
           // }
           var msgJsonMap = jsonDecode(sourceConent);
+          print(msgJsonMap);
           var error = msgJsonMap["error"];
           if (error != null) {
             // oh no, error found.
@@ -138,6 +161,45 @@ class NWCProvider extends ChangeNotifier {
 
               // TODO maybe there should do some rollback here.
             }
+          } else {
+            // success
+            var result = msgJsonMap["result"];
+            if (result != null) {
+              var resultType = result["result_type"];
+              if (resultType == "pay_invoice") {
+                // pay_invoice
+              } else if (resultType == "get_info") {
+                // get_info
+                // {
+                //  "result_type": "get_info",
+                //  "result": {
+                //        "alias": "string",
+                //        "color": "hex string",
+                //        "pubkey": "hex string",
+                //        "network": "string", // mainnet, testnet, signet, or regtest
+                //        "block_height": 1,
+                //        "block_hash": "hex string",
+                //        "methods": ["pay_invoice", "get_balance", "make_invoice", "lookup_invoice", "list_transactions", "get_info"], // list of supported methods for this connection
+                //        "notifications": ["payment_received", "payment_sent"], // list of supported notifications for this connection, optional.
+                //  }
+                notifyListeners();
+              } else if (resultType == "get_balance") {
+                // get_balance
+                // {
+                //  "result_type": "get_balance",
+                //  "result": {
+                //      "balance": 10000, // user's balance in msats
+                //  }
+                // }
+                var b = result["balance"];
+                if (b != null && b is int) {
+                  balance = b % 1000;
+                  notifyListeners();
+                }
+              } else if (resultType == "pay_invoice") {
+                updateBalance();
+              }
+            }
           }
         }
       }
@@ -156,23 +218,43 @@ class NWCProvider extends ChangeNotifier {
       "method": "pay_invoice",
       "params": {"invoice": invoiceCode}
     };
-    var payInvoiceText = jsonEncode(payInvoice);
-    var payInvoiceEncryptedText =
-        NIP04.encrypt(payInvoiceText, agreement!, _nwcInfo!.pubkey);
+
+    _sendRequest(payInvoice);
+  }
+
+  void update() {
+    updateBalance();
+    updateInfo();
+  }
+
+  void updateBalance() {
+    var getBalance = {"method": "get_balance", "params": {}};
+    _sendRequest(getBalance);
+  }
+
+  void updateInfo() {
+    var getBalance = {"method": "get_info", "params": {}};
+    _sendRequest(getBalance);
+  }
+
+  void _sendRequest(Map<String, dynamic> params) {
+    var paramsText = jsonEncode(params);
+    var paramsEncryptedText =
+        NIP04.encrypt(paramsText, agreement!, _nwcInfo!.pubkey);
 
     // gen event
-    var payInvoiceEvent = Event(
+    var event = Event(
       _nwcInfo!.senderPubkey(),
       EventKind.NWC_REQUEST_EVENT,
       [
         ["p", _nwcInfo!.pubkey]
       ],
-      payInvoiceEncryptedText,
+      paramsEncryptedText,
     );
     // sign event
-    payInvoiceEvent.sign(_nwcInfo!.secret);
-    var eventJsonMap = payInvoiceEvent.toJson();
-    log("nwc send zap event: ${jsonEncode(eventJsonMap)}");
+    event.sign(_nwcInfo!.secret);
+    var eventJsonMap = event.toJson();
+    log("nwc send request event: ${jsonEncode(eventJsonMap)}");
 
     // send invoice
     _relay!.send(["EVENT", eventJsonMap], forceSend: true);
@@ -182,7 +264,7 @@ class NWCProvider extends ChangeNotifier {
       "REQ",
       StringUtil.rndNameStr(14),
       {
-        "#e": [payInvoiceEvent.id],
+        "#e": [event.id],
         "kinds": [EventKind.NWC_RESPONSE_EVENT],
       }
     ]);
