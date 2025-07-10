@@ -165,7 +165,7 @@ class NWCProvider extends ChangeNotifier {
             // success
             var result = msgJsonMap["result"];
             if (result != null) {
-              var resultType = result["result_type"];
+              var resultType = msgJsonMap["result_type"];
               if (resultType == "pay_invoice") {
                 // pay_invoice
               } else if (resultType == "get_info") {
@@ -192,8 +192,8 @@ class NWCProvider extends ChangeNotifier {
                 //  }
                 // }
                 var b = result["balance"];
-                if (b != null && b is int) {
-                  balance = b % 1000;
+                if (b != null) {
+                  balance = ((b / 1000) as double).toInt();
                   notifyListeners();
                 }
               } else if (resultType == "pay_invoice") {
