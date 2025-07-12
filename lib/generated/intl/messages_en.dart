@@ -90,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Close Private DM"),
         "Close_at": MessageLookupByLibrary.simpleMessage("Close at"),
         "Color": MessageLookupByLibrary.simpleMessage("Color"),
+        "Comment": MessageLookupByLibrary.simpleMessage("Comment"),
         "Confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "Contact": MessageLookupByLibrary.simpleMessage("Contact"),
         "Content": MessageLookupByLibrary.simpleMessage("Content"),
@@ -180,6 +181,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Full_Mode": MessageLookupByLibrary.simpleMessage("Full Mode"),
         "Gen_invoice_code_error":
             MessageLookupByLibrary.simpleMessage("Gen invoice code error."),
+        "Generate_Invoice":
+            MessageLookupByLibrary.simpleMessage("Generate Invoice"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("Generate a new private key"),
         "Global": MessageLookupByLibrary.simpleMessage("Global"),
@@ -380,6 +383,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Private key is null."),
         "Pubkey": MessageLookupByLibrary.simpleMessage("Pubkey"),
         "Public": MessageLookupByLibrary.simpleMessage("Public"),
+        "QrCode": MessageLookupByLibrary.simpleMessage("QrCode"),
         "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
         "Read": MessageLookupByLibrary.simpleMessage("Read"),
         "Read_Only": MessageLookupByLibrary.simpleMessage("Read Only"),

@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Close_Private_DM": MessageLookupByLibrary.simpleMessage("关闭私密私信"),
         "Close_at": MessageLookupByLibrary.simpleMessage("停止于"),
         "Color": MessageLookupByLibrary.simpleMessage("颜色"),
+        "Comment": MessageLookupByLibrary.simpleMessage("评论"),
         "Confirm": MessageLookupByLibrary.simpleMessage("确认"),
         "Contact": MessageLookupByLibrary.simpleMessage("联系人"),
         "Content": MessageLookupByLibrary.simpleMessage("内容"),
@@ -148,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Forbid_video": MessageLookupByLibrary.simpleMessage("禁止视频"),
         "From": MessageLookupByLibrary.simpleMessage("来自"),
         "Full_Mode": MessageLookupByLibrary.simpleMessage("全量模式"),
+        "Generate_Invoice": MessageLookupByLibrary.simpleMessage("生成发票"),
         "Generate_a_new_private_key":
             MessageLookupByLibrary.simpleMessage("生成一个新的密钥"),
         "Global": MessageLookupByLibrary.simpleMessage("全球"),
@@ -296,6 +298,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Private_key_is_null": MessageLookupByLibrary.simpleMessage("密钥不能为空"),
         "Pubkey": MessageLookupByLibrary.simpleMessage("公钥"),
         "Public": MessageLookupByLibrary.simpleMessage("公开"),
+        "QrCode": MessageLookupByLibrary.simpleMessage("二维码"),
         "Quote": MessageLookupByLibrary.simpleMessage("引用"),
         "Read": MessageLookupByLibrary.simpleMessage("读"),
         "Read_Only": MessageLookupByLibrary.simpleMessage("只读"),

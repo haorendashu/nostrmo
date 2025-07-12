@@ -3599,6 +3599,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Comment`
+  String get Comment {
+    return Intl.message(
+      'Comment',
+      name: 'Comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Generate Invoice`
+  String get Generate_Invoice {
+    return Intl.message(
+      'Generate Invoice',
+      name: 'Generate_Invoice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QrCode`
+  String get QrCode {
+    return Intl.message(
+      'QrCode',
+      name: 'QrCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

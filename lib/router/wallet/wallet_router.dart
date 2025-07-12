@@ -4,10 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostr_sdk/zap/zap.dart';
+import 'package:nostrmo/component/lightning_qrcode_dialog.dart';
+import 'package:nostrmo/component/qrcode_dialog.dart';
 import 'package:nostrmo/consts/base.dart';
+import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/nwc_provider.dart';
 import 'package:nostrmo/router/nwc/nwc_setting_body_component.dart';
+import 'package:nostrmo/util/router_util.dart';
 import 'package:nostrmo/util/zap_action.dart';
 import 'package:provider/provider.dart';
 
@@ -161,7 +165,7 @@ class _WalletRouter extends State<WalletRouter> {
                 ),
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () {},
+                    onPressed: receive,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -244,17 +248,16 @@ class _WalletRouter extends State<WalletRouter> {
     );
   }
 
-  void receive() {
+  Future<void> receive() async {
     var lud16 = nwcProvider.lud16();
     if (StringUtil.isBlank(lud16)) {
       return;
     }
 
-    var cancelFunc = BotToast.showLoading();
-    try {
-      var lnurl = Zap.getLnurlFromLud16(lud16!);
-    } finally {
-      cancelFunc.call();
+    var result =
+        await RouterUtil.router(context, RouterPath.WALLET_RECEIVE, lud16);
+    if (StringUtil.isNotBlank(result)) {
+      LightningQrcodeDialog.show(context, result);
     }
   }
 }

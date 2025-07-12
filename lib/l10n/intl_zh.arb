@@ -339,5 +339,8 @@
     "Wallet": "钱包",
     "Receive": "接收",
     "Balance": "余额",
-    "Last_Transactions": "最近交易"
+    "Last_Transactions": "最近交易",
+    "Comment": "评论",
+    "Generate_Invoice": "生成发票",
+    "QrCode": "二维码"
 }

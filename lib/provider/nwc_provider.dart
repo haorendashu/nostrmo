@@ -119,7 +119,7 @@ class NWCProvider extends ChangeNotifier {
     final messageType = json[0];
     if (messageType == 'EVENT' && jsonLength > 2) {
       final event = Event.fromJson(json[2]);
-      print(event);
+      // print(event);
       if (event.kind == EventKind.NWC_RESPONSE_EVENT) {
         var encryptedContent = event.content;
         var sourceConent =
@@ -137,7 +137,7 @@ class NWCProvider extends ChangeNotifier {
           //   }
           // }
           var msgJsonMap = jsonDecode(sourceConent);
-          print(msgJsonMap);
+          // print(msgJsonMap);
           var error = msgJsonMap["error"];
           if (error != null) {
             // oh no, error found.

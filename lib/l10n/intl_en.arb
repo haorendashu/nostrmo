@@ -353,5 +353,8 @@
     "Wallet": "Wallet",
     "Receive": "Receive",
     "Balance": "Balance",
-    "Last_Transactions": "Last Transactions"
+    "Last_Transactions": "Last Transactions",
+    "Comment": "Comment",
+    "Generate_Invoice": "Generate Invoice",
+    "QrCode": "QrCode"
 }
