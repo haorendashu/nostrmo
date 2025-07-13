@@ -43,6 +43,7 @@ class RouterPath {
   static const String GROUP_MEMBERS = "/groupMembers";
   static const String WALLET = "/wallet";
   static const String WALLET_RECEIVE = "/walletReceive";
+  static const String WALLET_TRANSACTIONS = "/walletTransactions";
 
   static String getThreadDetailPath() {
     if (settingProvider.threadMode == ThreadMode.FULL_MODE) {

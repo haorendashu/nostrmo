@@ -10,7 +10,7 @@ import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
 
 class WalletReceiveRouter extends StatefulWidget {
-  const WalletReceiveRouter({super.key});
+  WalletReceiveRouter({super.key});
 
   @override
   State<WalletReceiveRouter> createState() => _WalletReceiveRouterState();

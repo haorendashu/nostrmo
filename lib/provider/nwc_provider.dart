@@ -14,6 +14,8 @@ import 'package:nostrmo/consts/client_connected.dart';
 import 'package:nostrmo/main.dart';
 import 'package:pointycastle/impl.dart';
 
+import '../data/nwc_transaction.dart';
+
 class NWCProvider extends ChangeNotifier {
   Relay? _relay;
 
@@ -198,6 +200,23 @@ class NWCProvider extends ChangeNotifier {
                 }
               } else if (resultType == "pay_invoice") {
                 updateBalance();
+              } else if (resultType == "list_transactions") {
+                var transactions = result["transactions"];
+                var subscriptionId = json[1];
+                var onTransactions = _onTransactionsMap[subscriptionId];
+                _onTransactionsMap.remove(subscriptionId);
+                if (transactions != null &&
+                    transactions is List &&
+                    onTransactions != null) {
+                  List<NwcTransaction> list = [];
+                  for (var transactionMap in transactions) {
+                    // log(jsonEncode(transactionMap));
+                    var transaction = NwcTransaction.fromJson(transactionMap);
+                    list.add(transaction);
+                  }
+
+                  onTransactions(list);
+                }
               }
             }
           }
@@ -237,8 +256,9 @@ class NWCProvider extends ChangeNotifier {
     _sendRequest(getBalance);
   }
 
-  void _sendRequest(Map<String, dynamic> params) {
+  void _sendRequest(Map<String, dynamic> params, {String? subscriptionId}) {
     var paramsText = jsonEncode(params);
+    // log("nwc request params: $paramsText");
     var paramsEncryptedText =
         NIP04.encrypt(paramsText, agreement!, _nwcInfo!.pubkey);
 
@@ -254,19 +274,40 @@ class NWCProvider extends ChangeNotifier {
     // sign event
     event.sign(_nwcInfo!.secret);
     var eventJsonMap = event.toJson();
-    log("nwc send request event: ${jsonEncode(eventJsonMap)}");
+    // log("nwc send request event: ${jsonEncode(eventJsonMap)}");
 
     // send invoice
     _relay!.send(["EVENT", eventJsonMap], forceSend: true);
 
-    // query if there is pay_invoice callback
+    subscriptionId ??= StringUtil.rndNameStr(14);
+
     _relay!.send([
       "REQ",
-      StringUtil.rndNameStr(14),
+      subscriptionId,
       {
         "#e": [event.id],
         "kinds": [EventKind.NWC_RESPONSE_EVENT],
       }
     ]);
+  }
+
+  Map<String, Function(List<NwcTransaction>)> _onTransactionsMap = {};
+
+  queryTransactions(
+      {int? until,
+      Function(List<NwcTransaction>)? onTransactions,
+      int limit = 50}) {
+    var reqeustArgs = {
+      "method": "list_transactions",
+      "params": {
+        "until": until,
+        "limit": limit,
+      }
+    };
+    var subscriptionId = StringUtil.rndNameStr(14);
+    if (onTransactions != null) {
+      _onTransactionsMap[subscriptionId] = onTransactions;
+    }
+    _sendRequest(reqeustArgs, subscriptionId: subscriptionId);
   }
 }

@@ -136,23 +136,28 @@ class _WalletRouter extends State<WalletRouter> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            margin: EdgeInsets.only(
-              bottom: 20,
-            ),
-            child: Column(
-              children: [
-                Icon(
-                  Icons.arrow_upward,
-                  size: smallFontSize,
-                ),
-                Text(
-                  s.Last_Transactions,
-                  style: TextStyle(
-                    fontSize: smallFontSize,
+          GestureDetector(
+            onTap: () {
+              RouterUtil.router(context, RouterPath.WALLET_TRANSACTIONS);
+            },
+            child: Container(
+              margin: const EdgeInsets.only(
+                bottom: 20,
+              ),
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.arrow_upward,
+                    size: smallFontSize,
                   ),
-                ),
-              ],
+                  Text(
+                    s.Last_Transactions,
+                    style: TextStyle(
+                      fontSize: smallFontSize,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
