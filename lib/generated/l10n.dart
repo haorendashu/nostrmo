@@ -3629,6 +3629,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Send Zap`
+  String get Send_Zap {
+    return Intl.message(
+      'Send Zap',
+      name: 'Send_Zap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get Next {
+    return Intl.message(
+      'Next',
+      name: 'Next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan`
+  String get Scan {
+    return Intl.message(
+      'Scan',
+      name: 'Scan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input a Lightning Address, Lightning Invoice or LNURL`
+  String get Wallet_send_tips {
+    return Intl.message(
+      'Input a Lightning Address, Lightning Invoice or LNURL',
+      name: 'Wallet_send_tips',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

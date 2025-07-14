@@ -356,5 +356,9 @@
     "Last_Transactions": "Last Transactions",
     "Comment": "Comment",
     "Generate_Invoice": "Generate Invoice",
-    "QrCode": "QrCode"
+    "QrCode": "QrCode",
+    "Send_Zap": "Send Zap",
+    "Next": "Next",
+    "Scan": "Scan",
+    "Wallet_send_tips": "Input a Lightning Address, Lightning Invoice or LNURL"
 }

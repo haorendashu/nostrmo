@@ -230,6 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Network": MessageLookupByLibrary.simpleMessage("网络"),
         "New_message_receive": MessageLookupByLibrary.simpleMessage("收到新消息"),
         "New_note_receive": MessageLookupByLibrary.simpleMessage("收到新动态"),
+        "Next": MessageLookupByLibrary.simpleMessage("下一步"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Normal": MessageLookupByLibrary.simpleMessage("普通"),
         "Nostromo_developers_will_never_require_a_key_from_you":
@@ -320,6 +321,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reply": MessageLookupByLibrary.simpleMessage("回复"),
         "Replying": MessageLookupByLibrary.simpleMessage("正在回复"),
         "Request": MessageLookupByLibrary.simpleMessage("请求"),
+        "Scan": MessageLookupByLibrary.simpleMessage("扫描"),
         "Search": MessageLookupByLibrary.simpleMessage("搜索"),
         "Search_User_from_cache":
             MessageLookupByLibrary.simpleMessage("从缓存中查找用户"),
@@ -329,6 +331,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Select_relay_to_upload":
             MessageLookupByLibrary.simpleMessage("选择上传中继"),
         "Send": MessageLookupByLibrary.simpleMessage("发送"),
+        "Send_Zap": MessageLookupByLibrary.simpleMessage("发送 Zap"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("发送失败"),
         "Send_interval": MessageLookupByLibrary.simpleMessage("发送间隔"),
         "Sensitive_Content": MessageLookupByLibrary.simpleMessage("敏感内容"),
@@ -390,6 +393,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Version": MessageLookupByLibrary.simpleMessage("版本"),
         "Video_preview_in_list": MessageLookupByLibrary.simpleMessage("列表视频预览"),
         "Wallet": MessageLookupByLibrary.simpleMessage("钱包"),
+        "Wallet_send_tips":
+            MessageLookupByLibrary.simpleMessage("输入闪电地址、闪电发票或LNURL"),
         "Wear": MessageLookupByLibrary.simpleMessage("穿戴"),
         "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("WebRTC权限"),
         "Web_Appbar": MessageLookupByLibrary.simpleMessage("网页导航栏"),

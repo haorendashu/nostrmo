@@ -8,6 +8,7 @@ import 'package:nostrmo/util/router_util.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../generated/l10n.dart';
+import 'zap_info_input_component.dart';
 
 class WalletReceiveRouter extends StatefulWidget {
   WalletReceiveRouter({super.key});
@@ -38,65 +39,14 @@ class _WalletReceiveRouterState extends State<WalletReceiveRouter> {
     var themeData = Theme.of(context);
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
 
-    var numberSize = 30.0;
-
     List<Widget> list = [];
 
-    List<Widget> inputList = [];
-    inputList.add(Container(
-      child: TextField(
-        autofocus: true,
-        controller: numController,
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "0",
-          hintStyle: TextStyle(
-            fontSize: numberSize,
-            fontWeight: FontWeight.bold,
-            color: themeData.hintColor,
-          ),
-        ),
-        style: TextStyle(
-          fontSize: numberSize,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ));
-    inputList.add(Container(
-      child: const Text("sats"),
-    ));
-    inputList.add(Container(
-      margin: EdgeInsets.only(top: 26),
-      child: Text(s.Comment),
-    ));
-    inputList.add(Container(
-      child: TextField(
-        controller: commentController,
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "( ${s.Optional} )",
-          hintStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: themeData.hintColor,
-          ),
-        ),
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ));
-
     list.add(Expanded(
-        child: Container(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: inputList,
+      child: Container(
+        alignment: Alignment.center,
+        child: ZapInfoInputComponent(numController, commentController),
       ),
-    )));
+    ));
 
     List<Widget> bottomList = [];
     bottomList.add(

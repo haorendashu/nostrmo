@@ -342,5 +342,9 @@
     "Last_Transactions": "最近交易",
     "Comment": "评论",
     "Generate_Invoice": "生成发票",
-    "QrCode": "二维码"
+    "QrCode": "二维码",
+    "Send_Zap": "发送 Zap",
+    "Next": "下一步",
+    "Scan": "扫描",
+    "Wallet_send_tips": "输入闪电地址、闪电发票或LNURL"
 }

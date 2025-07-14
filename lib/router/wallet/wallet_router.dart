@@ -203,7 +203,7 @@ class _WalletRouter extends State<WalletRouter> {
                 ),
                 Expanded(
                   child: FilledButton(
-                    onPressed: () {},
+                    onPressed: send,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -264,5 +264,9 @@ class _WalletRouter extends State<WalletRouter> {
     if (StringUtil.isNotBlank(result)) {
       LightningQrcodeDialog.show(context, result);
     }
+  }
+
+  void send() {
+    RouterUtil.router(context, RouterPath.WALLET_SEND);
   }
 }

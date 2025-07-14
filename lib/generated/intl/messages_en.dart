@@ -294,6 +294,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("New Message receive"),
         "New_note_receive":
             MessageLookupByLibrary.simpleMessage("New note receive"),
+        "Next": MessageLookupByLibrary.simpleMessage("Next"),
         "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
         "Normal": MessageLookupByLibrary.simpleMessage("Normal"),
         "Nostromo_developers_will_never_require_a_key_from_you":
@@ -409,6 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reply": MessageLookupByLibrary.simpleMessage("Reply"),
         "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
         "Request": MessageLookupByLibrary.simpleMessage("Request"),
+        "Scan": MessageLookupByLibrary.simpleMessage("Scan"),
         "Search": MessageLookupByLibrary.simpleMessage("Search"),
         "Search_User_from_cache":
             MessageLookupByLibrary.simpleMessage("Search User from cache"),
@@ -419,6 +421,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Select_relay_to_upload":
             MessageLookupByLibrary.simpleMessage("Select relay to upload"),
         "Send": MessageLookupByLibrary.simpleMessage("Send"),
+        "Send_Zap": MessageLookupByLibrary.simpleMessage("Send Zap"),
         "Send_fail": MessageLookupByLibrary.simpleMessage("Send fail"),
         "Send_interval": MessageLookupByLibrary.simpleMessage("Send interval"),
         "Sensitive_Content":
@@ -489,6 +492,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Video_preview_in_list":
             MessageLookupByLibrary.simpleMessage("Video preview in list"),
         "Wallet": MessageLookupByLibrary.simpleMessage("Wallet"),
+        "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+            "Input a Lightning Address, Lightning Invoice or LNURL"),
         "Wear": MessageLookupByLibrary.simpleMessage("Wear"),
         "WebRTC_Permission":
             MessageLookupByLibrary.simpleMessage("WebRTC Permission"),

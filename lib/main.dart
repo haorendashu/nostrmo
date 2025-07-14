@@ -50,6 +50,7 @@ import 'package:nostrmo/router/user/user_history_contact_list_router.dart';
 import 'package:nostrmo/router/user/user_zap_list_router.dart';
 import 'package:nostrmo/router/wallet/wallet_receive_router.dart';
 import 'package:nostrmo/router/wallet/wallet_router.dart';
+import 'package:nostrmo/router/wallet/wallet_send_router.dart';
 import 'package:nostrmo/router/wallet/wallet_transactions_router.dart';
 import 'package:nostrmo/router/web_utils/web_utils_router.dart';
 import 'package:provider/provider.dart';
@@ -433,6 +434,7 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
       RouterPath.WALLET: (context) => WalletRouter(),
       RouterPath.WALLET_RECEIVE: (context) => WalletReceiveRouter(),
       RouterPath.WALLET_TRANSACTIONS: (context) => WalletTransactionsRouter(),
+      RouterPath.WALLET_SEND: (context) => WalletSendRotuer(),
     };
 
     return MultiProvider(
