@@ -225,23 +225,25 @@ class GroupDetailsProvider extends ChangeNotifier {
     EventMemBox eventBox, {
     int length = PREVIOUS_LENGTH,
   }) {
-    var list = eventBox.all();
-    var listLength = list.length;
+    // FIXME sometimes with previous, can't send msg to nip29 relays, some temp hide these codes
+    // var list = eventBox.all();
+    // var listLength = list.length;
 
-    List<String> previous = [];
+    // List<String> previous = [];
 
-    for (var i = 0; i < PREVIOUS_LENGTH; i++) {
-      var index = listLength - i - 1;
-      if (index < 0) {
-        break;
-      }
+    // for (var i = 0; i < PREVIOUS_LENGTH; i++) {
+    //   var index = listLength - i - 1;
+    //   if (index < 0) {
+    //     break;
+    //   }
 
-      var event = list[index];
-      var idSubStr = event.id.substring(0, 8);
-      previous.add(idSubStr);
-    }
+    //   var event = list[index];
+    //   var idSubStr = event.id.substring(0, 8);
+    //   previous.add(idSubStr);
+    // }
 
-    return previous;
+    // return previous;
+    return [];
   }
 }
 
