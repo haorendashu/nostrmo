@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
@@ -151,7 +154,7 @@ class _WalletSendRotuer extends CustState<WalletSendRotuer> {
 
   List<String>? relays;
 
-  void next() {
+  Future<void> next() async {
     var text = addressController.text;
     if (text.contains("@")) {
       lud16Link = Zap.getLud16LinkFromLud16(text);
@@ -160,8 +163,16 @@ class _WalletSendRotuer extends CustState<WalletSendRotuer> {
       lnurl = text;
       lud16Link = Zap.decodeLud06Link(text);
     } else if (text.startsWith("lnbc")) {
-      nwcProvider.sendZap(context, text);
-      RouterUtil.back(context);
+      var cancelFunc = BotToast.showLoading();
+      try {
+        var result = await nwcProvider.sendZap(context, text);
+        if (result) {
+          RouterUtil.back(context);
+        }
+      } finally {
+        cancelFunc.call();
+      }
+
       return;
     }
 
@@ -194,7 +205,11 @@ class _WalletSendRotuer extends CustState<WalletSendRotuer> {
         return;
       }
 
-      nwcProvider.sendZap(context, invoiceCode!);
+      var result = await nwcProvider.sendZap(context, invoiceCode!);
+      if (result) {
+        await Future.delayed(Duration(seconds: 1));
+        RouterUtil.back(context);
+      }
     } finally {
       cancelFunc.call();
     }

@@ -26,26 +26,26 @@ class _WalletTransactionsRouter extends CustState<WalletTransactionsRouter> {
 
   List<NwcTransaction> allTransactions = [];
 
-  void load() {
-    nwcProvider.queryTransactions(
-      until: until,
-      onTransactions: (transactions) {
-        allTransactions.addAll(transactions);
-        allTransactions.sort((a, b) {
-          if (b.createdAt != null && a.createdAt != null) {
-            return b.createdAt!.compareTo(a.createdAt!);
-          }
+  Future<void> load() async {
+    var transactions = await nwcProvider.queryTransactions(until: until);
+    if (transactions == null) {
+      return;
+    }
 
-          return 0;
-        });
+    allTransactions.addAll(transactions);
+    allTransactions.sort((a, b) {
+      if (b.createdAt != null && a.createdAt != null) {
+        return b.createdAt!.compareTo(a.createdAt!);
+      }
 
-        if (allTransactions.isNotEmpty) {
-          until = allTransactions.last.createdAt;
-        }
+      return 0;
+    });
 
-        setState(() {});
-      },
-    );
+    if (allTransactions.isNotEmpty) {
+      until = allTransactions.last.createdAt;
+    }
+
+    setState(() {});
   }
 
   @override

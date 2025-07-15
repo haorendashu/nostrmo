@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
@@ -119,6 +121,7 @@ class NWCProvider extends ChangeNotifier {
   void onMessage(Relay relay, List<dynamic> json) {
     var jsonLength = json.length;
     final messageType = json[0];
+    var subscriptionId = json[1];
     if (messageType == 'EVENT' && jsonLength > 2) {
       final event = Event.fromJson(json[2]);
       // print(event);
@@ -129,8 +132,8 @@ class NWCProvider extends ChangeNotifier {
         if (StringUtil.isNotBlank(sourceConent)) {
           // response will like this.
           // {
-          //  "result_type": "pay_invoice", //indicates the structure of the result field
-          //    "error": { //object, non-null in case of error
+          //   "result_type": "pay_invoice", //indicates the structure of the result field
+          //   "error": { //object, non-null in case of error
           //       "code": "UNAUTHORIZED", //string error code, see below
           //       "message": "human readable error message"
           //   },
@@ -139,87 +142,93 @@ class NWCProvider extends ChangeNotifier {
           //   }
           // }
           var msgJsonMap = jsonDecode(sourceConent);
-          // print(msgJsonMap);
-          var error = msgJsonMap["error"];
-          if (error != null) {
-            // oh no, error found.
-            // begin to find the eventId.
-            String? eventId;
-            for (var tag in event.tags) {
-              var tagLength = tag.length;
-              if (tagLength > 1) {
-                var k = tag[0];
-                var v = tag[1];
 
-                if (k == "e") {
-                  eventId = v;
-                  break;
-                }
-              }
-            }
-            if (StringUtil.isNotBlank(eventId)) {
-              print("NWC zap fail $eventId");
-              print(error);
-
-              // TODO maybe there should do some rollback here.
-            }
-          } else {
-            // success
-            var result = msgJsonMap["result"];
-            if (result != null) {
-              var resultType = msgJsonMap["result_type"];
-              if (resultType == "pay_invoice") {
-                // pay_invoice
-              } else if (resultType == "get_info") {
-                // get_info
-                // {
-                //  "result_type": "get_info",
-                //  "result": {
-                //        "alias": "string",
-                //        "color": "hex string",
-                //        "pubkey": "hex string",
-                //        "network": "string", // mainnet, testnet, signet, or regtest
-                //        "block_height": 1,
-                //        "block_hash": "hex string",
-                //        "methods": ["pay_invoice", "get_balance", "make_invoice", "lookup_invoice", "list_transactions", "get_info"], // list of supported methods for this connection
-                //        "notifications": ["payment_received", "payment_sent"], // list of supported notifications for this connection, optional.
-                //  }
-                notifyListeners();
-              } else if (resultType == "get_balance") {
-                // get_balance
-                // {
-                //  "result_type": "get_balance",
-                //  "result": {
-                //      "balance": 10000, // user's balance in msats
-                //  }
-                // }
-                var b = result["balance"];
-                if (b != null) {
-                  balance = ((b / 1000) as double).toInt();
-                  notifyListeners();
-                }
-              } else if (resultType == "pay_invoice") {
-                updateBalance();
-              } else if (resultType == "list_transactions") {
-                var transactions = result["transactions"];
-                var subscriptionId = json[1];
-                var onTransactions = _onTransactionsMap[subscriptionId];
-                _onTransactionsMap.remove(subscriptionId);
-                if (transactions != null &&
-                    transactions is List &&
-                    onTransactions != null) {
-                  List<NwcTransaction> list = [];
-                  for (var transactionMap in transactions) {
-                    // log(jsonEncode(transactionMap));
-                    var transaction = NwcTransaction.fromJson(transactionMap);
-                    list.add(transaction);
-                  }
-
-                  onTransactions(list);
-                }
-              }
-            }
+          var completer = _callbacks[subscriptionId];
+          if (completer != null) {
+            completer.complete(msgJsonMap);
+            return;
           }
+
+          // // print(msgJsonMap);
+          // var error = msgJsonMap["error"];
+          // if (error != null) {
+          //   // oh no, error found.
+          //   // begin to find the eventId.
+          //   String? eventId;
+          //   for (var tag in event.tags) {
+          //     var tagLength = tag.length;
+          //     if (tagLength > 1) {
+          //       var k = tag[0];
+          //       var v = tag[1];
+
+          //       if (k == "e") {
+          //         eventId = v;
+          //         break;
+          //       }
+          //     }
+          //   }
+          //   if (StringUtil.isNotBlank(eventId)) {
+          //     print("NWC zap fail $eventId");
+          //     print(error);
+
+          //     // TODO maybe there should do some rollback here.
+          //   }
+          // } else {
+          //   // success
+          //   var result = msgJsonMap["result"];
+          //   if (result != null) {
+          //     var resultType = msgJsonMap["result_type"];
+          //     if (resultType == "pay_invoice") {
+          //       // pay_invoice
+          //     } else if (resultType == "get_info") {
+          //       // get_info
+          //       // {
+          //       //  "result_type": "get_info",
+          //       //  "result": {
+          //       //        "alias": "string",
+          //       //        "color": "hex string",
+          //       //        "pubkey": "hex string",
+          //       //        "network": "string", // mainnet, testnet, signet, or regtest
+          //       //        "block_height": 1,
+          //       //        "block_hash": "hex string",
+          //       //        "methods": ["pay_invoice", "get_balance", "make_invoice", "lookup_invoice", "list_transactions", "get_info"], // list of supported methods for this connection
+          //       //        "notifications": ["payment_received", "payment_sent"], // list of supported notifications for this connection, optional.
+          //       //  }
+          //       notifyListeners();
+          //     } else if (resultType == "get_balance") {
+          //       // get_balance
+          //       // {
+          //       //  "result_type": "get_balance",
+          //       //  "result": {
+          //       //      "balance": 10000, // user's balance in msats
+          //       //  }
+          //       // }
+          //       var b = result["balance"];
+          //       if (b != null) {
+          //         balance = ((b / 1000) as double).toInt();
+          //         notifyListeners();
+          //       }
+          //     } else if (resultType == "pay_invoice") {
+          //       updateBalance();
+          //     } else if (resultType == "list_transactions") {
+          //       var transactions = result["transactions"];
+          //       var onTransactions = _onTransactionsMap[subscriptionId];
+          //       _onTransactionsMap.remove(subscriptionId);
+          //       if (transactions != null &&
+          //           transactions is List &&
+          //           onTransactions != null) {
+          //         List<NwcTransaction> list = [];
+          //         for (var transactionMap in transactions) {
+          //           // log(jsonEncode(transactionMap));
+          //           var transaction = NwcTransaction.fromJson(transactionMap);
+          //           list.add(transaction);
+          //         }
+
+          //         onTransactions(list);
+          //       }
+          //     }
+          //   }
+          // }
         }
       }
     } else if (messageType == 'EOSE' && jsonLength > 1) {
@@ -228,9 +237,11 @@ class NWCProvider extends ChangeNotifier {
     }
   }
 
-  void sendZap(BuildContext context, String invoiceCode) {
+  Map<String, Completer<Map<String, dynamic>?>> _callbacks = {};
+
+  Future<bool> sendZap(BuildContext context, String invoiceCode) async {
     if (_nwcInfo == null || _relay == null) {
-      return;
+      return false;
     }
 
     var payInvoice = {
@@ -238,7 +249,13 @@ class NWCProvider extends ChangeNotifier {
       "params": {"invoice": invoiceCode}
     };
 
-    _sendRequest(payInvoice);
+    var msgJsonMap = await _sendRequest(payInvoice);
+    var result = checkAndGetResult(msgJsonMap, "pay_invoice");
+    if (result != null) {
+      return true;
+    }
+
+    return false;
   }
 
   void update() {
@@ -246,17 +263,76 @@ class NWCProvider extends ChangeNotifier {
     updateInfo();
   }
 
-  void updateBalance() {
+  Future<void> updateBalance() async {
     var getBalance = {"method": "get_balance", "params": {}};
-    _sendRequest(getBalance);
+    var msgJsonMap = await _sendRequest(getBalance);
+    var result = checkAndGetResult(msgJsonMap, "get_balance");
+    if (result != null) {
+      var b = result["balance"];
+      if (b != null) {
+        balance = ((b / 1000) as double).toInt();
+        notifyListeners();
+      }
+    }
   }
 
-  void updateInfo() {
+  Future<void> updateInfo() async {
     var getBalance = {"method": "get_info", "params": {}};
-    _sendRequest(getBalance);
+    var msgJsonMap = await _sendRequest(getBalance);
+    var result = checkAndGetResult(msgJsonMap, "get_info");
+    if (result != null) {
+      // ????
+    }
   }
 
-  void _sendRequest(Map<String, dynamic> params, {String? subscriptionId}) {
+  Future<List<NwcTransaction>?> queryTransactions(
+      {int? until, int limit = 50}) async {
+    var reqeustArgs = {
+      "method": "list_transactions",
+      "params": {
+        "until": until,
+        "limit": limit,
+      }
+    };
+    var msgJsonMap = await _sendRequest(reqeustArgs);
+    var result = checkAndGetResult(msgJsonMap, "list_transactions");
+    if (result != null) {
+      var transactions = result["transactions"];
+      if (transactions != null && transactions is List) {
+        List<NwcTransaction> list = [];
+        for (var transactionMap in transactions) {
+          // log(jsonEncode(transactionMap));
+          var transaction = NwcTransaction.fromJson(transactionMap);
+          list.add(transaction);
+        }
+
+        return list;
+      }
+    }
+
+    return null;
+  }
+
+  Map<String, dynamic>? checkAndGetResult(
+      Map<String, dynamic>? msgJsonMap, String resultTyp) {
+    if (msgJsonMap != null) {
+      var error = msgJsonMap["error"];
+      if (error != null) {
+        BotToast.showText(text: jsonEncode(error));
+        return null;
+      }
+
+      var resultType = msgJsonMap["result_type"];
+      if (error == null && resultType == resultTyp) {
+        return msgJsonMap["result"];
+      }
+    }
+
+    return null;
+  }
+
+  Future<Map<String, dynamic>?> _sendRequest(Map<String, dynamic> params,
+      {String? subscriptionId}) async {
     var paramsText = jsonEncode(params);
     // log("nwc request params: $paramsText");
     var paramsEncryptedText =
@@ -280,6 +356,8 @@ class NWCProvider extends ChangeNotifier {
     _relay!.send(["EVENT", eventJsonMap], forceSend: true);
 
     subscriptionId ??= StringUtil.rndNameStr(14);
+    var completer = Completer<Map<String, dynamic>?>();
+    _callbacks[subscriptionId] = completer;
 
     _relay!.send([
       "REQ",
@@ -289,25 +367,7 @@ class NWCProvider extends ChangeNotifier {
         "kinds": [EventKind.NWC_RESPONSE_EVENT],
       }
     ]);
-  }
 
-  Map<String, Function(List<NwcTransaction>)> _onTransactionsMap = {};
-
-  queryTransactions(
-      {int? until,
-      Function(List<NwcTransaction>)? onTransactions,
-      int limit = 50}) {
-    var reqeustArgs = {
-      "method": "list_transactions",
-      "params": {
-        "until": until,
-        "limit": limit,
-      }
-    };
-    var subscriptionId = StringUtil.rndNameStr(14);
-    if (onTransactions != null) {
-      _onTransactionsMap[subscriptionId] = onTransactions;
-    }
-    _sendRequest(reqeustArgs, subscriptionId: subscriptionId);
+    return await completer.future;
   }
 }
