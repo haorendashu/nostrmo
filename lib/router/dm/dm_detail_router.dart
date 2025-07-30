@@ -85,10 +85,6 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
 
     List<Widget> list = [];
 
-    var newestEvent = detail!.dmSession.newestEvent;
-
-    handleDefaultPrivateDMSetting(newestEvent);
-
     var listWidget = ListView.builder(
       itemBuilder: (context, index) {
         var event = detail!.dmSession.get(index);
@@ -229,21 +225,6 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
       ),
       body: main,
     );
-  }
-
-  bool _handledDefaultPrivateDM = false;
-
-  void handleDefaultPrivateDMSetting(Event? e) {
-    if (!_handledDefaultPrivateDM &&
-        e != null &&
-        e.kind == EventKind.PRIVATE_DIRECT_MESSAGE) {
-      openPrivateDM = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        updateUI();
-      });
-    }
-
-    _handledDefaultPrivateDM = true;
   }
 
   Future<void> send() async {

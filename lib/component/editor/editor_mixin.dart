@@ -64,7 +64,7 @@ mixin EditorMixin {
 
   bool inputZapGoal = false;
 
-  bool openPrivateDM = false;
+  bool openPrivateDM = true;
 
   bool openZapSplit = false;
 
