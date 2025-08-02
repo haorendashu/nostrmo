@@ -9,13 +9,9 @@ class MentionEventEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    var id = node.value.data;
+    var id = embedContext.node.value.data;
     return AbsorbPointer(
       child: EventQuoteComponent(id: id),
     );

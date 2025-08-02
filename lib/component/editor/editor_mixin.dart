@@ -50,7 +50,17 @@ import 'text_input_and_search_dialog.dart';
 import 'text_input_dialog.dart';
 
 mixin EditorMixin {
-  quill.QuillController editorController = quill.QuillController.basic();
+  quill.QuillController editorController = quill.QuillController.basic(
+    config: quill.QuillControllerConfig(
+      clipboardConfig: quill.QuillClipboardConfig(
+        onPlainTextPaste: (plainText) async {
+          print("onPlainTextPaste");
+          return plainText;
+        },
+        enableExternalRichPaste: false,
+      ),
+    ),
+  );
 
   PollInputController pollInputController = PollInputController();
 

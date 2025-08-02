@@ -225,7 +225,7 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
       children: [
         Expanded(
           child: QuillEditor(
-            configurations: QuillEditorConfigurations(
+            config: QuillEditorConfig(
               placeholder: s.What_s_happening,
               embedBuilders: [
                 MentionUserEmbedBuilder(),

@@ -107,7 +107,7 @@ class _GroupDetailChatComponent
         children: [
           Expanded(
             child: QuillEditor(
-              configurations: QuillEditorConfigurations(
+              config: QuillEditorConfig(
                 placeholder: s.What_s_happening,
                 embedBuilders: [
                   MentionUserEmbedBuilder(),

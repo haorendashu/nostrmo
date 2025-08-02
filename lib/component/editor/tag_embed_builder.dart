@@ -10,13 +10,9 @@ class TagEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    var tag = node.value.data;
+    var tag = embedContext.node.value.data;
     return AbsorbPointer(
       child: Container(
         margin: const EdgeInsets.only(

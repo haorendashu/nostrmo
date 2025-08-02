@@ -9,13 +9,9 @@ class LnbcEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    var lnbcStr = node.value.data;
+    var lnbcStr = embedContext.node.value.data;
     return AbsorbPointer(
       child: ContentLnbcComponent(lnbc: lnbcStr),
     );

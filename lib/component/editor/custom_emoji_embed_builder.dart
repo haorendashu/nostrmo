@@ -11,13 +11,9 @@ class CustomEmojiEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    var customEmoji = node.value.data as CustomEmoji;
+    var customEmoji = embedContext.node.value.data as CustomEmoji;
     return ContentCustomEmojiComponent(imagePath: customEmoji.filepath!);
   }
 

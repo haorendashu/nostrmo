@@ -10,13 +10,9 @@ class PicEmbedBuilder extends EmbedBuilder {
   @override
   Widget build(
     BuildContext context,
-    QuillController controller,
-    Embed node,
-    bool readOnly,
-    bool inline,
-    TextStyle textStyle,
+    EmbedContext embedContext,
   ) {
-    var imageUrl = node.value.data as String;
+    var imageUrl = embedContext.node.value.data as String;
     if (imageUrl.indexOf("http") == 0 || imageUrl.indexOf(BASE64.PREFIX) == 0) {
       // netword image
       return ImageComponent(
