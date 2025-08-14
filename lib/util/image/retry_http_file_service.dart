@@ -11,6 +11,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/hash_util.dart';
 
 import '../../consts/base64.dart';
+import 'data_file_response.dart';
 
 class RetryHttpFileServcie extends FileService {
   final http.Client _httpClient;
@@ -25,7 +26,7 @@ class RetryHttpFileServcie extends FileService {
     // log("begin to load image from ${url}");
     try {
       if (BASE64.check(url)) {
-        return Baes64FileResponse(BASE64.toData(url));
+        return DataFileResponse(BASE64.toData(url));
       }
 
       var req = http.Request('GET', Uri.parse(url));
@@ -74,43 +75,5 @@ class RetryHttpFileServcie extends FileService {
     final httpResponse = await _httpClient.send(req);
 
     return HttpGetResponse(httpResponse);
-  }
-}
-
-class Baes64FileResponse implements FileServiceResponse {
-  Uint8List data;
-
-  Baes64FileResponse(this.data);
-
-  final DateTime _receivedTime = DateTime.now();
-
-  @override
-  int get statusCode => HttpStatus.ok;
-
-  String? _header(String name) {
-    return null;
-  }
-
-  @override
-  Stream<List<int>> get content {
-    return Stream.value(data.toList());
-  }
-
-  @override
-  int? get contentLength => data.length;
-
-  @override
-  DateTime get validTill {
-    var ageDuration = const Duration(days: 7);
-    return _receivedTime.add(ageDuration);
-  }
-
-  @override
-  String? get eTag => _header(HttpHeaders.etagHeader);
-
-  @override
-  String get fileExtension {
-    // TODO this is not the real extension
-    return "jpeg";
   }
 }
