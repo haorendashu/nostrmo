@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
@@ -81,5 +82,45 @@ class DioUtil {
     }
     Response resp = await dio.post(link, data: parameters);
     return resp.data;
+  }
+
+  static Future<Uint8List?> downloadFileAsBytes(
+    String url, {
+    Function(int, int)? onProgress,
+  }) async {
+    final dio = Dio();
+
+    try {
+      final response = await dio.get(
+        url,
+        onReceiveProgress: (received, total) {
+          if (total != -1 && onProgress != null) {
+            onProgress(received, total);
+          }
+        },
+        options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500;
+          },
+        ),
+      );
+
+      if (response.statusCode == 200 && response.data is Uint8List) {
+        return response.data;
+      } else {
+        print('Download fail statusCode: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      if (e is DioException) {
+        print('Network fail: ${e.message}');
+        return null;
+      } else {
+        print('Doanload fail: ${e.toString()}');
+        return null;
+      }
+    }
   }
 }
