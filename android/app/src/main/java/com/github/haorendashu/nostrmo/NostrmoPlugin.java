@@ -195,6 +195,7 @@ public class NostrmoPlugin implements FlutterPlugin, MethodCallHandler {
             @Override
             public void onActivityResult(ActivityResult activityResult) {
                 // Log.i("NostrmoPlugin", "onActivityResult");
+                // Log.i("NostrmoPlugin", activityResult.getResultCode() + "");
                 if (activityResult.getResultCode() == Activity.RESULT_OK) {
                     String id = activityResult.getData().getStringExtra("id");
                     if (id == null) {
@@ -228,6 +229,12 @@ public class NostrmoPlugin implements FlutterPlugin, MethodCallHandler {
                     resultMap.put("intent", intentMap);
 
                     result.success(resultMap);
+                } else {
+                    for (Map.Entry<String, Result> entry : resultMap.entrySet()) {
+                        Result r = entry.getValue();
+                        r.success(new HashMap<String, Object>());
+                    }
+                    resultMap.clear();
                 }
             }
         });
