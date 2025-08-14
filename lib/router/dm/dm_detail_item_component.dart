@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostr_sdk/event.dart';
@@ -18,6 +21,7 @@ import '../../consts/base_consts.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
+import 'dm_pfm_component.dart';
 import 'dm_plaintext_handle.dart';
 
 class DMDetailItemComponent extends StatefulWidget {
@@ -67,7 +71,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
 
     for (var tag in widget.event.tags) {
       if (tag is List && tag.isNotEmpty) {
-        if (tag[0] == "q") {
+        if (tag[0] == "q" || tag[0] == "e") {
           if (tag.length > 1) {
             replingEventId = tag[1];
           }
@@ -100,21 +104,6 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
     String timeStr = GetTimeAgo.parse(
         DateTime.fromMillisecondsSinceEpoch(widget.event.createdAt * 1000));
 
-    if (currentPlainEventId != widget.event.id) {
-      plainContent = null;
-    }
-
-    var content = widget.event.content;
-    if (widget.event.kind == EventKind.DIRECT_MESSAGE &&
-        StringUtil.isBlank(plainContent)) {
-      handleEncryptedText(widget.event, widget.sessionPubkey);
-    }
-    if (StringUtil.isNotBlank(plainContent)) {
-      content = plainContent!;
-    }
-    content = content.replaceAll("\r", " ");
-    content = content.replaceAll("\n", " ");
-
     var timeWidget = Text(
       timeStr,
       style: TextStyle(
@@ -123,7 +112,8 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
       ),
     );
     Widget enhancedIcon = Container();
-    if (widget.event.kind == EventKind.PRIVATE_DIRECT_MESSAGE) {
+    if (widget.event.kind == EventKind.PRIVATE_DIRECT_MESSAGE ||
+        widget.event.kind == EventKind.PRIVATE_FILE_MESSAGE) {
       enhancedIcon = Container(
         margin: const EdgeInsets.only(
           left: Base.BASE_PADDING_HALF,
@@ -187,7 +177,36 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
       replyEventWidget = Container();
     }
 
-    var contentWidget = Container(
+    if (currentPlainEventId != widget.event.id) {
+      plainContent = null;
+    }
+
+    Widget contentWidget = Container();
+    if (widget.event.kind == EventKind.PRIVATE_FILE_MESSAGE) {
+      contentWidget = DMPfmComponent(
+        event: widget.event,
+      );
+    } else {
+      var content = widget.event.content;
+      if (widget.event.kind == EventKind.DIRECT_MESSAGE &&
+          StringUtil.isBlank(plainContent)) {
+        handleEncryptedText(widget.event, widget.sessionPubkey);
+      }
+      if (StringUtil.isNotBlank(plainContent)) {
+        content = plainContent!;
+      }
+      content = content.replaceAll("\r", " ");
+      content = content.replaceAll("\n", " ");
+
+      contentWidget = ContentComponent(
+        content: content,
+        event: widget.event,
+        showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
+        smallest: true,
+      );
+    }
+
+    var mainWidget = Container(
       margin: const EdgeInsets.only(
         left: Base.BASE_PADDING_HALF,
         right: Base.BASE_PADDING_HALF,
@@ -216,12 +235,7 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
               color: mainColor.withOpacity(0.3),
               borderRadius: const BorderRadius.all(Radius.circular(5)),
             ),
-            child: ContentComponent(
-              content: content,
-              event: widget.event,
-              showLinkPreview: _settingProvider.linkPreview == OpenStatus.OPEN,
-              smallest: true,
-            ),
+            child: contentWidget,
           ),
           replyEventWidget,
         ],
@@ -240,11 +254,11 @@ class _DMDetailItemComponent extends State<DMDetailItemComponent>
     List<Widget> list = [];
     if (widget.isLocal) {
       list.add(Container(width: BLANK_WIDTH));
-      list.add(Expanded(child: contentWidget));
+      list.add(Expanded(child: mainWidget));
       list.add(userHeadWidget);
     } else {
       list.add(userHeadWidget);
-      list.add(Expanded(child: contentWidget));
+      list.add(Expanded(child: mainWidget));
       list.add(Container(width: BLANK_WIDTH));
     }
 

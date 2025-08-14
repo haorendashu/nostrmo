@@ -99,7 +99,11 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     var keyIndex = settingProvider.privateKeyIndex!;
     var events = await EventDB.list(
         keyIndex,
-        [EventKind.DIRECT_MESSAGE, EventKind.PRIVATE_DIRECT_MESSAGE],
+        [
+          EventKind.DIRECT_MESSAGE,
+          EventKind.PRIVATE_DIRECT_MESSAGE,
+          EventKind.PRIVATE_FILE_MESSAGE
+        ],
         0,
         10000000);
 
