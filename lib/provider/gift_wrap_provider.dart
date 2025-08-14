@@ -13,6 +13,8 @@ import '../data/event_db.dart';
 import '../main.dart';
 
 class GiftWrapProvider extends ChangeNotifier {
+  static const GIFT_WRAP_INIT_TIME = 1672502400;
+
   // The box to contains events.
   // Maybe it should only hold all eventIds.
   EventMemBox box = EventMemBox(sortAfterAdd: false);
@@ -71,7 +73,8 @@ class GiftWrapProvider extends ChangeNotifier {
 
         // some event need some handle
         if (sourceEvent != null) {
-          if (sourceEvent.kind == EventKind.PRIVATE_DIRECT_MESSAGE) {
+          if (sourceEvent.kind == EventKind.PRIVATE_DIRECT_MESSAGE ||
+              sourceEvent.kind == EventKind.PRIVATE_FILE_MESSAGE) {
             // private DM, handle by dmProvider
             dmProvider.onEvent(sourceEvent);
           }

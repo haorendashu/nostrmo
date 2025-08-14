@@ -4,6 +4,7 @@ import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/dm_provider.dart';
+import '../../provider/gift_wrap_provider.dart';
 import 'dm_session_list_item_component.dart';
 
 class DMUnknownListRouter extends StatefulWidget {
@@ -40,7 +41,8 @@ class _DMUnknownListRouter extends State<DMUnknownListRouter> {
         ),
         onRefresh: () async {
           _dmProvider.query(queryAll: true);
-          giftWrapProvider.query(initQuery: true);
+          giftWrapProvider.query(
+              initQuery: true, since: GiftWrapProvider.GIFT_WRAP_INIT_TIME);
         },
       ),
     );

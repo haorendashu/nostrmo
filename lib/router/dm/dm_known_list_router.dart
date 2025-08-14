@@ -5,7 +5,9 @@ import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 
+import '../../main.dart';
 import '../../provider/dm_provider.dart';
+import '../../provider/gift_wrap_provider.dart';
 import 'dm_notice_item_component.dart';
 import 'dm_session_list_item_component.dart';
 
@@ -63,6 +65,8 @@ class _DMKnownListRouter extends State<DMKnownListRouter> {
         ),
         onRefresh: () async {
           _dmProvider.query(queryAll: true);
+          giftWrapProvider.query(
+              initQuery: true, since: GiftWrapProvider.GIFT_WRAP_INIT_TIME);
         },
       ),
     );
