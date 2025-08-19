@@ -890,6 +890,8 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           .add(EnumObj(ImageServices.NOSTR_BUILD, ImageServices.NOSTR_BUILD));
       imageServcieList!.add(
           EnumObj(ImageServices.POMF2_LAIN_LA, ImageServices.POMF2_LAIN_LA));
+      imageServcieList!.add(
+          EnumObj(ImageServices.NOSTR_DOWNLOAD, ImageServices.NOSTR_DOWNLOAD));
       // imageServcieList!
       //     .add(EnumObj(ImageServices.NOSTO_RE, ImageServices.NOSTO_RE));
       imageServcieList!
@@ -931,6 +933,10 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           settingProvider.imageService = ImageServices.BLOSSOM;
           settingProvider.imageServiceAddr = addr;
         }
+        return;
+      } else if (resultEnumObj.value == ImageServices.NOSTR_DOWNLOAD) {
+        settingProvider.imageService = ImageServices.BLOSSOM;
+        settingProvider.imageServiceAddr = "https://nostr.download";
         return;
       }
       settingProvider.imageService = resultEnumObj.value;

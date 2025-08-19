@@ -8,4 +8,5 @@ class ImageServices {
   static const VOID_CAT = "void.cat";
   static const NOSTRFILES_DEV = "nostrfiles.dev";
   static const NOSTO_RE = "nosto.re";
+  static const NOSTR_DOWNLOAD = "nostr.download";
 }
