@@ -71,7 +71,9 @@ mixin EditorMixin {
 
   ZapGoalInputController zapGoalInputController = ZapGoalInputController();
 
-  ScrollController btnScrollController = ScrollController();
+  ScrollController btnScrollController = ScrollController(
+    initialScrollOffset: 360,
+  );
 
   var focusNode = FocusNode();
 
@@ -130,6 +132,99 @@ mixin EditorMixin {
     var groupEventKind = getGroupEventKind();
 
     List<Widget> inputBtnList = [];
+    var hBtnStyle = const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("- ", 2);
+      },
+      icon: Icon(Icons.format_list_bulleted),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "List Bulleted",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("\n```\n\n```\n", 5);
+      },
+      icon: Icon(Icons.code),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "Code",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("~~~~", 2);
+      },
+      icon: Icon(Icons.strikethrough_s),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "Strikethrough",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("\n----\n", 6);
+      },
+      icon: Icon(Icons.horizontal_rule),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "Horizontal Rule",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("### ", 4);
+      },
+      icon: Text(
+        "H3",
+        style: hBtnStyle,
+      ),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "H3",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("## ", 3);
+      },
+      icon: Text(
+        "H2",
+        style: hBtnStyle,
+      ),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "H2",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("# ", 2);
+      },
+      icon: Text(
+        "H1",
+        style: hBtnStyle,
+      ),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "H1",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("**", 1);
+      },
+      icon: Icon(Icons.format_italic),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "Italic",
+    ));
+    inputBtnList.add(quill.QuillToolbarIconButton(
+      onPressed: () {
+        insertText("****", 2);
+      },
+      icon: Icon(Icons.format_bold),
+      isSelected: false,
+      iconTheme: null,
+      tooltip: "Bold",
+    ));
+    inputBtnList.add(quill.QuillToolbarDivider(Axis.horizontal));
+
     if (isDM() && groupIdentifier == null) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: changePrivateDM,
@@ -346,6 +441,16 @@ mixin EditorMixin {
       emojiShow = true;
       customEmojiShow = false;
     }
+    updateUI();
+  }
+
+  void insertText(String text, int moveForward) {
+    final index = editorController.selection.baseOffset;
+    final length = editorController.selection.extentOffset - index;
+    editorController.replaceText(index, length, text,
+        TextSelection.collapsed(offset: index + moveForward),
+        ignoreFocus: true);
+    focusNode.requestFocus();
     updateUI();
   }
 
