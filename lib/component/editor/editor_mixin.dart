@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_relation.dart';
+import 'package:nostr_sdk/nip17/pfm_aes_gcm_algorithm_encrypt.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
@@ -26,9 +27,12 @@ import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/sendbox/sendbox.dart';
+import 'package:nostrmo/util/hash_util.dart';
+import 'package:nostrmo/util/store_util.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:provider/provider.dart';
 import 'package:image/image.dart' as img;
+import 'package:path/path.dart' as path;
 
 import '../../consts/base.dart';
 import '../../data/custom_emoji.dart';
@@ -39,6 +43,7 @@ import '../../router/index/index_app_bar.dart';
 import '../content/content_decoder.dart';
 import '../emoji_picker_component.dart';
 import '../image_component.dart';
+import '../multi_icon_component.dart';
 import '../zap/zap_split_icon_component.dart';
 import 'cust_embed_types.dart';
 import 'custom_emoji_add_dialog.dart';
@@ -98,9 +103,9 @@ mixin EditorMixin {
 
   void updateUI();
 
-  List<dynamic> getTags();
+  List<List<dynamic>> getTags();
 
-  List<dynamic> getTagsAddedWhenSend();
+  List<List<dynamic>> getTagsAddedWhenSend();
 
   void handleFocusInit() {
     focusNode.addListener(() {
@@ -133,6 +138,18 @@ mixin EditorMixin {
         isSelected: false,
         iconTheme: null,
         tooltip: openPrivateDM ? s.Close_Private_DM : s.Open_Private_DM,
+      ));
+    }
+    if (isDM() && openPrivateDM) {
+      inputBtnList.add(quill.QuillToolbarIconButton(
+        onPressed: sendPrivateFile,
+        icon: MultiIconComponent(
+          icon: Icons.image,
+          smallIcon: Icons.lock,
+        ),
+        isSelected: false,
+        iconTheme: null,
+        tooltip: "${s.Private} ${s.Image_or_Video}",
       ));
     }
     inputBtnList.add(quill.QuillToolbarIconButton(
@@ -353,6 +370,106 @@ mixin EditorMixin {
 
     openPrivateDM = !openPrivateDM;
     updateUI();
+  }
+
+  Future<void> sendPrivateFile() async {
+    var context = getContext();
+    var s = S.of(context);
+    var localFilePath = await Uploader.pick(context);
+    if (StringUtil.isNotBlank(localFilePath)) {
+      var cancelFunc = BotToast.showLoading();
+      try {
+        var fileType = PathTypeUtil.getPathType(localFilePath!);
+        var sourceData = await Uploader.loadFile(localFilePath);
+        if (sourceData != null) {
+          var ox = HashUtil.sha256Bytes(sourceData);
+          var encryptAlgorithm = PfmAesGcmAlgorithmEncrypt();
+          var encryptData =
+              await encryptAlgorithm.encrypt(Uint8List.fromList(sourceData));
+          print(encryptData);
+          var x = HashUtil.sha256Bytes(encryptData);
+
+          String? fileName;
+          if (!BASE64.check(localFilePath)) {
+            fileName = path.basename(localFilePath);
+          }
+
+          var base64ImageData =
+              BASE64.toBase64(Uint8List.fromList(encryptData));
+          var imageUrl = await Uploader.upload(
+            base64ImageData,
+            imageService: settingProvider.imageService,
+            fileName: fileName,
+          );
+
+          if (StringUtil.isBlank(imageUrl)) {
+            BotToast.showText(text: s.Upload_fail);
+            return;
+          }
+          print(imageUrl);
+
+          var fileTypeMime = "image/jpeg";
+          if (fileType == "video") {
+            fileTypeMime = "video/mp4";
+          } else if (fileType == "audio") {
+            fileTypeMime = "audio/mpeg";
+          }
+
+          List<List<dynamic>> tags = [
+            ["x", x],
+            ["ox", ox],
+            ["file-type", fileTypeMime]
+          ];
+
+          tags.addAll(getTags());
+          tags.addAll(encryptAlgorithm.encryptInfoToTags());
+
+          var rumorEvent = Event(nostr!.publicKey,
+              EventKind.PRIVATE_FILE_MESSAGE, tags, imageUrl!);
+
+          List<Event> extralEvents = [];
+          var event = await GiftWrapUtil.getGiftWrapEvent(
+              nostr!, rumorEvent, nostr!.publicKey);
+          if (event == null) {
+            BotToast.showText(text: s.Send_fail);
+            return;
+          }
+
+          for (var tag in tags) {
+            if (tag.length > 1) {
+              if (tag[0] == "p") {
+                var extralEvent = await GiftWrapUtil.getGiftWrapEvent(
+                    nostr!, rumorEvent, tag[1]);
+                if (extralEvent != null) {
+                  extralEvents.add(extralEvent);
+                }
+              }
+            }
+          }
+
+          for (var extralEvent in extralEvents) {
+            List<String> extralRelays = [];
+            for (var tag in extralEvent.tags) {
+              if (tag is List && tag.length > 1 && tag[0] == "p") {
+                extralRelays = metadataProvider.getExtralRelays(tag[1], false);
+                break;
+              }
+            }
+
+            var result = await _handleSendingEvent(extralEvent, extralRelays);
+            if (result != null) {
+              log(jsonEncode(result.toJson()));
+            }
+          }
+          var result = await _handleSendingEvent(event, []);
+          if (result != null) {
+            log(jsonEncode(result.toJson()));
+          }
+        }
+      } finally {
+        cancelFunc.call();
+      }
+    }
   }
 
   Future<void> pickImage() async {

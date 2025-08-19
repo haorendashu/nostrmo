@@ -228,7 +228,7 @@ class _GroupDetailRouter extends CustState<GroupDetailRouter> {
   }
 
   void jumpToAddNote() {
-    List<dynamic> tags = [];
+    List<List<dynamic>> tags = [];
     var previous = groupDetailProvider.notesPrevious();
     if (previous.isNotEmpty) {
       var previousTag = ["previous", ...previous];

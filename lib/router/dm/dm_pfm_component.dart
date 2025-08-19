@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:easy_image_viewer/easy_image_viewer.dart';
@@ -50,6 +52,7 @@ class _DMPfmComponentState extends CustState<DMPfmComponent> {
 
   @override
   Future<void> onReady(BuildContext context) async {
+    log(jsonEncode(widget.event.toJson()));
     var event = widget.event;
     var pfmAlgorithm = PfmAlgorithmDecrypt.getFromEvent(event);
     if (pfmAlgorithm != null) {

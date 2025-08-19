@@ -295,16 +295,16 @@ class _DMDetailRouter extends CustState<DMDetailRouter> with EditorMixin {
   }
 
   @override
-  List getTags() {
+  List<List<dynamic>> getTags() {
     var pubkey = detail!.dmSession.pubkey;
-    List<dynamic> tags = [
+    List<List<dynamic>> tags = [
       ["p", pubkey]
     ];
     return tags;
   }
 
   @override
-  List getTagsAddedWhenSend() {
+  List<List<dynamic>> getTagsAddedWhenSend() {
     return [];
   }
 

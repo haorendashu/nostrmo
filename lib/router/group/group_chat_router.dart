@@ -439,7 +439,7 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
   }
 
   @override
-  List getTags() {
+  List<List<dynamic>> getTags() {
     if (replingEvent != null) {
       return [
         ["q", replingEvent!.id, "", replingEvent!.pubkey],
@@ -449,12 +449,12 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
   }
 
   @override
-  List getTagsAddedWhenSend() {
+  List<List<dynamic>> getTagsAddedWhenSend() {
     if (eventBox == null) {
       return [];
     }
 
-    List<dynamic> tags = [];
+    List<List<dynamic>> tags = [];
     var previous = GroupDetailsProvider.getTimelinePrevious(eventBox!);
     if (previous.isNotEmpty) {
       var previousTag = ["previous", ...previous];

@@ -43,11 +43,11 @@ class EditorRouter extends StatefulWidget {
 
   int? groupEventKind;
 
-  List<dynamic> tags = [];
+  List<List<dynamic>> tags = [];
 
-  List<dynamic> tagsAddedWhenSend = [];
+  List<List<dynamic>> tagsAddedWhenSend = [];
 
-  List<dynamic> tagPs = [];
+  List<List<dynamic>> tagPs = [];
 
   List<BlockEmbed>? initEmbeds;
 
@@ -74,8 +74,8 @@ class EditorRouter extends StatefulWidget {
       {EventRelation? eventRelation}) async {
     eventRelation ??= EventRelation.fromEvent(event);
 
-    List<dynamic> tags = [];
-    List<dynamic> tagsAddedWhenSend = [];
+    List<List<dynamic>> tags = [];
+    List<List<dynamic>> tagsAddedWhenSend = [];
     String relayAddr = "";
     if (event.sources.isNotEmpty) {
       relayAddr = event.sources[0];
@@ -87,7 +87,7 @@ class EditorRouter extends StatefulWidget {
     tagsAddedWhenSend
         .add(["e", event.id, relayAddr, directMarked, event.pubkey]);
 
-    List<dynamic> tagPs = [];
+    List<List<dynamic>> tagPs = [];
     tagPs.add(["p", event.pubkey]);
     if (eventRelation.tagPList.isNotEmpty) {
       for (var p in eventRelation.tagPList) {
@@ -135,9 +135,9 @@ class EditorRouter extends StatefulWidget {
 
   static Future<Event?> open(
     BuildContext context, {
-    List<dynamic>? tags,
-    List<dynamic>? tagsAddedWhenSend,
-    List<dynamic>? tagPs,
+    List<List<dynamic>>? tags,
+    List<List<dynamic>>? tagsAddedWhenSend,
+    List<List<dynamic>>? tagPs,
     String? pubkey,
     List<BlockEmbed>? initEmbeds,
     GroupIdentifier? groupIdentifier,
@@ -566,18 +566,18 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   }
 
   @override
-  List getTags() {
+  List<List<dynamic>> getTags() {
     return widget.tags;
   }
 
   @override
-  List getTagsAddedWhenSend() {
+  List<List<dynamic>> getTagsAddedWhenSend() {
     if ((notifyItems == null || notifyItems!.isEmpty) &&
         editorNotifyItems.isEmpty) {
       return widget.tagsAddedWhenSend;
     }
 
-    List<dynamic> list = [];
+    List<List<dynamic>> list = [];
     list.addAll(widget.tagsAddedWhenSend);
     for (var item in notifyItems!) {
       if (item.selected) {

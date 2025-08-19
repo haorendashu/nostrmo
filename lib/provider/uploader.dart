@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +60,32 @@ class Uploader {
       print("result $result");
     }
   }
+
+  // static Future<List<int>?> pick4Bytes(BuildContext context) async {
+  //   if (PlatformUtil.isPC() || PlatformUtil.isWeb()) {
+  //     FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+  //     if (result != null) {
+  //       if (result.files.single.bytes != null) {
+  //         return result.files.single.bytes!;
+  //       }
+  //     }
+
+  //     return null;
+  //   }
+
+  //   var assets = await AssetPicker.pickAssets(
+  //     context,
+  //     pickerConfig: const AssetPickerConfig(maxAssets: 1),
+  //     useRootNavigator: false,
+  //   );
+
+  //   if (assets != null && assets.isNotEmpty) {
+  //     return await assets.first.originBytes;
+  //   }
+
+  //   return null;
+  // }
 
   static Future<String?> pick(BuildContext context) async {
     if (PlatformUtil.isPC() || PlatformUtil.isWeb()) {
@@ -202,6 +230,17 @@ class Uploader {
     }
 
     return resultFiles;
+  }
+
+  static Future<List<int>?> loadFile(String filePath) async {
+    if (BASE64.check(filePath)) {
+      return BASE64.toData(filePath);
+    } else {
+      var file = File(filePath);
+      if (await file.exists()) {
+        return await file.readAsBytes();
+      }
+    }
   }
 
   static Future<String?> upload(String localPath,

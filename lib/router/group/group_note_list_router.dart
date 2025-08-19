@@ -157,7 +157,7 @@ class _GroupNoteListRouter extends State<GroupNoteListRouter>
   }
 
   void jumpToAddNote() {
-    List<dynamic> tags = [];
+    List<List<dynamic>> tags = [];
 
     if (eventBox != null) {
       var previous = GroupDetailsProvider.getTimelinePrevious(eventBox!);
