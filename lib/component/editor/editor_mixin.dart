@@ -72,7 +72,7 @@ mixin EditorMixin {
   ZapGoalInputController zapGoalInputController = ZapGoalInputController();
 
   ScrollController btnScrollController = ScrollController(
-    initialScrollOffset: 360,
+    initialScrollOffset: 380,
   );
 
   var focusNode = FocusNode();
@@ -132,7 +132,11 @@ mixin EditorMixin {
     var groupEventKind = getGroupEventKind();
 
     List<Widget> inputBtnList = [];
-    var hBtnStyle = const TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+    var hBtnStyle = TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: themeData.iconTheme.color,
+    );
     inputBtnList.add(quill.QuillToolbarIconButton(
       onPressed: () {
         insertText("- ", 2);
