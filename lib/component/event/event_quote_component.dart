@@ -114,7 +114,10 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
         imageListMode: true,
         inQuote: true,
       );
-    } else if (event.kind == EventKind.FOLLOW_SETS) {
+    } else if (event.kind == EventKind.FOLLOW_SETS ||
+        event.kind == EventKind.GENERIC_LISTS ||
+        event.kind == EventKind.STARTER_PACKS ||
+        event.kind == EventKind.MEDIA_STARTER_PACKS) {
       var followSet = FollowSet.getPublicFollowSet(event);
 
       return Container(
