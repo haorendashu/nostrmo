@@ -13,6 +13,7 @@ class ContentTagComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return ContentStrLinkComponent(
       str: tag,
+      showUnderline: false,
       onTap: () {
         var plainTag = tag.replaceFirst("#", "");
         RouterUtil.router(context, RouterPath.TAG_DETAIL, plainTag);
