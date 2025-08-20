@@ -23,6 +23,7 @@ import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/base64.dart';
+import 'package:nostrmo/provider/single_event_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -346,37 +347,84 @@ class _EventMainComponent extends State<EventMainComponent> {
           ));
         }
       } else {
-        if (widget.showReplying && eventRelation.tagPList.isNotEmpty) {
-          var textStyle = TextStyle(
-            color: hintColor,
-            fontSize: smallTextSize,
-          );
-          List<Widget> replyingList = [];
-          var length = eventRelation.tagPList.length;
-          replyingList.add(Text(
-            "${s.Replying}: ",
-            style: textStyle,
-          ));
-          for (var index = 0; index < length; index++) {
-            var p = eventRelation.tagPList[index];
-            var isLast = index < length - 1 ? false : true;
-            replyingList.add(EventReplyingcomponent(pubkey: p));
-            if (!isLast) {
-              replyingList.add(Text(
-                " & ",
-                style: textStyle,
-              ));
-            }
-          }
+        if (widget.showReplying &&
+            (eventRelation.tagPList.isNotEmpty ||
+                StringUtil.isNotBlank(eventRelation.replyOrRootId))) {
           list.add(Container(
             width: double.maxFinite,
             padding: const EdgeInsets.only(
               bottom: Base.BASE_PADDING_HALF,
             ),
-            child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: replyingList,
-            ),
+            child: Selector<SingleEventProvider, Event?>(
+                builder: (context, replyEvent, child) {
+              var textStyle = TextStyle(
+                color: hintColor,
+                fontSize: smallTextSize,
+              );
+              List<Widget> replyingList = [];
+              replyingList.add(Text(
+                "${s.Replying}: ",
+                style: textStyle,
+              ));
+
+              if (replyEvent != null) {
+                // replyEvent found! show simple reply event info.
+                replyingList.add(Container(
+                  margin: const EdgeInsets.only(
+                    left: Base.BASE_PADDING_HALF,
+                  ),
+                  child: UserPicComponent(
+                    pubkey: replyEvent.pubkey,
+                    width: themeData.textTheme.bodyLarge!.fontSize!,
+                  ),
+                ));
+                replyingList.add(Expanded(
+                    child: Container(
+                  margin: const EdgeInsets.only(
+                    left: Base.BASE_PADDING_HALF,
+                    right: 30,
+                  ),
+                  child: Text(
+                    replyEvent.content,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: textStyle,
+                  ),
+                )));
+
+                return Row(
+                  children: replyingList,
+                );
+              } else {
+                // replyEvent not found! show repling user infos.
+                var length = eventRelation.tagPList.length;
+                if (length > 0) {
+                  for (var index = 0; index < length; index++) {
+                    var p = eventRelation.tagPList[index];
+                    var isLast = index < length - 1 ? false : true;
+                    replyingList.add(EventReplyingcomponent(pubkey: p));
+                    if (!isLast) {
+                      replyingList.add(Text(
+                        " & ",
+                        style: textStyle,
+                      ));
+                    }
+                  }
+                } else {
+                  replyingList = [];
+                }
+
+                return Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: replyingList,
+                );
+              }
+            }, selector: (context, _provider) {
+              if (StringUtil.isBlank(eventRelation.replyOrRootId)) {
+                return null;
+              }
+              return _provider.getEvent(eventRelation.replyOrRootId!);
+            }),
           ));
         } else {
           // hide the reply note subject!
