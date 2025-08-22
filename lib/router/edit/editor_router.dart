@@ -29,6 +29,7 @@ import '../../component/editor/editor_mixin.dart';
 import '../../component/editor/poll_input_component.dart';
 import '../../component/editor/zap_split_input_component.dart';
 import '../../component/group_identifier_inherited_widget.dart';
+import '../../component/user/user_pic_component.dart';
 import '../../generated/l10n.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'editor_notify_item_component.dart';
@@ -57,6 +58,8 @@ class EditorRouter extends StatefulWidget {
 
   bool isZapGoal;
 
+  Event? repliedEvent;
+
   EditorRouter({
     required this.tags,
     required this.tagsAddedWhenSend,
@@ -68,6 +71,7 @@ class EditorRouter extends StatefulWidget {
     this.isLongForm = false,
     this.isPoll = false,
     this.isZapGoal = false,
+    this.repliedEvent,
   });
 
   static Future<Event?> replyEvent(BuildContext context, Event event,
@@ -130,6 +134,7 @@ class EditorRouter extends StatefulWidget {
       tagPs: tagPs,
       groupIdentifier: groupIdentifier,
       groupEventKind: groupEventKind,
+      repliedEvent: event,
     );
   }
 
@@ -145,6 +150,7 @@ class EditorRouter extends StatefulWidget {
     bool isLongForm = false,
     bool isPoll = false,
     bool isZapGoal = false,
+    Event? repliedEvent,
   }) {
     tags ??= [];
     tagsAddedWhenSend ??= [];
@@ -161,6 +167,7 @@ class EditorRouter extends StatefulWidget {
       isLongForm: isLongForm,
       isPoll: isPoll,
       isZapGoal: isZapGoal,
+      repliedEvent: repliedEvent,
     );
 
     return RouterUtil.push(context, MaterialPageRoute(builder: (context) {
@@ -231,6 +238,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
     var cardColor = themeData.cardColor;
     var fontSize = themeData.textTheme.bodyMedium!.fontSize;
     var largeTextSize = themeData.textTheme.bodyLarge!.fontSize;
+    var smallTextSize = themeData.textTheme.bodySmall!.fontSize;
 
     List<Widget> list = [];
 
@@ -274,6 +282,52 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
           }
         }
       }
+    }
+
+    if (widget.repliedEvent != null) {
+      var textStyle = TextStyle(
+        fontSize: smallTextSize,
+      );
+      List<Widget> replyingList = [];
+      replyingList.add(Text(
+        "${s.Replying}: ",
+        style: textStyle,
+      ));
+
+      replyingList.add(Container(
+        margin: const EdgeInsets.only(
+          left: Base.BASE_PADDING_HALF,
+        ),
+        child: UserPicComponent(
+          pubkey: widget.repliedEvent!.pubkey,
+          width: themeData.textTheme.bodyLarge!.fontSize!,
+        ),
+      ));
+      replyingList.add(Expanded(
+          child: Container(
+        margin: const EdgeInsets.only(
+          left: Base.BASE_PADDING_HALF,
+          right: 30,
+        ),
+        child: Text(
+          widget.repliedEvent!.content,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: textStyle,
+        ),
+      )));
+
+      list.add(Container(
+        width: double.maxFinite,
+        padding: const EdgeInsets.only(
+          left: Base.BASE_PADDING,
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+        child: Row(
+          children: replyingList,
+        ),
+      ));
     }
 
     if ((notifyItems != null && notifyItems!.isNotEmpty) ||
