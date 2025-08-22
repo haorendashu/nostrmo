@@ -108,19 +108,13 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
       main = ListView.builder(
         controller: _controller,
         itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return Container(
-              height: Appbar4Stack.height,
-            );
-          }
-
           var event = events[index];
           return EventListComponent(
             event: event,
             showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
           );
         },
-        itemCount: events.length + 1,
+        itemCount: events.length,
       );
     }
 
