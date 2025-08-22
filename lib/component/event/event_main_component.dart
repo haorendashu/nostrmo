@@ -12,6 +12,7 @@ import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip23/long_form_info.dart';
 import 'package:nostr_sdk/nip35/torrent_info.dart';
+import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/utils/path_type_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/content/content_video_component.dart';
@@ -19,6 +20,7 @@ import 'package:nostrmo/component/content/markdown/markdown_mention_event_elemen
 import 'package:nostrmo/component/content/markdown/mdw/mdw_nrelay_node.dart';
 import 'package:nostrmo/component/event/event_torrent_component.dart';
 import 'package:nostrmo/component/event/event_zap_goals_component.dart';
+import 'package:nostrmo/component/follow_set_card_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
@@ -166,7 +168,11 @@ class _EventMainComponent extends State<EventMainComponent> {
     var mainColor = themeData.primaryColor;
 
     Event? repostEvent;
-    if ((widget.event.kind == EventKind.REPOST ||
+    if (widget.event.kind == EventKind.STARTER_PACKS ||
+        widget.event.kind == EventKind.MEDIA_STARTER_PACKS) {
+      var followSet = FollowSet.getPublicFollowSet(widget.event);
+      return FollowSetCardComponent(followSet);
+    } else if ((widget.event.kind == EventKind.REPOST ||
             widget.event.kind == EventKind.GENERIC_REPOST) &&
         widget.event.content.contains("\"pubkey\"")) {
       try {

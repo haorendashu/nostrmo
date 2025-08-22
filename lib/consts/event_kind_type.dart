@@ -15,5 +15,7 @@ class EventKindType {
     EventKind.VIDEO_HORIZONTAL,
     EventKind.VIDEO_VERTICAL,
     EventKind.COMMENT,
+    EventKind.STARTER_PACKS,
+    EventKind.MEDIA_STARTER_PACKS,
   ];
 }
