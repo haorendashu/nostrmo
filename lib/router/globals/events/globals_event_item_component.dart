@@ -54,13 +54,10 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
         _event = event;
 
         var main = Screenshot(
+          controller: screenshotController,
           child: Container(
             color: cardColor,
             margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-            padding: EdgeInsets.only(
-              top: Base.BASE_PADDING,
-              // bottom: Base.BASE_PADDING,
-            ),
             child: EventMainComponent(
               screenshotController: screenshotController,
               event: _event!,
@@ -68,7 +65,6 @@ class _GlobalEventItemComponent extends State<GlobalEventItemComponent> {
               textOnTap: jumpToThread,
             ),
           ),
-          controller: screenshotController,
         );
 
         return GestureDetector(

@@ -135,7 +135,6 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
     return Screenshot(
       controller: screenshotController,
       child: Container(
-        padding: const EdgeInsets.only(top: Base.BASE_PADDING),
         margin: const EdgeInsets.all(Base.BASE_PADDING),
         decoration: boxDecoration,
         child: GestureDetector(

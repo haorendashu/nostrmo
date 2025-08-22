@@ -64,10 +64,6 @@ class _EventListComponent extends State<EventListComponent> {
       child: Container(
         color: cardColor,
         margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
-        padding: const EdgeInsets.only(
-          top: Base.BASE_PADDING,
-          // bottom: Base.BASE_PADDING,
-        ),
         child: EventMainComponent(
           screenshotController: screenshotController,
           event: widget.event,
