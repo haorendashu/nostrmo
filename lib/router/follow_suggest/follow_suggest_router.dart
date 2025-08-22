@@ -57,6 +57,7 @@ class _FollowSuggestRouter extends CustState<FollowSuggestRouter> {
     for (var pubkey in pubkeys) {
       userWidgetList.add(SimpleMetadataComponent(
         pubkey: pubkey,
+        showFollow: true,
       ));
     }
     mainList.add(Expanded(

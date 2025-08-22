@@ -163,6 +163,19 @@ class ContactListProvider extends ChangeNotifier {
     return _contactList!.total();
   }
 
+  Future<void> addContacts(List<Contact> contacts) async {
+    if (_contactList != null) {
+      for (var contact in contacts) {
+        if (_contactList?.get(contact.publicKey) == null) {
+          _contactList!.add(contact);
+        }
+      }
+
+      await sendContactList();
+      _saveAndNotify();
+    }
+  }
+
   void addContact(Contact contact) async {
     _contactList!.add(contact);
     var result = await sendContactList();

@@ -58,12 +58,17 @@ class _FollowSetCardComponent extends State<FollowSetCardComponent> {
 
     List<Widget> bottomList = [];
     if (StringUtil.isNotBlank(widget.followSet.title)) {
-      bottomList.add(Text(
-        widget.followSet.title!,
-        textAlign: TextAlign.start,
-        style: TextStyle(
-          fontSize: themeData.textTheme.bodyLarge!.fontSize,
-          fontWeight: FontWeight.bold,
+      bottomList.add(Container(
+        margin: const EdgeInsets.only(
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        child: Text(
+          widget.followSet.title!,
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontSize: themeData.textTheme.bodyLarge!.fontSize,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ));
     }
@@ -149,11 +154,11 @@ class _FollowSetCardComponent extends State<FollowSetCardComponent> {
                   style: bottomRightTextStyle,
                 ),
                 Text(
-                  "${GetTimeAgo.parse(
+                  "${s.Updated} ${GetTimeAgo.parse(
                     DateTime.fromMillisecondsSinceEpoch(
                         widget.followSet.createdAt * 1000),
                     pattern: "dd MMM, yyyy",
-                  )} ${s.Updated}",
+                  )}",
                   style: bottomRightTextStyle,
                 ),
               ],
@@ -177,7 +182,7 @@ class _FollowSetCardComponent extends State<FollowSetCardComponent> {
     return GestureDetector(
       onTap: () {
         RouterUtil.router(
-            context, RouterPath.FOLLOW_SET_FEED, widget.followSet);
+            context, RouterPath.STARTER_PACKS_DETAIL, widget.followSet);
       },
       child: Container(
         child: Column(

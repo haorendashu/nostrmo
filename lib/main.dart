@@ -31,6 +31,7 @@ import 'package:nostrmo/provider/group_provider.dart';
 import 'package:nostrmo/provider/mention_me_new_provider.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/nwc_provider.dart';
+import 'package:nostrmo/router/follow_set/starter_packs_detail_router.dart';
 import 'package:nostrmo/router/group/group_chat_router.dart';
 import 'package:nostrmo/router/group/group_detail_router.dart';
 import 'package:nostrmo/router/group/group_edit_router.dart';
@@ -434,6 +435,7 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
       RouterPath.WALLET_RECEIVE: (context) => WalletReceiveRouter(),
       RouterPath.WALLET_TRANSACTIONS: (context) => WalletTransactionsRouter(),
       RouterPath.WALLET_SEND: (context) => WalletSendRotuer(),
+      RouterPath.STARTER_PACKS_DETAIL: (context) => StarterPacksDetailRouter(),
     };
 
     return MultiProvider(
