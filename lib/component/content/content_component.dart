@@ -811,38 +811,38 @@ class _ContentComponent extends State<ContentComponent> {
 
         var nevent = NIP19Tlv.decodeNevent(key);
         // print(nevent.toString());
-        if (nevent != null && nevent.kind != null) {
-          if (EventKindType.SUPPORTED_EVENTS.contains(nevent.kind)) {
-            // block
-            bufferToList(buffer, currentList, images, removeLastSpan: true);
-            var w = EventQuoteComponent(
-              id: nevent.id,
-              eventRelayAddr: nevent.relays != null && nevent.relays!.isNotEmpty
-                  ? nevent.relays![0]
-                  : null,
-              showVideo: widget.showVideo,
-            );
-            currentList.add(WidgetSpan(child: w));
-            counterAddLines(fake_event_counter);
+        if (nevent != null ) {
+          // if (EventKindType.SUPPORTED_EVENTS.contains(nevent.kind)) {
+          // block
+          bufferToList(buffer, currentList, images, removeLastSpan: true);
+          var w = EventQuoteComponent(
+            id: nevent.id,
+            eventRelayAddr: nevent.relays != null && nevent.relays!.isNotEmpty
+                ? nevent.relays![0]
+                : null,
+            showVideo: widget.showVideo,
+          );
+          currentList.add(WidgetSpan(child: w));
+          counterAddLines(fake_event_counter);
 
-            return otherStr;
-          } else if (StringUtil.isNotBlank(nevent.author) &&
-              StringUtil.isNotBlank(nevent.id) &&
-              (nevent.kind == EventKind.FOLLOW_SETS ||
-                  nevent.kind == EventKind.GENERIC_LISTS ||
-                  nevent.kind == EventKind.STARTER_PACKS ||
-                  nevent.kind == EventKind.MEDIA_STARTER_PACKS)) {
-            // block
-            var w = EventQuoteComponent(
-              id: nevent.id,
-              showVideo: widget.showVideo,
-              relays: nevent.relays,
-            );
-            currentList.add(WidgetSpan(child: w));
-            counterAddLines(1);
+          return otherStr;
+          // } else if (StringUtil.isNotBlank(nevent.author) &&
+          //     StringUtil.isNotBlank(nevent.id) &&
+          //     (nevent.kind == EventKind.FOLLOW_SETS ||
+          //         nevent.kind == EventKind.GENERIC_LISTS ||
+          //         nevent.kind == EventKind.STARTER_PACKS ||
+          //         nevent.kind == EventKind.MEDIA_STARTER_PACKS)) {
+          //   // block
+          //   var w = EventQuoteComponent(
+          //     id: nevent.id,
+          //     showVideo: widget.showVideo,
+          //     relays: nevent.relays,
+          //   );
+          //   currentList.add(WidgetSpan(child: w));
+          //   counterAddLines(1);
 
-            return otherStr;
-          }
+          //   return otherStr;
+          // }
         }
         return str;
       } else if (NIP19Tlv.isNaddr(key)) {
