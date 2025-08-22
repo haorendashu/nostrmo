@@ -1,15 +1,19 @@
 import 'dart:developer';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/when_stop_function.dart';
 import 'package:nostrmo/component/appbar4stack.dart';
 import 'package:nostrmo/component/cust_state.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/router/index/index_app_bar.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +23,7 @@ import '../../component/event/event_list_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/event_kind_type.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
@@ -39,27 +44,27 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
 
   FollowSet? followSet;
 
-  Color? mainColor;
-
-  Color? appBarBG;
+  late S s;
 
   @override
   void initState() {
     super.initState();
     bindLoadMoreScroll(_controller);
-    _controller.addListener(() {
-      if (_controller.offset > 50 && mainColor != null) {
-        appBarBG = mainColor!.withOpacity(0.2);
-        setState(() {});
-      } else {
-        appBarBG = null;
-        setState(() {});
-      }
-    });
+    // _controller.addListener(() {
+    //   if (_controller.offset > 50 && mainColor != null) {
+    //     appBarBG = mainColor!.withOpacity(0.2);
+    //     setState(() {});
+    //   } else {
+    //     appBarBG = null;
+    //     setState(() {});
+    //   }
+    // });
   }
 
   @override
   Widget doBuild(BuildContext context) {
+    s = S.of(context);
+
     if (followSet == null) {
       var followSetItf = RouterUtil.routerArgs(context);
       if (followSetItf == null) {
@@ -83,72 +88,89 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
     var _settingProvider = Provider.of<SettingProvider>(context);
     var mediaQuery = MediaQuery.of(context);
     var padding = mediaQuery.padding;
-    mainColor = themeData.primaryColor;
     var appBarTextColor = themeData.appBarTheme.titleTextStyle!.color;
+    var mediumFontSize = themeData.textTheme.bodyMedium!.fontSize;
+    var popFontStyle = TextStyle(
+      fontSize: mediumFontSize,
+    );
+
+    late Widget main;
 
     var events = box.all();
     if (events.isEmpty) {
-      return Scaffold(
-        appBar: AppBar(leading: AppbarBackBtnComponent()),
-        body: EventListPlaceholder(
-          onRefresh: () {
-            box.clear;
-            doQuery();
-          },
-        ),
+      main = EventListPlaceholder(
+        onRefresh: () {
+          box.clear;
+          doQuery();
+        },
+      );
+    } else {
+      main = ListView.builder(
+        controller: _controller,
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0) {
+            return Container(
+              height: Appbar4Stack.height,
+            );
+          }
+
+          var event = events[index];
+          return EventListComponent(
+            event: event,
+            showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
+          );
+        },
+        itemCount: events.length + 1,
       );
     }
 
-    var currentAppBarBG = mainColor;
-    if (appBarBG != null) {
-      currentAppBarBG = appBarBG;
-    }
-
-    var main = ListView.builder(
-      controller: _controller,
-      itemBuilder: (BuildContext context, int index) {
-        if (index == 0) {
-          return Container(
-            height: Appbar4Stack.height,
-          );
-        }
-
-        var event = events[index];
-        return EventListComponent(
-          event: event,
-          showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
-        );
-      },
-      itemCount: events.length + 1,
-    );
-
     return Scaffold(
-      body: Stack(
-        children: [
-          main,
-          Positioned.fill(
-            top: 0,
-            bottom: mediaQuery.size.height - padding.top - Appbar4Stack.height,
-            child: Container(
-              color: currentAppBarBG,
-              padding: EdgeInsets.only(top: padding.top),
-              child: Appbar4Stack(
-                title: Text(
-                  followSet!.displayName(),
-                  style: TextStyle(
-                    color: appBarTextColor,
-                    fontSize: themeData.textTheme.bodyLarge!.fontSize,
-                    fontWeight: FontWeight.bold,
+      appBar: AppBar(
+        leading: AppbarBackBtnComponent(),
+        title: Text(
+          followSet!.displayName(),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: themeData.textTheme.bodyLarge!.fontSize),
+        ),
+        actions: [
+          PopupMenuButton(
+            onSelected: onPopMenuSelected,
+            tooltip: s.More,
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value: "copyNaddr",
+                  child: Row(
+                    children: [
+                      Icon(Icons.copy),
+                      Text(" ${s.Copy} ${s.Address}")
+                    ],
                   ),
                 ),
-                backgroundColor: Colors.transparent,
-                textColor: appBarTextColor,
+              ];
+            },
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING_HALF,
+                right: Base.BASE_PADDING_HALF,
               ),
+              child: const Icon(Icons.more_vert),
             ),
           ),
         ],
       ),
+      body: main,
     );
+  }
+
+  void onPopMenuSelected(value) {
+    if (value == "copyNaddr") {
+      var naddr = followSet!.getNaddr();
+      print(naddr.toString());
+      Clipboard.setData(ClipboardData(text: NIP19Tlv.encodeNaddr(naddr)));
+      BotToast.showText(text: S.of(context).Copy_success);
+    }
   }
 
   String? subscribeId;

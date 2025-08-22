@@ -361,5 +361,6 @@
     "Next": "Next",
     "Scan": "Scan",
     "Wallet_send_tips": "Input a Lightning Address, Lightning Invoice or LNURL",
-    "Updated": "Updated"
+    "Updated": "Updated",
+    "Created_by": "Created by"
 }

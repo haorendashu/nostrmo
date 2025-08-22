@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
@@ -101,6 +102,7 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
     if (StringUtil.isNotBlank(text)) {
       FollowSet fs = FollowSet(
           StringUtil.rndNameStr(16),
+          EventKind.FOLLOW_SETS,
           nostr!.publicKey,
           {},
           {},
@@ -241,12 +243,10 @@ class FollowSetListItem extends StatelessWidget {
 
   void onSelect(BuildContext context, value) {
     if (value == "copyNaddr") {
-      var naddr = contactListProvider.getFollowSetNaddr(followSet.dTag);
-      if (naddr != null) {
-        print(naddr.toString());
-        Clipboard.setData(ClipboardData(text: NIP19Tlv.encodeNaddr(naddr)));
-        BotToast.showText(text: S.of(context).Copy_success);
-      }
+      var naddr = followSet.getNaddr();
+      print(naddr.toString());
+      Clipboard.setData(ClipboardData(text: NIP19Tlv.encodeNaddr(naddr)));
+      BotToast.showText(text: S.of(context).Copy_success);
     } else if (value == "editTitle") {
       titleEdit(context);
     } else if (value == "edit") {

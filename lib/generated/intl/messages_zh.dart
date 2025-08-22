@@ -90,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url": MessageLookupByLibrary.simpleMessage("复制初始链接"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("复制成功"),
         "Create_Group": MessageLookupByLibrary.simpleMessage("创建群组"),
+        "Created_by": MessageLookupByLibrary.simpleMessage("创建者"),
         "Creator": MessageLookupByLibrary.simpleMessage("创建者"),
         "Custom": MessageLookupByLibrary.simpleMessage("自定义"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("自定义颜色"),

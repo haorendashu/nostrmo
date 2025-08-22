@@ -3679,6 +3679,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Created by`
+  String get Created_by {
+    return Intl.message(
+      'Created by',
+      name: 'Created_by',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

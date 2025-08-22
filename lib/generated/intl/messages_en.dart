@@ -109,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Copy_init_Url": MessageLookupByLibrary.simpleMessage("Copy init Url"),
         "Copy_success": MessageLookupByLibrary.simpleMessage("Copy success!"),
         "Create_Group": MessageLookupByLibrary.simpleMessage("Create Group"),
+        "Created_by": MessageLookupByLibrary.simpleMessage("Created by"),
         "Creator": MessageLookupByLibrary.simpleMessage("Creator"),
         "Custom": MessageLookupByLibrary.simpleMessage("Custom"),
         "Custom_Color": MessageLookupByLibrary.simpleMessage("Custom Color"),

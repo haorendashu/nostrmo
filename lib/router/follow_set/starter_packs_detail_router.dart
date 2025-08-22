@@ -1,5 +1,8 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/image_component.dart';
@@ -63,7 +66,7 @@ class _StarterPacksDetailRouterState extends State<StarterPacksDetailRouter> {
 
     list.add(Container(
       margin: margin,
-      child: Text(
+      child: SelectableText(
         followSet!.displayName(),
         style: TextStyle(
           fontWeight: FontWeight.bold,
@@ -104,7 +107,7 @@ class _StarterPacksDetailRouterState extends State<StarterPacksDetailRouter> {
         children: [
           Container(
             margin: EdgeInsets.only(right: Base.BASE_PADDING),
-            child: Text("Created by: "),
+            child: Text("${s.Created_by}: "),
           ),
           GestureDetector(
             onTap: () {
@@ -218,6 +221,32 @@ class _StarterPacksDetailRouterState extends State<StarterPacksDetailRouter> {
               fontWeight: FontWeight.bold,
               fontSize: themeData.textTheme.bodyLarge!.fontSize),
         ),
+        actions: [
+          PopupMenuButton(
+            onSelected: onPopMenuSelected,
+            tooltip: s.More,
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value: "copyNaddr",
+                  child: Row(
+                    children: [
+                      Icon(Icons.copy),
+                      Text(" ${s.Copy} ${s.Address}")
+                    ],
+                  ),
+                ),
+              ];
+            },
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING_HALF,
+                right: Base.BASE_PADDING_HALF,
+              ),
+              child: const Icon(Icons.more_vert),
+            ),
+          ),
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.only(
@@ -232,6 +261,15 @@ class _StarterPacksDetailRouterState extends State<StarterPacksDetailRouter> {
         ),
       ),
     );
+  }
+
+  void onPopMenuSelected(value) {
+    if (value == "copyNaddr") {
+      var naddr = followSet!.getNaddr();
+      print(naddr.toString());
+      Clipboard.setData(ClipboardData(text: NIP19Tlv.encodeNaddr(naddr)));
+      BotToast.showText(text: S.of(context).Copy_success);
+    }
   }
 
   void followAll() {

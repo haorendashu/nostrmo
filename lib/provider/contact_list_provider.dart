@@ -386,26 +386,26 @@ class ContactListProvider extends ChangeNotifier {
     return _followSetMap;
   }
 
-  Naddr? getFollowSetNaddr(String dTag) {
-    var event = followSetEventMap[dTag];
-    if (event != null) {
-      return Naddr(
-        id: dTag,
-        author: event.pubkey,
-        kind: EventKind.FOLLOW_SETS,
-        relays: event.sources,
-      );
-    }
+  // Naddr? getFollowSetNaddr(String dTag) {
+  //   var event = followSetEventMap[dTag];
+  //   if (event != null) {
+  //     return Naddr(
+  //       id: dTag,
+  //       author: event.pubkey,
+  //       kind: EventKind.FOLLOW_SETS,
+  //       relays: event.sources,
+  //     );
+  //   }
 
-    var followSet = _followSetMap[dTag];
-    if (followSet != null) {
-      return Naddr(
-        id: dTag,
-        author: nostr!.publicKey,
-        kind: EventKind.FOLLOW_SETS,
-      );
-    }
+  //   var followSet = _followSetMap[dTag];
+  //   if (followSet != null) {
+  //     return Naddr(
+  //       id: dTag,
+  //       author: nostr!.publicKey,
+  //       kind: EventKind.FOLLOW_SETS,
+  //     );
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 }
