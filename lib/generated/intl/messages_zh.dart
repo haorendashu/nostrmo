@@ -350,6 +350,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "在支持的客户端上可以拆分和转移 Zaps 到你添加的用户。"),
         "Split_and_Transfer_Zap":
             MessageLookupByLibrary.simpleMessage("拆分和转移Zap"),
+        "Starter_packs": MessageLookupByLibrary.simpleMessage("入门包"),
         "Subject": MessageLookupByLibrary.simpleMessage("标题"),
         "Submit": MessageLookupByLibrary.simpleMessage("提交"),
         "Sync_Upload": MessageLookupByLibrary.simpleMessage("同步上传"),

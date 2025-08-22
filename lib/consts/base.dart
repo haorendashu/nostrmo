@@ -23,6 +23,9 @@ class Base {
 
   static String INDEXS_TOPICS = "https://nostrmo.com/indexs/topics.json";
 
+  static String INDEXS_STARTER_PACKS =
+      "https://nostrmo.com/indexs/starterpacks.json";
+
   static String INDEXS_RELAYS = "https://nostrmo.com/indexs/relays.json";
 
   static String WEB_TOOLS = "https://nostrmo.com/indexs/webtools.json";

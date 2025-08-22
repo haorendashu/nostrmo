@@ -442,6 +442,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The support client will split and transfer zaps to the users you had added."),
         "Split_and_Transfer_Zap":
             MessageLookupByLibrary.simpleMessage("Split and Transfer Zap"),
+        "Starter_packs": MessageLookupByLibrary.simpleMessage("Starter packs"),
         "Subject": MessageLookupByLibrary.simpleMessage("Subject"),
         "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "Sync_Upload": MessageLookupByLibrary.simpleMessage("Sync Upload"),

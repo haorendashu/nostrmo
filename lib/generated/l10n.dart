@@ -3689,6 +3689,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Starter packs`
+  String get Starter_packs {
+    return Intl.message(
+      'Starter packs',
+      name: 'Starter_packs',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
