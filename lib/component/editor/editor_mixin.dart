@@ -891,7 +891,7 @@ mixin EditorMixin {
                 relays.addAll(mentionEvent.sources);
               }
               var nevent = Nevent(
-                  id: value, relays: relays, author: mentionEvent.pubkey);
+                  id: value, relays: relays, author: mentionEvent.pubkey, kind: mentionEvent.kind);
               result += "nostr:${NIP19Tlv.encodeNevent(nevent)} ";
             } else {
               result += "nostr:${Nip19.encodeNoteId(value)} ";
