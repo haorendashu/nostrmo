@@ -3,6 +3,7 @@ import 'package:get_time_ago/get_time_ago.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/image_component.dart';
+import 'package:nostrmo/component/tag_component.dart';
 import 'package:nostrmo/component/user/name_component.dart';
 import 'package:nostrmo/component/user/simple_metadata_component.dart';
 import 'package:nostrmo/component/user/user_pic_component.dart';
@@ -70,6 +71,25 @@ class _StarterPacksDetailRouterState extends State<StarterPacksDetailRouter> {
         ),
       ),
     ));
+
+    if (followSet != null && followSet!.tagList().isNotEmpty) {
+      List<Widget> tagWidgets = [];
+      for (var tag in followSet!.tagList()) {
+        tagWidgets.add(TagComponent(
+          tag: tag,
+          jumpable: false,
+        ));
+      }
+
+      list.add(Container(
+        margin: margin,
+        child: Wrap(
+          spacing: Base.BASE_PADDING,
+          runSpacing: Base.BASE_PADDING,
+          children: tagWidgets,
+        ),
+      ));
+    }
 
     if (StringUtil.isNotBlank(followSet!.description)) {
       list.add(Container(
