@@ -346,5 +346,6 @@
     "Send_Zap": "发送 Zap",
     "Next": "下一步",
     "Scan": "扫描",
-    "Wallet_send_tips": "输入闪电地址、闪电发票或LNURL"
+    "Wallet_send_tips": "输入闪电地址、闪电发票或LNURL",
+    "Updated": "更新"
 }

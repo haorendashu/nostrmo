@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import '../../generated/l10n.dart';
 import '../../provider/single_event_provider.dart';
 import '../../util/router_util.dart';
 import '../cust_state.dart';
+import '../follow_set_card_component.dart';
 import 'event_follow_set_public_contacts_component.dart';
 import 'event_main_component.dart';
 
@@ -118,13 +120,15 @@ class _EventQuoteComponent extends CustState<EventQuoteComponent> {
         event.kind == EventKind.GENERIC_LISTS ||
         event.kind == EventKind.STARTER_PACKS ||
         event.kind == EventKind.MEDIA_STARTER_PACKS) {
+      // log(jsonEncode(event.toJson()));
       var followSet = FollowSet.getPublicFollowSet(event);
 
       return Container(
         padding: const EdgeInsets.all(Base.BASE_PADDING),
         margin: const EdgeInsets.all(Base.BASE_PADDING),
         decoration: boxDecoration,
-        child: EventFollowSetPublicContactsComponent(followSet, event.pubkey),
+        // child: EventFollowSetPublicContactsComponent(followSet, event.pubkey),
+        child: FollowSetCardComponent(followSet),
       );
     }
 

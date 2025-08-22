@@ -14,6 +14,7 @@ import '../user/name_component.dart';
 import '../user/simple_metadata_component.dart';
 import '../user/user_pic_component.dart';
 
+@Deprecated("use FollowSetCardComponent instead")
 class EventFollowSetPublicContactsComponent extends StatefulWidget {
   FollowSet followSet;
 
@@ -42,7 +43,7 @@ class _EventFollowSetPublicContactsComponent
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
 
-    list.add(Selector<MetadataProvider, Metadata?>(
+    var titleWidget = Selector<MetadataProvider, Metadata?>(
         builder: (context, metadata, child) {
       if (metadata == null) {
         return Container();
@@ -65,21 +66,21 @@ class _EventFollowSetPublicContactsComponent
         ),
       ));
 
-      titleList.add(GestureDetector(
-        onTap: jumpToUserPage,
-        child: Container(
-          margin: const EdgeInsets.only(
-            left: Base.BASE_PADDING_HALF,
-            right: Base.BASE_PADDING_HALF,
-          ),
-          child: NameComponent(
-            pubkey: widget.pubkey,
-            maxLines: 1,
-            textOverflow: TextOverflow.ellipsis,
-            metadata: metadata,
-          ),
-        ),
-      ));
+      // titleList.add(GestureDetector(
+      //   onTap: jumpToUserPage,
+      //   child: Container(
+      //     margin: const EdgeInsets.only(
+      //       left: Base.BASE_PADDING_HALF,
+      //       right: Base.BASE_PADDING_HALF,
+      //     ),
+      //     child: NameComponent(
+      //       pubkey: widget.pubkey,
+      //       maxLines: 1,
+      //       textOverflow: TextOverflow.ellipsis,
+      //       metadata: metadata,
+      //     ),
+      //   ),
+      // ));
 
       titleList.add(Container(
         child: Text(
@@ -88,6 +89,13 @@ class _EventFollowSetPublicContactsComponent
             fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
             fontWeight: FontWeight.bold,
           ),
+        ),
+      ));
+
+      titleList.add(Expanded(child: Container()));
+      titleList.add(Container(
+        child: Icon(
+          Icons.chevron_right,
         ),
       ));
 
@@ -109,7 +117,15 @@ class _EventFollowSetPublicContactsComponent
       );
     }, selector: (context, provider) {
       return provider.getMetadata(widget.pubkey);
-    }));
+    });
+    list.add(GestureDetector(
+      onTap: () {
+        RouterUtil.router(
+            context, RouterPath.FOLLOW_SET_FEED, widget.followSet);
+      },
+      behavior: HitTestBehavior.translucent,
+      child: titleWidget,
+    ));
 
     var contacts = widget.followSet.publicContacts;
 

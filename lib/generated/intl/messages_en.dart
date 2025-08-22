@@ -477,6 +477,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Translate Source Language"),
         "Translate_Target_Language":
             MessageLookupByLibrary.simpleMessage("Translate Target Language"),
+        "Updated": MessageLookupByLibrary.simpleMessage("Updated"),
         "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload fail."),
         "Upload_num": MessageLookupByLibrary.simpleMessage("Upload num"),
         "Url": MessageLookupByLibrary.simpleMessage("Url"),

@@ -3669,6 +3669,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Updated`
+  String get Updated {
+    return Intl.message(
+      'Updated',
+      name: 'Updated',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

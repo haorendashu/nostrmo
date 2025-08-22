@@ -360,5 +360,6 @@
     "Send_Zap": "Send Zap",
     "Next": "Next",
     "Scan": "Scan",
-    "Wallet_send_tips": "Input a Lightning Address, Lightning Invoice or LNURL"
+    "Wallet_send_tips": "Input a Lightning Address, Lightning Invoice or LNURL",
+    "Updated": "Updated"
 }

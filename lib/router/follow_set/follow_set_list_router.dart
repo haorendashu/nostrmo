@@ -99,8 +99,19 @@ class _FollowSetListRouter extends CustState<FollowSetListRouter> {
       value: "",
     );
     if (StringUtil.isNotBlank(text)) {
-      FollowSet fs = FollowSet(StringUtil.rndNameStr(16), {}, {}, {}, {}, {},
-          {}, {}, {}, {}, DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      FollowSet fs = FollowSet(
+          StringUtil.rndNameStr(16),
+          nostr!.publicKey,
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          DateTime.now().millisecondsSinceEpoch ~/ 1000,
           title: text);
       contactListProvider.addFollowSet(fs);
       setState(() {});
