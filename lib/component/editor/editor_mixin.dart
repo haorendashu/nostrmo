@@ -891,7 +891,10 @@ mixin EditorMixin {
                 relays.addAll(mentionEvent.sources);
               }
               var nevent = Nevent(
-                  id: value, relays: relays, author: mentionEvent.pubkey, kind: mentionEvent.kind);
+                  id: value,
+                  relays: relays,
+                  author: mentionEvent.pubkey,
+                  kind: mentionEvent.kind);
               result += "nostr:${NIP19Tlv.encodeNevent(nevent)} ";
             } else {
               result += "nostr:${Nip19.encodeNoteId(value)} ";
@@ -1247,7 +1250,7 @@ mixin EditorMixin {
 
           var findMoreBtn = GestureDetector(
             onTap: () {
-              WebViewRouter.open(context, "https://emojis-iota.vercel.app/");
+              WebViewRouter.open(context, "https://emojito.meme");
             },
             child: Container(
               width: 40,
