@@ -660,7 +660,7 @@ class _EventMainComponent extends State<EventMainComponent> {
 
     return Container(
       // color: Colors.blue,
-      padding: const EdgeInsets.only(top: Base.BASE_PADDING),
+      // padding: const EdgeInsets.only(top: Base.BASE_PADDING),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: eventAllList,
