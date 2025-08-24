@@ -811,7 +811,7 @@ class _ContentComponent extends State<ContentComponent> {
 
         var nevent = NIP19Tlv.decodeNevent(key);
         // print(nevent.toString());
-        if (nevent != null ) {
+        if (nevent != null) {
           // if (EventKindType.SUPPORTED_EVENTS.contains(nevent.kind)) {
           // block
           bufferToList(buffer, currentList, images, removeLastSpan: true);
@@ -875,28 +875,6 @@ class _ContentComponent extends State<ContentComponent> {
                 child: ContentMentionUserComponent(pubkey: naddr.author)));
 
             return otherStr;
-          } else if (StringUtil.isNotBlank(naddr.id) &&
-              EventKindType.SUPPORTED_EVENTS.contains(naddr.kind)) {
-            // block
-            String? id = naddr.id;
-            AId? aid;
-            if (id.length > 64 && StringUtil.isNotBlank(naddr.author)) {
-              aid =
-                  AId(kind: naddr.kind, pubkey: naddr.author, title: naddr.id);
-              id = null;
-            }
-
-            bufferToList(buffer, currentList, images, removeLastSpan: true);
-            var w = EventQuoteComponent(
-              id: id,
-              aId: aid,
-              eventRelayAddr: eventRelayAddr,
-              showVideo: widget.showVideo,
-            );
-            currentList.add(WidgetSpan(child: w));
-            counterAddLines(fake_event_counter);
-
-            return otherStr;
           } else if (naddr.kind == EventKind.LIVE_EVENT) {
             bufferToList(buffer, currentList, images, removeLastSpan: true);
             var w = ContentLinkPreComponent(
@@ -936,6 +914,29 @@ class _ContentComponent extends State<ContentComponent> {
                 GroupIdentifier(naddr.relays!.first, naddr.id);
             var w = SimpleGroupMetadataComponent(groupIdentifier);
 
+            currentList.add(WidgetSpan(child: w));
+            counterAddLines(fake_event_counter);
+
+            return otherStr;
+          } else if (StringUtil.isNotBlank(naddr.id) &&
+              EventKindType.SUPPORTED_EVENTS.contains(naddr.kind)) {
+            // This is other event kinds, try to load by event id
+            // block
+            String? id = naddr.id;
+            AId? aid;
+            if (id.length > 64 && StringUtil.isNotBlank(naddr.author)) {
+              aid =
+                  AId(kind: naddr.kind, pubkey: naddr.author, title: naddr.id);
+              id = null;
+            }
+
+            bufferToList(buffer, currentList, images, removeLastSpan: true);
+            var w = EventQuoteComponent(
+              id: id,
+              aId: aid,
+              eventRelayAddr: eventRelayAddr,
+              showVideo: widget.showVideo,
+            );
             currentList.add(WidgetSpan(child: w));
             counterAddLines(fake_event_counter);
 
