@@ -85,6 +85,10 @@ mixin EditorMixin {
 
   bool openZapSplit = false;
 
+  int getPow() {
+    return 0;
+  }
+
   bool isLongForm() {
     return false;
   }
@@ -1052,6 +1056,16 @@ mixin EditorMixin {
 
     if (event == null) {
       return null;
+    }
+
+    var pow = getPow();
+    if (pow > 0) {
+      // delay some time to wait for loading UI show
+      await Future.delayed(const Duration(milliseconds: 200));
+      event.doProofOfWork(pow);
+      for (var extralEvent in extralEvents) {
+        extralEvent.doProofOfWork(pow);
+      }
     }
 
     log(jsonEncode(event.toJson()));

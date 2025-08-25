@@ -336,6 +336,8 @@ class SettingProvider extends ChangeNotifier {
 
   String? get noteTail => _settingData!.noteTail;
 
+  int? get pow => _settingData!.pow;
+
   set settingData(SettingData o) {
     _settingData = o;
     saveAndNotifyListeners();
@@ -578,6 +580,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set pow(int? o) {
+    _settingData!.pow = o;
+    saveAndNotifyListeners();
+  }
+
   Future<void> saveAndNotifyListeners({bool updateUI = true}) async {
     _settingData!.updatedTime = DateTime.now().millisecondsSinceEpoch;
     var m = _settingData!.toJson();
@@ -698,6 +705,8 @@ class SettingData {
 
   String? noteTail;
 
+  int? pow;
+
   /// updated time
   late int updatedTime;
 
@@ -749,6 +758,7 @@ class SettingData {
     this.messageNotice,
     this.noteClientTag,
     this.noteTail,
+    this.pow,
     this.updatedTime = 0,
   });
 
@@ -815,6 +825,7 @@ class SettingData {
     messageNotice = json['messageNotice'];
     noteClientTag = json['noteClientTag'];
     noteTail = json['noteTail'];
+    pow = json['pow'];
     if (json['updatedTime'] != null) {
       updatedTime = json['updatedTime'];
     } else {
@@ -873,6 +884,7 @@ class SettingData {
     data['messageNotice'] = this.messageNotice;
     data['noteClientTag'] = this.noteClientTag;
     data['noteTail'] = this.noteTail;
+    data['pow'] = this.pow;
     return data;
   }
 }

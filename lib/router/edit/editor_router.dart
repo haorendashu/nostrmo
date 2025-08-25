@@ -219,6 +219,11 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
   bool firstTap = true;
 
   @override
+  int getPow() {
+    return settingProvider.pow ?? 0;
+  }
+
+  @override
   Widget doBuild(BuildContext context) {
     if (notifyItems == null) {
       notifyItems = [];

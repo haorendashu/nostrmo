@@ -333,6 +333,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickAutoOpenSensitive,
     ));
     list.add(SettingGroupItemComponent(
+      name: "POW",
+      value: getPow(settingProvider.pow),
+      onTap: inputPow,
+    ));
+    list.add(SettingGroupItemComponent(
       name: s.Thread_Mode,
       value: getThreadMode(settingProvider.threadMode).name,
       onTap: pickThreadMode,
@@ -1456,5 +1461,25 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     if (resultEnumObj != null) {
       filterProvider.updateTagsSpamNum(resultEnumObj.value);
     }
+  }
+
+  inputPow() async {
+    var numText = await TextInputDialog.show(
+        context, "${S.of(context).Please_input} POW");
+    if (StringUtil.isNotBlank(numText)) {
+      var num = int.tryParse(numText!);
+      if (num != null && num <= 0) {
+        num = null;
+      }
+      settingProvider.pow = num;
+    }
+  }
+
+  String getPow(int? pow) {
+    if (pow == null || pow <= 0) {
+      return s.close;
+    }
+
+    return pow.toString();
   }
 }
