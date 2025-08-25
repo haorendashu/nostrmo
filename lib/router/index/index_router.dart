@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/add_btn_wrapper_component.dart';
@@ -90,14 +89,6 @@ class _IndexRouter extends CustState<IndexRouter>
         TabController(initialIndex: globalsInitTab, length: 4, vsync: this);
     dmTabController = TabController(length: 3, vsync: this);
 
-    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
-      try {
-        asyncInitState();
-      } catch (e) {
-        print(e);
-      }
-    }
-
     if (PlatformUtil.isPC()) {
       trayManager.addListener(this);
       windowManager.addListener(this);
@@ -110,14 +101,6 @@ class _IndexRouter extends CustState<IndexRouter>
     super.dispose();
 
     WidgetsBinding.instance.removeObserver(this);
-    if (!PlatformUtil.isPC() && !PlatformUtil.isWeb()) {
-      if (_purchaseUpdatedSubscription != null) {
-        _purchaseUpdatedSubscription!.cancel();
-        _purchaseUpdatedSubscription = null;
-      }
-      await FlutterInappPurchase.instance.finalize();
-    }
-
     if (PlatformUtil.isPC()) {
       trayManager.removeListener(this);
       windowManager.removeListener(this);
@@ -578,31 +561,6 @@ class _IndexRouter extends CustState<IndexRouter>
       } else {
         doAuth();
       }
-    });
-  }
-
-  StreamSubscription? _purchaseUpdatedSubscription;
-
-  void asyncInitState() async {
-    await FlutterInappPurchase.instance.initialize();
-    _purchaseUpdatedSubscription =
-        FlutterInappPurchase.purchaseUpdated.listen((productItem) async {
-      if (productItem == null) {
-        return;
-      }
-
-      try {
-        if (PlatformUtil.isAndroid()) {
-          await FlutterInappPurchase.instance.finishTransaction(productItem);
-        } else if (PlatformUtil.isIOS()) {
-          await FlutterInappPurchase.instance
-              .finishTransactionIOS(productItem.transactionId!);
-        }
-      } catch (e) {
-        print(e);
-      }
-      print('purchase-updated: $productItem');
-      BotToast.showText(text: "Thanks yours coffee!");
     });
   }
 }

@@ -102,7 +102,6 @@ import 'provider/wot_provider.dart';
 import 'router/bookmark/bookmark_router.dart';
 import 'router/community/community_detail_router.dart';
 import 'router/dm/dm_detail_router.dart';
-import 'router/donate/donate_router.dart';
 import 'router/event_detail/event_detail_router.dart';
 import 'router/filter/filter_router.dart';
 import 'router/follow_set/follow_set_detail_router.dart';
@@ -395,7 +394,6 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
             key: indexGlobalKey,
           ),
       RouterPath.LOGIN: (context) => LoginRouter(),
-      RouterPath.DONATE: (context) => DonateRouter(),
       RouterPath.USER: (context) => UserRouter(),
       RouterPath.USER_CONTACT_LIST: (context) => UserContactListRouter(),
       RouterPath.USER_HISTORY_CONTACT_LIST: (context) =>
@@ -644,6 +642,11 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
         titleTextStyle: titleTextStyle,
         elevation: 0,
         scrolledUnderElevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarColor: Colors.transparent,
+        ),
       ),
       dividerColor: ColorsUtil.hexToColor("#DFE1EB"),
       cardColor: cardColor,
@@ -652,8 +655,8 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
       textTheme: textTheme,
       hintColor: hintColor,
       buttonTheme: ButtonThemeData(),
-      shadowColor: Colors.black.withOpacity(0.2),
-      tabBarTheme: TabBarTheme(
+      shadowColor: Colors.black.withValues(alpha: 0.2),
+      tabBarTheme: TabBarThemeData(
         indicatorColor: Colors.white,
         indicatorSize: TabBarIndicatorSize.tab,
         dividerHeight: 0,
@@ -722,13 +725,18 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
         titleTextStyle: titleTextStyle,
         elevation: 0,
         scrolledUnderElevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.black,
+          systemNavigationBarIconBrightness: Brightness.light,
+          statusBarColor: Colors.transparent,
+        ),
       ),
       dividerColor: Colors.grey[200],
       cardColor: cardColor,
       textTheme: textTheme,
       hintColor: hintColor,
-      shadowColor: Colors.white.withOpacity(0.3),
-      tabBarTheme: TabBarTheme(
+      shadowColor: Colors.white.withValues(alpha: 0.3),
+      tabBarTheme: TabBarThemeData(
         indicatorColor: Colors.white,
         indicatorSize: TabBarIndicatorSize.tab,
         dividerHeight: 0,

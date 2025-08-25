@@ -294,7 +294,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
     var result = await FileSaver.instance.saveFile(
       name: DateTime.now().millisecondsSinceEpoch.toString(),
       bytes: utf8.encode(jsonStr),
-      ext: ".json",
+      fileExtension: ".json",
     );
 
     BotToast.showText(text: "${S.of(context).File_save_success}: $result");

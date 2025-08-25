@@ -248,7 +248,7 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
         var result = await FileSaver.instance.saveFile(
           name: DateTime.now().millisecondsSinceEpoch.toString(),
           bytes: imageAsBytes,
-          ext: ".png",
+          fileExtension: ".png",
         );
         BotToast.showText(
           text: "${S.of(context).Image_save_success} $result",
