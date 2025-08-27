@@ -369,6 +369,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Open Note detail",
     ),
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage("Open Private DM"),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Open Relay"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage("Open User page"),
     "Open_in_browser": MessageLookupByLibrary.simpleMessage("Open in browser"),
     "Optional": MessageLookupByLibrary.simpleMessage("Optional"),

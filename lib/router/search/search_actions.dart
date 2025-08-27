@@ -18,4 +18,6 @@ class SearchActions {
   static const String searchPubkeyEvent = "searchPubkeyEvent";
 
   static const String searchNoteContent = "searchNoteContent";
+
+  static const String openRelay = "openRelay";
 }

@@ -256,6 +256,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Event_from_cache": MessageLookupByLibrary.simpleMessage("从缓存中查找动态"),
     "Open_Note_detail": MessageLookupByLibrary.simpleMessage("打开动态详情"),
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage("打开私密私信"),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("打开中继"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage("打开用户页面"),
     "Open_in_browser": MessageLookupByLibrary.simpleMessage("浏览器中打开"),
     "Optional": MessageLookupByLibrary.simpleMessage("可选"),

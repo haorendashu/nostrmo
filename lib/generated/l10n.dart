@@ -2788,6 +2788,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Open Relay`
+  String get Open_Relay {
+    return Intl.message('Open Relay', name: 'Open_Relay', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

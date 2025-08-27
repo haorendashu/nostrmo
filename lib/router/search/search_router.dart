@@ -123,6 +123,9 @@ class _SearchRouter extends CustState<SearchRouter>
         } else if (action == SearchActions.searchPubkeyEvent) {
           list.add(SearchActionItemComponent(
               title: s.Search_pubkey_event, onTap: onEditingComplete));
+        } else if (action == SearchActions.openRelay) {
+          list.add(
+              SearchActionItemComponent(title: s.Open_Relay, onTap: openRelay));
         } else if (action == SearchActions.searchNoteContent) {
           list.add(SearchActionItemComponent(
               title: "${s.Search_note_content} NIP-50",
@@ -474,6 +477,10 @@ class _SearchRouter extends CustState<SearchRouter>
       if (searchAbles.isEmpty) {
         searchAbles.add(SearchActions.openHashtag);
       }
+      if (text.startsWith("wss://") || text.startsWith("ws://")) {
+        searchAbles.add(SearchActions.openRelay);
+      }
+
       searchAbles.add(SearchActions.searchMetadataFromCache);
       searchAbles.add(SearchActions.searchEventFromCache);
       searchAbles.add(SearchActions.searchPubkeyEvent);
@@ -501,5 +508,12 @@ class _SearchRouter extends CustState<SearchRouter>
     filterMap!["search"] = value;
     penddingEvents.clear;
     doQuery();
+  }
+
+  openRelay() {
+    var value = controller.text;
+    value = value.trim();
+    webViewProvider
+        .open("https://jumble.social/?r=${Uri.encodeComponent(value)}");
   }
 }

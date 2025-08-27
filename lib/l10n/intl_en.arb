@@ -363,5 +363,6 @@
     "Wallet_send_tips": "Input a Lightning Address, Lightning Invoice or LNURL",
     "Updated": "Updated",
     "Created_by": "Created by",
-    "Starter_packs": "Starter packs"
+    "Starter_packs": "Starter packs",
+    "Open_Relay": "Open Relay"
 }
