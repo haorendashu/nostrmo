@@ -315,7 +315,7 @@ class _EditorRouter extends CustState<EditorRouter> with EditorMixin {
           right: 30,
         ),
         child: Text(
-          widget.repliedEvent!.content,
+          widget.repliedEvent!.content.replaceAll("\n", " "),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: textStyle,

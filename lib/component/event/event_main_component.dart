@@ -388,7 +388,7 @@ class _EventMainComponent extends State<EventMainComponent> {
                 right: 30,
               ),
               child: Text(
-                replyEvent.content,
+                replyEvent.content.replaceAll("\n", " "),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: textStyle,
