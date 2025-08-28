@@ -20,6 +20,7 @@ import '../../component/user/metadata_component.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/event_kind_type.dart';
 import '../../data/metadata.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../provider/setting_provider.dart';
@@ -47,7 +48,13 @@ class _UserRouter extends CustState<UserRouter>
 
   bool showAppbarBG = false;
 
-  EventMemBox box = EventMemBox();
+  EventMemBox postsBox = EventMemBox();
+
+  EventMemBox allBox = EventMemBox();
+
+  EventMemBox youBox = EventMemBox();
+
+  EventMemBox imagesBox = EventMemBox();
 
   @override
   void initState() {
@@ -84,8 +91,16 @@ class _UserRouter extends CustState<UserRouter>
   /// the offset to appbar background color, showTitleHeight + 100;
   double showAppbarBGHeight = 50 + 100;
 
+  late S s;
+
+  late ThemeData themeData;
+
   @override
   Widget doBuild(BuildContext context) {
+    s = S.of(context);
+    themeData = Theme.of(context);
+    var cardColor = themeData.cardColor;
+
     var _settingProvider = Provider.of<SettingProvider>(context);
     if (StringUtil.isBlank(pubkey)) {
       pubkey = RouterUtil.routerArgs(context) as String?;
@@ -94,15 +109,19 @@ class _UserRouter extends CustState<UserRouter>
         return Container();
       }
       var events = followEventProvider.eventsByPubkey(pubkey!);
-      if (events != null && events.isNotEmpty) {
-        box.addList(events);
+      if (events.isNotEmpty) {
+        onEvents(events);
       }
     } else {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null && arg is String) {
         if (arg != pubkey) {
           // arg change! reset.
-          box.clear();
+          postsBox.clear();
+          allBox.clear();
+          youBox.clear();
+          imagesBox.clear();
+
           until = null;
 
           pubkey = arg;
@@ -113,14 +132,12 @@ class _UserRouter extends CustState<UserRouter>
     }
     preBuild();
 
+    var box = getEventBox();
     var paddingTop = mediaDataCache.padding.top;
     var maxWidth = mediaDataCache.size.width;
 
     showTitleHeight = maxWidth / 3 + 50;
     showAppbarBGHeight = showTitleHeight + 100;
-
-    var themeData = Theme.of(context);
-    var cardColor = themeData.cardColor;
 
     return Selector<MetadataProvider, Metadata?>(
       shouldRebuild: (previous, next) {
@@ -173,13 +190,31 @@ class _UserRouter extends CustState<UserRouter>
               ),
               SliverToBoxAdapter(
                 child: Container(
-                  margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
+                  // margin: const EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
                   color: themeData.cardColor,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: UserStatisticsComponent(
                       pubkey: pubkey!,
                     ),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 32,
+                  width: double.infinity,
+                  color: themeData.cardColor,
+                  margin: EdgeInsets.only(
+                    bottom: Base.BASE_PADDING_HALF,
+                  ),
+                  child: Row(
+                    children: [
+                      buildTypeWidget(context, 0, s.All, () {}),
+                      buildTypeWidget(context, 1, s.Posts, () {}),
+                      buildTypeWidget(context, 2, s.You, () {}),
+                      buildTypeWidget(context, 3, s.Images, () {}),
+                    ],
                   ),
                 ),
               ),
@@ -244,6 +279,38 @@ class _UserRouter extends CustState<UserRouter>
     );
   }
 
+  int currentIndex = 0;
+
+  Widget buildTypeWidget(
+      BuildContext context, int index, String title, GestureTapCallback onTap) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            currentIndex = index;
+          });
+
+          onTap();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: BoxBorder.fromSTEB(
+              bottom: BorderSide(
+                width: 3,
+                color: currentIndex == index
+                    ? themeData.primaryColor
+                    : Colors.transparent,
+              ),
+            ),
+          ),
+          width: double.infinity,
+          alignment: Alignment.topCenter,
+          child: Text(title),
+        ),
+      ),
+    );
+  }
+
   String? subscribeId;
 
   @override
@@ -264,15 +331,65 @@ class _UserRouter extends CustState<UserRouter>
     metadataProvider.update(pubkey!);
   }
 
+  void onEvents(List<Event> events) {
+    for (var event in events) {
+      if (event.pubkey != pubkey) {
+        continue;
+      }
+
+      later(event, onEventLaterFunc, null);
+    }
+  }
+
   void onEvent(event) {
     if (event.pubkey != pubkey) {
       return;
     }
 
-    later(event, (list) {
-      box.addList(list);
+    later(event, onEventLaterFunc, null);
+  }
+
+  void onEventLaterFunc(List<Event> events) {
+    doOnEventLaterFunc(events);
+  }
+
+  void doOnEventLaterFunc(List<Event> events, {bool updateUI = true}) {
+    allBox.addList(events);
+
+    var youPubkey = nostr!.publicKey;
+
+    for (var event in events) {
+      if (event.kind == EventKind.PICTURE ||
+          event.kind == EventKind.FILE_HEADER ||
+          event.kind == EventKind.STORAGE_SHARED_FILE) {
+        imagesBox.add(event);
+      } else {
+        // not image
+        bool isReply = false;
+        for (var tag in event.tags) {
+          var tagLength = tag.length;
+          if (tagLength > 1) {
+            var key = tag[0];
+            if (key == "p") {
+              var pubkey = tag[1];
+              if (youPubkey == pubkey) {
+                youBox.add(event);
+              }
+            } else if (key == "e") {
+              isReply = true;
+            }
+          }
+        }
+
+        if (!isReply) {
+          postsBox.add(event);
+        }
+      }
+    }
+
+    if (updateUI) {
       setState(() {});
-    }, null);
+    }
   }
 
   @override
@@ -299,6 +416,9 @@ class _UserRouter extends CustState<UserRouter>
     _doQuery(onEventFunc: onEvent);
   }
 
+  @override
+  int queryLimit = 100;
+
   void _doQuery({Function(Event)? onEventFunc}) {
     // print("_doQuery");
     onEventFunc ??= onEvent;
@@ -317,10 +437,10 @@ class _UserRouter extends CustState<UserRouter>
     );
     subscribeId = StringUtil.rndNameStr(16);
 
-    if (!box.isEmpty() && readyComplete) {
+    if (!allBox.isEmpty() && readyComplete) {
       // query after init
       var activeRelays = nostr!.activeRelays();
-      var oldestCreatedAts = box.oldestCreatedAtByRelay(
+      var oldestCreatedAts = allBox.oldestCreatedAtByRelay(
         activeRelays,
       );
       Map<String, List<Map<String, dynamic>>> filtersMap = {};
@@ -349,9 +469,9 @@ class _UserRouter extends CustState<UserRouter>
   void downloadAllOnEvent(Event e) {
     onEvent(e);
     whenStop(() {
-      log("whenStop box length ${box.length()}");
-      if (box.length() > oldEventLength) {
-        oldEventLength = box.length();
+      log("whenStop box length ${allBox.length()}");
+      if (allBox.length() > oldEventLength) {
+        oldEventLength = allBox.length();
         _doQuery(onEventFunc: downloadAllOnEvent);
       } else {
         // download complete
@@ -362,12 +482,22 @@ class _UserRouter extends CustState<UserRouter>
   }
 
   Future<void> broadcaseAll() async {
-    await SyncUploadDialog.show(context, box.all());
+    await SyncUploadDialog.show(context, allBox.all());
   }
 
   @override
   EventMemBox getEventBox() {
-    return box;
+    if (currentIndex == 0) {
+      return allBox;
+    } else if (currentIndex == 1) {
+      return postsBox;
+    } else if (currentIndex == 2) {
+      return youBox;
+    } else if (currentIndex == 3) {
+      return imagesBox;
+    }
+
+    return postsBox;
   }
 
   CancelFunc? cancelFunc;
@@ -389,7 +519,7 @@ class _UserRouter extends CustState<UserRouter>
 
   void beginToDown() {
     cancelFunc = BotToast.showLoading();
-    oldEventLength = box.length();
+    oldEventLength = allBox.length();
     _doQuery(onEventFunc: downloadAllOnEvent);
   }
 }

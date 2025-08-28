@@ -2793,6 +2793,21 @@ class S {
   String get Open_Relay {
     return Intl.message('Open Relay', name: 'Open_Relay', desc: '', args: []);
   }
+
+  /// `All`
+  String get All {
+    return Intl.message('All', name: 'All', desc: '', args: []);
+  }
+
+  /// `You`
+  String get You {
+    return Intl.message('You', name: 'You', desc: '', args: []);
+  }
+
+  /// `Images`
+  String get Images {
+    return Intl.message('Images', name: 'Images', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
