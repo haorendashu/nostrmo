@@ -231,11 +231,17 @@ class ListProvider extends ChangeNotifier {
     if (StringUtil.isNotBlank(content)) {
       var plainContent =
           await nostr!.nostrSigner.decrypt(nostr!.publicKey, content);
-      if (StringUtil.isBlank(plainContent)) {
-        return null;
+      dynamic jsonObj;
+      if (StringUtil.isNotBlank(plainContent)) {
+        jsonObj = jsonDecode(plainContent!);
+      } else {
+        var plainContent =
+            await nostr!.nostrSigner.nip44Decrypt(nostr!.publicKey, content);
+        if (StringUtil.isNotBlank(plainContent)) {
+          jsonObj = jsonDecode(plainContent!);
+        }
       }
 
-      var jsonObj = jsonDecode(plainContent!);
       if (jsonObj is List) {
         List<BookmarkItem> privateItems = [];
         for (var jsonObjItem in jsonObj) {
