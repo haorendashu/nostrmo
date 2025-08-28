@@ -101,7 +101,7 @@ class _EventPollComponent extends State<EventPollComponent> {
 
         if (pollInfo!.closedAt != null) {
           var closeAtDT =
-              DateTime.fromMillisecondsSinceEpoch(pollInfo!.closedAt!);
+              DateTime.fromMillisecondsSinceEpoch(pollInfo!.closedAt! * 1000);
           var format = FixedDateTimeFormatter("YYYY-MM-DD hh:mm:ss");
           list.add(Row(
             children: [Text("${s.Close_at} ${format.encode(closeAtDT)}")],
