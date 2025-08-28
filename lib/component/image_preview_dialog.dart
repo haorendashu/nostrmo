@@ -8,6 +8,7 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_gallery_saver/flutter_image_gallery_saver.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/image_tool.dart';
 import 'package:nostrmo/util/store_util.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -150,7 +151,10 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
                 top: 5,
                 right: 5,
                 child: IconButton(
-                  icon: const Icon(Icons.close),
+                  icon: Container(
+                    padding: const EdgeInsets.all(Base.BASE_PADDING),
+                    child: const Icon(Icons.close),
+                  ),
                   color: widget.closeButtonColor,
                   tooltip: s.close,
                   onPressed: close,
