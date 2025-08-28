@@ -509,6 +509,16 @@ class _ContentComponent extends State<ContentComponent> {
               }
             }
             continue;
+          } else if (j == 0 &&
+              str.startsWith("======") &&
+              strsLength == 1 &&
+              str.replaceAll("=", "") == "") {
+            // This line with many ===， many user like to use it to split the content
+            // just ignore markdown decode.
+            closeLine(buffer, currentList, allList, images);
+            buffer.write(str);
+            bufferToList(buffer, currentList, images, ignoreTextMatch: true);
+            continue;
           } else if (j == 0) {
             if (currentTextStyle != null) {
               closeLine(buffer, currentList, allList, images);
@@ -1068,7 +1078,7 @@ class _ContentComponent extends State<ContentComponent> {
 
   void bufferToList(
       StringBuffer buffer, List<InlineSpan> currentList, List<String> images,
-      {bool removeLastSpan = false}) {
+      {bool removeLastSpan = false, bool ignoreTextMatch = false}) {
     var text = buffer.toString();
     if (removeLastSpan) {
       // sometimes if the pre text's last chat is NL, need to remove it.
@@ -1079,6 +1089,11 @@ class _ContentComponent extends State<ContentComponent> {
     }
     buffer.clear();
     if (StringUtil.isBlank(text)) {
+      return;
+    }
+
+    if (ignoreTextMatch) {
+      currentList.add(TextSpan(text: text));
       return;
     }
 
