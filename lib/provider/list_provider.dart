@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/aid.dart';
@@ -8,8 +6,9 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/nip51/bookmarks.dart';
+import 'package:nostr_sdk/nip51/group_list.dart';
+import 'package:nostr_sdk/nip51/indexer_relay_list.dart';
 import 'package:nostr_sdk/nostr.dart';
-import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 
 import '../data/custom_emoji.dart';
@@ -76,26 +75,18 @@ class ListProvider extends ChangeNotifier {
       }
     } else if (event.kind == EventKind.BOOKMARKS_LIST) {
       // due to bookmarks info will use many times, so it should parse when it was receive.
-      var bm = await parseBookmarks();
+      var bm = await Bookmarks.parse(event, nostr!);
       if (bm != null) {
         _bookmarks = bm;
       }
     } else if (event.kind == EventKind.GROUP_LIST) {
-      _groupIdentifiers.clear();
-
-      for (var tag in event.tags) {
-        if (tag is List && tag.length > 2) {
-          var k = tag[0];
-          var groupId = tag[1];
-          var host = tag[2];
-          if (k == "group") {
-            var gi = GroupIdentifier(host, groupId);
-            _groupIdentifiers.add(gi);
-          }
-        }
+      _groupList = GroupList.parse(event, nostr!);
+      groupDetailsProvider.beginPull(groupIdentifiers);
+    } else if (event.kind == EventKind.INDEXER_RELAY_LIST) {
+      var indexerRelayList = await IndexerRelayList.parse(event, nostr!);
+      if (indexerRelayList != null) {
+        _indexerRelayList = indexerRelayList;
       }
-
-      groupDetailsProvider.beginPull(_groupIdentifiers);
     }
     notifyListeners();
   }
@@ -220,110 +211,37 @@ class ListProvider extends ChangeNotifier {
     return _holder[bookmarksKey];
   }
 
-  Future<Bookmarks?> parseBookmarks() async {
-    var bookmarks = Bookmarks();
-    var bookmarksEvent = getBookmarksEvent();
-    if (bookmarksEvent == null) {
-      return bookmarks;
-    }
-
-    var content = bookmarksEvent.content;
-    if (StringUtil.isNotBlank(content)) {
-      var plainContent =
-          await nostr!.nostrSigner.decrypt(nostr!.publicKey, content);
-      dynamic jsonObj;
-      if (StringUtil.isNotBlank(plainContent)) {
-        jsonObj = jsonDecode(plainContent!);
-      } else {
-        var plainContent =
-            await nostr!.nostrSigner.nip44Decrypt(nostr!.publicKey, content);
-        if (StringUtil.isNotBlank(plainContent)) {
-          jsonObj = jsonDecode(plainContent!);
-        }
-      }
-
-      if (jsonObj is List) {
-        List<BookmarkItem> privateItems = [];
-        for (var jsonObjItem in jsonObj) {
-          if (jsonObjItem is List && jsonObjItem.length > 1) {
-            var key = jsonObjItem[0];
-            var value = jsonObjItem[1];
-            if (key is String && value is String) {
-              privateItems.add(BookmarkItem(key: key, value: value));
-            }
-          }
-        }
-
-        bookmarks.privateItems = privateItems;
-      }
-    }
-
-    List<BookmarkItem> publicItems = [];
-    for (var jsonObjItem in bookmarksEvent.tags) {
-      if (jsonObjItem is List && jsonObjItem.length > 1) {
-        var key = jsonObjItem[0];
-        var value = jsonObjItem[1];
-        if (key is String && value is String) {
-          publicItems.add(BookmarkItem(key: key, value: value));
-        }
-      }
-    }
-    bookmarks.publicItems = publicItems;
-
-    return bookmarks;
-  }
-
   void addPrivateBookmark(BookmarkItem bookmarkItem) {
-    var bookmarks = getBookmarks();
-    bookmarks.privateItems.add(bookmarkItem);
-    saveBookmarks(bookmarks);
+    _bookmarks.privateItems.add(bookmarkItem);
+    saveBookmarks(_bookmarks);
   }
 
   void addPublicBookmark(BookmarkItem bookmarkItem) {
-    var bookmarks = getBookmarks();
-    bookmarks.publicItems.add(bookmarkItem);
-    saveBookmarks(bookmarks);
+    _bookmarks.publicItems.add(bookmarkItem);
+    saveBookmarks(_bookmarks);
   }
 
   void removePrivateBookmark(String value) {
-    var bookmarks = getBookmarks();
-    bookmarks.privateItems.removeWhere((items) {
+    _bookmarks.privateItems.removeWhere((items) {
       return items.value == value;
     });
-    saveBookmarks(bookmarks);
+    saveBookmarks(_bookmarks);
   }
 
   void removePublicBookmark(String value) {
-    var bookmarks = getBookmarks();
-    bookmarks.publicItems.removeWhere((items) {
+    _bookmarks.publicItems.removeWhere((items) {
       return items.value == value;
     });
-    saveBookmarks(bookmarks);
+    saveBookmarks(_bookmarks);
   }
 
   void saveBookmarks(Bookmarks bookmarks) async {
-    String? content = "";
-    if (bookmarks.privateItems.isNotEmpty) {
-      List<List> list = [];
-      for (var item in bookmarks.privateItems) {
-        list.add(item.toJson());
-      }
-
-      var jsonText = jsonEncode(list);
-      content = await nostr!.nostrSigner.encrypt(nostr!.publicKey, jsonText);
-      if (StringUtil.isBlank(content)) {
-        BotToast.showText(text: "Bookmark encrypt error");
-        return;
-      }
+    var event = await bookmarks.toEvent(nostr!);
+    if (event == null) {
+      BotToast.showText(text: "Bookmark encrypt error");
+      return;
     }
 
-    List tags = [];
-    for (var item in bookmarks.publicItems) {
-      tags.add(item.toJson());
-    }
-
-    var event =
-        Event(nostr!.publicKey, EventKind.BOOKMARKS_LIST, tags, content!);
     var resultEvent = await nostr!.sendEvent(event);
     if (resultEvent != null) {
       _holder[bookmarksKey] = resultEvent;
@@ -352,9 +270,9 @@ class ListProvider extends ChangeNotifier {
     return false;
   }
 
-  List<GroupIdentifier> _groupIdentifiers = [];
+  GroupList _groupList = GroupList();
 
-  get groupIdentifiers => _groupIdentifiers;
+  List<GroupIdentifier> get groupIdentifiers => _groupList.groupIdentifiers;
 
   Future<void> joinAndAddGroup(GroupIdentifier gi) async {
     // try to send join messages
@@ -372,14 +290,14 @@ class ListProvider extends ChangeNotifier {
   }
 
   void addGroup(GroupIdentifier gi) {
-    _groupIdentifiers.add(gi);
+    groupIdentifiers.add(gi);
     _updateGroups();
 
     groupDetailsProvider.beginPull([gi]);
   }
 
   void removeGroup(GroupIdentifier gi) {
-    _groupIdentifiers.removeWhere((groupIdentifier) {
+    groupIdentifiers.removeWhere((groupIdentifier) {
       if (gi.groupId == groupIdentifier.groupId &&
           gi.host == groupIdentifier.host) {
         return true;
@@ -391,12 +309,7 @@ class ListProvider extends ChangeNotifier {
   }
 
   void _updateGroups() async {
-    List tags = [];
-    for (var item in _groupIdentifiers) {
-      tags.add(item.toJson());
-    }
-
-    var event = Event(nostr!.publicKey, EventKind.GROUP_LIST, tags, "");
+    var event = await _groupList.toEvent(nostr!);
     var resultEvent = await nostr!.sendEvent(event);
 
     notifyListeners();
@@ -405,12 +318,12 @@ class ListProvider extends ChangeNotifier {
   void clear() {
     _holder.clear();
     _bookmarks = Bookmarks();
-    _groupIdentifiers.clear();
+    _groupList.clear();
   }
 
   bool containGroups(GroupIdentifier groupIdentifier) {
-    if (_groupIdentifiers.isNotEmpty) {
-      for (var _groupIdentifier in _groupIdentifiers) {
+    if (groupIdentifiers.isNotEmpty) {
+      for (var _groupIdentifier in groupIdentifiers) {
         if (_groupIdentifier.groupId == groupIdentifier.groupId &&
             _groupIdentifier.host == groupIdentifier.host) {
           return true;
@@ -420,4 +333,8 @@ class ListProvider extends ChangeNotifier {
 
     return false;
   }
+
+  IndexerRelayList? _indexerRelayList;
+
+  IndexerRelayList? get indexerRelayList => _indexerRelayList;
 }

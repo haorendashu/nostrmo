@@ -212,9 +212,16 @@ class RelayProvider extends ChangeNotifier {
     });
 
     loadRelayAddrs(contactListProvider.content);
-    listProvider.load(_nostr.publicKey,
-        [EventKind.BOOKMARKS_LIST, EventKind.EMOJIS_LIST, EventKind.GROUP_LIST],
-        targetNostr: _nostr, initQuery: true);
+    listProvider.load(
+        _nostr.publicKey,
+        [
+          EventKind.BOOKMARKS_LIST,
+          EventKind.EMOJIS_LIST,
+          EventKind.GROUP_LIST,
+          EventKind.INDEXER_RELAY_LIST,
+        ],
+        targetNostr: _nostr,
+        initQuery: true);
     badgeProvider.reload(targetNostr: _nostr, initQuery: true);
 
     // add local relay
