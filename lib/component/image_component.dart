@@ -26,20 +26,6 @@ class ImageComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (PlatformUtil.isWeb()) {
-      // TODO temp handle nostr.build cors error, these should be handled later.
-      if (imageUrl.startsWith("https://nostr.build/i/p/")) {
-        imageUrl = imageUrl.replaceFirst(
-            "https://nostr.build/i/p/", "https://pfp.nostr.build/");
-      } else if (imageUrl.startsWith("https://nostr.build/i/")) {
-        imageUrl = imageUrl.replaceFirst(
-            "https://nostr.build/i/", "https://image.nostr.build/");
-      } else if (imageUrl.startsWith("https://cdn.nostr.build/i/")) {
-        imageUrl = imageUrl.replaceFirst(
-            "https://cdn.nostr.build/i/", "https://image.nostr.build/");
-      }
-    }
-
     return CachedNetworkImage(
       imageUrl: imageUrl,
       width: width,
