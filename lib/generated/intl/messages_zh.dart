@@ -210,6 +210,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "使用 NIP07 插件登录",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("登录失败"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "你正想要退出登录，请确保已经保存好你的秘钥？",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("主文字颜色"),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("最大子动态数量"),

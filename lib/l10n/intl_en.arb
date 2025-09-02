@@ -367,5 +367,6 @@
     "Open_Relay": "Open Relay",
     "All": "All",
     "You": "You",
-    "Images": "Images"
+    "Images": "Images",
+    "Logout_tips": "You are about to log out, please make sure you have saved your secret key?"
 }

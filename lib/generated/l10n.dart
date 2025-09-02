@@ -2808,6 +2808,16 @@ class S {
   String get Images {
     return Intl.message('Images', name: 'Images', desc: '', args: []);
   }
+
+  /// `You are about to log out, please make sure you have saved your secret key?`
+  String get Logout_tips {
+    return Intl.message(
+      'You are about to log out, please make sure you have saved your secret key?',
+      name: 'Logout_tips',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

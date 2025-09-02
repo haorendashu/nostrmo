@@ -81,8 +81,11 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
         accountKey: value,
         isCurrent: _settingProvider.privateKeyIndex == index,
         onLoginTap: onLoginTap,
-        onLogoutTap: (index) {
-          onLogoutTap(index, context: context);
+        onLogoutTap: (index) async {
+          var result = await ConfirmDialog.show(context, s.Logout_tips);
+          if (result == true) {
+            onLogoutTap(index, context: context);
+          }
         },
       ));
     });

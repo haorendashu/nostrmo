@@ -299,6 +299,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Login With NIP07 Extension",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Login fail"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "You are about to log out, please make sure you have saved your secret key?",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Main Font Color"),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
