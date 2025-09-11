@@ -127,7 +127,7 @@ class ReplaceableEventProvider extends ChangeNotifier with LaterFunction {
         filterMap["#d"] = [aid.title];
 
         nostr!.query([filterMap], _onEvent,
-            tempRelays: relays, relayTypes: RelayType.ONLY_TEMP);
+            targetRelays: relays, relayTypes: RelayType.ONLY_TEMP);
       }
     });
 

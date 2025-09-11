@@ -265,7 +265,7 @@ class _SearchRouter extends CustState<SearchRouter>
     subscribeId = generatePrivateKey();
 
     if (!eventMemBox.isEmpty()) {
-      var activeRelays = nostr!.activeRelays();
+      var activeRelays = nostr!.normalRelays();
       var oldestCreatedAts = eventMemBox.oldestCreatedAtByRelay(activeRelays);
       Map<String, List<Map<String, dynamic>>> filtersMap = {};
       for (var relay in activeRelays) {

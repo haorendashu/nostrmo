@@ -152,7 +152,7 @@ class FollowEventProvider extends ChangeNotifier
       targetNostr.addInitQuery([filter.toJson()], onEvent, id: subscribeId);
     } else {
       if (!eventBox.isEmpty()) {
-        var activeRelays = targetNostr.activeRelays();
+        var activeRelays = targetNostr.normalRelays();
         var oldestCreatedAts =
             eventBox.oldestCreatedAtByRelay(activeRelays, _initTime);
         Map<String, List<Map<String, dynamic>>> filtersMap = {};

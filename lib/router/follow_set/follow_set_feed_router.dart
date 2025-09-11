@@ -209,7 +209,7 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
 
     if (!box.isEmpty() && readyComplete) {
       // query after init
-      var activeRelays = nostr!.activeRelays();
+      var activeRelays = nostr!.normalRelays();
       var oldestCreatedAts = box.oldestCreatedAtByRelay(activeRelays);
       Map<String, List<Map<String, dynamic>>> filtersMap = {};
       for (var relay in activeRelays) {

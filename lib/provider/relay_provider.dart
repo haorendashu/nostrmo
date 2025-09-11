@@ -231,7 +231,7 @@ class RelayProvider extends ChangeNotifier {
       var relayLocal =
           RelayLocal(RelayLocal.URL, relayStatusLocal!, localRelayDB!)
             ..relayStatusCallback = onRelayStatusChange;
-      _nostr.addRelay(relayLocal, init: true);
+      _nostr.addRelay(relayLocal, init: true, relayType: RelayType.LOCAL);
     }
 
     for (var relayAddr in relayAddrs) {
@@ -296,7 +296,7 @@ class RelayProvider extends ChangeNotifier {
     } else if (cacheRelayAddrs.contains(relayAddr)) {
       cacheRelayAddrs.remove(relayAddr);
       relayStatusMap.remove(relayAddr);
-      nostr!.removeRelay(relayAddr, relayType: RelayType.CACHE);
+      nostr!.removeRelay(relayAddr);
 
       saveCacheRelay();
       notifyListeners();
@@ -455,11 +455,11 @@ class RelayProvider extends ChangeNotifier {
     }
 
     for (var addr in needRemoveList) {
-      if (!nostr!.tempRelayHasSubscription(addr)) {
-        // don't contain subscription, remote!
-        _tempRelayStatusMap.remove(addr);
-        nostr!.removeTempRelay(addr);
-      }
+      // if (!nostr!.tempRelayHasSubscription(addr)) {
+      // don't contain subscription, remote!
+      _tempRelayStatusMap.remove(addr);
+      nostr!.removeRelay(addr);
+      // }
     }
   }
 }

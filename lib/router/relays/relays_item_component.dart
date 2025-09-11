@@ -127,7 +127,6 @@ class _RelaysItemComponent extends State<RelaysItemComponent> {
     Widget main = GestureDetector(
       onTap: () async {
         var relay = nostr!.getRelay(widget.addr);
-        relay ??= nostr!.getTempRelay(widget.addr);
         if (relay != null) {
           if (relay.info == null) {
             var cancelFunc = BotToast.showLoading();

@@ -192,7 +192,9 @@ class EventReactionsProvider extends ChangeNotifier with WhenStopFunction {
       filters.add(filter.toJson());
     }
     _needHandleIds.clear();
-    nostr!.query(filters, onEvent, relayTypes: RelayType.ONLY_NORMAL);
+    // TODO should set the target relay here.
+    nostr!.query(filters, onEvent,
+        relayTypes: RelayType.ONLY_NORMAL, bothRelay: true);
   }
 
   void addEventAndHandle(Event event) {

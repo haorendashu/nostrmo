@@ -114,7 +114,8 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
                 "single event ${id} not found! begin to query again from ${eventRelayAddr}.");
             var filter = Filter(ids: [id]);
             nostr!.query([filter.toJson()], onEvent,
-                tempRelays: [eventRelayAddr!], relayTypes: RelayType.ONLY_TEMP);
+                targetRelays: [eventRelayAddr!],
+                relayTypes: RelayType.ONLY_TEMP);
           }
         }
       }

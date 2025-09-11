@@ -71,7 +71,6 @@ class _GroupSearchDialog extends CustState<GroupSearchDialog> {
     nostr!.query(
       [filter.toJson()],
       onEvent,
-      tempRelays: relays,
       targetRelays: relays,
       relayTypes: RelayType.NETWORK,
       onComplete: queryComplete,

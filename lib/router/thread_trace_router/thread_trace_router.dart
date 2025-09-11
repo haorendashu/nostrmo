@@ -7,6 +7,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_relation.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostr_sdk/utils/when_stop_function.dart';
@@ -256,7 +257,10 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
 
     beginQueryParentFlag = false;
     nostr!.query(filters, onEvent,
-        onComplete: beginQueryParent, tempRelays: tempRelays);
+        onComplete: beginQueryParent,
+        targetRelays: tempRelays,
+        relayTypes: RelayType.NORMAL_AND_CACHE,
+        bothRelay: true);
     Future.delayed(const Duration(seconds: 1)).then((value) {
       // avoid query onComplete no callback.
       beginQueryParent();
@@ -311,7 +315,10 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
       tempRelays.addAll(subEventPubkeyRelays);
     }
     nostr!.query([filter.toJson()], onParentEvent,
-        id: parentEventId(eventId), tempRelays: tempRelays);
+        id: parentEventId(eventId),
+        targetRelays: tempRelays,
+        relayTypes: RelayType.NORMAL_AND_CACHE,
+        bothRelay: true);
   }
 
   void onParentEvent(Event e) {

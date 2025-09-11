@@ -1073,7 +1073,7 @@ mixin EditorMixin {
       var groupRelays = [groupIdentifier.host];
       print(groupRelays);
       return await nostr!
-          .sendEvent(event, targetRelays: groupRelays, tempRelays: groupRelays);
+          .sendEvent(event, targetRelays: groupRelays, relayTypes: []);
     } else if (publishAt != null) {
       for (var extralEvent in extralEvents) {
         await _handleSendingSendBoxEvent(extralEvent, extralRelays);
@@ -1126,9 +1126,9 @@ mixin EditorMixin {
     list = list.toSet().toList();
 
     if (StringUtil.isNotBlank(e.sig)) {
-      return nostr!.broadcase(e, tempRelays: list);
+      return nostr!.broadcase(e, targetRelays: list);
     } else {
-      return await nostr!.sendEvent(e, tempRelays: list);
+      return await nostr!.sendEvent(e, targetRelays: list);
     }
   }
 

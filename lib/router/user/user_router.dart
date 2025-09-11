@@ -6,6 +6,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/when_stop_function.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
@@ -438,8 +439,9 @@ class _UserRouter extends CustState<UserRouter>
     subscribeId = StringUtil.rndNameStr(16);
 
     if (!allBox.isEmpty() && readyComplete) {
+      print(2);
       // query after init
-      var activeRelays = nostr!.activeRelays();
+      var activeRelays = nostr!.normalRelays();
       var oldestCreatedAts = allBox.oldestCreatedAtByRelay(
         activeRelays,
       );
@@ -451,14 +453,19 @@ class _UserRouter extends CustState<UserRouter>
       }
       nostr!.queryByFilters(filtersMap, onEventFunc, id: subscribeId);
     } else {
+      print(1);
       // this is init query
       // try to query from user's write relay.
       List<String>? tempRelays =
           metadataProvider.getExtralRelays(pubkey!, true);
+      print(tempRelays);
       // the init page set to very small, due to open user page very often
       filter.limit = 10;
       nostr!.query([filter.toJson()], onEventFunc,
-          id: subscribeId, tempRelays: tempRelays);
+          id: subscribeId,
+          targetRelays: tempRelays,
+          relayTypes: RelayType.NORMAL_AND_CACHE,
+          bothRelay: true);
     }
 
     readyComplete = true;

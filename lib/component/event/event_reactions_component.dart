@@ -485,7 +485,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       } else {
         List<String>? relayAddrs = getGroupRelays();
         nostr!.deleteEvent(widget.event.id,
-            tempRelays:
+            targetRelays:
                 relayAddrs); // delete event send to groupRelays and myRelays
         followEventProvider.deleteEvent(widget.event.id);
         mentionMeProvider.deleteEvent(widget.event.id);
@@ -537,10 +537,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
 
       var content = jsonEncode(widget.event.toJson());
       var repostEvent = await nostr!.sendRepost(widget.event.id,
-          relayAddr: relayAddr,
-          content: content,
-          tempRelays: relayAddrs,
-          targetRelays: relayAddrs);
+          relayAddr: relayAddr, content: content, targetRelays: relayAddrs);
       if (repostEvent != null) {
         eventReactionsProvider.addRepost(widget.event.id);
       }
@@ -575,7 +572,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       }
 
       var likeEvent = await nostr!.sendLike(widget.event.id,
-          content: emojiText, tempRelays: relayAddrs, targetRelays: relayAddrs);
+          content: emojiText, targetRelays: relayAddrs);
       if (likeEvent != null) {
         eventReactionsProvider.addLike(widget.event.id, likeEvent);
       }
@@ -584,7 +581,7 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
       bool deleted = false;
       for (var event in myLikeEvents!) {
         var deleteEvent = await nostr!.deleteEvent(event.id,
-            tempRelays:
+            targetRelays:
                 relayAddrs); // delete event send to groupRelay and myRelays
         if (deleteEvent != null) {
           deleted = true;

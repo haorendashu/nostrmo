@@ -114,7 +114,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       (e) {
         onEvent(groupIdentifier, e);
       },
-      tempRelays: [groupIdentifier.host],
+      targetRelays: [groupIdentifier.host],
       relayTypes: RelayType.ONLY_TEMP,
     );
   }
@@ -176,8 +176,8 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
       (e) {
         onEvent(groupIdentifier, e);
       },
-      tempRelays: [groupIdentifier.host],
-      relayTypes: RelayType.ONLY_TEMP,
+      targetRelays: [groupIdentifier.host],
+      relayTypes: [],
       sendAfterAuth: true,
     );
   }
@@ -244,7 +244,7 @@ class GroupProvider extends ChangeNotifier with LaterFunction {
 
     var e = Event(nostr!.publicKey, EventKind.GROUP_EDIT_METADATA, tags, "");
     var result =
-        await nostr!.sendEvent(e, tempRelays: relays, targetRelays: relays);
+        await nostr!.sendEvent(e, targetRelays: relays, relayTypes: []);
     if (result != null) {
       handleEvent(
           groupMetadatas, groupIdentifier, GroupMetadata.loadFromEvent(e));

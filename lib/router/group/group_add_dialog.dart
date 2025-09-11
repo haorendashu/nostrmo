@@ -252,8 +252,8 @@ class _GroupAddDailog extends State<GroupAddDailog> {
             ],
             "");
         // log(jsonEncode(event.toJson()));
-        event = await nostr!
-            .sendEvent(event, targetRelays: [host], tempRelays: [host]);
+        event =
+            await nostr!.sendEvent(event, targetRelays: [host], relayTypes: []);
 
         // wait some time here, for relay to init this relay
         await Future.delayed(const Duration(seconds: 5));

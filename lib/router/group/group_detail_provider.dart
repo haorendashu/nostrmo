@@ -80,7 +80,7 @@ class GroupDetailProvider extends ChangeNotifier
       nostr!.query(
         [jsonMap],
         _onNewEvent,
-        tempRelays: relays,
+        targetRelays: relays,
         relayTypes: RelayType.ONLY_TEMP,
         sendAfterAuth: true,
       );
@@ -154,7 +154,7 @@ class GroupDetailProvider extends ChangeNotifier
       nostr!.query(
         [jsonMap],
         onEvent,
-        tempRelays: relays,
+        targetRelays: relays,
         relayTypes: RelayType.ONLY_TEMP,
         sendAfterAuth: true,
       );

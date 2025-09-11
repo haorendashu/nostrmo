@@ -91,7 +91,6 @@ class GroupDetailsProvider extends ChangeNotifier {
         onEvent(relayGroupDetail, e);
       },
       id: relayGroupDetail.pullId,
-      tempRelays: relays,
       targetRelays: relays,
       relayTypes: RelayType.NETWORK,
       sendAfterAuth: true,
@@ -127,9 +126,8 @@ class GroupDetailsProvider extends ChangeNotifier {
         onEvent(relayGroupDetail!, e);
       },
       id: relayGroupDetail.pullId,
-      tempRelays: relays,
       targetRelays: relays,
-      relayTypes: RelayType.NETWORK,
+      relayTypes: [],
       sendAfterAuth: true,
     );
   }

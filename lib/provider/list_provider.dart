@@ -283,8 +283,7 @@ class ListProvider extends ChangeNotifier {
           ["h", gi.groupId]
         ],
         "");
-    await nostr!
-        .sendEvent(event, tempRelays: [gi.host], targetRelays: [gi.host]);
+    await nostr!.sendEvent(event, targetRelays: [gi.host], relayTypes: []);
 
     addGroup(gi);
   }
