@@ -548,6 +548,21 @@ class _EventMainComponent extends State<EventMainComponent> {
           }
         }
 
+        if (eventRelation.pow != null && eventRelation.pow! > 0) {
+          list.add(Container(
+            margin: EdgeInsets.only(
+              top: Base.BASE_PADDING_HALF,
+            ),
+            child: Text(
+              "POW ${eventRelation.pow}",
+              style: TextStyle(
+                color: Colors.orange,
+                fontSize: themeData.textTheme.bodySmall!.fontSize,
+              ),
+            ),
+          ));
+        }
+
         if (eventRelation.aId != null &&
             eventRelation.aId!.kind == EventKind.LONG_FORM &&
             widget.showLinkedLongForm) {
