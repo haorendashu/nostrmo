@@ -2818,6 +2818,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Index`
+  String get Index {
+    return Intl.message('Index', name: 'Index', desc: '', args: []);
+  }
+
+  /// `Index Relay`
+  String get Index_Relay {
+    return Intl.message('Index Relay', name: 'Index_Relay', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

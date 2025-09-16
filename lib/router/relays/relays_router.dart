@@ -103,7 +103,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
           bottom: Base.BASE_PADDING_HALF,
         ),
         child: Text(
-          "Indexer Relays",
+          s.Index_Relay,
           style: TextStyle(
             fontSize: titleFontSize,
             fontWeight: FontWeight.bold,
@@ -254,7 +254,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
                   ),
                   DropdownMenuItem(
                     value: RelayType.INDEX,
-                    child: Text("Index"),
+                    child: Text(s.Index),
                   ),
                   DropdownMenuItem(
                     value: RelayType.CACHE,

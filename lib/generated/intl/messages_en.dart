@@ -240,6 +240,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Images": MessageLookupByLibrary.simpleMessage("Images"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Import notes"),
+    "Index": MessageLookupByLibrary.simpleMessage("Index"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Index Relay"),
     "Input": MessageLookupByLibrary.simpleMessage("Input"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage("Input Comment"),
     "Input_Custom_Emoji_Name": MessageLookupByLibrary.simpleMessage(

@@ -174,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage("图片服务地址"),
     "Images": MessageLookupByLibrary.simpleMessage("图片"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("导入数据"),
+    "Index": MessageLookupByLibrary.simpleMessage("索引"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("索引中继"),
     "Input": MessageLookupByLibrary.simpleMessage("输入"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage("输入评论"),
     "Input_Sats_num": MessageLookupByLibrary.simpleMessage("输入 Sats 数量"),

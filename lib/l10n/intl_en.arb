@@ -368,5 +368,7 @@
     "All": "All",
     "You": "You",
     "Images": "Images",
-    "Logout_tips": "You are about to log out, please make sure you have saved your secret key?"
+    "Logout_tips": "You are about to log out, please make sure you have saved your secret key?",
+    "Index": "Index",
+    "Index_Relay": "Index Relay"
 }
