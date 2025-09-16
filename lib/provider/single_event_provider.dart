@@ -3,6 +3,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/later_function.dart';
+import 'package:nostr_sdk/utils/relay_addr_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../main.dart';
@@ -110,12 +111,25 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
           var eventRelayAddr = _handingIds.remove(id);
           if (StringUtil.isNotBlank(eventRelayAddr) && _eventsMap[id] == null) {
             // eventRelayAddr exist and event not found, send a single query again.
+            eventRelayAddr = RelayAddrUtil.handle(eventRelayAddr!);
+            var relay = nostr!.getRelay(eventRelayAddr);
+            if (relay != null &&
+                relay.relayStatus.relayType != RelayType.TEMP) {
+              // This relay exist and it wasn't temp relay, so it had bean query before.
+              // needn't query again.
+              return;
+            }
+
             print(
                 "single event ${id} not found! begin to query again from ${eventRelayAddr}.");
             var filter = Filter(ids: [id]);
-            nostr!.query([filter.toJson()], onEvent,
-                targetRelays: [eventRelayAddr!],
-                relayTypes: RelayType.ONLY_TEMP);
+            nostr!.query(
+              [filter.toJson()],
+              onEvent,
+              targetRelays: [eventRelayAddr],
+              relayTypes: [],
+              bothRelay: false,
+            );
           }
         }
       }
@@ -123,7 +137,7 @@ class SingleEventProvider extends ChangeNotifier with LaterFunction {
       nostr!.query([filter.toJson()], onEvent, id: subscriptId, onComplete: () {
         // print("singleEventProvider onComplete $tempIds");
         onCompete();
-      }, relayTypes: RelayType.ONLY_NORMAL);
+      }, relayTypes: RelayType.NORMAL_AND_CACHE);
       Future.delayed(const Duration(seconds: 2), onCompete);
 
       for (var entry in _needUpdateIds.entries) {
