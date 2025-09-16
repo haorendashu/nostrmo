@@ -59,7 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Block": MessageLookupByLibrary.simpleMessage("限制"),
     "Blocks": MessageLookupByLibrary.simpleMessage("限制"),
     "Bookmark": MessageLookupByLibrary.simpleMessage("书签"),
-    "Boost": MessageLookupByLibrary.simpleMessage("促进"),
+    "Boost": MessageLookupByLibrary.simpleMessage("转发"),
     "Broadcast": MessageLookupByLibrary.simpleMessage("广播"),
     "Broadcast_When_Boost": MessageLookupByLibrary.simpleMessage("促进时广播"),
     "Buy_me_a_coffee": MessageLookupByLibrary.simpleMessage("给我买一杯咖啡！"),
