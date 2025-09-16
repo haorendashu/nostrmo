@@ -411,13 +411,22 @@ class RelayProvider extends ChangeNotifier {
     var relayStatuses = _getRelayStatuses();
     var event = NIP65.save(nostr!, relayStatuses);
 
-    // TODO save info to local and memery
+    // save info to local and memery
+    if (event != null) {
+      _relayListMetadata = RelayListMetadata.fromEvent(event);
+      saveEventToLocal(event);
+    }
   }
 
   void saveCacheRelay() {
     var relayStatuses = _getRelayStatuses(relayType: RelayType.CACHE);
     List<String> list = relayStatuses.map((e) => e.addr).toList();
     sharedPreferences.setStringList(DataKey.CACHE_RELAYS, list);
+  }
+
+  void saveEventToLocal(Event event) {
+    var localKey = DataKey.getEventKey(event.pubkey, event.kind);
+    sharedPreferences.setString(localKey, jsonEncode(event.toJson()));
   }
 
   Future<void> saveIndexRelay() async {
@@ -427,10 +436,16 @@ class RelayProvider extends ChangeNotifier {
     _indexerRelayList.relays = list;
     var event = await _indexerRelayList.toEvent(nostr!);
     if (event != null) {
-      nostr!.sendEvent(event);
-    }
+      event = await nostr!.sendEvent(event);
 
-    // TODO save info to local and memery
+      if (event != null) {
+        var i = await IndexerRelayList.parse(event, nostr!.nostrSigner);
+        if (i != null) {
+          _indexerRelayList = i;
+          saveEventToLocal(event);
+        }
+      }
+    }
   }
 
   void _updateRelayToContactList() {
@@ -614,9 +629,7 @@ class RelayProvider extends ChangeNotifier {
       }
     }
 
-    var key = DataKey.getEventKey(event.pubkey, event.kind);
-    var jsonStr = jsonEncode(event.toJson());
-    await sharedPreferences.setString(key, jsonStr);
+    saveEventToLocal(event);
   }
 
   void handleNewNormalRelayList() {
