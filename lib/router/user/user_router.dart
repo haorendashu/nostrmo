@@ -439,7 +439,6 @@ class _UserRouter extends CustState<UserRouter>
     subscribeId = StringUtil.rndNameStr(16);
 
     if (!allBox.isEmpty() && readyComplete) {
-      print(2);
       // query after init
       var activeRelays = nostr!.normalRelays();
       var oldestCreatedAts = allBox.oldestCreatedAtByRelay(
@@ -453,12 +452,10 @@ class _UserRouter extends CustState<UserRouter>
       }
       nostr!.queryByFilters(filtersMap, onEventFunc, id: subscribeId);
     } else {
-      print(1);
       // this is init query
       // try to query from user's write relay.
       List<String>? tempRelays =
           metadataProvider.getExtralRelays(pubkey!, true);
-      print(tempRelays);
       // the init page set to very small, due to open user page very often
       filter.limit = 10;
       nostr!.query([filter.toJson()], onEventFunc,
