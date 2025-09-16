@@ -64,6 +64,7 @@ class _UserRouter extends CustState<UserRouter>
 
     whenStopMS = 1500;
     // queryLimit = 200;
+    queryInterval = 1000 * 5;
 
     _controller.addListener(() {
       var _showTitle = false;
