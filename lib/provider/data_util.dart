@@ -35,4 +35,8 @@ class DataKey {
   static final String CACHE_RELAYS = "cacheRelays";
 
   static final String WOT_PRE = "wot_";
+
+  static String getEventKey(String pubkey, int eventKind) {
+    return "e_${pubkey}_$eventKind";
+  }
 }

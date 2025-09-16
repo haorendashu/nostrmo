@@ -77,7 +77,7 @@ class ContentRelayComponent extends StatelessWidget {
 
       return main;
     }, selector: (context, _provider) {
-      return _provider.getRelayStatus(addr);
+      return _provider.getNormalOrCacheRelayStatus(addr);
     });
   }
 }

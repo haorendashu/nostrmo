@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/relay/relay.dart';
 import 'package:nostr_sdk/relay_local/relay_local.dart';
+import 'package:nostr_sdk/utils/relay_addr_util.dart';
 import 'package:nostrmo/provider/relay_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,17 +16,21 @@ import '../util/router_util.dart';
 import '../util/theme_util.dart';
 
 class SyncUploadDialog extends StatefulWidget {
+  List<String>? relayAddrs;
+
   List<Event> events;
 
-  SyncUploadDialog({required this.events});
+  SyncUploadDialog({required this.events, this.relayAddrs});
 
-  static Future<void> show(BuildContext context, List<Event> events) async {
+  static Future<void> show(BuildContext context, List<Event> events,
+      {List<String>? relayAddrs}) async {
     await showDialog(
       context: context,
       useRootNavigator: false,
       builder: (context) {
         return SyncUploadDialog(
           events: events,
+          relayAddrs: relayAddrs,
         );
       },
     );
@@ -104,16 +109,21 @@ class _SyncUploadDialog extends State<SyncUploadDialog> {
     ));
 
     List<Widget> subList = [];
-    List<String> addrs = []
-      ..add(RelayLocal.URL)
-      ..addAll(_relayProvider.relayAddrs);
+    List<String> addrs = [];
+
+    if (widget.relayAddrs != null && widget.relayAddrs!.isNotEmpty) {
+      addrs.addAll(widget.relayAddrs!);
+    } else {
+      var writableRelays = _relayProvider.getWritableRelays();
+      addrs
+        ..add(RelayLocal.URL)
+        ..addAll(writableRelays);
+    }
+
     for (var relayAddr in addrs) {
-      var relayStatus = _relayProvider.relayStatusMap[relayAddr];
-      if (relayStatus == null) {
-        if (relayAddr == RelayLocal.URL) {
-          subList.add(SyncUploadItem(
-              relayAddr, _relaySelected[relayAddr] == true, onItemTap));
-        }
+      relayAddr = RelayAddrUtil.handle(relayAddr);
+      var relay = nostr!.getRelay(relayAddr);
+      if (relay == null) {
         continue;
       }
 

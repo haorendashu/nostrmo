@@ -471,7 +471,7 @@ class _InAppWebViewRouter extends CustState<WebViewRouter> {
             await NIP07Dialog.show(context, NIP07Methods.getRelays);
         if (confirmResult == true) {
           var relayMaps = {};
-          var relayAddrs = relayProvider.relayAddrs;
+          var relayAddrs = relayProvider.getReadableRelays();
           for (var relayAddr in relayAddrs) {
             relayMaps[relayAddr] = {"read": true, "write": true};
           }

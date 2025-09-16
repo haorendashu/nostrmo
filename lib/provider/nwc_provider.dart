@@ -11,6 +11,7 @@ import 'package:nostr_sdk/nip47/nwc_info.dart';
 import 'package:nostr_sdk/relay/relay.dart';
 import 'package:nostr_sdk/relay/relay_base.dart';
 import 'package:nostr_sdk/relay/relay_status.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/client_connected.dart';
 import 'package:nostrmo/main.dart';
@@ -95,7 +96,8 @@ class NWCProvider extends ChangeNotifier {
     agreement = NIP04.getAgreement(_nwcInfo!.secret);
 
     var relayAddr = _nwcInfo!.relay;
-    _relay = RelayBase(relayAddr, RelayStatus(relayAddr));
+    _relay =
+        RelayBase(relayAddr, RelayStatus(relayAddr, relayType: RelayType.TEMP));
     log("nwc relay begin to connect");
     _relay!.connect().then((connected) {
       if (connected) {

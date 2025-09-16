@@ -183,7 +183,7 @@ class _RelaysItemComponent extends State<RelaysItemComponent> {
   }
 
   void removeRelay(String addr) {
-    relayProvider.removeRelay(addr);
+    relayProvider.removeRelay(addr, widget.relayStatus.relayType);
   }
 }
 

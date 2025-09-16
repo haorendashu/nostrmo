@@ -35,12 +35,14 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
   Widget doBuild(BuildContext context) {
     var s = S.of(context);
     var _relayProvider = Provider.of<RelayProvider>(context);
-    var relayAddrs = _relayProvider.relayAddrs;
     var relayStatusLocal = _relayProvider.relayStatusLocal;
-    var relayStatusMap = _relayProvider.relayStatusMap;
     var themeData = Theme.of(context);
     var color = themeData.textTheme.bodyLarge!.color;
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
+    var normalRelayStatuses = _relayProvider.getNormalRelayStatus();
+    var cacheRelayStatuses = _relayProvider.getCacheRelayStatus();
+    var indexRelayStatuses = _relayProvider.getIndexRelayStatus();
+    var tempRelayStatuses = _relayProvider.getTempRelayStatus();
 
     List<Widget> list = [];
 
@@ -76,10 +78,9 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
         ],
       ),
     ));
-    for (var i = 0; i < relayAddrs.length; i++) {
-      var addr = relayAddrs[i];
-      var relayStatus = relayStatusMap[addr];
-      relayStatus ??= RelayStatus(addr);
+    for (var i = 0; i < normalRelayStatuses.length; i++) {
+      var relayStatus = normalRelayStatuses[i];
+      var addr = relayStatus.addr;
 
       var rwText = "W R";
       if (relayStatus.readAccess && !relayStatus.writeAccess) {
@@ -95,14 +96,14 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
       ));
     }
 
-    if (_relayProvider.cacheRelayAddrs.isNotEmpty) {
+    if (indexRelayStatuses.isNotEmpty) {
       list.add(Container(
         padding: EdgeInsets.only(
           left: Base.BASE_PADDING,
           bottom: Base.BASE_PADDING_HALF,
         ),
         child: Text(
-          s.Cache_Relay,
+          "Indexer Relays",
           style: TextStyle(
             fontSize: titleFontSize,
             fontWeight: FontWeight.bold,
@@ -110,10 +111,9 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
         ),
       ));
 
-      for (var i = 0; i < _relayProvider.cacheRelayAddrs.length; i++) {
-        var addr = _relayProvider.cacheRelayAddrs[i];
-        var relayStatus = relayStatusMap[addr];
-        relayStatus ??= RelayStatus(addr);
+      for (var i = 0; i < indexRelayStatuses.length; i++) {
+        var relayStatus = indexRelayStatuses[i];
+        var addr = relayStatus.addr;
 
         var rwText = "W R";
         if (relayStatus.readAccess && !relayStatus.writeAccess) {
@@ -130,8 +130,41 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
       }
     }
 
-    var tempRelayStatus = _relayProvider.tempRelayStatus();
-    if (tempRelayStatus.isNotEmpty) {
+    if (cacheRelayStatuses.isNotEmpty) {
+      list.add(Container(
+        padding: EdgeInsets.only(
+          left: Base.BASE_PADDING,
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        child: Text(
+          s.Cache_Relay,
+          style: TextStyle(
+            fontSize: titleFontSize,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ));
+
+      for (var i = 0; i < cacheRelayStatuses.length; i++) {
+        var relayStatus = cacheRelayStatuses[i];
+        var addr = relayStatus.addr;
+
+        var rwText = "W R";
+        if (relayStatus.readAccess && !relayStatus.writeAccess) {
+          rwText = "R";
+        } else if (!relayStatus.readAccess && relayStatus.writeAccess) {
+          rwText = "W";
+        }
+
+        list.add(RelaysItemComponent(
+          addr: addr,
+          relayStatus: relayStatus,
+          rwText: rwText,
+        ));
+      }
+    }
+
+    if (tempRelayStatuses.isNotEmpty) {
       list.add(Container(
         padding: EdgeInsets.only(
           left: Base.BASE_PADDING,
@@ -145,8 +178,8 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
           ),
         ),
       ));
-      for (var i = 0; i < tempRelayStatus.length; i++) {
-        var relayStatus = tempRelayStatus[i];
+      for (var i = 0; i < tempRelayStatuses.length; i++) {
+        var relayStatus = tempRelayStatuses[i];
 
         var rwText = "W R";
         if (relayStatus.readAccess && !relayStatus.writeAccess) {
@@ -220,6 +253,10 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
                     child: Text(s.Normal),
                   ),
                   DropdownMenuItem(
+                    value: RelayType.INDEX,
+                    child: Text("Index"),
+                  ),
+                  DropdownMenuItem(
                     value: RelayType.CACHE,
                     child: Text(s.Cache),
                   ),
@@ -259,14 +296,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
       return;
     }
 
-    if (relayType == RelayType.NORMAL) {
-      relayProvider.addRelay(addr);
-    } else if (relayType == RelayType.CACHE) {
-      relayProvider.addCacheRelay(addr);
-    } else {
-      return;
-    }
-
+    relayProvider.addRelay(addr, relayType: relayType);
     controller.clear();
     FocusScope.of(context).unfocus();
   }
@@ -275,10 +305,10 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
   Future<void> onReady(BuildContext context) async {}
 
   void testAllMyRelaysSpeed() {
-    var relayAddrs = relayProvider.relayAddrs;
-    for (var i = 0; i < relayAddrs.length; i++) {
-      var relayAddr = relayAddrs[i];
-      urlSpeedProvider.testSpeed(relayAddr);
+    var relayStatuses = relayProvider.getNormalRelayStatus();
+    for (var i = 0; i < relayStatuses.length; i++) {
+      var relayStatus = relayStatuses[i];
+      urlSpeedProvider.testSpeed(relayStatus.addr);
     }
   }
 }

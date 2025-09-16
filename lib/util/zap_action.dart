@@ -52,7 +52,7 @@ class ZapAction {
       return null;
     }
 
-    var relays = relayProvider.relayAddrs;
+    var relays = relayProvider.getReadableRelays();
 
     // lud06 like: LNURL1DP68GURN8GHJ7MRW9E6XJURN9UH8WETVDSKKKMN0WAHZ7MRWW4EXCUP0XPURJCEKXVERVDEJXCMKYDFHV43KX2HK8GT
     // lud16 like: pavol@rusnak.io

@@ -114,8 +114,6 @@ class ContactListProvider extends ChangeNotifier {
         _contactList = ContactList.fromJson(e.tags, _event!.createdAt);
         content = e.content;
         _saveAndNotify();
-
-        relayProvider.relayUpdateByContactListEvent(e);
       }
     } else if (e.kind == EventKind.FOLLOW_SETS) {
       var dTag = FollowSet.getDTag(e);

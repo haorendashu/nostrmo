@@ -77,7 +77,7 @@ class _UserRelayRouter extends State<UserRelayRouter> {
                 addAble: relayStatus == null,
               );
             }, selector: (context, _provider) {
-              return _provider.getRelayStatus(relayMetadata.addr);
+              return _provider.getNormalOrCacheRelayStatus(relayMetadata.addr);
             });
           },
           itemCount: relays!.length,

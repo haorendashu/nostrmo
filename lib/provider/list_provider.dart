@@ -83,9 +83,12 @@ class ListProvider extends ChangeNotifier {
       _groupList = GroupList.parse(event, nostr!);
       groupDetailsProvider.beginPull(groupIdentifiers);
     } else if (event.kind == EventKind.INDEXER_RELAY_LIST) {
-      var indexerRelayList = await IndexerRelayList.parse(event, nostr!);
-      if (indexerRelayList != null) {
-        _indexerRelayList = indexerRelayList;
+      if (event.pubkey == nostr!.publicKey) {
+        relayProvider.onEvent(event);
+      }
+    } else if (event.kind == EventKind.RELAY_LIST_METADATA) {
+      if (event.pubkey == nostr!.publicKey) {
+        relayProvider.onEvent(event);
       }
     }
     notifyListeners();
@@ -332,8 +335,4 @@ class ListProvider extends ChangeNotifier {
 
     return false;
   }
-
-  IndexerRelayList? _indexerRelayList;
-
-  IndexerRelayList? get indexerRelayList => _indexerRelayList;
 }

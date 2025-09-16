@@ -1095,7 +1095,7 @@ mixin EditorMixin {
       await nostr!.signEvent(e);
     }
 
-    List<String> list = [...relayProvider.relayAddrs, ...extralRelays];
+    List<String> list = [...relayProvider.getWritableRelays(), ...extralRelays];
     for (var tag in e.tags) {
       if (tag is List && tag.length > 1) {
         var k = tag[0];

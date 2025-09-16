@@ -19,6 +19,10 @@ import '../data/metadata.dart';
 import '../data/metadata_db.dart';
 import '../main.dart';
 
+/// User data provider.
+/// These data used very frequently will save at local.
+/// Metadata, ContactList, RelayListMetadata.
+/// It will find data from memery and then local database and then from relays.
 class MetadataProvider extends ChangeNotifier with LaterFunction {
   Map<String, RelayListMetadata> _relayListMetadataCache = {};
 

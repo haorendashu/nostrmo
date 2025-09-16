@@ -8,6 +8,7 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/relay/relay.dart';
+import 'package:nostr_sdk/relay/relay_status.dart';
 import 'package:nostr_sdk/relay_local/relay_local.dart';
 import 'package:nostr_sdk/relay_local/relay_local_db.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
@@ -45,6 +46,8 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
   int? dataLength;
 
   int? dbFileSize;
+
+  RelayStatus? relayStatus;
 
   @override
   Widget doBuild(BuildContext context) {
@@ -183,7 +186,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
             if (value != null) {
               relay.relayStatus.writeAccess = value;
               setState(() {});
-              relayProvider.saveRelay();
+              relayProvider.saveRelay(relay.relayStatus.relayType);
             }
           },
         ),
@@ -197,7 +200,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
             if (value != null) {
               relay.relayStatus.readAccess = value;
               setState(() {});
-              relayProvider.saveRelay();
+              relayProvider.saveRelay(relay.relayStatus.relayType);
             }
           },
         ),
@@ -322,7 +325,11 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
         }
       }
 
-      SyncUploadDialog.show(context, events);
+      List<String> relayAddrs = [];
+      if (relayStatus != null) {
+        relayAddrs.add(relayStatus!.addr);
+      }
+      SyncUploadDialog.show(context, events, relayAddrs: relayAddrs);
     }
   }
 

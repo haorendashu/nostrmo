@@ -49,7 +49,7 @@ class _RelayhubRouter extends CustState<RelayhubRouter> {
               addAble: relayStatus == null,
             );
           }, selector: (context, _provider) {
-            return _provider.getRelayStatus(relayAddr);
+            return _provider.getNormalOrCacheRelayStatus(relayAddr);
           });
         },
         itemCount: addrs.length,

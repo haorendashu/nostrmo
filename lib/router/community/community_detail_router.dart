@@ -212,8 +212,9 @@ class _CommunityDetailRouter extends CustState<CommunityDetailRouter>
   Future<void> addToCommunity() async {
     if (aId != null) {
       List<String> aTag = ["a", aId!.toAString()];
-      if (relayProvider.relayAddrs.isNotEmpty) {
-        aTag.add(relayProvider.relayAddrs[0]);
+      var readableRelays = relayProvider.getReadableRelays();
+      if (readableRelays.isNotEmpty) {
+        aTag.add(readableRelays[0]);
       }
 
       var event = await EditorRouter.open(context, tags: [aTag]);
