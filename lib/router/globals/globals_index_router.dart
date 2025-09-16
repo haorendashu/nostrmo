@@ -21,10 +21,10 @@ class _GlobalsIndexRouter extends State<GlobalsIndexRouter> {
   Widget build(BuildContext context) {
     return TabBarView(
       children: [
+        GlobalsStarterPacksRouter(),
         GlobalsEventsRouter(),
         GlobalsUsersRouter(),
         GlobalsTagsRouter(),
-        GlobalsStarterPacksRouter(),
       ],
       controller: widget.tabController,
     );

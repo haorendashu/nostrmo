@@ -302,6 +302,11 @@ class _IndexRouter extends CustState<IndexRouter>
         dividerHeight: 0,
         tabs: [
           IndexTabItemComponent(
+            s.Starter_packs,
+            titleTextStyle,
+            omitText: "S",
+          ),
+          IndexTabItemComponent(
             s.Notes,
             titleTextStyle,
             omitText: "N",
@@ -315,11 +320,6 @@ class _IndexRouter extends CustState<IndexRouter>
             s.Topics,
             titleTextStyle,
             omitText: "T",
-          ),
-          IndexTabItemComponent(
-            s.Starter_packs,
-            titleTextStyle,
-            omitText: "S",
           ),
         ],
         controller: globalsTabController,
