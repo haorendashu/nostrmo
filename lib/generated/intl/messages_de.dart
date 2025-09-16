@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Die Adresse kann nicht leer sein.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Administratoren"),
+    "All": MessageLookupByLibrary.simpleMessage("Alle"),
     "Any": MessageLookupByLibrary.simpleMessage("willkürlich"),
     "Article": MessageLookupByLibrary.simpleMessage("Artikel"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Sichern Sie meine Daten",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Saldo"),
     "Banner": MessageLookupByLibrary.simpleMessage("Banner"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Grundmodus"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -99,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Stoppen Sie bei"),
     "Color": MessageLookupByLibrary.simpleMessage("Farbe"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Kommentare"),
     "Confirm": MessageLookupByLibrary.simpleMessage("bestätigen"),
     "Contact": MessageLookupByLibrary.simpleMessage("Kontakte"),
     "Content": MessageLookupByLibrary.simpleMessage("Inhalt"),
@@ -127,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Kopieren erfolgreich",
     ),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Gruppe erstellen"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Ersteller"),
     "Creator": MessageLookupByLibrary.simpleMessage("Ersteller"),
     "Custom": MessageLookupByLibrary.simpleMessage("kundenspezifisch"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage(
@@ -214,6 +218,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Videos verbieten"),
     "From": MessageLookupByLibrary.simpleMessage("von"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Vollzahl-Modus"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Rechnung erstellen",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Einen neuen Schlüssel generieren",
     ),
@@ -243,7 +250,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Adresse des Bilddienstes",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Bilder"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Daten importieren"),
+    "Index": MessageLookupByLibrary.simpleMessage("Index"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Index-Relais"),
     "Input": MessageLookupByLibrary.simpleMessage("Eingabe"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Kommentare eingeben",
@@ -277,6 +287,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("Schlüsselsicherung"),
     "Language": MessageLookupByLibrary.simpleMessage("Sprache"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Letzte Transaktionen",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Helle Farbe"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage("Blitz Adresse"),
     "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("Blitzrechnung"),
@@ -297,6 +310,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage(
       "Anmeldung fehlgeschlagen",
+    ),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Sie wollen sich gerade abmelden, stellen Sie sicher, dass Ihr Schlüssel gespeichert ist?",
     ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Haupttextfarbe"),
@@ -342,6 +358,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Neue Dynamiken erhalten",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Nächster Schritt"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Gewöhnlich"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -379,6 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Private Nachricht öffnen",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Relais öffnen"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Benutzerseite öffnen",
     ),
@@ -458,12 +476,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Öffentlicher Schlüssel"),
     "Public": MessageLookupByLibrary.simpleMessage("offen"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("2D-Code"),
     "Quote": MessageLookupByLibrary.simpleMessage("Zitat"),
     "Read": MessageLookupByLibrary.simpleMessage("lesen"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Nur Lesen"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Du bist im nur-Lesen-Modus angemeldet.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Empfangen"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relais"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Relais-Informationen"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relaistyp"),
@@ -487,6 +507,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Antworten"),
     "Replying": MessageLookupByLibrary.simpleMessage("Antwort"),
     "Request": MessageLookupByLibrary.simpleMessage("Anfrage"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Scannen"),
     "Search": MessageLookupByLibrary.simpleMessage("Suche"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Benutzer aus Cache suchen",
@@ -501,6 +522,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Wählen Sie ein Upload-Relay",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("senden"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Zap senden"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("Senden fehlschlägt"),
     "Send_interval": MessageLookupByLibrary.simpleMessage("Sendeintervall"),
     "Sensitive_Content": MessageLookupByLibrary.simpleMessage(
@@ -526,6 +548,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Split und Transfer Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Startpaket"),
     "Subject": MessageLookupByLibrary.simpleMessage("Titel"),
     "Submit": MessageLookupByLibrary.simpleMessage("Absenden"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -571,6 +594,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Zielsprache übersetzen",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Aktualisieren"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage(
       "Hochladen fehlgeschlagen",
     ),
@@ -592,6 +616,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Liste Videovorschau",
     ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("Brieftasche"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Geben Sie eine Lightning-Adresse, eine Lightning-Rechnung oder eine LNURL ein",
+    ),
     "Wear": MessageLookupByLibrary.simpleMessage("Tragen"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
       "WebRTC-Berechtigungen",
@@ -612,6 +640,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Schlüsselformatfehler",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Du..."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Sie haben bereits abgestimmt",
     ),

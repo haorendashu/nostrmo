@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Aadress ei tohi olla tühi.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("haldaja"),
+    "All": MessageLookupByLibrary.simpleMessage("Kõik"),
     "Any": MessageLookupByLibrary.simpleMessage("meelevaldselt"),
     "Article": MessageLookupByLibrary.simpleMessage("Artiklid"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -67,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Varunda mu andmed",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Tasakaalu"),
     "Banner": MessageLookupByLibrary.simpleMessage("bander"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Põhirežiim"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -99,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Peatu"),
     "Color": MessageLookupByLibrary.simpleMessage("Värvid"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Kommentaarid"),
     "Confirm": MessageLookupByLibrary.simpleMessage("kinnita"),
     "Contact": MessageLookupByLibrary.simpleMessage("kontaktid"),
     "Content": MessageLookupByLibrary.simpleMessage("sisu"),
@@ -125,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Kopeerimine edukas"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Rühma loomine"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Looja"),
     "Creator": MessageLookupByLibrary.simpleMessage("looja"),
     "Custom": MessageLookupByLibrary.simpleMessage("kohandatud"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage("Kohandatud värvid"),
@@ -210,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Keelata videod"),
     "From": MessageLookupByLibrary.simpleMessage("alates"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Täisuse režiim"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage("Arve loomine"),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Loo uus võti",
     ),
@@ -237,7 +242,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Pilditeenuse aadress",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Pildid"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Andmete import"),
+    "Index": MessageLookupByLibrary.simpleMessage("Indeks"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Indeksi edastamine"),
     "Input": MessageLookupByLibrary.simpleMessage("sisend"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Kommentaaride sisestamine",
@@ -276,6 +284,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("Võtme varundamine"),
     "Language": MessageLookupByLibrary.simpleMessage("keel"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Viimased tehingud",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Hele värv"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage("välk aadress"),
     "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("Välkearve"),
@@ -295,6 +306,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Logi sisse NIP07 plugina abil",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Logimine nurjus"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Soovid sisselogimisest välja tulla, veenduge, et võti on salvestatud.",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Põhiteksti värv"),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage(
@@ -331,6 +345,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Network": MessageLookupByLibrary.simpleMessage("võrk"),
     "New_message_receive": MessageLookupByLibrary.simpleMessage("Uus sõnum"),
     "New_note_receive": MessageLookupByLibrary.simpleMessage("Uus sündmus"),
+    "Next": MessageLookupByLibrary.simpleMessage("Järgmine samm"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Tavaline"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -364,6 +379,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Ava dünaamilised detailid",
     ),
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage("Ava privaatsõnum"),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Ava relé"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Ava kasutaja lehekülg",
     ),
@@ -447,12 +463,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Avalik võti"),
     "Public": MessageLookupByLibrary.simpleMessage("avatud"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("2D kood"),
     "Quote": MessageLookupByLibrary.simpleMessage("tsitaat"),
     "Read": MessageLookupByLibrary.simpleMessage("lugeda"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Ainult lugemiseks"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Sa logid sisse ainult lugemise režiimis.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Vastuvõtmine"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relee"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Teave relee kohta"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relee tüüp"),
@@ -476,6 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Vasta"),
     "Replying": MessageLookupByLibrary.simpleMessage("Vastamine"),
     "Request": MessageLookupByLibrary.simpleMessage("taotlus"),
+    "Scan": MessageLookupByLibrary.simpleMessage("skaneerimine"),
     "Search": MessageLookupByLibrary.simpleMessage("otsing"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Kasutajate otsimine vahemälust",
@@ -490,6 +509,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Vali üleslaadimise relé",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("saata"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Saada Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("saatmine nurjus"),
     "Send_interval": MessageLookupByLibrary.simpleMessage("Saatmise intervall"),
     "Sensitive_Content": MessageLookupByLibrary.simpleMessage("Tundlik sisu"),
@@ -511,6 +531,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Jaga ja ülekanda Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Alustamispakett"),
     "Subject": MessageLookupByLibrary.simpleMessage("pealkiri"),
     "Submit": MessageLookupByLibrary.simpleMessage("Esita"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -558,6 +579,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Sihtkeele tõlkimine",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Uuendamine"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Üleslaadimine nurjus"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Laadimiste arv"),
     "Url": MessageLookupByLibrary.simpleMessage("link"),
@@ -574,6 +596,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("versioon"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Loendivideo eelvaatlus",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("rahakott"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Sisestage Lightning aadress, Lightning arve või LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Kandmine"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("WebRTC õigused"),
@@ -593,6 +619,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Võtme vormingu viga",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Sina..."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Te olete juba hääletanud.",
     ),

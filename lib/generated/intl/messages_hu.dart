@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "A cím nem lehet üres.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("adminisztrátor"),
+    "All": MessageLookupByLibrary.simpleMessage("Minden"),
     "Any": MessageLookupByLibrary.simpleMessage("önkényesen"),
     "Article": MessageLookupByLibrary.simpleMessage("Cikk"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Az adatok biztonsági mentése",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("egyenleg"),
     "Banner": MessageLookupByLibrary.simpleMessage("banner"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Alapmód"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Állj meg"),
     "Color": MessageLookupByLibrary.simpleMessage("Szín"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Megjegyzések"),
     "Confirm": MessageLookupByLibrary.simpleMessage("megerősítés"),
     "Contact": MessageLookupByLibrary.simpleMessage("kapcsolatok"),
     "Content": MessageLookupByLibrary.simpleMessage("tartalom"),
@@ -129,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Másolás sikeres"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Csoport létrehozása"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Létrehozó"),
     "Creator": MessageLookupByLibrary.simpleMessage("alkotó"),
     "Custom": MessageLookupByLibrary.simpleMessage("egyéni"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage("Egyéni színek"),
@@ -222,6 +226,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Videók tiltása"),
     "From": MessageLookupByLibrary.simpleMessage("a"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Teljes számú mód"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Számla létrehozása",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Új kulcs létrehozása",
     ),
@@ -251,7 +258,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Fotószolgáltatás címe",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Képek"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Adatok importálása"),
+    "Index": MessageLookupByLibrary.simpleMessage("index"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Index továbbítás"),
     "Input": MessageLookupByLibrary.simpleMessage("bemenet"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Megjegyzések megadása",
@@ -290,6 +300,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("Kulcs mentés"),
     "Language": MessageLookupByLibrary.simpleMessage("nyelv"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Legutóbbi tranzakciók",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Világos szín"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage("Villám címe"),
     "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("Villámszámla"),
@@ -310,6 +323,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage(
       "A bejelentkezés nem sikerült",
+    ),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Ki akar jelentkezni, győződjön meg róla, hogy a kulcsa van mentve?",
     ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("A főszöveg színe"),
@@ -347,6 +363,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Network": MessageLookupByLibrary.simpleMessage("hálózat"),
     "New_message_receive": MessageLookupByLibrary.simpleMessage("Új üzenet"),
     "New_note_receive": MessageLookupByLibrary.simpleMessage("Új dinamika"),
+    "Next": MessageLookupByLibrary.simpleMessage("Következő lépés"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Általános"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -382,6 +399,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Privát üzenet megnyitása",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Nyissa meg a relét"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Felhasználói oldal megnyitása",
     ),
@@ -465,12 +483,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Nyilvános kulcs"),
     "Public": MessageLookupByLibrary.simpleMessage("nyitva"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("2D kód"),
     "Quote": MessageLookupByLibrary.simpleMessage("idézet"),
     "Read": MessageLookupByLibrary.simpleMessage("olvasás"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Csak olvasás"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Csak olvasási módban jelentkezik be.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Befogadás"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relé"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage(
       "Információk továbbítása",
@@ -498,6 +518,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Válasz"),
     "Replying": MessageLookupByLibrary.simpleMessage("Válasz"),
     "Request": MessageLookupByLibrary.simpleMessage("kérelem"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Szkennelés"),
     "Search": MessageLookupByLibrary.simpleMessage("keresés"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Felhasználók keresése a gyorsítótárból",
@@ -512,6 +533,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Feltöltési relé kiválasztása",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("küldés"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Zap küldése"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("sikertelen küldés"),
     "Send_interval": MessageLookupByLibrary.simpleMessage("Küldési időköz"),
     "Sensitive_Content": MessageLookupByLibrary.simpleMessage(
@@ -537,6 +559,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Megosztás és átvitel Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Bevezető csomag"),
     "Subject": MessageLookupByLibrary.simpleMessage("cím"),
     "Submit": MessageLookupByLibrary.simpleMessage("Küldés"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -582,6 +605,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Célnyelv fordítása",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Frissítés"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Feltöltés sikertelen"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Feltöltések száma"),
     "Url": MessageLookupByLibrary.simpleMessage("link"),
@@ -597,6 +621,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("verzió"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Lista videó előnézete",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("pénztárca"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Adja meg a Lightning címét, a Lightning számlát vagy az LNURL-t",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Viselés"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -616,6 +644,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Kulcsformátumhiba",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Te vagy."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Ön már szavazott.",
     ),

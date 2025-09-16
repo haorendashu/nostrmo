@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Het adres kan niet leeg zijn.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Beheerder"),
+    "All": MessageLookupByLibrary.simpleMessage("Alle"),
     "Any": MessageLookupByLibrary.simpleMessage("willekeurig"),
     "Article": MessageLookupByLibrary.simpleMessage("Artikel"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Back-up van mijn gegevens",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Saldo"),
     "Banner": MessageLookupByLibrary.simpleMessage("banner"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Basismodus"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Stop bij"),
     "Color": MessageLookupByLibrary.simpleMessage("Kleur"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Opmerkingen"),
     "Confirm": MessageLookupByLibrary.simpleMessage("bevestigen"),
     "Contact": MessageLookupByLibrary.simpleMessage("contacten"),
     "Content": MessageLookupByLibrary.simpleMessage("inhoud"),
@@ -129,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Kopiëren succesvol"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Groep aanmaken"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("De maker"),
     "Creator": MessageLookupByLibrary.simpleMessage("maker"),
     "Custom": MessageLookupByLibrary.simpleMessage("op maat"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage("Aangepaste kleuren"),
@@ -218,6 +222,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Video\'s verbieden"),
     "From": MessageLookupByLibrary.simpleMessage("van"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Volledige modus"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Factuur genereren",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Een nieuwe sleutel genereren",
     ),
@@ -247,7 +254,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Afbeeldingsdienstadres",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Afbeeldingen"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Gegevens importeren"),
+    "Index": MessageLookupByLibrary.simpleMessage("Index"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Index-relais"),
     "Input": MessageLookupByLibrary.simpleMessage("invoer"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Opmerkingen invoeren",
@@ -283,6 +293,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("Sleutelback-up"),
     "Language": MessageLookupByLibrary.simpleMessage("taal"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Recente transacties",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Lichtkleur"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage(
       "Adres van de bliksem",
@@ -306,6 +319,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Aanmelden met NIP07-plugin",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Inloggen mislukt"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "U wilt zich afmelden. Zorg ervoor dat uw sleutel is opgeslagen?",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Hoofdtekstkleur"),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage(
@@ -346,6 +362,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Nieuwe ontwikkelingen ontvangen",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Volgende stap"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Gewoon"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -381,6 +398,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Privébericht openen",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Relais openen"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Gebruikerspagina openen",
     ),
@@ -466,12 +484,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Openbare sleutel"),
     "Public": MessageLookupByLibrary.simpleMessage("open"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("2D-code"),
     "Quote": MessageLookupByLibrary.simpleMessage("citaat"),
     "Read": MessageLookupByLibrary.simpleMessage("lezen"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Alleen lezen"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "U bent aangemeld in de alleen-lezen modus.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Ontvangen"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relais"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Informatie doorgeven"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relaistype"),
@@ -495,6 +515,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Antwoord"),
     "Replying": MessageLookupByLibrary.simpleMessage("Antwoord"),
     "Request": MessageLookupByLibrary.simpleMessage("verzoek"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Scannen"),
     "Search": MessageLookupByLibrary.simpleMessage("zoeken"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Gebruikers zoeken vanuit cache",
@@ -509,6 +530,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Selecteer een upload-relais",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("verzenden"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Stuur een Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("verzenden mislukt"),
     "Send_interval": MessageLookupByLibrary.simpleMessage("Stuurinterval"),
     "Sensitive_Content": MessageLookupByLibrary.simpleMessage(
@@ -532,6 +554,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Split en overbrengen Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Startpakket"),
     "Subject": MessageLookupByLibrary.simpleMessage("titel"),
     "Submit": MessageLookupByLibrary.simpleMessage("Verzenden"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -577,6 +600,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Doeltaal vertalen",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Bijwerken"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload mislukt"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Aantal uploads"),
     "Url": MessageLookupByLibrary.simpleMessage("link"),
@@ -595,6 +619,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("versie"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Lijst videovoorbeeld",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("portemonnee"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Voer een Lightning-adres, Lightning-factuur of LNURL in",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Draag"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -616,6 +644,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Fout in sleutelopmaak",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Jij."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "U hebt al gestemd",
     ),

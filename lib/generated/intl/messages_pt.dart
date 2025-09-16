@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "O endereço não pode estar vazio.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Administradores"),
+    "All": MessageLookupByLibrary.simpleMessage("Todos"),
     "Any": MessageLookupByLibrary.simpleMessage("arbitrariamente"),
     "Article": MessageLookupByLibrary.simpleMessage("Artigos"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Fazer backup dos meus dados",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Saldo"),
     "Banner": MessageLookupByLibrary.simpleMessage("banner"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Modo básico"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -99,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Pare em"),
     "Color": MessageLookupByLibrary.simpleMessage("cor"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Comentários"),
     "Confirm": MessageLookupByLibrary.simpleMessage("confirmar"),
     "Contact": MessageLookupByLibrary.simpleMessage("contactos"),
     "Content": MessageLookupByLibrary.simpleMessage("conteúdo"),
@@ -129,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "A cópia foi bem sucedida",
     ),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Criar um grupo"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Criador"),
     "Creator": MessageLookupByLibrary.simpleMessage("criador"),
     "Custom": MessageLookupByLibrary.simpleMessage("personalizado"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage(
@@ -222,6 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Proibir vídeos"),
     "From": MessageLookupByLibrary.simpleMessage("de"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Modo Total"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage("Gerar faturas"),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Gerar uma nova chave",
     ),
@@ -253,7 +258,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Endereço do serviço de imagens",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Imagens"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Importar dados"),
+    "Index": MessageLookupByLibrary.simpleMessage("Índice"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Relais de índice"),
     "Input": MessageLookupByLibrary.simpleMessage("entrada"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Indique os comentários",
@@ -294,6 +302,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Cópia de segurança da chave",
     ),
     "Language": MessageLookupByLibrary.simpleMessage("língua"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Transações recentes",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Cor clara"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage(
       "Endereço Lightning",
@@ -319,6 +330,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Iniciar sessão com o plug-in NIP07",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Falha no login"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Você está tentando sair do login, certifique-se de que sua chave está salva?",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage(
       "Cor do texto principal",
@@ -363,6 +377,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Receber novas notícias",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Próximo passo"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Normal"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -398,6 +413,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Abrir a mensagem privada",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Abrir o relé"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Abrir a página do utilizador",
     ),
@@ -483,12 +499,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Chave Pública"),
     "Public": MessageLookupByLibrary.simpleMessage("abrir"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("Código 2D"),
     "Quote": MessageLookupByLibrary.simpleMessage("citação"),
     "Read": MessageLookupByLibrary.simpleMessage("ler"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Somente leitura"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Você está conectado em modo apenas leitura.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Receber"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relais"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Informação do relé"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Tipo de relé"),
@@ -512,6 +530,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Resposta"),
     "Replying": MessageLookupByLibrary.simpleMessage("Responder"),
     "Request": MessageLookupByLibrary.simpleMessage("pedido"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Varredura"),
     "Search": MessageLookupByLibrary.simpleMessage("pesquisa"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Encontrar utilizadores da \'cache\'",
@@ -526,6 +545,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Selecionar o relé de upload",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("enviar"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Enviar Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("falha no envio"),
     "Send_interval": MessageLookupByLibrary.simpleMessage("Intervalo de envio"),
     "Sensitive_Content": MessageLookupByLibrary.simpleMessage(
@@ -549,6 +569,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Dividir e transferir Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Pacote inicial"),
     "Subject": MessageLookupByLibrary.simpleMessage("título"),
     "Submit": MessageLookupByLibrary.simpleMessage("Enviar"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage("Sincronizar o upload"),
@@ -592,6 +613,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Traduzir a língua de destino",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Atualização"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("O envio falhou"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Número de uploads"),
     "Url": MessageLookupByLibrary.simpleMessage("link"),
@@ -610,6 +632,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("versão"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Antevisão do Vídeo da Lista",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("Carteiras"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Digite o endereço Lightning, fatura Lightning ou LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Vestir"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -633,6 +659,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Erro no formato da chave",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Você..."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage("Você já votou"),
     "Zap_Goal": MessageLookupByLibrary.simpleMessage("O objetivo do Zap"),
     "Zap_Goals": MessageLookupByLibrary.simpleMessage("Alvo Zap"),

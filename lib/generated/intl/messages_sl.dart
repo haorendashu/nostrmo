@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Naslov ne more biti prazen.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("administratorji"),
+    "All": MessageLookupByLibrary.simpleMessage("vsi"),
     "Any": MessageLookupByLibrary.simpleMessage("samovoljno"),
     "Article": MessageLookupByLibrary.simpleMessage("izdelek"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Varnostno kopiranje mojih podatkov",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("ravnotežje"),
     "Banner": MessageLookupByLibrary.simpleMessage("pasica"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Osnovni način"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Stop at"),
     "Color": MessageLookupByLibrary.simpleMessage("barva"),
+    "Comment": MessageLookupByLibrary.simpleMessage("komentar"),
     "Confirm": MessageLookupByLibrary.simpleMessage("potrdi"),
     "Contact": MessageLookupByLibrary.simpleMessage("stiki"),
     "Content": MessageLookupByLibrary.simpleMessage("vsebina"),
@@ -129,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Kopiranje uspešno"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Ustvari skupino"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("ustvarjalec"),
     "Creator": MessageLookupByLibrary.simpleMessage("ustvarjalec"),
     "Custom": MessageLookupByLibrary.simpleMessage("po meri"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage("Barve po meri"),
@@ -218,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "From": MessageLookupByLibrary.simpleMessage("od"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Polni način"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage("Ustvari račun"),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Ustvari nov ključ",
     ),
@@ -247,7 +252,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Naslov slikovne storitve",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("slika"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Uvozi podatke"),
+    "Index": MessageLookupByLibrary.simpleMessage("indeks"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Indeksni relej"),
     "Input": MessageLookupByLibrary.simpleMessage("vnos"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage("Vnesite komentarje"),
     "Input_Sats_num": MessageLookupByLibrary.simpleMessage(
@@ -284,6 +292,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Varnostna kopija ključa",
     ),
     "Language": MessageLookupByLibrary.simpleMessage("jezik"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Nedavne transakcije",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Svetla barva"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage("Naslov strele"),
     "Lightning_Invoice": MessageLookupByLibrary.simpleMessage("Račun o streli"),
@@ -303,6 +314,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Prijava z uporabo vstavka NIP07",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Prijava ni uspela"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Če se boste odjavili, se prepričajte, da ste shranili ključ?",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage(
       "Barva glavnega besedila",
@@ -349,6 +363,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Prejete posodobitve",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Naslednji korak"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("navadni"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -386,6 +401,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Odpri zasebno sporočilo",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Odpri rele"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Odpri uporabniško stran",
     ),
@@ -471,12 +487,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Javni ključ"),
     "Public": MessageLookupByLibrary.simpleMessage("odprto"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("Koda QR"),
     "Quote": MessageLookupByLibrary.simpleMessage("citiraj"),
     "Read": MessageLookupByLibrary.simpleMessage("preberi"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("samo za branje"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Prijavljate se v načinu samo za branje.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("prejme"),
     "Relay": MessageLookupByLibrary.simpleMessage("rele"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Informacije o releju"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Tip releja"),
@@ -502,6 +520,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("odgovor"),
     "Replying": MessageLookupByLibrary.simpleMessage("Odgovor"),
     "Request": MessageLookupByLibrary.simpleMessage("zahteva"),
+    "Scan": MessageLookupByLibrary.simpleMessage("skeniranje"),
     "Search": MessageLookupByLibrary.simpleMessage("iskanje"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Poišči uporabnike iz predpomnilnika",
@@ -516,6 +535,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Izberite prenos prenosa",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("pošlji"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Pošlji Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("ni uspelo pošiljati"),
     "Send_interval": MessageLookupByLibrary.simpleMessage(
       "Interval pošiljanja",
@@ -541,6 +561,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Razdeli in prenesi Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Paket vnosov"),
     "Subject": MessageLookupByLibrary.simpleMessage("naslov"),
     "Submit": MessageLookupByLibrary.simpleMessage("Pošlji"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage("Uskladi prenos"),
@@ -588,6 +609,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Prevedi ciljni jezik",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("posodobitev"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Prenos ni uspel"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Količina nalaganja"),
     "Url": MessageLookupByLibrary.simpleMessage("povezava"),
@@ -605,6 +627,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("različica"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Predogled videa seznama",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("denarnica"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Vnesite naslov strele, račun strele ali LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Nošenje"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -626,6 +652,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Napaka oblike ključa",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("ti"),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Ste že glasovali.",
     ),

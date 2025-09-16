@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Adresa nu poate fi goală.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Administratori"),
+    "All": MessageLookupByLibrary.simpleMessage("Toate"),
     "Any": MessageLookupByLibrary.simpleMessage("arbitrar"),
     "Article": MessageLookupByLibrary.simpleMessage("Articole"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -71,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Salvați datele mele",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Soldul"),
     "Banner": MessageLookupByLibrary.simpleMessage("banner"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Modul de bază"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -103,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Opreşte-te la"),
     "Color": MessageLookupByLibrary.simpleMessage("Culoare"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Comentarii"),
     "Confirm": MessageLookupByLibrary.simpleMessage("confirma"),
     "Contact": MessageLookupByLibrary.simpleMessage("contacte"),
     "Content": MessageLookupByLibrary.simpleMessage("conținut"),
@@ -129,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Copiare reușită"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Crearea unui grup"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Creatorul"),
     "Creator": MessageLookupByLibrary.simpleMessage("creator"),
     "Custom": MessageLookupByLibrary.simpleMessage("personalizat"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage(
@@ -220,6 +224,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "From": MessageLookupByLibrary.simpleMessage("de la"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Mod întreg"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Generaţi o factură",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Generați o cheie nouă",
     ),
@@ -253,7 +260,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Adresa serviciului de fotografii",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Imagini"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Importă date"),
+    "Index": MessageLookupByLibrary.simpleMessage("Indexul"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Releu de index"),
     "Input": MessageLookupByLibrary.simpleMessage("intrare"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Introduceți comentarii",
@@ -291,6 +301,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("Backup cheie"),
     "Language": MessageLookupByLibrary.simpleMessage("limba"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Tranzacții recente",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Culoare deschisă"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage(
       "Adresa fulgerului",
@@ -317,6 +330,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage(
       "Autentificarea a eșuat",
+    ),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Doriți să vă deconectați, vă rugăm să vă asigurați că ați salvat cheile?",
     ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage(
@@ -360,6 +376,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Primiți noi evenimente",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Următorul pas"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Obișnuită"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -395,6 +412,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Deschide mesajul privat",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Deschide relée"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Deschide pagina utilizatorului",
     ),
@@ -482,12 +500,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("cheie publică"),
     "Public": MessageLookupByLibrary.simpleMessage("deschis"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("Codul 2D"),
     "Quote": MessageLookupByLibrary.simpleMessage("citat"),
     "Read": MessageLookupByLibrary.simpleMessage("citit"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Numai citire"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Sunteți conectat în modul numai citire.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Primire"),
     "Relay": MessageLookupByLibrary.simpleMessage("Releu"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage(
       "Informații privind transmiterea",
@@ -513,6 +533,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Răspuns"),
     "Replying": MessageLookupByLibrary.simpleMessage("Răspuns"),
     "Request": MessageLookupByLibrary.simpleMessage("cerere"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Scanare"),
     "Search": MessageLookupByLibrary.simpleMessage("căutare"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Găsește utilizatori din cache",
@@ -527,6 +548,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Selectați un relé de încărcare",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("trimite"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Trimiteți Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("eșec în trimitere"),
     "Send_interval": MessageLookupByLibrary.simpleMessage(
       "Intervalul de trimitere",
@@ -552,6 +574,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Split și transfer Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Pachet de început"),
     "Subject": MessageLookupByLibrary.simpleMessage("titlu"),
     "Submit": MessageLookupByLibrary.simpleMessage("Trimite"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -597,6 +620,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Tradu limba țintă",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Actualizare"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Încărcare eșuată"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Numărul de încărcări"),
     "Url": MessageLookupByLibrary.simpleMessage("link"),
@@ -613,6 +637,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("versiune"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Previzualizare video listă",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("portofel"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Introduceți adresa Lightning, factura Lightning sau LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Purtarea"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -632,6 +660,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Eroare de format cheie",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Tu..."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Aţi votat deja.",
     ),

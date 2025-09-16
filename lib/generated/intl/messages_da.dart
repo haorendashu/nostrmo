@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Adressen må ikke være tom.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Administratør"),
+    "All": MessageLookupByLibrary.simpleMessage("Alle"),
     "Any": MessageLookupByLibrary.simpleMessage("vilkårligt"),
     "Article": MessageLookupByLibrary.simpleMessage("Artikler"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Sikkerhedskopiér mine data",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Saldo"),
     "Banner": MessageLookupByLibrary.simpleMessage("banner"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Grundlæggende tilstand"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -99,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Stop ved"),
     "Color": MessageLookupByLibrary.simpleMessage("Farve"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Kommentarer"),
     "Confirm": MessageLookupByLibrary.simpleMessage("bekræft"),
     "Contact": MessageLookupByLibrary.simpleMessage("kontakter"),
     "Content": MessageLookupByLibrary.simpleMessage("indhold"),
@@ -123,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Kopiér vellykket"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Opret gruppe"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Opretter"),
     "Creator": MessageLookupByLibrary.simpleMessage("skaber"),
     "Custom": MessageLookupByLibrary.simpleMessage("brugerdefineret"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage(
@@ -210,6 +214,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Forbyd videoer"),
     "From": MessageLookupByLibrary.simpleMessage("fra"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Fuld tilstand"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Generer en faktura",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Generer en ny nøgle",
     ),
@@ -243,7 +250,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Adresse til billedtjenester",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Billeder"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Importér data"),
+    "Index": MessageLookupByLibrary.simpleMessage("Indeks"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Indeksvideresendelse"),
     "Input": MessageLookupByLibrary.simpleMessage("input"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Indtast kommentarer",
@@ -280,6 +290,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Key_Backup": MessageLookupByLibrary.simpleMessage("Backup af nøgler"),
     "Language": MessageLookupByLibrary.simpleMessage("sprog"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Seneste transaktioner",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Lysfarve"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage(
       "Lydenes adresse",
@@ -303,6 +316,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Log ind med NIP07-plugin",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Login mislykkedes"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Du ønsker at logge ud, så sørg for at du har gemt din nøgle?",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Hovedtekstfarve"),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage(
@@ -339,6 +355,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Modtag nye nyheder",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Næste skridt"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Almindelig"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -374,6 +391,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Åbn privat besked",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Åbn relæet"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage("Åbn brugerside"),
     "Open_in_browser": MessageLookupByLibrary.simpleMessage("Åbn i browser"),
     "Optional": MessageLookupByLibrary.simpleMessage("Valgfrit"),
@@ -451,12 +469,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Offentlig nøgle"),
     "Public": MessageLookupByLibrary.simpleMessage("åben"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("2D-kode"),
     "Quote": MessageLookupByLibrary.simpleMessage("citat"),
     "Read": MessageLookupByLibrary.simpleMessage("læse"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Kun læs"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Du er logget ind i læsesvenlig tilstand.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Modtag"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relayer"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay information"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relætype"),
@@ -478,6 +498,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Svar"),
     "Replying": MessageLookupByLibrary.simpleMessage("Svar"),
     "Request": MessageLookupByLibrary.simpleMessage("anmodning"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Scanning"),
     "Search": MessageLookupByLibrary.simpleMessage("søg"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Find brugere fra cache",
@@ -492,6 +513,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Vælg upload-relé",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("send"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Send Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("mislykkedes sending"),
     "Send_interval": MessageLookupByLibrary.simpleMessage(
       "Afsendelsesinterval",
@@ -517,6 +539,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Split og overføre Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Startpakke"),
     "Subject": MessageLookupByLibrary.simpleMessage("titel"),
     "Submit": MessageLookupByLibrary.simpleMessage("Indsend"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage("Synkroniser upload"),
@@ -560,6 +583,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Oversæt målsprog",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Opdater"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload mislykkedes"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Antal uploads"),
     "Url": MessageLookupByLibrary.simpleMessage("link"),
@@ -576,6 +600,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("version"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Visning af liste video",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("Tegnebog"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Indtast Lightning-adresse, Lightning-faktura eller LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("iført"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -595,6 +623,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Fejl i nøgleformat",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Du."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "De har allerede stemt",
     ),

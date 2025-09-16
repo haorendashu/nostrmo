@@ -56,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Η διεύθυνση δεν μπορεί να είναι άδεια.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Διαχειριστής"),
+    "All": MessageLookupByLibrary.simpleMessage("Όλα"),
     "Any": MessageLookupByLibrary.simpleMessage("αυθαίρετα"),
     "Article": MessageLookupByLibrary.simpleMessage("Άρθρο"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -71,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Κάντε αντίγραφα ασφαλείας των δεδομένων μου",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("ισοζύγιο"),
     "Banner": MessageLookupByLibrary.simpleMessage("πανό"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Βασική λειτουργία"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -107,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Σταματήστε στο"),
     "Color": MessageLookupByLibrary.simpleMessage("Χρώμα"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Σχόλια"),
     "Confirm": MessageLookupByLibrary.simpleMessage("επιβεβαίωση"),
     "Contact": MessageLookupByLibrary.simpleMessage("επαφές"),
     "Content": MessageLookupByLibrary.simpleMessage("περιεχόμενο"),
@@ -135,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Αντιγραφή επιτυχής"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Δημιουργία ομάδας"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Δημιουργός"),
     "Creator": MessageLookupByLibrary.simpleMessage("δημιουργός"),
     "Custom": MessageLookupByLibrary.simpleMessage("προσαρμοσμένο"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage(
@@ -234,6 +238,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Full_Mode": MessageLookupByLibrary.simpleMessage(
       "Λειτουργία πλήρους αριθμού",
     ),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Δημιουργία τιμολογίων",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Δημιουργία νέου κλειδιού",
     ),
@@ -263,7 +270,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Διεύθυνση υπηρεσίας εικόνας",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Εικόνες"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Εισαγωγή δεδομένων"),
+    "Index": MessageLookupByLibrary.simpleMessage("Δείκτης"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Αναμετάδοση δείκτη"),
     "Input": MessageLookupByLibrary.simpleMessage("εισαγωγή"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage("Εισαγωγή σχολίων"),
     "Input_Sats_num": MessageLookupByLibrary.simpleMessage(
@@ -301,6 +311,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Αντίγραφα ασφαλείας κλειδιού",
     ),
     "Language": MessageLookupByLibrary.simpleMessage("γλώσσα"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Πρόσφατες συναλλαγές",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Ελαφρύ χρώμα"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage(
       "Διεύθυνση αστραπής",
@@ -326,6 +339,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Σύνδεση με το plugin NIP07",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Αποτυχία σύνδεσης"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Θέλετε να αποσυνδεθείτε, βεβαιωθείτε ότι το κλειδί σας έχει αποθηκευτεί;",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage(
       "Χρώμα κύριου κειμένου",
@@ -372,6 +388,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Λάβετε νέα δυναμική",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Επόμενο βήμα"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Συνήθως"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -407,6 +424,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Άνοιγμα ιδιωτικού μηνύματος",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Άνοιγμα μετάδοσης"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Άνοιγμα σελίδας χρήστη",
     ),
@@ -490,12 +508,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Δημόσιο κλειδί"),
     "Public": MessageLookupByLibrary.simpleMessage("ανοικτό"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("2D κωδικός"),
     "Quote": MessageLookupByLibrary.simpleMessage("απόσπασμα"),
     "Read": MessageLookupByLibrary.simpleMessage("ανάγνωση"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Μόνο ανάγνωση"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Είστε σε λειτουργία μόνο ανάγνωσης.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Λήψη"),
     "Relay": MessageLookupByLibrary.simpleMessage("μετάδοση"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage(
       "Πληροφορίες αναμετάδοσης",
@@ -523,6 +543,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Απάντηση"),
     "Replying": MessageLookupByLibrary.simpleMessage("Απάντηση"),
     "Request": MessageLookupByLibrary.simpleMessage("αίτημα"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Σάρωση"),
     "Search": MessageLookupByLibrary.simpleMessage("αναζήτηση"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Εύρεση χρηστών από τη μνήμη",
@@ -537,6 +558,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Επιλέξτε το μετάδοση αποστολής",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("αποστολή"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Στείλτε το Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("αποτυχία αποστολής"),
     "Send_interval": MessageLookupByLibrary.simpleMessage(
       "Διαστάσεις αποστολής",
@@ -562,6 +584,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Διαίρεση και μεταφορά Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Πακέτο εισαγωγής"),
     "Subject": MessageLookupByLibrary.simpleMessage("τίτλος"),
     "Submit": MessageLookupByLibrary.simpleMessage("Υποβολή"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -611,6 +634,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Μετάφραση γλώσσας προορισμού",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Ενημέρωση"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Αποτυχία αποστολής"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Αριθμός αποστολών"),
     "Url": MessageLookupByLibrary.simpleMessage("σύνδεση"),
@@ -628,6 +652,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("έκδοση"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Προεπισκόπηση βίντεο λίστας",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("πορτοφόλι"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Εισάγετε τη διεύθυνση Lightning, το τιμολόγιο Lightning ή το LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Φορώντας"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -651,6 +679,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Σφάλμα μορφοποίησης κλειδιού",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Εσύ..."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Έχετε ήδη ψηφίσει",
     ),

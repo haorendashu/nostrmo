@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Adressen får inte vara tom.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Administratör"),
+    "All": MessageLookupByLibrary.simpleMessage("Alla"),
     "Any": MessageLookupByLibrary.simpleMessage("godtyckligt"),
     "Article": MessageLookupByLibrary.simpleMessage("Artiklar"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -69,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Säkerhetskopiera mina data",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Saldo"),
     "Banner": MessageLookupByLibrary.simpleMessage("banner"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Grundläge"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -99,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Stanna vid"),
     "Color": MessageLookupByLibrary.simpleMessage("färg"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Kommentarer"),
     "Confirm": MessageLookupByLibrary.simpleMessage("bekräfta"),
     "Contact": MessageLookupByLibrary.simpleMessage("kontakter"),
     "Content": MessageLookupByLibrary.simpleMessage("innehåll"),
@@ -125,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Kopiera lyckad"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Skapa en grupp"),
+    "Created_by": MessageLookupByLibrary.simpleMessage(""),
     "Creator": MessageLookupByLibrary.simpleMessage("skapare"),
     "Custom": MessageLookupByLibrary.simpleMessage("anpassad"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage("Anpassade färger"),
@@ -210,6 +214,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Förbjud videor"),
     "From": MessageLookupByLibrary.simpleMessage("från"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Fullständigt läge"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Skapa en faktura",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Skapa en ny nyckel",
     ),
@@ -239,7 +246,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Bildtjänstens adress",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Bilder"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Importera data"),
+    "Index": MessageLookupByLibrary.simpleMessage("Index"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage("Indexöverföring"),
     "Input": MessageLookupByLibrary.simpleMessage("inmatning"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Skriv in kommentarer",
@@ -278,6 +288,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Säkerhetskopiering av nycklar",
     ),
     "Language": MessageLookupByLibrary.simpleMessage("språk"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Senaste transaktioner",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Ljus färg"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage("Blixtadress"),
     "Lightning_Invoice": MessageLookupByLibrary.simpleMessage(
@@ -302,6 +315,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage(
       "Inloggning misslyckades",
+    ),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Du vill logga ut, se till att du har sparat din nyckel?",
     ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Huvudtextfärg"),
@@ -337,6 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Nya meddelanden",
     ),
     "New_note_receive": MessageLookupByLibrary.simpleMessage("Får nya nyheter"),
+    "Next": MessageLookupByLibrary.simpleMessage("Nästa steg"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Vanliga"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -372,6 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Öppna privat meddelande",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Öppna relé"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Öppna användarsida",
     ),
@@ -453,12 +471,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Offentlig nyckel"),
     "Public": MessageLookupByLibrary.simpleMessage("öppna"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("2D-kod"),
     "Quote": MessageLookupByLibrary.simpleMessage("citat"),
     "Read": MessageLookupByLibrary.simpleMessage("läs"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Bara för läsning"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Du loggar in i läsenbart läge.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Ta emot"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relayer"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage(
       "Information om vidarebefordran",
@@ -484,6 +504,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Svara"),
     "Replying": MessageLookupByLibrary.simpleMessage("Svara"),
     "Request": MessageLookupByLibrary.simpleMessage("begäran"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Skanna"),
     "Search": MessageLookupByLibrary.simpleMessage("söka"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Hitta användare från cache",
@@ -498,6 +519,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Välj uppladdningsrelé",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("skicka"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Skicka Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage(
       "misslyckas med sändning",
     ),
@@ -523,6 +545,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Dela och överföra Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Startpaket"),
     "Subject": MessageLookupByLibrary.simpleMessage("titel"),
     "Submit": MessageLookupByLibrary.simpleMessage("Skicka in"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -568,6 +591,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Översätt målspråk",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Uppdatera"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage(
       "Överföring misslyckades",
     ),
@@ -586,6 +610,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("version"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Förhandsgranskning av listvideo",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("plånbok"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Ange Lightning-adress, Lightning-faktura eller LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Bär"),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
@@ -607,6 +635,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Fel i nyckelformat",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Du är..."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Ni har redan röstat",
     ),

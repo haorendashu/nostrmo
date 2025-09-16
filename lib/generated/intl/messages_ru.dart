@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Адрес не может быть пустым.",
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Администратор"),
+    "All": MessageLookupByLibrary.simpleMessage("Все"),
     "Any": MessageLookupByLibrary.simpleMessage("Произвольный"),
     "Article": MessageLookupByLibrary.simpleMessage("Статьи"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -71,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Backup_my_notes": MessageLookupByLibrary.simpleMessage(
       "Резервное копирование моих данных.",
     ),
+    "Balance": MessageLookupByLibrary.simpleMessage("Остаток"),
     "Banner": MessageLookupByLibrary.simpleMessage("Баннер"),
     "Base_Mode": MessageLookupByLibrary.simpleMessage("Базовая модель"),
     "Begin_to_download_translate_model": MessageLookupByLibrary.simpleMessage(
@@ -101,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Close_at": MessageLookupByLibrary.simpleMessage("Остановиться на"),
     "Color": MessageLookupByLibrary.simpleMessage("Цвет"),
+    "Comment": MessageLookupByLibrary.simpleMessage("Замечания"),
     "Confirm": MessageLookupByLibrary.simpleMessage("Подтверждение"),
     "Contact": MessageLookupByLibrary.simpleMessage("Контактные лица"),
     "Content": MessageLookupByLibrary.simpleMessage("Содержание"),
@@ -129,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Копировать успешно"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Создание групп"),
+    "Created_by": MessageLookupByLibrary.simpleMessage("Основатель"),
     "Creator": MessageLookupByLibrary.simpleMessage("Основатель"),
     "Custom": MessageLookupByLibrary.simpleMessage("Настройка"),
     "Custom_Color": MessageLookupByLibrary.simpleMessage("Настройка цвета"),
@@ -216,6 +220,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Forbid_video": MessageLookupByLibrary.simpleMessage("Запретить видео"),
     "From": MessageLookupByLibrary.simpleMessage("Из"),
     "Full_Mode": MessageLookupByLibrary.simpleMessage("Полная модель"),
+    "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
+      "Формирование счета - фактуры",
+    ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Создать новый ключ",
     ),
@@ -245,7 +252,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "Image_service_path": MessageLookupByLibrary.simpleMessage(
       "Адрес службы фотографий",
     ),
+    "Images": MessageLookupByLibrary.simpleMessage("Фотографии"),
     "Import_notes": MessageLookupByLibrary.simpleMessage("Импорт данных"),
+    "Index": MessageLookupByLibrary.simpleMessage("Индекс"),
+    "Index_Relay": MessageLookupByLibrary.simpleMessage(
+      "Индексная ретрансляция",
+    ),
     "Input": MessageLookupByLibrary.simpleMessage("Ввод"),
     "Input_Comment": MessageLookupByLibrary.simpleMessage(
       "Введите комментарий",
@@ -285,6 +297,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Резервное копирование ключей",
     ),
     "Language": MessageLookupByLibrary.simpleMessage("Язык"),
+    "Last_Transactions": MessageLookupByLibrary.simpleMessage(
+      "Последние сделки",
+    ),
     "Light": MessageLookupByLibrary.simpleMessage("Светлый"),
     "Lightning_Address": MessageLookupByLibrary.simpleMessage("Молния Адрес"),
     "Lightning_Invoice": MessageLookupByLibrary.simpleMessage(
@@ -310,6 +325,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Использование модуля NIP07 для входа в систему",
     ),
     "Login_fail": MessageLookupByLibrary.simpleMessage("Ошибка регистрации"),
+    "Logout_tips": MessageLookupByLibrary.simpleMessage(
+      "Вы хотите выйти из системы, убедитесь, что ваш ключ сохранен?",
+    ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Луд16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage(
       "Цвет основного текста",
@@ -356,6 +374,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "New_note_receive": MessageLookupByLibrary.simpleMessage(
       "Получены новые сведения",
     ),
+    "Next": MessageLookupByLibrary.simpleMessage("Следующий шаг"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Нип05"),
     "Normal": MessageLookupByLibrary.simpleMessage("Обычные"),
     "Nostromo_developers_will_never_require_a_key_from_you":
@@ -393,6 +412,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Private_DM": MessageLookupByLibrary.simpleMessage(
       "Открыть личное письмо",
     ),
+    "Open_Relay": MessageLookupByLibrary.simpleMessage("Открыть канал"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage(
       "Открыть страницу пользователя",
     ),
@@ -478,12 +498,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Pubkey": MessageLookupByLibrary.simpleMessage("Открытый ключ"),
     "Public": MessageLookupByLibrary.simpleMessage("Открыто"),
+    "QrCode": MessageLookupByLibrary.simpleMessage("QR - код"),
     "Quote": MessageLookupByLibrary.simpleMessage("Ссылки"),
     "Read": MessageLookupByLibrary.simpleMessage("Читать"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Только для чтения"),
     "Readonly_login_tip": MessageLookupByLibrary.simpleMessage(
       "Вы регистрируетесь в режиме только для чтения.",
     ),
+    "Receive": MessageLookupByLibrary.simpleMessage("Прием"),
     "Relay": MessageLookupByLibrary.simpleMessage("Трансляция"),
     "Relay_Info": MessageLookupByLibrary.simpleMessage(
       "Ретрансляционная информация",
@@ -509,6 +531,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Ответить"),
     "Replying": MessageLookupByLibrary.simpleMessage("Отвечаю."),
     "Request": MessageLookupByLibrary.simpleMessage("Просьбы"),
+    "Scan": MessageLookupByLibrary.simpleMessage("Сканирование"),
     "Search": MessageLookupByLibrary.simpleMessage("Поиск"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
       "Поиск пользователей из кэша",
@@ -523,6 +546,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Выберите канал для загрузки",
     ),
     "Send": MessageLookupByLibrary.simpleMessage("Отправить"),
+    "Send_Zap": MessageLookupByLibrary.simpleMessage("Отправить Zap"),
     "Send_fail": MessageLookupByLibrary.simpleMessage("Ошибка отправки"),
     "Send_interval": MessageLookupByLibrary.simpleMessage("Интервал передачи"),
     "Sensitive_Content": MessageLookupByLibrary.simpleMessage(
@@ -546,6 +570,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Split_and_Transfer_Zap": MessageLookupByLibrary.simpleMessage(
       "Разделение и передача Zap",
     ),
+    "Starter_packs": MessageLookupByLibrary.simpleMessage("Входная сумка"),
     "Subject": MessageLookupByLibrary.simpleMessage("Заголовок"),
     "Submit": MessageLookupByLibrary.simpleMessage("Представлено"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage(
@@ -593,6 +618,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Перевод целевого языка",
     ),
+    "Updated": MessageLookupByLibrary.simpleMessage("Обновление"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Ошибка загрузки"),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Количество загрузок"),
     "Url": MessageLookupByLibrary.simpleMessage("Ссылки"),
@@ -607,6 +633,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Version": MessageLookupByLibrary.simpleMessage("Версия"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Предварительный просмотр видео",
+    ),
+    "Wallet": MessageLookupByLibrary.simpleMessage("Бумажник"),
+    "Wallet_send_tips": MessageLookupByLibrary.simpleMessage(
+      "Введите адрес молнии, счет - фактуру молнии или LNURL",
     ),
     "Wear": MessageLookupByLibrary.simpleMessage("Одевайся."),
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage("Права WebRTC"),
@@ -628,6 +658,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wrong_Private_Key_format": MessageLookupByLibrary.simpleMessage(
       "Ошибка формата ключа",
     ),
+    "You": MessageLookupByLibrary.simpleMessage("Ты..."),
     "You_had_voted_with": MessageLookupByLibrary.simpleMessage(
       "Ты уже проголосовал.",
     ),
