@@ -623,7 +623,10 @@ class RelayProvider extends ChangeNotifier {
     var _relayListMetadata = relayListMetadata;
     var _normalRelayStatusMap = normalRelayStatusMap;
 
-    Map<String, int> newRelayRWMap = {}..addAll(_relayListMetadata.relayRWMap);
+    Map<String, int> newRelayRWMap = {};
+    for (var entry in _relayListMetadata.relayRWMap.entries) {
+      newRelayRWMap[RelayAddrUtil.handle(entry.key)] = entry.value;
+    }
     var currentRelayStatusEntries = _normalRelayStatusMap.entries;
     List<String> needRemoveList = [];
     for (var entry in currentRelayStatusEntries) {
@@ -672,6 +675,7 @@ class RelayProvider extends ChangeNotifier {
       var newRelayAddrs = indexerRelayList!.relays;
       Map<String, int> newRelayMap = {};
       for (var relayAddr in newRelayAddrs) {
+        relayAddr = RelayAddrUtil.handle(relayAddr);
         newRelayMap[relayAddr] = 1;
       }
 
