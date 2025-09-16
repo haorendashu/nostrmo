@@ -8,6 +8,7 @@ import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/nip05/nip05_validor.dart';
 import 'package:nostr_sdk/nip65/relay_list_metadata.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/later_function.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
@@ -285,7 +286,8 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       }
     }
     if (filters.isNotEmpty) {
-      nostr!.query(filters, onEvent);
+      nostr!.query(filters, onEvent,
+          relayTypes: RelayType.NORMAL_AND_CACHE_AND_INDEX);
     }
 
     for (var pubkey in _needUpdatePubKeys) {
