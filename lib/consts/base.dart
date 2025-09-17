@@ -42,9 +42,9 @@ class Base {
 
   static String KEY_IV = "1681713832000000";
 
-  static double BASE_FONT_SIZE = 15;
+  static double BASE_FONT_SIZE = 16;
 
-  static double BASE_FONT_SIZE_PC = 15;
+  static double BASE_FONT_SIZE_PC = 16;
 
   static double TABBAR_HEIGHT = 46;
 
