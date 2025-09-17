@@ -492,6 +492,7 @@ class RelayProvider extends ChangeNotifier {
     bool writeAccess = true,
     bool readAccess = true,
   }) {
+    relayAddr = RelayAddrUtil.handle(relayAddr);
     var relayStatusMap = getRelayStatusMap(relayType);
     var relayStatus = relayStatusMap[relayAddr];
     if (relayStatus == null) {
