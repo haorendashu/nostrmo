@@ -248,7 +248,12 @@ class _UserRouter extends CustState<UserRouter>
             top: paddingTop,
             child: Container(
               width: maxWidth,
-              child: appBar,
+              child: GestureDetector(
+                onDoubleTap: () {
+                  _controller.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.ease);
+                },
+                child: appBar,
+              ),
             ),
           ),
         ];

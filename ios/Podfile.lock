@@ -51,8 +51,6 @@ PODS:
     - SDWebImageWebPCoder
   - flutter_image_gallery_saver (0.0.1):
     - Flutter
-  - flutter_inapp_purchase (0.0.1):
-    - Flutter
   - flutter_inappwebview_ios (0.0.1):
     - Flutter
     - flutter_inappwebview_ios/Core (= 0.0.1)
@@ -217,7 +215,6 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_image_compress_common (from `.symlinks/plugins/flutter_image_compress_common/ios`)
   - flutter_image_gallery_saver (from `.symlinks/plugins/flutter_image_gallery_saver/ios`)
-  - flutter_inapp_purchase (from `.symlinks/plugins/flutter_inapp_purchase/ios`)
   - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
   - flutter_keyboard_visibility_temp_fork (from `.symlinks/plugins/flutter_keyboard_visibility_temp_fork/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
@@ -290,8 +287,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_image_compress_common/ios"
   flutter_image_gallery_saver:
     :path: ".symlinks/plugins/flutter_image_gallery_saver/ios"
-  flutter_inapp_purchase:
-    :path: ".symlinks/plugins/flutter_inapp_purchase/ios"
   flutter_inappwebview_ios:
     :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
   flutter_keyboard_visibility_temp_fork:
@@ -354,10 +349,9 @@ SPEC CHECKSUMS:
   emoji_picker_flutter: ece213fc274bdddefb77d502d33080dc54e616cc
   file_picker: 9b3292d7c8bc68c8a7bf8eb78f730e49c8efc517
   file_saver: 6cdbcddd690cb02b0c1a0c225b37cd805c2bf8b6
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_image_compress_common: 1697a328fd72bfb335507c6bca1a65fa5ad87df1
   flutter_image_gallery_saver: 0453c83412e9691abef94c04c8d180724f5083a8
-  flutter_inapp_purchase: 722da12971a50f306f37e62fc1aaf576b1cbecf6
   flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
   flutter_keyboard_visibility_temp_fork: b8c3574e96b2d85c7330ce4faece5c5a14b54dab
   flutter_native_splash: 35ddbc7228eafcb3969dcc5f1fbbe27c1145a4f0
@@ -370,7 +364,7 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: d1a2cbf009c453f4d6ded37c105e2f67a32206d8
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
-  image_picker_ios: 85f2b3c9fb98c09d63725c4d12ebd585b56ec35d
+  image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
   isar_flutter_libs: bc909e72c3d756c2759f14c8776c13b5b0556e26
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
   local_auth_darwin: 553ce4f9b16d3fdfeafce9cf042e7c9f77c1c391
