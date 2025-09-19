@@ -229,6 +229,8 @@ class SettingProvider extends ChangeNotifier {
   String? get imageServiceAddr => _settingData!.imageServiceAddr;
 
   int? get videoPreview => _settingData!.videoPreview;
+  // linux appimage don't support video preview.
+  // int? get videoPrevisew => OpenStatus.CLOSE;
 
   int? get imagePreview => _settingData!.imagePreview;
 

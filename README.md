@@ -205,9 +205,9 @@ sudo mv appimagetool /usr/local/bin/
 If your config all the steps, you can run these script to package the packages:
 
 ```
-flutter_distributor release --name=dev --jobs=release-dev-linux-deb
-flutter_distributor release --name=dev --jobs=release-dev-linux-rpm
-flutter_distributor release --name=dev --jobs=release-dev-linux-appimage
+fastforge release --name=dev --jobs=release-dev-linux-deb
+fastforge release --name=dev --jobs=release-dev-linux-rpm
+fastforge release --name=dev --jobs=release-dev-linux-appimage
 ```
 
 ## FAQ
