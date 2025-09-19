@@ -315,13 +315,13 @@ packages:
     source: hosted
     version: "3.1.1"
   dio_web_adapter:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: dio_web_adapter
-      sha256: "33259a9276d6cea88774a0000cfae0d861003497755969c92faa223108620dc8"
+      sha256: "7586e476d70caecaf1686d21eee7247ea43ef5c345eab9e0cc3583ff13378d78"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "2.1.1"
   dylib:
     dependency: transitive
     description:

@@ -146,6 +146,7 @@ dependency_overrides:
         url: https://github.com/flutter/packages
         path: packages/local_auth/local_auth_android
   permission_handler_android: ^13.0.1
+  dio_web_adapter: ^2.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
