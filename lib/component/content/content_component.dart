@@ -622,8 +622,9 @@ class _ContentComponent extends State<ContentComponent> {
 
   String? checkAndHandleStr(String str, StringBuffer buffer,
       List<InlineSpan> currentList, List<String> images) {
-    if (str.indexOf(HTTPS_PRE) == 0 ||
-        str.indexOf(HTTP_PRE) == 0 ||
+    var lowerStr = str.toLowerCase();
+    if (lowerStr.indexOf(HTTPS_PRE) == 0 ||
+        lowerStr.indexOf(HTTP_PRE) == 0 ||
         str.indexOf(BASE64.PREFIX) == 0) {
       // http style, get path style
       var pathType = PathTypeUtil.getPathType(str);
