@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
-import 'package:nostrmo/util/encrypt_util.dart';
+import 'package:nostr_sdk/utils/encrypt_util.dart';
 import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,12 +48,12 @@ class SettingProvider extends ChangeNotifier {
         String? privateKeyMapText = _settingData!.encryptPrivateKeyMap;
         try {
           if (StringUtil.isNotBlank(privateKeyMapText)) {
-            privateKeyMapText = EncryptUtil.aesDecrypt(
+            privateKeyMapText = await EncryptUtil.aesDecrypt(
                 privateKeyMapText!, Base.KEY_EKEY, Base.KEY_IV);
           } else if (StringUtil.isNotBlank(_settingData!.privateKeyMap) &&
               StringUtil.isBlank(_settingData!.encryptPrivateKeyMap)) {
             privateKeyMapText = _settingData!.privateKeyMap;
-            _settingData!.encryptPrivateKeyMap = EncryptUtil.aesEncrypt(
+            _settingData!.encryptPrivateKeyMap = await EncryptUtil.aesEncrypt(
                 _settingData!.privateKeyMap!, Base.KEY_EKEY, Base.KEY_IV);
             _settingData!.privateKeyMap = null;
           }
@@ -79,8 +79,8 @@ class SettingProvider extends ChangeNotifier {
         var nwcUrlMap = _settingData!.nwcUrlMap;
         if (StringUtil.isNotBlank(nwcUrlMap)) {
           try {
-            nwcUrlMap =
-                EncryptUtil.aesDecrypt(nwcUrlMap!, Base.KEY_EKEY, Base.KEY_IV);
+            nwcUrlMap = await EncryptUtil.aesDecrypt(
+                nwcUrlMap!, Base.KEY_EKEY, Base.KEY_IV);
             var jsonKeyMap = jsonDecode(nwcUrlMap);
             if (jsonKeyMap != null) {
               for (var entry in (jsonKeyMap as Map<String, dynamic>).entries) {
@@ -150,10 +150,10 @@ class SettingProvider extends ChangeNotifier {
     return -1;
   }
 
-  void _encodePrivateKeyMap() {
+  Future<void> _encodePrivateKeyMap() async {
     var privateKeyMap = json.encode(_privateKeyMap);
     _settingData!.encryptPrivateKeyMap =
-        EncryptUtil.aesEncrypt(privateKeyMap, Base.KEY_EKEY, Base.KEY_IV);
+        await EncryptUtil.aesEncrypt(privateKeyMap, Base.KEY_EKEY, Base.KEY_IV);
   }
 
   void removeKey(int index) {
@@ -195,10 +195,10 @@ class SettingProvider extends ChangeNotifier {
     return _nwcUrlMap[indexKey];
   }
 
-  void _encodeNwcUrlMap() {
+  Future<void> _encodeNwcUrlMap() async {
     var nwcUrlMap = json.encode(_nwcUrlMap);
     _settingData!.nwcUrlMap =
-        EncryptUtil.aesEncrypt(nwcUrlMap, Base.KEY_EKEY, Base.KEY_IV);
+        await EncryptUtil.aesEncrypt(nwcUrlMap, Base.KEY_EKEY, Base.KEY_IV);
   }
 
   SettingData get settingData => _settingData!;

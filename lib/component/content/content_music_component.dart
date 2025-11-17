@@ -7,7 +7,6 @@ import 'package:nostrmo/component/placeholder/music_placeholder.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/provider/music_provider.dart';
-import 'package:nostrmo/util/encrypt_util.dart';
 import 'package:nostrmo/util/hash_util.dart';
 
 class ContentMusicComponent extends StatefulWidget {
