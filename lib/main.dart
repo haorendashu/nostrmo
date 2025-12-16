@@ -77,6 +77,7 @@ import 'provider/contact_list_provider.dart';
 import 'provider/data_util.dart';
 import 'provider/dm_provider.dart';
 import 'provider/event_reactions_provider.dart';
+import 'provider/feed_provider.dart';
 import 'provider/filter_provider.dart';
 import 'provider/follow_event_provider.dart';
 import 'provider/group_details_provider.dart';
@@ -103,6 +104,7 @@ import 'router/bookmark/bookmark_router.dart';
 import 'router/community/community_detail_router.dart';
 import 'router/dm/dm_detail_router.dart';
 import 'router/event_detail/event_detail_router.dart';
+import 'router/feed_builder/feed_builder_router.dart';
 import 'router/filter/filter_router.dart';
 import 'router/follow_set/follow_set_detail_router.dart';
 import 'router/nwc/nwc_setting_router.dart';
@@ -197,6 +199,8 @@ late GroupProvider groupProvider;
 
 late GroupDetailsProvider groupDetailsProvider;
 
+late FeedProvider feedProvider;
+
 MusicInfoCache musicInfoCache = MusicInfoCache();
 
 LocalNotificationBuilder localNotificationBuilder = LocalNotificationBuilder();
@@ -281,9 +285,12 @@ Future<void> main() async {
 
   var settingTask = SettingProvider.getInstance();
   var metadataTask = MetadataProvider.getInstance();
-  var futureResultList = await Future.wait([settingTask, metadataTask]);
+  var feedTask = FeedProvider.getInstance();
+  var futureResultList =
+      await Future.wait([settingTask, metadataTask, feedTask]);
   settingProvider = futureResultList[0] as SettingProvider;
   metadataProvider = futureResultList[1] as MetadataProvider;
+  feedProvider = futureResultList[2] as FeedProvider;
   contactListProvider = ContactListProvider.getInstance();
   followEventProvider = FollowEventProvider();
   followNewEventProvider = FollowNewEventProvider();
@@ -434,6 +441,7 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
       RouterPath.WALLET_TRANSACTIONS: (context) => WalletTransactionsRouter(),
       RouterPath.WALLET_SEND: (context) => WalletSendRotuer(),
       RouterPath.STARTER_PACKS_DETAIL: (context) => StarterPacksDetailRouter(),
+      RouterPath.FEED_BUILDER: (context) => FeedBuilderRouter(),
     };
 
     return MultiProvider(
