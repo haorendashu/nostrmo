@@ -96,6 +96,7 @@ import 'provider/notice_provider.dart';
 import 'provider/replaceable_event_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
+import 'provider/sync_service.dart';
 import 'provider/url_speed_provider.dart';
 import 'provider/user_data_syncer.dart';
 import 'provider/webview_provider.dart';
@@ -201,6 +202,8 @@ late GroupDetailsProvider groupDetailsProvider;
 
 late FeedProvider feedProvider;
 
+late SyncService syncService;
+
 MusicInfoCache musicInfoCache = MusicInfoCache();
 
 LocalNotificationBuilder localNotificationBuilder = LocalNotificationBuilder();
@@ -285,12 +288,11 @@ Future<void> main() async {
 
   var settingTask = SettingProvider.getInstance();
   var metadataTask = MetadataProvider.getInstance();
-  var feedTask = FeedProvider.getInstance();
-  var futureResultList =
-      await Future.wait([settingTask, metadataTask, feedTask]);
+  var futureResultList = await Future.wait([settingTask, metadataTask]);
   settingProvider = futureResultList[0] as SettingProvider;
   metadataProvider = futureResultList[1] as MetadataProvider;
-  feedProvider = futureResultList[2] as FeedProvider;
+  feedProvider = FeedProvider();
+  syncService = SyncService();
   contactListProvider = ContactListProvider.getInstance();
   followEventProvider = FollowEventProvider();
   followNewEventProvider = FollowNewEventProvider();
@@ -535,6 +537,12 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
         ),
         ListenableProvider<NWCProvider>.value(
           value: nwcProvider,
+        ),
+        ListenableProvider<FeedProvider>.value(
+          value: feedProvider,
+        ),
+        ListenableProvider<SyncService>.value(
+          value: syncService,
         ),
       ],
       child: HomeComponent(

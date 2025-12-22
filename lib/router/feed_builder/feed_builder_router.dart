@@ -716,6 +716,7 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
     }
 
     var feed = FeedData(
+      StringUtil.rndNameStr(14),
       name,
       selectedFeedType,
       sources: dataSources,

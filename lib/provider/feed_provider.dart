@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/aid.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
+import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/feed_data_type.dart';
 import 'package:nostrmo/main.dart';
@@ -12,16 +15,89 @@ import '../consts/feed_type.dart';
 import '../data/feed_data.dart';
 
 class FeedProvider extends ChangeNotifier {
-  static FeedProvider? _feedProvider;
+  List<FeedData> feedList = [];
 
-  static Future<FeedProvider> getInstance() async {
-    if (_feedProvider == null) {
-      _feedProvider = FeedProvider();
-      // _settingProvider!._sharedPreferences = await DataUtil.getInstance();
-      // await _settingProvider!._init();
-      // _settingProvider!._reloadTranslateSourceArgs();
+  int updateTime = 0;
+
+  void reload({Nostr? targetNostr}) {
+    var key = getLocalStoreKey(targetNostr: targetNostr);
+    var localJson = sharedPreferences.getString(key);
+    if (localJson != null) {
+      fromLocalJson(jsonDecode(localJson));
     }
-    return _feedProvider!;
+  }
+
+  void saveFeed(FeedData feedData, {Nostr? targetNostr}) {
+    _saveToMemery(feedData);
+
+    updateTime = DateTime.now().millisecondsSinceEpoch;
+    // update ui
+    // save to local
+    _saveAndUpdateUI(targetNostr: targetNostr);
+    // update to sync task provider
+    for (var _fd in feedList) {
+      handleFeedData(_fd);
+    }
+    syncService.updateFromFeedDataList(feedList);
+    // send config to relay
+  }
+
+  void _saveToMemery(FeedData feedData) {
+    bool found = false;
+    for (var i = 0; i < feedList.length; i++) {
+      var item = feedList[i];
+      if (item.id == feedData.id) {
+        found = true;
+        feedList[i] = feedData;
+        break;
+      }
+    }
+
+    if (!found) {
+      feedList.add(feedData);
+    }
+  }
+
+  String getLocalStoreKey({Nostr? targetNostr}) {
+    targetNostr ??= nostr;
+
+    return 'feedList_${targetNostr!.publicKey}';
+  }
+
+  void _saveAndUpdateUI({bool updateUI = true, Nostr? targetNostr}) {
+    // save to local
+    var localJson = toLocalJson();
+    var localStoreKey = getLocalStoreKey(targetNostr: targetNostr);
+
+    sharedPreferences.setString(localStoreKey, jsonEncode(localJson));
+
+    if (updateUI) {
+      notifyListeners();
+    }
+  }
+
+  Map<String, dynamic> toLocalJson() {
+    Map<String, dynamic> map = {};
+    map['updatedList'] = updateTime;
+    map['feedList'] = feedList.map((e) => e.toLocalJson()).toList();
+    return map;
+  }
+
+  void fromLocalJson(Map<String, dynamic> map) {
+    var updatedList = map['updatedList'];
+    if (updatedList is int) {
+      updateTime = updatedList;
+    }
+
+    var feedList = map['feedList'];
+    if (feedList is List) {
+      for (var item in feedList) {
+        if (item is Map<String, dynamic>) {
+          var feedData = FeedData.fromJson(item);
+          _saveToMemery(feedData);
+        }
+      }
+    }
   }
 
   // find the real pubkey from sources and other config.
