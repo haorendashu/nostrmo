@@ -33,6 +33,19 @@ class SyncTaskItem {
     };
   }
 
+  Map<String, dynamic> toSimpleJson() {
+    var json = {
+      "syncType": syncType,
+      "value": value,
+    };
+
+    if (relays != null && relays!.isNotEmpty) {
+      json["relays"] = [...relays!];
+    }
+
+    return json;
+  }
+
   SyncTaskItem clone() {
     var jsonMap = toJson();
     return SyncTaskItem.fromJson(jsonMap);

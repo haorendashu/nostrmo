@@ -28,6 +28,8 @@ class FeedProvider extends ChangeNotifier {
   }
 
   void saveFeed(FeedData feedData, {Nostr? targetNostr}) {
+    targetNostr ??= nostr;
+
     _saveToMemery(feedData);
 
     updateTime = DateTime.now().millisecondsSinceEpoch;
@@ -38,8 +40,8 @@ class FeedProvider extends ChangeNotifier {
     for (var _fd in feedList) {
       handleFeedData(_fd);
     }
-    syncService.updateFromFeedDataList(feedList);
-    // send config to relay
+    syncService.updateFromFeedDataList(feedList, targetNostr!.publicKey);
+    // TODO send config to relay
   }
 
   void _saveToMemery(FeedData feedData) {

@@ -724,8 +724,8 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
       eventType: eventType,
     );
 
-    feedProvider.handleFeedData(feed);
-
-    print(feed.datas);
+    // feedProvider.handleFeedData(feed);
+    // print(feed.datas);
+    feedProvider.saveFeed(feed);
   }
 }
