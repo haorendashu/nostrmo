@@ -51,18 +51,49 @@ class FeedData {
     var id = item['id'];
     var name = item['name'];
     var feedType = item['feedType'];
+
     var sources = item['sources'];
+    List<List<dynamic>> sourcesList = [];
+    if (sources is List) {
+      for (var source in sources) {
+        if (source is List) {
+          sourcesList.add(List<dynamic>.from(source));
+        }
+      }
+    }
+
     var datas = item['datas'];
-    datas ??= [];
+    List<List<dynamic>> datasList = [];
+    if (datas is List) {
+      for (var data in datas) {
+        if (data is List) {
+          datasList.add(List<dynamic>.from(data));
+        }
+      }
+    }
+
     var eventKinds = item['eventKinds'];
+    List<int> eventKindsList = [];
+    if (eventKinds is List) {
+      for (var kind in eventKinds) {
+        if (kind is int) {
+          eventKindsList.add(kind);
+        } else if (kind is String) {
+          eventKindsList.add(int.tryParse(kind) ?? 0);
+        } else if (kind is double) {
+          eventKindsList.add(kind.toInt());
+        }
+      }
+    }
+
     var eventType = item['eventType'];
     return FeedData(
       id,
       name,
       feedType,
-      sources: sources,
-      datas: datas,
-      eventKinds: eventKinds,
+      sources: sourcesList,
+      datas: datasList,
+      eventKinds: eventKindsList,
       eventType: eventType,
     );
   }
