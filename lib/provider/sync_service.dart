@@ -168,6 +168,7 @@ class SyncService with LaterFunction, ChangeNotifier {
         targetNostr.unsubscribe(subscriptionId);
       }
     }
+    _subscriptionIds.clear();
 
     var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
@@ -255,7 +256,7 @@ class SyncService with LaterFunction, ChangeNotifier {
     // begin to subscript the new event using relayTaskMap
     for (var relayTask in relayTaskMap.values) {
       if (relayTask.pubkeys.isNotEmpty || relayTask.hashTags.isNotEmpty) {
-        var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS);
+        var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, since: now);
         if (relayTask.pubkeys.isNotEmpty) {
           filter.authors = relayTask.pubkeys.toList();
         }
