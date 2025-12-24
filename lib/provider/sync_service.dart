@@ -221,14 +221,23 @@ class SyncService with LaterFunction, ChangeNotifier {
 
       // handle filter base params and time
       var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, until: now);
-      if (taskItem.startTime == null) {
-        // taskItem's startTime is null, it means it is a new task, we should sync from initTime
-        filter.since = initTime;
-        taskItem.startTime = initTime;
+      if (taskItem.endTime != null) {
+        filter.since = taskItem.endTime!;
+      } else {
+        // taskItem.endTime is null. try to use taskItem.startTime
+        if (taskItem.startTime != null) {
+          filter.since = taskItem.startTime!;
+        } else {
+          // taskItem.startTime is null, it means it is a new task, we should sync from initTime
+          filter.since = initTime;
+          taskItem.startTime = initTime;
+        }
       }
       taskItem.endTime = now;
-      var filterMap = filter.toJson();
+      // TODO the time between startTime and endTime maybe very long and the query may not be complete in a time.
+      // we should split the query to multiple queries.
 
+      var filterMap = filter.toJson();
       // relays had bean found and try to sync events
       if (taskItem.syncType == SyncTaskType.PUBKEY) {
         filterMap['authors'] = [taskItem.value];
