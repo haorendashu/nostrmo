@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nostr.dart';
 import 'package:nostr_sdk/utils/later_function.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../consts/event_kind_type.dart';
 import '../consts/sync_task_type.dart';
@@ -22,8 +23,12 @@ import '../main.dart';
 /// [initTime] is the init time of sync service, this value will gen when this service is first init.
 class SyncService with LaterFunction, ChangeNotifier {
   Map<String, SyncTaskItem> syncTaskMap = {};
-
   int? initTime;
+
+  // add some concurrent control
+  static const int MAX_CONCURRENT_QUERIES = 6; // max concurrent queries
+  int _currentRunningQueries = 0; // current running queries
+  final List<Function()> _pendingQueries = []; // pending queries queue
 
   // key - int
   static const String KEY_SYNC_INIT_TIME = "syncInitTime";
@@ -155,6 +160,15 @@ class SyncService with LaterFunction, ChangeNotifier {
       return;
     }
 
+    if (_subscriptionIds.isNotEmpty) {
+      for (var entry in _subscriptionIds.entries) {
+        var relayAddr = entry.key;
+        var subscriptionId = entry.value;
+
+        targetNostr.unsubscribe(subscriptionId);
+      }
+    }
+
     var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
     Set<String> myRelaysSet = {};
@@ -167,6 +181,11 @@ class SyncService with LaterFunction, ChangeNotifier {
     List<String> myRelayList = myRelaysSet.toList();
 
     Map<String, SyncRelayTask> relayTaskMap = {};
+
+    // clear pending queries
+    _pendingQueries.clear();
+    _currentRunningQueries = 0;
+
     for (var taskItem in syncTaskMap.values) {
       List<String>? relayList;
       taskItem = taskItem.clone();
@@ -217,6 +236,43 @@ class SyncService with LaterFunction, ChangeNotifier {
         filterMap["#t"] = [taskItem.value];
       }
 
+      // add query to queue
+      _addQueryToQueue(targetNostr, filterMap, relayList, taskItem);
+    }
+
+    // begin execute pending queries
+    _executePendingQueries();
+
+    // begin to subscript the new event using relayTaskMap
+    for (var relayTask in relayTaskMap.values) {
+      if (relayTask.pubkeys.isNotEmpty || relayTask.hashTags.isNotEmpty) {
+        var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS);
+        if (relayTask.pubkeys.isNotEmpty) {
+          filter.authors = relayTask.pubkeys.toList();
+        }
+        var filterMap = filter.toJson();
+        if (relayTask.hashTags.isNotEmpty) {
+          filterMap["#t"] = relayTask.hashTags.toList();
+        }
+
+        var subscriptionId = StringUtil.rndNameStr(12);
+        _subscriptionIds[relayTask.relay] = subscriptionId;
+        targetNostr.subscribe(
+          [filterMap],
+          (e) {},
+          id: subscriptionId,
+          targetRelays: [relayTask.relay],
+        );
+      }
+    }
+  }
+
+  // subscriptionIds map, key is relay, value is subscriptionId
+  Map<String, String> _subscriptionIds = {};
+
+  void _addQueryToQueue(Nostr targetNostr, Map<String, dynamic> filterMap,
+      List<String> relayList, SyncTaskItem taskItem) {
+    _pendingQueries.add(() {
       targetNostr.query(
         [filterMap],
         (e) {},
@@ -224,10 +280,22 @@ class SyncService with LaterFunction, ChangeNotifier {
         onComplete: () {
           // query complete!
           syncTaskMap[_getItemKey(taskItem)] = taskItem;
-
           later(saveSyncInfo);
+
+          // query complete, reduce current running count and execute next query
+          _currentRunningQueries--;
+          _executePendingQueries();
         },
       );
+    });
+  }
+
+  void _executePendingQueries() {
+    while (_currentRunningQueries < MAX_CONCURRENT_QUERIES &&
+        _pendingQueries.isNotEmpty) {
+      var query = _pendingQueries.removeAt(0);
+      _currentRunningQueries++;
+      query();
     }
   }
 
