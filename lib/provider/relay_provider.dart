@@ -297,6 +297,8 @@ class RelayProvider extends ChangeNotifier {
     ///
     handleIndexRelays(_nostr);
 
+    syncService.startSyncTask(targetNostr: _nostr);
+
     return _nostr;
   }
 
