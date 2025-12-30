@@ -173,7 +173,7 @@ class SyncService with LaterFunction, ChangeNotifier {
     var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
     Set<String> myRelaysSet = {};
-    var nostrNormalRelays = nostr!.normalRelays();
+    var nostrNormalRelays = targetNostr.normalRelays();
     for (var relay in nostrNormalRelays) {
       if (relay.relayStatus.readAccess) {
         myRelaysSet.add(relay.url);
