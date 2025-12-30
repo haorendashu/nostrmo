@@ -14,10 +14,16 @@ class SyncTaskItem {
   });
 
   static fromJson(Map<String, dynamic> json) {
+    List<String>? relays;
+    if (json["relays"] != null) {
+      relays =
+          (json["relays"] as List<dynamic>).map((e) => e.toString()).toList();
+    }
+
     return SyncTaskItem(
-      json["syncType"],
-      json["value"],
-      relays: json["relays"] as List<String>?,
+      json["syncType"] as int,
+      json["value"] as String,
+      relays: relays,
       startTime: json["startTime"] as int?,
       endTime: json["endTime"] as int?,
     );
