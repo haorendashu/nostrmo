@@ -39,6 +39,9 @@ class SyncService with LaterFunction, ChangeNotifier {
   // key - '{"pubkey": "[]"}'
   static const String KEY_USERS_SYNC_TASK = "usersSyncTaskKey";
 
+  // max relay num for each person
+  static const int MAX_PERSON_RELAY_NUM = 3;
+
   String _getItemKey(SyncTaskItem taskItem) {
     return "${taskItem.syncType}_${taskItem.value}";
   }
@@ -197,6 +200,9 @@ class SyncService with LaterFunction, ChangeNotifier {
         var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
         if (relayListMetadata != null) {
           relayList = relayListMetadata.writeAbleRelays;
+          if (relayList.length > MAX_PERSON_RELAY_NUM) {
+            relayList = relayList.sublist(0, MAX_PERSON_RELAY_NUM);
+          }
 
           for (var relay in relayList) {
             var relayTask = _getOrGenRelayTask(relay, relayTaskMap);
