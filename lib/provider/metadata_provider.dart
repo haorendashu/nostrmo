@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -72,6 +73,35 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     if (!_penddingEvents.isEmpty()) {
       _handlePenddingEvents();
     }
+  }
+
+  Future<void> loadFromDBsSync(List<String> pubkeys) async {
+    if (pubkeys.isEmpty) {
+      return;
+    }
+
+    var complete = Completer();
+
+    EventDB.list(
+            Base.DEFAULT_DATA_INDEX,
+            [
+              EventKind.METADATA,
+              EventKind.RELAY_LIST_METADATA,
+              EventKind.CONTACT_LIST,
+            ],
+            0,
+            10000,
+            pubkeys: pubkeys)
+        .then((eventList) {
+      for (var event in eventList) {
+        _handleEvent(event, updateWhenCacheIsNull: false);
+        _checkingFromDBPubKeys.remove(event.pubkey);
+      }
+
+      complete.complete();
+    });
+
+    return complete.future;
   }
 
   List<String> _checkingFromDBPubKeys = [];
@@ -173,63 +203,73 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     for (var event in _penddingEvents.all()) {
       _handingPubkeys.remove(event.pubkey);
 
-      if (event.kind == EventKind.METADATA) {
-        if (StringUtil.isBlank(event.content)) {
-          continue;
-        }
-
-        // check cache
-        var oldMetadata = _metadataCache[event.pubkey];
-        if (oldMetadata == null) {
-          // insert
-          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
-          _eventToMetadataCache(event);
-        } else if (oldMetadata.updated_at! < event.createdAt) {
-          // update, remote old event and insert new event
-          EventDB.execute(
-              "delete from event where key_index = ? and kind = ? and pubkey = ?",
-              [Base.DEFAULT_DATA_INDEX, EventKind.METADATA, event.pubkey]);
-          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
-          _eventToMetadataCache(event);
-        }
-      } else if (event.kind == EventKind.RELAY_LIST_METADATA) {
-        // this is relayInfoMetadata, only set to cache, not update UI
-        var oldRelayListMetadata = _relayListMetadataCache[event.pubkey];
-        if (oldRelayListMetadata == null) {
-          // insert
-          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
-          _eventToRelayListCache(event);
-        } else if (event.createdAt > oldRelayListMetadata.createdAt) {
-          // update, remote old event and insert new event
-          EventDB.execute(
-              "delete from event where key_index = ? and kind = ? and pubkey = ?",
-              [
-                Base.DEFAULT_DATA_INDEX,
-                EventKind.RELAY_LIST_METADATA,
-                event.pubkey
-              ]);
-          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
-          _eventToRelayListCache(event);
-        }
-      } else if (event.kind == EventKind.CONTACT_LIST) {
-        var oldContactList = _contactListMap[event.pubkey];
-        if (oldContactList == null) {
-          // insert
-          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
-          _eventToContactList(event);
-        } else if (event.createdAt > oldContactList.createdAt) {
-          // update, remote old event and insert new event
-          EventDB.execute(
-              "delete from event where key_index = ? and kind = ? and pubkey = ?",
-              [Base.DEFAULT_DATA_INDEX, EventKind.CONTACT_LIST, event.pubkey]);
-          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
-          _eventToContactList(event);
-        }
-      }
+      _handleEvent(event);
     }
 
     _penddingEvents.clear();
     notifyListeners();
+  }
+
+  void _handleEvent(Event event, {bool updateWhenCacheIsNull = true}) {
+    if (event.kind == EventKind.METADATA) {
+      if (StringUtil.isBlank(event.content)) {
+        return;
+      }
+
+      // check cache
+      var oldMetadata = _metadataCache[event.pubkey];
+      if (oldMetadata == null) {
+        if (updateWhenCacheIsNull) {
+          // insert
+          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+        }
+        _eventToMetadataCache(event);
+      } else if (oldMetadata.updated_at! < event.createdAt) {
+        // update, remote old event and insert new event
+        EventDB.execute(
+            "delete from event where key_index = ? and kind = ? and pubkey = ?",
+            [Base.DEFAULT_DATA_INDEX, EventKind.METADATA, event.pubkey]);
+        EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+        _eventToMetadataCache(event);
+      }
+    } else if (event.kind == EventKind.RELAY_LIST_METADATA) {
+      // this is relayInfoMetadata, only set to cache, not update UI
+      var oldRelayListMetadata = _relayListMetadataCache[event.pubkey];
+      if (oldRelayListMetadata == null) {
+        if (updateWhenCacheIsNull) {
+          // insert
+          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+        }
+        _eventToRelayListCache(event);
+      } else if (event.createdAt > oldRelayListMetadata.createdAt) {
+        // update, remote old event and insert new event
+        EventDB.execute(
+            "delete from event where key_index = ? and kind = ? and pubkey = ?",
+            [
+              Base.DEFAULT_DATA_INDEX,
+              EventKind.RELAY_LIST_METADATA,
+              event.pubkey
+            ]);
+        EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+        _eventToRelayListCache(event);
+      }
+    } else if (event.kind == EventKind.CONTACT_LIST) {
+      var oldContactList = _contactListMap[event.pubkey];
+      if (oldContactList == null) {
+        if (updateWhenCacheIsNull) {
+          // insert
+          EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+        }
+        _eventToContactList(event);
+      } else if (event.createdAt > oldContactList.createdAt) {
+        // update, remote old event and insert new event
+        EventDB.execute(
+            "delete from event where key_index = ? and kind = ? and pubkey = ?",
+            [Base.DEFAULT_DATA_INDEX, EventKind.CONTACT_LIST, event.pubkey]);
+        EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+        _eventToContactList(event);
+      }
+    }
   }
 
   void onEvent(Event event) {
