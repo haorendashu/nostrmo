@@ -48,10 +48,10 @@ class SyncService with LaterFunction, ChangeNotifier {
   }
 
   void reload() {
-    var initTime = sharedPreferences.getInt(KEY_SYNC_INIT_TIME);
+    initTime = sharedPreferences.getInt(KEY_SYNC_INIT_TIME);
     if (initTime == null) {
       initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-      sharedPreferences.setInt(KEY_SYNC_INIT_TIME, initTime);
+      sharedPreferences.setInt(KEY_SYNC_INIT_TIME, initTime!);
     }
 
     syncTaskMap.clear();
@@ -201,7 +201,7 @@ class SyncService with LaterFunction, ChangeNotifier {
     _currentRunningQueries = 0;
 
     for (var taskItem in syncTaskMap.values) {
-      // print("taskItem $taskItem");
+      print("taskItem $taskItem");
       List<String>? relayList;
       taskItem = taskItem.clone();
 
@@ -295,7 +295,7 @@ class SyncService with LaterFunction, ChangeNotifier {
     var complete = Completer<bool>();
 
     _pendingQueries.add(() {
-      // print("query, filterMap: $filterMap, relayList: $relayList");
+      print("query, filterMap: $filterMap, relayList: $relayList");
       targetNostr.query(
         [filterMap],
         (e) {},
@@ -307,7 +307,7 @@ class SyncService with LaterFunction, ChangeNotifier {
     });
 
     complete.future.then((v) {
-      // print("query complete, filterMap: $filterMap, relayList: $relayList");
+      print("query complete, filterMap: $filterMap, relayList: $relayList");
       // query complete!
       taskItem.endTime = endTime;
       syncTaskMap[_getItemKey(taskItem)] = taskItem;
@@ -317,15 +317,13 @@ class SyncService with LaterFunction, ChangeNotifier {
       _currentRunningQueries--;
       _executePendingQueries();
     }).timeout(const Duration(seconds: 60), onTimeout: () {
-      // print("query timeout, filterMap: $filterMap, relayList: $relayList");
+      print("query timeout, filterMap: $filterMap, relayList: $relayList");
       _currentRunningQueries--;
       _executePendingQueries();
     });
   }
 
   void _executePendingQueries() {
-    // print(
-    //     "execute pending queries, currentRunningQueries: $_currentRunningQueries, pendingQueries: ${_pendingQueries.length}");
     while (_currentRunningQueries < MAX_CONCURRENT_QUERIES &&
         _pendingQueries.isNotEmpty) {
       var query = _pendingQueries.removeAt(0);
