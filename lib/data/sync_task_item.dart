@@ -56,4 +56,9 @@ class SyncTaskItem {
     var jsonMap = toJson();
     return SyncTaskItem.fromJson(jsonMap);
   }
+
+  @override
+  String toString() {
+    return "SyncTaskItem($syncType, $value, $relays, $startTime, $endTime)";
+  }
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class SyncService with LaterFunction, ChangeNotifier {
   int? initTime;
 
   // add some concurrent control
-  static const int MAX_CONCURRENT_QUERIES = 6; // max concurrent queries
+  static const int MAX_CONCURRENT_QUERIES = 10; // max concurrent queries
   int _currentRunningQueries = 0; // current running queries
   final List<Function()> _pendingQueries = []; // pending queries queue
 
@@ -157,7 +158,7 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
   }
 
-  void startSyncTask({Nostr? targetNostr}) {
+  Future<void> startSyncTask({Nostr? targetNostr}) async {
     targetNostr ??= nostr;
     if (targetNostr == null) {
       return;
@@ -186,11 +187,21 @@ class SyncService with LaterFunction, ChangeNotifier {
 
     Map<String, SyncRelayTask> relayTaskMap = {};
 
+    // find all pubkeys in syncTaskMap and load data from DB
+    List<String> pubkeys = [];
+    for (var taskItem in syncTaskMap.values) {
+      if (taskItem.syncType == SyncTaskType.PUBKEY) {
+        pubkeys.add(taskItem.value);
+      }
+    }
+    await metadataProvider.loadFromDBsSync(pubkeys);
+
     // clear pending queries
     _pendingQueries.clear();
     _currentRunningQueries = 0;
 
     for (var taskItem in syncTaskMap.values) {
+      // print("taskItem $taskItem");
       List<String>? relayList;
       taskItem = taskItem.clone();
 
@@ -228,19 +239,12 @@ class SyncService with LaterFunction, ChangeNotifier {
 
       // handle filter base params and time
       var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, until: now);
-      if (taskItem.endTime != null) {
-        filter.since = taskItem.endTime!;
+      if (taskItem.endTime == null) {
+        filter.since = initTime;
+        taskItem.startTime = initTime;
       } else {
-        // taskItem.endTime is null. try to use taskItem.startTime
-        if (taskItem.startTime != null) {
-          filter.since = taskItem.startTime!;
-        } else {
-          // taskItem.startTime is null, it means it is a new task, we should sync from initTime
-          filter.since = initTime;
-          taskItem.startTime = initTime;
-        }
+        filter.since = taskItem.endTime!;
       }
-      taskItem.endTime = now;
       // TODO the time between startTime and endTime maybe very long and the query may not be complete in a time.
       // we should split the query to multiple queries.
 
@@ -253,7 +257,7 @@ class SyncService with LaterFunction, ChangeNotifier {
       }
 
       // add query to queue
-      _addQueryToQueue(targetNostr, filterMap, relayList, taskItem);
+      _addQueryToQueue(targetNostr, filterMap, relayList, taskItem, now);
     }
 
     // begin execute pending queries
@@ -287,26 +291,41 @@ class SyncService with LaterFunction, ChangeNotifier {
   Map<String, String> _subscriptionIds = {};
 
   void _addQueryToQueue(Nostr targetNostr, Map<String, dynamic> filterMap,
-      List<String> relayList, SyncTaskItem taskItem) {
+      List<String> relayList, SyncTaskItem taskItem, int endTime) {
+    var complete = Completer<bool>();
+
     _pendingQueries.add(() {
+      // print("query, filterMap: $filterMap, relayList: $relayList");
       targetNostr.query(
         [filterMap],
         (e) {},
         targetRelays: relayList,
         onComplete: () {
-          // query complete!
-          syncTaskMap[_getItemKey(taskItem)] = taskItem;
-          later(saveSyncInfo);
-
-          // query complete, reduce current running count and execute next query
-          _currentRunningQueries--;
-          _executePendingQueries();
+          complete.complete(true);
         },
       );
+    });
+
+    complete.future.then((v) {
+      // print("query complete, filterMap: $filterMap, relayList: $relayList");
+      // query complete!
+      taskItem.endTime = endTime;
+      syncTaskMap[_getItemKey(taskItem)] = taskItem;
+      later(saveSyncInfo);
+
+      // query complete, reduce current running count and execute next query
+      _currentRunningQueries--;
+      _executePendingQueries();
+    }).timeout(const Duration(seconds: 60), onTimeout: () {
+      // print("query timeout, filterMap: $filterMap, relayList: $relayList");
+      _currentRunningQueries--;
+      _executePendingQueries();
     });
   }
 
   void _executePendingQueries() {
+    // print(
+    //     "execute pending queries, currentRunningQueries: $_currentRunningQueries, pendingQueries: ${_pendingQueries.length}");
     while (_currentRunningQueries < MAX_CONCURRENT_QUERIES &&
         _pendingQueries.isNotEmpty) {
       var query = _pendingQueries.removeAt(0);
