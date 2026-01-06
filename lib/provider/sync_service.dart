@@ -48,6 +48,10 @@ class SyncService with LaterFunction, ChangeNotifier {
   }
 
   void reload() {
+    // sharedPreferences.remove(KEY_SYNC_INIT_TIME);
+    // sharedPreferences.remove(KEY_SYNC_TASK);
+    // sharedPreferences.remove(KEY_USERS_SYNC_TASK);
+
     initTime = sharedPreferences.getInt(KEY_SYNC_INIT_TIME);
     if (initTime == null) {
       initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000 -
@@ -294,6 +298,7 @@ class SyncService with LaterFunction, ChangeNotifier {
   void _addQueryToQueue(Nostr targetNostr, Map<String, dynamic> filterMap,
       List<String> relayList, SyncTaskItem taskItem, int endTime) {
     var complete = Completer<bool>();
+    var eoseTime = 0;
 
     _pendingQueries.add(() {
       print("query, filterMap: $filterMap, relayList: $relayList");
@@ -303,6 +308,9 @@ class SyncService with LaterFunction, ChangeNotifier {
         targetRelays: relayList,
         onComplete: () {
           complete.complete(true);
+        },
+        onEOSE: (relayAddr) {
+          eoseTime++;
         },
       );
     });
@@ -317,8 +325,16 @@ class SyncService with LaterFunction, ChangeNotifier {
       // query complete, reduce current running count and execute next query
       _currentRunningQueries--;
       _executePendingQueries();
-    }).timeout(const Duration(seconds: 60), onTimeout: () {
-      print("query timeout, filterMap: $filterMap, relayList: $relayList");
+    }).timeout(const Duration(seconds: 120), onTimeout: () {
+      print(
+          "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime");
+      if (eoseTime > 1) {
+        print("query timeout bug eoseTime > 1");
+        taskItem.endTime = endTime;
+        syncTaskMap[_getItemKey(taskItem)] = taskItem;
+        later(saveSyncInfo);
+      }
+
       _currentRunningQueries--;
       _executePendingQueries();
     });

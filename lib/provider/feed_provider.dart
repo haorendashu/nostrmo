@@ -21,6 +21,7 @@ class FeedProvider extends ChangeNotifier {
 
   void reload({Nostr? targetNostr}) {
     var key = getLocalStoreKey(targetNostr: targetNostr);
+    // sharedPreferences.remove(key);
     var localJson = sharedPreferences.getString(key);
     if (localJson != null) {
       fromLocalJson(jsonDecode(localJson));
