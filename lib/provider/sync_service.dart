@@ -50,7 +50,8 @@ class SyncService with LaterFunction, ChangeNotifier {
   void reload() {
     initTime = sharedPreferences.getInt(KEY_SYNC_INIT_TIME);
     if (initTime == null) {
-      initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000 -
+          const Duration(days: 7).inSeconds;
       sharedPreferences.setInt(KEY_SYNC_INIT_TIME, initTime!);
     }
 
