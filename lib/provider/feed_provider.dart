@@ -109,13 +109,17 @@ class FeedProvider extends ChangeNotifier {
       var pubkeys = Set<String>();
       var tags = Set<String>();
       for (var source in feedData.sources) {
-        if (source.length <= 1) {
+        if (source.isEmpty) {
           continue;
         }
 
         var sourceType = source[0];
-        var sourceValue = source[1];
-        if (sourceValue is! String || StringUtil.isBlank(sourceValue)) {
+        dynamic sourceValue;
+        if (sourceType != FeedSourceType.FOLLOWED && source.length >= 2) {
+          sourceValue = source[1];
+        }
+        if (sourceType != FeedSourceType.FOLLOWED &&
+            (sourceValue is! String || StringUtil.isBlank(sourceValue))) {
           continue;
         }
 
