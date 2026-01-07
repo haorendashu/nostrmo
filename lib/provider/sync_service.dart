@@ -179,8 +179,6 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
     _subscriptionIds.clear();
 
-    var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-
     Set<String> myRelaysSet = {};
     var nostrNormalRelays = targetNostr.normalRelays();
     for (var relay in nostrNormalRelays) {
@@ -189,8 +187,6 @@ class SyncService with LaterFunction, ChangeNotifier {
       }
     }
     List<String> myRelayList = myRelaysSet.toList();
-
-    Map<String, SyncRelayTask> relayTaskMap = {};
 
     // find all pubkeys in syncTaskMap and load data from DB
     List<String> pubkeys = [];
@@ -201,94 +197,119 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
     await metadataProvider.loadFromDBsSync(pubkeys);
 
-    // clear pending queries
-    _pendingQueries.clear();
-    _currentRunningQueries = 0;
+    _doSync(myRelayList, targetNostr);
+  }
 
-    for (var taskItem in syncTaskMap.values) {
-      print("taskItem $taskItem");
-      List<String>? relayList;
-      taskItem = taskItem.clone();
+  Future<void> _doSync(List<String> myRelayList, Nostr targetNostr) async {
+    try {
+      var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-      // find current task's relays and splite tasks to relay tasks to subscript new events later
-      if (taskItem.syncType == SyncTaskType.PUBKEY) {
-        var pubkey = taskItem.value;
-        var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
-        if (relayListMetadata != null) {
-          relayList = relayListMetadata.writeAbleRelays;
-          if (relayList.length > MAX_PERSON_RELAY_NUM) {
-            relayList = relayList.sublist(0, MAX_PERSON_RELAY_NUM);
+      Map<String, SyncRelayTask> relayTaskMap = {};
+
+      // clear pending queries
+      _pendingQueries.clear();
+      _currentRunningQueries = 0;
+
+      for (var taskItem in syncTaskMap.values) {
+        print("taskItem $taskItem");
+        List<String>? relayList;
+        taskItem = taskItem.clone();
+
+        // find current task's relays and splite tasks to relay tasks to subscript new events later
+        if (taskItem.syncType == SyncTaskType.PUBKEY) {
+          var pubkey = taskItem.value;
+          var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
+          if (relayListMetadata != null) {
+            relayList = relayListMetadata.writeAbleRelays;
+            if (relayList.length > MAX_PERSON_RELAY_NUM) {
+              relayList = relayList.sublist(0, MAX_PERSON_RELAY_NUM);
+            }
+
+            for (var relay in relayList) {
+              var relayTask = _getOrGenRelayTask(relay, relayTaskMap);
+              relayTask.pubkeys.add(pubkey);
+            }
+          }
+        } else if (taskItem.syncType == SyncTaskType.HASH_TAG) {
+          if (taskItem.relays != null && taskItem.relays!.isNotEmpty) {
+            relayList = taskItem.relays!;
+          } else {
+            relayList = myRelayList;
           }
 
           for (var relay in relayList) {
             var relayTask = _getOrGenRelayTask(relay, relayTaskMap);
-            relayTask.pubkeys.add(pubkey);
+            relayTask.hashTags.add(taskItem.value);
           }
         }
-      } else if (taskItem.syncType == SyncTaskType.HASH_TAG) {
-        if (taskItem.relays != null && taskItem.relays!.isNotEmpty) {
-          relayList = taskItem.relays!;
+
+        if (relayList == null || relayList.isEmpty) {
+          continue;
+        }
+
+        // handle filter base params and time
+        var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, until: now);
+        if (taskItem.endTime == null) {
+          filter.since = initTime;
+          taskItem.startTime = initTime;
         } else {
-          relayList = myRelayList;
+          filter.since = taskItem.endTime!;
         }
+        // TODO the time between startTime and endTime maybe very long and the query may not be complete in a time.
+        // we should split the query to multiple queries.
 
-        for (var relay in relayList) {
-          var relayTask = _getOrGenRelayTask(relay, relayTaskMap);
-          relayTask.hashTags.add(taskItem.value);
-        }
-      }
-
-      if (relayList == null || relayList.isEmpty) {
-        continue;
-      }
-
-      // handle filter base params and time
-      var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, until: now);
-      if (taskItem.endTime == null) {
-        filter.since = initTime;
-        taskItem.startTime = initTime;
-      } else {
-        filter.since = taskItem.endTime!;
-      }
-      // TODO the time between startTime and endTime maybe very long and the query may not be complete in a time.
-      // we should split the query to multiple queries.
-
-      var filterMap = filter.toJson();
-      // relays had bean found and try to sync events
-      if (taskItem.syncType == SyncTaskType.PUBKEY) {
-        filterMap['authors'] = [taskItem.value];
-      } else if (taskItem.syncType == SyncTaskType.HASH_TAG) {
-        filterMap["#t"] = [taskItem.value];
-      }
-
-      // add query to queue
-      _addQueryToQueue(targetNostr, filterMap, relayList, taskItem, now);
-    }
-
-    // begin execute pending queries
-    _executePendingQueries();
-
-    // begin to subscript the new event using relayTaskMap
-    for (var relayTask in relayTaskMap.values) {
-      if (relayTask.pubkeys.isNotEmpty || relayTask.hashTags.isNotEmpty) {
-        var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, since: now);
-        if (relayTask.pubkeys.isNotEmpty) {
-          filter.authors = relayTask.pubkeys.toList();
-        }
         var filterMap = filter.toJson();
-        if (relayTask.hashTags.isNotEmpty) {
-          filterMap["#t"] = relayTask.hashTags.toList();
+        // relays had bean found and try to sync events
+        if (taskItem.syncType == SyncTaskType.PUBKEY) {
+          filterMap['authors'] = [taskItem.value];
+        } else if (taskItem.syncType == SyncTaskType.HASH_TAG) {
+          filterMap["#t"] = [taskItem.value];
         }
 
-        var subscriptionId = StringUtil.rndNameStr(12);
-        _subscriptionIds[relayTask.relay] = subscriptionId;
-        targetNostr.subscribe(
-          [filterMap],
-          (e) {},
-          id: subscriptionId,
-          targetRelays: [relayTask.relay],
-        );
+        // add query to queue
+        _addQueryToQueue(targetNostr, filterMap, relayList, taskItem, now);
       }
+
+      // begin execute pending queries
+      _executePendingQueries();
+
+      if (targetNostr.isClose()) {
+        return;
+      }
+      var afterSynced = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      if (afterSynced - now < 60) {
+        await Future.delayed(const Duration(seconds: 60));
+      }
+      if (!targetNostr.isClose()) {
+        _doSync(myRelayList, targetNostr);
+      }
+
+      // many sync task sync fail, so don't send subscript now.
+
+      // begin to subscript the new event using relayTaskMap
+      // for (var relayTask in relayTaskMap.values) {
+      //   if (relayTask.pubkeys.isNotEmpty || relayTask.hashTags.isNotEmpty) {
+      //     var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, since: now);
+      //     if (relayTask.pubkeys.isNotEmpty) {
+      //       filter.authors = relayTask.pubkeys.toList();
+      //     }
+      //     var filterMap = filter.toJson();
+      //     if (relayTask.hashTags.isNotEmpty) {
+      //       filterMap["#t"] = relayTask.hashTags.toList();
+      //     }
+
+      //     var subscriptionId = StringUtil.rndNameStr(12);
+      //     _subscriptionIds[relayTask.relay] = subscriptionId;
+      //     targetNostr.subscribe(
+      //       [filterMap],
+      //       (e) {},
+      //       id: subscriptionId,
+      //       targetRelays: [relayTask.relay],
+      //     );
+      //   }
+      // }
+    } catch (e) {
+      print("_doSync catch error $e");
     }
   }
 
