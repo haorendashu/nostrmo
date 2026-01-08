@@ -6,24 +6,24 @@ import '../../consts/router_path.dart';
 import '../../util/router_util.dart';
 import 'reaction_event_item_component.dart';
 
-class ReactionEventListComponent extends StatefulWidget {
+class ReactionListEventComponent extends StatefulWidget {
   Event event;
 
   bool jumpable;
 
   String text;
 
-  ReactionEventListComponent({
+  ReactionListEventComponent({
     required this.event,
     this.jumpable = true,
     required this.text,
   });
 
   @override
-  State<StatefulWidget> createState() => _ReactionEventListComponent();
+  State<StatefulWidget> createState() => _ReactionListEventComponent();
 }
 
-class _ReactionEventListComponent extends State<ReactionEventListComponent> {
+class _ReactionListEventComponent extends State<ReactionListEventComponent> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);

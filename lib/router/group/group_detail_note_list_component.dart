@@ -61,7 +61,7 @@ class _GroupDetailNoteListComponent
 
     Widget main = LoadingMoreList<Event>(ListConfig<Event>(
       itemBuilder: (BuildContext context, Event event, int index) {
-        return EventListComponent(
+        return ListEventComponent(
           event: event,
           showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
         );

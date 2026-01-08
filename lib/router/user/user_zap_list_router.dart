@@ -54,7 +54,7 @@ class _UserZapListRouter extends State<UserZapListRouter> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           var zapEvent = zapList![index];
-          return ZapEventListComponent(event: zapEvent);
+          return ZapListEventComponent(event: zapEvent);
         },
         itemCount: zapList!.length,
       ),

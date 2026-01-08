@@ -16,7 +16,7 @@ import '../../util/router_util.dart';
 import 'event_bitcion_icon_component.dart';
 import 'event_main_component.dart';
 
-class EventListComponent extends StatefulWidget {
+class ListEventComponent extends StatefulWidget {
   Event event;
 
   String? pagePubkey;
@@ -33,7 +33,7 @@ class EventListComponent extends StatefulWidget {
 
   bool showCommunity;
 
-  EventListComponent({
+  ListEventComponent({
     required this.event,
     this.pagePubkey,
     this.jumpable = true,
@@ -46,11 +46,11 @@ class EventListComponent extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _EventListComponent();
+    return _ListEventComponent();
   }
 }
 
-class _EventListComponent extends State<EventListComponent> {
+class _ListEventComponent extends State<ListEventComponent> {
   ScreenshotController screenshotController = ScreenshotController();
 
   @override

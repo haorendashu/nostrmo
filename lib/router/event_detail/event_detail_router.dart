@@ -90,7 +90,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
 
     Widget? mainEventWidget;
     if (event != null) {
-      mainEventWidget = EventListComponent(
+      mainEventWidget = ListEventComponent(
         event: event!,
         showVideo: true,
         showDetailBtn: false,
@@ -104,7 +104,7 @@ class _EventDetailRouter extends State<EventDetailRouter> {
             event = _event;
             titlePubkey = event!.pubkey;
             title = ThreadDetailRouter.getAppBarTitle(event!);
-            return EventListComponent(
+            return ListEventComponent(
               event: _event,
               showVideo: true,
               showDetailBtn: false,
@@ -146,14 +146,14 @@ class _EventDetailRouter extends State<EventDetailRouter> {
 
             var event = allEvent[index - 1];
             if (event.kind == EventKind.ZAP) {
-              return ZapEventListComponent(event: event);
+              return ZapListEventComponent(event: event);
             } else if (event.kind == EventKind.TEXT_NOTE) {
-              return ReactionEventListComponent(event: event, text: s.replied);
+              return ReactionListEventComponent(event: event, text: s.replied);
             } else if (event.kind == EventKind.REPOST ||
                 event.kind == EventKind.GENERIC_REPOST) {
-              return ReactionEventListComponent(event: event, text: s.boosted);
+              return ReactionListEventComponent(event: event, text: s.boosted);
             } else if (event.kind == EventKind.REACTION) {
-              return ReactionEventListComponent(
+              return ReactionListEventComponent(
                   event: event,
                   text: s.liked + " " + EventReactions.getLikeText(event));
             }

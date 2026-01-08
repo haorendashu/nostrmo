@@ -111,7 +111,7 @@ class _TagDetailRouter extends CustState<TagDetailRouter>
             return null;
           }
 
-          return EventListComponent(
+          return ListEventComponent(
             event: event,
             showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
           );

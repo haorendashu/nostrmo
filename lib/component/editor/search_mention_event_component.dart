@@ -39,7 +39,7 @@ class _SearchMentionEventComponent extends State<SearchMentionEventComponent>
             onTap: () {
               RouterUtil.back(context, event.id);
             },
-            child: EventListComponent(
+            child: ListEventComponent(
               event: event,
               jumpable: false,
             ),

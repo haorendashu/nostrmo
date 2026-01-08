@@ -242,7 +242,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
             }
           }
 
-          return EventListComponent(
+          return ListEventComponent(
             event: event,
             jumpable: false,
             showVideo: true,
@@ -270,7 +270,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
           titlePubkey = event.pubkey;
           title = ThreadDetailRouter.getAppBarTitle(event);
 
-          return EventListComponent(
+          return ListEventComponent(
             event: event,
             jumpable: false,
             showVideo: true,
@@ -284,7 +284,7 @@ class _ThreadDetailRouter extends CustState<ThreadDetailRouter>
         rootEventWidget = Container();
       }
     } else {
-      rootEventWidget = EventListComponent(
+      rootEventWidget = ListEventComponent(
         event: rootEvent!,
         jumpable: false,
         showVideo: true,

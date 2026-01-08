@@ -109,7 +109,7 @@ class _FollowSetFeedRouter extends CustState<FollowSetFeedRouter>
         controller: _controller,
         itemBuilder: (BuildContext context, int index) {
           var event = events[index];
-          return EventListComponent(
+          return ListEventComponent(
             event: event,
             showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
           );

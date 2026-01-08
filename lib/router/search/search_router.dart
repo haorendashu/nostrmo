@@ -170,7 +170,7 @@ class _SearchRouter extends CustState<SearchRouter>
             itemBuilder: (BuildContext context, int index) {
               var event = events[index];
 
-              return EventListComponent(
+              return ListEventComponent(
                 event: event,
                 showVideo:
                     _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
@@ -188,7 +188,7 @@ class _SearchRouter extends CustState<SearchRouter>
             itemBuilder: (BuildContext context, int index) {
               var event = events[index];
 
-              return EventListComponent(
+              return ListEventComponent(
                 event: event,
                 showVideo:
                     _settingProvider.videoPreviewInList != OpenStatus.CLOSE,

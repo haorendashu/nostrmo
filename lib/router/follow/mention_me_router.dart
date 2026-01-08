@@ -73,12 +73,12 @@ class _MentionMeRouter extends KeepAliveCustState<MentionMeRouter>
             if (StringUtil.isBlank(event.content)) {
               var innerZapContent = EventRelation.getInnerZapContent(event);
               if (StringUtil.isBlank(innerZapContent)) {
-                return ZapEventListComponent(event: event);
+                return ZapListEventComponent(event: event);
               }
             }
           }
 
-          return EventListComponent(
+          return ListEventComponent(
             event: event,
             showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
           );

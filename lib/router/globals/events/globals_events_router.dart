@@ -54,7 +54,7 @@ class _GlobalsEventsRouter extends KeepAliveCustState<GlobalsEventsRouter>
         controller: scrollController,
         itemBuilder: (context, index) {
           var event = list[index];
-          return EventListComponent(
+          return ListEventComponent(
             event: event,
             showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
           );

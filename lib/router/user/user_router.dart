@@ -231,7 +231,7 @@ class _UserRouter extends CustState<UserRouter>
                 if (event == null) {
                   return null;
                 }
-                return EventListComponent(
+                return ListEventComponent(
                   event: event,
                   showVideo:
                       _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
@@ -250,7 +250,9 @@ class _UserRouter extends CustState<UserRouter>
               width: maxWidth,
               child: GestureDetector(
                 onDoubleTap: () {
-                  _controller.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.ease);
+                  _controller.animateTo(0,
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.ease);
                 },
                 child: appBar,
               ),
