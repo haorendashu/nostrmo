@@ -105,7 +105,7 @@ import 'router/bookmark/bookmark_router.dart';
 import 'router/community/community_detail_router.dart';
 import 'router/dm/dm_detail_router.dart';
 import 'router/event_detail/event_detail_router.dart';
-import 'router/feed_builder/feed_builder_router.dart';
+import 'router/feeds/feed_builder_router.dart';
 import 'router/filter/filter_router.dart';
 import 'router/follow_set/follow_set_detail_router.dart';
 import 'router/nwc/nwc_setting_router.dart';
