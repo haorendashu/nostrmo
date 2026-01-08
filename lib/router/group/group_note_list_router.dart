@@ -8,7 +8,7 @@ import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/event_delete_callback.dart';
 import '../../component/group_identifier_inherited_widget.dart';
 import '../../consts/base.dart';

@@ -14,7 +14,7 @@ import 'package:widget_size/widget_size.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/event_delete_callback.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/event_kind_type.dart';

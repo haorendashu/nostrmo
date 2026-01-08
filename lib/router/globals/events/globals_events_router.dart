@@ -12,7 +12,7 @@ import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:provider/provider.dart';
 
 import '../../../component/cust_state.dart';
-import '../../../component/event/event_list_component.dart';
+import '../../../component/event/list_event_component.dart';
 import '../../../component/placeholder/event_list_placeholder.dart';
 import '../../../consts/base.dart';
 import '../../../consts/base_consts.dart';

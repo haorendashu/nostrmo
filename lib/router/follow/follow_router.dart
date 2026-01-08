@@ -8,7 +8,7 @@ import 'package:nostrmo/provider/follow_event_provider.dart';
 import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:provider/provider.dart';
 
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../consts/base.dart';

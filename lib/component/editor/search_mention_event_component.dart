@@ -6,7 +6,7 @@ import 'package:nostr_sdk/utils/when_stop_function.dart';
 import '../../consts/base.dart';
 import '../../data/event_find_util.dart';
 import '../../util/router_util.dart';
-import '../event/event_list_component.dart';
+import '../event/list_event_component.dart';
 import 'search_mention_component.dart';
 
 class SearchMentionEventComponent extends StatefulWidget {

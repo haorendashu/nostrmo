@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/tag_info_component.dart';
 import '../../consts/base.dart';
 import '../../consts/base_consts.dart';

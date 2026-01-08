@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:widget_size/widget_size.dart';
 
 import '../../component/appbar_back_btn_component.dart';
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/event/event_load_list_component.dart';
 import '../../component/event/reaction_event_list_component.dart';
 import '../../component/event/zap_event_list_component.dart';

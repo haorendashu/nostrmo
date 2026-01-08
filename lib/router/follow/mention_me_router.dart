@@ -17,7 +17,7 @@ import 'package:nostrmo/util/spider_util.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/badge_award_component.dart';
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/event/zap_event_list_component.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';

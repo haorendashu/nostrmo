@@ -20,7 +20,7 @@ import 'package:nostr_sdk/utils/when_stop_function.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/cust_state.dart';
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/event_delete_callback.dart';
 import '../../component/link_router_util.dart';
 import '../../consts/base_consts.dart';

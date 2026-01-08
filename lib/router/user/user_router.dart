@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../component/appbar4stack.dart';
 import '../../component/cust_state.dart';
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/user/metadata_component.dart';
 import '../../consts/base_consts.dart';
 import '../../consts/event_kind_type.dart';

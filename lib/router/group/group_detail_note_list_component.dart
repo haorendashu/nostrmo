@@ -7,7 +7,7 @@ import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostrmo/router/group/group_detail_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../component/event/event_list_component.dart';
+import '../../component/event/list_event_component.dart';
 import '../../component/events_loading_more_repo.dart';
 import '../../component/keep_alive_cust_state.dart';
 import '../../component/new_notes_updated_component.dart';
