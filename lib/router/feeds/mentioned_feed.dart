@@ -17,27 +17,24 @@ import '../../main.dart';
 import '../../util/load_more_event.dart';
 import 'relay_feed.dart';
 
-class SyncFeed extends StatefulWidget {
+class MentionedFeed extends StatefulWidget {
   FeedData feedData;
 
   int feedIndex;
 
-  SyncFeed(this.feedData, this.feedIndex);
+  MentionedFeed(this.feedData, this.feedIndex);
 
   @override
   State<StatefulWidget> createState() {
-    return _SyncFeed();
+    return _MentionedFeed();
   }
 }
 
-class _SyncFeed extends KeepAliveCustState<SyncFeed>
+class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
     with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
   EventMemBox eventBox = EventMemBox();
 
   ScrollController scrollController = ScrollController();
-
-  List<String> queryHashTagList = [];
-  List<String> queryPubKeyList = [];
 
   @override
   void initState() {
@@ -45,26 +42,6 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     bindLoadMoreScroll(scrollController);
 
     indexProvider.setFeedScrollController(widget.feedIndex, scrollController);
-
-    List<String> hashTagList = [];
-    List<String> pubKeyList = [];
-    for (var feedData in getFeedData().datas) {
-      if (feedData.length > 1) {
-        var feedType = feedData[0];
-        var feedDataValue = feedData[1];
-
-        if (feedDataValue is String) {
-          if (feedType == FeedDataType.HASH_TAG) {
-            hashTagList.add(feedDataValue);
-          } else if (feedType == FeedDataType.PUBKEY) {
-            pubKeyList.add(feedDataValue);
-          }
-        }
-      }
-    }
-
-    queryHashTagList = hashTagList;
-    queryPubKeyList = pubKeyList;
   }
 
   @override
@@ -73,36 +50,14 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
     until ??= DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-    List<Map<String, dynamic>> filters = [];
-
-    var baseFilter = Filter(
+    var filter = Filter(
       kinds: getEventKinds(),
       until: until,
       limit: queryLimit,
+      p: [nostr!.publicKey],
     );
 
-    if (queryPubKeyList.isNotEmpty) {
-      var filter = baseFilter.toJson();
-      filter["authors"] = queryPubKeyList;
-      filters.add(filter);
-    }
-
-    if (queryHashTagList.isNotEmpty) {
-      var filter = baseFilter.toJson();
-      filter["#t"] = queryHashTagList;
-      filters.add(filter);
-    }
-
-    for (var filter in filters) {
-      print(filter);
-    }
-
-    if (filters.isEmpty) {
-      log("SyncFeed's filters is empty");
-      return;
-    }
-
-    nostr!.query(filters, (e) {
+    nostr!.query([filter.toJson()], (e) {
       if (!isSupportedEventType(e)) {
         return;
       }

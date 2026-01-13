@@ -37,11 +37,16 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
   var dataSourceValueController = TextEditingController();
 
   // 下拉框选项
-  List<int> feedTypes = [FeedType.SYNC_FEED, FeedType.RELAYS_FEED];
+  List<int> feedTypes = [
+    FeedType.SYNC_FEED,
+    FeedType.RELAYS_FEED,
+    FeedType.MENTIONED_FEED
+  ];
   int selectedFeedType = FeedType.SYNC_FEED;
   Map<int, String> feedTypeNameMap = {
     FeedType.SYNC_FEED: "General Feed",
     FeedType.RELAYS_FEED: "Relays Feed",
+    FeedType.MENTIONED_FEED: "Mentioned Feed",
   };
 
   int selectedDataSourceType = FeedSourceType.PUBKEY;
@@ -157,353 +162,354 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
     /**********************************************
      * Data Source Begin
      */
-    var valueName = dataSourceTypeNameMap[selectedDataSourceType];
-    valueName ??= "unknown";
-    if (selectedFeedType == FeedType.RELAYS_FEED) {
-      valueName = "Relay Address";
-    }
-    List<Widget> dataSourcesList = [];
-    if (selectedFeedType == FeedType.RELAYS_FEED) {
-      dataSourcesList.add(Container(
-        child: TextField(
-          controller: dataSourceValueController,
-          decoration: InputDecoration(labelText: valueName),
-        ),
-      ));
-      dataSourcesList.add(buildDataSourceAddBtn());
-    } else if (selectedFeedType == FeedType.SYNC_FEED) {
-      dataSourcesList.add(Container(
-        margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
-        child: DropdownButtonFormField<int>(
-          initialValue: selectedDataSourceType,
-          decoration: const InputDecoration(
-            labelText: "Data Source Type",
-            // border: OutlineInputBorder(),
+    if (selectedFeedType != FeedType.MENTIONED_FEED) {
+      var valueName = dataSourceTypeNameMap[selectedDataSourceType];
+      valueName ??= "unknown";
+      if (selectedFeedType == FeedType.RELAYS_FEED) {
+        valueName = "Relay Address";
+      }
+      List<Widget> dataSourcesList = [];
+      if (selectedFeedType == FeedType.RELAYS_FEED) {
+        dataSourcesList.add(Container(
+          child: TextField(
+            controller: dataSourceValueController,
+            decoration: InputDecoration(labelText: valueName),
           ),
-          items: selectableDataSourceType.map((int value) {
-            var name = dataSourceTypeNameMap[value];
-            name ??= "unknown";
+        ));
+        dataSourcesList.add(buildDataSourceAddBtn());
+      } else if (selectedFeedType == FeedType.SYNC_FEED) {
+        dataSourcesList.add(Container(
+          margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
+          child: DropdownButtonFormField<int>(
+            initialValue: selectedDataSourceType,
+            decoration: const InputDecoration(
+              labelText: "Data Source Type",
+              // border: OutlineInputBorder(),
+            ),
+            items: selectableDataSourceType.map((int value) {
+              var name = dataSourceTypeNameMap[value];
+              name ??= "unknown";
 
-            return DropdownMenuItem<int>(
-              value: value,
-              child: Text(name),
-            );
-          }).toList(),
-          onChanged: (int? newValue) {
-            setState(() {
-              selectedDataSourceType = newValue!;
-            });
-          },
-          hint: Text("Select a data source type"),
-        ),
-      ));
-    }
+              return DropdownMenuItem<int>(
+                value: value,
+                child: Text(name),
+              );
+            }).toList(),
+            onChanged: (int? newValue) {
+              setState(() {
+                selectedDataSourceType = newValue!;
+              });
+            },
+            hint: Text("Select a data source type"),
+          ),
+        ));
+      }
 
-    if (selectedDataSourceType == FeedSourceType.PUBKEY ||
-        selectedDataSourceType == FeedSourceType.HASH_TAG) {
-      // pubkey or hashTag
-      dataSourcesList.add(Container(
-        child: TextField(
-          controller: dataSourceValueController,
-          decoration: InputDecoration(labelText: valueName),
-        ),
-      ));
-      dataSourcesList.add(buildDataSourceAddBtn());
-    } else if (selectedDataSourceType == FeedSourceType.FOLLOWED) {
-      // followed
-      dataSourcesList.add(buildDataSourceAddBtn());
-    } else if (selectedDataSourceType == FeedSourceType.FOLLOW_SET) {
-      // followSet
-      var followSets = contactListProvider.followSetMap.values;
+      if (selectedDataSourceType == FeedSourceType.PUBKEY ||
+          selectedDataSourceType == FeedSourceType.HASH_TAG) {
+        // pubkey or hashTag
+        dataSourcesList.add(Container(
+          child: TextField(
+            controller: dataSourceValueController,
+            decoration: InputDecoration(labelText: valueName),
+          ),
+        ));
+        dataSourcesList.add(buildDataSourceAddBtn());
+      } else if (selectedDataSourceType == FeedSourceType.FOLLOWED) {
+        // followed
+        dataSourcesList.add(buildDataSourceAddBtn());
+      } else if (selectedDataSourceType == FeedSourceType.FOLLOW_SET) {
+        // followSet
+        var followSets = contactListProvider.followSetMap.values;
 
-      List<Widget> followSetList = [];
-      for (var followSet in followSets) {
-        bool added = false;
-        for (var dataSource in dataSources) {
-          if (dataSource[0] == FeedSourceType.FOLLOW_SET &&
-              dataSource[1] == NIP19Tlv.encodeNaddr(followSet.getNaddr())) {
-            added = true;
-            break;
+        List<Widget> followSetList = [];
+        for (var followSet in followSets) {
+          bool added = false;
+          for (var dataSource in dataSources) {
+            if (dataSource[0] == FeedSourceType.FOLLOW_SET &&
+                dataSource[1] == NIP19Tlv.encodeNaddr(followSet.getNaddr())) {
+              added = true;
+              break;
+            }
           }
-        }
-        if (added) {
-          continue;
-        }
+          if (added) {
+            continue;
+          }
 
-        followSetList.add(Container(
-          margin: EdgeInsets.only(
-            top: Base.BASE_PADDING_HALF,
-          ),
-          child: Row(
-            children: [
-              Container(
-                child: Text(
-                  followSet.title ?? "unknown",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+          followSetList.add(Container(
+            margin: EdgeInsets.only(
+              top: Base.BASE_PADDING_HALF,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  child: Text(
+                    followSet.title ?? "unknown",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.only(
+                    left: Base.BASE_PADDING,
+                    right: Base.BASE_PADDING_HALF,
+                  ),
+                  child: Icon(
+                    Icons.people,
+                    size: smallFontSize,
+                  ),
+                ),
+                Text(
+                  "${followSet.privateContacts.length} / ${followSet.publicContacts.length}",
+                  style: TextStyle(
+                    fontSize: smallFontSize,
+                  ),
+                ),
+                Expanded(child: Container()),
+                GestureDetector(
+                  onTap: () {
+                    addDataSource(FeedSourceType.FOLLOW_SET,
+                        NIP19Tlv.encodeNaddr(followSet.getNaddr()));
+                  },
+                  child: Container(
+                    child: Icon(Icons.add),
+                  ),
+                )
+              ],
+            ),
+          ));
+        }
+        if (followSets.isEmpty) {
+          dataSourcesList.add(Container(
+            margin: EdgeInsets.only(
+              top: Base.BASE_PADDING,
+            ),
+            width: double.maxFinite,
+            child: FilledButton(
+              onPressed: () {
+                RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
+              },
+              child: Text(
+                "Add Follow Set",
               ),
+            ),
+          ));
+        }
+        dataSourcesList.add(Container(
+          margin: EdgeInsets.only(
+            top: Base.BASE_PADDING_HALF,
+            bottom: Base.BASE_PADDING_HALF,
+          ),
+          child: Column(
+            children: followSetList,
+          ),
+        ));
+      } else if (selectedDataSourceType == FeedSourceType.FOLLOW_PACKS) {
+        // followPacks
+        dataSourcesList.add(Container(
+          child: Row(
+            children: [
+              Expanded(
+                  child: TextField(
+                controller: dataSourceValueController,
+                decoration: InputDecoration(labelText: valueName),
+              )),
               Container(
-                margin: EdgeInsets.only(
-                  left: Base.BASE_PADDING,
-                  right: Base.BASE_PADDING_HALF,
-                ),
-                child: Icon(
-                  Icons.people,
-                  size: smallFontSize,
+                child: GestureDetector(
+                  onTap: searchFollowPacks,
+                  child: Icon(Icons.search),
                 ),
               ),
-              Text(
-                "${followSet.privateContacts.length} / ${followSet.publicContacts.length}",
-                style: TextStyle(
-                  fontSize: smallFontSize,
-                ),
-              ),
-              Expanded(child: Container()),
-              GestureDetector(
-                onTap: () {
-                  addDataSource(FeedSourceType.FOLLOW_SET,
-                      NIP19Tlv.encodeNaddr(followSet.getNaddr()));
-                },
-                child: Container(
-                  child: Icon(Icons.add),
-                ),
-              )
             ],
           ),
         ));
-      }
-      if (followSets.isEmpty) {
-        dataSourcesList.add(Container(
-          margin: EdgeInsets.only(
-            top: Base.BASE_PADDING,
-          ),
-          width: double.maxFinite,
-          child: FilledButton(
-            onPressed: () {
-              RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
-            },
-            child: Text(
-              "Add Follow Set",
+
+        if (followPackNaddr != null) {
+          var aid = AId(
+              kind: followPackNaddr!.kind,
+              pubkey: followPackNaddr!.author,
+              title: followPackNaddr!.id);
+
+          dataSourcesList.add(Container(
+            child: Selector<ReplaceableEventProvider, Event?>(
+              builder: (context, event, child) {
+                if (event == null) {
+                  return Container();
+                }
+
+                var followSet = FollowSet.getPublicFollowSet(event);
+                return Container(
+                  margin: const EdgeInsets.only(
+                    top: Base.BASE_PADDING,
+                    bottom: Base.BASE_PADDING,
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Text(
+                          followSet.title ?? "unknown",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: Base.BASE_PADDING,
+                          right: Base.BASE_PADDING_HALF,
+                        ),
+                        child: Icon(
+                          Icons.people,
+                          size: smallFontSize,
+                        ),
+                      ),
+                      Text(
+                        "${followSet.publicContacts.length}",
+                        style: TextStyle(
+                          fontSize: smallFontSize,
+                        ),
+                      ),
+                      Expanded(child: Container()),
+                      GestureDetector(
+                        onTap: () {
+                          addDataSource(FeedSourceType.FOLLOW_PACKS,
+                              NIP19Tlv.encodeNaddr(followPackNaddr!));
+                          followPackNaddr = null;
+                        },
+                        child: Container(
+                          child: Icon(Icons.add),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+              selector: (context, _provider) {
+                return _provider.getEvent(aid, relays: followPackNaddr!.relays);
+              },
             ),
+          ));
+        }
+      }
+
+      /**
+     * Added Data Source Widgets
+     */
+      List<Widget> addedDataSourceWidgets = [];
+      for (var dataSource in dataSources) {
+        if (dataSource.length < 2) {
+          continue;
+        }
+
+        var dataSourceType = dataSource[0];
+        var dataSourceValue = dataSource[1];
+        var dataSourceTypeName = dataSourceTypeNameMap[dataSourceType];
+        dataSourceTypeName ??= "unknown";
+        if (selectedFeedType == FeedType.RELAYS_FEED) {
+          dataSourceTypeName = "Relay Address";
+        }
+        String text = dataSourceTypeName;
+        List<Widget> singleDsWidgetList = [
+          Text(text),
+        ];
+        if (dataSourceType == FeedSourceType.FOLLOW_SET) {
+          String? title;
+          var naddr = NIP19Tlv.decodeNaddr(dataSourceValue);
+          if (naddr != null && StringUtil.isNotBlank(naddr.id)) {
+            var followSet = contactListProvider.followSetMap[naddr.id];
+            if (followSet != null) {
+              title = followSet.title;
+            }
+          }
+          singleDsWidgetList
+              .add(Expanded(child: Text(": ${title ?? dataSourceValue}")));
+        } else if (dataSourceType == FeedSourceType.FOLLOW_PACKS) {
+          String? title;
+          var naddr = NIP19Tlv.decodeNaddr(dataSourceValue);
+          if (naddr != null && StringUtil.isNotBlank(naddr.id)) {
+            var aid =
+                AId(kind: naddr.kind, pubkey: naddr.author, title: naddr.id);
+            var event =
+                replaceableEventProvider.getEvent(aid, relays: naddr.relays);
+            if (event != null && event.kind == EventKind.STARTER_PACKS) {
+              var followSet = FollowSet.getPublicFollowSet(event);
+              title = followSet.title;
+            }
+          }
+          singleDsWidgetList
+              .add(Expanded(child: Text(": ${title ?? dataSourceValue}")));
+        } else {
+          if (StringUtil.isNotBlank(dataSourceValue)) {
+            singleDsWidgetList.add(Expanded(
+                child: Text(
+              ": $dataSourceValue",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )));
+          } else {
+            singleDsWidgetList.add(Expanded(child: Container()));
+          }
+        }
+        singleDsWidgetList.add(GestureDetector(
+          onTap: () {
+            setState(() {
+              dataSources.remove(dataSource);
+            });
+          },
+          child: Container(
+            child: Icon(Icons.delete),
+          ),
+        ));
+
+        addedDataSourceWidgets.add(Container(
+          margin: halfMargin,
+          child: Row(
+            children: singleDsWidgetList,
           ),
         ));
       }
-      dataSourcesList.add(Container(
-        margin: EdgeInsets.only(
-          top: Base.BASE_PADDING_HALF,
-          bottom: Base.BASE_PADDING_HALF,
-        ),
+
+      list.add(Container(
+        margin: twiceMargin,
+        alignment: Alignment.centerLeft,
+        padding: padding,
         child: Column(
-          children: followSetList,
-        ),
-      ));
-    } else if (selectedDataSourceType == FeedSourceType.FOLLOW_PACKS) {
-      // followPacks
-      dataSourcesList.add(Container(
-        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-                child: TextField(
-              controller: dataSourceValueController,
-              decoration: InputDecoration(labelText: valueName),
-            )),
             Container(
-              child: GestureDetector(
-                onTap: searchFollowPacks,
-                child: Icon(Icons.search),
+              margin: halfMargin,
+              child: Text(
+                "Data Sources",
+                // style: TextStyle(color: hintColor),
               ),
+            ),
+            Container(
+              margin: margin,
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+                top: Base.BASE_PADDING_HALF,
+                bottom: Base.BASE_PADDING_HALF,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: hintColor,
+                ),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Column(
+                children: dataSourcesList,
+              ),
+            ),
+            Column(
+              children: addedDataSourceWidgets,
             ),
           ],
         ),
       ));
-
-      if (followPackNaddr != null) {
-        var aid = AId(
-            kind: followPackNaddr!.kind,
-            pubkey: followPackNaddr!.author,
-            title: followPackNaddr!.id);
-
-        dataSourcesList.add(Container(
-          child: Selector<ReplaceableEventProvider, Event?>(
-            builder: (context, event, child) {
-              if (event == null) {
-                return Container();
-              }
-
-              var followSet = FollowSet.getPublicFollowSet(event);
-              return Container(
-                margin: const EdgeInsets.only(
-                  top: Base.BASE_PADDING,
-                  bottom: Base.BASE_PADDING,
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(
-                        followSet.title ?? "unknown",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        left: Base.BASE_PADDING,
-                        right: Base.BASE_PADDING_HALF,
-                      ),
-                      child: Icon(
-                        Icons.people,
-                        size: smallFontSize,
-                      ),
-                    ),
-                    Text(
-                      "${followSet.publicContacts.length}",
-                      style: TextStyle(
-                        fontSize: smallFontSize,
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    GestureDetector(
-                      onTap: () {
-                        addDataSource(FeedSourceType.FOLLOW_PACKS,
-                            NIP19Tlv.encodeNaddr(followPackNaddr!));
-                        followPackNaddr = null;
-                      },
-                      child: Container(
-                        child: Icon(Icons.add),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-            selector: (context, _provider) {
-              return _provider.getEvent(aid, relays: followPackNaddr!.relays);
-            },
-          ),
-        ));
-      }
     }
-
-    /**
-     * Added Data Source Widgets
-     */
-    List<Widget> addedDataSourceWidgets = [];
-    for (var dataSource in dataSources) {
-      if (dataSource.length < 2) {
-        continue;
-      }
-
-      var dataSourceType = dataSource[0];
-      var dataSourceValue = dataSource[1];
-      var dataSourceTypeName = dataSourceTypeNameMap[dataSourceType];
-      dataSourceTypeName ??= "unknown";
-      if (selectedFeedType == FeedType.RELAYS_FEED) {
-        dataSourceTypeName = "Relay Address";
-      }
-      String text = dataSourceTypeName;
-      List<Widget> singleDsWidgetList = [
-        Text(text),
-      ];
-      if (dataSourceType == FeedSourceType.FOLLOW_SET) {
-        String? title;
-        var naddr = NIP19Tlv.decodeNaddr(dataSourceValue);
-        if (naddr != null && StringUtil.isNotBlank(naddr.id)) {
-          var followSet = contactListProvider.followSetMap[naddr.id];
-          if (followSet != null) {
-            title = followSet.title;
-          }
-        }
-        singleDsWidgetList
-            .add(Expanded(child: Text(": ${title ?? dataSourceValue}")));
-      } else if (dataSourceType == FeedSourceType.FOLLOW_PACKS) {
-        String? title;
-        var naddr = NIP19Tlv.decodeNaddr(dataSourceValue);
-        if (naddr != null && StringUtil.isNotBlank(naddr.id)) {
-          var aid =
-              AId(kind: naddr.kind, pubkey: naddr.author, title: naddr.id);
-          var event =
-              replaceableEventProvider.getEvent(aid, relays: naddr.relays);
-          if (event != null && event.kind == EventKind.STARTER_PACKS) {
-            var followSet = FollowSet.getPublicFollowSet(event);
-            title = followSet.title;
-          }
-        }
-        singleDsWidgetList
-            .add(Expanded(child: Text(": ${title ?? dataSourceValue}")));
-      } else {
-        if (StringUtil.isNotBlank(dataSourceValue)) {
-          singleDsWidgetList.add(Expanded(
-              child: Text(
-            ": $dataSourceValue",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          )));
-        } else {
-          singleDsWidgetList.add(Expanded(child: Container()));
-        }
-      }
-      singleDsWidgetList.add(GestureDetector(
-        onTap: () {
-          setState(() {
-            dataSources.remove(dataSource);
-          });
-        },
-        child: Container(
-          child: Icon(Icons.delete),
-        ),
-      ));
-
-      addedDataSourceWidgets.add(Container(
-        margin: halfMargin,
-        child: Row(
-          children: singleDsWidgetList,
-        ),
-      ));
-    }
-
-    list.add(Container(
-      margin: twiceMargin,
-      alignment: Alignment.centerLeft,
-      padding: padding,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: halfMargin,
-            child: Text(
-              "Data Sources",
-              // style: TextStyle(color: hintColor),
-            ),
-          ),
-          Container(
-            margin: margin,
-            padding: const EdgeInsets.only(
-              left: Base.BASE_PADDING,
-              right: Base.BASE_PADDING,
-              top: Base.BASE_PADDING_HALF,
-              bottom: Base.BASE_PADDING_HALF,
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: hintColor,
-              ),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Column(
-              children: dataSourcesList,
-            ),
-          ),
-          Column(
-            children: addedDataSourceWidgets,
-          ),
-        ],
-      ),
-    ));
-
     /**
      * Data Source End
      *****************************************************************
@@ -713,7 +719,7 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
       return;
     }
 
-    if (dataSources.isEmpty) {
+    if (selectedFeedType != FeedType.MENTIONED_FEED && dataSources.isEmpty) {
       BotToast.showText(text: 'Please add the data source');
       return;
     }

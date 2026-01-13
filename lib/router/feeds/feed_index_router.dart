@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/consts/feed_data_type.dart';
 import 'package:nostrmo/consts/feed_source_type.dart';
 import 'package:nostrmo/consts/feed_type.dart';
-import 'package:nostrmo/router/feeds/relay_feeds.dart';
+import 'package:nostrmo/router/feeds/relay_feed.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/feed_provider.dart';
+import 'mentioned_feed.dart';
 import 'sync_feed.dart';
 
 class FeedIndexRouter extends StatefulWidget {
@@ -29,17 +30,11 @@ class _FeedIndexRouter extends State<FeedIndexRouter> {
     var index = 0;
     for (var feed in feedList) {
       if (feed.feedType == FeedType.RELAYS_FEED) {
-        List<String> relays = [];
-        for (var feedSource in feed.sources) {
-          if (feedSource.length > 1 &&
-              feedSource[0] == FeedSourceType.FEED_TYPE &&
-              feedSource[1] is String) {
-            relays.add(feedSource[1]);
-          }
-        }
-        feedWidgetList.add(RelayFeeds(relays, index));
+        feedWidgetList.add(RelayFeed(feed, index));
       } else if (feed.feedType == FeedType.SYNC_FEED) {
-        feedWidgetList.add(SyncFeed(feed.datas, index));
+        feedWidgetList.add(SyncFeed(feed, index));
+      } else if (feed.feedType == FeedType.MENTIONED_FEED) {
+        feedWidgetList.add(MentionedFeed(feed, index));
       } else {
         feedWidgetList.add(
           Container(

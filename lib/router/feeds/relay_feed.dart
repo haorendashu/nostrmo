@@ -7,33 +7,49 @@ import 'package:nostrmo/component/event/event_list_component.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/component/placeholder/event_list_placeholder.dart';
 import 'package:nostrmo/consts/event_kind_type.dart';
+import 'package:nostrmo/data/feed_data.dart';
 import 'package:nostrmo/main.dart';
+import 'package:nostrmo/router/feeds/feed_page_helper.dart';
 import 'package:nostrmo/util/load_more_event.dart';
 
-class RelayFeeds extends StatefulWidget {
-  List<String> relayAddr;
+import '../../consts/feed_source_type.dart';
+
+class RelayFeed extends StatefulWidget {
+  FeedData feedData;
 
   int feedIndex;
 
-  RelayFeeds(this.relayAddr, this.feedIndex, {super.key});
+  RelayFeed(this.feedData, this.feedIndex, {super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _RelayFeeds();
+    return _RelayFeed();
   }
 }
 
-class _RelayFeeds extends KeepAliveCustState<RelayFeeds>
-    with LoadMoreEvent, PenddingEventsLaterFunction {
+class _RelayFeed extends KeepAliveCustState<RelayFeed>
+    with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
   int? _since;
 
   int? _until;
 
   ScrollController scrollController = ScrollController();
 
+  List<String> relays = [];
+
   @override
   void initState() {
     super.initState();
+
+    relays = [];
+    for (var feedSource in getFeedData().sources) {
+      if (feedSource.length > 1 &&
+          feedSource[0] == FeedSourceType.FEED_TYPE &&
+          feedSource[1] is String) {
+        relays.add(feedSource[1]);
+      }
+    }
+
     bindLoadMoreScroll(scrollController);
 
     indexProvider.setFeedScrollController(widget.feedIndex, scrollController);
@@ -49,9 +65,12 @@ class _RelayFeeds extends KeepAliveCustState<RelayFeeds>
     _until = _since;
     _since = _until! - const Duration(minutes: 30).inSeconds;
 
-    var filter = Filter(
-        kinds: EventKindType.SUPPORTED_EVENTS, since: _since!, until: _until!);
+    var filter = Filter(kinds: getEventKinds(), since: _since!, until: _until!);
     nostr!.query([filter.toJson()], (e) {
+      if (!isSupportedEventType(e)) {
+        return;
+      }
+
       if (eventBox.isEmpty()) {
         laterTimeMS = 200;
       } else {
@@ -64,7 +83,7 @@ class _RelayFeeds extends KeepAliveCustState<RelayFeeds>
           setState(() {});
         }
       }, null);
-    }, targetRelays: widget.relayAddr);
+    }, targetRelays: relays);
   }
 
   @override
@@ -94,5 +113,10 @@ class _RelayFeeds extends KeepAliveCustState<RelayFeeds>
         doQuery();
       },
     );
+  }
+
+  @override
+  FeedData getFeedData() {
+    return widget.feedData;
   }
 }
