@@ -163,7 +163,15 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
       valueName = "Relay Address";
     }
     List<Widget> dataSourcesList = [];
-    if (selectedFeedType == FeedType.SYNC_FEED) {
+    if (selectedFeedType == FeedType.RELAYS_FEED) {
+      dataSourcesList.add(Container(
+        child: TextField(
+          controller: dataSourceValueController,
+          decoration: InputDecoration(labelText: valueName),
+        ),
+      ));
+      dataSourcesList.add(buildDataSourceAddBtn());
+    } else if (selectedFeedType == FeedType.SYNC_FEED) {
       dataSourcesList.add(Container(
         margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
         child: DropdownButtonFormField<int>(
@@ -392,8 +400,8 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
       var dataSourceValue = dataSource[1];
       var dataSourceTypeName = dataSourceTypeNameMap[dataSourceType];
       dataSourceTypeName ??= "unknown";
-      if (selectedFeedType != FeedType.SYNC_FEED) {
-        dataSourceTypeName = "";
+      if (selectedFeedType == FeedType.RELAYS_FEED) {
+        dataSourceTypeName = "Relay Address";
       }
       String text = dataSourceTypeName;
       List<Widget> singleDsWidgetList = [

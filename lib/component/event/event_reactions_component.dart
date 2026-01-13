@@ -487,8 +487,8 @@ class _EventReactionsComponent extends State<EventReactionsComponent> {
         nostr!.deleteEvent(widget.event.id,
             targetRelays:
                 relayAddrs); // delete event send to groupRelays and myRelays
-        followEventProvider.deleteEvent(widget.event.id);
-        mentionMeProvider.deleteEvent(widget.event.id);
+        // followEventProvider.deleteEvent(widget.event.id);
+        // mentionMeProvider.deleteEvent(widget.event.id);
         var deleteCallback = EventDeleteCallback.of(context);
         if (deleteCallback != null) {
           deleteCallback.onDelete(widget.event);

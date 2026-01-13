@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
@@ -416,11 +417,15 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   }
 
   void _eventToMetadataCache(Event event) {
-    var jsonObj = jsonDecode(event.content);
-    var md = Metadata.fromJson(jsonObj);
-    md.pubkey = event.pubkey;
-    md.updated_at = event.createdAt;
-    _metadataCache[event.pubkey] = md;
+    try {
+      var jsonObj = jsonDecode(event.content);
+      var md = Metadata.fromJson(jsonObj);
+      md.pubkey = event.pubkey;
+      md.updated_at = event.createdAt;
+      _metadataCache[event.pubkey] = md;
+    } catch (e) {
+      log(event.content);
+    }
   }
 
   void _eventToRelayListCache(Event event) {

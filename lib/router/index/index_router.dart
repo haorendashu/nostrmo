@@ -13,6 +13,7 @@ import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/base_consts.dart';
 import 'package:nostrmo/provider/music_provider.dart';
 import 'package:nostrmo/provider/pc_router_fake_provider.dart';
+import 'package:nostrmo/router/feeds/feed_index_router.dart';
 import 'package:nostrmo/router/follow_suggest/follow_suggest_router.dart';
 import 'package:nostrmo/router/index/index_pc_drawer_wrapper.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ import '../../component/user/user_pic_component.dart';
 import '../../consts/router_path.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
+import '../../provider/feed_provider.dart';
 import '../../provider/index_provider.dart';
 import '../../provider/relay_provider.dart';
 import '../../provider/setting_provider.dart';
@@ -61,17 +63,19 @@ class _IndexRouter extends CustState<IndexRouter>
         WidgetsBindingObserver,
         TrayListener,
         WindowListener {
-  late TabController followTabController;
+  TabController? feedsTabController;
 
   late TabController globalsTabController;
 
   late TabController dmTabController;
 
+  int feedsInitTab = 0;
+
+  int globalsInitTab = 0;
+
   @override
   void initState() {
     super.initState();
-    int followInitTab = 0;
-    int globalsInitTab = 0;
 
     WidgetsBinding.instance.addObserver(this);
 
@@ -79,12 +83,10 @@ class _IndexRouter extends CustState<IndexRouter>
       if (settingProvider.defaultIndex == 1) {
         globalsInitTab = settingProvider.defaultTab!;
       } else {
-        followInitTab = settingProvider.defaultTab!;
+        feedsInitTab = settingProvider.defaultTab!;
       }
     }
 
-    followTabController =
-        TabController(initialIndex: followInitTab, length: 3, vsync: this);
     globalsTabController =
         TabController(initialIndex: globalsInitTab, length: 4, vsync: this);
     dmTabController = TabController(length: 3, vsync: this);
@@ -255,9 +257,6 @@ class _IndexRouter extends CustState<IndexRouter>
       return FollowSuggestRouter();
     }
 
-    var _indexProvider = Provider.of<IndexProvider>(context);
-    _indexProvider.setFollowTabController(followTabController);
-    _indexProvider.setGlobalTabController(globalsTabController);
     var themeData = Theme.of(context);
     var mainColor = themeData.primaryColor;
     var titleTextColor = themeData.appBarTheme.titleTextStyle!.color;
@@ -266,33 +265,59 @@ class _IndexRouter extends CustState<IndexRouter>
       color: titleTextColor,
     );
     Color? indicatorColor = themeData.primaryColor;
+    var _feedProvider = Provider.of<FeedProvider>(context);
+    var feedList = _feedProvider.feedList;
+
+    feedsTabController ??= TabController(
+        initialIndex: feedsInitTab, length: feedList.length, vsync: this);
+
+    var _indexProvider = Provider.of<IndexProvider>(context);
+    _indexProvider.setFeedsTabController(feedsTabController);
+    _indexProvider.setGlobalTabController(globalsTabController);
 
     Widget? appBarCenter;
     if (_indexProvider.currentTap == 0) {
+      // appBarCenter = TabBar(
+      //   indicatorColor: indicatorColor,
+      //   indicatorWeight: 3,
+      //   indicatorSize: TabBarIndicatorSize.tab,
+      //   dividerHeight: 0,
+      //   labelPadding: EdgeInsets.zero,
+      //   tabs: [
+      //     IndexTabItemComponent(
+      //       s.Posts,
+      //       titleTextStyle,
+      //       omitText: "P",
+      //     ),
+      //     IndexTabItemComponent(
+      //       s.Posts_and_replies,
+      //       titleTextStyle,
+      //       omitText: "PR",
+      //     ),
+      //     IndexTabItemComponent(
+      //       s.Mentions,
+      //       titleTextStyle,
+      //       omitText: "M",
+      //     ),
+      //   ],
+      //   controller: followTabController,
+      // );
+      List<IndexTabItemComponent> feedTitleWidgets = [];
+      for (var feed in feedList) {
+        feedTitleWidgets.add(IndexTabItemComponent(
+          feed.name,
+          titleTextStyle,
+        ));
+      }
       appBarCenter = TabBar(
         indicatorColor: indicatorColor,
         indicatorWeight: 3,
         indicatorSize: TabBarIndicatorSize.tab,
         dividerHeight: 0,
         labelPadding: EdgeInsets.zero,
-        tabs: [
-          IndexTabItemComponent(
-            s.Posts,
-            titleTextStyle,
-            omitText: "P",
-          ),
-          IndexTabItemComponent(
-            s.Posts_and_replies,
-            titleTextStyle,
-            omitText: "PR",
-          ),
-          IndexTabItemComponent(
-            s.Mentions,
-            titleTextStyle,
-            omitText: "M",
-          ),
-        ],
-        controller: followTabController,
+        tabs: feedTitleWidgets,
+        controller: feedsTabController,
+        // isScrollable: true,
       );
     } else if (_indexProvider.currentTap == 1) {
       appBarCenter = TabBar(
@@ -401,8 +426,11 @@ class _IndexRouter extends CustState<IndexRouter>
     var mainCenterWidget = IndexedStack(
       index: _indexProvider.currentTap,
       children: [
-        FollowIndexRouter(
-          tabController: followTabController,
+        // FollowIndexRouter(
+        //   tabController: followTabController,
+        // ),
+        FeedIndexRouter(
+          tabController: feedsTabController!,
         ),
         GlobalsIndexRouter(
           tabController: globalsTabController,

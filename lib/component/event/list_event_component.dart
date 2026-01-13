@@ -16,6 +16,7 @@ import '../../util/router_util.dart';
 import 'event_bitcion_icon_component.dart';
 import 'event_main_component.dart';
 
+/// Used for single event whick is in a list.
 class ListEventComponent extends StatefulWidget {
   Event event;
 

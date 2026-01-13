@@ -110,10 +110,10 @@ class _UserRouter extends CustState<UserRouter>
         RouterUtil.back(context);
         return Container();
       }
-      var events = followEventProvider.eventsByPubkey(pubkey!);
-      if (events.isNotEmpty) {
-        onEvents(events);
-      }
+      // var events = followEventProvider.eventsByPubkey(pubkey!);
+      // if (events.isNotEmpty) {
+      //   onEvents(events);
+      // }
     } else {
       var arg = RouterUtil.routerArgs(context);
       if (arg != null && arg is String) {

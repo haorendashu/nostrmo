@@ -136,13 +136,13 @@ late MetadataProvider metadataProvider;
 
 late ContactListProvider contactListProvider;
 
-late FollowEventProvider followEventProvider;
+// late FollowEventProvider followEventProvider;
 
-late FollowNewEventProvider followNewEventProvider;
+// late FollowNewEventProvider followNewEventProvider;
 
-late MentionMeProvider mentionMeProvider;
+// late MentionMeProvider mentionMeProvider;
 
-late MentionMeNewProvider mentionMeNewProvider;
+// late MentionMeNewProvider mentionMeNewProvider;
 
 late DMProvider dmProvider;
 
@@ -294,10 +294,10 @@ Future<void> main() async {
   feedProvider = FeedProvider();
   syncService = SyncService();
   contactListProvider = ContactListProvider.getInstance();
-  followEventProvider = FollowEventProvider();
-  followNewEventProvider = FollowNewEventProvider();
-  mentionMeProvider = MentionMeProvider();
-  mentionMeNewProvider = MentionMeNewProvider();
+  // followEventProvider = FollowEventProvider();
+  // followNewEventProvider = FollowNewEventProvider();
+  // mentionMeProvider = MentionMeProvider();
+  // mentionMeNewProvider = MentionMeNewProvider();
   dmProvider = DMProvider();
   indexProvider = IndexProvider(
     indexTap: settingProvider.defaultIndex,
@@ -460,18 +460,18 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
         ListenableProvider<ContactListProvider>.value(
           value: contactListProvider,
         ),
-        ListenableProvider<FollowEventProvider>.value(
-          value: followEventProvider,
-        ),
-        ListenableProvider<FollowNewEventProvider>.value(
-          value: followNewEventProvider,
-        ),
-        ListenableProvider<MentionMeProvider>.value(
-          value: mentionMeProvider,
-        ),
-        ListenableProvider<MentionMeNewProvider>.value(
-          value: mentionMeNewProvider,
-        ),
+        // ListenableProvider<FollowEventProvider>.value(
+        //   value: followEventProvider,
+        // ),
+        // ListenableProvider<FollowNewEventProvider>.value(
+        //   value: followNewEventProvider,
+        // ),
+        // ListenableProvider<MentionMeProvider>.value(
+        //   value: mentionMeProvider,
+        // ),
+        // ListenableProvider<MentionMeNewProvider>.value(
+        //   value: mentionMeNewProvider,
+        // ),
         ListenableProvider<DMProvider>.value(
           value: dmProvider,
         ),

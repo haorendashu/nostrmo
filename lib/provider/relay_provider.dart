@@ -238,8 +238,8 @@ class RelayProvider extends ChangeNotifier {
     syncService.reload();
     contactListProvider.reload(targetNostr: _nostr);
     contactListProvider.query(targetNostr: _nostr);
-    followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
-    mentionMeProvider.doQuery(targetNostr: _nostr, initQuery: true);
+    // followEventProvider.doQuery(targetNostr: _nostr, initQuery: true);
+    // mentionMeProvider.doQuery(targetNostr: _nostr, initQuery: true);
     // don't query after init, due to query dm need login to relay so the first query change to call by timer
     // dmInitFuture.then((_) {
     //   dmProvider.query(targetNostr: _nostr, initQuery: true);

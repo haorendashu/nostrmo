@@ -18,43 +18,60 @@ class IndexProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  TabController? _followTabController;
+  TabController? _feedsTabController;
 
-  void setFollowTabController(TabController? followTabController) {
-    _followTabController = followTabController;
+  void setFeedsTabController(TabController? feedsTabController) {
+    _feedsTabController = feedsTabController;
   }
 
-  ScrollController? _followPostsScrollController;
+  // ScrollController? _followPostsScrollController;
 
-  void setFollowPostsScrollController(
-      ScrollController? followPostsScrollController) {
-    _followPostsScrollController = followPostsScrollController;
-  }
+  // void setFollowPostsScrollController(
+  //     ScrollController? followPostsScrollController) {
+  //   _followPostsScrollController = followPostsScrollController;
+  // }
 
-  ScrollController? _followScrollController;
+  // ScrollController? _followScrollController;
 
-  void setFollowScrollController(ScrollController? followScrollController) {
-    _followScrollController = followScrollController;
-  }
+  // void setFollowScrollController(ScrollController? followScrollController) {
+  //   _followScrollController = followScrollController;
+  // }
 
-  ScrollController? _mentionedScrollController;
+  // ScrollController? _mentionedScrollController;
 
-  void setMentionedScrollController(
-      ScrollController? mentionedScrollController) {
-    _mentionedScrollController = mentionedScrollController;
+  // void setMentionedScrollController(
+  //     ScrollController? mentionedScrollController) {
+  //   _mentionedScrollController = mentionedScrollController;
+  // }
+
+  // void followScrollToTop() {
+  //   if (_feedsTabController != null) {
+  //     if (_feedsTabController!.index == 0 &&
+  //         _followPostsScrollController != null) {
+  //       _followPostsScrollController!.jumpTo(0);
+  //     } else if (_feedsTabController!.index == 1 &&
+  //         _followScrollController != null) {
+  //       _followScrollController!.jumpTo(0);
+  //     } else if (_feedsTabController!.index == 2 &&
+  //         _mentionedScrollController != null) {
+  //       _mentionedScrollController!.jumpTo(0);
+  //     }
+  //   }
+  // }
+
+  Map<int, ScrollController> _scrollControllerMap = {};
+
+  void setFeedScrollController(int index, ScrollController scrollController) {
+    _scrollControllerMap[index] = scrollController;
   }
 
   void followScrollToTop() {
-    if (_followTabController != null) {
-      if (_followTabController!.index == 0 &&
-          _followPostsScrollController != null) {
-        _followPostsScrollController!.jumpTo(0);
-      } else if (_followTabController!.index == 1 &&
-          _followScrollController != null) {
-        _followScrollController!.jumpTo(0);
-      } else if (_followTabController!.index == 2 &&
-          _mentionedScrollController != null) {
-        _mentionedScrollController!.jumpTo(0);
+    if (_feedsTabController != null) {
+      var index = _feedsTabController!.index;
+      var scrollController = _scrollControllerMap[index];
+
+      if (scrollController != null) {
+        scrollController.jumpTo(0);
       }
     }
   }

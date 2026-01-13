@@ -35,12 +35,12 @@ class FeedProvider extends ChangeNotifier {
 
     updateTime = DateTime.now().millisecondsSinceEpoch;
     // update ui
-    // save to local
-    _saveAndUpdateUI(targetNostr: targetNostr);
     // update to sync task provider
     for (var _fd in feedList) {
       handleFeedData(_fd);
     }
+    // save to local
+    _saveAndUpdateUI(targetNostr: targetNostr);
     syncService.updateFromFeedDataList(feedList, targetNostr!.publicKey);
     // TODO send config to relay
   }

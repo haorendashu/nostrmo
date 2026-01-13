@@ -153,7 +153,7 @@ class ContactListProvider extends ChangeNotifier {
 
     if (notify) {
       notifyListeners();
-      followEventProvider.metadataUpdatedCallback(_contactList);
+      // followEventProvider.metadataUpdatedCallback(_contactList);
     }
   }
 

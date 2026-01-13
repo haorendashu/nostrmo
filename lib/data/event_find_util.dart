@@ -1,5 +1,4 @@
 import 'package:nostr_sdk/event.dart';
-import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
@@ -10,7 +9,8 @@ import '../consts/event_kind_type.dart';
 
 class EventFindUtil {
   static Future<List<Event>> findEvent(String str, {int limit = 5}) async {
-    List<FindEventInterface> finders = [followEventProvider];
+    // List<FindEventInterface> finders = [followEventProvider];
+    List<FindEventInterface> finders = [];
     finders.addAll(eventReactionsProvider.allReactions());
 
     var eventBox = EventMemBox(sortAfterAdd: false);

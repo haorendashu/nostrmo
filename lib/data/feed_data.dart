@@ -35,7 +35,6 @@ class FeedData {
     map['name'] = name;
     map['feedType'] = feedType;
     map['sources'] = sources;
-    map['datas'] = datas;
     map['eventKinds'] = eventKinds;
     map['eventType'] = eventType;
     return map;

@@ -28,12 +28,12 @@ class SystemTimer {
       if (counter % 2 == 0) {
         // relayProvider.checkAndReconnect();
         if (counter > 8) {
-          mentionMeNewProvider.queryNew();
+          // mentionMeNewProvider.queryNew();
           dmProvider.query();
         }
       } else {
         if (counter > 8) {
-          followNewEventProvider.queryNew();
+          // followNewEventProvider.queryNew();
           giftWrapProvider.query();
         }
       }
