@@ -350,7 +350,7 @@ class SyncService with LaterFunction, ChangeNotifier {
       print(
           "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime");
       if (eoseTime > 1) {
-        print("query timeout bug eoseTime > 1");
+        print("query timeout but eoseTime > 1");
         taskItem.endTime = endTime;
         syncTaskMap[_getItemKey(taskItem)] = taskItem;
         later(saveSyncInfo);
