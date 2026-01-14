@@ -268,8 +268,11 @@ class _IndexRouter extends CustState<IndexRouter>
     var _feedProvider = Provider.of<FeedProvider>(context);
     var feedList = _feedProvider.feedList;
 
-    feedsTabController ??= TabController(
-        initialIndex: feedsInitTab, length: feedList.length, vsync: this);
+    if (feedsTabController == null ||
+        feedsTabController!.length != feedList.length) {
+      feedsTabController = TabController(
+          initialIndex: feedsInitTab, length: feedList.length, vsync: this);
+    }
 
     var _indexProvider = Provider.of<IndexProvider>(context);
     _indexProvider.setFeedsTabController(feedsTabController);
