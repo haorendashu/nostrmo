@@ -322,28 +322,29 @@ class _IndexRouter extends CustState<IndexRouter>
       appBarCenter = Container(
         child: Row(
           children: [
-            TabBar(
-              indicatorColor: indicatorColor,
-              indicatorWeight: 3,
-              indicatorSize: TabBarIndicatorSize.tab,
-              dividerHeight: 0,
-              labelPadding: EdgeInsets.zero,
-              tabs: feedTitleWidgets,
-              controller: feedsTabController,
-              isScrollable: true,
-              tabAlignment: TabAlignment.start,
+            Flexible(
+              flex: 1,
+              child: TabBar(
+                indicatorColor: indicatorColor,
+                indicatorWeight: 3,
+                indicatorSize: TabBarIndicatorSize.tab,
+                dividerHeight: 0,
+                labelPadding: EdgeInsets.zero,
+                tabs: feedTitleWidgets,
+                controller: feedsTabController,
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
+              ),
             ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  RouterUtil.router(context, RouterPath.FEED_LIST);
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(left: Base.BASE_PADDING),
-                  child: Icon(
-                    Icons.settings,
-                    size: themeData.textTheme.bodyMedium!.fontSize! - 1,
-                  ),
+            GestureDetector(
+              onTap: () {
+                RouterUtil.router(context, RouterPath.FEED_LIST);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: Base.BASE_PADDING),
+                child: Icon(
+                  Icons.settings,
+                  size: themeData.textTheme.bodyMedium!.fontSize! - 1,
                 ),
               ),
             ),
