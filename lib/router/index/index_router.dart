@@ -41,6 +41,7 @@ import 'index_app_bar.dart';
 import 'index_bottom_bar.dart';
 import 'index_drawer_content.dart';
 import 'index_tab_item_component.dart';
+import 'scrollable_index_tab_item_component.dart';
 
 class IndexRouter extends StatefulWidget {
   static double PC_MAX_COLUMN_0 = 200;
@@ -305,22 +306,49 @@ class _IndexRouter extends CustState<IndexRouter>
       //   ],
       //   controller: followTabController,
       // );
-      List<IndexTabItemComponent> feedTitleWidgets = [];
+      List<Widget> feedTitleWidgets = [];
       for (var feed in feedList) {
-        feedTitleWidgets.add(IndexTabItemComponent(
-          feed.name,
-          titleTextStyle,
+        feedTitleWidgets.add(Container(
+          padding: const EdgeInsets.only(
+            left: Base.BASE_PADDING,
+            right: Base.BASE_PADDING,
+          ),
+          child: ScrollableIndexTabItemComponent(
+            feed.name,
+            titleTextStyle,
+          ),
         ));
       }
-      appBarCenter = TabBar(
-        indicatorColor: indicatorColor,
-        indicatorWeight: 3,
-        indicatorSize: TabBarIndicatorSize.tab,
-        dividerHeight: 0,
-        labelPadding: EdgeInsets.zero,
-        tabs: feedTitleWidgets,
-        controller: feedsTabController,
-        // isScrollable: true,
+      appBarCenter = Container(
+        child: Row(
+          children: [
+            TabBar(
+              indicatorColor: indicatorColor,
+              indicatorWeight: 3,
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerHeight: 0,
+              labelPadding: EdgeInsets.zero,
+              tabs: feedTitleWidgets,
+              controller: feedsTabController,
+              isScrollable: true,
+              tabAlignment: TabAlignment.start,
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  RouterUtil.router(context, RouterPath.FEED_LIST);
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(left: Base.BASE_PADDING),
+                  child: Icon(
+                    Icons.settings,
+                    size: themeData.textTheme.bodyMedium!.fontSize! - 1,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       );
     } else if (_indexProvider.currentTap == 1) {
       appBarCenter = TabBar(

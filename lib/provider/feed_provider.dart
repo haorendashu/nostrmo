@@ -28,11 +28,19 @@ class FeedProvider extends ChangeNotifier {
     }
   }
 
+  void removeFeed(String id, {Nostr? targetNostr}) {
+    targetNostr ??= nostr;
+    feedList.removeWhere((element) => element.id == id);
+    _updateFeedList(targetNostr: targetNostr);
+  }
+
   void saveFeed(FeedData feedData, {Nostr? targetNostr}) {
     targetNostr ??= nostr;
-
     _saveToMemery(feedData);
+    _updateFeedList(targetNostr: targetNostr);
+  }
 
+  void _updateFeedList({Nostr? targetNostr}) {
     updateTime = DateTime.now().millisecondsSinceEpoch;
     // update ui
     // update to sync task provider
@@ -42,7 +50,6 @@ class FeedProvider extends ChangeNotifier {
     // save to local
     _saveAndUpdateUI(targetNostr: targetNostr);
     syncService.updateFromFeedDataList(feedList, targetNostr!.publicKey);
-    // TODO send config to relay
   }
 
   void _saveToMemery(FeedData feedData) {

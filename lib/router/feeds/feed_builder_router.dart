@@ -6,6 +6,7 @@ import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/event/event_main_component.dart';
 import 'package:nostrmo/consts/event_kind_type.dart';
 import 'package:nostrmo/consts/feed_data_event_type.dart';
@@ -31,7 +32,7 @@ class FeedBuilderRouter extends StatefulWidget {
   State<FeedBuilderRouter> createState() => _FeedBuilderRouterState();
 }
 
-class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
+class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
   var nameController = TextEditingController();
 
   var dataSourceValueController = TextEditingController();
@@ -95,8 +96,24 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
 
   Naddr? followPackNaddr;
 
+  String feedId = StringUtil.rndNameStr(14);
+
   @override
-  Widget build(BuildContext context) {
+  Future<void> onReady(BuildContext context) async {
+    var feedDataItf = RouterUtil.routerArgs(context);
+    if (feedDataItf != null && feedDataItf is FeedData) {
+      feedId = feedDataItf.id;
+      selectedFeedType = feedDataItf.feedType;
+      nameController.text = feedDataItf.name;
+      dataSources = feedDataItf.sources;
+      eventKinds = feedDataItf.eventKinds;
+      eventType = feedDataItf.eventType;
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget doBuild(BuildContext context) {
     var s = S.of(context);
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
@@ -730,7 +747,7 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
     }
 
     var feed = FeedData(
-      StringUtil.rndNameStr(14),
+      feedId,
       name,
       selectedFeedType,
       sources: dataSources,
@@ -741,5 +758,7 @@ class _FeedBuilderRouterState extends State<FeedBuilderRouter> {
     // feedProvider.handleFeedData(feed);
     // print(feed.datas);
     feedProvider.saveFeed(feed);
+
+    RouterUtil.back(context);
   }
 }

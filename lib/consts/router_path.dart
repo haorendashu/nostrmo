@@ -47,6 +47,7 @@ class RouterPath {
   static const String WALLET_SEND = "/walletSend";
   static const String STARTER_PACKS_DETAIL = "/starterPacksDetail";
   static const String FEED_BUILDER = "/feedBuilder";
+  static const String FEED_LIST = "/feedList";
 
   static String getThreadDetailPath() {
     if (settingProvider.threadMode == ThreadMode.FULL_MODE) {

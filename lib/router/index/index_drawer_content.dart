@@ -129,15 +129,6 @@ class _IndexDrawerContentComponnent
     }
 
     List<Widget> centerList = [];
-    centerList.add(IndexDrawerItem(
-      iconData: Icons.build,
-      name: "Feed Builder",
-      onTap: () {
-        RouterUtil.router(context, RouterPath.FEED_BUILDER);
-      },
-      smallMode: widget.smallMode,
-    ));
-
     if (TableModeUtil.isTableMode()) {
       centerList.add(IndexDrawerItem(
         iconData: Icons.home_rounded,
