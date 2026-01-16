@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/relay/relay_status.dart';
 import 'package:nostr_sdk/utils/later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
+import '../consts/client_connected.dart';
 import '../consts/event_kind_type.dart';
 import '../consts/sync_task_type.dart';
 import '../data/feed_data.dart';
@@ -27,7 +29,7 @@ class SyncService with LaterFunction, ChangeNotifier {
   int? initTime;
 
   // add some concurrent control
-  static const int MAX_CONCURRENT_QUERIES = 10; // max concurrent queries
+  static const int MAX_CONCURRENT_QUERIES = 20; // max concurrent queries
   int _currentRunningQueries = 0; // current running queries
   final List<Function()> _pendingQueries = []; // pending queries queue
 
@@ -41,7 +43,7 @@ class SyncService with LaterFunction, ChangeNotifier {
   static const String KEY_USERS_SYNC_TASK = "usersSyncTaskKey";
 
   // max relay num for each person
-  static const int MAX_PERSON_RELAY_NUM = 3;
+  static const int MAX_PERSON_RELAY_NUM = 4;
 
   String _getItemKey(SyncTaskItem taskItem) {
     return "${taskItem.syncType}_${taskItem.value}";
@@ -220,8 +222,10 @@ class SyncService with LaterFunction, ChangeNotifier {
           var pubkey = taskItem.value;
           var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
           if (relayListMetadata != null) {
-            relayList = relayListMetadata.writeAbleRelays;
+            relayList = [...relayListMetadata.writeAbleRelays];
             if (relayList.length > MAX_PERSON_RELAY_NUM) {
+              // shuffle the relays to avoid some relays always can't connected, just try other relays.
+              relayList.shuffle();
               relayList = relayList.sublist(0, MAX_PERSON_RELAY_NUM);
             }
 
@@ -358,6 +362,18 @@ class SyncService with LaterFunction, ChangeNotifier {
 
       _currentRunningQueries--;
       _executePendingQueries();
+
+      // it was timeout now, find if the relay is connect timeout
+      for (var relayAddr in relayList) {
+        var relay = targetNostr.getRelay(relayAddr);
+        if (relay != null) {
+          if (relay.relayStatus.connected == ClientConneccted.UN_CONNECT ||
+              relay.relayStatus.connected == ClientConneccted.CONNECTING &&
+                  relay.relayStatus.noteReceived == 0) {
+            // relay find and relay not connected and relay never receive any event
+          }
+        }
+      }
     });
   }
 
