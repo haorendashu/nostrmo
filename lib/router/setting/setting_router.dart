@@ -84,7 +84,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     initI18nList(s);
     initCompressList(s);
     initDefaultList(s);
-    initDefaultTabListTimeline(s);
+    // initDefaultTabListTimeline(s);
     initDefaultTabListGlobal(s);
     initColorStyleEnumList(s);
 
@@ -120,17 +120,32 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       value: getDefaultIndex(settingProvider.defaultIndex).name,
       onTap: pickDefaultIndex,
     ));
-    List<EnumObj> defaultTabList = defaultTabListTimeline!;
-    if (settingProvider.defaultIndex == 1) {
-      defaultTabList = defaultTabListGlobal!;
+    if (settingProvider.defaultIndex != 1) {
+      list.add(SettingGroupItemComponent(
+        name: s.Default_tab,
+        value: "${(settingProvider.defaultIndex ?? 0) + 1} Feed",
+        onTap: () {
+          List<EnumObj> feedSelectEnumObjs = [];
+          var feedLength = feedProvider.feedList.length;
+          for (var i = 0; i < feedLength; i++) {
+            feedSelectEnumObjs.add(EnumObj(
+              i,
+              "${i + 1} Feed",
+            ));
+          }
+          pickDefaultTab(feedSelectEnumObjs);
+        },
+      ));
+    } else if (settingProvider.defaultIndex == 1) {
+      List<EnumObj> defaultTabList = defaultTabListGlobal!;
+      list.add(SettingGroupItemComponent(
+        name: s.Default_tab,
+        value: getDefaultTab(defaultTabList, settingProvider.defaultTab).name,
+        onTap: () {
+          pickDefaultTab(defaultTabList);
+        },
+      ));
     }
-    list.add(SettingGroupItemComponent(
-      name: s.Default_tab,
-      value: getDefaultTab(defaultTabList, settingProvider.defaultTab).name,
-      onTap: () {
-        pickDefaultTab(defaultTabList);
-      },
-    ));
 
     String nwcValue = getOpenList(OpenStatus.OPEN).name;
     if (StringUtil.isBlank(settingProvider.nwcUrl)) {
@@ -620,16 +635,16 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     return defaultIndexList![0];
   }
 
-  List<EnumObj>? defaultTabListTimeline;
+  // List<EnumObj>? defaultTabListTimeline;
 
-  void initDefaultTabListTimeline(S s) {
-    if (defaultTabListTimeline == null) {
-      defaultTabListTimeline = [];
-      defaultTabListTimeline!.add(EnumObj(0, s.Posts));
-      defaultTabListTimeline!.add(EnumObj(1, s.Posts_and_replies));
-      defaultTabListTimeline!.add(EnumObj(2, s.Mentions));
-    }
-  }
+  // void initDefaultTabListTimeline(S s) {
+  //   if (defaultTabListTimeline == null) {
+  //     defaultTabListTimeline = [];
+  //     defaultTabListTimeline!.add(EnumObj(0, s.Posts));
+  //     defaultTabListTimeline!.add(EnumObj(1, s.Posts_and_replies));
+  //     defaultTabListTimeline!.add(EnumObj(2, s.Mentions));
+  //   }
+  // }
 
   List<EnumObj>? defaultTabListGlobal;
 
