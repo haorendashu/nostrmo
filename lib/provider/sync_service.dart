@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/filter.dart';
@@ -44,6 +45,8 @@ class SyncService with LaterFunction, ChangeNotifier {
 
   // max relay num for each person
   static const int MAX_PERSON_RELAY_NUM = 4;
+
+  List<Function()> _syncCompleteCallback = [];
 
   String _getItemKey(SyncTaskItem taskItem) {
     return "${taskItem.syncType}_${taskItem.value}";
@@ -165,6 +168,8 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
   }
 
+  List<String> myRelayList = [];
+
   Future<void> startSyncTask({Nostr? targetNostr}) async {
     targetNostr ??= nostr;
     if (targetNostr == null) {
@@ -188,7 +193,7 @@ class SyncService with LaterFunction, ChangeNotifier {
         myRelaysSet.add(relay.url);
       }
     }
-    List<String> myRelayList = myRelaysSet.toList();
+    myRelayList = myRelaysSet.toList();
 
     // find all pubkeys in syncTaskMap and load data from DB
     List<String> pubkeys = [];
@@ -202,9 +207,12 @@ class SyncService with LaterFunction, ChangeNotifier {
     _doSync(myRelayList, targetNostr);
   }
 
+  int _startSyncTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
   Future<void> _doSync(List<String> myRelayList, Nostr targetNostr) async {
     try {
       var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      _startSyncTime = now;
 
       Map<String, SyncRelayTask> relayTaskMap = {};
 
@@ -277,17 +285,6 @@ class SyncService with LaterFunction, ChangeNotifier {
       // begin execute pending queries
       _executePendingQueries();
 
-      if (targetNostr.isClose()) {
-        return;
-      }
-      var afterSynced = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-      if (afterSynced - now < 60) {
-        await Future.delayed(const Duration(seconds: 60));
-      }
-      if (!targetNostr.isClose()) {
-        _doSync(myRelayList, targetNostr);
-      }
-
       // many sync task sync fail, so don't send subscript now.
 
       // begin to subscript the new event using relayTaskMap
@@ -322,10 +319,10 @@ class SyncService with LaterFunction, ChangeNotifier {
 
   void _addQueryToQueue(Nostr targetNostr, Map<String, dynamic> filterMap,
       List<String> relayList, SyncTaskItem taskItem, int endTime) {
-    var complete = Completer<bool>();
-    var eoseTime = 0;
-
     _pendingQueries.add(() {
+      var complete = Completer<bool>();
+      var eoseTime = 0;
+
       print("query, filterMap: $filterMap, relayList: $relayList");
       targetNostr.query(
         [filterMap],
@@ -338,51 +335,66 @@ class SyncService with LaterFunction, ChangeNotifier {
           eoseTime++;
         },
       );
-    });
 
-    complete.future.then((v) {
-      print("query complete, filterMap: $filterMap, relayList: $relayList");
-      // query complete!
-      taskItem.endTime = endTime;
-      syncTaskMap[_getItemKey(taskItem)] = taskItem;
-      later(saveSyncInfo);
-
-      // query complete, reduce current running count and execute next query
-      _currentRunningQueries--;
-      _executePendingQueries();
-    }).timeout(const Duration(seconds: 120), onTimeout: () {
-      print(
-          "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime");
-      if (eoseTime > 1) {
-        print("query timeout but eoseTime > 1");
+      complete.future.then((v) {
+        print("query complete, filterMap: $filterMap, relayList: $relayList");
+        // query complete!
         taskItem.endTime = endTime;
         syncTaskMap[_getItemKey(taskItem)] = taskItem;
         later(saveSyncInfo);
-      }
 
-      _currentRunningQueries--;
-      _executePendingQueries();
+        // query complete, reduce current running count and execute next query
+        _currentRunningQueries--;
+        _executePendingQueries();
+      }).timeout(const Duration(seconds: 60), onTimeout: () {
+        print(
+            "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime");
+        if (eoseTime > 1) {
+          print("query timeout but eoseTime > 1");
+          taskItem.endTime = endTime;
+          syncTaskMap[_getItemKey(taskItem)] = taskItem;
+          later(saveSyncInfo);
+        }
 
-      // it was timeout now, find if the relay is connect timeout
-      for (var relayAddr in relayList) {
-        var relay = targetNostr.getRelay(relayAddr);
-        if (relay != null) {
-          if (relay.relayStatus.connected == ClientConneccted.UN_CONNECT ||
-              relay.relayStatus.connected == ClientConneccted.CONNECTING &&
-                  relay.relayStatus.noteReceived == 0) {
-            // relay find and relay not connected and relay never receive any event
+        _currentRunningQueries--;
+        _executePendingQueries();
+
+        // it was timeout now, find if the relay is connect timeout
+        for (var relayAddr in relayList) {
+          var relay = targetNostr.getRelay(relayAddr);
+          if (relay != null) {
+            if (relay.relayStatus.connected == ClientConneccted.UN_CONNECT ||
+                relay.relayStatus.connected == ClientConneccted.CONNECTING &&
+                    relay.relayStatus.noteReceived == 0) {
+              // relay find and relay not connected and relay never receive any event
+            }
           }
         }
-      }
+      });
     });
   }
 
-  void _executePendingQueries() {
+  Future<void> _executePendingQueries() async {
     while (_currentRunningQueries < MAX_CONCURRENT_QUERIES &&
         _pendingQueries.isNotEmpty) {
       var query = _pendingQueries.removeAt(0);
       _currentRunningQueries++;
       query();
+    }
+
+    if (_currentRunningQueries <= 0 && _pendingQueries.isEmpty) {
+      log("all sync queries complete!");
+      notifySyncComplete();
+
+      var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      // log("sync time: ${now - _startSyncTime}");
+      if (now - _startSyncTime < 60) {
+        await Future.delayed(const Duration(seconds: 60));
+      }
+
+      if (nostr != null && !nostr!.isClose()) {
+        _doSync(myRelayList, nostr!);
+      }
     }
   }
 
@@ -395,6 +407,20 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
 
     return relayTask;
+  }
+
+  void addSyncCompleteCallback(Function() callback) {
+    _syncCompleteCallback.add(callback);
+  }
+
+  void notifySyncComplete() {
+    for (var callback in _syncCompleteCallback) {
+      callback();
+    }
+  }
+
+  void removeSyncCompleteCallback(Function() callback) {
+    _syncCompleteCallback.remove(callback);
   }
 }
 
