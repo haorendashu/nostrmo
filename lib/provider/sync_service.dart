@@ -48,6 +48,12 @@ class SyncService with LaterFunction, ChangeNotifier {
 
   List<Function()> _syncCompleteCallback = [];
 
+  void dispose() {
+    _syncCompleteCallback.clear();
+    _subscriptionIds.clear();
+    _pendingQueries.clear();
+  }
+
   String _getItemKey(SyncTaskItem taskItem) {
     return "${taskItem.syncType}_${taskItem.value}";
   }
@@ -202,7 +208,9 @@ class SyncService with LaterFunction, ChangeNotifier {
         pubkeys.add(taskItem.value);
       }
     }
-    await metadataProvider.loadFromDBsSync(pubkeys);
+    if (pubkeys.isNotEmpty) {
+      await metadataProvider.loadFromDBsSync(pubkeys);
+    }
 
     _doSync(myRelayList, targetNostr);
   }
