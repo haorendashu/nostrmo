@@ -337,10 +337,15 @@ class SyncService with LaterFunction, ChangeNotifier {
         (e) {},
         targetRelays: relayList,
         onComplete: () {
-          complete.complete(true);
+          if (!complete.isCompleted) {
+            complete.complete(true);
+          }
         },
         onEOSE: (relayAddr) {
           eoseTime++;
+          if (eoseTime > 1 && !complete.isCompleted) {
+            complete.complete(true);
+          }
         },
       );
 
@@ -367,17 +372,18 @@ class SyncService with LaterFunction, ChangeNotifier {
         _currentRunningQueries--;
         _executePendingQueries();
 
-        // it was timeout now, find if the relay is connect timeout
-        for (var relayAddr in relayList) {
-          var relay = targetNostr.getRelay(relayAddr);
-          if (relay != null) {
-            if (relay.relayStatus.connected == ClientConneccted.UN_CONNECT ||
-                relay.relayStatus.connected == ClientConneccted.CONNECTING &&
-                    relay.relayStatus.noteReceived == 0) {
-              // relay find and relay not connected and relay never receive any event
-            }
-          }
-        }
+        // // it was timeout now, find if the relay is connect timeout
+        // for (var relayAddr in relayList) {
+        //   var relay = targetNostr.getRelay(relayAddr);
+        //   if (relay != null) {
+        //     if (relay.relayStatus.connected == ClientConneccted.UN_CONNECT ||
+        //         relay.relayStatus.connected == ClientConneccted.CONNECTING &&
+        //             relay.relayStatus.noteReceived == 0) {
+        //       // relay find and relay not connected and relay never receive any event
+        //       // TODO maybe we should filter these relays when we syncing next time.
+        //     }
+        //   }
+        // }
       });
     });
   }
