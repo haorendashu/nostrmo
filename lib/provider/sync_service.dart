@@ -212,12 +212,12 @@ class SyncService with LaterFunction, ChangeNotifier {
       await metadataProvider.loadFromDBsSync(pubkeys);
     }
 
-    _doSync(myRelayList, targetNostr);
+    _doSync(targetNostr);
   }
 
   int _startSyncTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
-  Future<void> _doSync(List<String> myRelayList, Nostr targetNostr) async {
+  Future<void> _doSync(Nostr targetNostr) async {
     try {
       var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       _startSyncTime = now;
@@ -401,7 +401,7 @@ class SyncService with LaterFunction, ChangeNotifier {
       }
 
       if (nostr != null && !nostr!.isClose()) {
-        _doSync(myRelayList, nostr!);
+        _doSync(nostr!);
       }
     }
   }
