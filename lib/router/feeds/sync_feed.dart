@@ -1,15 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
+import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/feed_data_type.dart';
 import 'package:nostrmo/router/feeds/feed_page_helper.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../consts/event_kind_type.dart';
 import '../../data/feed_data.dart';
@@ -33,6 +37,10 @@ class SyncFeed extends StatefulWidget {
 class _SyncFeed extends KeepAliveCustState<SyncFeed>
     with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
   EventMemBox eventBox = EventMemBox();
+
+  List<Event> penddingNewEvents = [];
+
+  EventMemBox newEventBox = EventMemBox();
 
   ScrollController scrollController = ScrollController();
 
@@ -68,10 +76,18 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   }
 
   @override
+  void dispose() {
+    disposeLater();
+    super.dispose();
+
+    if (nostr != null && pullNewEventSubscriptionId != null) {
+      nostr!.unsubscribe(pullNewEventSubscriptionId!);
+    }
+  }
+
+  @override
   void doQuery() {
     preQuery();
-
-    until ??= DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
     List<Map<String, dynamic>> filters = [];
 
@@ -93,10 +109,6 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
       filters.add(filter);
     }
 
-    for (var filter in filters) {
-      print(filter);
-    }
-
     if (filters.isEmpty) {
       log("SyncFeed's filters is empty");
       return;
@@ -113,13 +125,87 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
         laterTimeMS = 500;
       }
 
-      later(e, (events) {
-        var addSuccess = eventBox.addList(events);
-        if (addSuccess) {
-          setState(() {});
-        }
-      }, null);
+      later(e, laterCallback, null);
     }, relayTypes: RelayType.CACHE_AND_LOCAL);
+  }
+
+  String? pullNewEventSubscriptionId;
+
+  void pullNewEvents(int until) {
+    if (pullNewEventSubscriptionId != null) {
+      nostr!.unsubscribe(pullNewEventSubscriptionId!);
+    }
+    pullNewEventSubscriptionId = StringUtil.rndNameStr(14);
+    log("pullNewEventSubscriptionId $pullNewEventSubscriptionId");
+
+    List<Map<String, dynamic>> filters = [];
+
+    var baseFilter = Filter(
+      kinds: getEventKinds(),
+      since: until, // using until as since query new events
+      limit: queryLimit,
+    );
+
+    if (queryPubKeyList.isNotEmpty) {
+      var filter = baseFilter.toJson();
+      filter["authors"] = queryPubKeyList;
+      filters.add(filter);
+    }
+
+    if (queryHashTagList.isNotEmpty) {
+      var filter = baseFilter.toJson();
+      filter["#t"] = queryHashTagList;
+      filters.add(filter);
+    }
+
+    if (filters.isEmpty) {
+      log("SyncFeed's filters is empty");
+      return;
+    }
+
+    nostr!.subscribe(filters, (e) {
+      if (!isSupportedEventType(e)) {
+        return;
+      }
+
+      penddingNewEvents.add(e);
+
+      later(null, laterCallback, null);
+    }, relayTypes: RelayType.CACHE_AND_LOCAL, id: pullNewEventSubscriptionId);
+  }
+
+  void megerNewEvents() {
+    if (newEventBox.isEmpty()) {
+      return;
+    }
+    eventBox.addList(newEventBox.all());
+    newEventBox.clear();
+    setState(() {});
+  }
+
+  void laterCallback(l) {
+    var addSuccess = false;
+    if (penddingEvents.isNotEmpty) {
+      addSuccess = eventBox.addList(penddingEvents);
+    }
+
+    if (penddingNewEvents.isNotEmpty) {
+      List<Event> list = [];
+      for (var newEvent in penddingNewEvents) {
+        // also check if the event is already in the eventBox
+        if (eventBox.getById(newEvent.id) == null) {
+          list.add(newEvent);
+        }
+      }
+      if (newEventBox.addList(list)) {
+        addSuccess = true;
+      }
+      penddingNewEvents.clear();
+    }
+
+    if (addSuccess) {
+      setState(() {});
+    }
   }
 
   @override
@@ -129,7 +215,20 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
   @override
   Future<void> onReady(BuildContext context) async {
+    until ??= getOrSetUntilTime();
+    pullNewEvents(until!);
     doQuery();
+
+    syncService.addSyncCompleteCallback(syncCompleteCallback);
+  }
+
+  void syncCompleteCallback() {
+    print("syncCompleteCallback");
+    var newestEvent = eventBox.newestEvent;
+    if (newestEvent != null) {
+      until = newestEvent.createdAt;
+      updateUntilTime(until!);
+    }
   }
 
   @override
@@ -137,18 +236,48 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     if (eventBox.isEmpty()) {
       return EventListPlaceholder();
     }
+    var themeData = Theme.of(context);
 
     preBuild();
 
-    return EventListComponent(
+    Widget main = EventListComponent(
       eventBox.all(),
       scrollController,
-      onRefresh: () {
-        until = null;
-        eventBox.clear();
-        doQuery();
-      },
+      onRefresh: refresh,
     );
+
+    if (newEventBox.length() > 0) {
+      main = Stack(
+        alignment: Alignment.center,
+        children: [
+          main,
+          Positioned(
+            top: Base.BASE_PADDING,
+            child: NewNotesUpdatedComponent(
+              num: newEventBox.length(),
+              onTap: megerNewEvents,
+            ),
+          ),
+        ],
+      );
+    }
+
+    return main;
+  }
+
+  void refresh() {
+    until = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    updateUntilTime(until!);
+
+    eventBox.clear();
+    newEventBox.clear();
+    penddingEvents.clear();
+    penddingNewEvents.clear();
+
+    pullNewEvents(until!);
+    doQuery();
+
+    setState(() {});
   }
 
   @override

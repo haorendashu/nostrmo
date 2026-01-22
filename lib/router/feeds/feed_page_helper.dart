@@ -2,6 +2,7 @@ import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostrmo/consts/feed_data_event_type.dart';
 import 'package:nostrmo/data/feed_data.dart';
+import 'package:nostrmo/main.dart';
 
 mixin FeedPageHelper {
   FeedData getFeedData();
@@ -9,6 +10,16 @@ mixin FeedPageHelper {
   List<int> getEventKinds() {
     var feedData = getFeedData();
     return feedData.eventKinds;
+  }
+
+  int getOrSetUntilTime() {
+    var feedData = getFeedData();
+    return feedProvider.getOrSetUntilTime(feedData);
+  }
+
+  void updateUntilTime(int untilTime) {
+    var feedData = getFeedData();
+    feedProvider.setUntilTime(feedData, untilTime);
   }
 
   bool isSupportedEventType(Event e) {

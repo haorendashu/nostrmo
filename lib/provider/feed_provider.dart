@@ -187,4 +187,20 @@ class FeedProvider extends ChangeNotifier {
       }
     }
   }
+
+  int getOrSetUntilTime(FeedData feedData) {
+    var key = "feedUntilTime_${feedData.id}";
+    var until = sharedPreferences.getInt(key);
+    if (until == null) {
+      until = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      sharedPreferences.setInt(key, until);
+    }
+
+    return until;
+  }
+
+  void setUntilTime(FeedData feedData, int untilTime) {
+    var key = "feedUntilTime_${feedData.id}";
+    sharedPreferences.setInt(key, untilTime);
+  }
 }
