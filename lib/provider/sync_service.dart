@@ -355,10 +355,6 @@ class SyncService with LaterFunction, ChangeNotifier {
         taskItem.endTime = endTime;
         syncTaskMap[_getItemKey(taskItem)] = taskItem;
         later(saveSyncInfo);
-
-        // query complete, reduce current running count and execute next query
-        _currentRunningQueries--;
-        _executePendingQueries();
       }).timeout(const Duration(seconds: 60), onTimeout: () {
         print(
             "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime");
@@ -368,9 +364,6 @@ class SyncService with LaterFunction, ChangeNotifier {
           syncTaskMap[_getItemKey(taskItem)] = taskItem;
           later(saveSyncInfo);
         }
-
-        _currentRunningQueries--;
-        _executePendingQueries();
 
         // // it was timeout now, find if the relay is connect timeout
         // for (var relayAddr in relayList) {
@@ -384,6 +377,10 @@ class SyncService with LaterFunction, ChangeNotifier {
         //     }
         //   }
         // }
+      }).whenComplete(() {
+        // query complete, reduce current running count and execute next query
+        _currentRunningQueries--;
+        _executePendingQueries();
       });
     });
   }
@@ -407,7 +404,11 @@ class SyncService with LaterFunction, ChangeNotifier {
       }
 
       if (nostr != null && !nostr!.isClose()) {
-        _doSync(nostr!);
+        if (_currentRunningQueries <= 0 && _pendingQueries.isEmpty) {
+          _currentRunningQueries = 0;
+          // check again, avoid call doSync method again.
+          _doSync(nostr!);
+        }
       }
     }
   }
