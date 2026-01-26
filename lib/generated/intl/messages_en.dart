@@ -122,6 +122,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Copy_init_Url": MessageLookupByLibrary.simpleMessage("Copy init Url"),
     "Copy_success": MessageLookupByLibrary.simpleMessage("Copy success!"),
     "Create_Group": MessageLookupByLibrary.simpleMessage("Create Group"),
+    "Create_feed_description": MessageLookupByLibrary.simpleMessage(
+      "Create your first feed to start browsing content on the Nostr network.",
+    ),
     "Created_by": MessageLookupByLibrary.simpleMessage("Created by"),
     "Creator": MessageLookupByLibrary.simpleMessage("Creator"),
     "Custom": MessageLookupByLibrary.simpleMessage("Custom"),
@@ -189,6 +192,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Followed": MessageLookupByLibrary.simpleMessage("Followed"),
     "Followed_Communities": MessageLookupByLibrary.simpleMessage(
       "Followed Communities",
+    ),
+    "Followed_Feed": MessageLookupByLibrary.simpleMessage("Followed Feed"),
+    "Followed_Feed_descrption": MessageLookupByLibrary.simpleMessage(
+      "Feeds of followed users",
     ),
     "Followed_Tags": MessageLookupByLibrary.simpleMessage("Followed Tags"),
     "Following": MessageLookupByLibrary.simpleMessage("Following"),
@@ -306,10 +313,17 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Main Font Color"),
+    "Manually_create_a_custom_feed": MessageLookupByLibrary.simpleMessage(
+      "Manually create a custom feed",
+    ),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
     "Media": MessageLookupByLibrary.simpleMessage("Media"),
     "Members": MessageLookupByLibrary.simpleMessage("Members"),
     "Mention_User": MessageLookupByLibrary.simpleMessage("Mention User"),
+    "Mentioned_Feed": MessageLookupByLibrary.simpleMessage("Mentioned Feed"),
+    "Mentioned_Feed_descrption": MessageLookupByLibrary.simpleMessage(
+      "Those feeds that mentioned you",
+    ),
     "Mentioned_note_notice": MessageLookupByLibrary.simpleMessage(
       "Mentioned note notice",
     ),
@@ -346,6 +360,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Next": MessageLookupByLibrary.simpleMessage("Next"),
     "Nip05": MessageLookupByLibrary.simpleMessage("Nip05"),
+    "No_feed_yet": MessageLookupByLibrary.simpleMessage("No feed yet"),
     "Normal": MessageLookupByLibrary.simpleMessage("Normal"),
     "Nostromo_developers_will_never_require_a_key_from_you":
         MessageLookupByLibrary.simpleMessage(
@@ -458,6 +473,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Pubkey": MessageLookupByLibrary.simpleMessage("Pubkey"),
     "Public": MessageLookupByLibrary.simpleMessage("Public"),
     "QrCode": MessageLookupByLibrary.simpleMessage("QrCode"),
+    "Quickly_createe_a_feed": MessageLookupByLibrary.simpleMessage(
+      "Quickly create a feed",
+    ),
     "Quote": MessageLookupByLibrary.simpleMessage("Quote"),
     "Read": MessageLookupByLibrary.simpleMessage("Read"),
     "Read_Only": MessageLookupByLibrary.simpleMessage("Read Only"),
@@ -467,6 +485,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Receive": MessageLookupByLibrary.simpleMessage("Receive"),
     "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relay"),
+    "Relay_Feed": MessageLookupByLibrary.simpleMessage("Relay Feed"),
+    "Relay_Feed_descrption": MessageLookupByLibrary.simpleMessage(
+      "Feeds of specific relays",
+    ),
     "Relay_Info": MessageLookupByLibrary.simpleMessage("Relay Info"),
     "Relay_Mode": MessageLookupByLibrary.simpleMessage("Relay Mode"),
     "Relays": MessageLookupByLibrary.simpleMessage("Relays"),

@@ -370,5 +370,15 @@
     "Images": "Images",
     "Logout_tips": "You are about to log out, please make sure you have saved your secret key?",
     "Index": "Index",
-    "Index_Relay": "Index Relay"
+    "Index_Relay": "Index Relay",
+    "No_feed_yet": "No feed yet",
+    "Create_feed_description": "Create your first feed to start browsing content on the Nostr network.",
+    "Quickly_createe_a_feed": "Quickly create a feed",
+    "Manually_create_a_custom_feed": "Manually create a custom feed",
+    "Followed_Feed": "Followed Feed",
+    "Followed_Feed_descrption": "Feeds of followed users",
+    "Mentioned_Feed": "Mentioned Feed",
+    "Mentioned_Feed_descrption": "Those feeds that mentioned you",
+    "Relay_Feed": "Relay Feed",
+    "Relay_Feed_descrption": "Feeds of specific relays"
 }

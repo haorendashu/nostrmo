@@ -59,9 +59,9 @@ class SyncService with LaterFunction, ChangeNotifier {
   }
 
   void reload() {
-    sharedPreferences.remove(KEY_SYNC_INIT_TIME);
-    sharedPreferences.remove(KEY_SYNC_TASK);
-    sharedPreferences.remove(KEY_USERS_SYNC_TASK);
+    // sharedPreferences.remove(KEY_SYNC_INIT_TIME);
+    // sharedPreferences.remove(KEY_SYNC_TASK);
+    // sharedPreferences.remove(KEY_USERS_SYNC_TASK);
 
     initTime = sharedPreferences.getInt(KEY_SYNC_INIT_TIME);
     if (initTime == null) {
@@ -128,8 +128,8 @@ class SyncService with LaterFunction, ChangeNotifier {
     sharedPreferences.setString(KEY_USERS_SYNC_TASK, usersSyncTaskText);
   }
 
-  void updateFromFeedDataList(
-      List<FeedData> feedDataList, String currentPubkey) {
+  Future<void> updateFromFeedDataList(
+      List<FeedData> feedDataList, String currentPubkey) async {
     // update current's syncTaskList to usersSyncTaskMap
     var usersSyncTaskMap = getUsersSyncTaskMap();
     List<SyncTaskItem> currentTaskItems = [];
@@ -173,8 +173,10 @@ class SyncService with LaterFunction, ChangeNotifier {
       syncTaskMap.remove(needRemoveTaskKey);
     }
 
+    syncTaskMap = newTotalTaskMap;
     if (needAddTaskList.isNotEmpty || needRemoveTaskKeyList.isNotEmpty) {
       saveSyncInfo();
+      await syncService.loadMetadatas();
     }
   }
 
@@ -205,6 +207,12 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
     myRelayList = myRelaysSet.toList();
 
+    await loadMetadatas();
+
+    _doSync(targetNostr);
+  }
+
+  Future<void> loadMetadatas() async {
     // find all pubkeys in syncTaskMap and load data from DB
     List<String> pubkeys = [];
     for (var taskItem in syncTaskMap.values) {
@@ -213,10 +221,8 @@ class SyncService with LaterFunction, ChangeNotifier {
       }
     }
     if (pubkeys.isNotEmpty) {
-      await metadataProvider.loadFromDBsSync(pubkeys);
+      await metadataProvider.loadMetadatas(pubkeys);
     }
-
-    _doSync(targetNostr);
   }
 
   int _startSyncTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;

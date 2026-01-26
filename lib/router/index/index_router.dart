@@ -271,8 +271,14 @@ class _IndexRouter extends CustState<IndexRouter>
 
     if (feedsTabController == null ||
         feedsTabController!.length != feedList.length) {
-      feedsTabController = TabController(
-          initialIndex: feedsInitTab, length: feedList.length, vsync: this);
+      if (feedsInitTab >= 0 && feedList.isNotEmpty) {
+        if (feedsInitTab >= feedList.length) {
+          feedsInitTab = 0;
+        }
+
+        feedsTabController = TabController(
+            initialIndex: feedsInitTab, length: feedList.length, vsync: this);
+      }
     }
 
     var _indexProvider = Provider.of<IndexProvider>(context);
@@ -319,38 +325,41 @@ class _IndexRouter extends CustState<IndexRouter>
           ),
         ));
       }
-      appBarCenter = Container(
-        child: Row(
-          children: [
-            Flexible(
-              flex: 1,
-              child: TabBar(
-                indicatorColor: indicatorColor,
-                indicatorWeight: 3,
-                indicatorSize: TabBarIndicatorSize.tab,
-                dividerHeight: 0,
-                labelPadding: EdgeInsets.zero,
-                tabs: feedTitleWidgets,
-                controller: feedsTabController,
-                isScrollable: true,
-                tabAlignment: TabAlignment.start,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                RouterUtil.router(context, RouterPath.FEED_LIST);
-              },
-              child: Container(
-                margin: const EdgeInsets.only(left: Base.BASE_PADDING),
-                child: Icon(
-                  Icons.settings,
-                  size: themeData.textTheme.bodyMedium!.fontSize! - 1,
+
+      if (feedTitleWidgets.isNotEmpty) {
+        appBarCenter = Container(
+          child: Row(
+            children: [
+              Flexible(
+                flex: 1,
+                child: TabBar(
+                  indicatorColor: indicatorColor,
+                  indicatorWeight: 3,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  dividerHeight: 0,
+                  labelPadding: EdgeInsets.zero,
+                  tabs: feedTitleWidgets,
+                  controller: feedsTabController,
+                  isScrollable: true,
+                  tabAlignment: TabAlignment.start,
                 ),
               ),
-            ),
-          ],
-        ),
-      );
+              GestureDetector(
+                onTap: () {
+                  RouterUtil.router(context, RouterPath.FEED_LIST);
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(left: Base.BASE_PADDING),
+                  child: Icon(
+                    Icons.settings,
+                    size: themeData.textTheme.bodyMedium!.fontSize! - 1,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
     } else if (_indexProvider.currentTap == 1) {
       appBarCenter = TabBar(
         indicatorColor: indicatorColor,
@@ -462,7 +471,7 @@ class _IndexRouter extends CustState<IndexRouter>
         //   tabController: followTabController,
         // ),
         FeedIndexRouter(
-          tabController: feedsTabController!,
+          tabController: feedsTabController,
         ),
         GlobalsIndexRouter(
           tabController: globalsTabController,

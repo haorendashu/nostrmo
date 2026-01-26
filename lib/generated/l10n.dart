@@ -2828,6 +2828,96 @@ class S {
   String get Index_Relay {
     return Intl.message('Index Relay', name: 'Index_Relay', desc: '', args: []);
   }
+
+  /// `No feed yet`
+  String get No_feed_yet {
+    return Intl.message('No feed yet', name: 'No_feed_yet', desc: '', args: []);
+  }
+
+  /// `Create your first feed to start browsing content on the Nostr network.`
+  String get Create_feed_description {
+    return Intl.message(
+      'Create your first feed to start browsing content on the Nostr network.',
+      name: 'Create_feed_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quickly create a feed`
+  String get Quickly_createe_a_feed {
+    return Intl.message(
+      'Quickly create a feed',
+      name: 'Quickly_createe_a_feed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manually create a custom feed`
+  String get Manually_create_a_custom_feed {
+    return Intl.message(
+      'Manually create a custom feed',
+      name: 'Manually_create_a_custom_feed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Followed Feed`
+  String get Followed_Feed {
+    return Intl.message(
+      'Followed Feed',
+      name: 'Followed_Feed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feeds of followed users`
+  String get Followed_Feed_descrption {
+    return Intl.message(
+      'Feeds of followed users',
+      name: 'Followed_Feed_descrption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mentioned Feed`
+  String get Mentioned_Feed {
+    return Intl.message(
+      'Mentioned Feed',
+      name: 'Mentioned_Feed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Those feeds that mentioned you`
+  String get Mentioned_Feed_descrption {
+    return Intl.message(
+      'Those feeds that mentioned you',
+      name: 'Mentioned_Feed_descrption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Relay Feed`
+  String get Relay_Feed {
+    return Intl.message('Relay Feed', name: 'Relay_Feed', desc: '', args: []);
+  }
+
+  /// `Feeds of specific relays`
+  String get Relay_Feed_descrption {
+    return Intl.message(
+      'Feeds of specific relays',
+      name: 'Relay_Feed_descrption',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

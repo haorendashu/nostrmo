@@ -76,9 +76,14 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     }
   }
 
-  Future<void> loadFromDBsSync(List<String> pubkeys) async {
+  Future<void> loadMetadatas(List<String> pubkeys) async {
     if (pubkeys.isEmpty) {
       return;
+    }
+
+    Map<String, int> pubkeyMap = {};
+    for (var pubkey in pubkeys) {
+      pubkeyMap[pubkey] = 1;
     }
 
     var complete = Completer();
@@ -97,7 +102,12 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       for (var event in eventList) {
         _handleEvent(event, updateWhenCacheIsNull: false);
         _checkingFromDBPubKeys.remove(event.pubkey);
+        pubkeyMap.remove(event.pubkey);
       }
+
+      var keys = [...pubkeyMap.keys];
+      _needUpdatePubKeys.addAll(keys);
+      _laterSearch();
 
       complete.complete();
     });
@@ -322,7 +332,8 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         filters.add(filter.toJson());
       }
       if (filters.length > 20) {
-        nostr!.query(filters, onEvent);
+        nostr!.query(filters, onEvent,
+            relayTypes: RelayType.NORMAL_AND_CACHE_AND_INDEX);
         filters = [];
       }
     }

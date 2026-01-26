@@ -356,5 +356,15 @@
     "Images": "图片",
     "Logout_tips": "你正想要退出登录，请确保已经保存好你的秘钥？",
     "Index": "索引",
-    "Index_Relay": "索引中继"
+    "Index_Relay": "索引中继",
+    "No_feed_yet": "暂无Feed",
+    "Create_feed_description": "创建你的第一个Feed来开始浏览Nostr网络上的内容。",
+    "Quickly_createe_a_feed": "快速创建Feed",
+    "Manually_create_a_custom_feed": "手动创建自定义Feed",
+    "Followed_Feed": "关注信息流",
+    "Followed_Feed_descrption": "关注用户的信息流",
+    "Mentioned_Feed": "提及信息流",
+    "Mentioned_Feed_descrption": "那些提到你的信息流",
+    "Relay_Feed": "中继信息流",
+    "Relay_Feed_descrption": "特定中继的信息流"
 }
