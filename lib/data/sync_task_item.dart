@@ -13,7 +13,7 @@ class SyncTaskItem {
     this.endTime,
   });
 
-  static fromJson(Map<String, dynamic> json) {
+  static SyncTaskItem fromJson(Map<String, dynamic> json) {
     List<String>? relays;
     if (json["relays"] != null) {
       relays =

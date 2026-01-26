@@ -59,9 +59,9 @@ class SyncService with LaterFunction, ChangeNotifier {
   }
 
   void reload() {
-    // sharedPreferences.remove(KEY_SYNC_INIT_TIME);
-    // sharedPreferences.remove(KEY_SYNC_TASK);
-    // sharedPreferences.remove(KEY_USERS_SYNC_TASK);
+    sharedPreferences.remove(KEY_SYNC_INIT_TIME);
+    sharedPreferences.remove(KEY_SYNC_TASK);
+    sharedPreferences.remove(KEY_USERS_SYNC_TASK);
 
     initTime = sharedPreferences.getInt(KEY_SYNC_INIT_TIME);
     if (initTime == null) {
@@ -70,10 +70,14 @@ class SyncService with LaterFunction, ChangeNotifier {
       sharedPreferences.setInt(KEY_SYNC_INIT_TIME, initTime!);
     }
 
+    var date = DateTime.fromMillisecondsSinceEpoch(initTime! * 1000);
+    log("initDate is ${date.toIso8601String()}");
+
     syncTaskMap.clear();
     var taskItemTextList = sharedPreferences.getStringList(KEY_SYNC_TASK) ?? [];
     for (var taskItemText in taskItemTextList) {
       var taskItem = SyncTaskItem.fromJson(jsonDecode(taskItemText));
+      taskItem.startTime = initTime!;
       syncTaskMap[_getItemKey(taskItem)] = taskItem;
     }
   }
@@ -218,12 +222,15 @@ class SyncService with LaterFunction, ChangeNotifier {
   int _startSyncTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
   Future<void> _doSync(Nostr targetNostr) async {
+    var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+    _startSyncTime = now;
+
+    genQueryTasksAndExecute(targetNostr, initTime!, untilTime: now);
+  }
+
+  void genQueryTasksAndExecute(Nostr targetNostr, int sinceTime,
+      {int? untilTime}) {
     try {
-      var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-      _startSyncTime = now;
-
-      Map<String, SyncRelayTask> relayTaskMap = {};
-
       // clear pending queries
       _pendingQueries.clear();
       _currentRunningQueries = 0;
@@ -244,22 +251,12 @@ class SyncService with LaterFunction, ChangeNotifier {
               relayList.shuffle();
               relayList = relayList.sublist(0, MAX_PERSON_RELAY_NUM);
             }
-
-            for (var relay in relayList) {
-              var relayTask = _getOrGenRelayTask(relay, relayTaskMap);
-              relayTask.pubkeys.add(pubkey);
-            }
           }
         } else if (taskItem.syncType == SyncTaskType.HASH_TAG) {
           if (taskItem.relays != null && taskItem.relays!.isNotEmpty) {
             relayList = taskItem.relays!;
           } else {
             relayList = myRelayList;
-          }
-
-          for (var relay in relayList) {
-            var relayTask = _getOrGenRelayTask(relay, relayTaskMap);
-            relayTask.hashTags.add(taskItem.value);
           }
         }
 
@@ -268,15 +265,9 @@ class SyncService with LaterFunction, ChangeNotifier {
         }
 
         // handle filter base params and time
-        var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, until: now);
-        if (taskItem.endTime == null) {
-          filter.since = initTime;
-          taskItem.startTime = initTime;
-        } else {
-          filter.since = taskItem.endTime!;
-        }
-        // TODO the time between startTime and endTime maybe very long and the query may not be complete in a time.
-        // we should split the query to multiple queries.
+        var filter = Filter(
+          kinds: EventKindType.SUPPORTED_EVENTS,
+        );
 
         var filterMap = filter.toJson();
         // relays had bean found and try to sync events
@@ -286,37 +277,43 @@ class SyncService with LaterFunction, ChangeNotifier {
           filterMap["#t"] = [taskItem.value];
         }
 
-        // add query to queue
-        _addQueryToQueue(targetNostr, filterMap, relayList, taskItem, now);
+        if (taskItem.startTime != null && sinceTime < taskItem.startTime!) {
+          // the task's startTime is later than the sinceTime, query event before taskItem's startTime
+          filterMap["since"] = sinceTime;
+          filterMap["until"] = taskItem.startTime!;
+
+          // add query to queue
+          _addQueryToQueue(targetNostr, filterMap, relayList, taskItem,
+              startTime: sinceTime);
+        }
+
+        if (untilTime != null) {
+          int? _since;
+          if (taskItem.endTime == null) {
+            // endTime is null, it never sync, the begin time is the task's startTime, usually it's the initTime
+            _since = taskItem.startTime;
+          } else {
+            // endTime is not null, it had synced before, use the last endTime as this time's beginTime
+            _since = taskItem.endTime!;
+          }
+
+          if (_since != null && _since < untilTime) {
+            filterMap = Map.from(filterMap);
+            filterMap["since"] = _since;
+            filterMap["until"] = untilTime;
+
+            // add query to queue
+            _addQueryToQueue(targetNostr, filterMap, relayList, taskItem,
+                endTime: untilTime);
+          }
+        }
+
+        // TODO the time between startTime and endTime maybe very long and the query may not be complete in a time.
+        // we should split the query to multiple queries.
       }
 
       // begin execute pending queries
       _executePendingQueries();
-
-      // many sync task sync fail, so don't send subscript now.
-
-      // begin to subscript the new event using relayTaskMap
-      // for (var relayTask in relayTaskMap.values) {
-      //   if (relayTask.pubkeys.isNotEmpty || relayTask.hashTags.isNotEmpty) {
-      //     var filter = Filter(kinds: EventKindType.SUPPORTED_EVENTS, since: now);
-      //     if (relayTask.pubkeys.isNotEmpty) {
-      //       filter.authors = relayTask.pubkeys.toList();
-      //     }
-      //     var filterMap = filter.toJson();
-      //     if (relayTask.hashTags.isNotEmpty) {
-      //       filterMap["#t"] = relayTask.hashTags.toList();
-      //     }
-
-      //     var subscriptionId = StringUtil.rndNameStr(12);
-      //     _subscriptionIds[relayTask.relay] = subscriptionId;
-      //     targetNostr.subscribe(
-      //       [filterMap],
-      //       (e) {},
-      //       id: subscriptionId,
-      //       targetRelays: [relayTask.relay],
-      //     );
-      //   }
-      // }
     } catch (e) {
       print("_doSync catch error $e");
     }
@@ -326,7 +323,8 @@ class SyncService with LaterFunction, ChangeNotifier {
   Map<String, String> _subscriptionIds = {};
 
   void _addQueryToQueue(Nostr targetNostr, Map<String, dynamic> filterMap,
-      List<String> relayList, SyncTaskItem taskItem, int endTime) {
+      List<String> relayList, SyncTaskItem taskItem,
+      {int? startTime, int? endTime}) {
     _pendingQueries.add(() {
       var complete = Completer<bool>();
       var eoseTime = 0;
@@ -352,17 +350,15 @@ class SyncService with LaterFunction, ChangeNotifier {
       complete.future.then((v) {
         print("query complete, filterMap: $filterMap, relayList: $relayList");
         // query complete!
-        taskItem.endTime = endTime;
-        syncTaskMap[_getItemKey(taskItem)] = taskItem;
-        later(saveSyncInfo);
+        _getTaskItemAndUpdateTime(taskItem,
+            startTime: startTime, endTime: endTime);
       }).timeout(const Duration(seconds: 60), onTimeout: () {
         print(
             "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime");
         if (eoseTime > 1) {
           print("query timeout but eoseTime > 1");
-          taskItem.endTime = endTime;
-          syncTaskMap[_getItemKey(taskItem)] = taskItem;
-          later(saveSyncInfo);
+          _getTaskItemAndUpdateTime(taskItem,
+              startTime: startTime, endTime: endTime);
         }
 
         // // it was timeout now, find if the relay is connect timeout
@@ -383,6 +379,24 @@ class SyncService with LaterFunction, ChangeNotifier {
         _executePendingQueries();
       });
     });
+  }
+
+  void _getTaskItemAndUpdateTime(SyncTaskItem taskItem,
+      {int? startTime, int? endTime}) {
+    var key = _getItemKey(taskItem);
+    var _taskItem = syncTaskMap[key];
+    if (_taskItem != null) {
+      if (startTime != null) {
+        _taskItem.startTime = startTime;
+        syncTaskMap[key] = _taskItem;
+        later(saveSyncInfo);
+      }
+      if (endTime != null) {
+        _taskItem.endTime = endTime;
+        syncTaskMap[key] = _taskItem;
+        later(saveSyncInfo);
+      }
+    }
   }
 
   Future<void> _executePendingQueries() async {
@@ -413,15 +427,11 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
   }
 
-  SyncRelayTask _getOrGenRelayTask(
-      String relay, Map<String, SyncRelayTask> relayTaskMap) {
-    var relayTask = relayTaskMap[relay];
-    if (relayTask == null) {
-      relayTask = SyncRelayTask(relay, {}, {});
-      relayTaskMap[relay] = relayTask;
+  void checkOrSyncOldData(int sinceTime) {
+    if (initTime != null && sinceTime < initTime!) {
+      initTime = initTime! - const Duration(days: 7).inSeconds;
+      sharedPreferences.setInt(KEY_SYNC_INIT_TIME, initTime!);
     }
-
-    return relayTask;
   }
 
   void addSyncCompleteCallback(Function() callback) {

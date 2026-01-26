@@ -114,6 +114,10 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
       return;
     }
 
+    if (until != null) {
+      syncService.checkOrSyncOldData(until!);
+    }
+
     nostr!.query(filters, (e) {
       if (!isSupportedEventType(e)) {
         return;
@@ -246,21 +250,21 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
       onRefresh: refresh,
     );
 
-    if (newEventBox.length() > 0) {
-      main = Stack(
-        alignment: Alignment.center,
-        children: [
-          main,
-          Positioned(
-            top: Base.BASE_PADDING,
-            child: NewNotesUpdatedComponent(
-              num: newEventBox.length(),
-              onTap: megerNewEvents,
-            ),
-          ),
-        ],
-      );
-    }
+    main = Stack(
+      alignment: Alignment.center,
+      children: [
+        main,
+        Positioned(
+          top: Base.BASE_PADDING,
+          child: newEventBox.length() > 0
+              ? NewNotesUpdatedComponent(
+                  num: newEventBox.length(),
+                  onTap: megerNewEvents,
+                )
+              : Container(),
+        ),
+      ],
+    );
 
     return main;
   }
