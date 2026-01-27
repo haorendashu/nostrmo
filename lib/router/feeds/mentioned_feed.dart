@@ -74,7 +74,7 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
           setState(() {});
         }
       }, null);
-    }, relayTypes: RelayType.CACHE_AND_LOCAL);
+    });
   }
 
   @override
