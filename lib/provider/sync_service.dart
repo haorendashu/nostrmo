@@ -46,6 +46,8 @@ class SyncService with LaterFunction, ChangeNotifier {
   // max relay num for each person
   static const int MAX_PERSON_RELAY_NUM = 4;
 
+  static int PULL_INTERVAL = const Duration(days: 7).inSeconds;
+
   List<Function()> _syncCompleteCallback = [];
 
   void dispose() {
@@ -65,8 +67,7 @@ class SyncService with LaterFunction, ChangeNotifier {
 
     initTime = sharedPreferences.getInt(KEY_SYNC_INIT_TIME);
     if (initTime == null) {
-      initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000 -
-          const Duration(days: 7).inSeconds;
+      initTime = DateTime.now().millisecondsSinceEpoch ~/ 1000 - PULL_INTERVAL;
       sharedPreferences.setInt(KEY_SYNC_INIT_TIME, initTime!);
     }
 
@@ -77,7 +78,6 @@ class SyncService with LaterFunction, ChangeNotifier {
     var taskItemTextList = sharedPreferences.getStringList(KEY_SYNC_TASK) ?? [];
     for (var taskItemText in taskItemTextList) {
       var taskItem = SyncTaskItem.fromJson(jsonDecode(taskItemText));
-      taskItem.startTime = initTime!;
       syncTaskMap[_getItemKey(taskItem)] = taskItem;
     }
   }
@@ -174,9 +174,13 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
 
     syncTaskMap = newTotalTaskMap;
+    print("syncTaskMap $syncTaskMap");
     if (needAddTaskList.isNotEmpty || needRemoveTaskKeyList.isNotEmpty) {
       saveSyncInfo();
-      await syncService.loadMetadatas();
+      await loadMetadatas();
+
+      genQueryTasksAndExecute(nostr!, initTime!,
+          untilTime: DateTime.now().millisecondsSinceEpoch ~/ 1000);
     }
   }
 
@@ -220,6 +224,7 @@ class SyncService with LaterFunction, ChangeNotifier {
         pubkeys.add(taskItem.value);
       }
     }
+    print("pubkeys $pubkeys");
     if (pubkeys.isNotEmpty) {
       await metadataProvider.loadMetadatas(pubkeys);
     }
@@ -242,6 +247,7 @@ class SyncService with LaterFunction, ChangeNotifier {
       _currentRunningQueries = 0;
 
       for (var taskItem in syncTaskMap.values) {
+        taskItem.startTime ??= initTime;
         print("taskItem $taskItem");
         List<String>? relayList;
         taskItem = taskItem.clone();
@@ -250,6 +256,7 @@ class SyncService with LaterFunction, ChangeNotifier {
         if (taskItem.syncType == SyncTaskType.PUBKEY) {
           var pubkey = taskItem.value;
           var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
+          print("relayListMetadata $relayListMetadata");
           if (relayListMetadata != null) {
             relayList = [...relayListMetadata.writeAbleRelays];
             if (relayList.length > MAX_PERSON_RELAY_NUM) {
@@ -266,6 +273,7 @@ class SyncService with LaterFunction, ChangeNotifier {
           }
         }
 
+        print("relayList $relayList");
         if (relayList == null || relayList.isEmpty) {
           continue;
         }
@@ -434,9 +442,11 @@ class SyncService with LaterFunction, ChangeNotifier {
   }
 
   void checkOrSyncOldData(int sinceTime) {
-    if (initTime != null && sinceTime < initTime!) {
-      initTime = initTime! - const Duration(days: 7).inSeconds;
+    if (initTime != null && sinceTime < initTime! + PULL_INTERVAL / 2) {
+      initTime = initTime! - PULL_INTERVAL;
       sharedPreferences.setInt(KEY_SYNC_INIT_TIME, initTime!);
+
+      genQueryTasksAndExecute(nostr!, initTime!);
     }
   }
 

@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/event_kind_type.dart';
@@ -216,11 +217,11 @@ class _EmptyFeedPageState extends State<EmptyFeedPage> {
     );
   }
 
-  void _createQuickFeed(
+  Future<void> _createQuickFeed(
     BuildContext context,
     String name,
     int feedType,
-  ) {
+  ) async {
     var feedData = FeedData(
       StringUtil.rndNameStr(14),
       name,
@@ -239,7 +240,14 @@ class _EmptyFeedPageState extends State<EmptyFeedPage> {
     if (feedType == FeedType.RELAYS_FEED) {
       RouterUtil.router(context, RouterPath.FEED_BUILDER, feedData);
     } else {
-      feedProvider.saveFeed(feedData, targetNostr: nostr);
+      var cancelFunc = BotToast.showLoading();
+      try {
+        feedProvider.saveFeed(feedData, targetNostr: nostr, updateUI: false);
+        await Future.delayed(Duration(seconds: 30));
+      } finally {
+        cancelFunc();
+        feedProvider.updateUI();
+      }
     }
   }
 }

@@ -34,13 +34,13 @@ class FeedProvider extends ChangeNotifier {
     _updateFeedList(targetNostr: targetNostr);
   }
 
-  void saveFeed(FeedData feedData, {Nostr? targetNostr}) {
+  void saveFeed(FeedData feedData, {bool updateUI = true, Nostr? targetNostr}) {
     targetNostr ??= nostr;
     _saveToMemery(feedData);
-    _updateFeedList(targetNostr: targetNostr);
+    _updateFeedList(updateUI: updateUI, targetNostr: targetNostr);
   }
 
-  void _updateFeedList({Nostr? targetNostr}) {
+  void _updateFeedList({bool updateUI = true, Nostr? targetNostr}) {
     updateTime = DateTime.now().millisecondsSinceEpoch;
     // update ui
     // update to sync task provider
@@ -48,7 +48,7 @@ class FeedProvider extends ChangeNotifier {
       handleFeedData(_fd);
     }
     // save to local
-    _saveAndUpdateUI(targetNostr: targetNostr);
+    _saveAndUpdateUI(updateUI: updateUI, targetNostr: targetNostr);
     syncService.updateFromFeedDataList(feedList, targetNostr!.publicKey);
   }
 
@@ -84,6 +84,10 @@ class FeedProvider extends ChangeNotifier {
     if (updateUI) {
       notifyListeners();
     }
+  }
+
+  void updateUI() {
+    notifyListeners();
   }
 
   Map<String, dynamic> toLocalJson() {

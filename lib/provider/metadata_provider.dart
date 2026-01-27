@@ -105,9 +105,11 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         pubkeyMap.remove(event.pubkey);
       }
 
-      var keys = [...pubkeyMap.keys];
-      _needUpdatePubKeys.addAll(keys);
-      _laterSearch();
+      if (pubkeyMap.isNotEmpty) {
+        var keys = [...pubkeyMap.keys];
+        _needUpdatePubKeys.addAll(keys);
+        _laterSearch();
+      }
 
       complete.complete();
     });
