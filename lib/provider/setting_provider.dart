@@ -117,7 +117,7 @@ class SettingProvider extends ChangeNotifier {
     return null;
   }
 
-  int addAndChangePrivateKey(String pk, {bool updateUI = false}) {
+  Future<int> addAndChangePrivateKey(String pk, {bool updateUI = false}) async {
     int? findIndex;
     var entries = _privateKeyMap.entries;
     for (var entry in entries) {
@@ -140,7 +140,7 @@ class SettingProvider extends ChangeNotifier {
         _settingData!.privateKeyIndex = i;
 
         // _settingData!.privateKeyMap = json.encode(_privateKeyMap);
-        _encodePrivateKeyMap();
+        await _encodePrivateKeyMap();
         saveAndNotifyListeners(updateUI: updateUI);
 
         return i;

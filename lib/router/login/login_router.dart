@@ -365,7 +365,7 @@ class _LoginRouter extends State<LoginRouter>
       doPreLogin();
 
       var npubKey = Nip19.encodePubKey(pubkey!);
-      settingProvider.addAndChangePrivateKey(npubKey, updateUI: false);
+      await settingProvider.addAndChangePrivateKey(npubKey, updateUI: false);
 
       var pubkeyOnlySigner = PubkeyOnlyNostrSigner(pubkey);
       nostr = await relayProvider.genNostr(pubkeyOnlySigner);
@@ -388,7 +388,8 @@ class _LoginRouter extends State<LoginRouter>
           bunkerLink =
               (nostr!.nostrSigner as NostrRemoteSigner).info.toString();
         }
-        settingProvider.addAndChangePrivateKey(bunkerLink, updateUI: false);
+        await settingProvider.addAndChangePrivateKey(bunkerLink,
+            updateUI: false);
       } finally {
         cancel.call();
       }
@@ -407,7 +408,7 @@ class _LoginRouter extends State<LoginRouter>
 
       doPreLogin();
 
-      settingProvider.addAndChangePrivateKey(pk, updateUI: false);
+      await settingProvider.addAndChangePrivateKey(pk, updateUI: false);
       nostr = await relayProvider.genNostrWithKey(pk);
     }
 
@@ -445,7 +446,7 @@ class _LoginRouter extends State<LoginRouter>
     if (StringUtil.isNotBlank(androidNostrSigner.getPackage())) {
       key = "$key?package=${androidNostrSigner.getPackage()}";
     }
-    settingProvider.addAndChangePrivateKey(key, updateUI: false);
+    await settingProvider.addAndChangePrivateKey(key, updateUI: false);
     nostr = await relayProvider.genNostr(androidNostrSigner);
 
     if (backAfterLogin) {
@@ -473,7 +474,7 @@ class _LoginRouter extends State<LoginRouter>
     doPreLogin();
 
     var key = "${NIP07Signer.URI_PRE}:$pubkey";
-    settingProvider.addAndChangePrivateKey(key, updateUI: false);
+    await settingProvider.addAndChangePrivateKey(key, updateUI: false);
     nostr = await relayProvider.genNostr(signer);
 
     if (backAfterLogin) {
@@ -529,7 +530,7 @@ class _LoginRouter extends State<LoginRouter>
       doPreLogin();
 
       var key = "${Nesigner.URI_PRE}:$pinCode?pubkey=$pubkey";
-      settingProvider.addAndChangePrivateKey(key, updateUI: false);
+      await settingProvider.addAndChangePrivateKey(key, updateUI: false);
       nostr = await relayProvider.genNostr(nesigner);
     } finally {
       cancelFunc.call();

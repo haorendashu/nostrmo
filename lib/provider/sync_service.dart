@@ -174,7 +174,6 @@ class SyncService with LaterFunction, ChangeNotifier {
     }
 
     syncTaskMap = newTotalTaskMap;
-    print("syncTaskMap $syncTaskMap");
     if (needAddTaskList.isNotEmpty || needRemoveTaskKeyList.isNotEmpty) {
       saveSyncInfo();
       await loadMetadatas();
@@ -224,7 +223,6 @@ class SyncService with LaterFunction, ChangeNotifier {
         pubkeys.add(taskItem.value);
       }
     }
-    print("pubkeys $pubkeys");
     if (pubkeys.isNotEmpty) {
       await metadataProvider.loadMetadatas(pubkeys);
     }
@@ -256,7 +254,6 @@ class SyncService with LaterFunction, ChangeNotifier {
         if (taskItem.syncType == SyncTaskType.PUBKEY) {
           var pubkey = taskItem.value;
           var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
-          print("relayListMetadata $relayListMetadata");
           if (relayListMetadata != null) {
             relayList = [...relayListMetadata.writeAbleRelays];
             if (relayList.length > MAX_PERSON_RELAY_NUM) {
@@ -273,7 +270,6 @@ class SyncService with LaterFunction, ChangeNotifier {
           }
         }
 
-        print("relayList $relayList");
         if (relayList == null || relayList.isEmpty) {
           continue;
         }
