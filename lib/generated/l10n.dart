@@ -2918,6 +2918,281 @@ class S {
       args: [],
     );
   }
+
+  /// `Feed List`
+  String get Feed_List {
+    return Intl.message('Feed List', name: 'Feed_List', desc: '', args: []);
+  }
+
+  /// `Tap the + button to create your first feed`
+  String get Add_feed_description {
+    return Intl.message(
+      'Tap the + button to create your first feed',
+      name: 'Add_feed_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General Feed`
+  String get General_Feed {
+    return Intl.message(
+      'General Feed',
+      name: 'General_Feed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown`
+  String get Unknown {
+    return Intl.message('Unknown', name: 'Unknown', desc: '', args: []);
+  }
+
+  /// `Delete Feed`
+  String get Delete_Feed {
+    return Intl.message('Delete Feed', name: 'Delete_Feed', desc: '', args: []);
+  }
+
+  /// `Are you sure you want to delete`
+  String get Delete_description {
+    return Intl.message(
+      'Are you sure you want to delete',
+      name: 'Delete_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feed Type`
+  String get Feed_Type {
+    return Intl.message('Feed Type', name: 'Feed_Type', desc: '', args: []);
+  }
+
+  /// `Select a feed type`
+  String get Select_a_feed_type {
+    return Intl.message(
+      'Select a feed type',
+      name: 'Select_a_feed_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Relay Address`
+  String get Relay_Address {
+    return Intl.message(
+      'Relay Address',
+      name: 'Relay_Address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data Source Type`
+  String get Data_Source_Type {
+    return Intl.message(
+      'Data Source Type',
+      name: 'Data_Source_Type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a data source type`
+  String get Select_a_data_source_type {
+    return Intl.message(
+      'Select a data source type',
+      name: 'Select_a_data_source_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Follow Set`
+  String get Add_Follow_Set {
+    return Intl.message(
+      'Add Follow Set',
+      name: 'Add_Follow_Set',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data Sources`
+  String get Data_Sources {
+    return Intl.message(
+      'Data Sources',
+      name: 'Data_Sources',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event Kind`
+  String get Event_Kind {
+    return Intl.message('Event Kind', name: 'Event_Kind', desc: '', args: []);
+  }
+
+  /// `Event Type`
+  String get Event_Type {
+    return Intl.message('Event Type', name: 'Event_Type', desc: '', args: []);
+  }
+
+  /// `Select a event type`
+  String get Select_a_event_type {
+    return Intl.message(
+      'Select a event type',
+      name: 'Select_a_event_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Feed`
+  String get Save_Feed {
+    return Intl.message('Save Feed', name: 'Save_Feed', desc: '', args: []);
+  }
+
+  /// `Feed Builder`
+  String get Feed_Builder {
+    return Intl.message(
+      'Feed Builder',
+      name: 'Feed_Builder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Data Source`
+  String get Add_Data_Source {
+    return Intl.message(
+      'Add Data Source',
+      name: 'Add_Data_Source',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please input the name`
+  String get Please_input_the_name {
+    return Intl.message(
+      'Please input the name',
+      name: 'Please_input_the_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please add the data source`
+  String get Please_add_the_data_source {
+    return Intl.message(
+      'Please add the data source',
+      name: 'Please_add_the_data_source',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the event kind`
+  String get Please_select_the_event_kind {
+    return Intl.message(
+      'Please select the event kind',
+      name: 'Please_select_the_event_kind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Text Note`
+  String get Text_Note {
+    return Intl.message('Text Note', name: 'Text_Note', desc: '', args: []);
+  }
+
+  /// `Generic Repost`
+  String get Generic_Repost {
+    return Intl.message(
+      'Generic Repost',
+      name: 'Generic_Repost',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Torrents`
+  String get Torrents {
+    return Intl.message('Torrents', name: 'Torrents', desc: '', args: []);
+  }
+
+  /// `Video Horizontal`
+  String get Video_Horizontal {
+    return Intl.message(
+      'Video Horizontal',
+      name: 'Video_Horizontal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video Vertical`
+  String get Video_Vertical {
+    return Intl.message(
+      'Video Vertical',
+      name: 'Video_Vertical',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Media Starter Packs`
+  String get Media_Starter_Packs {
+    return Intl.message(
+      'Media Starter Packs',
+      name: 'Media_Starter_Packs',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Events`
+  String get All_Events {
+    return Intl.message('All Events', name: 'All_Events', desc: '', args: []);
+  }
+
+  /// `Only Posts`
+  String get Only_Posts {
+    return Intl.message('Only Posts', name: 'Only_Posts', desc: '', args: []);
+  }
+
+  /// `Only Replies`
+  String get Only_Replies {
+    return Intl.message(
+      'Only Replies',
+      name: 'Only_Replies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `File Info`
+  String get File_Info {
+    return Intl.message('File Info', name: 'File_Info', desc: '', args: []);
+  }
+
+  /// `File`
+  String get Storage_Shared_File {
+    return Intl.message(
+      'File',
+      name: 'Storage_Shared_File',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feed`
+  String get Feed {
+    return Intl.message('Feed', name: 'Feed', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

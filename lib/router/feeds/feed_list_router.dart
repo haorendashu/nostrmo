@@ -10,6 +10,7 @@ import '../../component/appbar_back_btn_component.dart';
 import '../../consts/feed_data_event_type.dart';
 import '../../consts/feed_source_type.dart';
 import '../../consts/router_path.dart';
+import '../../generated/l10n.dart';
 import '../../util/router_util.dart';
 
 class FeedListRouter extends StatefulWidget {
@@ -20,10 +21,13 @@ class FeedListRouter extends StatefulWidget {
 }
 
 class _FeedListRouter extends State<FeedListRouter> {
+  late S s;
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     var _feedProvider = Provider.of<FeedProvider>(context);
+    s = S.of(context);
 
     var feedList = _feedProvider.feedList;
 
@@ -31,7 +35,7 @@ class _FeedListRouter extends State<FeedListRouter> {
       appBar: AppBar(
         leading: AppbarBackBtnComponent(),
         title: Text(
-          "Feed List",
+          s.Feed_List,
           style: TextStyle(
             fontSize: themeData.textTheme.bodyLarge!.fontSize,
             fontWeight: FontWeight.bold,
@@ -64,7 +68,7 @@ class _FeedListRouter extends State<FeedListRouter> {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    "No feeds yet",
+                    s.No_feed_yet,
                     style: TextStyle(
                       fontSize: 18,
                       color: themeData.hintColor,
@@ -72,7 +76,7 @@ class _FeedListRouter extends State<FeedListRouter> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "Tap the + button to create your first feed",
+                    s.Add_feed_description,
                     style: TextStyle(
                       fontSize: 14,
                       color: themeData.hintColor,
@@ -86,13 +90,13 @@ class _FeedListRouter extends State<FeedListRouter> {
               itemCount: feedList.length,
               itemBuilder: (context, index) {
                 var feed = feedList[index];
-                return _buildFeedCard(feed, themeData, index);
+                return _buildFeedCard(feed, themeData, index, s);
               },
             ),
     );
   }
 
-  Widget _buildFeedCard(FeedData feed, ThemeData themeData, int index) {
+  Widget _buildFeedCard(FeedData feed, ThemeData themeData, int index, S s) {
     var smallFontSize = themeData.textTheme.bodySmall!.fontSize;
     var hintColor = themeData.hintColor;
 
@@ -137,7 +141,7 @@ class _FeedListRouter extends State<FeedListRouter> {
         if (relays.isNotEmpty) {
           infoList.add(Container(
             child: Text(
-              "Relay:",
+              "${s.Relay}:",
               style: TextStyle(
                 fontSize: smallFontSize,
                 color: hintColor,
@@ -177,8 +181,10 @@ class _FeedListRouter extends State<FeedListRouter> {
     ));
 
     return Container(
-      padding: const EdgeInsets.all(
-        Base.BASE_PADDING,
+      padding: const EdgeInsets.only(
+        left: Base.BASE_PADDING,
+        right: Base.BASE_PADDING,
+        top: Base.BASE_PADDING,
       ),
       margin: const EdgeInsets.only(
         bottom: Base.BASE_PADDING,
@@ -188,7 +194,6 @@ class _FeedListRouter extends State<FeedListRouter> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Text(
@@ -236,7 +241,7 @@ class _FeedListRouter extends State<FeedListRouter> {
                   onPressed: () {
                     _editFeed(feed, context);
                   },
-                  padding: EdgeInsets.all(4),
+                  padding: EdgeInsets.only(left: 4, right: 4),
                   constraints: BoxConstraints(),
                 ),
                 IconButton(
@@ -244,7 +249,7 @@ class _FeedListRouter extends State<FeedListRouter> {
                   onPressed: () {
                     _deleteFeed(feed, context);
                   },
-                  padding: EdgeInsets.all(4),
+                  padding: EdgeInsets.only(left: 4, right: 4),
                   constraints: BoxConstraints(),
                 ),
               ],
@@ -258,13 +263,13 @@ class _FeedListRouter extends State<FeedListRouter> {
   String _getFeedTypeName(int feedType) {
     switch (feedType) {
       case FeedType.SYNC_FEED:
-        return "General Feed";
+        return s.General_Feed;
       case FeedType.RELAYS_FEED:
-        return "Relays Feed";
+        return s.Relay_Feed;
       case FeedType.MENTIONED_FEED:
-        return "Mentioned Feed";
+        return s.Mentioned_Feed;
       default:
-        return "Unknown";
+        return s.Unknown;
     }
   }
 
@@ -273,22 +278,23 @@ class _FeedListRouter extends State<FeedListRouter> {
   }
 
   void _deleteFeed(FeedData feed, BuildContext context) {
+    var s = S.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Delete Feed"),
-        content: Text("Are you sure you want to delete \"${feed.name}\"?"),
+        title: Text(s.Delete_Feed),
+        content: Text("${s.Delete_description} \"${feed.name}\" ?"),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text("Cancel"),
+            child: Text(s.Cancel),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
               feedProvider.removeFeed(feed.id);
             },
-            child: Text("Delete", style: TextStyle(color: Colors.red)),
+            child: Text(s.Delete, style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -297,11 +303,11 @@ class _FeedListRouter extends State<FeedListRouter> {
 
   String getEventType(int eventType) {
     if (eventType == FeedDataEventType.EVENT_ALL) {
-      return "All Events";
+      return s.All_Events;
     } else if (eventType == FeedDataEventType.EVENT_POST) {
-      return "Only Posts";
+      return s.Only_Posts;
     } else if (eventType == FeedDataEventType.EVENT_REPLY) {
-      return "Only Replies";
+      return s.Only_Replies;
     }
 
     return "unknow";

@@ -123,14 +123,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     if (settingProvider.defaultIndex != 1) {
       list.add(SettingGroupItemComponent(
         name: s.Default_tab,
-        value: "${(settingProvider.defaultIndex ?? 0) + 1} Feed",
+        value: "${(settingProvider.defaultIndex ?? 0) + 1} ${s.Feed}",
         onTap: () {
           List<EnumObj> feedSelectEnumObjs = [];
           var feedLength = feedProvider.feedList.length;
           for (var i = 0; i < feedLength; i++) {
             feedSelectEnumObjs.add(EnumObj(
               i,
-              "${i + 1} Feed",
+              "${i + 1} ${s.Feed}",
             ));
           }
           pickDefaultTab(feedSelectEnumObjs);

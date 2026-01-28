@@ -29,10 +29,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "Add_Custom_Emoji": MessageLookupByLibrary.simpleMessage(
       "Add Custom Emoji",
     ),
+    "Add_Data_Source": MessageLookupByLibrary.simpleMessage("Add Data Source"),
+    "Add_Follow_Set": MessageLookupByLibrary.simpleMessage("Add Follow Set"),
     "Add_User": MessageLookupByLibrary.simpleMessage("Add User"),
     "Add_a_Note": MessageLookupByLibrary.simpleMessage("Add a Note"),
     "Add_account_and_login": MessageLookupByLibrary.simpleMessage(
       "Add account and login?",
+    ),
+    "Add_feed_description": MessageLookupByLibrary.simpleMessage(
+      "Tap the + button to create your first feed",
     ),
     "Add_group_notice": MessageLookupByLibrary.simpleMessage(
       "You haven\'t added this group, please add it first!",
@@ -56,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Admins": MessageLookupByLibrary.simpleMessage("Admins"),
     "All": MessageLookupByLibrary.simpleMessage("All"),
+    "All_Events": MessageLookupByLibrary.simpleMessage("All Events"),
     "Any": MessageLookupByLibrary.simpleMessage("Any"),
     "Article": MessageLookupByLibrary.simpleMessage("Article"),
     "Authenticat_need": MessageLookupByLibrary.simpleMessage(
@@ -137,6 +143,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Dark": MessageLookupByLibrary.simpleMessage("Dark"),
     "Data": MessageLookupByLibrary.simpleMessage("Data"),
     "Data_Length": MessageLookupByLibrary.simpleMessage("Data Length"),
+    "Data_Source_Type": MessageLookupByLibrary.simpleMessage(
+      "Data Source Type",
+    ),
+    "Data_Sources": MessageLookupByLibrary.simpleMessage("Data Sources"),
     "Data_Sync_Mode": MessageLookupByLibrary.simpleMessage("Data Sync Mode"),
     "Default_Color": MessageLookupByLibrary.simpleMessage("Default Color"),
     "Default_Font_Family": MessageLookupByLibrary.simpleMessage(
@@ -150,6 +160,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Delete_Account_Tips": MessageLookupByLibrary.simpleMessage(
       "We will try to delete you infomation. When you login with this Key again, you will lose your data.",
     ),
+    "Delete_Feed": MessageLookupByLibrary.simpleMessage("Delete Feed"),
+    "Delete_description": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to delete",
+    ),
     "Detail": MessageLookupByLibrary.simpleMessage("Detail"),
     "Dirtywords": MessageLookupByLibrary.simpleMessage("Dirtywords"),
     "Display_Name": MessageLookupByLibrary.simpleMessage("Display Name"),
@@ -162,12 +176,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "Empty_text_may_be_ban_by_relays": MessageLookupByLibrary.simpleMessage(
       "Empty text may be ban by relays.",
     ),
+    "Event_Kind": MessageLookupByLibrary.simpleMessage("Event Kind"),
     "Event_Sign_Check": MessageLookupByLibrary.simpleMessage(
       "Event Sign Check",
     ),
+    "Event_Type": MessageLookupByLibrary.simpleMessage("Event Type"),
     "Exit_App": MessageLookupByLibrary.simpleMessage("Exit App"),
     "Face": MessageLookupByLibrary.simpleMessage("Face"),
     "Fast_Mode": MessageLookupByLibrary.simpleMessage("Fast Mode"),
+    "Feed": MessageLookupByLibrary.simpleMessage("Feed"),
+    "Feed_Builder": MessageLookupByLibrary.simpleMessage("Feed Builder"),
+    "Feed_List": MessageLookupByLibrary.simpleMessage("Feed List"),
+    "Feed_Type": MessageLookupByLibrary.simpleMessage("Feed Type"),
+    "File_Info": MessageLookupByLibrary.simpleMessage("File Info"),
     "File_Size": MessageLookupByLibrary.simpleMessage("File Size"),
     "File_is_too_big_for_NIP_95": MessageLookupByLibrary.simpleMessage(
       "File is too big for NIP-95",
@@ -212,12 +233,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "Gen_invoice_code_error": MessageLookupByLibrary.simpleMessage(
       "Gen invoice code error.",
     ),
+    "General_Feed": MessageLookupByLibrary.simpleMessage("General Feed"),
     "Generate_Invoice": MessageLookupByLibrary.simpleMessage(
       "Generate Invoice",
     ),
     "Generate_a_new_private_key": MessageLookupByLibrary.simpleMessage(
       "Generate a new private key",
     ),
+    "Generic_Repost": MessageLookupByLibrary.simpleMessage("Generic Repost"),
     "Global": MessageLookupByLibrary.simpleMessage("Global"),
     "Globals": MessageLookupByLibrary.simpleMessage("Globals"),
     "Goal_Amount_In_Sats": MessageLookupByLibrary.simpleMessage(
@@ -318,6 +341,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
     "Media": MessageLookupByLibrary.simpleMessage("Media"),
+    "Media_Starter_Packs": MessageLookupByLibrary.simpleMessage(
+      "Media Starter Packs",
+    ),
     "Members": MessageLookupByLibrary.simpleMessage("Members"),
     "Mention_User": MessageLookupByLibrary.simpleMessage("Mention User"),
     "Mentioned_Feed": MessageLookupByLibrary.simpleMessage("Mentioned Feed"),
@@ -384,6 +410,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Number_parse_error": MessageLookupByLibrary.simpleMessage(
       "Number parse error",
     ),
+    "Only_Posts": MessageLookupByLibrary.simpleMessage("Only Posts"),
+    "Only_Replies": MessageLookupByLibrary.simpleMessage("Only Replies"),
     "Open_Event_from_cache": MessageLookupByLibrary.simpleMessage(
       "Open Event from cache",
     ),
@@ -404,6 +432,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Picture": MessageLookupByLibrary.simpleMessage("Picture"),
     "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
       "Please accept the terms.",
+    ),
+    "Please_add_the_data_source": MessageLookupByLibrary.simpleMessage(
+      "Please add the data source",
     ),
     "Please_authenticate_to_turn_off_the_privacy_lock":
         MessageLookupByLibrary.simpleMessage(
@@ -443,6 +474,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Please input the max sub notes number",
         ),
+    "Please_input_the_name": MessageLookupByLibrary.simpleMessage(
+      "Please input the name",
+    ),
     "Please_input_title": MessageLookupByLibrary.simpleMessage(
       "Please input title",
     ),
@@ -455,6 +489,9 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "Please_select_relays": MessageLookupByLibrary.simpleMessage(
       "Please select relays",
+    ),
+    "Please_select_the_event_kind": MessageLookupByLibrary.simpleMessage(
+      "Please select the event kind",
     ),
     "Poll": MessageLookupByLibrary.simpleMessage("Poll"),
     "Popular_Users": MessageLookupByLibrary.simpleMessage("Popular Users"),
@@ -485,6 +522,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Receive": MessageLookupByLibrary.simpleMessage("Receive"),
     "Recovery": MessageLookupByLibrary.simpleMessage("Recovery"),
     "Relay": MessageLookupByLibrary.simpleMessage("Relay"),
+    "Relay_Address": MessageLookupByLibrary.simpleMessage("Relay Address"),
     "Relay_Feed": MessageLookupByLibrary.simpleMessage("Relay Feed"),
     "Relay_Feed_descrption": MessageLookupByLibrary.simpleMessage(
       "Feeds of specific relays",
@@ -511,6 +549,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Reply": MessageLookupByLibrary.simpleMessage("Reply"),
     "Replying": MessageLookupByLibrary.simpleMessage("Replying"),
     "Request": MessageLookupByLibrary.simpleMessage("Request"),
+    "Save_Feed": MessageLookupByLibrary.simpleMessage("Save Feed"),
     "Scan": MessageLookupByLibrary.simpleMessage("Scan"),
     "Search": MessageLookupByLibrary.simpleMessage("Search"),
     "Search_User_from_cache": MessageLookupByLibrary.simpleMessage(
@@ -521,6 +560,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Search_pubkey_event": MessageLookupByLibrary.simpleMessage(
       "Search pubkey event",
+    ),
+    "Select_a_data_source_type": MessageLookupByLibrary.simpleMessage(
+      "Select a data source type",
+    ),
+    "Select_a_event_type": MessageLookupByLibrary.simpleMessage(
+      "Select a event type",
+    ),
+    "Select_a_feed_type": MessageLookupByLibrary.simpleMessage(
+      "Select a feed type",
     ),
     "Select_relay_to_upload": MessageLookupByLibrary.simpleMessage(
       "Select relay to upload",
@@ -551,6 +599,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Split and Transfer Zap",
     ),
     "Starter_packs": MessageLookupByLibrary.simpleMessage("Starter packs"),
+    "Storage_Shared_File": MessageLookupByLibrary.simpleMessage("File"),
     "Subject": MessageLookupByLibrary.simpleMessage("Subject"),
     "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage("Sync Upload"),
@@ -561,6 +610,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Take_photo": MessageLookupByLibrary.simpleMessage("Take photo"),
     "Take_video": MessageLookupByLibrary.simpleMessage("Take video"),
     "TempRelays": MessageLookupByLibrary.simpleMessage("Temp Relays"),
+    "Text_Note": MessageLookupByLibrary.simpleMessage("Text Note"),
     "Text_can_t_contain_blank_space": MessageLookupByLibrary.simpleMessage(
       "Text can\'t contain blank space",
     ),
@@ -587,6 +637,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
     "Topic": MessageLookupByLibrary.simpleMessage("Topic"),
     "Topics": MessageLookupByLibrary.simpleMessage("Topics"),
+    "Torrents": MessageLookupByLibrary.simpleMessage("Torrents"),
     "Trace_Mode": MessageLookupByLibrary.simpleMessage("Trace Mode"),
     "Translate": MessageLookupByLibrary.simpleMessage("Translate"),
     "Translate_Source_Language": MessageLookupByLibrary.simpleMessage(
@@ -595,6 +646,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Translate_Target_Language": MessageLookupByLibrary.simpleMessage(
       "Translate Target Language",
     ),
+    "Unknown": MessageLookupByLibrary.simpleMessage("Unknown"),
     "Updated": MessageLookupByLibrary.simpleMessage("Updated"),
     "Upload_fail": MessageLookupByLibrary.simpleMessage("Upload fail."),
     "Upload_num": MessageLookupByLibrary.simpleMessage("Upload num"),
@@ -608,6 +660,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "Verify_error": MessageLookupByLibrary.simpleMessage("Verify error"),
     "Verify_failure": MessageLookupByLibrary.simpleMessage("Verify failure"),
     "Version": MessageLookupByLibrary.simpleMessage("Version"),
+    "Video_Horizontal": MessageLookupByLibrary.simpleMessage(
+      "Video Horizontal",
+    ),
+    "Video_Vertical": MessageLookupByLibrary.simpleMessage("Video Vertical"),
     "Video_preview_in_list": MessageLookupByLibrary.simpleMessage(
       "Video preview in list",
     ),

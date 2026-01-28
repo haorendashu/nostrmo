@@ -44,20 +44,10 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
     FeedType.MENTIONED_FEED
   ];
   int selectedFeedType = FeedType.SYNC_FEED;
-  Map<int, String> feedTypeNameMap = {
-    FeedType.SYNC_FEED: "General Feed",
-    FeedType.RELAYS_FEED: "Relays Feed",
-    FeedType.MENTIONED_FEED: "Mentioned Feed",
-  };
+  Map<int, String> feedTypeNameMap = {};
 
   int selectedDataSourceType = FeedSourceType.PUBKEY;
-  Map<int, String> dataSourceTypeNameMap = {
-    FeedSourceType.PUBKEY: "Pubkey",
-    FeedSourceType.HASH_TAG: "HashTag",
-    FeedSourceType.FOLLOWED: "Followed",
-    FeedSourceType.FOLLOW_SET: "Follow Set",
-    FeedSourceType.FOLLOW_PACKS: "Follow Packs",
-  };
+  Map<int, String> dataSourceTypeNameMap = {};
   List<int> selectableDataSourceType = [
     FeedSourceType.PUBKEY,
     FeedSourceType.HASH_TAG,
@@ -67,36 +57,18 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
   ];
 
   List<int> eventKinds = [...EventKindType.SUPPORTED_EVENTS];
-  Map<int, String> eventKindNameMap = {
-    EventKind.TEXT_NOTE: "Text Note",
-    EventKind.REPOST: "Repost",
-    EventKind.GENERIC_REPOST: "Generic Repost",
-    EventKind.PICTURE: "Picture",
-    EventKind.LONG_FORM: "Long Form",
-    EventKind.FILE_HEADER: "File Header",
-    EventKind.STORAGE_SHARED_FILE: "Storage Shared File",
-    EventKind.TORRENTS: "Torrents",
-    EventKind.POLL: "Poll",
-    EventKind.ZAP_GOALS: "Zap Goals",
-    EventKind.VIDEO_HORIZONTAL: "Video Horizontal",
-    EventKind.VIDEO_VERTICAL: "Video Vertical",
-    EventKind.COMMENT: "Comment",
-    EventKind.STARTER_PACKS: "Starter Packs",
-    EventKind.MEDIA_STARTER_PACKS: "Media Starter Packs",
-  };
+  Map<int, String> eventKindNameMap = {};
 
   int eventType = FeedDataEventType.EVENT_ALL;
-  Map<int, String> eventTypeNameMap = {
-    FeedDataEventType.EVENT_ALL: "All Events",
-    FeedDataEventType.EVENT_POST: "Only Posts",
-    FeedDataEventType.EVENT_REPLY: "Only Replies",
-  };
+  Map<int, String> eventTypeNameMap = {};
 
   List<List<dynamic>> dataSources = [];
 
   Naddr? followPackNaddr;
 
   String feedId = StringUtil.rndNameStr(14);
+
+  late S s;
 
   @override
   Future<void> onReady(BuildContext context) async {
@@ -114,11 +86,55 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
 
   @override
   Widget doBuild(BuildContext context) {
-    var s = S.of(context);
+    s = S.of(context);
+
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
 
     var contactListProvider = Provider.of<ContactListProvider>(context);
+
+    if (feedTypeNameMap.isEmpty) {
+      feedTypeNameMap = {
+        FeedType.SYNC_FEED: s.General_Feed,
+        FeedType.RELAYS_FEED: s.Relay_Feed,
+        FeedType.MENTIONED_FEED: s.Mentioned_Feed,
+      };
+    }
+    if (eventKindNameMap.isEmpty) {
+      eventKindNameMap = {
+        EventKind.TEXT_NOTE: s.Text_Note,
+        EventKind.REPOST: s.Boost,
+        EventKind.GENERIC_REPOST: s.Generic_Repost,
+        EventKind.PICTURE: s.Picture,
+        EventKind.LONG_FORM: s.Article,
+        EventKind.FILE_HEADER: s.File_Info,
+        EventKind.STORAGE_SHARED_FILE: s.Storage_Shared_File,
+        EventKind.TORRENTS: s.Torrents,
+        EventKind.POLL: s.Poll,
+        EventKind.ZAP_GOALS: s.Zap_Goals,
+        EventKind.VIDEO_HORIZONTAL: s.Video_Horizontal,
+        EventKind.VIDEO_VERTICAL: s.Video_Vertical,
+        EventKind.COMMENT: s.Comment,
+        EventKind.STARTER_PACKS: s.Starter_packs,
+        EventKind.MEDIA_STARTER_PACKS: s.Media_Starter_Packs,
+      };
+    }
+    if (dataSourceTypeNameMap.isEmpty) {
+      dataSourceTypeNameMap = {
+        FeedSourceType.PUBKEY: s.Pubkey,
+        FeedSourceType.HASH_TAG: s.Hashtag,
+        FeedSourceType.FOLLOWED: s.Followed,
+        FeedSourceType.FOLLOW_SET: s.Follow_set,
+        FeedSourceType.FOLLOW_PACKS: s.Starter_packs,
+      };
+    }
+    if (eventTypeNameMap.isEmpty) {
+      eventTypeNameMap = {
+        FeedDataEventType.EVENT_ALL: s.All_Events,
+        FeedDataEventType.EVENT_POST: s.Only_Posts,
+        FeedDataEventType.EVENT_REPLY: s.Only_Replies,
+      };
+    }
 
     var twiceMargin = EdgeInsets.only(bottom: Base.BASE_PADDING * 2);
     var margin = EdgeInsets.only(bottom: Base.BASE_PADDING);
@@ -137,7 +153,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
       padding: padding,
       child: TextField(
         controller: nameController,
-        decoration: InputDecoration(labelText: "Name"),
+        decoration: InputDecoration(labelText: s.Name),
       ),
     ));
 
@@ -149,13 +165,13 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
       padding: padding,
       child: DropdownButtonFormField<int>(
         initialValue: selectedFeedType,
-        decoration: const InputDecoration(
-          labelText: "Feed Type",
+        decoration: InputDecoration(
+          labelText: s.Feed_Type,
           // border: OutlineInputBorder(),
         ),
         items: feedTypes.map((int value) {
           var name = feedTypeNameMap[value];
-          name ??= "unknown";
+          name ??= s.Unknown;
 
           return DropdownMenuItem<int>(
             value: value,
@@ -172,7 +188,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
             selectedFeedType = newValue!;
           });
         },
-        hint: Text("Select a feed type"),
+        hint: Text(s.Select_a_feed_type),
       ),
     ));
 
@@ -181,9 +197,9 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
      */
     if (selectedFeedType != FeedType.MENTIONED_FEED) {
       var valueName = dataSourceTypeNameMap[selectedDataSourceType];
-      valueName ??= "unknown";
+      valueName ??= s.Unknown;
       if (selectedFeedType == FeedType.RELAYS_FEED) {
-        valueName = "Relay Address";
+        valueName = s.Relay_Address;
       }
       List<Widget> dataSourcesList = [];
       if (selectedFeedType == FeedType.RELAYS_FEED) {
@@ -199,13 +215,13 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
           margin: EdgeInsets.only(top: Base.BASE_PADDING_HALF),
           child: DropdownButtonFormField<int>(
             initialValue: selectedDataSourceType,
-            decoration: const InputDecoration(
-              labelText: "Data Source Type",
+            decoration: InputDecoration(
+              labelText: s.Data_Source_Type,
               // border: OutlineInputBorder(),
             ),
             items: selectableDataSourceType.map((int value) {
               var name = dataSourceTypeNameMap[value];
-              name ??= "unknown";
+              name ??= s.Unknown;
 
               return DropdownMenuItem<int>(
                 value: value,
@@ -217,7 +233,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
                 selectedDataSourceType = newValue!;
               });
             },
-            hint: Text("Select a data source type"),
+            hint: Text(s.Select_a_data_source_type),
           ),
         ));
       }
@@ -261,7 +277,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
               children: [
                 Container(
                   child: Text(
-                    followSet.title ?? "unknown",
+                    followSet.title ?? s.Unknown,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -308,7 +324,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
                 RouterUtil.router(context, RouterPath.FOLLOW_SET_LIST);
               },
               child: Text(
-                "Add Follow Set",
+                s.Add_Follow_Set,
               ),
             ),
           ));
@@ -365,7 +381,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
                     children: [
                       Container(
                         child: Text(
-                          followSet.title ?? "unknown",
+                          followSet.title ?? s.Unknown,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -422,9 +438,9 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
         var dataSourceType = dataSource[0];
         var dataSourceValue = dataSource[1];
         var dataSourceTypeName = dataSourceTypeNameMap[dataSourceType];
-        dataSourceTypeName ??= "unknown";
+        dataSourceTypeName ??= s.Unknown;
         if (selectedFeedType == FeedType.RELAYS_FEED) {
-          dataSourceTypeName = "Relay Address";
+          dataSourceTypeName = s.Relay_Address;
         }
         String text = dataSourceTypeName;
         List<Widget> singleDsWidgetList = [
@@ -498,7 +514,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
             Container(
               margin: halfMargin,
               child: Text(
-                "Data Sources",
+                s.Data_Sources,
                 // style: TextStyle(color: hintColor),
               ),
             ),
@@ -553,7 +569,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
           Container(
             // margin: EdgeInsets.only(left: 3),
             child: Text(
-              "Event Kind",
+              s.Event_Kind,
               // style: TextStyle(color: hintColor),
             ),
           ),
@@ -579,13 +595,13 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
       padding: padding,
       child: DropdownButtonFormField<int>(
         initialValue: eventType,
-        decoration: const InputDecoration(
-          labelText: "Event Type",
+        decoration: InputDecoration(
+          labelText: s.Event_Type,
           // border: OutlineInputBorder(),
         ),
         items: eventTypeNameMap.keys.map((int value) {
           var name = eventTypeNameMap[value];
-          name ??= "unknown";
+          name ??= s.Unknown;
 
           return DropdownMenuItem<int>(
             value: value,
@@ -597,7 +613,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
             eventType = newValue!;
           });
         },
-        hint: Text("Select a event type"),
+        hint: Text(s.Select_a_event_type),
       ),
     ));
 
@@ -607,7 +623,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
       width: double.maxFinite,
       child: FilledButton(
         onPressed: saveFeed,
-        child: Text("Save Feed"),
+        child: Text(s.Save_Feed),
       ),
     ));
 
@@ -615,7 +631,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
       appBar: AppBar(
         leading: AppbarBackBtnComponent(),
         title: Text(
-          "Feed Builder",
+          s.Feed_Builder,
           style: TextStyle(
             fontSize: themeData.textTheme.bodyLarge!.fontSize,
             fontWeight: FontWeight.bold,
@@ -658,7 +674,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
-          eventKindNameMap[eventKind] ?? "unknown",
+          eventKindNameMap[eventKind] ?? s.Unknown,
           style: TextStyle(
             color: isSelected ? Colors.white : themeData.hintColor,
             fontSize: themeData.textTheme.bodySmall!.fontSize,
@@ -682,7 +698,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
 
     if (dataSourceType != FeedSourceType.FOLLOWED &&
         StringUtil.isBlank(value)) {
-      BotToast.showText(text: 'Please input the text');
+      BotToast.showText(text: s.Input_can_not_be_null);
       return;
     }
 
@@ -710,7 +726,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
       width: double.infinity,
       child: FilledButton(
         onPressed: () => addDataSource(null, null),
-        child: Text("Add Data Source"),
+        child: Text(s.Add_Data_Source),
       ),
     );
   }
@@ -732,17 +748,17 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
     var name = nameController.text;
 
     if (StringUtil.isBlank(name)) {
-      BotToast.showText(text: 'Please input the name');
+      BotToast.showText(text: s.Please_input_the_name);
       return;
     }
 
     if (selectedFeedType != FeedType.MENTIONED_FEED && dataSources.isEmpty) {
-      BotToast.showText(text: 'Please add the data source');
+      BotToast.showText(text: s.Please_add_the_data_source);
       return;
     }
 
     if (eventKinds.isEmpty) {
-      BotToast.showText(text: 'Please select the event kind');
+      BotToast.showText(text: s.Please_select_the_event_kind);
       return;
     }
 
