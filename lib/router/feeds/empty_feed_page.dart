@@ -243,7 +243,9 @@ class _EmptyFeedPageState extends State<EmptyFeedPage> {
       var cancelFunc = BotToast.showLoading();
       try {
         feedProvider.saveFeed(feedData, targetNostr: nostr, updateUI: false);
-        await Future.delayed(Duration(seconds: 30));
+        if (feedType == FeedType.SYNC_FEED) {
+          await Future.delayed(const Duration(seconds: 30));
+        }
       } finally {
         cancelFunc();
         feedProvider.updateUI();
