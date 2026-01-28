@@ -207,4 +207,15 @@ class FeedProvider extends ChangeNotifier {
     var key = "feedUntilTime_${feedData.id}";
     sharedPreferences.setInt(key, untilTime);
   }
+
+  void moveIndex(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+
+    var item = feedList.removeAt(oldIndex);
+    feedList.insert(newIndex, item);
+
+    _saveAndUpdateUI();
+  }
 }

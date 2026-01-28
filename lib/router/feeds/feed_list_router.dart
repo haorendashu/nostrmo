@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/feed_type.dart';
 import 'package:nostrmo/data/feed_data.dart';
@@ -85,15 +86,22 @@ class _FeedListRouter extends State<FeedListRouter> {
                 ],
               ),
             )
-          : ListView.builder(
+          : ReorderableListView.builder(
               padding: EdgeInsets.all(Base.BASE_PADDING),
               itemCount: feedList.length,
               itemBuilder: (context, index) {
                 var feed = feedList[index];
                 return _buildFeedCard(feed, themeData, index, s);
               },
+              onReorder: (oldIndex, newIndex) {
+                _onReorder(oldIndex, newIndex);
+              },
             ),
     );
+  }
+
+  void _onReorder(int oldIndex, int newIndex) {
+    feedProvider.moveIndex(oldIndex, newIndex);
   }
 
   Widget _buildFeedCard(FeedData feed, ThemeData themeData, int index, S s) {
@@ -181,10 +189,12 @@ class _FeedListRouter extends State<FeedListRouter> {
     ));
 
     return Container(
-      padding: const EdgeInsets.only(
+      key: Key(feed.id),
+      padding: EdgeInsets.only(
         left: Base.BASE_PADDING,
-        right: Base.BASE_PADDING,
+        right: Base.BASE_PADDING + (PlatformUtil.isPC() ? 30 : 0),
         top: Base.BASE_PADDING,
+        bottom: PlatformUtil.isPC() ? Base.BASE_PADDING : 0,
       ),
       margin: const EdgeInsets.only(
         bottom: Base.BASE_PADDING,
