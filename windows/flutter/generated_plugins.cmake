@@ -9,7 +9,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_inappwebview_windows
   flutter_libserialport
   flutter_nesigner_sdk
-  isar_flutter_libs
+  isar_community_flutter_libs
   local_auth_windows
   local_notifier
   media_kit_libs_windows_video

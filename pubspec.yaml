@@ -114,6 +114,7 @@ dependencies:
   tray_manager: ^0.5.1
   local_notifier: ^0.1.6
   scrollable_positioned_list: ^0.3.8
+  scrollview_observer: ^1.26.3
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.1

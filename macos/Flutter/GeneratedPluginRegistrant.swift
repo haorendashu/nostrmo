@@ -14,7 +14,7 @@ import flutter_image_compress_macos
 import flutter_inappwebview_macos
 import flutter_libserialport
 import flutter_nesigner_sdk
-import isar_flutter_libs
+import isar_community_flutter_libs
 import local_auth_darwin
 import local_notifier
 import media_kit_libs_macos_video

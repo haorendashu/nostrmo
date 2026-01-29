@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollview_observer/scrollview_observer.dart';
 
 import '../../consts/base_consts.dart';
 import '../../provider/setting_provider.dart';
@@ -15,11 +16,14 @@ class EventListComponent extends StatefulWidget {
 
   ScrollController scrollController;
 
+  ListObserverController listObserverController;
+
   Function()? onRefresh;
 
   EventListComponent(
     this.events,
-    this.scrollController, {
+    this.scrollController,
+    this.listObserverController, {
     this.onRefresh,
   });
 
@@ -40,23 +44,26 @@ class _EventListComponent extends State<EventListComponent> {
     var _settingProvider = Provider.of<SettingProvider>(context);
     var events = widget.events;
 
-    var main = ListView.builder(
-      controller: widget.scrollController,
-      itemBuilder: (BuildContext context, int index) {
-        // var event = events[index];
-        // return FrameSeparateWidget(
-        //   index: index,
-        //   child: ListEventComponent(
-        //     event: event,
-        //   ),
-        // );
-        var event = events[index];
-        return ListEventComponent(
-          event: event,
-          showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
-        );
+    var main = ListViewObserver(
+      controller: widget.listObserverController,
+      child: ListView.builder(
+        controller: widget.scrollController,
+        itemBuilder: (BuildContext context, int index) {
+          var event = events[index];
+          return ListEventComponent(
+            event: event,
+            showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
+          );
+        },
+        itemCount: events.length,
+      ),
+      onObserve: (model) {
+        // 打印当前正在显示的第一个子部件
+        print('firstChild.index -- ${model.firstChild?.index}');
+
+        // 打印当前正在显示的所有子部件下标
+        print('displaying -- ${model.displayingChildIndexList}');
       },
-      itemCount: events.length,
     );
 
     Widget ri = RefreshIndicator(

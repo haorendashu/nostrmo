@@ -8,7 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_linux
   flutter_libserialport
   flutter_nesigner_sdk
-  isar_flutter_libs
+  isar_community_flutter_libs
   local_notifier
   media_kit_libs_linux
   media_kit_video

@@ -11,6 +11,7 @@ import 'package:nostrmo/data/feed_data.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/feeds/feed_page_helper.dart';
 import 'package:nostrmo/util/load_more_event.dart';
+import 'package:scrollview_observer/scrollview_observer.dart';
 
 import '../../consts/feed_source_type.dart';
 
@@ -35,6 +36,8 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
 
   ScrollController scrollController = ScrollController();
 
+  ListObserverController? listObserverController;
+
   List<String> relays = [];
 
   @override
@@ -51,6 +54,8 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
     }
 
     bindLoadMoreScroll(scrollController);
+    listObserverController =
+        ListObserverController(controller: scrollController);
 
     indexProvider.setFeedScrollController(widget.feedIndex, scrollController);
   }
@@ -107,6 +112,7 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
     return EventListComponent(
       eventBox.all(),
       scrollController,
+      listObserverController!,
       onRefresh: () {
         _until = null;
         _since = null;

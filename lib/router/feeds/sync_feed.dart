@@ -11,6 +11,7 @@ import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/feed_data_type.dart';
 import 'package:nostrmo/router/feeds/feed_page_helper.dart';
+import 'package:scrollview_observer/scrollview_observer.dart';
 
 import '../../component/event/event_list_component.dart';
 import '../../component/new_notes_updated_component.dart';
@@ -42,6 +43,8 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
   EventMemBox newEventBox = EventMemBox();
 
+  ListObserverController? listObserverController;
+
   ScrollController scrollController = ScrollController();
 
   List<String> queryHashTagList = [];
@@ -51,6 +54,8 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   void initState() {
     super.initState();
     bindLoadMoreScroll(scrollController);
+    listObserverController =
+        ListObserverController(controller: scrollController);
 
     indexProvider.setFeedScrollController(widget.feedIndex, scrollController);
 
@@ -182,8 +187,25 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     if (newEventBox.isEmpty()) {
       return;
     }
+    var oldFirstEvent = eventBox.newestEvent;
     eventBox.addList(newEventBox.all());
     newEventBox.clear();
+
+    var allList = eventBox.all();
+    var length = allList.length;
+    var index = 0;
+    for (; index < length; index++) {
+      var e = allList[index];
+      if (oldFirstEvent != null && oldFirstEvent.id == e.id) {
+        break;
+      }
+    }
+    if (index < length) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        listObserverController!.jumpTo(index: index);
+      });
+    }
+
     setState(() {});
   }
 
@@ -247,6 +269,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     Widget main = EventListComponent(
       eventBox.all(),
       scrollController,
+      listObserverController!,
       onRefresh: refresh,
     );
 
