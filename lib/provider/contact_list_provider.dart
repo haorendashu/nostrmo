@@ -113,7 +113,6 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void _onEvent(Event e) async {
-    print(e.toJson());
     if (e.kind == EventKind.CONTACT_LIST) {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
