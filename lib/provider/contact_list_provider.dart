@@ -10,6 +10,7 @@ import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/nip51/follow_set.dart';
 import 'package:nostr_sdk/nostr.dart';
+import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/router/tag/topic_map.dart';
 import 'package:pointycastle/pointycastle.dart';
@@ -46,7 +47,7 @@ class ContactListProvider extends ChangeNotifier {
       pubkey = targetNostr.publicKey;
     }
 
-    var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
+    var str = sharedPreferences.getString(getStoreKey(targetNostr!));
     if (StringUtil.isNotBlank(str)) {
       var jsonMap = jsonDecode(str!);
 
@@ -75,15 +76,17 @@ class ContactListProvider extends ChangeNotifier {
   }
 
   void clearCurrentContactList() {
+    var storeKey = getStoreKey(nostr!);
+
     var pubkey = nostr!.publicKey;
-    var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
+    var str = sharedPreferences.getString(storeKey);
     if (StringUtil.isNotBlank(str)) {
       var jsonMap = jsonDecode(str!);
       if (jsonMap is Map) {
         jsonMap.remove(pubkey);
 
         var jsonStr = jsonEncode(jsonMap);
-        sharedPreferences.setString(DataKey.CONTACT_LISTS, jsonStr);
+        sharedPreferences.setString(storeKey, jsonStr);
       }
     }
   }
@@ -95,19 +98,22 @@ class ContactListProvider extends ChangeNotifier {
     subscriptId = StringUtil.rndNameStr(16);
     var filter = Filter(
         kinds: [EventKind.CONTACT_LIST],
-        limit: 1,
+        limit: 5,
         authors: [targetNostr!.publicKey]);
     var filter1 = Filter(
         kinds: [EventKind.FOLLOW_SETS],
         limit: 100,
         authors: [targetNostr.publicKey]);
-    targetNostr.addInitQuery([
+    targetNostr.addInitQuery([filter.toJson(), filter1.toJson()], _onEvent);
+    targetNostr.query([
       filter.toJson(),
       filter1.toJson(),
-    ], _onEvent, id: subscriptId);
+    ], _onEvent,
+        id: subscriptId, relayTypes: RelayType.NORMAL_AND_CACHE_AND_INDEX);
   }
 
   void _onEvent(Event e) async {
+    print(e.toJson());
     if (e.kind == EventKind.CONTACT_LIST) {
       if (_event == null || e.createdAt > _event!.createdAt) {
         _event = e;
@@ -139,8 +145,9 @@ class ContactListProvider extends ChangeNotifier {
 
     var pubkey = nostr!.publicKey;
     Map<String, dynamic>? allJsonMap;
+    var storeKey = getStoreKey(nostr!);
 
-    var str = sharedPreferences.getString(DataKey.CONTACT_LISTS);
+    var str = sharedPreferences.getString(storeKey);
     if (StringUtil.isNotBlank(str)) {
       allJsonMap = jsonDecode(str!);
     }
@@ -149,7 +156,7 @@ class ContactListProvider extends ChangeNotifier {
     allJsonMap[pubkey] = eventJsonStr;
     var jsonStr = jsonEncode(allJsonMap);
 
-    sharedPreferences.setString(DataKey.CONTACT_LISTS, jsonStr);
+    sharedPreferences.setString(storeKey, jsonStr);
 
     if (notify) {
       notifyListeners();
@@ -382,6 +389,10 @@ class ContactListProvider extends ChangeNotifier {
     }
 
     return _followSetMap;
+  }
+
+  String getStoreKey(Nostr nostr) {
+    return "${DataKey.CONTACT_LISTS}_${nostr.publicKey}";
   }
 
   // Naddr? getFollowSetNaddr(String dTag) {
