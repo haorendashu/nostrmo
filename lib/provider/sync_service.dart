@@ -339,10 +339,14 @@ class SyncService with LaterFunction, ChangeNotifier {
       var complete = Completer<bool>();
       var eoseTime = 0;
 
-      print("query, filterMap: $filterMap, relayList: $relayList");
+      int eventCount = 0;
+
+      // print("query, filterMap: $filterMap, relayList: $relayList");
       targetNostr.query(
         [filterMap],
-        (e) {},
+        (e) {
+          eventCount++;
+        },
         targetRelays: relayList,
         onComplete: () {
           if (!complete.isCompleted) {
@@ -358,13 +362,14 @@ class SyncService with LaterFunction, ChangeNotifier {
       );
 
       complete.future.then((v) {
-        print("query complete, filterMap: $filterMap, relayList: $relayList");
+        print(
+            "query complete, filterMap: $filterMap, relayList: $relayList, eventCount $eventCount");
         // query complete!
         _getTaskItemAndUpdateTime(taskItem,
             startTime: startTime, endTime: endTime);
-      }).timeout(const Duration(seconds: 60), onTimeout: () {
+      }).timeout(const Duration(seconds: 90), onTimeout: () {
         print(
-            "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime");
+            "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime, eventCount $eventCount");
         if (eoseTime > 1) {
           print("query timeout but eoseTime > 1");
           _getTaskItemAndUpdateTime(taskItem,
