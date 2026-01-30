@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../consts/index_taps.dart';
 
@@ -59,19 +60,20 @@ class IndexProvider extends ChangeNotifier {
   //   }
   // }
 
-  Map<int, ScrollController> _scrollControllerMap = {};
+  Map<int, ItemScrollController> _feedScrollControllerMap = {};
 
-  void setFeedScrollController(int index, ScrollController scrollController) {
-    _scrollControllerMap[index] = scrollController;
+  void setFeedScrollController(
+      int index, ItemScrollController scrollController) {
+    _feedScrollControllerMap[index] = scrollController;
   }
 
   void followScrollToTop() {
     if (_feedsTabController != null) {
       var index = _feedsTabController!.index;
-      var scrollController = _scrollControllerMap[index];
+      var scrollController = _feedScrollControllerMap[index];
 
       if (scrollController != null) {
-        scrollController.jumpTo(0);
+        scrollController.jumpTo(index: 0);
       }
     }
   }

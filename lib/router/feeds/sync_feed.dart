@@ -11,16 +11,16 @@ import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/feed_data_type.dart';
 import 'package:nostrmo/router/feeds/feed_page_helper.dart';
-import 'package:scrollview_observer/scrollview_observer.dart';
+import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../component/event/event_list_component.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
-import '../../consts/event_kind_type.dart';
 import '../../data/feed_data.dart';
 import '../../main.dart';
+import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
-import 'relay_feed.dart';
 
 class SyncFeed extends StatefulWidget {
   FeedData feedData;
@@ -39,13 +39,17 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
   EventMemBox eventBox = EventMemBox();
 
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
+
   List<Event> penddingNewEvents = [];
 
   EventMemBox newEventBox = EventMemBox();
-
-  ListObserverController? listObserverController;
-
-  ScrollController scrollController = ScrollController();
 
   List<String> queryHashTagList = [];
   List<String> queryPubKeyList = [];
@@ -53,11 +57,9 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   @override
   void initState() {
     super.initState();
-    bindLoadMoreScroll(scrollController);
-    listObserverController =
-        ListObserverController(controller: scrollController);
-
-    indexProvider.setFeedScrollController(widget.feedIndex, scrollController);
+    bindLoadMoreItemScroll(itemPositionsListener);
+    indexProvider.setFeedScrollController(
+        widget.feedIndex, itemScrollController);
 
     List<String> hashTagList = [];
     List<String> pubKeyList = [];
@@ -202,7 +204,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     }
     if (index < length) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        listObserverController!.jumpTo(index: index);
+        itemScrollController.jumpTo(index: index);
       });
     }
 
@@ -266,10 +268,49 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
     preBuild();
 
+    var _settingProvider = Provider.of<SettingProvider>(context);
+
+    // var events = eventBox.all();
+    // var length = events.length;
+    // Widget main = RefreshIndicator(
+    //   onRefresh: () async {
+    //     refresh();
+    //   },
+    //   child: ScrollablePositionedList.builder(
+    //     itemCount: length,
+    //     itemBuilder: (context, index) {
+    //       var event = events[index];
+    //       return ListEventComponent(
+    //         event: event,
+    //         showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
+    //       );
+    //     },
+    //     itemScrollController: itemScrollController,
+    //     scrollOffsetController: scrollOffsetController,
+    //     itemPositionsListener: itemPositionsListener,
+    //     scrollOffsetListener: scrollOffsetListener,
+    //   ),
+    // );
+    // if (TableModeUtil.isTableMode()) {
+    //   main = GestureDetector(
+    //     onVerticalDragUpdate: (detail) {
+    //       scrollOffsetController.animateScroll(
+    //           offset: -detail.delta.dy * 3.5,
+    //           duration: const Duration(microseconds: 1));
+    //       // widget.scrollController
+    //       //     .jumpTo(widget.scrollController.offset - detail.delta.dy);
+    //     },
+    //     behavior: HitTestBehavior.translucent,
+    //     child: main,
+    //   );
+    // }
+
     Widget main = EventListComponent(
       eventBox.all(),
-      scrollController,
-      listObserverController!,
+      itemScrollController,
+      scrollOffsetController,
+      itemPositionsListener,
+      scrollOffsetListener,
       onRefresh: refresh,
     );
 

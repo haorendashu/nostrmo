@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
@@ -8,19 +6,16 @@ import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
-import 'package:nostrmo/consts/feed_data_type.dart';
 import 'package:nostrmo/router/feeds/feed_page_helper.dart';
-import 'package:scrollview_observer/scrollview_observer.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../component/event/event_list_component.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../consts/base.dart';
-import '../../consts/event_kind_type.dart';
 import '../../data/feed_data.dart';
 import '../../main.dart';
 import '../../util/load_more_event.dart';
-import 'relay_feed.dart';
 
 class MentionedFeed extends StatefulWidget {
   FeedData feedData;
@@ -43,18 +38,20 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
 
   EventMemBox newEventBox = EventMemBox();
 
-  ScrollController scrollController = ScrollController();
-
-  ListObserverController? listObserverController;
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
 
   @override
   void initState() {
     super.initState();
-    bindLoadMoreScroll(scrollController);
-    listObserverController =
-        ListObserverController(controller: scrollController);
-
-    indexProvider.setFeedScrollController(widget.feedIndex, scrollController);
+    bindLoadMoreItemScroll(itemPositionsListener);
+    indexProvider.setFeedScrollController(
+        widget.feedIndex, itemScrollController);
   }
 
   @override
@@ -170,7 +167,7 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
     }
     if (index < length) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        listObserverController!.jumpTo(index: index);
+        itemScrollController.jumpTo(index: index);
       });
     }
 
@@ -187,8 +184,10 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
 
     Widget main = EventListComponent(
       eventBox.all(),
-      scrollController,
-      listObserverController!,
+      itemScrollController,
+      scrollOffsetController,
+      itemPositionsListener,
+      scrollOffsetListener,
       onRefresh: refresh,
     );
 

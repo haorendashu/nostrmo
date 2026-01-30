@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/utils/peddingevents_later_function.dart';
-import 'package:nostrmo/component/cust_state.dart';
 import 'package:nostrmo/component/event/event_list_component.dart';
 import 'package:nostrmo/component/keep_alive_cust_state.dart';
 import 'package:nostrmo/component/placeholder/event_list_placeholder.dart';
-import 'package:nostrmo/consts/event_kind_type.dart';
 import 'package:nostrmo/data/feed_data.dart';
 import 'package:nostrmo/main.dart';
 import 'package:nostrmo/router/feeds/feed_page_helper.dart';
 import 'package:nostrmo/util/load_more_event.dart';
-import 'package:scrollview_observer/scrollview_observer.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../consts/feed_source_type.dart';
 
@@ -34,9 +32,13 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
 
   int? _until;
 
-  ScrollController scrollController = ScrollController();
-
-  ListObserverController? listObserverController;
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
 
   List<String> relays = [];
 
@@ -53,11 +55,9 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
       }
     }
 
-    bindLoadMoreScroll(scrollController);
-    listObserverController =
-        ListObserverController(controller: scrollController);
-
-    indexProvider.setFeedScrollController(widget.feedIndex, scrollController);
+    bindLoadMoreItemScroll(itemPositionsListener);
+    indexProvider.setFeedScrollController(
+        widget.feedIndex, itemScrollController);
   }
 
   EventMemBox eventBox = EventMemBox();
@@ -111,8 +111,10 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
 
     return EventListComponent(
       eventBox.all(),
-      scrollController,
-      listObserverController!,
+      itemScrollController,
+      scrollOffsetController,
+      itemPositionsListener,
+      scrollOffsetListener,
       onRefresh: () {
         _until = null;
         _since = null;
