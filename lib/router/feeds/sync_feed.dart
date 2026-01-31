@@ -154,7 +154,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     var baseFilter = Filter(
       kinds: getEventKinds(),
       since: until, // using until as since query new events
-      limit: queryLimit,
+      limit: 10000,
     );
 
     if (queryPubKeyList.isNotEmpty) {
