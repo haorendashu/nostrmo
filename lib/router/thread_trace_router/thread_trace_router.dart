@@ -23,6 +23,7 @@ import '../../component/event/event_bitcion_icon_component.dart';
 import '../../component/event_reply_callback.dart';
 import '../../consts/base.dart';
 import '../../consts/event_kind_type.dart';
+import '../../util/relay_filter.dart';
 import '../../util/router_util.dart';
 import '../../util/table_mode_util.dart';
 import '../thread/thread_detail_event_main_component.dart';
@@ -247,11 +248,13 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     if (StringUtil.isNotBlank(eventRelation.replyOrRootRelayAddr)) {
       var eventRelays = nostr!
           .getExtralReadableRelays([eventRelation.replyOrRootRelayAddr!], 1);
+      eventRelays = RelayFilter.handle(eventRelays);
       tempRelays.addAll(eventRelays);
     }
     if (StringUtil.isNotBlank(eventRelation.pubkey)) {
       var subEventPubkeyRelays =
           metadataProvider.getExtralRelays(eventRelation.pubkey, false);
+      subEventPubkeyRelays = RelayFilter.handle(subEventPubkeyRelays);
       tempRelays.addAll(subEventPubkeyRelays);
     }
 
@@ -307,11 +310,13 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     List<String> tempRelays = [];
     if (StringUtil.isNotBlank(eventRelayAddr)) {
       var eventRelays = nostr!.getExtralReadableRelays([eventRelayAddr!], 1);
+      eventRelays = RelayFilter.handle(eventRelays);
       tempRelays.addAll(eventRelays);
     }
     if (StringUtil.isNotBlank(subEventPubkey)) {
       var subEventPubkeyRelays =
           metadataProvider.getExtralRelays(subEventPubkey!, false);
+      subEventPubkeyRelays = RelayFilter.handle(subEventPubkeyRelays);
       tempRelays.addAll(subEventPubkeyRelays);
     }
     nostr!.query([filter.toJson()], onParentEvent,

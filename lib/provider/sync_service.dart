@@ -15,6 +15,7 @@ import '../consts/sync_task_type.dart';
 import '../data/feed_data.dart';
 import '../data/sync_task_item.dart';
 import '../main.dart';
+import '../util/relay_filter.dart';
 
 ///
 /// SyncService to handle sync task.
@@ -255,7 +256,10 @@ class SyncService with LaterFunction, ChangeNotifier {
           var pubkey = taskItem.value;
           var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
           if (relayListMetadata != null) {
-            relayList = [...relayListMetadata.writeAbleRelays];
+            relayList = [
+              ...(relayListMetadata.writeAbleRelays
+                  .skipWhile((relay) => RelayFilter.match(relay)))
+            ];
             if (relayList.length > MAX_PERSON_RELAY_NUM) {
               // shuffle the relays to avoid some relays always can't connected, just try other relays.
               relayList.shuffle();

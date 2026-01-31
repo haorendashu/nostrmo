@@ -26,6 +26,7 @@ import '../../main.dart';
 import '../../provider/metadata_provider.dart';
 import '../../provider/setting_provider.dart';
 import '../../util/load_more_event.dart';
+import '../../util/relay_filter.dart';
 import '../../util/router_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'user_statistics_component.dart';
@@ -464,6 +465,7 @@ class _UserRouter extends CustState<UserRouter>
       // try to query from user's write relay.
       List<String>? tempRelays =
           metadataProvider.getExtralRelays(pubkey!, true);
+      tempRelays = RelayFilter.handle(tempRelays);
       // the init page set to very small, due to open user page very often
       filter.limit = 10;
       nostr!.query([filter.toJson()], onEventFunc,
