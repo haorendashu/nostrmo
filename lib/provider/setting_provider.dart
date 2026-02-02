@@ -230,7 +230,7 @@ class SettingProvider extends ChangeNotifier {
 
   int? get videoPreview => _settingData!.videoPreview;
   // linux appimage don't support video preview.
-  // int? get videoPrevisew => OpenStatus.CLOSE;
+  // int? get videoPreview => OpenStatus.CLOSE;
 
   int? get imagePreview => _settingData!.imagePreview;
 
