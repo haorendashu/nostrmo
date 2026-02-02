@@ -51,7 +51,9 @@ class SyncService with LaterFunction, ChangeNotifier {
 
   List<Function()> _syncCompleteCallback = [];
 
+  @override
   void dispose() {
+    super.dispose();
     _syncCompleteCallback.clear();
     _subscriptionIds.clear();
     _pendingQueries.clear();
@@ -247,7 +249,7 @@ class SyncService with LaterFunction, ChangeNotifier {
 
       for (var taskItem in syncTaskMap.values) {
         taskItem.startTime ??= initTime;
-        print("taskItem $taskItem");
+        // print("taskItem $taskItem");
         List<String>? relayList;
         taskItem = taskItem.clone();
 
@@ -366,16 +368,16 @@ class SyncService with LaterFunction, ChangeNotifier {
       );
 
       complete.future.then((v) {
-        print(
-            "query complete, filterMap: $filterMap, relayList: $relayList, eventCount $eventCount");
+        // print(
+        //     "query complete, filterMap: $filterMap, relayList: $relayList, eventCount $eventCount");
         // query complete!
         _getTaskItemAndUpdateTime(taskItem,
             startTime: startTime, endTime: endTime);
       }).timeout(const Duration(seconds: 90), onTimeout: () {
-        print(
-            "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime, eventCount $eventCount");
+        // print(
+        //     "query timeout, filterMap: $filterMap, relayList: $relayList, eoseTime: $eoseTime, eventCount $eventCount");
         if (eoseTime > 1) {
-          print("query timeout but eoseTime > 1");
+          // print("query timeout but eoseTime > 1");
           _getTaskItemAndUpdateTime(taskItem,
               startTime: startTime, endTime: endTime);
         }
