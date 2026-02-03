@@ -216,6 +216,7 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
     dmProvider.clear();
     noticeProvider.clear();
     contactListProvider.clear();
+    feedProvider.clear();
 
     eventReactionsProvider.clear();
     linkPreviewDataProvider.clear();

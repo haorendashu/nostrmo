@@ -19,6 +19,13 @@ class FeedProvider extends ChangeNotifier {
 
   int updateTime = 0;
 
+  void clear() {
+    updateTime = 0;
+    feedList.clear();
+
+    notifyListeners();
+  }
+
   void reload({Nostr? targetNostr}) {
     var key = getLocalStoreKey(targetNostr: targetNostr);
     // sharedPreferences.remove(key);
