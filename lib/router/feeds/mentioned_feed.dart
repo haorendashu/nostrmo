@@ -55,9 +55,13 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   void doQuery() {
     preQuery();
-
     until ??= DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
     var filter = Filter(
@@ -95,14 +99,22 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
   @override
   Future<void> onReady(BuildContext context) async {
     doQuery();
+
+    if (until != null) {
+      pullNewEvents(until!);
+    }
+  }
+
+  void unSubscribe() {
+    if (pullNewEventSubscriptionId != null) {
+      nostr!.unsubscribe(pullNewEventSubscriptionId!);
+    }
   }
 
   String? pullNewEventSubscriptionId;
 
   void pullNewEvents(int until) {
-    if (pullNewEventSubscriptionId != null) {
-      nostr!.unsubscribe(pullNewEventSubscriptionId!);
-    }
+    unSubscribe();
     pullNewEventSubscriptionId = StringUtil.rndNameStr(14);
 
     var filter = Filter(
