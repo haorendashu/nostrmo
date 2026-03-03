@@ -4,6 +4,9 @@ import 'package:nostr_sdk/nip19/nip19.dart';
 import 'package:nostr_sdk/nip19/nip19_tlv.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/event/event_id_router_component.dart';
+import 'package:nostrmo/consts/base_consts.dart';
+import 'package:nostrmo/main.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../consts/router_path.dart';
 import '../util/router_util.dart';
@@ -13,7 +16,11 @@ import 'webview_router.dart';
 class LinkRouterUtil {
   static void router(BuildContext context, String link) {
     if (link.startsWith("http")) {
-      WebViewRouter.open(context, link);
+      if (settingProvider.openLinkInAppBrowser != OpenStatus.CLOSE) {
+        WebViewRouter.open(context, link);
+      } else {
+        launchUrl(Uri.parse(link));
+      }
       return;
     }
 

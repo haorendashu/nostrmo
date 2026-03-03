@@ -303,6 +303,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Relay": MessageLookupByLibrary.simpleMessage("打开中继"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage("打开用户页面"),
     "Open_in_browser": MessageLookupByLibrary.simpleMessage("浏览器中打开"),
+    "Open_links_in_app_browser": MessageLookupByLibrary.simpleMessage(
+      "链接使用内置浏览器打开",
+    ),
     "Optional": MessageLookupByLibrary.simpleMessage("可选"),
     "Owner": MessageLookupByLibrary.simpleMessage("拥有者"),
     "Password": MessageLookupByLibrary.simpleMessage("密码"),

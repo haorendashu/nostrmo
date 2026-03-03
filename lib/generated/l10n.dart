@@ -364,6 +364,16 @@ class S {
     );
   }
 
+  /// `Open links in app browser`
+  String get Open_links_in_app_browser {
+    return Intl.message(
+      'Open links in app browser',
+      name: 'Open_links_in_app_browser',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Video preview in list`
   String get Video_preview_in_list {
     return Intl.message(

@@ -422,6 +422,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "Open_Relay": MessageLookupByLibrary.simpleMessage("Open Relay"),
     "Open_User_page": MessageLookupByLibrary.simpleMessage("Open User page"),
     "Open_in_browser": MessageLookupByLibrary.simpleMessage("Open in browser"),
+    "Open_links_in_app_browser": MessageLookupByLibrary.simpleMessage(
+      "Open links in app browser",
+    ),
     "Optional": MessageLookupByLibrary.simpleMessage("Optional"),
     "Owner": MessageLookupByLibrary.simpleMessage("Owner"),
     "PLease_input_NWC_URL": MessageLookupByLibrary.simpleMessage(

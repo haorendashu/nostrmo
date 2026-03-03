@@ -304,6 +304,10 @@ class SettingProvider extends ChangeNotifier {
 
   int get webviewAppbarOpen => _settingData!.webviewAppbarOpen;
 
+  int get openLinkInAppBrowser => _settingData!.openLinkInAppBrowser != null
+      ? _settingData!.openLinkInAppBrowser!
+      : OpenStatus.OPEN;
+
   int? get tableMode => _settingData!.tableMode;
 
   int? get autoOpenSensitive => _settingData!.autoOpenSensitive;
@@ -497,6 +501,11 @@ class SettingProvider extends ChangeNotifier {
     saveAndNotifyListeners();
   }
 
+  set openLinkInAppBrowser(int o) {
+    _settingData!.openLinkInAppBrowser = o;
+    saveAndNotifyListeners();
+  }
+
   set tableMode(int? o) {
     _settingData!.tableMode = o;
     saveAndNotifyListeners();
@@ -671,6 +680,8 @@ class SettingData {
 
   late int webviewAppbarOpen;
 
+  int? openLinkInAppBrowser;
+
   int? tableMode;
 
   int? autoOpenSensitive;
@@ -742,6 +753,7 @@ class SettingData {
     this.broadcaseWhenBoost,
     this.fontSize,
     this.webviewAppbarOpen = OpenStatus.OPEN,
+    this.openLinkInAppBrowser,
     this.tableMode,
     this.autoOpenSensitive,
     this.relayLocal,
@@ -809,6 +821,7 @@ class SettingData {
     webviewAppbarOpen = json['webviewAppbarOpen'] != null
         ? json['webviewAppbarOpen']
         : OpenStatus.OPEN;
+    openLinkInAppBrowser = json['openLinkInAppBrowser'];
     tableMode = json['tableMode'];
     autoOpenSensitive = json['autoOpenSensitive'];
     relayLocal = json['relayLocal'];
@@ -867,6 +880,7 @@ class SettingData {
     data['broadcaseWhenBoost'] = this.broadcaseWhenBoost;
     data['fontSize'] = this.fontSize;
     data['webviewAppbarOpen'] = this.webviewAppbarOpen;
+    data['openLinkInAppBrowser'] = this.openLinkInAppBrowser;
     data['tableMode'] = this.tableMode;
     data['autoOpenSensitive'] = this.autoOpenSensitive;
     data['relayLocal'] = this.relayLocal;

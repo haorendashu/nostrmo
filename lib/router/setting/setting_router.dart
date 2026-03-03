@@ -273,6 +273,11 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickLinkPreview,
     ));
     list.add(SettingGroupItemComponent(
+      name: s.Open_links_in_app_browser,
+      value: getOpenList(settingProvider.openLinkInAppBrowser).name,
+      onTap: pickOpenLinkInAppBrowser,
+    ));
+    list.add(SettingGroupItemComponent(
       name: s.Video_preview_in_list,
       value: getOpenList(settingProvider.videoPreviewInList).name,
       onTap: pickVideoPreviewInList,
@@ -875,6 +880,14 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         await EnumSelectorComponent.show(context, openList!);
     if (resultEnumObj != null) {
       settingProvider.linkPreview = resultEnumObj.value;
+    }
+  }
+
+  Future<void> pickOpenLinkInAppBrowser() async {
+    EnumObj? resultEnumObj =
+        await EnumSelectorComponent.show(context, openList!);
+    if (resultEnumObj != null) {
+      settingProvider.openLinkInAppBrowser = resultEnumObj.value;
     }
   }
 

@@ -44,6 +44,7 @@
     "Search": "搜索",
     "Request": "请求",
     "Link_preview": "链接预览",
+    "Open_links_in_app_browser": "链接使用内置浏览器打开",
     "Video_preview_in_list": "列表视频预览",
     "Network": "网络",
     "network_take_effect_tip": "网络会在下次启动APP时生效",
