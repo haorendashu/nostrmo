@@ -584,6 +584,7 @@ class _ContentComponent extends State<ContentComponent> {
               height: CONTENT_IMAGE_LIST_HEIGHT,
               width: CONTENT_IMAGE_LIST_HEIGHT,
               fileMetadata: getFileMetadata(image),
+              memCacheWidth: (CONTENT_IMAGE_LIST_HEIGHT * 1.2).toInt(),
               // imageBoxFix: BoxFit.fitWidth,
             ),
           ),
@@ -654,6 +655,7 @@ class _ContentComponent extends State<ContentComponent> {
               imageList: images,
               imageIndex: images.length - 1,
               fileMetadata: getFileMetadata(str),
+              memCacheWidth: (mediaDataCache.size.width * 1.2).toInt(),
             );
 
             bufferToList(buffer, currentList, images, removeLastSpan: true);
@@ -1164,6 +1166,7 @@ class _ContentComponent extends State<ContentComponent> {
                   imageList: images,
                   imageIndex: images.length - 1,
                   fileMetadata: getFileMetadata(str),
+                  memCacheWidth: (mediaDataCache.size.width * 1.2).toInt(),
                 );
 
                 currentList.add(WidgetSpan(child: imageWidget));
