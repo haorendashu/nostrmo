@@ -100,7 +100,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
       child: SelectableText(relay.url),
     );
     if (relay.url != "Local Relay") {
-      urlWidget = Row(
+      urlWidget = Wrap(
         children: [
           urlWidget,
           GestureDetector(

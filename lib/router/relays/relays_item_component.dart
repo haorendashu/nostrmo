@@ -56,7 +56,12 @@ class _RelaysItemComponent extends State<RelaysItemComponent> {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 2),
-          child: Text(StringUtil.breakWord(widget.addr)),
+          child: Text(
+            // StringUtil.breakWord(widget.addr),
+            widget.addr,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         Row(
           children: [
@@ -121,7 +126,9 @@ class _RelaysItemComponent extends State<RelaysItemComponent> {
         ),
       ));
     } else {
-      list.add(leftWidget);
+      list.add(Expanded(
+        child: leftWidget,
+      ));
     }
 
     Widget main = GestureDetector(
