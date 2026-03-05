@@ -82,6 +82,18 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
         laterTimeMS = 500;
       }
 
+      bool isMentionedMe = false;
+      e.tags.forEach((tag) {
+        if (tag.length > 1 && tag[0] == 'p') {
+          if (tag[1] == nostr!.publicKey) {
+            isMentionedMe = true;
+          }
+        }
+      });
+      if (!isMentionedMe) {
+        return;
+      }
+
       later(e, (events) {
         var addSuccess = eventBox.addList(events);
         if (addSuccess) {
