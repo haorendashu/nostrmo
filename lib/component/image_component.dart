@@ -16,12 +16,18 @@ class ImageComponent extends StatelessWidget {
 
   PlaceholderWidgetBuilder? placeholder;
 
+  int? memCacheWidth;
+
+  int? memCacheHeight;
+
   ImageComponent({
     required this.imageUrl,
     this.width,
     this.height,
     this.fit,
     this.placeholder,
+    this.memCacheWidth,
+    this.memCacheHeight,
   });
 
   @override
@@ -32,6 +38,8 @@ class ImageComponent extends StatelessWidget {
       height: height,
       fit: fit,
       placeholder: placeholder,
+      memCacheWidth: memCacheWidth,
+      memCacheHeight: memCacheHeight,
       errorWidget: (context, url, error) => Icon(Icons.error),
       cacheManager: imageLocalCacheManager,
       // imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,

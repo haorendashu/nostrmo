@@ -30,6 +30,10 @@ class ContentImageComponent extends StatefulWidget {
 
   FileMetadata? fileMetadata;
 
+  int? memCacheWidth;
+
+  int? memCacheHeight;
+
   ContentImageComponent({
     required this.imageUrl,
     this.imageList,
@@ -38,6 +42,8 @@ class ContentImageComponent extends StatefulWidget {
     this.height,
     this.imageBoxFix = BoxFit.cover,
     this.fileMetadata,
+    this.memCacheWidth,
+    this.memCacheHeight,
   });
 
   @override
@@ -75,6 +81,8 @@ class _ContentImageComponent extends CustState<ContentImageComponent> {
           height: widget.height,
           placeholder:
               placeholder != null ? (context, url) => placeholder! : null,
+          memCacheWidth: widget.memCacheWidth,
+          memCacheHeight: widget.memCacheHeight,
         ),
       ),
     );
