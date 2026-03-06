@@ -49,8 +49,6 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
   // the events after later mathod and waiting for adding to eventBox
   EventMemBox penddingNewEventBox = EventMemBox(sortAfterAdd: false);
 
-  EventMemBox newEventBox = EventMemBox(sortAfterAdd: false);
-
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
       ScrollOffsetController();
@@ -66,7 +64,6 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
   void initState() {
     super.initState();
 
-    eventBoxList.addBox(newEventBox);
     eventBoxList.addBox(oldEventBox);
 
     bindLoadMoreItemScroll(itemPositionsListener);
@@ -123,7 +120,6 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
 
   @override
   void doQuery() {
-    print("doQuery");
     preQuery();
 
     List<Map<String, dynamic>> filters = [];
@@ -255,7 +251,8 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
     updateUntilTime(until!);
 
     eventBoxList.clear();
-    newEventBox.clear();
+    // must add oldEventBox again, because eventBoxList.clear() will clear all boxes in eventBoxList, including oldEventBox
+    eventBoxList.addBox(oldEventBox);
     penddingEvents.clear();
     penddingNewEventBox.clear();
 
@@ -276,8 +273,10 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
       return;
     }
     var newuntil = newestEvent.createdAt;
-    newEventBox.addBox(penddingNewEventBox);
+    var tempEventBox = EventMemBox();
+    tempEventBox.addBox(penddingNewEventBox);
     penddingNewEventBox.clear();
+    eventBoxList.addEventBoxToFirst(tempEventBox);
 
     if (penddingNewEventsLength >= 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
