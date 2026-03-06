@@ -207,7 +207,7 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
     preBuild();
 
     Widget main = EventListComponent(
-      eventBox.all(),
+      eventBox,
       itemScrollController,
       scrollOffsetController,
       itemPositionsListener,

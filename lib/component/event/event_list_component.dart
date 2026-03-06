@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -10,7 +11,7 @@ import 'list_event_component.dart';
 
 /// A event list (mang events not single event) component.
 class EventListComponent extends StatefulWidget {
-  List<Event> events;
+  EventMemBox eventBox;
 
   ItemScrollController itemScrollController;
   ScrollOffsetController scrollOffsetController;
@@ -20,7 +21,7 @@ class EventListComponent extends StatefulWidget {
   Function()? onRefresh;
 
   EventListComponent(
-    this.events,
+    this.eventBox,
     this.itemScrollController,
     this.scrollOffsetController,
     this.itemPositionsListener,
@@ -43,12 +44,15 @@ class _EventListComponent extends State<EventListComponent> {
   @override
   Widget build(BuildContext context) {
     var _settingProvider = Provider.of<SettingProvider>(context);
-    var events = widget.events;
 
     var main = ScrollablePositionedList.builder(
-      itemCount: events.length,
+      itemCount: widget.eventBox.length(),
       itemBuilder: (context, index) {
-        var event = events[index];
+        var event = widget.eventBox.get(index);
+        if (event == null) {
+          return Container();
+        }
+
         return ListEventComponent(
           event: event,
           showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,

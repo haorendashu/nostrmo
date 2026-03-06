@@ -41,7 +41,8 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
   List<int> feedTypes = [
     FeedType.SYNC_FEED,
     FeedType.RELAYS_FEED,
-    FeedType.MENTIONED_FEED
+    FeedType.MENTIONED_FEED,
+    FeedType.INBOX_FOLLOWED_FEED,
   ];
   int selectedFeedType = FeedType.SYNC_FEED;
   Map<int, String> feedTypeNameMap = {};
@@ -98,6 +99,7 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
         FeedType.SYNC_FEED: s.General_Feed,
         FeedType.RELAYS_FEED: s.Relay_Feed,
         FeedType.MENTIONED_FEED: s.Mentioned_Feed,
+        FeedType.INBOX_FOLLOWED_FEED: "${s.Followed_Feed} (Inbox)",
       };
     }
     if (eventKindNameMap.isEmpty) {
@@ -195,7 +197,8 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
     /**********************************************
      * Data Source Begin
      */
-    if (selectedFeedType != FeedType.MENTIONED_FEED) {
+    if (selectedFeedType != FeedType.MENTIONED_FEED &&
+        selectedFeedType != FeedType.INBOX_FOLLOWED_FEED) {
       var valueName = dataSourceTypeNameMap[selectedDataSourceType];
       valueName ??= s.Unknown;
       if (selectedFeedType == FeedType.RELAYS_FEED) {
@@ -752,7 +755,9 @@ class _FeedBuilderRouterState extends CustState<FeedBuilderRouter> {
       return;
     }
 
-    if (selectedFeedType != FeedType.MENTIONED_FEED && dataSources.isEmpty) {
+    if ((selectedFeedType != FeedType.MENTIONED_FEED &&
+            selectedFeedType != FeedType.INBOX_FOLLOWED_FEED) &&
+        dataSources.isEmpty) {
       BotToast.showText(text: s.Please_add_the_data_source);
       return;
     }

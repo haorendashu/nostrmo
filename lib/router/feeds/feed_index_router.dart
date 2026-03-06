@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nostrmo/consts/feed_data_type.dart';
 import 'package:nostrmo/consts/feed_source_type.dart';
 import 'package:nostrmo/consts/feed_type.dart';
+import 'package:nostrmo/router/feeds/inbox_followed_feed.dart';
 import 'package:nostrmo/router/feeds/relay_feed.dart';
 import 'package:provider/provider.dart';
 
@@ -39,6 +40,8 @@ class _FeedIndexRouter extends State<FeedIndexRouter> {
           feedWidgetList.add(SyncFeed(feed, index));
         } else if (feed.feedType == FeedType.MENTIONED_FEED) {
           feedWidgetList.add(MentionedFeed(feed, index));
+        } else if (feed.feedType == FeedType.INBOX_FOLLOWED_FEED) {
+          feedWidgetList.add(InboxFollowedFeed(feed, index));
         } else {
           feedWidgetList.add(
             Container(

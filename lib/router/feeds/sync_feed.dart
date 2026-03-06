@@ -306,7 +306,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     // }
 
     Widget main = EventListComponent(
-      eventBox.all(),
+      eventBox,
       itemScrollController,
       scrollOffsetController,
       itemPositionsListener,

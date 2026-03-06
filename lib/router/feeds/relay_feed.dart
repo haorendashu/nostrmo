@@ -110,7 +110,7 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
     preBuild();
 
     return EventListComponent(
-      eventBox.all(),
+      eventBox,
       itemScrollController,
       scrollOffsetController,
       itemPositionsListener,
