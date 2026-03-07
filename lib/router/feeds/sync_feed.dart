@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_box_list.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
@@ -37,7 +38,10 @@ class SyncFeed extends StatefulWidget {
 
 class _SyncFeed extends KeepAliveCustState<SyncFeed>
     with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
-  EventMemBox eventBox = EventMemBox();
+  // eventBox for all events, including the new events and old events
+  EventBoxList eventBoxList = EventBoxList();
+
+  EventMemBox oldEventBox = EventMemBox();
 
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
@@ -49,7 +53,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
   List<Event> penddingNewEvents = [];
 
-  EventMemBox newEventBox = EventMemBox();
+  EventMemBox penddingNewEventBox = EventMemBox(sortAfterAdd: false);
 
   List<String> queryHashTagList = [];
   List<String> queryPubKeyList = [];
@@ -57,6 +61,9 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   @override
   void initState() {
     super.initState();
+
+    eventBoxList.addBox(oldEventBox);
+
     bindLoadMoreItemScroll(itemPositionsListener);
     indexProvider.setFeedScrollController(
         widget.feedIndex, itemScrollController);
@@ -130,7 +137,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
         return;
       }
 
-      if (eventBox.isEmpty()) {
+      if (eventBoxList.isEmpty()) {
         laterTimeMS = 200;
       } else {
         laterTimeMS = 500;
@@ -186,25 +193,24 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   }
 
   void megerNewEvents() {
-    if (newEventBox.isEmpty()) {
+    if (penddingNewEventBox.isEmpty()) {
       return;
     }
-    var oldFirstEvent = eventBox.newestEvent;
-    eventBox.addList(newEventBox.all());
-    newEventBox.clear();
-
-    var allList = eventBox.all();
-    var length = allList.length;
-    var index = 0;
-    for (; index < length; index++) {
-      var e = allList[index];
-      if (oldFirstEvent != null && oldFirstEvent.id == e.id) {
-        break;
-      }
+    var penddingNewEventsLength = penddingNewEventBox.length();
+    penddingNewEventBox.sort();
+    var newestEvent = penddingNewEventBox.newestEvent;
+    if (newestEvent == null) {
+      return;
     }
-    if (index < length) {
+    // var newuntil = newestEvent.createdAt;
+    var tempEventBox = EventMemBox();
+    tempEventBox.addBox(penddingNewEventBox);
+    penddingNewEventBox.clear();
+    eventBoxList.addEventBoxToFirst(tempEventBox);
+
+    if (penddingNewEventsLength >= 0) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        itemScrollController.jumpTo(index: index);
+        itemScrollController.jumpTo(index: penddingNewEventsLength);
       });
     }
 
@@ -214,19 +220,15 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   void laterCallback(l) {
     var addSuccess = false;
     if (penddingEvents.isNotEmpty) {
-      addSuccess = eventBox.addList(penddingEvents);
+      addSuccess = oldEventBox.addList(penddingEvents);
     }
 
     if (penddingNewEvents.isNotEmpty) {
-      List<Event> list = [];
-      for (var newEvent in penddingNewEvents) {
-        // also check if the event is already in the eventBox
-        if (eventBox.getById(newEvent.id) == null) {
-          list.add(newEvent);
+      for (var e in penddingNewEvents) {
+        if (eventBoxList.getById(e.id) == null) {
+          addSuccess = true;
+          penddingNewEventBox.add(e);
         }
-      }
-      if (newEventBox.addList(list)) {
-        addSuccess = true;
       }
       penddingNewEvents.clear();
     }
@@ -238,7 +240,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
   @override
   EventMemBox getEventBox() {
-    return eventBox;
+    return eventBoxList;
   }
 
   @override
@@ -252,7 +254,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
   void syncCompleteCallback() {
     print("syncCompleteCallback");
-    var newestEvent = eventBox.newestEvent;
+    var newestEvent = eventBoxList.newestEvent;
     if (newestEvent != null) {
       until = newestEvent.createdAt;
       updateUntilTime(until!);
@@ -261,7 +263,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
   @override
   Widget doBuild(BuildContext context) {
-    if (eventBox.isEmpty()) {
+    if (eventBoxList.isEmpty()) {
       return EventListPlaceholder();
     }
     var themeData = Theme.of(context);
@@ -306,7 +308,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     // }
 
     Widget main = EventListComponent(
-      eventBox,
+      eventBoxList,
       itemScrollController,
       scrollOffsetController,
       itemPositionsListener,
@@ -320,9 +322,9 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
         main,
         Positioned(
           top: Base.BASE_PADDING,
-          child: newEventBox.length() > 0
+          child: penddingNewEventBox.length() > 0
               ? NewNotesUpdatedComponent(
-                  num: newEventBox.length(),
+                  num: penddingNewEventBox.length(),
                   onTap: megerNewEvents,
                 )
               : Container(),
@@ -337,10 +339,11 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     until = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     updateUntilTime(until!);
 
-    eventBox.clear();
-    newEventBox.clear();
+    eventBoxList.clear();
+    // must add oldEventBox again, because eventBoxList.clear() will clear all boxes in eventBoxList, including oldEventBox
+    eventBoxList.addBox(oldEventBox);
     penddingEvents.clear();
-    penddingNewEvents.clear();
+    penddingNewEventBox.clear();
 
     pullNewEvents(until!);
     doQuery();
