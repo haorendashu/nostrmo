@@ -56,6 +56,17 @@ class _ListEventComponent extends State<ListEventComponent> {
 
   @override
   Widget build(BuildContext context) {
+    try {
+      return doBuild(context);
+    } catch (e, stacktrace) {
+      print(e.toString());
+      print(stacktrace.toString());
+      return Container();
+    }
+  }
+
+  @override
+  Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
     var cardColor = themeData.cardColor;
     var eventRelation = EventRelation.fromEvent(widget.event);
