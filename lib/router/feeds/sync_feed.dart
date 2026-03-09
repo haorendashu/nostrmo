@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/new_events_helper.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../data/feed_data.dart';
@@ -37,12 +38,11 @@ class SyncFeed extends StatefulWidget {
 }
 
 class _SyncFeed extends KeepAliveCustState<SyncFeed>
-    with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
-  // eventBox for all events, including the new events and old events
-  EventBoxList eventBoxList = EventBoxList();
-
-  EventMemBox oldEventBox = EventMemBox();
-
+    with
+        LoadMoreEvent,
+        PenddingEventsLaterFunction,
+        FeedPageHelper,
+        NewEventsHelper<SyncFeed> {
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
       ScrollOffsetController();
@@ -61,8 +61,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   @override
   void initState() {
     super.initState();
-
-    eventBoxList.addBox(oldEventBox);
+    initEventBoxList();
 
     bindLoadMoreItemScroll(itemPositionsListener);
     indexProvider.setFeedScrollController(
@@ -192,52 +191,6 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     }, relayTypes: RelayType.CACHE_AND_LOCAL, id: pullNewEventSubscriptionId);
   }
 
-  void megerNewEvents() {
-    if (penddingNewEventBox.isEmpty()) {
-      return;
-    }
-    var penddingNewEventsLength = penddingNewEventBox.length();
-    penddingNewEventBox.sort();
-    var newestEvent = penddingNewEventBox.newestEvent;
-    if (newestEvent == null) {
-      return;
-    }
-    // var newuntil = newestEvent.createdAt;
-    var tempEventBox = EventMemBox();
-    tempEventBox.addBox(penddingNewEventBox);
-    penddingNewEventBox.clear();
-    eventBoxList.addEventBoxToFirst(tempEventBox);
-
-    if (penddingNewEventsLength >= 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        itemScrollController.jumpTo(index: penddingNewEventsLength);
-      });
-    }
-
-    setState(() {});
-  }
-
-  void laterCallback(l) {
-    var addSuccess = false;
-    if (penddingEvents.isNotEmpty) {
-      addSuccess = oldEventBox.addList(penddingEvents);
-    }
-
-    if (penddingNewEvents.isNotEmpty) {
-      for (var e in penddingNewEvents) {
-        if (eventBoxList.getById(e.id) == null) {
-          addSuccess = true;
-          penddingNewEventBox.add(e);
-        }
-      }
-      penddingNewEvents.clear();
-    }
-
-    if (addSuccess) {
-      setState(() {});
-    }
-  }
-
   @override
   EventMemBox getEventBox() {
     return eventBoxList;
@@ -272,41 +225,6 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
 
     var _settingProvider = Provider.of<SettingProvider>(context);
 
-    // var events = eventBox.all();
-    // var length = events.length;
-    // Widget main = RefreshIndicator(
-    //   onRefresh: () async {
-    //     refresh();
-    //   },
-    //   child: ScrollablePositionedList.builder(
-    //     itemCount: length,
-    //     itemBuilder: (context, index) {
-    //       var event = events[index];
-    //       return ListEventComponent(
-    //         event: event,
-    //         showVideo: _settingProvider.videoPreviewInList != OpenStatus.CLOSE,
-    //       );
-    //     },
-    //     itemScrollController: itemScrollController,
-    //     scrollOffsetController: scrollOffsetController,
-    //     itemPositionsListener: itemPositionsListener,
-    //     scrollOffsetListener: scrollOffsetListener,
-    //   ),
-    // );
-    // if (TableModeUtil.isTableMode()) {
-    //   main = GestureDetector(
-    //     onVerticalDragUpdate: (detail) {
-    //       scrollOffsetController.animateScroll(
-    //           offset: -detail.delta.dy * 3.5,
-    //           duration: const Duration(microseconds: 1));
-    //       // widget.scrollController
-    //       //     .jumpTo(widget.scrollController.offset - detail.delta.dy);
-    //     },
-    //     behavior: HitTestBehavior.translucent,
-    //     child: main,
-    //   );
-    // }
-
     Widget main = EventListComponent(
       eventBoxList,
       itemScrollController,
@@ -325,7 +243,12 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
           child: penddingNewEventBox.length() > 0
               ? NewNotesUpdatedComponent(
                   num: penddingNewEventBox.length(),
-                  onTap: megerNewEvents,
+                  onTap: () {
+                    var newuntil = megerNewEvents();
+                    if (newuntil != null) {
+                      updateUntilTime(newuntil);
+                    }
+                  },
                 )
               : Container(),
         ),
@@ -339,11 +262,7 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
     until = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     updateUntilTime(until!);
 
-    eventBoxList.clear();
-    // must add oldEventBox again, because eventBoxList.clear() will clear all boxes in eventBoxList, including oldEventBox
-    eventBoxList.addBox(oldEventBox);
-    penddingEvents.clear();
-    penddingNewEventBox.clear();
+    clearData();
 
     pullNewEvents(until!);
     doQuery();
@@ -354,5 +273,10 @@ class _SyncFeed extends KeepAliveCustState<SyncFeed>
   @override
   FeedData getFeedData() {
     return widget.feedData;
+  }
+
+  @override
+  void jumpTo(int index) {
+    itemScrollController.jumpTo(index: index);
   }
 }

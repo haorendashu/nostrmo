@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/new_events_helper.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../consts/base.dart';
@@ -37,18 +38,11 @@ class InboxFollowedFeed extends StatefulWidget {
 }
 
 class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
-    with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
-  // eventBox for all events, including the new events and old events
-  EventBoxList eventBoxList = EventBoxList();
-
-  EventMemBox oldEventBox = EventMemBox();
-
-  // the events that are waiting for handling later method
-  List<Event> penddingNewEvents = [];
-
-  // the events after later mathod and waiting for adding to eventBox
-  EventMemBox penddingNewEventBox = EventMemBox(sortAfterAdd: false);
-
+    with
+        LoadMoreEvent,
+        PenddingEventsLaterFunction,
+        FeedPageHelper,
+        NewEventsHelper<InboxFollowedFeed> {
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
       ScrollOffsetController();
@@ -63,8 +57,7 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
   @override
   void initState() {
     super.initState();
-
-    eventBoxList.addBox(oldEventBox);
+    initEventBoxList();
 
     bindLoadMoreItemScroll(itemPositionsListener);
     indexProvider.setFeedScrollController(
@@ -108,7 +101,12 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
           child: penddingNewEventBox.length() > 0
               ? NewNotesUpdatedComponent(
                   num: penddingNewEventBox.length(),
-                  onTap: megerNewEvents,
+                  onTap: () {
+                    var newuntil = megerNewEvents();
+                    if (newuntil != null) {
+                      updateUntilTime(newuntil);
+                    }
+                  },
                 )
               : Container(),
         ),
@@ -180,27 +178,6 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
     doQuery();
   }
 
-  void laterCallback(l) {
-    var addSuccess = false;
-    if (penddingEvents.isNotEmpty) {
-      addSuccess = oldEventBox.addList(penddingEvents);
-    }
-
-    if (penddingNewEvents.isNotEmpty) {
-      for (var e in penddingNewEvents) {
-        if (eventBoxList.getById(e.id) == null) {
-          addSuccess = true;
-          penddingNewEventBox.add(e);
-        }
-      }
-      penddingNewEvents.clear();
-    }
-
-    if (addSuccess) {
-      setState(() {});
-    }
-  }
-
   String? pullNewEventSubscriptionId;
 
   void pullNewEvents(int until) {
@@ -250,11 +227,7 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
     until = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     updateUntilTime(until!);
 
-    eventBoxList.clear();
-    // must add oldEventBox again, because eventBoxList.clear() will clear all boxes in eventBoxList, including oldEventBox
-    eventBoxList.addBox(oldEventBox);
-    penddingEvents.clear();
-    penddingNewEventBox.clear();
+    clearData();
 
     pullNewEvents(until!);
     doQuery();
@@ -262,29 +235,8 @@ class _InboxFollowedFeed extends KeepAliveCustState<InboxFollowedFeed>
     setState(() {});
   }
 
-  void megerNewEvents() {
-    if (penddingNewEventBox.isEmpty()) {
-      return;
-    }
-    var penddingNewEventsLength = penddingNewEventBox.length();
-    penddingNewEventBox.sort();
-    var newestEvent = penddingNewEventBox.newestEvent;
-    if (newestEvent == null) {
-      return;
-    }
-    var newuntil = newestEvent.createdAt;
-    var tempEventBox = EventMemBox();
-    tempEventBox.addBox(penddingNewEventBox);
-    penddingNewEventBox.clear();
-    eventBoxList.addEventBoxToFirst(tempEventBox);
-
-    if (penddingNewEventsLength >= 0) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        itemScrollController.jumpTo(index: penddingNewEventsLength);
-      });
-    }
-
-    updateUntilTime(newuntil);
-    setState(() {});
+  @override
+  void jumpTo(int index) {
+    itemScrollController.jumpTo(index: index);
   }
 }

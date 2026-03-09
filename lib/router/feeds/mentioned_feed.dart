@@ -10,6 +10,7 @@ import 'package:nostrmo/router/feeds/feed_page_helper.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../component/event/event_list_component.dart';
+import '../../component/new_events_helper.dart';
 import '../../component/new_notes_updated_component.dart';
 import '../../component/placeholder/event_list_placeholder.dart';
 import '../../consts/base.dart';
@@ -31,13 +32,11 @@ class MentionedFeed extends StatefulWidget {
 }
 
 class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
-    with LoadMoreEvent, PenddingEventsLaterFunction, FeedPageHelper {
-  EventMemBox eventBox = EventMemBox();
-
-  List<Event> penddingNewEvents = [];
-
-  EventMemBox newEventBox = EventMemBox();
-
+    with
+        LoadMoreEvent,
+        PenddingEventsLaterFunction,
+        FeedPageHelper,
+        NewEventsHelper<MentionedFeed> {
   final ItemScrollController itemScrollController = ItemScrollController();
   final ScrollOffsetController scrollOffsetController =
       ScrollOffsetController();
@@ -49,6 +48,8 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
   @override
   void initState() {
     super.initState();
+    initEventBoxList();
+
     bindLoadMoreItemScroll(itemPositionsListener);
     indexProvider.setFeedScrollController(
         widget.feedIndex, itemScrollController);
@@ -76,12 +77,6 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
         return;
       }
 
-      if (eventBox.isEmpty()) {
-        laterTimeMS = 200;
-      } else {
-        laterTimeMS = 500;
-      }
-
       bool isMentionedMe = false;
       e.tags.forEach((tag) {
         if (tag.length > 1 && tag[0] == 'p') {
@@ -94,18 +89,19 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
         return;
       }
 
-      later(e, (events) {
-        var addSuccess = eventBox.addList(events);
-        if (addSuccess) {
-          setState(() {});
-        }
-      }, null);
+      if (eventBoxList.isEmpty()) {
+        laterTimeMS = 200;
+      } else {
+        laterTimeMS = 500;
+      }
+
+      later(e, laterCallback, null);
     });
   }
 
   @override
   EventMemBox getEventBox() {
-    return eventBox;
+    return eventBoxList;
   }
 
   @override
@@ -144,70 +140,19 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
       penddingNewEvents.add(e);
 
       later(null, laterCallback, null);
-    }, relayTypes: RelayType.CACHE_AND_LOCAL, id: pullNewEventSubscriptionId);
-  }
-
-  void laterCallback(l) {
-    var addSuccess = false;
-    if (penddingEvents.isNotEmpty) {
-      addSuccess = eventBox.addList(penddingEvents);
-    }
-
-    if (penddingNewEvents.isNotEmpty) {
-      List<Event> list = [];
-      for (var newEvent in penddingNewEvents) {
-        // also check if the event is already in the eventBox
-        if (eventBox.getById(newEvent.id) == null) {
-          list.add(newEvent);
-        }
-      }
-      if (newEventBox.addList(list)) {
-        addSuccess = true;
-      }
-      penddingNewEvents.clear();
-    }
-
-    if (addSuccess) {
-      setState(() {});
-    }
-  }
-
-  void megerNewEvents() {
-    if (newEventBox.isEmpty()) {
-      return;
-    }
-    var oldFirstEvent = eventBox.newestEvent;
-    eventBox.addList(newEventBox.all());
-    newEventBox.clear();
-
-    var allList = eventBox.all();
-    var length = allList.length;
-    var index = 0;
-    for (; index < length; index++) {
-      var e = allList[index];
-      if (oldFirstEvent != null && oldFirstEvent.id == e.id) {
-        break;
-      }
-    }
-    if (index < length) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        itemScrollController.jumpTo(index: index);
-      });
-    }
-
-    setState(() {});
+    }, relayTypes: RelayType.ONLY_NORMAL, id: pullNewEventSubscriptionId);
   }
 
   @override
   Widget doBuild(BuildContext context) {
-    if (eventBox.isEmpty()) {
+    if (eventBoxList.isEmpty()) {
       return EventListPlaceholder();
     }
 
     preBuild();
 
     Widget main = EventListComponent(
-      eventBox,
+      eventBoxList,
       itemScrollController,
       scrollOffsetController,
       itemPositionsListener,
@@ -221,9 +166,9 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
         main,
         Positioned(
           top: Base.BASE_PADDING,
-          child: newEventBox.length() > 0
+          child: penddingNewEventBox.length() > 0
               ? NewNotesUpdatedComponent(
-                  num: newEventBox.length(),
+                  num: penddingNewEventBox.length(),
                   onTap: megerNewEvents,
                 )
               : Container(),
@@ -238,10 +183,7 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
     until = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     updateUntilTime(until!);
 
-    eventBox.clear();
-    newEventBox.clear();
-    penddingEvents.clear();
-    penddingNewEvents.clear();
+    clearData();
 
     pullNewEvents(until!);
     doQuery();
@@ -252,5 +194,10 @@ class _MentionedFeed extends KeepAliveCustState<MentionedFeed>
   @override
   FeedData getFeedData() {
     return widget.feedData;
+  }
+
+  @override
+  void jumpTo(int index) {
+    itemScrollController.jumpTo(index: index);
   }
 }
