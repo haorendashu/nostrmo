@@ -11,6 +11,44 @@ Nostrmo is a multi-platform Flutter Nostr client with a modular architecture:
   - `flutter_nesigner_sdk` & `nesigner_adapter`: Hardware signer integration
 - **Multi-Platform Support**: iOS, Android, Web, Windows, MacOS, Linux with platform-specific builds
 
+## Documentation-First Lookup (For AI)
+
+Before searching the whole workspace, check `docs/README.md` and use the docs map below.
+
+- Need startup flow or module boundaries?
+  - Read [docs/architecture-overview.md](docs/architecture-overview.md)
+- Need package responsibilities and integration boundaries?
+  - Read [docs/packages-overview.md](docs/packages-overview.md)
+- Need global variables, provider wiring, or init order?
+  - Read [docs/global-state-and-providers.md](docs/global-state-and-providers.md)
+- Need route constants, route registration, or navigation behavior?
+  - Read [docs/routing-and-navigation.md](docs/routing-and-navigation.md)
+- Need SQLite/Isar/SharedPreferences/storage behavior?
+  - Read [docs/data-layer.md](docs/data-layer.md)
+- Need critical runtime variables and lifecycle impact?
+  - Read [docs/key-variables-and-runtime-context.md](docs/key-variables-and-runtime-context.md)
+- Need coding conventions and doc update policy?
+  - Read [docs/conventions-and-maintenance.md](docs/conventions-and-maintenance.md)
+
+Chinese intent aliases (for better lookup):
+
+- 想看启动流程 / 模块边界 / 总体架构
+  - Read [docs/architecture-overview.md](docs/architecture-overview.md)
+- 想看 packages 职责 / 包之间边界 / 集成关系
+  - Read [docs/packages-overview.md](docs/packages-overview.md)
+- 想看全局变量 / Provider 初始化顺序 / 依赖关系
+  - Read [docs/global-state-and-providers.md](docs/global-state-and-providers.md)
+- 想看路由常量 / 路由注册 / 页面跳转
+  - Read [docs/routing-and-navigation.md](docs/routing-and-navigation.md)
+- 想看 SQLite / Isar / SharedPreferences / 存储设计
+  - Read [docs/data-layer.md](docs/data-layer.md)
+- 想看关键运行时变量 / 生命周期影响
+  - Read [docs/key-variables-and-runtime-context.md](docs/key-variables-and-runtime-context.md)
+- 想看开发约定 / 文档维护规范
+  - Read [docs/conventions-and-maintenance.md](docs/conventions-and-maintenance.md)
+
+When docs and code differ, trust code as source of truth and update docs in the same change.
+
 ## State Management Pattern
 
 ### Global Provider Architecture
