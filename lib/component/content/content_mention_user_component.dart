@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nostrmo/component/user/simple_name_component.dart';
+import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/router_path.dart';
@@ -23,22 +24,57 @@ class ContentMentionUserComponent extends StatefulWidget {
 class _ContentMentionUserComponent extends State<ContentMentionUserComponent> {
   @override
   Widget build(BuildContext context) {
-    return Selector<MetadataProvider, Metadata?>(
-      builder: (context, metadata, child) {
-        String name =
-            SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
+    var themeData = Theme.of(context);
+    var mainColor = themeData.primaryColor;
+    var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
-        return ContentStrLinkComponent(
-          str: "@$name",
-          showUnderline: false,
-          onTap: () {
-            RouterUtil.router(context, RouterPath.USER, widget.pubkey);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          "@",
+          style: TextStyle(
+            color: mainColor,
+            fontSize: fontSize! - 1,
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 2, right: 2, top: 1),
+          child: UserPicComponent(pubkey: widget.pubkey, width: fontSize - 2),
+        ),
+        Selector<MetadataProvider, Metadata?>(
+          builder: (context, metadata, child) {
+            return SimpleNameComponent(
+              pubkey: widget.pubkey,
+              metadata: metadata,
+              textStyle: TextStyle(
+                color: mainColor,
+                fontSize: fontSize - 1,
+              ),
+            );
           },
-        );
-      },
-      selector: (context, _provider) {
-        return _provider.getMetadata(widget.pubkey);
-      },
+          selector: (context, _provider) {
+            return _provider.getMetadata(widget.pubkey);
+          },
+        ),
+      ],
     );
+    // return Selector<MetadataProvider, Metadata?>(
+    //   builder: (context, metadata, child) {
+    //     String name =
+    //         SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
+
+    //     return ContentStrLinkComponent(
+    //       str: "@$name",
+    //       showUnderline: false,
+    //       onTap: () {
+    //         RouterUtil.router(context, RouterPath.USER, widget.pubkey);
+    //       },
+    //     );
+    //   },
+    //   selector: (context, _provider) {
+    //     return _provider.getMetadata(widget.pubkey);
+    //   },
+    // );
   }
 }
