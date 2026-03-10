@@ -26,8 +26,9 @@ class NwcSettingBodyComponentState extends CustState<NwcSettingBodyComponent> {
 
   @override
   Future<void> onReady(BuildContext context) async {
-    if (StringUtil.isNotBlank(settingProvider.nwcUrl)) {
-      textEditingController.text = settingProvider.nwcUrl!;
+    var nwcUrl = secureProvider.getNwcUrl(secureProvider.privateKeyIndex);
+    if (StringUtil.isNotBlank(nwcUrl)) {
+      textEditingController.text = nwcUrl!;
     }
   }
 
@@ -147,7 +148,7 @@ class NwcSettingBodyComponentState extends CustState<NwcSettingBodyComponent> {
     );
   }
 
-  void _onConfirm() {
+  Future<void> _onConfirm() async {
     var result = textEditingController.text;
     if (StringUtil.isNotBlank(result)) {
       var nwc = NWCInfo.loadFromUrl(result);
@@ -156,10 +157,10 @@ class NwcSettingBodyComponentState extends CustState<NwcSettingBodyComponent> {
         return;
       }
 
-      settingProvider.nwcUrl = result;
+      await secureProvider.setNwcUrl(secureProvider.privateKeyIndex, result);
     } else {
       // try to clean nwc setting
-      settingProvider.nwcUrl = null;
+      await secureProvider.setNwcUrl(secureProvider.privateKeyIndex, null);
     }
 
     nwcProvider.reload();

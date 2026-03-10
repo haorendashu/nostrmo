@@ -43,6 +43,9 @@ This is efficient for runtime sharing, but initialization order and dependency d
 
 1. Persistence resources initialize first: SQLite, SharedPreferences, Isar local relay DB.
 2. Core providers initialize next: setting/metadata first, then domain providers.
+   - `settingProvider` performs secret-storage bootstrap here:
+     - load account/NWC secrets from secure storage when available,
+     - or migrate legacy setting secrets to secure storage automatically.
 3. Runtime utilities initialize: cache manager, text matcher, webview provider, etc.
 4. Optional login bootstrap: create `nostr` from configured key.
 5. `MultiProvider` injects provider instances to the widget tree.
@@ -66,11 +69,13 @@ This is efficient for runtime sharing, but initialization order and dependency d
 - Reordering initialization can cause runtime null/late-init errors.
 - Changing one provider constructor can impact startup sequence.
 - Replacing globals with dependency injection requires broad edits across providers.
+- Moving `settingProvider` initialization later can break secret migration before first key read.
 
 ## Safe Change Strategy
 
 1. Trace all references of the target provider/global.
 2. Confirm initialization point in `main()` stays valid.
+  - For secret changes, keep migration before first `settingProvider.privateKey` consumption.
 3. Verify `MultiProvider` still includes the provider.
 4. Verify lifecycle behavior where `nostr` is opened/closed.
 

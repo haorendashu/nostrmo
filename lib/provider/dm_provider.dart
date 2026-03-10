@@ -70,7 +70,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
   }
 
   Future<DMSessionDetail> addDmSessionToKnown(DMSessionDetail detail) async {
-    var keyIndex = settingProvider.privateKeyIndex!;
+    var keyIndex = secureProvider.privateKeyIndex!;
     var pubkey = detail.dmSession.pubkey;
     DMSessionInfo o = DMSessionInfo(pubkey: pubkey);
     o.keyIndex = keyIndex;
@@ -96,7 +96,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
     _unknownList.clear();
 
     this.localPubkey = localPubkey;
-    var keyIndex = settingProvider.privateKeyIndex!;
+    var keyIndex = secureProvider.privateKeyIndex!;
     var events = await EventDB.list(
         keyIndex,
         [
@@ -264,7 +264,7 @@ class DMProvider extends ChangeNotifier with PenddingEventsLaterFunction {
         }
 
         updated = true;
-        var keyIndex = settingProvider.privateKeyIndex!;
+        var keyIndex = secureProvider.privateKeyIndex!;
         EventDB.insert(keyIndex, event);
       }
     }

@@ -20,7 +20,7 @@ class GiftWrapProvider extends ChangeNotifier {
   EventMemBox box = EventMemBox(sortAfterAdd: false);
 
   Future<void> init() async {
-    var keyIndex = settingProvider.privateKeyIndex!;
+    var keyIndex = secureProvider.privateKeyIndex!;
     var events =
         await EventDB.list(keyIndex, [EventKind.GIFT_WRAP], 0, 10000000);
 
@@ -80,7 +80,7 @@ class GiftWrapProvider extends ChangeNotifier {
           }
         }
 
-        var keyIndex = settingProvider.privateKeyIndex!;
+        var keyIndex = secureProvider.privateKeyIndex!;
         EventDB.insert(keyIndex, e);
       } catch (e) {
         print("giftwrap onEvent error $e");

@@ -19,7 +19,7 @@ mixin DMPlaintextHandle<T extends StatefulWidget> on State<T> {
           // save to db, avoid decrypt all the time
           try {
             event.content = pc!;
-            EventDB.update(settingProvider.privateKeyIndex!, event);
+            EventDB.update(secureProvider.privateKeyIndex!, event);
           } catch (e, st) {
             print(e);
             print(st.toString());

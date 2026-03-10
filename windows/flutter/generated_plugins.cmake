@@ -9,6 +9,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_inappwebview_windows
   flutter_libserialport
   flutter_nesigner_sdk
+  flutter_secure_storage_windows
   isar_community_flutter_libs
   local_auth_windows
   local_notifier

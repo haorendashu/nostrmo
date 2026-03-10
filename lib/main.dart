@@ -95,6 +95,7 @@ import 'provider/pc_router_fake_provider.dart';
 import 'provider/relay_provider.dart';
 import 'provider/notice_provider.dart';
 import 'provider/replaceable_event_provider.dart';
+import 'provider/secure_provider.dart';
 import 'provider/setting_provider.dart';
 import 'provider/single_event_provider.dart';
 import 'provider/sync_service.dart';
@@ -132,6 +133,8 @@ import 'util/media_data_cache.dart';
 late SharedPreferences sharedPreferences;
 
 late SettingProvider settingProvider;
+
+late SecureProvider secureProvider;
 
 late MetadataProvider metadataProvider;
 
@@ -292,6 +295,11 @@ Future<void> main() async {
   var futureResultList = await Future.wait([settingTask, metadataTask]);
   settingProvider = futureResultList[0] as SettingProvider;
   metadataProvider = futureResultList[1] as MetadataProvider;
+
+  // Initialize SecureProvider and migrate legacy data from SettingProvider
+  secureProvider = await SecureProvider.getInstance();
+  await secureProvider.migrateLegacyData(settingProvider);
+
   feedProvider = FeedProvider();
   syncService = SyncService();
   contactListProvider = ContactListProvider.getInstance();
@@ -337,8 +345,9 @@ Future<void> main() async {
     SocksProxy.initProxy(proxy: network);
   }
 
-  if (StringUtil.isNotBlank(settingProvider.privateKey)) {
-    nostr = await relayProvider.genNostrWithKey(settingProvider.privateKey!);
+  var privateKey = secureProvider.getPrivateKey(secureProvider.privateKeyIndex);
+  if (StringUtil.isNotBlank(privateKey)) {
+    nostr = await relayProvider.genNostrWithKey(privateKey!);
 
     if (nostr != null && settingProvider.wotFilter == OpenStatus.OPEN) {
       var pubkey = nostr!.publicKey;
@@ -452,6 +461,9 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
       providers: [
         ListenableProvider<SettingProvider>.value(
           value: settingProvider,
+        ),
+        ListenableProvider<SecureProvider>.value(
+          value: secureProvider,
         ),
         ListenableProvider<MetadataProvider>.value(
           value: metadataProvider,

@@ -14,6 +14,7 @@ import flutter_image_compress_macos
 import flutter_inappwebview_macos
 import flutter_libserialport
 import flutter_nesigner_sdk
+import flutter_secure_storage_macos
 import isar_community_flutter_libs
 import local_auth_darwin
 import local_notifier
@@ -45,6 +46,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   InAppWebViewFlutterPlugin.register(with: registry.registrar(forPlugin: "InAppWebViewFlutterPlugin"))
   FlutterLibserialportPlugin.register(with: registry.registrar(forPlugin: "FlutterLibserialportPlugin"))
   FlutterNesignerSdkPlugin.register(with: registry.registrar(forPlugin: "FlutterNesignerSdkPlugin"))
+  FlutterSecureStoragePlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStoragePlugin"))
   IsarFlutterLibsPlugin.register(with: registry.registrar(forPlugin: "IsarFlutterLibsPlugin"))
   FLALocalAuthPlugin.register(with: registry.registrar(forPlugin: "FLALocalAuthPlugin"))
   LocalNotifierPlugin.register(with: registry.registrar(forPlugin: "LocalNotifierPlugin"))

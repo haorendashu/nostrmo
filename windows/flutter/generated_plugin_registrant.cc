@@ -12,6 +12,7 @@
 #include <flutter_inappwebview_windows/flutter_inappwebview_windows_plugin_c_api.h>
 #include <flutter_libserialport/flutter_libserialport_plugin.h>
 #include <flutter_nesigner_sdk/flutter_nesigner_sdk_plugin_c_api.h>
+#include <flutter_secure_storage_windows/flutter_secure_storage_windows_plugin.h>
 #include <isar_community_flutter_libs/isar_flutter_libs_plugin.h>
 #include <local_auth_windows/local_auth_plugin.h>
 #include <local_notifier/local_notifier_plugin.h>
@@ -39,6 +40,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FlutterLibserialportPlugin"));
   FlutterNesignerSdkPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterNesignerSdkPluginCApi"));
+  FlutterSecureStorageWindowsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FlutterSecureStorageWindowsPlugin"));
   IsarFlutterLibsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("IsarFlutterLibsPlugin"));
   LocalAuthPluginRegisterWithRegistrar(

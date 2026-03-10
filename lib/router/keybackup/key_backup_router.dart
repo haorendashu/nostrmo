@@ -188,7 +188,9 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
       return;
     }
 
-    doCopy(settingProvider.privateKey);
+    var privateKey =
+        secureProvider.getPrivateKey(secureProvider.privateKeyIndex);
+    doCopy(privateKey);
   }
 
   void copyKey() {
@@ -197,7 +199,7 @@ class _KeyBackupRouter extends State<KeyBackupRouter> {
     }
 
     if (nostr!.nostrSigner is LocalNostrSigner) {
-      var pk = settingProvider.privateKey;
+      var pk = secureProvider.getPrivateKey(secureProvider.privateKeyIndex);
       var nip19Key = Nip19.encodePrivateKey(pk!);
       doCopy(nip19Key);
     }

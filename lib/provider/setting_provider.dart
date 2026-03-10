@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
-import 'package:nostr_sdk/utils/encrypt_util.dart';
 import 'package:nostrmo/util/table_mode_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,10 +19,6 @@ class SettingProvider extends ChangeNotifier {
   SharedPreferences? _sharedPreferences;
 
   SettingData? _settingData;
-
-  Map<String, String> _privateKeyMap = {};
-
-  Map<String, String> _nwcUrlMap = {};
 
   static Future<SettingProvider> getInstance() async {
     if (_settingProvider == null) {
@@ -41,63 +37,10 @@ class SettingProvider extends ChangeNotifier {
       if (jsonMap != null) {
         var setting = SettingData.fromJson(jsonMap);
         _settingData = setting;
-        _privateKeyMap.clear();
-        _nwcUrlMap.clear();
-
-        // move privateKeyMap to encryptPrivateKeyMap since 1.2.0
-        String? privateKeyMapText = _settingData!.encryptPrivateKeyMap;
-        try {
-          if (StringUtil.isNotBlank(privateKeyMapText)) {
-            privateKeyMapText = await EncryptUtil.aesDecrypt(
-                privateKeyMapText!, Base.KEY_EKEY, Base.KEY_IV);
-          } else if (StringUtil.isNotBlank(_settingData!.privateKeyMap) &&
-              StringUtil.isBlank(_settingData!.encryptPrivateKeyMap)) {
-            privateKeyMapText = _settingData!.privateKeyMap;
-            _settingData!.encryptPrivateKeyMap = await EncryptUtil.aesEncrypt(
-                _settingData!.privateKeyMap!, Base.KEY_EKEY, Base.KEY_IV);
-            _settingData!.privateKeyMap = null;
-          }
-        } catch (e) {
-          log("settingProvider handle privateKey error");
-          log(e.toString());
-        }
-
-        if (StringUtil.isNotBlank(privateKeyMapText)) {
-          try {
-            var jsonKeyMap = jsonDecode(privateKeyMapText!);
-            if (jsonKeyMap != null) {
-              for (var entry in (jsonKeyMap as Map<String, dynamic>).entries) {
-                _privateKeyMap[entry.key] = entry.value;
-              }
-            }
-          } catch (e) {
-            log("_settingData!.privateKeyMap! jsonDecode error");
-            log(e.toString());
-          }
-        }
-
-        var nwcUrlMap = _settingData!.nwcUrlMap;
-        if (StringUtil.isNotBlank(nwcUrlMap)) {
-          try {
-            nwcUrlMap = await EncryptUtil.aesDecrypt(
-                nwcUrlMap!, Base.KEY_EKEY, Base.KEY_IV);
-            var jsonKeyMap = jsonDecode(nwcUrlMap);
-            if (jsonKeyMap != null) {
-              for (var entry in (jsonKeyMap as Map<String, dynamic>).entries) {
-                _nwcUrlMap[entry.key] = entry.value;
-              }
-            }
-          } catch (e) {
-            log("_settingData!.nwcUrlMap! jsonDecode error");
-            log(e.toString());
-          }
-        }
-
-        return;
       }
     }
 
-    _settingData = SettingData();
+    _settingData ??= SettingData();
   }
 
   Future<void> reload() async {
@@ -106,104 +49,40 @@ class SettingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, String> get privateKeyMap => _privateKeyMap;
+  // Public method for SecureProvider to call after migration
+  Future<void> clearLegacySecretData() async {
+    bool needSave = false;
 
-  String? get privateKey {
-    if (_settingData!.privateKeyIndex != null &&
-        _settingData!.encryptPrivateKeyMap != null &&
-        _privateKeyMap.isNotEmpty) {
-      return _privateKeyMap[_settingData!.privateKeyIndex.toString()];
-    }
-    return null;
-  }
-
-  Future<int> addAndChangePrivateKey(String pk, {bool updateUI = false}) async {
-    int? findIndex;
-    var entries = _privateKeyMap.entries;
-    for (var entry in entries) {
-      if (entry.value == pk) {
-        findIndex = int.tryParse(entry.key);
-        break;
-      }
-    }
-    if (findIndex != null) {
-      privateKeyIndex = findIndex;
-      return findIndex;
+    if (StringUtil.isNotBlank(_settingData!.privateKeyMap)) {
+      _settingData!.privateKeyMap = null;
+      needSave = true;
     }
 
-    for (var i = 0; i < 20; i++) {
-      var index = i.toString();
-      var _pk = _privateKeyMap[index];
-      if (_pk == null) {
-        _privateKeyMap[index] = pk;
-
-        _settingData!.privateKeyIndex = i;
-
-        // _settingData!.privateKeyMap = json.encode(_privateKeyMap);
-        await _encodePrivateKeyMap();
-        saveAndNotifyListeners(updateUI: updateUI);
-
-        return i;
-      }
+    if (StringUtil.isNotBlank(_settingData!.encryptPrivateKeyMap)) {
+      _settingData!.encryptPrivateKeyMap = null;
+      needSave = true;
     }
 
-    return -1;
-  }
-
-  Future<void> _encodePrivateKeyMap() async {
-    var privateKeyMap = json.encode(_privateKeyMap);
-    _settingData!.encryptPrivateKeyMap =
-        await EncryptUtil.aesEncrypt(privateKeyMap, Base.KEY_EKEY, Base.KEY_IV);
-  }
-
-  void removeKey(int index) {
-    var indexStr = index.toString();
-
-    _privateKeyMap.remove(indexStr);
-    _encodePrivateKeyMap();
-
-    _nwcUrlMap.remove(indexStr);
-    _encodeNwcUrlMap();
-
-    if (_settingData!.privateKeyIndex == index) {
-      if (_privateKeyMap.isEmpty) {
-        _settingData!.privateKeyIndex = null;
-      } else {
-        // find a index
-        var keyIndex = _privateKeyMap.keys.first;
-        _settingData!.privateKeyIndex = int.tryParse(keyIndex);
-      }
+    if (StringUtil.isNotBlank(_settingData!.nwcUrlMap)) {
+      _settingData!.nwcUrlMap = null;
+      needSave = true;
     }
 
-    saveAndNotifyListeners();
-  }
-
-  set nwcUrl(String? o) {
-    var indexKey = _settingData!.privateKeyIndex.toString();
-    if (StringUtil.isNotBlank(o)) {
-      _nwcUrlMap[indexKey] = o!;
-    } else {
-      _nwcUrlMap.remove(indexKey);
+    // Clear legacy privateKeyIndex now that it lives in SecureProvider
+    if (_settingData!.privateKeyIndex != null) {
+      _settingData!.privateKeyIndex = null;
+      needSave = true;
     }
 
-    _encodeNwcUrlMap();
-    saveAndNotifyListeners();
-  }
-
-  String? get nwcUrl {
-    var indexKey = _settingData!.privateKeyIndex.toString();
-    return _nwcUrlMap[indexKey];
-  }
-
-  Future<void> _encodeNwcUrlMap() async {
-    var nwcUrlMap = json.encode(_nwcUrlMap);
-    _settingData!.nwcUrlMap =
-        await EncryptUtil.aesEncrypt(nwcUrlMap, Base.KEY_EKEY, Base.KEY_IV);
+    if (needSave) {
+      await saveAndNotifyListeners(updateUI: false);
+    }
   }
 
   SettingData get settingData => _settingData!;
 
-  int? get privateKeyIndex => _settingData!.privateKeyIndex;
+  // privateKeyIndex is now managed by SecureProvider.
+  // The field in SettingData is kept for backward-compatible migration only.
 
   // String? get privateKeyMap => _settingData!.privateKeyMap;
 
@@ -346,11 +225,6 @@ class SettingProvider extends ChangeNotifier {
 
   set settingData(SettingData o) {
     _settingData = o;
-    saveAndNotifyListeners();
-  }
-
-  set privateKeyIndex(int? o) {
-    _settingData!.privateKeyIndex = o;
     saveAndNotifyListeners();
   }
 

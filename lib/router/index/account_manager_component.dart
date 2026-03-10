@@ -17,6 +17,7 @@ import 'package:nostrmo/component/user/user_pic_component.dart';
 import 'package:nostrmo/consts/router_path.dart';
 import 'package:nostrmo/data/metadata.dart';
 import 'package:nostrmo/provider/metadata_provider.dart';
+import 'package:nostrmo/provider/secure_provider.dart';
 import 'package:nostrmo/provider/setting_provider.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,8 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
   Widget build(BuildContext context) {
     var s = S.of(context);
     var _settingProvider = Provider.of<SettingProvider>(context);
-    var privateKeyMap = _settingProvider.privateKeyMap;
+    var _secureProvider = Provider.of<SecureProvider>(context);
+    var privateKeyMap = _secureProvider.privateKeyMap;
 
     var themeData = Theme.of(context);
     var hintColor = themeData.hintColor;
@@ -79,7 +81,7 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
       list.add(AccountManagerItemComponent(
         index: index,
         accountKey: value,
-        isCurrent: _settingProvider.privateKeyIndex == index,
+        isCurrent: _secureProvider.privateKeyIndex == index,
         onLoginTap: onLoginTap,
         onLogoutTap: (index) async {
           var result = await ConfirmDialog.show(context, s.Logout_tips);
@@ -154,21 +156,25 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
   }
 
   Future<void> doLogin() async {
-    nostr = await relayProvider.genNostrWithKey(settingProvider.privateKey!);
+    var privateKey =
+        secureProvider.getPrivateKey(secureProvider.privateKeyIndex);
+    nostr = await relayProvider.genNostrWithKey(privateKey!);
   }
 
   Future<void> onLoginTap(int index) async {
-    if (settingProvider.privateKeyIndex != index) {
+    if (secureProvider.privateKeyIndex != index) {
       clearCurrentMemInfo();
       if (nostr != null) {
         nostr!.close();
       }
       nostr = null;
 
-      settingProvider.privateKeyIndex = index;
+      await secureProvider.setPrivateKeyIndex(index);
 
       // signOut complete
-      if (settingProvider.privateKey != null) {
+      var privateKey =
+          secureProvider.getPrivateKey(secureProvider.privateKeyIndex);
+      if (privateKey != null) {
         // use next privateKey to login
         var cancelFunc = BotToast.showLoading();
         try {
@@ -184,8 +190,8 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
 
   static Future<void> onLogoutTap(int index,
       {bool routerBack = true, BuildContext? context}) async {
-    var oldIndex = settingProvider.privateKeyIndex;
-    clearLocalData(index);
+    var oldIndex = secureProvider.privateKeyIndex;
+    await clearLocalData(index);
 
     if (oldIndex == index) {
       clearCurrentMemInfo();
@@ -195,10 +201,11 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
       nostr = null;
 
       // signOut complete
-      if (settingProvider.privateKey != null) {
+      var privateKey =
+          secureProvider.getPrivateKey(secureProvider.privateKeyIndex);
+      if (privateKey != null) {
         // use next privateKey to login
-        nostr =
-            await relayProvider.genNostrWithKey(settingProvider.privateKey!);
+        nostr = await relayProvider.genNostrWithKey(privateKey);
       }
     }
 
@@ -224,9 +231,9 @@ class AccountManagerComponentState extends State<AccountManagerComponent> {
     listProvider.clear();
   }
 
-  static void clearLocalData(int index) {
+  static Future<void> clearLocalData(int index) async {
     // remove private key
-    settingProvider.removeKey(index);
+    await secureProvider.removeKey(index);
     // clear local db
     DMSessionInfoDB.deleteAll(index);
     EventDB.deleteAll(index);

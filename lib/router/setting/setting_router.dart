@@ -148,7 +148,8 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
     }
 
     String nwcValue = getOpenList(OpenStatus.OPEN).name;
-    if (StringUtil.isBlank(settingProvider.nwcUrl)) {
+    var nwcUrl = secureProvider.getNwcUrl(secureProvider.privateKeyIndex);
+    if (StringUtil.isBlank(nwcUrl)) {
       nwcValue = getOpenList(OpenStatus.CLOSE).name;
     }
     list.add(SettingGroupItemComponent(
@@ -1069,7 +1070,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
         nostr!.deleteEvents(ids);
       }
     } finally {
-      var index = settingProvider.privateKeyIndex;
+      var index = secureProvider.privateKeyIndex;
       if (index != null) {
         AccountManagerComponentState.onLogoutTap(index,
             routerBack: true, context: context);

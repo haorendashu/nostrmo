@@ -37,7 +37,7 @@ class NWCProvider extends ChangeNotifier {
   }
 
   void reload() {
-    var nwcUrl = settingProvider.nwcUrl;
+    var nwcUrl = secureProvider.getNwcUrl(secureProvider.privateKeyIndex);
     if (StringUtil.isNotBlank(nwcUrl)) {
       var ni = NWCInfo.loadFromUrl(nwcUrl);
       setNWCInfo(ni);
