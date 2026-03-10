@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:nostr_sdk/aid.dart';
 import 'package:nostr_sdk/event.dart';
@@ -20,6 +22,48 @@ class ReplaceableEventProvider extends ChangeNotifier with LaterFunction {
   Event? getEvent(AId aId, {List<String>? relays}) {
     var aIdStr = aId.toAString();
     var event = _eventsMap[aIdStr];
+    if (event != null) {
+      return event;
+    }
+
+    if (_needUpdateIds[aIdStr] == null && _handingIds[aIdStr] == null) {
+      _needUpdateIds[aIdStr] = aId;
+      if (relays != null) {
+        _aidRelays[aIdStr] = relays;
+      }
+    }
+    later(_laterCallback);
+
+    return null;
+  }
+
+  Future<Event?> getEventImmediately(AId aId, {List<String>? relays}) async {
+    var aIdStr = aId.toAString();
+    var event = _eventsMap[aIdStr];
+    if (event != null) {
+      return event;
+    }
+
+    // event not found in memery, try to find it from cache relays.
+    var filter = Filter(authors: [aId.pubkey], kinds: [aId.kind]);
+    var filterMap = filter.toJson();
+    filterMap["#d"] = [aId.title];
+    var completer = Completer<Event?>();
+    nostr!.query(
+      [filterMap],
+      (e) {
+        if (!completer.isCompleted) {
+          completer.complete(e);
+        }
+      },
+      relayTypes: RelayType.CACHE_AND_LOCAL,
+      onComplete: () {
+        if (!completer.isCompleted) {
+          completer.complete(null);
+        }
+      },
+    );
+    event = await completer.future;
     if (event != null) {
       return event;
     }

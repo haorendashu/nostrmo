@@ -35,24 +35,26 @@ class FeedProvider extends ChangeNotifier {
     }
   }
 
-  void removeFeed(String id, {Nostr? targetNostr}) {
+  Future<void> removeFeed(String id, {Nostr? targetNostr}) async {
     targetNostr ??= nostr;
     feedList.removeWhere((element) => element.id == id);
-    _updateFeedList(targetNostr: targetNostr);
+    await _updateFeedList(targetNostr: targetNostr);
   }
 
-  void saveFeed(FeedData feedData, {bool updateUI = true, Nostr? targetNostr}) {
+  Future<void> saveFeed(FeedData feedData,
+      {bool updateUI = true, Nostr? targetNostr}) async {
     targetNostr ??= nostr;
     _saveToMemery(feedData);
-    _updateFeedList(updateUI: updateUI, targetNostr: targetNostr);
+    await _updateFeedList(updateUI: updateUI, targetNostr: targetNostr);
   }
 
-  void _updateFeedList({bool updateUI = true, Nostr? targetNostr}) {
+  Future<void> _updateFeedList(
+      {bool updateUI = true, Nostr? targetNostr}) async {
     updateTime = DateTime.now().millisecondsSinceEpoch;
     // update ui
     // update to sync task provider
     for (var _fd in feedList) {
-      handleFeedData(_fd);
+      await handleFeedData(_fd);
     }
     // save to local
     _saveAndUpdateUI(updateUI: updateUI, targetNostr: targetNostr);
@@ -122,7 +124,7 @@ class FeedProvider extends ChangeNotifier {
   }
 
   // find the real pubkey from sources and other config.
-  void handleFeedData(FeedData feedData) {
+  Future<void> handleFeedData(FeedData feedData) async {
     if (feedData.feedType == FeedType.SYNC_FEED) {
       var pubkeys = Set<String>();
       var tags = Set<String>();
@@ -176,8 +178,8 @@ class FeedProvider extends ChangeNotifier {
           if (naddr != null && StringUtil.isNotBlank(naddr.id)) {
             var aid =
                 AId(kind: naddr.kind, pubkey: naddr.author, title: naddr.id);
-            var event =
-                replaceableEventProvider.getEvent(aid, relays: naddr.relays);
+            var event = await replaceableEventProvider.getEventImmediately(aid,
+                relays: naddr.relays);
             if (event != null && event.kind == EventKind.STARTER_PACKS) {
               var followSet = FollowSet.getPublicFollowSet(event);
               var contacts = followSet.publicContacts;
