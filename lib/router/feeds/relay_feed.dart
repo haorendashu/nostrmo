@@ -128,6 +128,7 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
 
   @override
   Future<void> onReady(BuildContext context) async {
+    pullNewEvents(DateTime.now().millisecondsSinceEpoch ~/ 1000);
     doQuery();
   }
 
@@ -148,6 +149,7 @@ class _RelayFeed extends KeepAliveCustState<RelayFeed>
       onRefresh: () {
         _until = null;
         _since = null;
+        pullNewEvents(DateTime.now().millisecondsSinceEpoch ~/ 1000);
         doQuery();
       },
     );
