@@ -53,6 +53,7 @@ import 'package:nostrmo/router/wallet/wallet_receive_router.dart';
 import 'package:nostrmo/router/wallet/wallet_router.dart';
 import 'package:nostrmo/router/wallet/wallet_send_router.dart';
 import 'package:nostrmo/router/wallet/wallet_transactions_router.dart';
+import 'package:nostrmo/router/web_apps/web_apps_router.dart';
 import 'package:nostrmo/router/web_utils/web_utils_router.dart';
 import 'package:provider/provider.dart';
 import 'package:relay_isar_db/relay_isar_db.dart';
@@ -433,6 +434,7 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
       RouterPath.SETTING: (context) => SettingRouter(indexReload: reload),
       RouterPath.QRSCANNER: (context) => QRScannerRouter(),
       RouterPath.WEBUTILS: (context) => WebUtilsRouter(),
+      RouterPath.WEB_APPS: (context) => WebAppsRouter(),
       RouterPath.RELAY_INFO: (context) => RelayInfoRouter(),
       RouterPath.FOLLOWED_TAGS_LIST: (context) => FollowedTagsListRouter(),
       RouterPath.COMMUNITY_DETAIL: (context) => CommunityDetailRouter(),

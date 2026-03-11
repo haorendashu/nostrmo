@@ -415,5 +415,14 @@
     "Only_Replies": "Only Replies",
     "File_Info": "File Info",
     "Storage_Shared_File": "File",
-    "Feed": "Feed"
+    "Feed": "Feed",
+    "Long_Form": "Long Form",
+    "Group_Chat": "Group Chat",
+    "Tools": "Tools",
+    "Photos": "Photos",
+    "Streaming": "Streaming",
+    "Zaps": "Zaps",
+    "Marketplaces": "Marketplaces",
+    "Web_APPs": "Web APPs",
+    "Others": "Others"
 }

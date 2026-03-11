@@ -251,7 +251,8 @@ class _IndexDrawerContentComponnent
             iconData: Icons.view_list_rounded,
             name: s.Web_Utils,
             onTap: () {
-              RouterUtil.router(context, RouterPath.WEBUTILS);
+              // RouterUtil.router(context, RouterPath.WEBUTILS);
+              RouterUtil.router(context, RouterPath.WEB_APPS);
             },
             smallMode: widget.smallMode,
           );

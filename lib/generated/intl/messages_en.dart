@@ -248,6 +248,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Group": MessageLookupByLibrary.simpleMessage("Group"),
     "GroupId": MessageLookupByLibrary.simpleMessage("GroupId"),
+    "Group_Chat": MessageLookupByLibrary.simpleMessage("Group Chat"),
     "Groups": MessageLookupByLibrary.simpleMessage("Groups"),
     "Hashtag": MessageLookupByLibrary.simpleMessage("Hashtag"),
     "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
@@ -334,11 +335,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "Logout_tips": MessageLookupByLibrary.simpleMessage(
       "You are about to log out, please make sure you have saved your secret key?",
     ),
+    "Long_Form": MessageLookupByLibrary.simpleMessage("Long Form"),
     "Lud16": MessageLookupByLibrary.simpleMessage("Lud16"),
     "Main_Font_Color": MessageLookupByLibrary.simpleMessage("Main Font Color"),
     "Manually_create_a_custom_feed": MessageLookupByLibrary.simpleMessage(
       "Manually create a custom feed",
     ),
+    "Marketplaces": MessageLookupByLibrary.simpleMessage("Marketplaces"),
     "Max_Sub_Notes": MessageLookupByLibrary.simpleMessage("Max Sub Notes"),
     "Media": MessageLookupByLibrary.simpleMessage("Media"),
     "Media_Starter_Packs": MessageLookupByLibrary.simpleMessage(
@@ -426,12 +429,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Open links in app browser",
     ),
     "Optional": MessageLookupByLibrary.simpleMessage("Optional"),
+    "Others": MessageLookupByLibrary.simpleMessage("Others"),
     "Owner": MessageLookupByLibrary.simpleMessage("Owner"),
     "PLease_input_NWC_URL": MessageLookupByLibrary.simpleMessage(
       "PLease input NWC URL",
     ),
     "Password": MessageLookupByLibrary.simpleMessage("Password"),
     "Pay": MessageLookupByLibrary.simpleMessage("Pay"),
+    "Photos": MessageLookupByLibrary.simpleMessage("Photos"),
     "Picture": MessageLookupByLibrary.simpleMessage("Picture"),
     "Please_accept_the_terms": MessageLookupByLibrary.simpleMessage(
       "Please accept the terms.",
@@ -603,6 +608,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Starter_packs": MessageLookupByLibrary.simpleMessage("Starter packs"),
     "Storage_Shared_File": MessageLookupByLibrary.simpleMessage("File"),
+    "Streaming": MessageLookupByLibrary.simpleMessage("Streaming"),
     "Subject": MessageLookupByLibrary.simpleMessage("Subject"),
     "Submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "Sync_Upload": MessageLookupByLibrary.simpleMessage("Sync Upload"),
@@ -638,6 +644,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "Thread_Mode": MessageLookupByLibrary.simpleMessage("Thread Mode"),
     "Timeline": MessageLookupByLibrary.simpleMessage("Timeline"),
+    "Tools": MessageLookupByLibrary.simpleMessage("Tools"),
     "Topic": MessageLookupByLibrary.simpleMessage("Topic"),
     "Topics": MessageLookupByLibrary.simpleMessage("Topics"),
     "Torrents": MessageLookupByLibrary.simpleMessage("Torrents"),
@@ -678,6 +685,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "WebRTC_Permission": MessageLookupByLibrary.simpleMessage(
       "WebRTC Permission",
     ),
+    "Web_APPs": MessageLookupByLibrary.simpleMessage("Web APPs"),
     "Web_Appbar": MessageLookupByLibrary.simpleMessage("Web Appbar"),
     "Web_Utils": MessageLookupByLibrary.simpleMessage("Web Utils"),
     "Website": MessageLookupByLibrary.simpleMessage("Website"),
@@ -707,6 +715,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Zap_number_not_enough": MessageLookupByLibrary.simpleMessage(
       "Zap number not enough",
     ),
+    "Zaps": MessageLookupByLibrary.simpleMessage("Zaps"),
     "add_poll_option": MessageLookupByLibrary.simpleMessage("add poll option"),
     "auto": MessageLookupByLibrary.simpleMessage("Auto"),
     "boosted": MessageLookupByLibrary.simpleMessage("boosted"),

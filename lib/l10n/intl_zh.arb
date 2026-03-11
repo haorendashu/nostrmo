@@ -401,5 +401,14 @@
     "Only_Replies": "仅显示回复",
     "File_Info": "文件信息",
     "Storage_Shared_File": "文件",
-    "Feed": "信息流"
+    "Feed": "信息流",
+    "Long_Form": "长文本",
+    "Group_Chat": "群组聊天",
+    "Tools": "工具",
+    "Photos": "照片",
+    "Streaming": "直播",
+    "Zaps": "Zaps",
+    "Marketplaces": "市场",
+    "Web_APPs": "网页应用",
+    "Others": "其他"
 }
