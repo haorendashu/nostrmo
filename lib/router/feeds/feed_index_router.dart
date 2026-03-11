@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../provider/feed_provider.dart';
 import 'empty_feed_page.dart';
+import 'inbox_mentioned_feed.dart';
 import 'mentioned_feed.dart';
 import 'sync_feed.dart';
 
@@ -42,6 +43,8 @@ class _FeedIndexRouter extends State<FeedIndexRouter> {
           feedWidgetList.add(MentionedFeed(feed, index));
         } else if (feed.feedType == FeedType.INBOX_FOLLOWED_FEED) {
           feedWidgetList.add(InboxFollowedFeed(feed, index));
+        } else if (feed.feedType == FeedType.INBOX_MENTIONED_FEED) {
+          feedWidgetList.add(InboxMentionedFeed(feed, index));
         } else {
           feedWidgetList.add(
             Container(

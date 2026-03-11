@@ -3,5 +3,6 @@ class FeedType {
   static const int RELAYS_FEED = 2;
   static const int MENTIONED_FEED = 3;
   static const int INBOX_FOLLOWED_FEED = 4;
+  static const int INBOX_MENTIONED_FEED = 5;
   // static const int DVMS_FEED = 3;
 }
