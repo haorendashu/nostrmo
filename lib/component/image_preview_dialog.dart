@@ -8,6 +8,7 @@ import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_gallery_saver/flutter_image_gallery_saver.dart';
+import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/util/image_tool.dart';
 import 'package:nostrmo/util/store_util.dart';
@@ -148,7 +149,7 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
                   });
                 }),
             Positioned(
-                top: 5,
+                top: PlatformUtil.isIOS() ? 12 : 5,
                 right: 5,
                 child: IconButton(
                   icon: Container(
