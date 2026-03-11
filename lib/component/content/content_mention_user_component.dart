@@ -25,56 +25,58 @@ class _ContentMentionUserComponent extends State<ContentMentionUserComponent> {
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
-    var mainColor = themeData.primaryColor;
-    var fontSize = themeData.textTheme.bodyMedium!.fontSize;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          "@",
-          style: TextStyle(
-            color: mainColor,
-            fontSize: fontSize! - 1,
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 2, right: 2, top: 1),
-          child: UserPicComponent(pubkey: widget.pubkey, width: fontSize - 2),
-        ),
-        Selector<MetadataProvider, Metadata?>(
-          builder: (context, metadata, child) {
-            return SimpleNameComponent(
-              pubkey: widget.pubkey,
-              metadata: metadata,
-              textStyle: TextStyle(
-                color: mainColor,
-                fontSize: fontSize - 1,
-              ),
-            );
+    return Selector<MetadataProvider, Metadata?>(
+      builder: (context, metadata, child) {
+        String name =
+            SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
+
+        return ContentStrLinkComponent(
+          str: "@$name",
+          showUnderline: false,
+          onTap: () {
+            RouterUtil.router(context, RouterPath.USER, widget.pubkey);
           },
-          selector: (context, _provider) {
-            return _provider.getMetadata(widget.pubkey);
-          },
-        ),
-      ],
+        );
+      },
+      selector: (context, _provider) {
+        return _provider.getMetadata(widget.pubkey);
+      },
     );
-    // return Selector<MetadataProvider, Metadata?>(
-    //   builder: (context, metadata, child) {
-    //     String name =
-    //         SimpleNameComponent.getSimpleName(widget.pubkey, metadata);
 
-    //     return ContentStrLinkComponent(
-    //       str: "@$name",
-    //       showUnderline: false,
-    //       onTap: () {
-    //         RouterUtil.router(context, RouterPath.USER, widget.pubkey);
+    // var mainColor = themeData.primaryColor;
+    // var fontSize = themeData.textTheme.bodyMedium!.fontSize;
+
+    // return Row(
+    //   mainAxisSize: MainAxisSize.min,
+    //   children: [
+    //     Text(
+    //       "@",
+    //       style: TextStyle(
+    //         color: mainColor,
+    //         fontSize: fontSize! + 2,
+    //       ),
+    //     ),
+    //     Container(
+    //       margin: const EdgeInsets.only(left: 2, right: 2, top: 1),
+    //       child: UserPicComponent(pubkey: widget.pubkey, width: fontSize - 3),
+    //     ),
+    //     Selector<MetadataProvider, Metadata?>(
+    //       builder: (context, metadata, child) {
+    //         return SimpleNameComponent(
+    //           pubkey: widget.pubkey,
+    //           metadata: metadata,
+    //           textStyle: TextStyle(
+    //             color: mainColor,
+    //             fontSize: fontSize - 2,
+    //           ),
+    //         );
     //       },
-    //     );
-    //   },
-    //   selector: (context, _provider) {
-    //     return _provider.getMetadata(widget.pubkey);
-    //   },
+    //       selector: (context, _provider) {
+    //         return _provider.getMetadata(widget.pubkey);
+    //       },
+    //     ),
+    //   ],
     // );
   }
 }
