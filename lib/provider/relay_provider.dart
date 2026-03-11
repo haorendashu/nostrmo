@@ -42,11 +42,11 @@ class RelayProvider extends ChangeNotifier {
   static List<String> DEFAULT_RELAYS = [
     "wss://nos.lol/",
     "wss://nostr.wine/",
+    "wss://top.testrelay.top/",
     "wss://atlas.nostr.land/",
     "wss://relay.damus.io/",
     "wss://nostr-relay.app/",
     "wss://nostr.oxtr.dev/",
-    "wss://relayable.org/",
     "wss://relay.primal.net/",
     "wss://relay.nostr.bg/",
     "wss://relay.nostr.band/",
