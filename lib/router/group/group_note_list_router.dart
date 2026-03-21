@@ -5,6 +5,7 @@ import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/nip29/group_metadata.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
+import 'package:nostrmo/component/cust_state.dart';
 import 'package:provider/provider.dart';
 
 import '../../component/appbar_back_btn_component.dart';
@@ -29,13 +30,13 @@ class GroupNoteListRouter extends StatefulWidget {
   }
 }
 
-class _GroupNoteListRouter extends State<GroupNoteListRouter>
+class _GroupNoteListRouter extends CustState<GroupNoteListRouter>
     with LoadMoreEvent {
   ScrollController _controller = ScrollController();
 
   GroupIdentifier? groupIdentifier;
 
-  EventMemBox? eventBox;
+  EventMemBox? eventBox = EventMemBox();
 
   @override
   void initState() {
@@ -44,7 +45,12 @@ class _GroupNoteListRouter extends State<GroupNoteListRouter>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Future<void> onReady(BuildContext context) async {
+    until = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  }
+
+  @override
+  Widget doBuild(BuildContext context) {
     var themeData = Theme.of(context);
     var textColor = themeData.textTheme.bodyMedium!.color;
     var cardColor = themeData.cardColor;

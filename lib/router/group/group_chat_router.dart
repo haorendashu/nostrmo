@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:nostr_sdk/event.dart';
+import 'package:nostr_sdk/event_box_list.dart';
 import 'package:nostr_sdk/event_kind.dart';
 import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
@@ -57,7 +58,7 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
 
   GroupIdentifier? groupIdentifier;
 
-  EventMemBox? eventBox;
+  EventMemBox? eventBox = EventMemBox();
 
   @override
   void initState() {
@@ -66,15 +67,11 @@ class _GroupChatRouter extends CustState<GroupChatRouter>
   }
 
   @override
-  Future<void> onReady(BuildContext context) async {
-    if (groupIdentifier != null) {
-      if (groupDetailsProvider.getChatsEventBox(groupIdentifier!) == null) {
-        groupDetailsProvider.queryGroupEvents(
-            groupIdentifier!,
-            DateTime.now().millisecondsSinceEpoch ~/ 1000,
-            GroupDetailsProvider.supportChatKinds);
-      }
-    }
+  Future<void> onReady(BuildContext context) async {}
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   Event? replingEvent;

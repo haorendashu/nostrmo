@@ -5,6 +5,7 @@ import 'package:nostr_sdk/event_mem_box.dart';
 import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip29/group_identifier.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
+import 'package:nostr_sdk/utils/relay_addr_util.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/main.dart';
 
@@ -55,10 +56,9 @@ class GroupDetailsProvider extends ChangeNotifier {
   void relaySubscribe(RelayGroupDetail relayGroupDetail) {
     var relays = [relayGroupDetail.host];
 
-    if (StringUtil.isNotBlank(relayGroupDetail.pullId)) {
+    if (relayGroupDetail.pullIds.isNotEmpty) {
       relayUnsubscribe(relayGroupDetail);
     }
-    relayGroupDetail.pullId = StringUtil.rndNameStr(12);
 
     List<Map<String, dynamic>> filters = [];
     for (var groupId in relayGroupDetail.groupIds) {
@@ -85,25 +85,35 @@ class GroupDetailsProvider extends ChangeNotifier {
       }
     }
 
-    nostr!.subscribe(
-      filters,
-      (e) {
-        onEvent(relayGroupDetail, e);
-      },
-      id: relayGroupDetail.pullId,
-      targetRelays: relays,
-      relayTypes: RelayType.NETWORK,
-      sendAfterAuth: true,
-    );
+    for (var filter in filters) {
+      var pullIds = StringUtil.rndNameStr(12);
+      relayGroupDetail.pullIds.add(pullIds);
+
+      nostr!.subscribe(
+        [filter],
+        (e) {
+          onEvent(relayGroupDetail, e);
+        },
+        id: pullIds,
+        targetRelays: relays,
+        relayTypes: [],
+        sendAfterAuth: true,
+      );
+    }
   }
 
   void relayUnsubscribe(RelayGroupDetail relayGroupDetail) {
-    nostr!.unsubscribe(relayGroupDetail.pullId!);
-    relayGroupDetail.pullId = null;
+    for (var pullId in relayGroupDetail.pullIds) {
+      nostr!.unsubscribe(pullId);
+    }
+    relayGroupDetail.pullIds.clear();
   }
 
   void queryGroupEvents(
-      GroupIdentifier groupIdentifier, int until, List<int> supportKinds) {
+    GroupIdentifier groupIdentifier,
+    int until,
+    List<int> supportKinds,
+  ) {
     var host = groupIdentifier.host;
     var relayGroupDetail = relayGroupDetailMap[host];
     if (relayGroupDetail == null) {
@@ -120,12 +130,11 @@ class GroupDetailsProvider extends ChangeNotifier {
     var filterJsonMap = filter.toJson();
     filterJsonMap["#h"] = [groupIdentifier.groupId];
 
-    nostr!.subscribe(
+    nostr!.query(
       [filterJsonMap],
       (e) {
         onEvent(relayGroupDetail!, e);
       },
-      id: relayGroupDetail.pullId,
       targetRelays: relays,
       relayTypes: [],
       sendAfterAuth: true,
@@ -256,5 +265,5 @@ class RelayGroupDetail {
 
   Map<String, EventMemBox> chatsBoxMap = {};
 
-  String? pullId;
+  List<String> pullIds = [];
 }
