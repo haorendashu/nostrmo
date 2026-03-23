@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 3.5.0+36
+version: 3.5.1+37
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -59,7 +59,8 @@ dependencies:
   flutter_animate: ^4.5.0
   # wechat_assets_picker: ^9.4.0
   wechat_assets_picker: ^9.8.0
-  file_picker: ^8.1.2
+  # file_picker: ^8.1.2
+  file_picker: ^10.3.10
   emoji_picker_flutter: ^4.3.0
   widget_size: ^1.0.0
   # if build a web version, should remove the package flutter_inappwebview
