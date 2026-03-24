@@ -64,6 +64,8 @@ PODS:
     - Flutter
   - flutter_nesigner_sdk (0.0.1):
     - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
   - google_mlkit_commons (0.11.0):
     - Flutter
     - MLKitVision
@@ -219,6 +221,7 @@ DEPENDENCIES:
   - flutter_keyboard_visibility_temp_fork (from `.symlinks/plugins/flutter_keyboard_visibility_temp_fork/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_nesigner_sdk (from `.symlinks/plugins/flutter_nesigner_sdk/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - google_mlkit_commons (from `.symlinks/plugins/google_mlkit_commons/ios`)
   - google_mlkit_language_id (from `.symlinks/plugins/google_mlkit_language_id/ios`)
   - google_mlkit_translation (from `.symlinks/plugins/google_mlkit_translation/ios`)
@@ -295,6 +298,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_nesigner_sdk:
     :path: ".symlinks/plugins/flutter_nesigner_sdk/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
   google_mlkit_commons:
     :path: ".symlinks/plugins/google_mlkit_commons/ios"
   google_mlkit_language_id:
@@ -347,7 +352,7 @@ SPEC CHECKSUMS:
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
   emoji_picker_flutter: ece213fc274bdddefb77d502d33080dc54e616cc
-  file_picker: 9b3292d7c8bc68c8a7bf8eb78f730e49c8efc517
+  file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
   file_saver: 6cdbcddd690cb02b0c1a0c225b37cd805c2bf8b6
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_image_compress_common: 1697a328fd72bfb335507c6bca1a65fa5ad87df1
@@ -356,6 +361,7 @@ SPEC CHECKSUMS:
   flutter_keyboard_visibility_temp_fork: b8c3574e96b2d85c7330ce4faece5c5a14b54dab
   flutter_native_splash: 35ddbc7228eafcb3969dcc5f1fbbe27c1145a4f0
   flutter_nesigner_sdk: dc71aa8bc67e6955b77a470bdd40938c460383b3
+  flutter_secure_storage: 2c2ff13db9e0a5647389bff88b0ecac56e3f3418
   google_mlkit_commons: 2abe6a70e1824e431d16a51085cb475b672c8aab
   google_mlkit_language_id: cbee6db1778d8e28a1eceb32548e8cad4e1bcef7
   google_mlkit_translation: 0af4cf99ea8459b5864e4c89e36a7c45a1300ef6
