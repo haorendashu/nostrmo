@@ -119,7 +119,7 @@ flutter build windows --release
 ### Web
 
 ```
-flutter build web --release --web-renderer canvaskit
+flutter build web --release
 ```
 
 ### Linux
