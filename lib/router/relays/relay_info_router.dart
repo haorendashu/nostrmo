@@ -304,7 +304,7 @@ class _RelayInfoRouter extends CustState<RelayInfoRouter> {
   }
 
   Future<void> importNotes() async {
-    var result = await FilePicker.platform.pickFiles(
+    var result = await FilePicker.pickFiles(
       allowMultiple: false,
       allowedExtensions: ["json"],
       withData: true,

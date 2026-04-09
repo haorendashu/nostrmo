@@ -162,7 +162,8 @@ class StoreUtil {
   static Future<void> saveBS2Gallery(
       String extension, Uint8List uint8list) async {
     var tempPath = await StoreUtil.saveBS2TempFile(extension, uint8list);
-    await FlutterImageGallerySaver.saveFile(tempPath);
+    final imageSaver = ImageGallerySaver();
+    await imageSaver.saveFile(tempPath);
   }
 
   static int? getFileSize(String filepath) {

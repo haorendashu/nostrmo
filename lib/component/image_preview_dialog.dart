@@ -241,7 +241,9 @@ class _ImagePreviewDialog extends State<ImagePreviewDialog> {
     if (imageAsBytes != null) {
       if (!isPc) {
         try {
-          FlutterImageGallerySaver.saveImage(imageAsBytes);
+          final imageSaver = ImageGallerySaver();
+          await imageSaver.saveImage(imageAsBytes);
+          // FlutterImageGallerySaver.saveImage(imageAsBytes);
           BotToast.showText(text: S.of(context).Image_save_success);
         } catch (e) {}
         // var result = await FlutterImageGallerySaver.saveImage(imageAsBytes,

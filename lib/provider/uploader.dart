@@ -89,7 +89,7 @@ class Uploader {
 
   static Future<String?> pick(BuildContext context) async {
     if (PlatformUtil.isPC() || PlatformUtil.isWeb()) {
-      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      FilePickerResult? result = await FilePicker.pickFiles();
 
       if (result != null) {
         if (settingProvider.imageService == ImageServices.NIP_95 &&
@@ -159,7 +159,7 @@ class Uploader {
 
     if (PlatformUtil.isPC() || PlatformUtil.isWeb()) {
       FilePickerResult? result =
-          await FilePicker.platform.pickFiles(allowMultiple: true);
+          await FilePicker.pickFiles(allowMultiple: true);
 
       if (result != null) {
         for (var file in result.files) {
