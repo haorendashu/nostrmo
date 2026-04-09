@@ -361,35 +361,90 @@ class _IndexRouter extends CustState<IndexRouter>
         );
       }
     } else if (_indexProvider.currentTap == 1) {
-      appBarCenter = TabBar(
-        indicatorColor: indicatorColor,
-        indicatorWeight: 3,
-        indicatorSize: TabBarIndicatorSize.tab,
-        dividerHeight: 0,
-        tabs: [
-          IndexTabItemComponent(
-            s.Starter_packs,
-            titleTextStyle,
-            omitText: "S",
-          ),
-          IndexTabItemComponent(
-            s.Notes,
-            titleTextStyle,
-            omitText: "N",
-          ),
-          IndexTabItemComponent(
-            s.Users,
-            titleTextStyle,
-            omitText: "U",
-          ),
-          IndexTabItemComponent(
-            s.Topics,
-            titleTextStyle,
-            omitText: "T",
-          ),
-        ],
-        controller: globalsTabController,
-      );
+      if (PlatformUtil.isPC()) {
+        appBarCenter = TabBar(
+          indicatorColor: indicatorColor,
+          indicatorWeight: 3,
+          indicatorSize: TabBarIndicatorSize.tab,
+          dividerHeight: 0,
+          tabs: [
+            IndexTabItemComponent(
+              s.Starter_packs,
+              titleTextStyle,
+              omitText: "S",
+            ),
+            IndexTabItemComponent(
+              s.Notes,
+              titleTextStyle,
+              omitText: "N",
+            ),
+            IndexTabItemComponent(
+              s.Users,
+              titleTextStyle,
+              omitText: "U",
+            ),
+            IndexTabItemComponent(
+              s.Topics,
+              titleTextStyle,
+              omitText: "T",
+            ),
+          ],
+          controller: globalsTabController,
+        );
+      } else {
+        appBarCenter = TabBar(
+          indicatorColor: indicatorColor,
+          indicatorWeight: 3,
+          indicatorSize: TabBarIndicatorSize.tab,
+          dividerHeight: 0,
+          labelPadding: EdgeInsets.zero,
+          tabs: [
+            Container(
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+              ),
+              child: ScrollableIndexTabItemComponent(
+                s.Starter_packs,
+                titleTextStyle,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+              ),
+              child: ScrollableIndexTabItemComponent(
+                s.Notes,
+                titleTextStyle,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+              ),
+              child: ScrollableIndexTabItemComponent(
+                s.Users,
+                titleTextStyle,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+              ),
+              child: ScrollableIndexTabItemComponent(
+                s.Topics,
+                titleTextStyle,
+              ),
+            ),
+          ],
+          controller: globalsTabController,
+          isScrollable: true,
+          tabAlignment: TabAlignment.start,
+        );
+      }
     } else if (_indexProvider.currentTap == 2) {
       appBarCenter = Center(
         child: Text(
