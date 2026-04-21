@@ -23,6 +23,7 @@ import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/component/confirm_dialog.dart';
 import 'package:nostrmo/component/datetime_picker_component.dart';
 import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
+import 'package:nostrmo/component/event/event_preview_dialog.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/consts/base64.dart';
 import 'package:nostrmo/provider/list_provider.dart';
@@ -253,6 +254,17 @@ mixin EditorMixin {
         isSelected: false,
         iconTheme: null,
         tooltip: "${s.Private} ${s.Image_or_Video}",
+      ));
+    }
+    if (!isDM() && groupIdentifier == null) {
+      inputBtnList.add(quill.QuillToolbarIconButton(
+        onPressed: () {
+          previewEvent();
+        },
+        icon: const Icon(Icons.preview_outlined),
+        isSelected: false,
+        iconTheme: null,
+        tooltip: s.Image_or_Video,
       ));
     }
     inputBtnList.add(quill.QuillToolbarIconButton(
@@ -752,18 +764,16 @@ mixin EditorMixin {
     }
   }
 
-  Future<Event?> doDocumentSave() async {
+  Future<Event?> genEvent(bool isPreveiw, List<Event> extralEvents,
+      GroupIdentifier? groupIdentifier, List<String> extralRelays) async {
     var context = getContext();
     // dm pubkey
     var pubkey = getPubkey();
-    var groupIdentifier = getGroupIdentifier();
 
     // customEmoji map
     Map<String, int> customEmojiMap = {};
     var tags = []..addAll(getTags());
     var tagsAddedWhenSend = []..addAll(getTagsAddedWhenSend());
-
-    List<String> extralRelays = [];
 
     if (inputPoll) {
       var checkResult = pollInputController.checkInput(context);
@@ -791,45 +801,53 @@ mixin EditorMixin {
           }
           if (StringUtil.isNotBlank(value) && value is String) {
             if (value.indexOf("http") != 0) {
-              // this is a local image, update it first
-              var imagePath = await Uploader.upload(
-                value,
-                imageService: settingProvider.imageService,
-              );
-              if (StringUtil.isNotBlank(imagePath)) {
-                if (StringUtil.isNotBlank(m["image"])) {
-                  // upload success! try to gen Blurhash, (NIP-92)
-                  try {
-                    Uint8List? fileBytes;
-                    if (BASE64.check(value)) {
-                      // is base64
-                      fileBytes = BASE64.toData(value);
-                    } else {
-                      fileBytes = File(value).readAsBytesSync();
+              if (!isPreveiw) {
+                // this is a local image, update it first
+                var imagePath = await Uploader.upload(
+                  value,
+                  imageService: settingProvider.imageService,
+                );
+                if (StringUtil.isNotBlank(imagePath)) {
+                  if (StringUtil.isNotBlank(m["image"])) {
+                    // upload success! try to gen Blurhash, (NIP-92)
+                    try {
+                      Uint8List? fileBytes;
+                      if (BASE64.check(value)) {
+                        // is base64
+                        fileBytes = BASE64.toData(value);
+                      } else {
+                        fileBytes = File(value).readAsBytesSync();
+                      }
+
+                      print("begin to gen blurhash");
+                      final image = img.decodeImage(fileBytes);
+                      final blurHash =
+                          BlurHash.encode(image!, numCompX: 4, numCompY: 3);
+                      print("blurhash $blurHash");
+
+                      tagsAddedWhenSend.add([
+                        "imeta",
+                        "url $imagePath",
+                        "blurhash ${blurHash.hash}",
+                        "dim ${image.width}x${image.height}"
+                      ]);
+                    } catch (e) {
+                      print("handle upload file NIP-92 info error:");
+                      print(e.toString());
                     }
-
-                    print("begin to gen blurhash");
-                    final image = img.decodeImage(fileBytes);
-                    final blurHash =
-                        BlurHash.encode(image!, numCompX: 4, numCompY: 3);
-                    print("blurhash $blurHash");
-
-                    tagsAddedWhenSend.add([
-                      "imeta",
-                      "url $imagePath",
-                      "blurhash ${blurHash.hash}",
-                      "dim ${image.width}x${image.height}"
-                    ]);
-                  } catch (e) {
-                    print("handle upload file NIP-92 info error:");
-                    print(e.toString());
                   }
-                }
 
-                value = imagePath;
+                  value = imagePath;
+                } else {
+                  BotToast.showText(text: S.of(context).Upload_fail);
+                  return null;
+                }
               } else {
-                BotToast.showText(text: S.of(context).Upload_fail);
-                return null;
+                // in preview just change to base64
+                if (!BASE64.check(value)) {
+                  var fileBytes = File(value).readAsBytesSync();
+                  value = BASE64.toBase64(fileBytes);
+                }
               }
             }
 
@@ -962,7 +980,6 @@ mixin EditorMixin {
     }
 
     Event? event;
-    List<Event> extralEvents = [];
     if (isDM() && StringUtil.isNotBlank(pubkey)) {
       if (openPrivateDM) {
         // Private dm message
@@ -1054,6 +1071,16 @@ mixin EditorMixin {
           createdAt: getCreatedAt());
     }
 
+    return event;
+  }
+
+  Future<Event?> doDocumentSave() async {
+    List<Event> extralEvents = [];
+    var groupIdentifier = getGroupIdentifier();
+    List<String> extralRelays = [];
+    var event =
+        await genEvent(false, extralEvents, groupIdentifier, extralRelays);
+
     if (event == null) {
       return null;
     }
@@ -1086,6 +1113,17 @@ mixin EditorMixin {
       }
 
       return await _handleSendingEvent(event, extralRelays);
+    }
+  }
+
+  Future<void> previewEvent() async {
+    List<Event> extralEvents = [];
+    var groupIdentifier = getGroupIdentifier();
+    List<String> extralRelays = [];
+    var event =
+        await genEvent(true, extralEvents, groupIdentifier, extralRelays);
+    if (event != null) {
+      EventPreviewDialog.show(getContext(), event);
     }
   }
 
