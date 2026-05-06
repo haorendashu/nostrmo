@@ -264,7 +264,7 @@ mixin EditorMixin {
         icon: const Icon(Icons.preview_outlined),
         isSelected: false,
         iconTheme: null,
-        tooltip: s.Image_or_Video,
+        tooltip: s.Preview,
       ));
     }
     inputBtnList.add(quill.QuillToolbarIconButton(

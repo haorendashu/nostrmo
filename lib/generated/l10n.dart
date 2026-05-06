@@ -3253,6 +3253,11 @@ class S {
   String get Others {
     return Intl.message('Others', name: 'Others', desc: '', args: []);
   }
+
+  /// `Preview`
+  String get Preview {
+    return Intl.message('Preview', name: 'Preview', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

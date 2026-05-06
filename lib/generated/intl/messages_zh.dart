@@ -353,6 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Popular_Users": MessageLookupByLibrary.simpleMessage("受欢迎的用户"),
     "Posts": MessageLookupByLibrary.simpleMessage("动态"),
     "Posts_and_replies": MessageLookupByLibrary.simpleMessage("动态 & 回复"),
+    "Preview": MessageLookupByLibrary.simpleMessage("预览"),
     "Privacy_Lock": MessageLookupByLibrary.simpleMessage("隐私锁"),
     "Private": MessageLookupByLibrary.simpleMessage("私有"),
     "Private_DM_Notice": MessageLookupByLibrary.simpleMessage(
