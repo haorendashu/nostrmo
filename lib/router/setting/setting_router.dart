@@ -289,7 +289,6 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickImageServcie,
     ));
     if ((settingProvider.imageService == ImageServices.NIP_96 ||
-            settingProvider.imageService == ImageServices.NIP_98 ||
             settingProvider.imageService == ImageServices.BLOSSOM) &&
         StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
       list.add(SettingGroupItemComponent(
@@ -940,8 +939,6 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       imageServcieList!
           .add(EnumObj(ImageServices.NIP_96, ImageServices.NIP_96));
       imageServcieList!
-          .add(EnumObj(ImageServices.NIP_98, ImageServices.NIP_98));
-      imageServcieList!
           .add(EnumObj(ImageServices.BLOSSOM, ImageServices.BLOSSOM));
     }
   }
@@ -975,14 +972,6 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           settingProvider.imageServiceAddr = addr;
         }
         return;
-      } else if (resultEnumObj.value == ImageServices.NIP_98) {
-        var addr = await TextInputDialog.show(
-            context, "${s.Please_input} NIP-98 ${s.Image_service_path}");
-        if (StringUtil.isNotBlank(addr)) {
-          settingProvider.imageService = ImageServices.NIP_98;
-          settingProvider.imageServiceAddr = addr;
-        }
-        return;
       } else if (resultEnumObj.value == ImageServices.NOSTR_DOWNLOAD) {
         settingProvider.imageService = ImageServices.BLOSSOM;
         settingProvider.imageServiceAddr = "https://nostr.download";
@@ -998,6 +987,10 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       } else if (resultEnumObj.value == ImageServices.NOSTO_RE) {
         settingProvider.imageService = ImageServices.BLOSSOM;
         settingProvider.imageServiceAddr = "https://nosto.re";
+        return;
+      } else if (resultEnumObj.value == ImageServices.NOSTR_BUILD) {
+        settingProvider.imageService = ImageServices.NIP_96;
+        settingProvider.imageServiceAddr = "https://nostr.build";
         return;
       }
       settingProvider.imageService = resultEnumObj.value;

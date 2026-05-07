@@ -1,7 +1,6 @@
 class ImageServices {
   static const NIP_95 = "NIP-95";
   static const NIP_96 = "NIP-96";
-  static const NIP_98 = "NIP-98";
   static const BLOSSOM = "Blossom";
 
   static const NOSTR_BUILD = "nostr.build";

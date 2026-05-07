@@ -5,7 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nostr_sdk/blossom/blossom_util.dart';
-import 'package:nostr_sdk/nip98/nip98_file_manager.dart';
+import 'package:nostr_sdk/nip96/nip96_info_loader.dart';
+import 'package:nostr_sdk/nip96/nip96_file_manager.dart';
 import 'package:nostr_sdk/utils/string_util.dart';
 
 import '../../consts/base.dart';
@@ -16,7 +17,7 @@ import '../../provider/uploader.dart';
 import '../../util/router_util.dart';
 import '../../util/theme_util.dart';
 
-enum CloudStorageType { blossom, nip98 }
+enum CloudStorageType { blossom, nip96 }
 
 class CloudFile {
   final String url;
@@ -75,9 +76,11 @@ class CloudFileManagerDialog extends StatefulWidget {
 
 class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
   List<CloudFile> _files = [];
+  final List<CloudFile> _localNip96Files = [];
   final Set<String> _selected = {};
   bool _loading = false;
   String? _error;
+  bool _nip96ListUnsupported = false;
 
   @override
   void initState() {
@@ -91,8 +94,8 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
     switch (widget.type) {
       case CloudStorageType.blossom:
         return 'Blossom Files';
-      case CloudStorageType.nip98:
-        return 'NIP-98 Files';
+      case CloudStorageType.nip96:
+        return 'NIP-96 Files';
     }
   }
 
@@ -119,14 +122,17 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
         );
         files = blobs.map(CloudFile.fromBlossom).toList();
       } else {
-        final listUrl = _serverUrl.endsWith('/')
-            ? _serverUrl.substring(0, _serverUrl.length - 1)
-            : _serverUrl;
-        final response = await NIP98FileManager.list(
-          nostr!,
-          '$listUrl/list',
-        );
-        files = _parseNIP98Files(response.rawData);
+        final response = await _requestNip96ListWithFallback();
+        if (response.statusCode == 404 || response.statusCode == 405) {
+          _nip96ListUnsupported = true;
+          files = List<CloudFile>.from(_localNip96Files);
+        } else {
+          _nip96ListUnsupported = false;
+          files = _parseNIP96Files(response.rawData);
+          _localNip96Files
+            ..clear()
+            ..addAll(files);
+        }
       }
       if (mounted) {
         setState(() {
@@ -144,7 +150,7 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
     }
   }
 
-  List<CloudFile> _parseNIP98Files(dynamic data) {
+  List<CloudFile> _parseNIP96Files(dynamic data) {
     final files = <CloudFile>[];
     if (data is String) {
       try {
@@ -159,30 +165,20 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
       if (filesList is List) {
         for (final item in filesList) {
           if (item is Map<String, dynamic>) {
-            try {
-              files.add(CloudFile(
-                url: (item['url'] ?? '').toString(),
-                sha256: (item['sha256'] ?? '').toString().toLowerCase(),
-                size: _toInt(item['size']),
-                type: (item['type'] ?? 'application/octet-stream').toString(),
-                uploaded: _toInt(item['uploaded']),
-              ));
-            } catch (_) {}
+            final parsed = _parseNIP96ListItem(item);
+            if (parsed != null) {
+              files.add(parsed);
+            }
           }
         }
       }
     } else if (data is List) {
       for (final item in data) {
         if (item is Map<String, dynamic>) {
-          try {
-            files.add(CloudFile(
-              url: (item['url'] ?? '').toString(),
-              sha256: (item['sha256'] ?? '').toString().toLowerCase(),
-              size: _toInt(item['size']),
-              type: (item['type'] ?? 'application/octet-stream').toString(),
-              uploaded: _toInt(item['uploaded']),
-            ));
-          } catch (_) {}
+          final parsed = _parseNIP96ListItem(item);
+          if (parsed != null) {
+            files.add(parsed);
+          }
         }
       }
     }
@@ -197,6 +193,108 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
     return 0;
   }
 
+  String _trimTrailingSlash(String value) {
+    if (value.endsWith('/')) {
+      return value.substring(0, value.length - 1);
+    }
+    return value;
+  }
+
+  Future<String> _resolveNip96UploadUrl() async {
+    final adaptation =
+        await NIP96InfoLoader.getInstance().getServerAdaptation(_serverUrl);
+    if (adaptation != null && StringUtil.isNotBlank(adaptation.apiUrl)) {
+      return _trimTrailingSlash(adaptation.apiUrl!);
+    }
+    return '${_trimTrailingSlash(_serverUrl)}/upload';
+  }
+
+  Future<String> _resolveNip96ListUrl() async {
+    final uploadUrl = await _resolveNip96UploadUrl();
+    return '$uploadUrl?page=0&count=100';
+  }
+
+  String _toLegacyNip96ListUrl(String listUrl) {
+    final uri = Uri.parse(listUrl);
+    final segments = List<String>.from(uri.pathSegments);
+    if (segments.isNotEmpty && segments.last == 'upload') {
+      segments[segments.length - 1] = 'list';
+    } else {
+      segments.add('list');
+    }
+    return uri.replace(pathSegments: segments).toString();
+  }
+
+  Future<NIP96Response<dynamic>> _requestNip96ListWithFallback() async {
+    final primaryUrl = await _resolveNip96ListUrl();
+    var response = await NIP96FileManager.list(
+      nostr!,
+      primaryUrl,
+    );
+
+    // Some servers expose list on /list instead of GET api_url.
+    if (response.statusCode == 404 || response.statusCode == 405) {
+      final fallbackUrl = _toLegacyNip96ListUrl(primaryUrl);
+      response = await NIP96FileManager.list(
+        nostr!,
+        fallbackUrl,
+      );
+    }
+
+    return response;
+  }
+
+  Future<String> _resolveNip96DeleteUrl(String sha256) async {
+    final uploadUrl = await _resolveNip96UploadUrl();
+    return '$uploadUrl/$sha256';
+  }
+
+  CloudFile? _parseNIP96ListItem(Map<String, dynamic> item) {
+    final direct = _parseNIP98FileItem(item);
+    if (direct != null && StringUtil.isNotBlank(direct.url)) {
+      return direct;
+    }
+
+    final tags = item['tags'];
+    if (tags is! List) {
+      return null;
+    }
+
+    String url = '';
+    String sha256 = '';
+    int size = 0;
+    String type = 'application/octet-stream';
+
+    for (final tag in tags) {
+      if (tag is! List || tag.length < 2) {
+        continue;
+      }
+      final key = tag[0]?.toString();
+      final value = tag[1]?.toString() ?? '';
+      if (key == 'url') {
+        url = value;
+      } else if (key == 'ox' || key == 'x' || key == 'sha256') {
+        sha256 = value.toLowerCase();
+      } else if (key == 'size') {
+        size = _toInt(value);
+      } else if (key == 'm' || key == 'type') {
+        type = value;
+      }
+    }
+
+    if (StringUtil.isBlank(url)) {
+      return null;
+    }
+
+    return CloudFile(
+      url: url,
+      sha256: sha256,
+      size: size,
+      type: type,
+      uploaded: _toInt(item['created_at']),
+    );
+  }
+
   Future<void> _upload() async {
     if (nostr == null) return;
 
@@ -206,8 +304,9 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
     final cancel = BotToast.showLoading();
     try {
       CloudFile? file;
-      if (BASE64.check(filePath!)) {
-        final bytes = BASE64.toData(filePath);
+      final selectedFilePath = filePath!;
+      if (BASE64.check(selectedFilePath)) {
+        final bytes = BASE64.toData(selectedFilePath);
         if (widget.type == CloudStorageType.blossom) {
           final descriptor = await BlossomUtil.uploadBytes(
             nostr!,
@@ -216,16 +315,14 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
           );
           file = descriptor != null ? CloudFile.fromBlossom(descriptor) : null;
         } else {
-          final uploadUrl = _serverUrl.endsWith('/')
-              ? _serverUrl.substring(0, _serverUrl.length - 1)
-              : _serverUrl;
-          final response = await NIP98FileManager.uploadBinary(
+          final uploadUrl = await _resolveNip96UploadUrl();
+          final response = await NIP96FileManager.uploadFile(
             nostr!,
-            '$uploadUrl/upload',
-            bytes,
+            uploadUrl,
+            selectedFilePath,
           );
-          if (response.isSuccess && response.rawData is Map) {
-            file = _parseNIP98FileItem(response.rawData);
+          if (response.isSuccess) {
+            file = _parseNIP96UploadResponse(response.rawData);
           }
         }
       } else {
@@ -233,25 +330,27 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
           final descriptor = await BlossomUtil.upload(
             nostr!,
             _serverUrl,
-            filePath,
+            selectedFilePath,
           );
           file = descriptor != null ? CloudFile.fromBlossom(descriptor) : null;
         } else {
-          final uploadUrl = _serverUrl.endsWith('/')
-              ? _serverUrl.substring(0, _serverUrl.length - 1)
-              : _serverUrl;
-          final response = await NIP98FileManager.uploadFile(
+          final uploadUrl = await _resolveNip96UploadUrl();
+          final response = await NIP96FileManager.uploadFile(
             nostr!,
-            '$uploadUrl/upload',
-            filePath,
+            uploadUrl,
+            selectedFilePath,
           );
-          if (response.isSuccess && response.rawData is Map) {
-            file = _parseNIP98FileItem(response.rawData);
+          if (response.isSuccess) {
+            file = _parseNIP96UploadResponse(response.rawData);
           }
         }
       }
 
       if (file != null) {
+        if (widget.type == CloudStorageType.nip96) {
+          _localNip96Files.removeWhere((f) => f.sha256 == file!.sha256);
+          _localNip96Files.insert(0, file);
+        }
         await _fetchList();
       } else {
         if (mounted) {
@@ -277,6 +376,73 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
     }
   }
 
+  CloudFile? _parseNIP96UploadResponse(dynamic data) {
+    if (data is String) {
+      try {
+        data = jsonDecode(data);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    if (data is! Map<String, dynamic>) {
+      return null;
+    }
+
+    final directFile = _parseNIP98FileItem(data);
+    if (directFile != null && StringUtil.isNotBlank(directFile.url)) {
+      return directFile;
+    }
+
+    final nip94Event = data['nip94_event'];
+    if (nip94Event is! Map<String, dynamic>) {
+      return directFile;
+    }
+
+    final tags = nip94Event['tags'];
+    if (tags is! List) {
+      return directFile;
+    }
+
+    String url = '';
+    String sha256 = '';
+    int size = 0;
+    String type = 'application/octet-stream';
+    int uploaded = 0;
+
+    for (final tag in tags) {
+      if (tag is! List || tag.length < 2) {
+        continue;
+      }
+
+      final key = tag[0]?.toString();
+      final value = tag[1]?.toString() ?? '';
+      if (key == 'url') {
+        url = value;
+      } else if (key == 'ox' || key == 'x' || key == 'sha256') {
+        sha256 = value.toLowerCase();
+      } else if (key == 'size') {
+        size = _toInt(value);
+      } else if (key == 'm' || key == 'type') {
+        type = value;
+      } else if (key == 'uploaded') {
+        uploaded = _toInt(value);
+      }
+    }
+
+    if (StringUtil.isBlank(url)) {
+      return directFile;
+    }
+
+    return CloudFile(
+      url: url,
+      sha256: sha256,
+      size: size,
+      type: type,
+      uploaded: uploaded,
+    );
+  }
+
   Future<void> _deleteSingle(CloudFile file) async {
     if (nostr == null) return;
     final cancel = BotToast.showLoading();
@@ -285,17 +451,16 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
       if (widget.type == CloudStorageType.blossom) {
         ok = await BlossomUtil.deleteBlob(nostr!, _serverUrl, file.sha256);
       } else {
-        final deleteUrl = _serverUrl.endsWith('/')
-            ? _serverUrl.substring(0, _serverUrl.length - 1)
-            : _serverUrl;
-        ok = await NIP98FileManager.delete(
+        final deleteUrl = await _resolveNip96DeleteUrl(file.sha256);
+        ok = await NIP96FileManager.delete(
           nostr!,
-          '$deleteUrl/${file.sha256}',
+          deleteUrl,
         );
       }
       if (ok) {
         setState(() {
           _files.removeWhere((f) => f.sha256 == file.sha256);
+          _localNip96Files.removeWhere((f) => f.sha256 == file.sha256);
           _selected.remove(file.sha256);
         });
       } else {
@@ -317,17 +482,16 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
         if (widget.type == CloudStorageType.blossom) {
           ok = await BlossomUtil.deleteBlob(nostr!, _serverUrl, sha256);
         } else {
-          final deleteUrl = _serverUrl.endsWith('/')
-              ? _serverUrl.substring(0, _serverUrl.length - 1)
-              : _serverUrl;
-          ok = await NIP98FileManager.delete(
+          final deleteUrl = await _resolveNip96DeleteUrl(sha256);
+          ok = await NIP96FileManager.delete(
             nostr!,
-            '$deleteUrl/$sha256',
+            deleteUrl,
           );
         }
         if (ok) {
           setState(() {
             _files.removeWhere((f) => f.sha256 == sha256);
+            _localNip96Files.removeWhere((f) => f.sha256 == sha256);
             _selected.remove(sha256);
           });
         } else {
@@ -520,6 +684,19 @@ class _CloudFileManagerDialogState extends State<CloudFileManagerDialog> {
             ),
           ),
           Divider(height: 1, color: hintColor.withOpacity(0.2)),
+          if (widget.type == CloudStorageType.nip96 && _nip96ListUnsupported)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: Base.BASE_PADDING,
+                vertical: Base.BASE_PADDING_HALF,
+              ),
+              color: hintColor.withOpacity(0.08),
+              child: Text(
+                'This server does not support NIP-96 list API. Showing local session uploads only.',
+                style: TextStyle(color: hintColor, fontSize: 12),
+              ),
+            ),
           // List
           Flexible(child: SingleChildScrollView(child: body)),
           // Bottom action bar

@@ -262,12 +262,15 @@ mixin EditorMixin {
       CloudStorageType? cloudStorageType;
       String? serverUrl;
       if (settingProvider.imageService == ImageServices.BLOSSOM ||
-          settingProvider.imageService == ImageServices.NOSTR_BUILD ||
           settingProvider.imageService == ImageServices.NOSTO_RE) {
         cloudStorageType = CloudStorageType.blossom;
         serverUrl = settingProvider.imageServiceAddr;
-      } else if (settingProvider.imageService == ImageServices.NIP_98) {
-        cloudStorageType = CloudStorageType.nip98;
+      } else if (settingProvider.imageService == ImageServices.NOSTR_BUILD ||
+          settingProvider.imageService == ImageServices.NIP_96) {
+        cloudStorageType = CloudStorageType.nip96;
+        if (settingProvider.imageService == ImageServices.NOSTR_BUILD) {
+          serverUrl = "https://nostr.build";
+        }
         serverUrl = settingProvider.imageServiceAddr;
       }
 
