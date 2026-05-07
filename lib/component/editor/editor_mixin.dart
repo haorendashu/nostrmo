@@ -26,6 +26,7 @@ import 'package:nostrmo/component/editor/zap_goal_input_component.dart';
 import 'package:nostrmo/component/event/event_preview_dialog.dart';
 import 'package:nostrmo/component/webview_router.dart';
 import 'package:nostrmo/consts/base64.dart';
+import 'package:nostrmo/consts/image_services.dart';
 import 'package:nostrmo/provider/list_provider.dart';
 import 'package:nostrmo/sendbox/sendbox.dart';
 import 'package:nostrmo/util/hash_util.dart';
@@ -41,6 +42,7 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/uploader.dart';
 import '../../router/index/index_app_bar.dart';
+import '../cloudfile/cloud_file_manager_dialog.dart';
 import '../content/content_decoder.dart';
 import '../emoji_picker_component.dart';
 import '../image_component.dart';
@@ -256,6 +258,31 @@ mixin EditorMixin {
         tooltip: "${s.Private} ${s.Image_or_Video}",
       ));
     }
+    if (StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
+      CloudStorageType? cloudStorageType;
+      String? serverUrl;
+      if (settingProvider.imageService == ImageServices.BLOSSOM ||
+          settingProvider.imageService == ImageServices.NOSTR_BUILD ||
+          settingProvider.imageService == ImageServices.NOSTO_RE) {
+        cloudStorageType = CloudStorageType.blossom;
+        serverUrl = settingProvider.imageServiceAddr;
+      } else if (settingProvider.imageService == ImageServices.NIP_98) {
+        cloudStorageType = CloudStorageType.nip98;
+        serverUrl = settingProvider.imageServiceAddr;
+      }
+
+      if (cloudStorageType != null && StringUtil.isNotBlank(serverUrl)) {
+        inputBtnList.add(quill.QuillToolbarIconButton(
+          onPressed: () =>
+              openCloudFileManagerDialog(cloudStorageType!, serverUrl!),
+          icon: const Icon(Icons.cloud),
+          isSelected: false,
+          iconTheme: null,
+          tooltip: "Blossom / NIP-98",
+        ));
+      }
+    }
+
     if (!isDM() && groupIdentifier == null) {
       inputBtnList.add(quill.QuillToolbarIconButton(
         onPressed: () {
@@ -593,6 +620,18 @@ mixin EditorMixin {
         }
       } finally {
         cancelFunc.call();
+      }
+    }
+  }
+
+  Future<void> openCloudFileManagerDialog(
+      CloudStorageType type, String serverUrl) async {
+    var context = getContext();
+    var blobs = await CloudFileManagerDialog.show(context,
+        type: type, serverUrl: serverUrl);
+    if (blobs != null && blobs.isNotEmpty) {
+      for (var blob in blobs) {
+        _imageSubmitted(blob.url);
       }
     }
   }

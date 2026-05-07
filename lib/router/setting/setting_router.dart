@@ -289,6 +289,7 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
       onTap: pickImageServcie,
     ));
     if ((settingProvider.imageService == ImageServices.NIP_96 ||
+            settingProvider.imageService == ImageServices.NIP_98 ||
             settingProvider.imageService == ImageServices.BLOSSOM) &&
         StringUtil.isNotBlank(settingProvider.imageServiceAddr)) {
       list.add(SettingGroupItemComponent(
@@ -926,14 +927,20 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           EnumObj(ImageServices.POMF2_LAIN_LA, ImageServices.POMF2_LAIN_LA));
       imageServcieList!.add(
           EnumObj(ImageServices.NOSTR_DOWNLOAD, ImageServices.NOSTR_DOWNLOAD));
-      // imageServcieList!
-      //     .add(EnumObj(ImageServices.NOSTO_RE, ImageServices.NOSTO_RE));
+      imageServcieList!
+          .add(EnumObj(ImageServices.NOSTO_RE, ImageServices.NOSTO_RE));
+      imageServcieList!
+          .add(EnumObj(ImageServices.BLOSSOM_BAND, ImageServices.BLOSSOM_BAND));
+      imageServcieList!.add(EnumObj(
+          ImageServices.BLOSSOM_PRIMAL_NET, ImageServices.BLOSSOM_PRIMAL_NET));
       imageServcieList!
           .add(EnumObj(ImageServices.VOID_CAT, ImageServices.VOID_CAT));
       imageServcieList!
           .add(EnumObj(ImageServices.NIP_95, ImageServices.NIP_95));
       imageServcieList!
           .add(EnumObj(ImageServices.NIP_96, ImageServices.NIP_96));
+      imageServcieList!
+          .add(EnumObj(ImageServices.NIP_98, ImageServices.NIP_98));
       imageServcieList!
           .add(EnumObj(ImageServices.BLOSSOM, ImageServices.BLOSSOM));
     }
@@ -968,9 +975,29 @@ class _SettingRouter extends State<SettingRouter> with WhenStopFunction {
           settingProvider.imageServiceAddr = addr;
         }
         return;
+      } else if (resultEnumObj.value == ImageServices.NIP_98) {
+        var addr = await TextInputDialog.show(
+            context, "${s.Please_input} NIP-98 ${s.Image_service_path}");
+        if (StringUtil.isNotBlank(addr)) {
+          settingProvider.imageService = ImageServices.NIP_98;
+          settingProvider.imageServiceAddr = addr;
+        }
+        return;
       } else if (resultEnumObj.value == ImageServices.NOSTR_DOWNLOAD) {
         settingProvider.imageService = ImageServices.BLOSSOM;
         settingProvider.imageServiceAddr = "https://nostr.download";
+        return;
+      } else if (resultEnumObj.value == ImageServices.BLOSSOM_BAND) {
+        settingProvider.imageService = ImageServices.BLOSSOM;
+        settingProvider.imageServiceAddr = "https://blossom.band";
+        return;
+      } else if (resultEnumObj.value == ImageServices.BLOSSOM_PRIMAL_NET) {
+        settingProvider.imageService = ImageServices.BLOSSOM;
+        settingProvider.imageServiceAddr = "https://blossom.primal.net";
+        return;
+      } else if (resultEnumObj.value == ImageServices.NOSTO_RE) {
+        settingProvider.imageService = ImageServices.BLOSSOM;
+        settingProvider.imageServiceAddr = "https://nosto.re";
         return;
       }
       settingProvider.imageService = resultEnumObj.value;
