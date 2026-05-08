@@ -278,7 +278,10 @@ mixin EditorMixin {
         inputBtnList.add(quill.QuillToolbarIconButton(
           onPressed: () =>
               openCloudFileManagerDialog(cloudStorageType!, serverUrl!),
-          icon: const Icon(Icons.cloud),
+          icon: MultiIconComponent(
+            icon: Icons.image_outlined,
+            smallIcon: Icons.cloud,
+          ),
           isSelected: false,
           iconTheme: null,
           tooltip: "Blossom / NIP-98",
