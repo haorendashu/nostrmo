@@ -10,6 +10,7 @@ import 'package:nostr_sdk/filter.dart';
 import 'package:nostr_sdk/nip02/contact_list.dart';
 import 'package:nostr_sdk/nip05/nip05_validor.dart';
 import 'package:nostr_sdk/nip65/relay_list_metadata.dart';
+import 'package:nostr_sdk/nip51/relay_list.dart';
 import 'package:nostr_sdk/relay/relay_type.dart';
 import 'package:nostr_sdk/utils/later_function.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
@@ -34,6 +35,8 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
   Map<String, int> _handingPubkeys = {};
 
   Map<String, ContactList> _contactListMap = {};
+
+  Map<String, RelayList> _dmRelayListMap = {};
 
   static MetadataProvider? _metadataProvider;
 
@@ -94,6 +97,7 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
               EventKind.METADATA,
               EventKind.RELAY_LIST_METADATA,
               EventKind.CONTACT_LIST,
+              EventKind.DM_RELAY_LIST,
             ],
             0,
             10000,
@@ -282,6 +286,17 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
         _eventToContactList(event);
       }
+    } else if (event.kind == EventKind.DM_RELAY_LIST) {
+      var oldDmRelayList = _dmRelayListMap[event.pubkey];
+      if (oldDmRelayList == null) {
+        _dmRelayListMap[event.pubkey] = RelayList.parse(event);
+      } else if (event.createdAt > oldDmRelayList.createdAt) {
+        EventDB.execute(
+            "delete from event where key_index = ? and kind = ? and pubkey = ?",
+            [Base.DEFAULT_DATA_INDEX, EventKind.DM_RELAY_LIST, event.pubkey]);
+        EventDB.insert(Base.DEFAULT_DATA_INDEX, event);
+        _dmRelayListMap[event.pubkey] = RelayList.parse(event);
+      }
     }
   }
 
@@ -327,6 +342,16 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
         var filter = Filter(
           kinds: [
             EventKind.CONTACT_LIST,
+          ],
+          authors: [pubkey],
+          limit: 1,
+        );
+        filters.add(filter.toJson());
+      }
+      {
+        var filter = Filter(
+          kinds: [
+            EventKind.DM_RELAY_LIST,
           ],
           authors: [pubkey],
           limit: 1,
@@ -451,18 +476,33 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
     _contactListMap[event.pubkey] = contactList;
   }
 
-  List<String> getExtralRelays(String pubkey, bool isWrite) {
+  List<String> getExtralRelays(String pubkey, bool isWrite,
+      {bool isDM = false}) {
     List<String> tempRelays = [];
-    var relayListMetadata = metadataProvider.getRelayListMetadata(pubkey);
-    if (relayListMetadata != null) {
-      late List<String> relays;
-      if (isWrite) {
-        relays = relayListMetadata.writeAbleRelays;
-      } else {
-        relays = relayListMetadata.readAbleRelays;
+
+    if (isDM) {
+      // isDM
+      var relayList = _dmRelayListMap[pubkey];
+      if (relayList != null) {
+        var relays = relayList.relays;
+        tempRelays = nostr!.getExtralRelays(relays, 3, writable: isWrite);
       }
-      tempRelays = nostr!.getExtralReadableRelays(relays, 3);
     }
+
+    if (tempRelays.isEmpty || tempRelays.length < 3) {
+      var relayListMetadata = getRelayListMetadata(pubkey);
+      if (relayListMetadata != null) {
+        late List<String> relays;
+        if (isWrite) {
+          relays = relayListMetadata.writeAbleRelays;
+        } else {
+          relays = relayListMetadata.readAbleRelays;
+        }
+        var list = nostr!.getExtralRelays(relays, 3, writable: isWrite);
+        tempRelays.addAll(list);
+      }
+    }
+
     return tempRelays;
   }
 }

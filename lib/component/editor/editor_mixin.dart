@@ -609,7 +609,8 @@ mixin EditorMixin {
             List<String> extralRelays = [];
             for (var tag in extralEvent.tags) {
               if (tag is List && tag.length > 1 && tag[0] == "p") {
-                extralRelays = metadataProvider.getExtralRelays(tag[1], false);
+                extralRelays =
+                    metadataProvider.getExtralRelays(tag[1], false, isDM: true);
                 break;
               }
             }
@@ -926,7 +927,8 @@ mixin EditorMixin {
             result += "nostr:${Nip19.encodePubKey(value)} ";
 
             // add user's read relays
-            extralRelays.addAll(metadataProvider.getExtralRelays(value, false));
+            extralRelays.addAll(
+                metadataProvider.getExtralRelays(value, false, isDM: true));
             continue;
           }
 
@@ -1184,7 +1186,7 @@ mixin EditorMixin {
         var k = tag[0];
         var p = tag[1];
         if (k == "p") {
-          list.addAll(metadataProvider.getExtralRelays(p, false));
+          list.addAll(metadataProvider.getExtralRelays(p, false, isDM: true));
         }
       }
     }
@@ -1202,7 +1204,7 @@ mixin EditorMixin {
         var k = tag[0];
         var p = tag[1];
         if (k == "p") {
-          list.addAll(metadataProvider.getExtralRelays(p, false));
+          list.addAll(metadataProvider.getExtralRelays(p, false, isDM: true));
         }
       }
     }

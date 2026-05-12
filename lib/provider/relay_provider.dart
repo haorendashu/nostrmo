@@ -257,6 +257,7 @@ class RelayProvider extends ChangeNotifier {
           EventKind.INDEXER_RELAY_LIST,
           EventKind
               .RELAY_LIST_METADATA, // load relay list metadata direct from relays.
+          EventKind.DM_RELAY_LIST,
         ],
         targetNostr: _nostr,
         initQuery: true);

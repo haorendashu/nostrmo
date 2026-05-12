@@ -246,8 +246,8 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
 
     List<String> tempRelays = [];
     if (StringUtil.isNotBlank(eventRelation.replyOrRootRelayAddr)) {
-      var eventRelays = nostr!
-          .getExtralReadableRelays([eventRelation.replyOrRootRelayAddr!], 1);
+      var eventRelays =
+          nostr!.getExtralRelays([eventRelation.replyOrRootRelayAddr!], 1);
       eventRelays = RelayFilter.handle(eventRelays);
       tempRelays.addAll(eventRelays);
     }
@@ -309,7 +309,7 @@ class _ThreadTraceRouter extends State<ThreadTraceRouter>
     var filter = Filter(ids: [eventId]);
     List<String> tempRelays = [];
     if (StringUtil.isNotBlank(eventRelayAddr)) {
-      var eventRelays = nostr!.getExtralReadableRelays([eventRelayAddr!], 1);
+      var eventRelays = nostr!.getExtralRelays([eventRelayAddr!], 1);
       eventRelays = RelayFilter.handle(eventRelays);
       tempRelays.addAll(eventRelays);
     }
