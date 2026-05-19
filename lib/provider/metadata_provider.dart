@@ -18,6 +18,7 @@ import 'package:nostr_sdk/utils/string_util.dart';
 import 'package:nostrmo/consts/base.dart';
 import 'package:nostrmo/consts/nip05status.dart';
 import 'package:nostrmo/data/event_db.dart';
+import 'package:nostrmo/util/namecoin/namecoin_nip05.dart';
 
 import '../data/metadata.dart';
 import '../data/metadata_db.dart';
@@ -190,7 +191,10 @@ class MetadataProvider extends ChangeNotifier with LaterFunction {
       return Nip05Status.METADATA_NOT_FOUND;
     } else if (StringUtil.isNotBlank(metadata.nip05)) {
       if (metadata.valid == null) {
-        Nip05Validor.valid(metadata.nip05!, pubkey).then((valid) async {
+        final validation = NamecoinNip05.isBit(metadata.nip05)
+            ? NamecoinNip05.valid(metadata.nip05!, pubkey)
+            : Nip05Validor.valid(metadata.nip05!, pubkey);
+        validation.then((valid) async {
           if (valid != null) {
             if (valid) {
               metadata.valid = Nip05Status.NIP05_VALIDED;

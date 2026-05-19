@@ -16,6 +16,7 @@ import 'package:nesigner_adapter/nesigner_adapter.dart';
 import 'package:nostr_sdk/signer/pubkey_only_nostr_signer.dart';
 import 'package:nostr_sdk/utils/platform_util.dart';
 import 'package:nostrmo/component/webview_router.dart';
+import 'package:nostrmo/util/namecoin/namecoin_nip05.dart';
 import 'package:nostrmo/util/router_util.dart';
 import 'package:hex/hex.dart';
 
@@ -349,7 +350,9 @@ class _LoginRouter extends State<LoginRouter>
         // try to find pubkey first.
         var cancelFunc = BotToast.showLoading();
         try {
-          pubkey = await Nip05Validor.getPubkey(pk);
+          pubkey = NamecoinNip05.isBit(pk)
+              ? await NamecoinNip05.getPubkey(pk)
+              : await Nip05Validor.getPubkey(pk);
         } catch (e) {
           print("doLogin error ${e.toString()}");
         } finally {
