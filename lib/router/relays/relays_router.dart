@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../component/appbar_back_btn_component.dart';
 import '../../component/cust_state.dart';
 import '../../consts/base.dart';
+import '../../consts/client_connected.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../provider/relay_provider.dart';
@@ -29,6 +30,14 @@ class RelaysRouter extends StatefulWidget {
 class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
   TextEditingController controller = TextEditingController();
 
+  TextEditingController searchController = TextEditingController();
+
+  FocusNode searchFocusNode = FocusNode();
+
+  String relaySearchText = "";
+
+  bool showSearchInput = false;
+
   int relayType = RelayType.NORMAL;
 
   @override
@@ -37,16 +46,22 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
     var _relayProvider = Provider.of<RelayProvider>(context);
     var relayStatusLocal = _relayProvider.relayStatusLocal;
     var themeData = Theme.of(context);
-    var color = themeData.textTheme.bodyLarge!.color;
     var titleFontSize = themeData.textTheme.bodyLarge!.fontSize;
-    var normalRelayStatuses = _relayProvider.getNormalRelayStatus();
-    var cacheRelayStatuses = _relayProvider.getCacheRelayStatus();
-    var indexRelayStatuses = _relayProvider.getIndexRelayStatus();
-    var tempRelayStatuses = _relayProvider.getTempRelayStatus();
+    var normalRelayStatuses =
+        _filterRelayStatuses(_relayProvider.getNormalRelayStatus());
+    var cacheRelayStatuses =
+        _filterRelayStatuses(_relayProvider.getCacheRelayStatus());
+    var indexRelayStatuses =
+        _filterRelayStatuses(_relayProvider.getIndexRelayStatus());
+    var allTempRelayStatuses = _relayProvider.getTempRelayStatus();
+    var tempRelayStatuses = _filterRelayStatuses(allTempRelayStatuses);
+    var tempRelayConnectedNum = allTempRelayStatuses
+        .where((status) => status.connected == ClientConneccted.CONNECTED)
+        .length;
 
     List<Widget> list = [];
 
-    if (relayStatusLocal != null) {
+    if (relayStatusLocal != null && _matchRelayAddr(relayStatusLocal.addr)) {
       list.add(RelaysItemComponent(
         addr: relayStatusLocal.addr,
         relayStatus: relayStatusLocal,
@@ -54,30 +69,32 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
       ));
     }
 
-    list.add(Container(
-      padding: EdgeInsets.only(
-        left: Base.BASE_PADDING,
-        bottom: Base.BASE_PADDING_HALF,
-      ),
-      child: Row(
-        children: [
-          Text(
-            s.MyRelays,
-            style: TextStyle(
-              fontSize: titleFontSize,
-              fontWeight: FontWeight.bold,
+    if (normalRelayStatuses.isNotEmpty) {
+      list.add(Container(
+        padding: EdgeInsets.only(
+          left: Base.BASE_PADDING,
+          bottom: Base.BASE_PADDING_HALF,
+        ),
+        child: Row(
+          children: [
+            Text(
+              s.MyRelays,
+              style: TextStyle(
+                fontSize: titleFontSize,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          GestureDetector(
-            onTap: testAllMyRelaysSpeed,
-            child: Container(
-              margin: EdgeInsets.only(left: Base.BASE_PADDING),
-              child: Icon(Icons.speed),
+            GestureDetector(
+              onTap: testAllMyRelaysSpeed,
+              child: Container(
+                margin: EdgeInsets.only(left: Base.BASE_PADDING),
+                child: Icon(Icons.speed),
+              ),
             ),
-          )
-        ],
-      ),
-    ));
+          ],
+        ),
+      ));
+    }
     for (var i = 0; i < normalRelayStatuses.length; i++) {
       var relayStatus = normalRelayStatuses[i];
       var addr = relayStatus.addr;
@@ -171,7 +188,7 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
           bottom: Base.BASE_PADDING_HALF,
         ),
         child: Text(
-          s.TempRelays,
+          "${s.TempRelays} （ $tempRelayConnectedNum / ${allTempRelayStatuses.length} ）",
           style: TextStyle(
             fontSize: titleFontSize,
             fontWeight: FontWeight.bold,
@@ -210,6 +227,25 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
         actions: [
           GestureDetector(
             onTap: () {
+              setState(() {
+                showSearchInput = true;
+              });
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  searchFocusNode.requestFocus();
+                }
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.only(right: Base.BASE_PADDING),
+              child: Icon(
+                Icons.search,
+                color: themeData.appBarTheme.titleTextStyle!.color,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
               RouterUtil.router(context, RouterPath.RELAYHUB);
             },
             child: Container(
@@ -228,8 +264,53 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
             margin: const EdgeInsets.only(
               top: Base.BASE_PADDING,
             ),
-            child: ListView(
-              children: list,
+            child: Column(
+              children: [
+                if (showSearchInput)
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: Base.BASE_PADDING,
+                      right: Base.BASE_PADDING,
+                      bottom: Base.BASE_PADDING,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: searchController,
+                            focusNode: searchFocusNode,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                              hintText: s.Please_input_search_content,
+                              prefixIcon: const Icon(Icons.search),
+                            ),
+                            onChanged: (v) {
+                              setState(() {
+                                relaySearchText = v.trim();
+                              });
+                            },
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            searchFocusNode.unfocus();
+                            searchController.clear();
+                            setState(() {
+                              relaySearchText = "";
+                              showSearchInput = false;
+                            });
+                          },
+                          child: Text(s.Cancel),
+                        ),
+                      ],
+                    ),
+                  ),
+                Expanded(
+                  child: ListView(
+                    children: list,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -303,6 +384,30 @@ class _RelaysRouter extends CustState<RelaysRouter> with WhenStopFunction {
 
   @override
   Future<void> onReady(BuildContext context) async {}
+
+  @override
+  void dispose() {
+    controller.dispose();
+    searchController.dispose();
+    searchFocusNode.dispose();
+    super.dispose();
+  }
+
+  bool _matchRelayAddr(String addr) {
+    if (StringUtil.isBlank(relaySearchText)) {
+      return true;
+    }
+
+    return addr.toLowerCase().contains(relaySearchText.toLowerCase());
+  }
+
+  List<RelayStatus> _filterRelayStatuses(List<RelayStatus> statuses) {
+    if (StringUtil.isBlank(relaySearchText)) {
+      return statuses;
+    }
+
+    return statuses.where((status) => _matchRelayAddr(status.addr)).toList();
+  }
 
   void testAllMyRelaysSpeed() {
     var relayStatuses = relayProvider.getNormalRelayStatus();
