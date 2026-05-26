@@ -7,14 +7,18 @@ import '../../component/user/metadata_component.dart';
 import '../../consts/base.dart';
 import '../../consts/router_path.dart';
 import '../../data/metadata.dart';
+import '../../generated/l10n.dart';
 import '../../provider/metadata_provider.dart';
 import '../../util/router_util.dart';
 import '../../util/table_mode_util.dart';
+import 'package:nostr_sdk/utils/string_util.dart';
 
 class UserContactListComponent extends StatefulWidget {
   ContactList contactList;
 
-  UserContactListComponent({required this.contactList});
+  String searchText;
+
+  UserContactListComponent({required this.contactList, this.searchText = ""});
 
   @override
   State<StatefulWidget> createState() {
@@ -30,11 +34,28 @@ class _UserContactListComponent extends State<UserContactListComponent> {
   @override
   Widget build(BuildContext context) {
     list ??= widget.contactList.list().toList();
+    var s = S.of(context);
+    var metadataProvider = Provider.of<MetadataProvider>(context);
+    var displayList =
+        _buildDisplayList(list!, metadataProvider, widget.searchText);
+    var hasNoSearchResult =
+        StringUtil.isNotBlank(widget.searchText) && displayList.isEmpty;
+
+    if (hasNoSearchResult) {
+      return Center(
+        child: Text(
+          s.not_found,
+          style: TextStyle(
+            color: Theme.of(context).hintColor,
+          ),
+        ),
+      );
+    }
 
     Widget main = ListView.builder(
       controller: _controller,
       itemBuilder: (context, index) {
-        var contact = list![index];
+        var contact = displayList[index];
         return Container(
           margin: EdgeInsets.only(bottom: Base.BASE_PADDING_HALF),
           child: Selector<MetadataProvider, Metadata?>(
@@ -58,7 +79,7 @@ class _UserContactListComponent extends State<UserContactListComponent> {
           ),
         );
       },
-      itemCount: list!.length,
+      itemCount: displayList.length,
     );
 
     if (TableModeUtil.isTableMode()) {
@@ -72,5 +93,64 @@ class _UserContactListComponent extends State<UserContactListComponent> {
     }
 
     return main;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  List<Contact> _buildDisplayList(
+    List<Contact> sourceList,
+    MetadataProvider metadataProvider,
+    String searchText,
+  ) {
+    var uniqueList = <Contact>[];
+    var seen = <String>{};
+    for (var contact in sourceList) {
+      var pubkey = contact.publicKey;
+      if (StringUtil.isBlank(pubkey)) {
+        continue;
+      }
+      if (seen.add(pubkey)) {
+        uniqueList.add(contact);
+      }
+    }
+
+    if (StringUtil.isBlank(searchText)) {
+      return uniqueList;
+    }
+
+    var keyword = searchText.toLowerCase();
+    var level1 = <Contact>[];
+    var level2 = <Contact>[];
+    var level3 = <Contact>[];
+
+    for (var contact in uniqueList) {
+      var metadata = metadataProvider.getMetadata(contact.publicKey);
+      if (metadata == null) {
+        continue;
+      }
+
+      if (_matchText(metadata.name, keyword) ||
+          _matchText(metadata.displayName, keyword)) {
+        level1.add(contact);
+      } else if (_matchText(metadata.nip05, keyword)) {
+        level2.add(contact);
+      } else if (_matchText(metadata.about, keyword)) {
+        level3.add(contact);
+      }
+    }
+
+    return [...level1, ...level2, ...level3];
+  }
+
+  bool _matchText(String? source, String keyword) {
+    if (StringUtil.isBlank(source)) {
+      return false;
+    }
+
+    return source!.toLowerCase().contains(keyword);
   }
 }
