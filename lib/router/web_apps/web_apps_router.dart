@@ -30,6 +30,14 @@ class WebAppsRouterState extends CustState<WebAppsRouter> {
 
   List<WebAppItem> items = [];
 
+  TextEditingController searchController = TextEditingController();
+
+  FocusNode searchFocusNode = FocusNode();
+
+  String webAppSearchText = "";
+
+  bool showSearchInput = false;
+
   Map<String, int> selectedMap = {};
 
   List<EnumObj> typeEnums = [];
@@ -86,18 +94,34 @@ class WebAppsRouterState extends CustState<WebAppsRouter> {
       ),
     ));
 
-    List<WebAppItem> showItems = [];
+    List<WebAppItem> typeFilteredItems = [];
     if (selectedMap.isNotEmpty) {
       for (var item in items) {
         for (var typeValue in item.types) {
           if (selectedMap[typeValue] != null) {
-            showItems.add(item);
+            typeFilteredItems.add(item);
             break;
           }
         }
       }
     } else {
-      showItems.addAll(items);
+      typeFilteredItems.addAll(items);
+    }
+
+    List<WebAppItem> showItems = [];
+    if (StringUtil.isBlank(webAppSearchText)) {
+      showItems.addAll(typeFilteredItems);
+    } else {
+      var searchText = webAppSearchText.toLowerCase();
+      for (var item in typeFilteredItems) {
+        if (item.name.toLowerCase().contains(searchText)) {
+          showItems.add(item);
+          continue;
+        }
+        if (item.desc.toLowerCase().contains(searchText)) {
+          showItems.add(item);
+        }
+      }
     }
 
     List<Widget> itemWidgetList = [];
@@ -151,9 +175,72 @@ class WebAppsRouterState extends CustState<WebAppsRouter> {
             fontSize: themeData.textTheme.bodyLarge!.fontSize,
           ),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                showSearchInput = true;
+              });
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (mounted) {
+                  searchFocusNode.requestFocus();
+                }
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.only(right: Base.BASE_PADDING),
+              child: Icon(
+                Icons.search,
+                color: themeData.appBarTheme.titleTextStyle?.color,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(
-        children: list,
+        children: [
+          if (showSearchInput)
+            Container(
+              padding: const EdgeInsets.only(
+                left: Base.BASE_PADDING,
+                right: Base.BASE_PADDING,
+                top: Base.BASE_PADDING,
+                bottom: Base.BASE_PADDING_HALF,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: searchController,
+                      focusNode: searchFocusNode,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        hintText: s.Please_input_search_content,
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                      onChanged: (v) {
+                        setState(() {
+                          webAppSearchText = v.trim();
+                        });
+                      },
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      searchFocusNode.unfocus();
+                      searchController.clear();
+                      setState(() {
+                        webAppSearchText = "";
+                        showSearchInput = false;
+                      });
+                    },
+                    child: Text(s.Cancel),
+                  ),
+                ],
+              ),
+            ),
+          ...list,
+        ],
       ),
     );
   }
@@ -228,6 +315,13 @@ class WebAppsRouterState extends CustState<WebAppsRouter> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    searchFocusNode.dispose();
+    super.dispose();
   }
 
   @override
